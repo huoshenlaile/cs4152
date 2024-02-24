@@ -1,0 +1,22 @@
+---
+name:   Gameplay Prototype                  # The application display name
+short:  prototype1                   # A shortened name for reference
+appid:  edu.cornell.gdiac.net       # Application identifier for Mac, iOS, Android
+suffix: G74C2FGE
+
+build:  build                       # The build directory (targets are each a subdirectory)
+assets: assets                      # The folder with the game assets (do not list asset)
+icon:   icon.png
+
+orientation: landscape              # The orientation for mobile devices
+
+sources:                            # The list of the source code files
+    - source/*.cpp
+    - source/*.h
+
+# This must be one of portrait, landscape, portrait-flipped, landscape-flipped,
+targets:                        # The target platforms to build for
+    - android                   # Android Studio
+    - apple                     # XCode (note macOS and iOS use one project)
+    - windows                   # Windows Sisual Studio
+    - cmake                     # This supports all Desktop platform
