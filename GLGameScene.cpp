@@ -46,6 +46,8 @@ float CIRCLE[] = { 0,  200,  120,  200,
 	   -200, -120, -200,    0, -200,  120,
 	   -120,  200,    0,  200 };
 
+float REC[] = { -400,0,-200,0,0,0,200,0,400,0,400,-200, 400,-400 };
+
 /** The (CLOCKWISE) polygon for the star */
 float STAR[] = { 0,    50,  10.75,    17,   47,     17,
 				 17.88, -4.88,   29.5, -40.5,    0, -18.33,
@@ -88,6 +90,11 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
 	_spline.set(circleVec, 13);
 	bool flag = true;
 	_spline.setClosed(flag);
+
+	Vec2* recVec = reinterpret_cast<Vec2*>(REC);
+	_rect.set(recVec, 7);
+	flag = false;
+	_rect.setClosed(flag);
 
 	buildGeometry();
 	return true;
@@ -150,6 +157,7 @@ void GameScene::preUpdate(float dt) {
 		_handles.clear();
 		_knobs.clear();
 		_poly.clear();
+		_rectPoly.clear();
 		_starPoly.clear();
 		buildGeometry();
 		return;
@@ -244,13 +252,20 @@ void GameScene::render(const std::shared_ptr<cugl::SpriteBatch>& batch) {
 	Affine2 splineTrans;
 	splineTrans = splineTrans.rotate(_splineObs->getAngle());
 	splineTrans = splineTrans.translate(_splineObs->getPosition() * PHYSICS_SCALE);
-	batch->fill(_poly, Vec2(0, 0), splineTrans);
+	//batch->fill(_poly, Vec2(0, 0), splineTrans);
 
-	batch->setColor(Color4::WHITE);
+	//Affine2 rectTrans;
+	//rectTrans = rectTrans.rotate(_rectObs->getAngle());
+	//rectTrans = rectTrans.translate(_rectObs->getPosition() * PHYSICS_SCALE);
+	batch->setColor(Color4::BLACK);
+	batch->fill(_rectPoly, getSize() / 2);
+	batch->fill(_rectPoly2, getSize() / 2);
+
+	/*batch->setColor(Color4::WHITE);
 	for (auto it : _handles) batch->fill(it, getSize() / 2);
 
 	batch->setColor(Color4::RED);
-	for (auto it : _knobs) batch->fill(it, getSize() / 2);
+	for (auto it : _knobs) batch->fill(it, getSize() / 2);*/
 
 	batch->setColor(Color4::BLUE);
 	Affine2 starTrans;
@@ -291,9 +306,44 @@ void GameScene::buildGeometry() {
 	_splineObs = physics2::PolygonObstacle::alloc(splineCopy);
 	_splineObs->setBodyType(b2_staticBody);
 	_splineObs->setPosition(getSize() / (2 * PHYSICS_SCALE));
-	_world->addObstacle(_splineObs);
+	//_world->addObstacle(_splineObs);
 
-	for (int pos = 0; pos <= 7; pos = pos + 2) {
+	//// Rectangle
+	//SplinePather splinePather1;
+	//splinePather1.set(&_rect);
+	////splinePather1.calculate();
+	//Path2 _path1 = splinePather1.getPath();
+
+	/*SimpleExtruder simpleExtruder1;
+	simpleExtruder1.set(_path1);
+	simpleExtruder1.calculate(LINE_WIDTH);
+	_rectPoly = simpleExtruder1.getPolygon();
+
+	Poly2 rectCopy = _rectPoly;
+	rectCopy /= PHYSICS_SCALE;
+	_rectObs = physics2::PolygonObstacle::alloc(rectCopy);
+	_rectObs->setBodyType(b2_staticBody);
+	_rectObs->setPosition((0.5 * getSize()) / (2 * PHYSICS_SCALE));
+	_world->addObstacle(_rectObs);*/
+
+	PolyFactory rect;
+	_rectPoly = rect.makeRect(-1 * getSize() / 2, Vec2(600, 100));
+	Poly2 rectCopy = _rectPoly;
+	rectCopy /= PHYSICS_SCALE;
+	_rectObs = physics2::PolygonObstacle::alloc(rectCopy);
+	_rectObs->setBodyType(b2_staticBody);
+	_rectObs->setPosition(getSize() / (2 * PHYSICS_SCALE));
+	_world->addObstacle(_rectObs);
+
+	_rectPoly2 = rect.makeRect(Vec2(40, -getSize().height / 2), Vec2(600, 100));
+	Poly2 rectCopy2 = _rectPoly2;
+	rectCopy2 /= PHYSICS_SCALE;
+	_rectObs2 = physics2::PolygonObstacle::alloc(rectCopy2);
+	_rectObs2->setBodyType(b2_staticBody);
+	_rectObs2->setPosition(getSize() / (2 * PHYSICS_SCALE));
+	_world->addObstacle(_rectObs2);
+
+	/*for (int pos = 0; pos <= 7; pos = pos + 2) {
 		vector<Vec2> controlPoint(2);
 		controlPoint[0] = _spline.getTangent(pos);
 		if (pos == 0) controlPoint[1] = _spline.getTangent(7);
@@ -306,11 +356,11 @@ void GameScene::buildGeometry() {
 		_handles.push_back(handle);
 
 		PolyFactory polyfact;
-		Poly2 left_knob = polyfact.makeCircle(controlPoint[0], KNOB_RADIUS);
-		Poly2 right_knob = polyfact.makeCircle(controlPoint[1], KNOB_RADIUS);
+		Poly2 left_knob = polyfact.makeRect(Vec2(0, 0), Vec2(50, 100));
+		Poly2 right_knob = polyfact.makeRect(Vec2(0, 0), Vec2(50, 100));
 		_knobs.push_back(left_knob);
 		_knobs.push_back(right_knob);
-	}
+	}*/
 
 	Vec2* starVec = reinterpret_cast<Vec2*>(STAR);
 	Path2 starPath(starVec, 10);
