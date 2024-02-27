@@ -12,7 +12,7 @@
 #define __NL_GAME_SCENE_H__
 #include <cugl/cugl.h>
 #include <vector>
-
+#include "RGRagdollModel.h"
 
 /**
  * This class is the primary gameplay constroller for the demo.
@@ -56,7 +56,9 @@ protected:
 
     /** Whether we quit the game */
     bool _quit;
+    std::shared_ptr<cugl::physics2::ObstacleWorld> _world;
     
+    std::shared_ptr<RagdollModel> _ragdoll;
     
 public:
 #pragma mark -
@@ -173,7 +175,19 @@ public:
      * when ALL scenes have been disconnected.
      */
     void disconnect() { _network = nullptr; }
-
+    
+    /**
+     * Lays out the game geography.
+     *
+     * Pay close attention to how we attach physics objects to a scene graph.
+     * The simplest way is to make a subclass, like we do for the rocket.  However,
+     * for simple objects you can just use a callback function to lightly couple
+     * them.  This is what we do with the crates.
+     *
+     * This method is really, really long.  In practice, you would replace this
+     * with your serialization loader, which would process a level file.
+     */
+    void populate();
 private:
     /**
      * Processes data sent over the network.
