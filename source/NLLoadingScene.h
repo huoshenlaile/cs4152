@@ -1,18 +1,16 @@
 //
 //  NLLoadingScene.h
-//  Network Lab
+//  Networked Physics Demo
 //
 //  This module provides a very barebones loading screen.  Most of the time you
 //  will not need a loading screen, because the assets will load so fast.  But
 //  just in case, this is a simple example you can use in your games.
 //
 //  We know from 3152 that you all like to customize this screen.  Therefore,
-//  we have kept it as simple as possible so that it is easy to modify. In
-//  fact, this loading screen uses the new modular JSON format for defining
-//  scenes.  See the file "loading.json" for how to change this scene.
+//  we have kept it as simple as possible so that it is easy to modify.
 //
-//  Author: Walker White, Aidan Hobler
-//  Version: 2/8/22
+//  Author: Walker White
+//  Version: 1/10/17
 //
 #ifndef __NL_LOADING_SCENE_H__
 #define __NL_LOADING_SCENE_H__
@@ -25,7 +23,7 @@
  * The screen will display a very minimal progress bar that displays the
  * status of the asset manager.  Make sure that all asychronous load requests
  * are issued BEFORE calling update for the first time, or else this screen
- * will think that asset loading is complete. 
+ * will think that asset loading is complete.
  *
  * Once asset loading is completed, it will display a play button.  Clicking
  * this button will inform the application root to switch to the gameplay mode.
@@ -34,7 +32,7 @@ class LoadingScene : public cugl::Scene2 {
 protected:
     /** The asset manager for loading. */
     std::shared_ptr<cugl::AssetManager> _assets;
-
+    
     // NO CONTROLLER (ALL IN SEPARATE THREAD)
     
     // VIEW
@@ -50,8 +48,15 @@ protected:
     float _progress;
     /** Whether or not the player has pressed play to continue */
     bool  _completed;
-
     
+    /**
+     * Returns the active screen size of this scene.
+     *
+     * This method is for graceful handling of different aspect
+     * ratios
+     */
+    cugl::Size computeActiveSize() const;
+        
 public:
 #pragma mark -
 #pragma mark Constructors
@@ -88,7 +93,7 @@ public:
      * @return true if the controller is initialized properly, false otherwise.
      */
     bool init(const std::shared_ptr<cugl::AssetManager>& assets);
-
+    
     
 #pragma mark -
 #pragma mark Progress Monitoring
@@ -100,7 +105,7 @@ public:
      * @param timestep  The amount of time (in seconds) since the last frame
      */
     void update(float timestep);
-
+    
     /**
      * Returns true if loading is complete, but the player has not pressed play
      *
@@ -108,5 +113,6 @@ public:
      */
     bool isPending( ) const;
 };
+
 
 #endif /* __NL_LOADING_SCENE_H__ */

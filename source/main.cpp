@@ -5,7 +5,7 @@
 //  This is the main entry class for your application.  You may need to modify
 //  it slightly for your application class or platform.
 //
-//  CUGL MIT License:
+//  CUGL zlib License:
 //      This software is provided 'as-is', without any express or implied
 //      warranty.  In no event will the authors be held liable for any damages
 //      arising from the use of this software.
@@ -25,7 +25,7 @@
 //      3. This notice may not be removed or altered from any source distribution.
 //
 //  Author: Walker White
-//  Version: 2/21/21
+//  Version: 7/1/16
 
 // Include your application class
 #include "NLApp.h"
@@ -46,11 +46,18 @@ int main(int argc, char * argv[]) {
     NetApp app;
     
     // Set the properties of your application
-    app.setName("Prototype1");
+    app.setName("Networked Physics Demo");
     app.setOrganization("GDIAC");
     app.setHighDPI(true);
-    app.setFPS(60.0f); // Only works if you set VSync to False
 
+    //app.setFullscreen(true);
+    //app.setDisplaySize(1024, 576);
+    app.setVSync(true);
+    //app.setFPS(60.0f);
+#if CU_PLATFORM == CU_PLATFORM_MACOS || CU_PLATFORM == CU_PLATFORM_WINDOWS
+    app.setMultiSampled(true);
+#endif
+    
     /// DO NOT MODIFY ANYTHING BELOW THIS LINE
     if (!app.init()) {
         return 1;

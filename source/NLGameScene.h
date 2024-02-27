@@ -1,73 +1,210 @@
 //
 //  NLGameScene.h
-//  Network Lab
+//  Networked Crate Demo
 //
-//  This class provides a simple game.  We just keep track of the connection
-//  and trade color values back-and-forth across the network.
+//  This is a demo based on the original Rocket Demo, this demo is made in
+//  addition to the Rocket Demo as a tutorial to the networked physics library.
 //
-//  Author: Walker White, Aidan Hobler
-//  Version: 2/8/22
+//  The majority of this Demo is similar to the rocket demo, except for the
+//  physics-related methods.
+//
+//  This file is based on the CS 3152 PhysicsDemo Lab by Don Holden, 2007
+//
+//  Author: Walker White
+//  Version: 1/10/17
 //
 #ifndef __NL_GAME_SCENE_H__
 #define __NL_GAME_SCENE_H__
 #include <cugl/cugl.h>
+#include <box2d/b2_world_callbacks.h>
 #include <vector>
+#include <format>
+#include <string>
+#include <random>
+#include "NLInput.h"
+#include "NLCrateEvent.h"
 
+using namespace cugl::physics2::net;
+using namespace cugl;
+
+/**
+ * The factory class for crate objects.
+ *
+ * This class is used to support automatically syncing newly added obstacle mid-simulation.
+ * Obstacles added throught the ObstacleFactory class from one client will be added to all
+ * clients in the simulations.
+ */
+class CrateFactory : public cugl::physics2::net::ObstacleFactory {
+public:
+    /** Pointer to the AssetManager for texture access, etc. */
+    std::shared_ptr<cugl::AssetManager> _assets;
+    /** Deterministic random generator for crate type */
+    std::mt19937 _rand;
+    /** Serializer for supporting parameters */
+    LWSerializer _serializer;
+    /** Deserializer for supporting parameters */
+    LWDeserializer _deserializer;
+
+    /**
+     * Allocates a new instance of the factory using the given AssetManager.
+     */
+    static std::shared_ptr<CrateFactory> alloc(std::shared_ptr<AssetManager>& assets) {
+        auto f = std::make_shared<CrateFactory>();
+        f->init(assets);
+        return f;
+    };
+
+    /**
+     * Initializes empty factories using the given AssetManager.
+     */
+    void init(std::shared_ptr<AssetManager>& assets) {
+        _assets = assets;
+        _rand.seed(0xdeadbeef);
+    }
+    
+    /**
+     * Generate a pair of Obstacle and SceneNode using the given parameters
+     */
+    std::pair<std::shared_ptr<physics2::Obstacle>, std::shared_ptr<scene2::SceneNode>> createObstacle(Vec2 pos, float scale);
+
+    /**
+     * Helper method for converting normal parameters into byte vectors used for syncing.
+     */
+    std::shared_ptr<std::vector<std::byte>> serializeParams(Vec2 pos, float scale);
+    
+    /**
+     * Generate a pair of Obstacle and SceneNode using serialized parameters.
+     */
+    std::pair<std::shared_ptr<physics2::Obstacle>, std::shared_ptr<scene2::SceneNode>> createObstacle(const std::vector<std::byte>& params) override;
+};
 
 /**
  * This class is the primary gameplay constroller for the demo.
  *
- * A world has its own objects, assets, and input controller. Thus this is
+ * A world has its own objects, assets, and input controller.  Thus this is
  * really a mini-GameEngine in its own right.  As in 3152, we separate it out
  * so that we can have a separate mode for the loading screen.
  */
 class GameScene : public cugl::Scene2 {
 protected:
-    /** The asset manager for this game mode. */
+
     std::shared_ptr<cugl::AssetManager> _assets;
-    /** The network connection (as made by this scene) */
-    std::shared_ptr<cugl::net::NetcodeConnection> _network;
-
-    /** The back button for the menu scene */
-    std::shared_ptr<cugl::scene2::Button> _backout;
-    /** The players label (for updating) */
-    std::shared_ptr<cugl::scene2::Label> _player;
-    /** The white button */
-    std::shared_ptr<cugl::scene2::Button> _white;
-    /** The red button */
-    std::shared_ptr<cugl::scene2::Button> _red;
-    /** The green button */
-    std::shared_ptr<cugl::scene2::Button> _green;
-    /** The blue button */
-    std::shared_ptr<cugl::scene2::Button> _blue;
-    /** The yellow button */
-    std::shared_ptr<cugl::scene2::Button> _yellow;
-    /** The cyan button */
-    std::shared_ptr<cugl::scene2::Button> _cyan;
-    /** The magenta button */
-    std::shared_ptr<cugl::scene2::Button> _magenta;
-    /** The black button */
-    std::shared_ptr<cugl::scene2::Button> _black;
-    /** The grey button */
-    std::shared_ptr<cugl::scene2::Button> _grey;
-
-    /** Whether this player is the host */
-    bool _ishost;
-
-    /** Whether we quit the game */
-    bool _quit;
     
+    // CONTROLLERS
+    /** Controller for abstracting out input across multiple platforms */
+    NetLabInput _input;
+    
+    // VIEW
+    /** Reference to the physics root of the scene graph */
+    std::shared_ptr<cugl::scene2::SceneNode> _worldnode;
+    /** Reference to the debug root of the scene graph */
+    std::shared_ptr<cugl::scene2::SceneNode> _debugnode;
+    /** Reference to the win message label */
+    std::shared_ptr<cugl::scene2::Label> _winnode;
+    
+    std::shared_ptr<cugl::scene2::ProgressBar> _chargeBar;
+
+    /** The Box2D world */
+    std::shared_ptr<cugl::physics2::ObstacleWorld> _world;
+    /** The scale between the physics world and the screen (MUST BE UNIFORM) */
+    float _scale;
+
+    std::mt19937 _rand;
+
+    std::shared_ptr<CrateFactory> _crateFact;
+    Uint32 _factId;
+
+    // Physics objects for the game
+    /** Reference to the player1 cannon */
+    std::shared_ptr<cugl::scene2::SceneNode> _cannon1Node;
+    std::shared_ptr<cugl::physics2::BoxObstacle> _cannon1;
+    /** Reference to the player2 cannon */
+    std::shared_ptr<cugl::scene2::SceneNode> _cannon2Node;
+    std::shared_ptr<cugl::physics2::BoxObstacle> _cannon2;
+    
+    /** Host is by default the left cannon */
+    bool _isHost;
+
+    /** Whether we have completed this "game" */
+    bool _complete;
+    /** Whether or not debug mode is active */
+    bool _debug;
+    
+    std::shared_ptr<NetEventController> _network;
+    
+#pragma mark Internal Object Management
+    
+    /**
+     * This method adds a crate at the given position during the init process.
+     */
+    std::shared_ptr<cugl::physics2::Obstacle> addInitCrate(cugl::Vec2 pos);
+    
+    /**
+     * Lays out the game geography.
+     *
+     * Pay close attention to how we attach physics objects to a scene graph.
+     * The simplest way is to make a subclass. However,
+     * for simple objects you can just use a callback function to lightly couple
+     * them.  This is what we do with the crates.
+     *
+     * This method is really, really long.  In practice, you would replace this
+     * with your serialization loader, which would process a level file.
+     */
+    void populate();
+    
+    /**
+     * Adds the physics object to the physics world and loosely couples it to the scene graph
+     *
+     * There are two ways to link a physics object to a scene graph node on the
+     * screen.  One way is to make a subclass of a physics object.
+     * The other is to use callback functions to loosely couple
+     * the two.  This function is an example of the latter.
+     * the two.  This function is an example of the latter.
+     *
+     * param obj    The physics object to add
+     * param node   The scene graph node to attach it to
+     */
+    void addInitObstacle(const std::shared_ptr<cugl::physics2::Obstacle>& obj, 
+                     const std::shared_ptr<cugl::scene2::SceneNode>& node);
+
+    /**
+     * This method links a scene node to the obstacle.
+     *
+     * This method adds a listener so that the sceneNode will move along with the obstacle.
+     */
+    void linkSceneToObs(const std::shared_ptr<cugl::physics2::Obstacle>& obj,
+        const std::shared_ptr<cugl::scene2::SceneNode>& node);
+    
+    /**
+     * This method adds a crate that had been fired by the player's cannon amid the simulation.
+     *
+     * If this machine is host, the crate should be fire from the left cannon (_cannon1), vice versa.
+     */
+    void fireCrate();
+    
+    /**
+     * This method takes a crateEvent and processes it.
+     */
+    void processCrateEvent(const std::shared_ptr<CrateEvent>& event);
+
+    /**
+     * Returns the active screen size of this scene.
+     *
+     * This method is for graceful handling of different aspect
+     * ratios
+     */
+    cugl::Size computeActiveSize() const;
     
 public:
 #pragma mark -
 #pragma mark Constructors
     /**
-     * Creates a new game mode with the default values.
+     * Creates a new game world with the default values.
      *
-     * This constructor does not allocate any objects or start the game.
-     * This allows us to use the object without a heap pointer.
+     * This constructor does not allocate any objects or start the controller.
+     * This allows us to use a controller without a heap pointer.
      */
-    GameScene() : cugl::Scene2() {}
+    GameScene();
     
     /**
      * Disposes of all (non-static) resources allocated to this mode.
@@ -80,139 +217,155 @@ public:
     /**
      * Disposes of all (non-static) resources allocated to this mode.
      */
-    void dispose() override;
+    void dispose();
     
     /**
      * Initializes the controller contents, and starts the game
      *
-     * In previous labs, this method "started" the scene.  But in this
-     * case, we only use to initialize the scene user interface.  We
-     * do not activate the user interface yet, as an active user
-     * interface will still receive input EVEN WHEN IT IS HIDDEN.
+     * The constructor does not allocate any objects or memory.  This allows
+     * us to have a non-pointer reference to this controller, reducing our
+     * memory allocation.  Instead, allocation happens in this method.
      *
-     * That is why we have the method {@link #setActive}.
+     * The game world is scaled so that the screen coordinates do not agree
+     * with the Box2d coordinates.  This initializer uses the default scale.
      *
      * @param assets    The (loaded) assets for this game mode
      *
      * @return true if the controller is initialized properly, false otherwise.
      */
-    bool init(const std::shared_ptr<cugl::AssetManager>& assets);
+    bool init(const std::shared_ptr<cugl::AssetManager>& assets, const std::shared_ptr<NetEventController> network, bool isHost);
 
     /**
-     * Sets whether the scene is currently active
+     * Initializes the controller contents, and starts the game
      *
-     * This method should be used to toggle all the UI elements.  Buttons
-     * should be activated when it is made active and deactivated when
-     * it is not.
+     * The constructor does not allocate any objects or memory.  This allows
+     * us to have a non-pointer reference to this controller, reducing our
+     * memory allocation.  Instead, allocation happens in this method.
      *
-     * @param value whether the scene is currently active
+     * The game world is scaled so that the screen coordinates do not agree
+     * with the Box2d coordinates.  The bounds are in terms of the Box2d
+     * world, not the screen.
+     *
+     * @param assets    The (loaded) assets for this game mode
+     * @param rect      The game bounds in Box2d coordinates
+     *
+     * @return  true if the controller is initialized properly, false otherwise.
      */
-    virtual void setActive(bool value) override;
-     
+    bool init(const std::shared_ptr<cugl::AssetManager>& assets, const cugl::Rect rect, const std::shared_ptr<NetEventController> network, bool isHost);
+    
     /**
-     * The method called to update the scene.
+     * Initializes the controller contents, and starts the game
      *
-     * We need to update this method to constantly talk to the server
+     * The constructor does not allocate any objects or memory.  This allows
+     * us to have a non-pointer reference to this controller, reducing our
+     * memory allocation.  Instead, allocation happens in this method.
+     *
+     * The game world is scaled so that the screen coordinates do not agree
+     * with the Box2d coordinates.  The bounds are in terms of the Box2d
+     * world, not the screen.
+     *
+     * @param assets    The (loaded) assets for this game mode
+     * @param rect      The game bounds in Box2d coordinates
+     * @param gravity   The gravitational force on this Box2d world
+     *
+     * @return  true if the controller is initialized properly, false otherwise.
+     */
+    bool init(const std::shared_ptr<cugl::AssetManager>& assets, const cugl::Rect rect, const cugl::Vec2 gravity, const std::shared_ptr<NetEventController> network, bool isHost);
+    
+    
+#pragma mark -
+#pragma mark State Access
+    /**
+     * Returns true if the gameplay controller is currently active
+     *
+     * @return true if the gameplay controller is currently active
+     */
+    bool isActive( ) const { return _active; }
+
+    /**
+     * Returns true if debug mode is active.
+     *
+     * If true, all objects will display their physics bodies.
+     *
+     * @return true if debug mode is active.
+     */
+    bool isDebug( ) const { return _debug; }
+    
+    /**
+     * Sets whether debug mode is active.
+     *
+     * If true, all objects will display their physics bodies.
+     *
+     * @param value whether debug mode is active.
+     */
+    void setDebug(bool value) { _debug = value; _debugnode->setVisible(value); }
+    
+    /**
+     * Returns true if the level is completed.
+     *
+     * If true, the level will advance after a countdown
+     *
+     * @return true if the level is completed.
+     */
+    bool isComplete( ) const { return _complete; }
+    
+    /**
+     * Sets whether the level is completed.
+     *
+     * If true, the level will advance after a countdown
+     *
+     * @param value whether the level is completed.
+     */
+    void setComplete(bool value) { _complete = value; _winnode->setVisible(value); }
+    
+    
+#pragma mark -
+#pragma mark Gameplay Handling
+#if USING_PHYSICS
+    virtual void preUpdate(float timestep);
+    virtual void postUpdate(float timestep);
+    virtual void fixedUpdate();
+
+#else
+    /**
+     * The method called to update the game mode.
+     *
+     * This method contains any gameplay code that is not an OpenGL call.
      *
      * @param timestep  The amount of time (in seconds) since the last frame
      */
-    void update(float timestep) override;
+    void update(float timestep);
+#endif
+
+    /**
+     * Resets the status of the game so that we can play again.
+     */
+    void reset();
     
+#pragma mark -
+#pragma mark Collision Handling
     /**
-     * Returns the network connection (as made by this scene)
+     * Processes the start of a collision
      *
-     * This value will be reset every time the scene is made active.
+     * This method is called when we first get a collision between two objects. 
+     * We use this method to test if it is the "right" kind of collision.  In 
+     * particular, we use it to test if we make it to the win door.
      *
-     * @return the network connection (as made by this scene)
+     * @param  contact  The two bodies that collided
      */
-    std::shared_ptr<cugl::net::NetcodeConnection> getConnection() const {
-        return _network;
-    }
-    
-    /**
-     * Returns the network connection (as made by this scene)
-     *
-     * This value will be reset every time the scene is made active.
-     *
-     * @return the network connection (as made by this scene)
-     */
-    void setConnection(const std::shared_ptr<cugl::net::NetcodeConnection>& network) {
-        _network = network;
-    }
-    
-    /**
-     * Returns true if the player is host.
-     *
-     * We may need to have gameplay specific code for host.
-     *
-     * @return true if the player is host.
-     */
-    bool isHost() const { return _ishost; }
+    void beginContact(b2Contact* contact);
 
     /**
-     * Sets whether the player is host.
+     * Handles any modifications necessary before collision resolution
      *
-     * We may need to have gameplay specific code for host.
+     * This method is called just before Box2D resolves a collision.  We use 
+     * this method to implement sound on contact, using the algorithms outlined 
+     * in Ian Parberry's "Introduction to Game Physics with Box2D".
      *
-     * @param host  Whether the player is host.
+     * @param  contact  The two bodies that collided
+     * @param  contact  The collision manifold before contact
      */
-    void setHost(bool host)  { _ishost = host; }
-
-    /**
-     * Returns true if the player quits the game.
-     *
-     * @return true if the player quits the game.
-     */
-    bool didQuit() const { return _quit; }
- 
-    /**
-     * Disconnects this scene from the network controller.
-     *
-     * Technically, this method does not actually disconnect the network controller.
-     * Since the network controller is a smart pointer, it is only fully disconnected
-     * when ALL scenes have been disconnected.
-     */
-    void disconnect() { _network = nullptr; }
-
-private:
-    /**
-     * Processes data sent over the network.
-     *
-     * Once connection is established, all data sent over the network consistes of
-     * byte vectors. This function is a call back function to process that data.
-     * Note that this function may be called *multiple times* per animation frame,
-     * as the messages can come from several sources.
-     *
-     * Typically this is where players would communicate their names after being
-     * connected. In this lab, we only need it to do one thing: communicate that
-     * the host has started the game.
-     *
-     * @param source    The UUID of the sender
-     * @param data      The data received
-     */
-    void processData(const std::string source, const std::vector<std::byte>& data);
-
-    /**
-     * Checks that the network connection is still active.
-     *
-     * Even if you are not sending messages all that often, you need to be calling
-     * this method regularly. This method is used to determine the current state
-     * of the scene.
-     *
-     * @return true if the network connection is still active.
-     */
-    bool checkConnection();
-
-    /**
-     * Transmits a color change to all other devices.
-     *
-     * Because a device does not receive messages from itself, this method should
-     * also set the color.
-     *
-     * @param color The new color
-     */
-    void transmitColor(cugl::Color4 color);
-
+    void beforeSolve(b2Contact* contact, const b2Manifold* oldManifold);
 };
 
 #endif /* __NL_GAME_SCENE_H__ */
