@@ -21,6 +21,7 @@
 #include "NLHostScene.h"
 
 using namespace cugl::physics2::net;
+
 /**
  * This class represents the application root for the ship demo.
  */
@@ -138,13 +139,12 @@ public:
 #pragma mark Application Loop
     
 
-#if USING_PHYSICS
     virtual void preUpdate(float timestep) override;
 
     virtual void postUpdate(float timestep) override;
 
     virtual void fixedUpdate() override;
-#else
+    
     /**
      * The method called to update the application data.
      *
@@ -157,7 +157,6 @@ public:
      * @param timestep  The amount of time (in seconds) since the last frame
      */
     virtual void update(float timestep) override;
-#endif
     
     /**
      * Inidividualized update method for the menu scene.

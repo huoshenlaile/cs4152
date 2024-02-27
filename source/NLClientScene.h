@@ -16,6 +16,7 @@
 #include <vector>
 
 using namespace cugl::physics2::net;
+
 /**
  * This class provides the interface to join an existing game.
  *

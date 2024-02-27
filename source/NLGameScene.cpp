@@ -34,6 +34,7 @@
 
 using namespace cugl;
 using namespace cugl::physics2::net;
+
 #pragma mark -
 #pragma mark Level Geography
 
@@ -130,6 +131,8 @@ float GOAL_POS[] = { 6, 12};
 #define BASIC_RESTITUTION   0.1f
 /** Threshold for generating sound on collision */
 #define SOUND_THRESHOLD     3
+
+#define FIXED_TIMESTEP_S 0.02f
 
 /**
  * Generate a pair of Obstacle and SceneNode using the given parameters
@@ -317,7 +320,6 @@ bool GameScene::init(const std::shared_ptr<AssetManager>& assets, const Rect rec
     _world->onBeginContact = [this](b2Contact* contact) {
             beginContact(contact);
         };
-#define FIXED_TIMESTEP_S 0.02f
     _world->update(FIXED_TIMESTEP_S);
     
     populate();
@@ -606,23 +608,17 @@ void GameScene::linkSceneToObs(const std::shared_ptr<physics2::Obstacle>& obj,
  */
 void GameScene::addInitObstacle(const std::shared_ptr<physics2::Obstacle>& obj,
     const std::shared_ptr<scene2::SceneNode>& node) {
-//    _world->addInitObstacle(obj); OLD DEPRECATED?
-    _world->addObstacle(obj);
+    _world->initObstacle(obj);
     if(_isHost){
         _world->getOwnedObstacles().insert({obj,0});
     }
     linkSceneToObs(obj, node);
 }
 
-union {
-    float f;
-    uint32_t u;
-} f2u;
 
 #pragma mark -
 #pragma mark Physics Handling
 
-#if USING_PHYSICS
 void GameScene::preUpdate(float dt) {
     _input.update(dt);
     
@@ -681,7 +677,6 @@ void GameScene::fixedUpdate() {
 }
 
 
-#else
 /**
  * Executes the core gameplay loop of this world.
  *
@@ -693,12 +688,8 @@ void GameScene::fixedUpdate() {
  * @param  delta    Number of seconds since last animation frame
  */
 void GameScene::update(float dt) {
-    return;
-//    preUpdate(dt);
-//    _world->update(dt);
-//    postUpdate(dt);
+    //deprecated
 }
-#endif
 
 /**
  * Processes the start of a collision

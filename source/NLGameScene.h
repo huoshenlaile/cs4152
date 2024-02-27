@@ -34,7 +34,7 @@ using namespace cugl;
  * Obstacles added throught the ObstacleFactory class from one client will be added to all
  * clients in the simulations.
  */
-class CrateFactory : public cugl::physics2::net::ObstacleFactory {
+class CrateFactory : public ObstacleFactory {
 public:
     /** Pointer to the AssetManager for texture access, etc. */
     std::shared_ptr<cugl::AssetManager> _assets;
@@ -321,12 +321,10 @@ public:
     
 #pragma mark -
 #pragma mark Gameplay Handling
-#if USING_PHYSICS
+
     virtual void preUpdate(float timestep);
     virtual void postUpdate(float timestep);
     virtual void fixedUpdate();
-
-#else
     /**
      * The method called to update the game mode.
      *
@@ -335,7 +333,6 @@ public:
      * @param timestep  The amount of time (in seconds) since the last frame
      */
     void update(float timestep);
-#endif
 
     /**
      * Resets the status of the game so that we can play again.

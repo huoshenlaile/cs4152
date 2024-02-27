@@ -59,6 +59,7 @@ void NetApp::onStartup() {
     cugl::net::NetworkLayer::start(net::NetworkLayer::Log::INFO);
     
     Application::onStartup(); // YOU MUST END with call to parent
+    setDeterministic(true);
 }
 
 /**
@@ -124,8 +125,6 @@ void NetApp::onResume() {
 #pragma mark -
 #pragma mark Application Loop
 
-#if USING_PHYSICS
-
 void NetApp::preUpdate(float timestep){
     if (_status == LOAD && _loading.isActive()) {
         _loading.update(0.01f);
@@ -173,7 +172,7 @@ void NetApp::fixedUpdate() {
         _network->updateNet();
     }
 }
-#else
+
 /**
  * The method called to update the application data.
  *
@@ -188,7 +187,7 @@ void NetApp::fixedUpdate() {
 void NetApp::update(float timestep) {
     //deprecated
 }
-#endif
+
 
 /**
  * Inidividualized update method for the menu scene.
