@@ -105,7 +105,7 @@ protected:
     std::shared_ptr<cugl::scene2::ProgressBar> _chargeBar;
 
     /** The Box2D world */
-    std::shared_ptr<cugl::physics2::ObstacleWorld> _world;
+    std::shared_ptr<cugl::physics2::net::NetWorld> _world;
     /** The scale between the physics world and the screen (MUST BE UNIFORM) */
     float _scale;
 

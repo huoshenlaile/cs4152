@@ -313,10 +313,11 @@ bool GameScene::init(const std::shared_ptr<AssetManager>& assets, const Rect rec
     addChild(_debugnode);
     addChild(_chargeBar);
     
-    _world = physics2::ObstacleWorld::alloc(Rect(0,0,DEFAULT_WIDTH,DEFAULT_HEIGHT),Vec2(0,DEFAULT_GRAVITY));
+    _world = physics2::net::NetWorld::alloc(Rect(0,0,DEFAULT_WIDTH,DEFAULT_HEIGHT),Vec2(0,DEFAULT_GRAVITY));
     _world->onBeginContact = [this](b2Contact* contact) {
             beginContact(contact);
         };
+#define FIXED_TIMESTEP_S 0.02f
     _world->update(FIXED_TIMESTEP_S);
     
     populate();
@@ -392,7 +393,7 @@ void GameScene::reset() {
     _debugnode->removeAllChildren();
     setComplete(false);
     populate();
-    Application::get()->resetLeftOver();
+    Application::get()->resetFixedRemainder();
 }
 
 /**
@@ -469,7 +470,7 @@ void GameScene::processCrateEvent(const std::shared_ptr<CrateEvent>& event){
  * with your serialization loader, which would process a level file.
  */
 void GameScene::populate() {
-    _world = physics2::ObstacleWorld::alloc(Rect(0,0,DEFAULT_WIDTH,DEFAULT_HEIGHT),Vec2(0,DEFAULT_GRAVITY));
+    _world = physics2::net::NetWorld::alloc(Rect(0,0,DEFAULT_WIDTH,DEFAULT_HEIGHT),Vec2(0,DEFAULT_GRAVITY));
     _world->activateCollisionCallbacks(true);
     _world->onBeginContact = [this](b2Contact* contact) {
         beginContact(contact);
@@ -583,7 +584,7 @@ void GameScene::linkSceneToObs(const std::shared_ptr<physics2::Obstacle>& obj,
     if (obj->getBodyType() == b2_dynamicBody) {
         scene2::SceneNode* weak = node.get(); // No need for smart pointer in callback
         obj->setListener([=](physics2::Obstacle* obs) {
-            float leftover = Application::get()->getLeftOver() / 1000000.f;
+            float leftover = Application::get()->getFixedRemainder() / 1000000.f;
             Vec2 pos = obs->getPosition() + leftover * obs->getLinearVelocity();
             float angle = obs->getAngle() + leftover * obs->getAngularVelocity();
             weak->setPosition(pos * _scale);
@@ -605,9 +606,10 @@ void GameScene::linkSceneToObs(const std::shared_ptr<physics2::Obstacle>& obj,
  */
 void GameScene::addInitObstacle(const std::shared_ptr<physics2::Obstacle>& obj,
     const std::shared_ptr<scene2::SceneNode>& node) {
-    _world->addInitObstacle(obj);
+//    _world->addInitObstacle(obj); OLD DEPRECATED?
+    _world->addObstacle(obj);
     if(_isHost){
-        _world->getOwned().insert({obj,0});
+        _world->getOwnedObstacles().insert({obj,0});
     }
     linkSceneToObs(obj, node);
 }
