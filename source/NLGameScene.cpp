@@ -133,7 +133,7 @@ float GOAL_POS[] = { 6, 12};
 #define SOUND_THRESHOLD     3
 
 #define FIXED_TIMESTEP_S 0.02f
-
+float DOLL_POS[] = { 16, 10 };
 /**
  * Generate a pair of Obstacle and SceneNode using the given parameters
  */
@@ -481,6 +481,21 @@ void GameScene::populate() {
         beforeSolve(contact,oldManifold);
     };
     
+#pragma mark : Ragdoll
+    // Allocate the ragdoll and set its (empty) node. Its model handles creation of parts
+    // (both obstacles and nodes to be drawn) upon alllocation and setting the scene node.
+    _ragdoll = RagdollModel::alloc(DOLL_POS, _scale);
+    _ragdoll->buildParts(_assets);
+    _ragdoll->createJoints();
+    
+    auto ragdollNode = scene2::SceneNode::alloc();
+    // Add the ragdollNode to the world before calling setSceneNode,
+    // as noted in the documentation for the Ragdoll's method.
+    _worldnode->addChild(ragdollNode);
+    _ragdoll->setSceneNode(ragdollNode);
+    
+    _ragdoll->setDrawScale(_scale);
+    _ragdoll->activate(_world);
     
     std::shared_ptr<Texture> image;
         

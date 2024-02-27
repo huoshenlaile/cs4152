@@ -23,6 +23,7 @@
 #include <random>
 #include "NLInput.h"
 #include "NLCrateEvent.h"
+#include "RGRagdollModel.h"
 
 using namespace cugl::physics2::net;
 using namespace cugl;
@@ -122,6 +123,8 @@ protected:
     std::shared_ptr<cugl::scene2::SceneNode> _cannon2Node;
     std::shared_ptr<cugl::physics2::BoxObstacle> _cannon2;
     
+    std::shared_ptr<RagdollModel> _ragdoll;
+
     /** Host is by default the left cannon */
     bool _isHost;
 
