@@ -359,13 +359,6 @@ bool RagdollModel::createJoints() {
     _joints.push_back(joint);
 
     // Weld bubbler to the head.
-    std::shared_ptr<physics2::WeldJoint> weld;
-    
-    weld = physics2::WeldJoint::allocWithObstacles(_obstacles[PART_HEAD], _bubbler);
-    weld->setLocalAnchorA(BUBB_OFF[0], BUBB_OFF[1]);
-    weld->setLocalAnchorB(0, 0);
-    _joints.push_back(weld);
-
     return true;
 }
 
