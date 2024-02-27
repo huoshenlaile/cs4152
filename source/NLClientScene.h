@@ -15,6 +15,7 @@
 #include <cugl/cugl.h>
 #include <vector>
 
+using namespace cugl::physics2::net;
 /**
  * This class provides the interface to join an existing game.
  *
@@ -23,30 +24,11 @@
  * code a little more clear.
  */
 class ClientScene : public cugl::Scene2 {
-public:
-    /**
-     * The configuration status
-     *
-     * This is how the application knows to switch to the next scene.
-     */
-    enum Status {
-        /** Client has not yet entered a room */
-        IDLE,
-        /** Client is connecting to the host */
-        JOIN,
-        /** Client is waiting on host to start game */
-        WAIT,
-        /** Time to start the game */
-        START,
-        /** Game was aborted; back to main menu */
-        ABORT
-    };
-    
 protected:
     /** The asset manager for this scene. */
     std::shared_ptr<cugl::AssetManager> _assets;
     /** The network connection (as made by this scene) */
-    std::shared_ptr<cugl::net::NetcodeConnection> _network;
+    std::shared_ptr<NetEventController> _network;
 
     /** The menu button for starting a game */
     std::shared_ptr<cugl::scene2::Button> _startgame;
@@ -60,8 +42,8 @@ protected:
     /** The network configuration */
     cugl::net::NetcodeConfig _config;
     
-    /** The current status */
-    Status _status;
+    /** Whether the back button had been clicked. */
+    bool _backClicked = false;
 
 public:
 #pragma mark -
@@ -101,7 +83,7 @@ public:
      *
      * @return true if the controller is initialized properly, false otherwise.
      */
-    bool init(const std::shared_ptr<cugl::AssetManager>& assets);
+    bool init(const std::shared_ptr<cugl::AssetManager>& assets, std::shared_ptr<NetEventController> network);
 
     /**
      * Sets whether the scene is currently active
@@ -113,28 +95,7 @@ public:
      * @param value whether the scene is currently active
      */
     virtual void setActive(bool value) override;
-    
-    /**
-     * Returns the network connection (as made by this scene)
-     *
-     * This value will be reset every time the scene is made active.
-     *
-     * @return the network connection (as made by this scene)
-     */
-    std::shared_ptr<cugl::net::NetcodeConnection> getConnection() const {
-        return _network;
-    }
 
-    /**
-     * Returns the scene status.
-     *
-     * Any value other than WAIT will transition to a new scene.
-     *
-     * @return the scene status
-     *
-     */
-    Status getStatus() const { return _status; }
-    
     /**
      * The method called to update the scene.
      *
@@ -143,15 +104,11 @@ public:
      * @param timestep  The amount of time (in seconds) since the last frame
      */
     void update(float timestep) override;
-
+    
     /**
-     * Disconnects this scene from the network controller.
-     *
-     * Technically, this method does not actually disconnect the network controller.
-     * Since the network controller is a smart pointer, it is only fully disconnected
-     * when ALL scenes have been disconnected.
+     * Returns whether the back button has been clicked
      */
-    void disconnect() { _network = nullptr; }
+    bool getBackClicked() { return _backClicked; }
 
 private:
     /**
@@ -174,48 +131,6 @@ private:
      * networking.
      */
     void configureStartButton();
-    
-    /**
-     * Connects to the game server as specified in the assets file
-     *
-     * The {@link #init} method set the configuration data. This method simply uses
-     * this to create a new {@Link NetworkConnection}. It also immediately calls
-     * {@link #checkConnection} to determine the scene state.
-     *
-     * @param room  The room ID to use
-     *
-     * @return true if the connection was successful
-     */
-    bool connect(const std::string room);
-
-    /**
-     * Processes data sent over the network.
-     *
-     * Once connection is established, all data sent over the network consistes of
-     * byte vectors. This function is a call back function to process that data.
-     * Note that this function may be called *multiple times* per animation frame,
-     * as the messages can come from several sources.
-     *
-     * Typically this is where players would communicate their names after being
-     * connected. In this lab, we only need it to do one thing: communicate that
-     * the host has started the game.
-     *
-     * @param source    The UUID of the sender
-     * @param data      The data received
-     */
-    void processData(const std::string source, const std::vector<std::byte>& data);
-
-    /**
-     * Checks that the network connection is still active.
-     *
-     * Even if you are not sending messages all that often, you need to be calling
-     * this method regularly. This method is used to determine the current state
-     * of the scene.
-     *
-     * @return true if the network connection is still active.
-     */
-    bool checkConnection();
-
 };
 
 #endif /* __NL_GAME_SCENE_H__ */

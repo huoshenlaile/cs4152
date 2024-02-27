@@ -1,6 +1,6 @@
 //
 //  NLLoadingScene.cpp
-//  Network Lab
+//  Networked Physics Demo
 //
 //  This module provides a very barebones loading screen.  Most of the time you
 //  will not need a loading screen, because the assets will load so fast.  But
@@ -11,8 +11,8 @@
 //  fact, this loading screen uses the new modular JSON format for defining
 //  scenes.  See the file "loading.json" for how to change this scene.
 //
-//  Author: Walker White, Aidan Hobler
-//  Version: 2/8/22
+//  Author: Walker White
+//  Version: 1/10/17
 //
 #include "NLLoadingScene.h"
 
@@ -79,6 +79,7 @@ void LoadingScene::dispose() {
     }
     _button = nullptr;
     _brand = nullptr;
+    _bar->removeFromParent();
     _bar = nullptr;
     _assets = nullptr;
     _progress = 0.0f;

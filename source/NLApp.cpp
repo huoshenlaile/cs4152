@@ -1,21 +1,22 @@
 //
-//  SGApp.cpp
-//  Network Lab
+//  NLApp.cpp
+//  Networked Physics Demo
 //
 //  This is the root class for your game.  The file main.cpp accesses this class
 //  to run the application.  While you could put most of your game logic in
 //  this class, we prefer to break the game up into player modes and have a
 //  class for each mode.
 //
-//  Author: Walker White, Aidan Hobler
-//  Version: 2/8/22
+//  Author: Walker White
+//  Version: 1/10/17
 //
 #include "NLApp.h"
 
 using namespace cugl;
 
+
 #pragma mark -
-#pragma mark Gameplay Control
+#pragma mark Application State
 
 /**
  * The method called after OpenGL is initialized, but before running the application.
@@ -30,32 +31,33 @@ using namespace cugl;
 void NetApp::onStartup() {
     _assets = AssetManager::alloc();
     _batch  = SpriteBatch::alloc();
-    auto cam = OrthographicCamera::alloc(getDisplaySize());
     
     // Start-up basic input
-#ifdef CU_MOBILE
+#ifdef CU_TOUCH_SCREEN
     Input::activate<Touchscreen>();
 #else
     Input::activate<Mouse>();
-    Input::get<Mouse>()->setPointerAwareness(Mouse::PointerAwareness::DRAG);
 #endif
+    
     Input::activate<Keyboard>();
     Input::activate<TextInput>();
-
+    
     _assets->attach<Font>(FontLoader::alloc()->getHook());
     _assets->attach<Texture>(TextureLoader::alloc()->getHook());
+    _assets->attach<Sound>(SoundLoader::alloc()->getHook());
+    _assets->attach<scene2::SceneNode>(Scene2Loader::alloc()->getHook());
     _assets->attach<JsonValue>(JsonLoader::alloc()->getHook());
     _assets->attach<WidgetValue>(WidgetLoader::alloc()->getHook());
-    _assets->attach<scene2::SceneNode>(Scene2Loader::alloc()->getHook());
 
-    // Create a "loading" screen
-    _scene = State::LOAD;
     _loading.init(_assets);
+    _status = LOAD;
     
-    // Queue up the other assets
+    // Que up the other assets
+    AudioEngine::start(24);
     _assets->loadDirectoryAsync("json/assets.json",nullptr);
     
-    net::NetworkLayer::start(net::NetworkLayer::Log::INFO);
+    cugl::net::NetworkLayer::start(net::NetworkLayer::Log::INFO);
+    
     Application::onStartup(); // YOU MUST END with call to parent
 }
 
@@ -71,25 +73,107 @@ void NetApp::onStartup() {
  * causing the application to be deleted.
  */
 void NetApp::onShutdown() {
-    _loading.dispose();
     _gameplay.dispose();
+    _mainmenu.dispose();
     _hostgame.dispose();
     _joingame.dispose();
     _assets = nullptr;
     _batch = nullptr;
-
+    
     // Shutdown input
-#ifdef CU_MOBILE
+#ifdef CU_TOUCH_SCREEN
     Input::deactivate<Touchscreen>();
 #else
     Input::deactivate<Mouse>();
 #endif
-    Input::deactivate<TextInput>();
-    Input::deactivate<Keyboard>();
-    net::NetworkLayer::stop();
-    Application::onShutdown();  // YOU MUST END with call to parent
+    
+	AudioEngine::stop();
+	Application::onShutdown();  // YOU MUST END with call to parent
 }
 
+/**
+ * The method called when the application is suspended and put in the background.
+ *
+ * When this method is called, you should store any state that you do not
+ * want to be lost.  There is no guarantee that an application will return
+ * from the background; it may be terminated instead.
+ *
+ * If you are using audio, it is critical that you pause it on suspension.
+ * Otherwise, the audio thread may persist while the application is in
+ * the background.
+ */
+void NetApp::onSuspend() {
+    AudioEngine::get()->pause();
+}
+
+/**
+ * The method called when the application resumes and put in the foreground.
+ *
+ * If you saved any state before going into the background, now is the time
+ * to restore it. This guarantees that the application looks the same as
+ * when it was suspended.
+ *
+ * If you are using audio, you should use this method to resume any audio
+ * paused before app suspension.
+ */
+void NetApp::onResume() {
+    AudioEngine::get()->resume();
+}
+
+
+#pragma mark -
+#pragma mark Application Loop
+
+#if USING_PHYSICS
+
+void NetApp::preUpdate(float timestep){
+    if (_status == LOAD && _loading.isActive()) {
+        _loading.update(0.01f);
+    }
+    else if (_status == LOAD) {
+        _network = NetEventController::alloc(_assets);
+        _loading.dispose(); // Disables the input listeners in this mode
+        _mainmenu.init(_assets);
+        _mainmenu.setActive(true);
+        _hostgame.init(_assets,_network);
+        _joingame.init(_assets,_network);
+        //_gameplay.init(_assets);
+        _status = MENU;
+    }
+    else if (_status == MENU) {
+        updateMenuScene(timestep);
+    }
+    else if (_status == HOST){
+        updateHostScene(timestep);
+    }
+    else if (_status == CLIENT){
+        updateClientScene(timestep);
+    }
+    else if (_status == GAME){
+        if(_gameplay.isComplete()){
+            _gameplay.reset();
+            _status = MENU;
+            _mainmenu.setActive(true);
+        }
+        _gameplay.preUpdate(timestep);
+    }
+}
+
+void NetApp::postUpdate(float timestep) {
+    if (_status == GAME) {
+        _gameplay.postUpdate(timestep);
+    }
+}
+
+void NetApp::fixedUpdate() {
+    if (_status == GAME) {
+        _gameplay.fixedUpdate();
+    }
+    if(_network){
+        _network->updateNet();
+    }
+}
+#else
 /**
  * The method called to update the application data.
  *
@@ -102,78 +186,9 @@ void NetApp::onShutdown() {
  * @param timestep  The amount of time (in seconds) since the last frame
  */
 void NetApp::update(float timestep) {
-    // Normally we would make things cleaner than all these if statements.
-    // But the logic is 
-    switch (_scene) {
-        case LOAD:
-            updateLoadingScene(timestep);
-            break;
-        case MENU:
-            updateMenuScene(timestep);
-            break;
-        case HOST:
-            updateHostScene(timestep);
-            break;
-        case CLIENT:
-            updateClientScene(timestep);
-            break;
-        case GAME:
-            updateGameScene(timestep);
-            break;
-    }
+    //deprecated
 }
-
-/**
- * The method called to draw the application to the screen.
- *
- * This is your core loop and should be replaced with your custom implementation.
- * This method should OpenGL and related drawing calls.
- *
- * When overriding this method, you do not need to call the parent method
- * at all. The default implmentation does nothing.
- */
-void NetApp::draw() {
-    switch (_scene) {
-        case LOAD:
-            _loading.render(_batch);
-            break;
-        case MENU:
-            _mainmenu.render(_batch);
-            break;
-        case HOST:
-            _hostgame.render(_batch);
-            break;
-        case CLIENT:
-            _joingame.render(_batch);
-            break;
-        case GAME:
-            _gameplay.render(_batch);
-            break;
-    }
-}
-
-/**
- * Inidividualized update method for the loading scene.
- *
- * This method keeps the primary {@link #update} from being a mess of switch
- * statements. It also handles the transition logic from the loading scene.
- *
- * @param timestep  The amount of time (in seconds) since the last frame
- */
-void NetApp::updateLoadingScene(float timestep) {
-    if (_loading.isActive()) {
-        _loading.update(timestep);
-    } else {
-        _loading.dispose(); // Permanently disables the input listeners in this mode
-        _mainmenu.init(_assets);
-        _hostgame.init(_assets);
-        _joingame.init(_assets);
-        _gameplay.init(_assets);
-        _mainmenu.setActive(true);
-        _scene = State::MENU;
-    }
-}
-
+#endif
 
 /**
  * Inidividualized update method for the menu scene.
@@ -189,12 +204,12 @@ void NetApp::updateMenuScene(float timestep) {
         case MenuScene::Choice::HOST:
             _mainmenu.setActive(false);
             _hostgame.setActive(true);
-            _scene = State::HOST;
+            _status = HOST;
             break;
         case MenuScene::Choice::JOIN:
             _mainmenu.setActive(false);
             _joingame.setActive(true);
-            _scene = State::CLIENT;
+            _status = CLIENT;
             break;
         case MenuScene::Choice::NONE:
             // DO NOTHING
@@ -212,26 +227,27 @@ void NetApp::updateMenuScene(float timestep) {
  */
 void NetApp::updateHostScene(float timestep) {
     _hostgame.update(timestep);
-    switch (_hostgame.getStatus()) {
-        case HostScene::Status::ABORT:
-            _hostgame.setActive(false);
-            _mainmenu.setActive(true);
-            _scene = State::MENU;
-            break;
-        case HostScene::Status::START:
-            _hostgame.setActive(false);
-            _gameplay.setActive(true);
-            _scene = State::GAME;
-            // Transfer connection ownership
-            _gameplay.setConnection(_hostgame.getConnection());
-            _hostgame.disconnect();
-            _gameplay.setHost(true);
-            break;
-        case HostScene::Status::WAIT:
-        case HostScene::Status::IDLE:
-            // DO NOTHING
-            break;
+    if(_hostgame.getBackClicked()){
+        _status = MENU;
+        _hostgame.setActive(false);
+        _mainmenu.setActive(true);
     }
+    else if (_network->getStatus() == NetEventController::Status::HANDSHAKE && _network->getShortUID()) {
+        _gameplay.init(_assets, _network, true);
+        _network->markReady();
+    }
+    else if (_network->getStatus() == NetEventController::Status::INGAME) {
+        _hostgame.setActive(false);
+        _gameplay.setActive(true);
+        _status = GAME;
+    }
+    else if (_network->getStatus() == NetEventController::Status::NETERROR) {
+        _network->disconnect();
+		_hostgame.setActive(false);
+		_mainmenu.setActive(true);
+        _gameplay.dispose();
+		_status = MENU;
+	}
 }
 
 /**
@@ -243,46 +259,60 @@ void NetApp::updateHostScene(float timestep) {
  * @param timestep  The amount of time (in seconds) since the last frame
  */
 void NetApp::updateClientScene(float timestep) {
+    //TODO: Write transition logic for client scene
+#pragma mark SOLUTION
     _joingame.update(timestep);
-    switch (_joingame.getStatus()) {
-        case ClientScene::Status::ABORT:
-            _joingame.setActive(false);
-            _mainmenu.setActive(true);
-            _scene = State::MENU;
-            break;
-        case ClientScene::Status::START:
-            _joingame.setActive(false);
-            _gameplay.setActive(true);
-            _scene = State::GAME;
-            // Transfer connection ownership
-            _gameplay.setConnection(_joingame.getConnection());
-            _joingame.disconnect();
-            _gameplay.setHost(false);
-            break;
-        case ClientScene::Status::WAIT:
-        case ClientScene::Status::IDLE:
-        case ClientScene::Status::JOIN:
-            // DO NOTHING
-            break;
+    if(_joingame.getBackClicked()){
+        _status = MENU;
+        _joingame.setActive(false);
+        _mainmenu.setActive(true);
     }
+    else if (_network->getStatus() == NetEventController::Status::HANDSHAKE && _network->getShortUID()) {
+        _gameplay.init(_assets, _network, false);
+        _network->markReady();
+    }
+    else if (_network->getStatus() == NetEventController::Status::INGAME) {
+        _joingame.setActive(false);
+        _gameplay.setActive(true);
+        _status = GAME;
+    }
+    else if (_network->getStatus() == NetEventController::Status::NETERROR) {
+        _network->disconnect();
+		_joingame.setActive(false);
+		_mainmenu.setActive(true);
+        _gameplay.dispose();
+		_status = MENU;
+	}
+#pragma mark END SOLUTION
 }
 
 /**
- * Inidividualized update method for the game scene.
+ * The method called to draw the application to the screen.
  *
- * This method keeps the primary {@link #update} from being a mess of switch
- * statements. It also handles the transition logic from the game scene.
+ * This is your core loop and should be replaced with your custom implementation.
+ * This method should OpenGL and related drawing calls.
  *
- * @param timestep  The amount of time (in seconds) since the last frame
+ * When overriding this method, you do not need to call the parent method
+ * at all. The default implmentation does nothing.
  */
-void NetApp::updateGameScene(float timestep) {
-    _gameplay.update(timestep);
-    if (_gameplay.didQuit()) {
-        _gameplay.setActive(false);
-        _mainmenu.setActive(true);
-        _gameplay.disconnect();
-        _scene = State::MENU;
+void NetApp::draw() {
+    switch (_status) {
+        case LOAD:
+            _loading.render(_batch);
+            break;
+        case MENU:
+            _mainmenu.render(_batch);
+            break;
+        case HOST:
+            _hostgame.render(_batch);
+            break;
+        case CLIENT:
+            _joingame.render(_batch);
+            break;
+        case GAME:
+            _gameplay.render(_batch);
+        default:
+            break;
     }
 }
-
 

@@ -1,5 +1,31 @@
 {
-    "textures": {
+	"textures": {
+		"earth": {
+			"file":     "textures/earthtile.png",
+            "wrapS":    "repeat",
+            "wrapT":    "repeat"
+		},
+		"goal": {
+			"file":     "textures/goaldoor.png"
+		},
+        "crate01": {
+            "file":     "textures/crate01.png"
+        },
+        "crate02": {
+            "file":     "textures/crate02.png"
+        },
+        "rocket": {
+            "file":     "textures/rocket.png"
+        },
+        "flames": {
+            "file":     "textures/flames.png"
+        },
+        "flames-right": {
+            "file":     "textures/flames-right.png"
+        },
+        "flames-left": {
+            "file":     "textures/flames-left.png"
+        },
         "button": {
             "file":  "textures/button.png"
         },
@@ -9,16 +35,42 @@
         "left": {
             "file":  "textures/left_arrow.png"
         }
+	},
+    "jsons": {
+        "server": "json/server.json"
     },
-    "fonts": {
+    "sounds": {
+        "bump": {
+            "type":     "sample",
+            "file":     "sounds/bump.wav",
+            "volume":   0.5
+        },
+        "burn": {
+            "type":     "sample",
+            "file":     "sounds/afterburner.wav",
+            "volume":   0.8
+        },
+        "right-burn": {
+            "type":     "sample",
+            "file":     "sounds/sideburner-right.wav",
+            "volume":   0.5
+        },
+        "left-burn": {
+            "type":     "sample",
+            "file":     "sounds/sideburner-left.wav",
+            "volume":   0.5
+        }
+    },
+	"fonts": {
+		"retro": {
+			"file":     "fonts/RetroGame.ttf",
+			"size":     64
+		},
         "gyparody": {
             "file":     "fonts/gyparody-hv.ttf",
             "size":     48
         }
-    },
-    "jsons": {
-        "server": "json/server.json"
-    },
+	},
     "widgets": {
         "colorbutton" : "widgets/colorbutton.json",
         "textbutton" : "widgets/textbutton.json",
