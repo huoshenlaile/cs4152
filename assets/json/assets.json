@@ -41,7 +41,7 @@
             "magfilter": "linear"
         },
         "body": {
-            "file":      "textures/tux_body.png",
+            "file":      "textures/ProfWhite.png",
             "minfilter": "linear",
             "magfilter": "linear"
         },

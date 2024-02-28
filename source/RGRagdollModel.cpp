@@ -104,19 +104,16 @@ bool RagdollModel::buildParts(const std::shared_ptr<AssetManager>& assets) {
    
     // Get the images from the asset manager
     bool success = true;
-    for(int ii = 0; ii <= PART_RIGHT_SHIN; ii++) {
+    for(int ii = 0; ii <= NUM_OF_PARTS; ii++) {
         std::string name = getPartName(ii);
         std::shared_ptr<Texture> image = assets->get<Texture>(name);
         if (image == nullptr) {
             success = false;
-            std::string msg = "Could not load " + name;
-            CULog(msg.c_str());
         } else {
             _textures.push_back(image);
         }
     }
     if (!success) {
-        CULog("FAILURE to build all Parts of Rag Doll");
         return false;
     }
     
@@ -128,8 +125,8 @@ bool RagdollModel::buildParts(const std::shared_ptr<AssetManager>& assets) {
     part = makePart(PART_BODY, PART_NONE, pos);
     part->setFixedRotation(true);
     
-    // HEAD
-    makePart(PART_HEAD, PART_BODY, Vec2(0, TORSO_OFFSET));
+//    // HEAD
+//    makePart(PART_HEAD, PART_BODY, Vec2(0, TORSO_OFFSET));
     
     // ARMS
     makePart(PART_LEFT_ARM, PART_BODY, Vec2(-ARM_XOFFSET, ARM_YOFFSET));
@@ -139,13 +136,13 @@ bool RagdollModel::buildParts(const std::shared_ptr<AssetManager>& assets) {
     makePart(PART_LEFT_FOREARM, PART_LEFT_ARM, Vec2(-FOREARM_OFFSET, 0));
     makePart(PART_RIGHT_FOREARM, PART_RIGHT_ARM, Vec2(FOREARM_OFFSET, 0));
     
-    // THIGHS
-    makePart(PART_LEFT_THIGH, PART_BODY, Vec2(-THIGH_XOFFSET, -THIGH_YOFFSET));
-    makePart(PART_RIGHT_THIGH, PART_BODY, Vec2(THIGH_XOFFSET, -THIGH_YOFFSET));
-    
-    // SHINS
-    makePart(PART_LEFT_SHIN, PART_LEFT_THIGH, Vec2(0, -SHIN_OFFSET));
-    makePart(PART_RIGHT_SHIN, PART_RIGHT_THIGH, Vec2(0, -SHIN_OFFSET));
+//    // THIGHS
+//    makePart(PART_LEFT_THIGH, PART_BODY, Vec2(-THIGH_XOFFSET, -THIGH_YOFFSET));
+//    makePart(PART_RIGHT_THIGH, PART_BODY, Vec2(THIGH_XOFFSET, -THIGH_YOFFSET));
+//    
+//    // SHINS
+//    makePart(PART_LEFT_SHIN, PART_LEFT_THIGH, Vec2(0, -SHIN_OFFSET));
+//    makePart(PART_RIGHT_SHIN, PART_RIGHT_THIGH, Vec2(0, -SHIN_OFFSET));
 
     return true;
 }
@@ -159,8 +156,8 @@ bool RagdollModel::buildParts(const std::shared_ptr<AssetManager>& assets) {
  * @param texture   The texture for the given body part
  */
 void RagdollModel::setPart(int part, const std::shared_ptr<Texture>& texture) {
-    if (_textures.size() <= PART_RIGHT_SHIN) {
-        _textures.resize(PART_RIGHT_SHIN+1, nullptr);
+    if (_textures.size() <= NUM_OF_PARTS) {
+        _textures.resize(NUM_OF_PARTS+1, nullptr);
     }
     _textures[part] = texture;
 }
@@ -207,8 +204,8 @@ std::shared_ptr<physics2::BoxObstacle> RagdollModel::makePart(int part, int conn
  */
 std::string RagdollModel::getPartName(int part) {
 	switch (part) {
-	case PART_HEAD:
-		return HEAD_TEXTURE;
+//	case PART_HEAD:
+//		return HEAD_TEXTURE;
 	case PART_BODY:
 		return BODY_TEXTURE;
 	case PART_LEFT_ARM:
@@ -217,12 +214,12 @@ std::string RagdollModel::getPartName(int part) {
 	case PART_LEFT_FOREARM:
 	case PART_RIGHT_FOREARM:
 		return FOREARM_TEXTURE;
-	case PART_LEFT_THIGH:
-	case PART_RIGHT_THIGH:
-		return THIGH_TEXTURE;
-	case PART_LEFT_SHIN:
-	case PART_RIGHT_SHIN:
-		return SHIN_TEXTURE;
+//	case PART_LEFT_THIGH:
+//	case PART_RIGHT_THIGH:
+//		return THIGH_TEXTURE;
+//	case PART_LEFT_SHIN:
+//	case PART_RIGHT_SHIN:
+//		return SHIN_TEXTURE;
 	default:
 		return "UNKNOWN";
 	}
@@ -275,15 +272,15 @@ void RagdollModel::deactivate(const std::shared_ptr<physics2::ObstacleWorld>& wo
 bool RagdollModel::createJoints() {
     std::shared_ptr<physics2::RevoluteJoint> joint;
 
-    // NECK JOINT
-    joint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_HEAD],
-                                                        _obstacles[PART_BODY]);
-    joint->setLocalAnchorA(0, (-TORSO_OFFSET) / 2);
-    joint->setLocalAnchorB(0, (TORSO_OFFSET) / 2);
-    joint->enableLimit(true);
-    joint->setUpperAngle(M_PI / 2.0f);
-    joint->setLowerAngle(-M_PI / 2.0f);
-    _joints.push_back(joint);
+//    // NECK JOINT
+//    joint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_HEAD],
+//                                                        _obstacles[PART_BODY]);
+//    joint->setLocalAnchorA(0, (-TORSO_OFFSET) / 2);
+//    joint->setLocalAnchorB(0, (TORSO_OFFSET) / 2);
+//    joint->enableLimit(true);
+//    joint->setUpperAngle(M_PI / 2.0f);
+//    joint->setLowerAngle(-M_PI / 2.0f);
+//    _joints.push_back(joint);
 
     // SHOULDERS
     joint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_LEFT_ARM],
@@ -323,43 +320,43 @@ bool RagdollModel::createJoints() {
     joint->setLowerAngle(-M_PI / 2.0f);
     _joints.push_back(joint);
 
-    // HIPS
-    joint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_LEFT_THIGH],
-                                                        _obstacles[PART_BODY]);
-    joint->setLocalAnchorA(0, THIGH_YOFFSET / 2);
-    joint->setLocalAnchorB(-THIGH_XOFFSET, -THIGH_YOFFSET / 2);
-    joint->enableLimit(true);
-    joint->setUpperAngle(M_PI / 2.0f);
-    joint->setLowerAngle(-M_PI / 2.0f);
-    _joints.push_back(joint);
-    
-    joint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_RIGHT_THIGH],
-                                                        _obstacles[PART_BODY]);
-    joint->setLocalAnchorA(0, THIGH_YOFFSET / 2);
-    joint->setLocalAnchorB(THIGH_XOFFSET, -THIGH_YOFFSET / 2);
-    joint->enableLimit(true);
-    joint->setUpperAngle(M_PI / 2.0f);
-    joint->setLowerAngle(-M_PI / 2.0f);
-    _joints.push_back(joint);
+//    // HIPS
+//    joint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_LEFT_THIGH],
+//                                                        _obstacles[PART_BODY]);
+//    joint->setLocalAnchorA(0, THIGH_YOFFSET / 2);
+//    joint->setLocalAnchorB(-THIGH_XOFFSET, -THIGH_YOFFSET / 2);
+//    joint->enableLimit(true);
+//    joint->setUpperAngle(M_PI / 2.0f);
+//    joint->setLowerAngle(-M_PI / 2.0f);
+//    _joints.push_back(joint);
+//    
+//    joint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_RIGHT_THIGH],
+//                                                        _obstacles[PART_BODY]);
+//    joint->setLocalAnchorA(0, THIGH_YOFFSET / 2);
+//    joint->setLocalAnchorB(THIGH_XOFFSET, -THIGH_YOFFSET / 2);
+//    joint->enableLimit(true);
+//    joint->setUpperAngle(M_PI / 2.0f);
+//    joint->setLowerAngle(-M_PI / 2.0f);
+//    _joints.push_back(joint);
 
-    // KNEES
-    joint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_LEFT_THIGH],
-                                                        _obstacles[PART_LEFT_SHIN]);
-    joint->setLocalAnchorA(0, -SHIN_OFFSET / 2);
-    joint->setLocalAnchorB(0, SHIN_OFFSET / 2);
-    joint->enableLimit(true);
-    joint->setUpperAngle(M_PI / 2.0f);
-    joint->setLowerAngle(-M_PI / 2.0f);
-    _joints.push_back(joint);
-
-    joint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_RIGHT_THIGH],
-                                                        _obstacles[PART_RIGHT_SHIN]);
-    joint->setLocalAnchorA(0, -SHIN_OFFSET / 2);
-    joint->setLocalAnchorB(0, SHIN_OFFSET / 2);
-    joint->enableLimit(true);
-    joint->setUpperAngle(M_PI / 2.0f);
-    joint->setLowerAngle(-M_PI / 2.0f);
-    _joints.push_back(joint);
+//    // KNEES
+//    joint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_LEFT_THIGH],
+//                                                        _obstacles[PART_LEFT_SHIN]);
+//    joint->setLocalAnchorA(0, -SHIN_OFFSET / 2);
+//    joint->setLocalAnchorB(0, SHIN_OFFSET / 2);
+//    joint->enableLimit(true);
+//    joint->setUpperAngle(M_PI / 2.0f);
+//    joint->setLowerAngle(-M_PI / 2.0f);
+//    _joints.push_back(joint);
+//
+//    joint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_RIGHT_THIGH],
+//                                                        _obstacles[PART_RIGHT_SHIN]);
+//    joint->setLocalAnchorA(0, -SHIN_OFFSET / 2);
+//    joint->setLocalAnchorB(0, SHIN_OFFSET / 2);
+//    joint->enableLimit(true);
+//    joint->setUpperAngle(M_PI / 2.0f);
+//    joint->setLowerAngle(-M_PI / 2.0f);
+//    _joints.push_back(joint);
 
     // Weld bubbler to the head.
     return true;
@@ -388,7 +385,7 @@ bool RagdollModel::createJoints() {
  */
 void RagdollModel::setSceneNode(const std::shared_ptr<cugl::scene2::SceneNode>& node){
 	_node = node;
-	for (int ii = 0; ii <= PART_RIGHT_SHIN; ii++) {
+	for (int ii = 0; ii <= NUM_OF_PARTS; ii++) {
         std::shared_ptr<Texture> image = _textures[ii];
 		std::shared_ptr<scene2::PolygonNode> sprite = scene2::PolygonNode::allocWithTexture(image);
 		if (ii == PART_RIGHT_ARM || ii == PART_RIGHT_FOREARM) {

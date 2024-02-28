@@ -39,15 +39,16 @@
 /** Indices for the body parts in the bodies array */
 #define PART_NONE           -1
 #define PART_BODY           0
-#define PART_HEAD           1
-#define PART_LEFT_ARM       2
-#define PART_RIGHT_ARM      3
-#define PART_LEFT_FOREARM   4
-#define PART_RIGHT_FOREARM  5
-#define PART_LEFT_THIGH     6
-#define PART_RIGHT_THIGH    7
-#define PART_LEFT_SHIN      8
-#define PART_RIGHT_SHIN     9
+//#define PART_HEAD           1
+#define PART_LEFT_ARM       1
+#define PART_RIGHT_ARM      2
+#define PART_LEFT_FOREARM   3
+#define PART_RIGHT_FOREARM  4
+#define NUM_OF_PARTS        4
+//#define PART_LEFT_THIGH     6
+//#define PART_RIGHT_THIGH    7
+//#define PART_LEFT_SHIN      8
+//#define PART_RIGHT_SHIN     9
 
 
 #pragma mark -
