@@ -80,8 +80,6 @@ float BOXES[] = { 14.5f, 14.25f,
 /** The initial cannon position */
 float CAN1_POS[] = { 2, 9 };
 float CAN2_POS[] = { 30,9 };
-/** The goal door position */
-float GOAL_POS[] = { 6, 12};
 
 #pragma mark Assset Constants
 /** The key for the earth texture in the asset manager */

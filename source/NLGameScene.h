@@ -97,7 +97,7 @@ protected:
     
     // VIEW
   	/** Reference to the goalDoor (for collision detection) */
-	  std::shared_ptr<cugl::physics2::BoxObstacle>    _goalDoor;
+    std::shared_ptr<cugl::physics2::BoxObstacle>    _goalDoor;
     /** Reference to the physics root of the scene graph */
     std::shared_ptr<cugl::scene2::SceneNode> _worldnode;
     /** Reference to the debug root of the scene graph */
@@ -111,7 +111,7 @@ protected:
     std::shared_ptr<cugl::physics2::net::NetWorld> _world;
     /** The scale between the physics world and the screen (MUST BE UNIFORM) */
     float _scale;
-
+    
     std::mt19937 _rand;
 
     std::shared_ptr<CrateFactory> _crateFact;
