@@ -37,46 +37,46 @@ using namespace cugl;
  */
 class CrateFactory : public ObstacleFactory {
 public:
-    /** Pointer to the AssetManager for texture access, etc. */
-    std::shared_ptr<cugl::AssetManager> _assets;
-    /** Deterministic random generator for crate type */
-    std::mt19937 _rand;
-    /** Serializer for supporting parameters */
-    LWSerializer _serializer;
-    /** Deserializer for supporting parameters */
-    LWDeserializer _deserializer;
+	/** Pointer to the AssetManager for texture access, etc. */
+	std::shared_ptr<cugl::AssetManager> _assets;
+	/** Deterministic random generator for crate type */
+	std::mt19937 _rand;
+	/** Serializer for supporting parameters */
+	LWSerializer _serializer;
+	/** Deserializer for supporting parameters */
+	LWDeserializer _deserializer;
 
-    /**
-     * Allocates a new instance of the factory using the given AssetManager.
-     */
-    static std::shared_ptr<CrateFactory> alloc(std::shared_ptr<AssetManager>& assets) {
-        auto f = std::make_shared<CrateFactory>();
-        f->init(assets);
-        return f;
-    };
+	/**
+	 * Allocates a new instance of the factory using the given AssetManager.
+	 */
+	static std::shared_ptr<CrateFactory> alloc(std::shared_ptr<AssetManager>& assets) {
+		auto f = std::make_shared<CrateFactory>();
+		f->init(assets);
+		return f;
+	};
 
-    /**
-     * Initializes empty factories using the given AssetManager.
-     */
-    void init(std::shared_ptr<AssetManager>& assets) {
-        _assets = assets;
-        _rand.seed(0xdeadbeef);
-    }
-    
-    /**
-     * Generate a pair of Obstacle and SceneNode using the given parameters
-     */
-    std::pair<std::shared_ptr<physics2::Obstacle>, std::shared_ptr<scene2::SceneNode>> createObstacle(Vec2 pos, float scale);
+	/**
+	 * Initializes empty factories using the given AssetManager.
+	 */
+	void init(std::shared_ptr<AssetManager>& assets) {
+		_assets = assets;
+		_rand.seed(0xdeadbeef);
+	}
 
-    /**
-     * Helper method for converting normal parameters into byte vectors used for syncing.
-     */
-    std::shared_ptr<std::vector<std::byte>> serializeParams(Vec2 pos, float scale);
-    
-    /**
-     * Generate a pair of Obstacle and SceneNode using serialized parameters.
-     */
-    std::pair<std::shared_ptr<physics2::Obstacle>, std::shared_ptr<scene2::SceneNode>> createObstacle(const std::vector<std::byte>& params) override;
+	/**
+	 * Generate a pair of Obstacle and SceneNode using the given parameters
+	 */
+	std::pair<std::shared_ptr<physics2::Obstacle>, std::shared_ptr<scene2::SceneNode>> createObstacle(Vec2 pos, float scale);
+
+	/**
+	 * Helper method for converting normal parameters into byte vectors used for syncing.
+	 */
+	std::shared_ptr<std::vector<std::byte>> serializeParams(Vec2 pos, float scale);
+
+	/**
+	 * Generate a pair of Obstacle and SceneNode using serialized parameters.
+	 */
+	std::pair<std::shared_ptr<physics2::Obstacle>, std::shared_ptr<scene2::SceneNode>> createObstacle(const std::vector<std::byte>& params) override;
 };
 
 /**
@@ -96,6 +96,8 @@ protected:
     InputController _input;
     
     // VIEW
+  	/** Reference to the goalDoor (for collision detection) */
+	  std::shared_ptr<cugl::physics2::BoxObstacle>    _goalDoor;
     /** Reference to the physics root of the scene graph */
     std::shared_ptr<cugl::scene2::SceneNode> _worldnode;
     /** Reference to the debug root of the scene graph */
@@ -175,6 +177,10 @@ protected:
     void addInitObstacle(const std::shared_ptr<cugl::physics2::Obstacle>& obj,
                      const std::shared_ptr<cugl::scene2::SceneNode>& node);
 
+    void addObstacle(const std::shared_ptr<cugl::physics2::Obstacle>& obj,
+        const std::shared_ptr<cugl::scene2::SceneNode>& node,
+        bool useObjPosition = true);
+  
     /**
      * This method links a scene node to the obstacle.
      *
@@ -202,151 +208,148 @@ protected:
      * ratios
      */
     cugl::Size computeActiveSize() const;
-    
 public:
 #pragma mark -
 #pragma mark Constructors
-    /**
-     * Creates a new game world with the default values.
-     *
-     * This constructor does not allocate any objects or start the controller.
-     * This allows us to use a controller without a heap pointer.
-     */
-    GameScene();
-    
-    /**
-     * Disposes of all (non-static) resources allocated to this mode.
-     *
-     * This method is different from dispose() in that it ALSO shuts off any
-     * static resources, like the input controller.
-     */
-    ~GameScene() { dispose(); }
-    
-    /**
-     * Disposes of all (non-static) resources allocated to this mode.
-     */
-    void dispose();
-    
-    /**
-     * Initializes the controller contents, and starts the game
-     *
-     * The constructor does not allocate any objects or memory.  This allows
-     * us to have a non-pointer reference to this controller, reducing our
-     * memory allocation.  Instead, allocation happens in this method.
-     *
-     * The game world is scaled so that the screen coordinates do not agree
-     * with the Box2d coordinates.  This initializer uses the default scale.
-     *
-     * @param assets    The (loaded) assets for this game mode
-     *
-     * @return true if the controller is initialized properly, false otherwise.
-     */
-    bool init(const std::shared_ptr<cugl::AssetManager>& assets, const std::shared_ptr<NetEventController> network, bool isHost);
+	/**
+	 * Creates a new game world with the default values.
+	 *
+	 * This constructor does not allocate any objects or start the controller.
+	 * This allows us to use a controller without a heap pointer.
+	 */
+	GameScene();
 
-    /**
-     * Initializes the controller contents, and starts the game
-     *
-     * The constructor does not allocate any objects or memory.  This allows
-     * us to have a non-pointer reference to this controller, reducing our
-     * memory allocation.  Instead, allocation happens in this method.
-     *
-     * The game world is scaled so that the screen coordinates do not agree
-     * with the Box2d coordinates.  The bounds are in terms of the Box2d
-     * world, not the screen.
-     *
-     * @param assets    The (loaded) assets for this game mode
-     * @param rect      The game bounds in Box2d coordinates
-     *
-     * @return  true if the controller is initialized properly, false otherwise.
-     */
-    bool init(const std::shared_ptr<cugl::AssetManager>& assets, const cugl::Rect rect, const std::shared_ptr<NetEventController> network, bool isHost);
-    
-    /**
-     * Initializes the controller contents, and starts the game
-     *
-     * The constructor does not allocate any objects or memory.  This allows
-     * us to have a non-pointer reference to this controller, reducing our
-     * memory allocation.  Instead, allocation happens in this method.
-     *
-     * The game world is scaled so that the screen coordinates do not agree
-     * with the Box2d coordinates.  The bounds are in terms of the Box2d
-     * world, not the screen.
-     *
-     * @param assets    The (loaded) assets for this game mode
-     * @param rect      The game bounds in Box2d coordinates
-     * @param gravity   The gravitational force on this Box2d world
-     *
-     * @return  true if the controller is initialized properly, false otherwise.
-     */
-    bool init(const std::shared_ptr<cugl::AssetManager>& assets, const cugl::Rect rect, const cugl::Vec2 gravity, const std::shared_ptr<NetEventController> network, bool isHost);
-    
-    
+	/**
+	 * Disposes of all (non-static) resources allocated to this mode.
+	 *
+	 * This method is different from dispose() in that it ALSO shuts off any
+	 * static resources, like the input controller.
+	 */
+	~GameScene() { dispose(); }
+
+	/**
+	 * Disposes of all (non-static) resources allocated to this mode.
+	 */
+	void dispose();
+
+	/**
+	 * Initializes the controller contents, and starts the game
+	 *
+	 * The constructor does not allocate any objects or memory.  This allows
+	 * us to have a non-pointer reference to this controller, reducing our
+	 * memory allocation.  Instead, allocation happens in this method.
+	 *
+	 * The game world is scaled so that the screen coordinates do not agree
+	 * with the Box2d coordinates.  This initializer uses the default scale.
+	 *
+	 * @param assets    The (loaded) assets for this game mode
+	 *
+	 * @return true if the controller is initialized properly, false otherwise.
+	 */
+	bool init(const std::shared_ptr<cugl::AssetManager>& assets, const std::shared_ptr<NetEventController> network, bool isHost);
+
+	/**
+	 * Initializes the controller contents, and starts the game
+	 *
+	 * The constructor does not allocate any objects or memory.  This allows
+	 * us to have a non-pointer reference to this controller, reducing our
+	 * memory allocation.  Instead, allocation happens in this method.
+	 *
+	 * The game world is scaled so that the screen coordinates do not agree
+	 * with the Box2d coordinates.  The bounds are in terms of the Box2d
+	 * world, not the screen.
+	 *
+	 * @param assets    The (loaded) assets for this game mode
+	 * @param rect      The game bounds in Box2d coordinates
+	 *
+	 * @return  true if the controller is initialized properly, false otherwise.
+	 */
+	bool init(const std::shared_ptr<cugl::AssetManager>& assets, const cugl::Rect rect, const std::shared_ptr<NetEventController> network, bool isHost);
+
+	/**
+	 * Initializes the controller contents, and starts the game
+	 *
+	 * The constructor does not allocate any objects or memory.  This allows
+	 * us to have a non-pointer reference to this controller, reducing our
+	 * memory allocation.  Instead, allocation happens in this method.
+	 *
+	 * The game world is scaled so that the screen coordinates do not agree
+	 * with the Box2d coordinates.  The bounds are in terms of the Box2d
+	 * world, not the screen.
+	 *
+	 * @param assets    The (loaded) assets for this game mode
+	 * @param rect      The game bounds in Box2d coordinates
+	 * @param gravity   The gravitational force on this Box2d world
+	 *
+	 * @return  true if the controller is initialized properly, false otherwise.
+	 */
+	bool init(const std::shared_ptr<cugl::AssetManager>& assets, const cugl::Rect rect, const cugl::Vec2 gravity, const std::shared_ptr<NetEventController> network, bool isHost);
+
 #pragma mark -
 #pragma mark State Access
-    /**
-     * Returns true if the gameplay controller is currently active
-     *
-     * @return true if the gameplay controller is currently active
-     */
-    bool isActive( ) const { return _active; }
+	/**
+	 * Returns true if the gameplay controller is currently active
+	 *
+	 * @return true if the gameplay controller is currently active
+	 */
+	bool isActive() const { return _active; }
 
-    /**
-     * Returns true if debug mode is active.
-     *
-     * If true, all objects will display their physics bodies.
-     *
-     * @return true if debug mode is active.
-     */
-    bool isDebug( ) const { return _debug; }
-    
-    /**
-     * Sets whether debug mode is active.
-     *
-     * If true, all objects will display their physics bodies.
-     *
-     * @param value whether debug mode is active.
-     */
-    void setDebug(bool value) { _debug = value; _debugnode->setVisible(value); }
-    
-    /**
-     * Returns true if the level is completed.
-     *
-     * If true, the level will advance after a countdown
-     *
-     * @return true if the level is completed.
-     */
-    bool isComplete( ) const { return _complete; }
-    
-    /**
-     * Sets whether the level is completed.
-     *
-     * If true, the level will advance after a countdown
-     *
-     * @param value whether the level is completed.
-     */
-    void setComplete(bool value) { _complete = value; _winnode->setVisible(value); }
-    
-    
+	/**
+	 * Returns true if debug mode is active.
+	 *
+	 * If true, all objects will display their physics bodies.
+	 *
+	 * @return true if debug mode is active.
+	 */
+	bool isDebug() const { return _debug; }
+
+	/**
+	 * Sets whether debug mode is active.
+	 *
+	 * If true, all objects will display their physics bodies.
+	 *
+	 * @param value whether debug mode is active.
+	 */
+	void setDebug(bool value) { _debug = value; _debugnode->setVisible(value); }
+
+	/**
+	 * Returns true if the level is completed.
+	 *
+	 * If true, the level will advance after a countdown
+	 *
+	 * @return true if the level is completed.
+	 */
+	bool isComplete() const { return _complete; }
+
+	/**
+	 * Sets whether the level is completed.
+	 *
+	 * If true, the level will advance after a countdown
+	 *
+	 * @param value whether the level is completed.
+	 */
+	void setComplete(bool value) { _complete = value; _winnode->setVisible(value); }
+
 #pragma mark -
 #pragma mark Gameplay Handling
 
-    virtual void preUpdate(float timestep);
-    virtual void postUpdate(float timestep);
-    virtual void fixedUpdate();
-    /**
-     * The method called to update the game mode.
-     *
-     * This method contains any gameplay code that is not an OpenGL call.
-     *
-     * @param timestep  The amount of time (in seconds) since the last frame
-     */
-    void update(float timestep);
+	virtual void preUpdate(float timestep);
+	virtual void postUpdate(float timestep);
+	virtual void fixedUpdate();
+	/**
+	 * The method called to update the game mode.
+	 *
+	 * This method contains any gameplay code that is not an OpenGL call.
+	 *
+	 * @param timestep  The amount of time (in seconds) since the last frame
+	 */
+	void update(float timestep);
 
-    /**
-     * Resets the status of the game so that we can play again.
-     */
-    void reset();
-    
+	/**
+	 * Resets the status of the game so that we can play again.
+	 */
+	void reset();
+
 #pragma mark -
 #pragma mark Collision Handling
     /**

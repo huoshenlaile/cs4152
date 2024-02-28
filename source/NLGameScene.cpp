@@ -134,39 +134,137 @@ float GOAL_POS[] = { 6, 12};
 
 #define FIXED_TIMESTEP_S 0.02f
 float DOLL_POS[] = { 16, 10 };
+
+
+
+/** This is the aspect ratio for physics */
+#define SCENE_ASPECT 9.0/16.0
+
+
+// Since these appear only once, we do not care about the magic numbers.
+// In an actual game, this information would go in a data file.
+// IMPORTANT: Note that Box2D units do not equal drawing units
+/** The wall vertices */
+#define WALL_VERTS 12
+#define WALL_COUNT  2
+
+float WALL[WALL_COUNT][WALL_VERTS] = {
+	{16.0f, 18.0f,  0.0f, 18.0f,  0.0f,  0.0f,
+	  1.0f,  0.0f,  1.0f, 17.0f, 16.0f, 17.0f },
+	{32.0f, 18.0f, 16.0f, 18.0f, 16.0f, 17.0f,
+	 31.0f, 17.0f, 31.0f,  0.0f, 32.0f,  0.0f }
+};
+
+/** The number of platforms */
+#define PLATFORM_VERTS  8
+#define PLATFORM_COUNT  4
+
+/** The outlines of all of the platforms */
+float PLATFORMS[PLATFORM_COUNT][PLATFORM_VERTS] = {
+	{ 1.0f, 3.0f, 1.0f, 2.5f, 15.0f, 2.5f, 15.0f, 3.0f},
+	{22.0f, 4.0f,22.0f, 2.5f,31.0f, 2.5f,31.0f, 4.0f},
+	{18.0f,9.5f,18.0f,9.0f,24.0f,9.0f,24.0f,9.5f},
+	{ 1.0f,12.5f, 1.0f,12.0f, 15.0f,12.0f, 15.0f,12.5f}
+};
+
+/** The goal door position */
+float GOAL_POS[] = { 4.0f,14.0f };
+/** The position of the spinning barrier */
+//float SPIN_POS[] = { 13.0f,12.5f };
+float SPIN_POS[] = { 15.5f,12.0f };
+/** The initial position of the dude */
+float DUDE_POS[] = { 2.5f, 5.0f };
+/** The position of the rope bridge */
+float BRIDGE_POS[] = { 9.0f, 3.8f };
+
+
+#pragma mark -
+#pragma mark Physics Constants
+/** The density for a bullet */
+#define HEAVY_DENSITY   10.0f
+/** The width of the rope bridge */
+#define BRIDGE_WIDTH    14.0f
+/** Offset for bullet when firing */
+#define BULLET_OFFSET   0.5f
+/** The speed of the bullet after firing */
+#define BULLET_SPEED   20.0f
+/** The number of frame to wait before reinitializing the game */
+#define EXIT_COUNT      240
+
+
+#pragma mark -
+#pragma mark Asset Constants
+/** The key for the win door texture in the asset manager */
+#define BULLET_TEXTURE  "bullet"
+/** The name of a bullet (for object identification) */
+#define BULLET_NAME     "bullet"
+/** The name of a wall (for object identification) */
+#define WALL_NAME       "wall"
+/** The name of a platform (for object identification) */
+#define PLATFORM_NAME   "platform"
+/** The font for victory/failure messages */
+#define MESSAGE_FONT    "retro"
+/** The message for winning the game */
+#define WIN_MESSAGE     "VICTORY!"
+/** The color of the win message */
+#define WIN_COLOR       Color4::YELLOW
+/** The message for losing the game */
+#define LOSE_MESSAGE    "FAILURE!"
+/** The color of the lose message */
+#define LOSE_COLOR      Color4::RED
+/** The key the basic game music */
+#define GAME_MUSIC      "game"
+/** The key the victory game music */
+#define WIN_MUSIC       "win"
+/** The key the failure game music */
+#define LOSE_MUSIC      "lose"
+/** The sound effect for firing a bullet */
+#define PEW_EFFECT      "pew"
+/** The sound effect for a bullet collision */
+#define POP_EFFECT      "pop"
+/** The sound effect for jumping */
+#define JUMP_EFFECT     "jump"
+/** The volume for the music */
+#define MUSIC_VOLUME    0.7f
+/** The volume for sound effects */
+#define EFFECT_VOLUME   0.8f
+/** The image for the left dpad/joystick */
+#define LEFT_IMAGE      "dpad_left"
+/** The image for the right dpad/joystick */
+#define RIGHT_IMAGE     "dpad_right"
+
+/** Color to outline the physics nodes */
+#define DEBUG_COLOR     Color4::YELLOW
+/** Opacity of the physics outlines */
+#define DEBUG_OPACITY   192
+
 /**
  * Generate a pair of Obstacle and SceneNode using the given parameters
  */
 std::pair<std::shared_ptr<physics2::Obstacle>, std::shared_ptr<scene2::SceneNode>> CrateFactory::createObstacle(Vec2 pos, float scale) {
-    //Choose randomly between wooden crates and iron crates.
-    int indx = (_rand() % 2 == 0 ? 2 : 1);
-    std::string name = (CRATE_PREFIX "0") + std::to_string(indx);
-    auto image = _assets->get<Texture>(name);
-    Size boxSize(image->getSize() / scale / 2.f);
-    
-    // TODO: allocate a box obstacle at pos with boxSize, set its angleSnap to 0, debugColor to DYNAMIC_COLOR, density to CRATE_DENSITY, friction to CRATE_FRICTION, and restitution to BASIC_RESTITUTION, after everything is set, make the object shared by calling setShared(). Then allocate a PolygonNode from image, set its anchor to center, and scale to 0.5f. Lastly return the pair of Obstacle and sceneNode.
-    
-    // NOTE: When an Obstacle is shared, function calls that change its state are monitored and automatically synchronized. However, every client calling this method is going to run the code above setting the properties. We don't want to share them redundantly, so sharing is turned on afterwards.
-    
-#pragma mark BEGIN SOLUTION
-    auto crate = physics2::BoxObstacle::alloc(pos, boxSize);
-    
-    crate->setDebugColor(DYNAMIC_COLOR);
-    crate->setAngleSnap(0); // Snap to the nearest degree
-    
-    // Set the physics attributes
-    crate->setDensity(CRATE_DENSITY);
-    crate->setFriction(CRATE_FRICTION);
-    crate->setAngularDamping(CRATE_DAMPING);
-    crate->setRestitution(BASIC_RESTITUTION);
+	int indx = (_rand() % 2 == 0 ? 2 : 1);
+	std::string name = (CRATE_PREFIX "0") + std::to_string(indx);
+	auto image = _assets->get<Texture>(name);
+	Size boxSize(image->getSize() / scale / 2.f);
 
-    crate->setShared(true);
-    
-    auto sprite = scene2::PolygonNode::allocWithTexture(image);
-    sprite->setAnchor(Vec2::ANCHOR_CENTER);
-    sprite->setScale(0.5f);
-    
-    return std::make_pair(crate, sprite);
+#pragma mark BEGIN SOLUTION
+	auto crate = physics2::BoxObstacle::alloc(pos, boxSize);
+
+	crate->setDebugColor(DYNAMIC_COLOR);
+	crate->setAngleSnap(0); // Snap to the nearest degree
+
+	crate->setDensity(CRATE_DENSITY);
+	crate->setFriction(CRATE_FRICTION);
+	crate->setAngularDamping(CRATE_DAMPING);
+	crate->setRestitution(BASIC_RESTITUTION);
+
+	crate->setShared(true);
+
+	auto sprite = scene2::PolygonNode::allocWithTexture(image);
+	sprite->setAnchor(Vec2::ANCHOR_CENTER);
+	sprite->setScale(0.5f);
+
+	return std::make_pair(crate, sprite);
 #pragma mark END SOLUTION
 }
 
@@ -174,13 +272,13 @@ std::pair<std::shared_ptr<physics2::Obstacle>, std::shared_ptr<scene2::SceneNode
  * Helper method for converting normal parameters into byte vectors used for syncing.
  */
 std::shared_ptr<std::vector<std::byte>> CrateFactory::serializeParams(Vec2 pos, float scale) {
-    // TODO: Use _serializer to serialize pos and scale (remember to make a shared copy of the serializer reference, otherwise it will be lost if the serializer is reset).
+	// TODO: Use _serializer to serialize pos and scale (remember to make a shared copy of the serializer reference, otherwise it will be lost if the serializer is reset).
 #pragma mark BEGIN SOLUTION
-    _serializer.reset();
-    _serializer.writeFloat(pos.x);
-    _serializer.writeFloat(pos.y);
-    _serializer.writeFloat(scale);
-    return std::make_shared<std::vector<std::byte>>(_serializer.serialize());
+	_serializer.reset();
+	_serializer.writeFloat(pos.x);
+	_serializer.writeFloat(pos.y);
+	_serializer.writeFloat(scale);
+	return std::make_shared<std::vector<std::byte>>(_serializer.serialize());
 #pragma mark END SOLUTION
 }
 
@@ -188,18 +286,17 @@ std::shared_ptr<std::vector<std::byte>> CrateFactory::serializeParams(Vec2 pos, 
  * Generate a pair of Obstacle and SceneNode using serialized parameters.
  */
 std::pair<std::shared_ptr<physics2::Obstacle>, std::shared_ptr<scene2::SceneNode>> CrateFactory::createObstacle(const std::vector<std::byte>& params) {
-    // TODO: Use _deserializer to deserialize byte vectors packed by {@link serializeParams()} and call the regular createObstacle() method with them.
+	// TODO: Use _deserializer to deserialize byte vectors packed by {@link serializeParams()} and call the regular createObstacle() method with them.
 #pragma mark BEGIN SOLUTION
-    _deserializer.reset();
-    _deserializer.receive(params);
-    float x = _deserializer.readFloat();
-    float y = _deserializer.readFloat();
-    Vec2 pos = Vec2(x,y);
-    float scale = _deserializer.readFloat();
-    return createObstacle(pos, scale);
+	_deserializer.reset();
+	_deserializer.receive(params);
+	float x = _deserializer.readFloat();
+	float y = _deserializer.readFloat();
+	Vec2 pos = Vec2(x, y);
+	float scale = _deserializer.readFloat();
+	return createObstacle(pos, scale);
 #pragma mark END SOLUTION
 }
-
 
 #pragma mark -
 #pragma mark Constructors
@@ -231,7 +328,7 @@ _isHost(false)
  * @return true if the controller is initialized properly, false otherwise.
  */
 bool GameScene::init(const std::shared_ptr<AssetManager>& assets, const std::shared_ptr<cugl::physics2::net::NetEventController> network, bool isHost) {
-    return init(assets, Rect(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT), Vec2(0, DEFAULT_GRAVITY), network, isHost);
+	return init(assets, Rect(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT), Vec2(0, DEFAULT_GRAVITY), network, isHost);
 }
 
 /**
@@ -251,7 +348,7 @@ bool GameScene::init(const std::shared_ptr<AssetManager>& assets, const std::sha
  * @return  true if the controller is initialized properly, false otherwise.
  */
 bool GameScene::init(const std::shared_ptr<AssetManager>& assets, const Rect rect, const std::shared_ptr<NetEventController> network, bool isHost) {
-    return init(assets,rect,Vec2(0,DEFAULT_GRAVITY),network,isHost);
+	return init(assets, rect, Vec2(0, DEFAULT_GRAVITY), network, isHost);
 }
 
 /**
@@ -337,40 +434,40 @@ bool GameScene::init(const std::shared_ptr<AssetManager>& assets, const Rect rec
      * TODO: Acquire the ownership of _cannon2 if this machine is not the host.
      */
 #pragma mark BEGIN SOLUTION
-    _network->enablePhysics(_world, linkSceneToObsFunc);
-    
-    if(!isHost){
-        _network->getPhysController()->acquireObs(_cannon2, 0);
-    }
+	_network->enablePhysics(_world, linkSceneToObsFunc);
 
-    _factId = _network->getPhysController()->attachFactory(_crateFact);
+	if (!isHost) {
+		_network->getPhysController()->acquireObs(_cannon2, 0);
+	}
+
+	_factId = _network->getPhysController()->attachFactory(_crateFact);
 #pragma mark END SOLUTION
 
-//TODO: For task 5, attach CrateEvent to the network controller
+	//TODO: For task 5, attach CrateEvent to the network controller
 #pragma mark BEGIN SOLUTION
-    _network->attachEventType<CrateEvent>();
+	_network->attachEventType<CrateEvent>();
 #pragma mark END SOLUTION
-    
-    // XNA nostalgia
-    Application::get()->setClearColor(Color4f::CORNFLOWER);
-    return true;
+
+	// XNA nostalgia
+	Application::get()->setClearColor(Color4f::CORNFLOWER);
+	return true;
 }
 
 /**
  * Disposes of all (non-static) resources allocated to this mode.
  */
 void GameScene::dispose() {
-    if (_active) {
-        removeAllChildren();
-        _input.dispose();
-        _world = nullptr;
-        _worldnode = nullptr;
-        _debugnode = nullptr;
-        _winnode = nullptr;
-        _complete = false;
-        _debug = false;
-        Scene2::dispose();
-    }
+	if (_active) {
+		removeAllChildren();
+		_input.dispose();
+		_world = nullptr;
+		_worldnode = nullptr;
+		_debugnode = nullptr;
+		_winnode = nullptr;
+		_complete = false;
+		_debug = false;
+		Scene2::dispose();
+	}
 }
 
 #pragma mark -
@@ -390,11 +487,11 @@ std::vector<std::shared_ptr<scene2::PolygonNode>> nodes;
  * This method disposes of the world and creates a new one.
  */
 void GameScene::reset() {
-    _worldnode->removeAllChildren();
-    _debugnode->removeAllChildren();
-    setComplete(false);
-    populate();
-    Application::get()->resetFixedRemainder();
+	_worldnode->removeAllChildren();
+	_debugnode->removeAllChildren();
+	setComplete(false);
+	populate();
+	Application::get()->resetFixedRemainder();
 }
 
 /**
@@ -499,37 +596,60 @@ void GameScene::populate() {
     _ragdoll->activate(_world);
     
     std::shared_ptr<Texture> image;
-        
-#pragma mark : Wall polygon 1
-        
-    // Create ground pieces
-    // All walls share the same texture
-    image  = _assets->get<Texture>(EARTH_TEXTURE);
-    std::string wname = "wall";
+    std::shared_ptr<scene2::PolygonNode> sprite;
+    std::shared_ptr<scene2::WireNode> draw;
 
-    // Create the polygon outline
-    Poly2 wall1(reinterpret_cast<Vec2*>(WALL1),11);
-    EarclipTriangulator triangulator;
-    triangulator.set(wall1.vertices);
-    triangulator.calculate();
-    wall1.setIndices(triangulator.getTriangulation());
-    triangulator.clear();
+  #pragma mark : Goal door
+    image = _assets->get<Texture>(GOAL_TEXTURE);
 
-    //std::shared_ptr<physics2::PolygonObstacle> wallobj;
-    wallobj1 = physics2::PolygonObstacle::allocWithAnchor(wall1,Vec2::ANCHOR_CENTER);
-    wallobj1->setDebugColor(STATIC_COLOR);
-    wallobj1->setName(wname);
+    // Create obstacle
+    Vec2 goalPos = GOAL_POS;
+    Size goalSize(image->getSize().width / _scale,
+      image->getSize().height / _scale);
+    _goalDoor = physics2::BoxObstacle::alloc(goalPos, goalSize);
 
     // Set the physics attributes
-    wallobj1->setBodyType(b2_staticBody);
-    wallobj1->setDensity(BASIC_DENSITY);
-    wallobj1->setFriction(BASIC_FRICTION);
-    wallobj1->setRestitution(BASIC_RESTITUTION);
+    _goalDoor->setBodyType(b2_staticBody);
+    _goalDoor->setDensity(0.0f);
+    _goalDoor->setFriction(0.0f);
+    _goalDoor->setRestitution(0.0f);
+    _goalDoor->setSensor(true);
 
     // Add the scene graph nodes to this object
-    wall1 *= _scale;
-    wallsprite1 = scene2::PolygonNode::allocWithTexture(image,wall1);
-    
+    sprite = scene2::PolygonNode::allocWithTexture(image);
+    _goalDoor->setDebugColor(DEBUG_COLOR);
+  addObstacle(_goalDoor, sprite);
+  
+#pragma mark : Wall polygon 1
+
+	// Create ground pieces
+	// All walls share the same texture
+	image = _assets->get<Texture>(EARTH_TEXTURE);
+	std::string wname = "wall";
+
+	// Create the polygon outline
+	Poly2 wall1(reinterpret_cast<Vec2*>(WALL1), 11);
+	EarclipTriangulator triangulator;
+	triangulator.set(wall1.vertices);
+	triangulator.calculate();
+	wall1.setIndices(triangulator.getTriangulation());
+	triangulator.clear();
+
+	//std::shared_ptr<physics2::PolygonObstacle> wallobj;
+	wallobj1 = physics2::PolygonObstacle::allocWithAnchor(wall1, Vec2::ANCHOR_CENTER);
+	wallobj1->setDebugColor(STATIC_COLOR);
+	wallobj1->setName(wname);
+
+	// Set the physics attributes
+	wallobj1->setBodyType(b2_staticBody);
+	wallobj1->setDensity(BASIC_DENSITY);
+	wallobj1->setFriction(BASIC_FRICTION);
+	wallobj1->setRestitution(BASIC_RESTITUTION);
+
+	// Add the scene graph nodes to this object
+	wall1 *= _scale;
+	wallsprite1 = scene2::PolygonNode::allocWithTexture(image, wall1);
+
 #pragma mark : Wall polygon 2
     Poly2 wall2(reinterpret_cast<Vec2*>(WALL2),9);
     triangulator.set(wall2.vertices);
@@ -592,25 +712,105 @@ void GameScene::populate() {
     addInitObstacle(wallobj2, wallsprite2);  // All walls share the same texture
     addInitObstacle(_cannon1, _cannon1Node);
     addInitObstacle(_cannon2, _cannon2Node);
+
+#pragma mark : Walls
+	// All walls and platforms share the same texture
+	image = _assets->get<Texture>(EARTH_TEXTURE);
+	//std::string wname = "wall";
+	for (int ii = 0; ii < WALL_COUNT; ii++) {
+		std::shared_ptr<physics2::PolygonObstacle> wallobj;
+
+		Poly2 wall(reinterpret_cast<Vec2*>(WALL[ii]), WALL_VERTS / 2);
+		// Call this on a polygon to get a solid shape
+		EarclipTriangulator triangulator;
+		triangulator.set(wall.vertices);
+		triangulator.calculate();
+		wall.setIndices(triangulator.getTriangulation());
+		triangulator.clear();
+
+		wallobj = physics2::PolygonObstacle::allocWithAnchor(wall, Vec2::ANCHOR_CENTER);
+		// You cannot add constant "".  Must stringify
+		wallobj->setName(std::string(WALL_NAME) + cugl::strtool::to_string(ii));
+		wallobj->setName(wname);
+
+		// Set the physics attributes
+		wallobj->setBodyType(b2_staticBody);
+		wallobj->setDensity(BASIC_DENSITY);
+		wallobj->setFriction(BASIC_FRICTION);
+		wallobj->setRestitution(BASIC_RESTITUTION);
+		wallobj->setDebugColor(DEBUG_COLOR);
+
+		wall *= _scale;
+		sprite = scene2::PolygonNode::allocWithTexture(image, wall);
+		addObstacle(wallobj, sprite, 1);  // All walls share the same texture
+	}
+
+#pragma mark : Platforms
+	for (int ii = 0; ii < PLATFORM_COUNT; ii++) {
+		std::shared_ptr<physics2::PolygonObstacle> platobj;
+		Poly2 platform(reinterpret_cast<Vec2*>(PLATFORMS[ii]), 4);
+
+		EarclipTriangulator triangulator;
+		triangulator.set(platform.vertices);
+		triangulator.calculate();
+		platform.setIndices(triangulator.getTriangulation());
+		triangulator.clear();
+
+		platobj = physics2::PolygonObstacle::allocWithAnchor(platform, Vec2::ANCHOR_CENTER);
+		// You cannot add constant "".  Must stringify
+		platobj->setName(std::string(PLATFORM_NAME) + cugl::strtool::to_string(ii));
+
+		// Set the physics attributes
+		platobj->setBodyType(b2_staticBody);
+		platobj->setDensity(BASIC_DENSITY);
+		platobj->setFriction(BASIC_FRICTION);
+		platobj->setRestitution(BASIC_RESTITUTION);
+		platobj->setDebugColor(DEBUG_COLOR);
+
+		platform *= _scale;
+		sprite = scene2::PolygonNode::allocWithTexture(image, platform);
+		addObstacle(platobj, sprite, 1);
+	}
+}
+
+void GameScene::addObstacle(const std::shared_ptr<cugl::physics2::Obstacle>& obj,
+	const std::shared_ptr<cugl::scene2::SceneNode>& node,
+	bool useObjPosition) {
+	_world->addObstacle(obj);
+	obj->setDebugScene(_debugnode);
+
+	// Position the scene graph node (enough for static objects)
+	if (useObjPosition) {
+		node->setPosition(obj->getPosition() * _scale);
+	}
+	_worldnode->addChild(node);
+
+	// Dynamic objects need constant updating
+	if (obj->getBodyType() == b2_dynamicBody) {
+		scene2::SceneNode* weak = node.get(); // No need for smart pointer in callback
+		obj->setListener([=](physics2::Obstacle* obs) {
+			weak->setPosition(obs->getPosition() * _scale);
+			weak->setAngle(obs->getAngle());
+			});
+	}
 }
 
 void GameScene::linkSceneToObs(const std::shared_ptr<physics2::Obstacle>& obj,
-    const std::shared_ptr<scene2::SceneNode>& node) {
+	const std::shared_ptr<scene2::SceneNode>& node) {
+	node->setPosition(obj->getPosition() * _scale);
+	_worldnode->addChild(node);
 
-    node->setPosition(obj->getPosition() * _scale);
-    _worldnode->addChild(node);
-
-    // Dynamic objects need constant updating
-    if (obj->getBodyType() == b2_dynamicBody) {
-        scene2::SceneNode* weak = node.get(); // No need for smart pointer in callback
-        obj->setListener([=](physics2::Obstacle* obs) {
-            float leftover = Application::get()->getFixedRemainder() / 1000000.f;
-            Vec2 pos = obs->getPosition() + leftover * obs->getLinearVelocity();
-            float angle = obs->getAngle() + leftover * obs->getAngularVelocity();
-            weak->setPosition(pos * _scale);
-            weak->setAngle(angle);
-        });
-    }
+	// Dynamic objects need constant updating
+	if (obj->getBodyType() == b2_dynamicBody) {
+		scene2::SceneNode* weak = node.get(); // No need for smart pointer in callback
+		obj->setListener([=](physics2::Obstacle* obs) {
+			float leftover = Application::get()->getFixedRemainder() / 1000000.f;
+			Vec2 pos = obs->getPosition() + leftover * obs->getLinearVelocity();
+			float angle = obs->getAngle() + leftover * obs->getAngularVelocity();
+			weak->setPosition(pos * _scale);
+			weak->setAngle(angle);
+			});
+	}
 }
 
 /**
@@ -625,14 +825,13 @@ void GameScene::linkSceneToObs(const std::shared_ptr<physics2::Obstacle>& obj,
  * param node   The scene graph node to attach it to
  */
 void GameScene::addInitObstacle(const std::shared_ptr<physics2::Obstacle>& obj,
-    const std::shared_ptr<scene2::SceneNode>& node) {
-    _world->initObstacle(obj);
-    if(_isHost){
-        _world->getOwnedObstacles().insert({obj,0});
-    }
-    linkSceneToObs(obj, node);
+	const std::shared_ptr<scene2::SceneNode>& node) {
+	_world->initObstacle(obj);
+	if (_isHost) {
+		_world->getOwnedObstacles().insert({ obj,0 });
+	}
+	linkSceneToObs(obj, node);
 }
-
 
 #pragma mark -
 #pragma mark Physics Handling
@@ -713,22 +912,21 @@ void GameScene::postUpdate(float dt) {
 }
 
 void GameScene::fixedUpdate() {
-    //TODO: check for available incoming events from the network controller and call processCrateEvent if it is a CrateEvent.
-    
-    //Hint: You can check if ptr points to an object of class A using std::dynamic_pointer_cast<A>(ptr). You should always check isInAvailable() before popInEvent().
-    
-#pragma mark BEGIN SOLUTION
-    if(_network->isInAvailable()){
-        auto e = _network->popInEvent();
-        if(auto crateEvent = std::dynamic_pointer_cast<CrateEvent>(e)){
-            CULog("BIG CRATE GOT");
-            processCrateEvent(crateEvent);
-        }
-    }
-#pragma mark END SOLUTION
-    _world->update(FIXED_TIMESTEP_S);
-}
+	//TODO: check for available incoming events from the network controller and call processCrateEvent if it is a CrateEvent.
 
+	//Hint: You can check if ptr points to an object of class A using std::dynamic_pointer_cast<A>(ptr). You should always check isInAvailable() before popInEvent().
+
+#pragma mark BEGIN SOLUTION
+	if (_network->isInAvailable()) {
+		auto e = _network->popInEvent();
+		if (auto crateEvent = std::dynamic_pointer_cast<CrateEvent>(e)) {
+			CULog("BIG CRATE GOT");
+			//processCrateEvent(crateEvent);
+		}
+	}
+#pragma mark END SOLUTION
+	_world->update(FIXED_TIMESTEP_S);
+}
 
 /**
  * Executes the core gameplay loop of this world.
@@ -741,7 +939,7 @@ void GameScene::fixedUpdate() {
  * @param  delta    Number of seconds since last animation frame
  */
 void GameScene::update(float dt) {
-    //deprecated
+	//deprecated
 }
 
 /**
@@ -765,39 +963,39 @@ void GameScene::beginContact(b2Contact* contact) {
  * @param  oldManfold      The collision manifold before contact
  */
 void GameScene::beforeSolve(b2Contact* contact, const b2Manifold* oldManifold) {
-    float speed = 0;
+	float speed = 0;
 
-    // Use Ian Parberry's method to compute a speed threshold
-    b2Body* body1 = contact->GetFixtureA()->GetBody();
-    b2Body* body2 = contact->GetFixtureB()->GetBody();
-    b2WorldManifold worldManifold;
-    contact->GetWorldManifold(&worldManifold);
-    b2PointState state1[2], state2[2];
-    b2GetPointStates(state1, state2, oldManifold, contact->GetManifold());
-    for(int ii =0; ii < 2; ii++) {
-        if (state2[ii] == b2_addState) {
-            b2Vec2 wp = worldManifold.points[0];
-            b2Vec2 v1 = body1->GetLinearVelocityFromWorldPoint(wp);
-            b2Vec2 v2 = body2->GetLinearVelocityFromWorldPoint(wp);
-            b2Vec2 dv = v1-v2;
-            speed = b2Dot(dv,worldManifold.normal);
-        }
-    }
-    
-    // Play a sound if above threshold
-    if (speed > SOUND_THRESHOLD) {
-        // These keys result in a low number of sounds.  Too many == distortion.
-        physics2::Obstacle* data1 = reinterpret_cast<physics2::Obstacle*>(body1->GetUserData().pointer);
-        physics2::Obstacle* data2 = reinterpret_cast<physics2::Obstacle*>(body2->GetUserData().pointer);
+	// Use Ian Parberry's method to compute a speed threshold
+	b2Body* body1 = contact->GetFixtureA()->GetBody();
+	b2Body* body2 = contact->GetFixtureB()->GetBody();
+	b2WorldManifold worldManifold;
+	contact->GetWorldManifold(&worldManifold);
+	b2PointState state1[2], state2[2];
+	b2GetPointStates(state1, state2, oldManifold, contact->GetManifold());
+	for (int ii = 0; ii < 2; ii++) {
+		if (state2[ii] == b2_addState) {
+			b2Vec2 wp = worldManifold.points[0];
+			b2Vec2 v1 = body1->GetLinearVelocityFromWorldPoint(wp);
+			b2Vec2 v2 = body2->GetLinearVelocityFromWorldPoint(wp);
+			b2Vec2 dv = v1 - v2;
+			speed = b2Dot(dv, worldManifold.normal);
+		}
+	}
 
-        if (data1 != nullptr && data2 != nullptr) {
-            std::string key = (data1->getName()+data2->getName());
-            auto source = _assets->get<Sound>(COLLISION_SOUND);
-            if (!AudioEngine::get()->isActive(key)) {
-                AudioEngine::get()->play(key, source, false, source->getVolume());
-            }
-        }
-    }
+	// Play a sound if above threshold
+	if (speed > SOUND_THRESHOLD) {
+		// These keys result in a low number of sounds.  Too many == distortion.
+		physics2::Obstacle* data1 = reinterpret_cast<physics2::Obstacle*>(body1->GetUserData().pointer);
+		physics2::Obstacle* data2 = reinterpret_cast<physics2::Obstacle*>(body2->GetUserData().pointer);
+
+		if (data1 != nullptr && data2 != nullptr) {
+			std::string key = (data1->getName() + data2->getName());
+			auto source = _assets->get<Sound>(COLLISION_SOUND);
+			if (!AudioEngine::get()->isActive(key)) {
+				AudioEngine::get()->play(key, source, false, source->getVolume());
+			}
+		}
+	}
 }
 
 /**
@@ -807,13 +1005,14 @@ void GameScene::beforeSolve(b2Contact* contact, const b2Manifold* oldManifold) {
  * ratios
  */
 Size GameScene::computeActiveSize() const {
-    Size dimen = Application::get()->getDisplaySize();
-    float ratio1 = dimen.width/dimen.height;
-    float ratio2 = ((float)SCENE_WIDTH)/((float)SCENE_HEIGHT);
-    if (ratio1 < ratio2) {
-        dimen *= SCENE_WIDTH/dimen.width;
-    } else {
-        dimen *= SCENE_HEIGHT/dimen.height;
-    }
-    return dimen;
+	Size dimen = Application::get()->getDisplaySize();
+	float ratio1 = dimen.width / dimen.height;
+	float ratio2 = ((float)SCENE_WIDTH) / ((float)SCENE_HEIGHT);
+	if (ratio1 < ratio2) {
+		dimen *= SCENE_WIDTH / dimen.width;
+	}
+	else {
+		dimen *= SCENE_HEIGHT / dimen.height;
+	}
+	return dimen;
 }
