@@ -480,12 +480,14 @@ void GameScene::populate() {
     _world->beforeSolve = [this](b2Contact* contact, const b2Manifold* oldManifold) {
         beforeSolve(contact,oldManifold);
     };
-    
+    CULog("Populating ragdoll");
 #pragma mark : Ragdoll
     // Allocate the ragdoll and set its (empty) node. Its model handles creation of parts
     // (both obstacles and nodes to be drawn) upon alllocation and setting the scene node.
     _ragdoll = RagdollModel::alloc(DOLL_POS, _scale);
     _ragdoll->buildParts(_assets);
+    
+    
     _ragdoll->createJoints();
     
     auto ragdollNode = scene2::SceneNode::alloc();
@@ -672,6 +674,7 @@ void GameScene::preUpdate(float dt) {
 
 void GameScene::postUpdate(float dt) {
     //Nothing to do now
+    _ragdoll->update(dt);
 }
 
 void GameScene::fixedUpdate() {

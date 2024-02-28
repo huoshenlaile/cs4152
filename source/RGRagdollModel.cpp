@@ -109,11 +109,14 @@ bool RagdollModel::buildParts(const std::shared_ptr<AssetManager>& assets) {
         std::shared_ptr<Texture> image = assets->get<Texture>(name);
         if (image == nullptr) {
             success = false;
+            std::string msg = "Could not load " + name;
+            CULog(msg.c_str());
         } else {
             _textures.push_back(image);
         }
     }
     if (!success) {
+        CULog("FAILURE to build all Parts of Rag Doll");
         return false;
     }
     
