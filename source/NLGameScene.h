@@ -21,7 +21,7 @@
 #include <format>
 #include <string>
 #include <random>
-#include "NLInput.h"
+#include "GLInputController.h"
 #include "NLCrateEvent.h"
 #include "RGRagdollModel.h"
 
@@ -93,7 +93,7 @@ protected:
     
     // CONTROLLERS
     /** Controller for abstracting out input across multiple platforms */
-    NetLabInput _input;
+    InputController _input;
     
     // VIEW
     /** Reference to the physics root of the scene graph */
@@ -132,6 +132,8 @@ protected:
     bool _complete;
     /** Whether or not debug mode is active */
     bool _debug;
+    /** Which arm is held */
+    int _arm_held = -1;
     
     std::shared_ptr<NetEventController> _network;
     

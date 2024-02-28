@@ -64,6 +64,11 @@
             "file":      "textures/tux_shin.png",
             "minfilter": "linear",
             "magfilter": "linear"
+        },
+        "hand": {
+            "file":      "textures/crate01.png",
+            "minfilter": "linear",
+            "magfilter": "linear"
         }
 	},
     "jsons": {

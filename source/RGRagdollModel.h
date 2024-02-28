@@ -44,7 +44,10 @@
 #define PART_RIGHT_ARM      2
 #define PART_LEFT_FOREARM   3
 #define PART_RIGHT_FOREARM  4
-#define NUM_OF_PARTS        4
+#define PART_LEFT_HAND      5
+#define PART_RIGHT_HAND     6
+
+#define NUM_OF_PARTS        6
 //#define PART_LEFT_THIGH     6
 //#define PART_RIGHT_THIGH    7
 //#define PART_LEFT_SHIN      8
@@ -60,6 +63,8 @@
 #define FOREARM_TEXTURE     "forearm"
 #define THIGH_TEXTURE       "thigh"
 #define SHIN_TEXTURE        "shin"
+#define HAND_TEXTURE        "hand"
+
 
 #pragma mark -
 #pragma mark Body Part Offsets
@@ -85,11 +90,13 @@
 /** Distance between torso center and face center */
 #define TORSO_OFFSET    3.8f
 /** Y-distance between torso center and arm center */
-#define ARM_YOFFSET     1.75f
+#define ARM_YOFFSET     0.0f
 /** X-distance between torso center and arm center */
 #define ARM_XOFFSET     3.15f
 /** Distance between center of arm and center of forearm */
 #define FOREARM_OFFSET  2.75f
+/** Distance between the hand and the center of the forearm */
+#define HAND_OFFSET     1.5f
 /** X-distance from center of torso to center of leg */
 #define THIGH_XOFFSET   0.75f
 /** Y-distance from center of torso to center of thigh */
@@ -101,7 +108,7 @@
 #pragma mark -
 #pragma mark Physics Constants
 /** The density for each body part */
-#define DEFAULT_DENSITY  1.0f
+#define DEFAULT_DENSITY  0.3f
 /** The density for the center of mass */
 #define CENTROID_DENSITY 0.1f
 /** The radius for the center of mass */
@@ -379,6 +386,16 @@ public:
      * @param texture   The texture for the given body part
      */
     void setPart(int part, const std::shared_ptr<Texture>& texture);
+    
+    /**
+     * Returns the center for the given body part.
+     *
+     *
+     * @return the texture for the given body part
+     */
+    const std::shared_ptr<cugl::physics2::Obstacle> getPartObstacle(int part) const {
+        return _obstacles[part];
+    }
 
     
 #pragma mark -

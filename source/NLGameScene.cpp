@@ -287,7 +287,7 @@ bool GameScene::init(const std::shared_ptr<AssetManager>& assets, const Rect rec
     // Start up the input handler
     _assets = assets;
     _input.init();
-    _input.update(0);
+    _input.update();
 
     _rand.seed(0xdeadbeef);
 
@@ -421,7 +421,7 @@ void GameScene::fireCrate() {
     auto pair = _network->getPhysController()->addSharedObstacle(_factId, params);
     float angle = cannon->getAngle() + M_PI_2;
     Vec2 forward(SDL_cosf(angle), SDL_sinf(angle));
-    pair.first->setLinearVelocity(forward * 50 *_input.getFirePower());
+    pair.first->setLinearVelocity(forward * 50 *1);
 #pragma mark END SOLUTION
 }
 
@@ -553,6 +553,7 @@ void GameScene::populate() {
     wallsprite2 = scene2::PolygonNode::allocWithTexture(image,wall2);
         
 #pragma mark : Crates
+    /*
     float f1 = _rand() % (int)(DEFAULT_WIDTH - 4) + 2;
     float f2 = _rand() % (int)(DEFAULT_HEIGHT - 4) + 2;
     Vec2 boxPos(f1, f2);
@@ -564,6 +565,7 @@ void GameScene::populate() {
         Vec2 boxPos(f1, f2);
         addInitCrate(boxPos);
     }
+     */
         
 #pragma mark : Cannon
     image  = _assets->get<Texture>(CANNON_TEXTURE);
@@ -637,39 +639,61 @@ void GameScene::addInitObstacle(const std::shared_ptr<physics2::Obstacle>& obj,
 #pragma mark Physics Handling
 
 void GameScene::preUpdate(float dt) {
-    _input.update(dt);
-    
-    if(_input.getFirePower()>0.f){
-        _chargeBar->setVisible(true);
-        _chargeBar->setProgress(_input.getFirePower());
+    _input.update();
+    if(_input.didPress()){
+        cugl::Vec2 pos2d = ((cugl::Vec2)screenToWorldCoords(_input.getPosition()));
+        int knob_radius_multiplier = 1;
+        std::shared_ptr<cugl::physics2::Obstacle> leftArm = _ragdoll->getPartObstacle(PART_LEFT_HAND);
+        std::shared_ptr<cugl::physics2::Obstacle> rightArm = _ragdoll->getPartObstacle(PART_RIGHT_HAND);
+        if((leftArm->getPosition()*_scale).distance(pos2d)<50*knob_radius_multiplier){
+            _arm_held = PART_LEFT_HAND;
+        }
+        else if((rightArm->getPosition()*_scale).distance(pos2d)<50*knob_radius_multiplier){
+            _arm_held = PART_RIGHT_HAND;
+        }
+        else{
+            _arm_held = -1;
+        }
     }
-    else{
-        _chargeBar->setVisible(false);
+    else if (_input.isDown() && _arm_held != -1){
+        cugl::Vec2 pos_now =  ((cugl::Vec2)screenToWorldCoords(_input.getPosition()));
+        std::shared_ptr<cugl::physics2::Obstacle> arm = _ragdoll->getPartObstacle(_arm_held);
+        arm->setPosition(pos_now/_scale);
     }
+   else if (_input.didRelease() && _arm_held!=-1){
+       _arm_held = -1;
+   }
+   // if(_input.getFirePower()>0.f){
+  //      _chargeBar->setVisible(true);
+  //      _chargeBar->setProgress(_input.getFirePower());
+  //  }
+  //  else{
+  //      _chargeBar->setVisible(false);
+  //  }
 
     // Process the toggled key commands
-    if (_input.didDebug()) { setDebug(!isDebug()); }
+    //if (_input.didDebug()) { setDebug(!isDebug()); }
 
-    if (_input.didExit()) {
-        CULog("Shutting down");
-        Application::get()->quit();
-    }
+   // if (_input.didExit()) {
+   //     CULog("Shutting down");
+   //     Application::get()->quit();
+  //  }
     
-    if (_input.didFire()) {
-        fireCrate();
-    }
+   // if (_input.didFire()) {
+    //    fireCrate();
+    //}
     
 //TODO: if _input.didBigCrate(), allocate a crate event for the center of the screen(use DEFAULT_WIDTH/2 and DEFAULT_HEIGHT/2) and send it using the pushOutEvent() method in the network controller.
 #pragma mark BEGIN SOLUTION
-    if (_input.didBigCrate()){
-        CULog("BIG CRATE COMING");
-        _network->pushOutEvent(CrateEvent::allocCrateEvent(Vec2(DEFAULT_WIDTH/2,DEFAULT_HEIGHT/2)));
-    }
+   // if (_input.didBigCrate()){
+   //     CULog("BIG CRATE COMING");
+   //     _network->pushOutEvent(CrateEvent::allocCrateEvent(Vec2(DEFAULT_WIDTH/2,DEFAULT_HEIGHT/2)));
+  //  }
 #pragma mark END SOLUTION
     
-    float turnRate = _isHost ? DEFAULT_TURN_RATE : -DEFAULT_TURN_RATE;
-    auto cannon = _isHost ? _cannon1 : _cannon2;
-    cannon->setAngle(_input.getVertical() * turnRate + cannon->getAngle());
+  //  float turnRate = _isHost ? DEFAULT_TURN_RATE : -DEFAULT_TURN_RATE;
+  //  auto cannon = _isHost ? _cannon1 : _cannon2;
+  //  cannon->setAngle(_input.getVertical() * turnRate + cannon->getAngle());
 }
 
 void GameScene::postUpdate(float dt) {

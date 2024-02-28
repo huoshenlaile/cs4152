@@ -107,6 +107,7 @@ bool RagdollModel::buildParts(const std::shared_ptr<AssetManager>& assets) {
     for(int ii = 0; ii <= NUM_OF_PARTS; ii++) {
         std::string name = getPartName(ii);
         std::shared_ptr<Texture> image = assets->get<Texture>(name);
+        
         if (image == nullptr) {
             success = false;
         } else {
@@ -135,6 +136,10 @@ bool RagdollModel::buildParts(const std::shared_ptr<AssetManager>& assets) {
     // FOREARMS
     makePart(PART_LEFT_FOREARM, PART_LEFT_ARM, Vec2(-FOREARM_OFFSET, 0));
     makePart(PART_RIGHT_FOREARM, PART_RIGHT_ARM, Vec2(FOREARM_OFFSET, 0));
+    
+    // HANDS
+    makePart(PART_LEFT_HAND, PART_LEFT_FOREARM, Vec2(-HAND_OFFSET, 0));
+    makePart(PART_RIGHT_HAND, PART_RIGHT_FOREARM, Vec2(HAND_OFFSET, 0));
     
 //    // THIGHS
 //    makePart(PART_LEFT_THIGH, PART_BODY, Vec2(-THIGH_XOFFSET, -THIGH_YOFFSET));
@@ -214,6 +219,9 @@ std::string RagdollModel::getPartName(int part) {
 	case PART_LEFT_FOREARM:
 	case PART_RIGHT_FOREARM:
 		return FOREARM_TEXTURE;
+    case PART_LEFT_HAND:
+    case PART_RIGHT_HAND:
+        return HAND_TEXTURE;
 //	case PART_LEFT_THIGH:
 //	case PART_RIGHT_THIGH:
 //		return THIGH_TEXTURE;
@@ -318,6 +326,25 @@ bool RagdollModel::createJoints() {
     joint->enableLimit(true);
     joint->setUpperAngle(M_PI / 2.0f);
     joint->setLowerAngle(-M_PI / 2.0f);
+    _joints.push_back(joint);
+    
+    // RIGID WRISTS
+    joint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_LEFT_FOREARM],
+                                                        _obstacles[PART_LEFT_HAND]);
+    joint->setLocalAnchorA(-HAND_OFFSET / 2, 0);
+    joint->setLocalAnchorB(HAND_OFFSET / 2, 0);
+    joint->enableLimit(true);
+    joint->setUpperAngle(0);
+    joint->setLowerAngle(0);
+    _joints.push_back(joint);
+    
+    joint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_RIGHT_FOREARM],
+                                                        _obstacles[PART_RIGHT_HAND]);
+    joint->setLocalAnchorA(HAND_OFFSET / 2, 0);
+    joint->setLocalAnchorB(-HAND_OFFSET / 2, 0);
+    joint->enableLimit(true);
+    joint->setUpperAngle(0);
+    joint->setLowerAngle(0);
     _joints.push_back(joint);
 
 //    // HIPS
