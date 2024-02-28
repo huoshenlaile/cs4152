@@ -21,8 +21,9 @@
 #include <format>
 #include <string>
 #include <random>
-#include "NLInput.h"
+#include "GLInputController.h"
 #include "NLCrateEvent.h"
+#include "RGRagdollModel.h"
 
 using namespace cugl::physics2::net;
 using namespace cugl;
@@ -88,101 +89,125 @@ public:
 class GameScene : public cugl::Scene2 {
 protected:
 
-	std::shared_ptr<cugl::AssetManager> _assets;
+    std::shared_ptr<cugl::AssetManager> _assets;
+    
+    // CONTROLLERS
+    /** Controller for abstracting out input across multiple platforms */
+    InputController _input;
+    
+    // VIEW
+  	/** Reference to the goalDoor (for collision detection) */
+	  std::shared_ptr<cugl::physics2::BoxObstacle>    _goalDoor;
+    /** Reference to the physics root of the scene graph */
+    std::shared_ptr<cugl::scene2::SceneNode> _worldnode;
+    /** Reference to the debug root of the scene graph */
+    std::shared_ptr<cugl::scene2::SceneNode> _debugnode;
+    /** Reference to the win message label */
+    std::shared_ptr<cugl::scene2::Label> _winnode;
+    
+    std::shared_ptr<cugl::scene2::ProgressBar> _chargeBar;
 
-	// CONTROLLERS
-	/** Controller for abstracting out input across multiple platforms */
-	NetLabInput _input;
+    /** The Box2D world */
+    std::shared_ptr<cugl::physics2::net::NetWorld> _world;
+    /** The scale between the physics world and the screen (MUST BE UNIFORM) */
+    float _scale;
 
-	// VIEW
-	/** Reference to the goalDoor (for collision detection) */
-	std::shared_ptr<cugl::physics2::BoxObstacle>    _goalDoor;
-	/** Reference to the physics root of the scene graph */
-	std::shared_ptr<cugl::scene2::SceneNode> _worldnode;
-	/** Reference to the debug root of the scene graph */
-	std::shared_ptr<cugl::scene2::SceneNode> _debugnode;
-	/** Reference to the win message label */
-	std::shared_ptr<cugl::scene2::Label> _winnode;
+    std::mt19937 _rand;
 
-	std::shared_ptr<cugl::scene2::ProgressBar> _chargeBar;
+    std::shared_ptr<CrateFactory> _crateFact;
+    Uint32 _factId;
 
-	/** The Box2D world */
-	std::shared_ptr<cugl::physics2::net::NetWorld> _world;
-	/** The scale between the physics world and the screen (MUST BE UNIFORM) */
-	float _scale;
+    // Physics objects for the game
+    /** Reference to the player1 cannon */
+    std::shared_ptr<cugl::scene2::SceneNode> _cannon1Node;
+    std::shared_ptr<cugl::physics2::BoxObstacle> _cannon1;
+    /** Reference to the player2 cannon */
+    std::shared_ptr<cugl::scene2::SceneNode> _cannon2Node;
+    std::shared_ptr<cugl::physics2::BoxObstacle> _cannon2;
+    
+    std::shared_ptr<RagdollModel> _ragdoll;
 
-	std::mt19937 _rand;
+    /** Host is by default the left cannon */
+    bool _isHost;
 
-	std::shared_ptr<CrateFactory> _crateFact;
-	Uint32 _factId;
+    /** Whether we have completed this "game" */
+    bool _complete;
+    /** Whether or not debug mode is active */
+    bool _debug;
+    /** Relates input id to arm */
+    std::unordered_map<std::string,int> _input_to_arm;
+    /** Relates arm to input id*/
+    std::unordered_map<int, std::string> _arm_to_input;
 
-	// Physics objects for the game
-	/** Reference to the player1 cannon */
-	std::shared_ptr<cugl::scene2::SceneNode> _cannon1Node;
-	std::shared_ptr<cugl::physics2::BoxObstacle> _cannon1;
-	/** Reference to the player2 cannon */
-	std::shared_ptr<cugl::scene2::SceneNode> _cannon2Node;
-	std::shared_ptr<cugl::physics2::BoxObstacle> _cannon2;
-
-	/** Host is by default the left cannon */
-	bool _isHost;
-
-	/** Whether we have completed this "game" */
-	bool _complete;
-	/** Whether or not debug mode is active */
-	bool _debug;
-
-	std::shared_ptr<NetEventController> _network;
-
+    
+    std::shared_ptr<NetEventController> _network;
+    
 #pragma mark Internal Object Management
+    
+    /**
+     * This method adds a crate at the given position during the init process.
+     */
+    std::shared_ptr<cugl::physics2::Obstacle> addInitCrate(cugl::Vec2 pos);
+    
+    /**
+     * Lays out the game geography.
+     *
+     * Pay close attention to how we attach physics objects to a scene graph.
+     * The simplest way is to make a subclass. However,
+     * for simple objects you can just use a callback function to lightly couple
+     * them.  This is what we do with the crates.
+     *
+     * This method is really, really long.  In practice, you would replace this
+     * with your serialization loader, which would process a level file.
+     */
+    void populate();
+    
+    /**
+     * Adds the physics object to the physics world and loosely couples it to the scene graph
+     *
+     * There are two ways to link a physics object to a scene graph node on the
+     * screen.  One way is to make a subclass of a physics object.
+     * The other is to use callback functions to loosely couple
+     * the two.  This function is an example of the latter.
+     * the two.  This function is an example of the latter.
+     *
+     * param obj    The physics object to add
+     * param node   The scene graph node to attach it to
+     */
+    void addInitObstacle(const std::shared_ptr<cugl::physics2::Obstacle>& obj,
+                     const std::shared_ptr<cugl::scene2::SceneNode>& node);
 
-	/**
-	 * This method adds a crate at the given position during the init process.
-	 */
-	std::shared_ptr<cugl::physics2::Obstacle> addInitCrate(cugl::Vec2 pos);
+    void addObstacle(const std::shared_ptr<cugl::physics2::Obstacle>& obj,
+        const std::shared_ptr<cugl::scene2::SceneNode>& node,
+        bool useObjPosition = true);
+  
+    /**
+     * This method links a scene node to the obstacle.
+     *
+     * This method adds a listener so that the sceneNode will move along with the obstacle.
+     */
+    void linkSceneToObs(const std::shared_ptr<cugl::physics2::Obstacle>& obj,
+        const std::shared_ptr<cugl::scene2::SceneNode>& node);
+    
+    /**
+     * This method adds a crate that had been fired by the player's cannon amid the simulation.
+     *
+     * If this machine is host, the crate should be fire from the left cannon (_cannon1), vice versa.
+     */
+    void fireCrate();
+    
+    /**
+     * This method takes a crateEvent and processes it.
+     */
+    void processCrateEvent(const std::shared_ptr<CrateEvent>& event);
 
-	/**
-	 * Lays out the game geography.
-	 *
-	 * Pay close attention to how we attach physics objects to a scene graph.
-	 * The simplest way is to make a subclass. However,
-	 * for simple objects you can just use a callback function to lightly couple
-	 * them.  This is what we do with the crates.
-	 *
-	 * This method is really, really long.  In practice, you would replace this
-	 * with your serialization loader, which would process a level file.
-	 */
-	void populate();
-
-	void addObstacle(const std::shared_ptr<cugl::physics2::Obstacle>& obj,
-		const std::shared_ptr<cugl::scene2::SceneNode>& node,
-		bool useObjPosition = true);
-
-	/**
-	 * Adds the physics object to the physics world and loosely couples it to the scene graph
-	 *
-	 * There are two ways to link a physics object to a scene graph node on the
-	 * screen.  One way is to make a subclass of a physics object.
-	 * The other is to use callback functions to loosely couple
-	 * the two.  This function is an example of the latter.
-	 * the two.  This function is an example of the latter.
-	 *
-	 * param obj    The physics object to add
-	 * param node   The scene graph node to attach it to
-	 */
-	void addInitObstacle(const std::shared_ptr<cugl::physics2::Obstacle>& obj,
-		const std::shared_ptr<cugl::scene2::SceneNode>& node);
-
-	/**
-	 * This method links a scene node to the obstacle.
-	 *
-	 * This method adds a listener so that the sceneNode will move along with the obstacle.
-	 */
-	void linkSceneToObs(const std::shared_ptr<cugl::physics2::Obstacle>& obj,
-		const std::shared_ptr<cugl::scene2::SceneNode>& node);
-
-	cugl::Size computeActiveSize() const;
-
+    /**
+     * Returns the active screen size of this scene.
+     *
+     * This method is for graceful handling of different aspect
+     * ratios
+     */
+    cugl::Size computeActiveSize() const;
 public:
 #pragma mark -
 #pragma mark Constructors
@@ -327,28 +352,28 @@ public:
 
 #pragma mark -
 #pragma mark Collision Handling
-	/**
-	 * Processes the start of a collision
-	 *
-	 * This method is called when we first get a collision between two objects.
-	 * We use this method to test if it is the "right" kind of collision.  In
-	 * particular, we use it to test if we make it to the win door.
-	 *
-	 * @param  contact  The two bodies that collided
-	 */
-	void beginContact(b2Contact* contact);
+    /**
+     * Processes the start of a collision
+     *
+     * This method is called when we first get a collision between two objects.
+     * We use this method to test if it is the "right" kind of collision.  In
+     * particular, we use it to test if we make it to the win door.
+     *
+     * @param  contact  The two bodies that collided
+     */
+    void beginContact(b2Contact* contact);
 
-	/**
-	 * Handles any modifications necessary before collision resolution
-	 *
-	 * This method is called just before Box2D resolves a collision.  We use
-	 * this method to implement sound on contact, using the algorithms outlined
-	 * in Ian Parberry's "Introduction to Game Physics with Box2D".
-	 *
-	 * @param  contact  The two bodies that collided
-	 * @param  contact  The collision manifold before contact
-	 */
-	void beforeSolve(b2Contact* contact, const b2Manifold* oldManifold);
+    /**
+     * Handles any modifications necessary before collision resolution
+     *
+     * This method is called just before Box2D resolves a collision.  We use
+     * this method to implement sound on contact, using the algorithms outlined
+     * in Ian Parberry's "Introduction to Game Physics with Box2D".
+     *
+     * @param  contact  The two bodies that collided
+     * @param  contact  The collision manifold before contact
+     */
+    void beforeSolve(b2Contact* contact, const b2Manifold* oldManifold);
 };
 
 #endif /* __NL_GAME_SCENE_H__ */

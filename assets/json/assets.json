@@ -34,6 +34,41 @@
         },
         "left": {
             "file":  "textures/left_arrow.png"
+        },
+        "head": {
+            "file":      "textures/ProfWhite.png",
+            "minfilter": "linear",
+            "magfilter": "linear"
+        },
+        "body": {
+            "file":      "textures/ProfWhite.png",
+            "minfilter": "linear",
+            "magfilter": "linear"
+        },
+        "arm": {
+            "file":      "textures/tux_arm.png",
+            "minfilter": "linear",
+            "magfilter": "linear"
+        },
+        "forearm": {
+            "file":      "textures/tux_forearm.png",
+            "minfilter": "linear",
+            "magfilter": "linear"
+        },
+        "thigh": {
+            "file":      "textures/tux_thigh.png",
+            "minfilter": "linear",
+            "magfilter": "linear"
+        },
+        "shin": {
+            "file":      "textures/tux_shin.png",
+            "minfilter": "linear",
+            "magfilter": "linear"
+        },
+        "hand": {
+            "file":      "textures/crate01.png",
+            "minfilter": "linear",
+            "magfilter": "linear"
         }
 	},
     "jsons": {

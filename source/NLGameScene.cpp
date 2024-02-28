@@ -47,27 +47,41 @@ using namespace cugl::physics2::net;
 /** Height of the game world in Box2d units */
 #define DEFAULT_HEIGHT  18.0f
 /** The default value of gravity (going down) */
+#define DEFAULT_GRAVITY -4.9f
 
 #define DEFAULT_TURN_RATE 0.05f
 
 /** To automate the loading of crate files */
 #define NUM_CRATES 100
 
+
 // Since these appear only once, we do not care about the magic numbers.
 // In an actual game, this information would go in a data file.
 // IMPORTANT: Note that Box2D units do not equal drawing units
 /** The wall vertices */
 float WALL1[] = { 0.0f,  0.0f, 16.0f,  0.0f, 16.0f,  1.0f,
-				  3.0f,  1.0f,  3.0f,  5.0f,  2.0f,  7.0f,
-				  1.0f, 17.0f,  8.0f, 15.0f, 16.0f, 17.0f,
-				 16.0f, 18.0f,  0.0f, 18.0f };
-float WALL2[] = { 32.0f, 18.0f, 16.0f, 18.0f, 16.0f, 17.0f,
-				 31.0f, 16.0f, 30.0f, 10.0f, 31.0f,  1.0f,
-				 16.0f,  1.0f, 16.0f,  0.0f, 32.0f,  0.0f };
+                  3.0f,  1.0f,  3.0f,  5.0f,  2.0f,  7.0f,
+                  1.0f, 17.0f,  8.0f, 15.0f, 16.0f, 17.0f,
+                 16.0f, 18.0f,  0.0f, 18.0f};
+float WALL2[] = {32.0f, 18.0f, 16.0f, 18.0f, 16.0f, 17.0f,
+                 31.0f, 16.0f, 30.0f, 10.0f, 31.0f,  1.0f,
+                 16.0f,  1.0f, 16.0f,  0.0f, 32.0f,  0.0f};
 float WALL3[] = { 4.0f,  9.5f,  8.0f,  9.5f,
-				  8.0f, 10.5f,  4.0f, 10.5f };
+                  8.0f, 10.5f,  4.0f, 10.5f };
 
+/** The positions of the crate pyramid */
+float BOXES[] = { 14.5f, 14.25f,
+                  13.0f, 12.00f, 16.0f, 12.00f,
+                  11.5f,  9.75f, 14.5f,  9.75f, 17.5f, 9.75f,
+                  13.0f,  7.50f, 16.0f,  7.50f,
+                  11.5f,  5.25f, 14.5f,  5.25f, 17.5f, 5.25f,
+                  10.0f,  3.00f, 13.0f,  3.00f, 16.0f, 3.00f, 19.0f, 3.0f};
+
+/** The initial cannon position */
+float CAN1_POS[] = { 2, 9 };
+float CAN2_POS[] = { 30,9 };
 /** The goal door position */
+float GOAL_POS[] = { 6, 12};
 
 #pragma mark Assset Constants
 /** The key for the earth texture in the asset manager */
@@ -103,8 +117,12 @@ float WALL3[] = { 4.0f,  9.5f,  8.0f,  9.5f,
 #pragma mark Physics Constants
 
 // Physics constants for initialization
+/** Density of non-crate objects */
+#define BASIC_DENSITY       0.0f
 /** Density of the crate objects */
 #define CRATE_DENSITY       1.0f
+/** Friction of non-crate objects */
+#define BASIC_FRICTION      0.1f
 /** Friction of the crate objects */
 #define CRATE_FRICTION      0.2f
 /** Angular damping of the crate objects */
@@ -115,18 +133,13 @@ float WALL3[] = { 4.0f,  9.5f,  8.0f,  9.5f,
 #define SOUND_THRESHOLD     3
 
 #define FIXED_TIMESTEP_S 0.02f
+float DOLL_POS[] = { 16, 10 };
 
-/** This is adjusted by screen aspect ratio to get the height */
-#define SCENE_WIDTH 1024
-#define SCENE_HEIGHT 576
+
 
 /** This is the aspect ratio for physics */
 #define SCENE_ASPECT 9.0/16.0
 
-/** Width of the game world in Box2d units */
-#define DEFAULT_WIDTH   32.0f
-/** Height of the game world in Box2d units */
-#define DEFAULT_HEIGHT  18.0f
 
 // Since these appear only once, we do not care about the magic numbers.
 // In an actual game, this information would go in a data file.
@@ -164,18 +177,11 @@ float DUDE_POS[] = { 2.5f, 5.0f };
 /** The position of the rope bridge */
 float BRIDGE_POS[] = { 9.0f, 3.8f };
 
+
 #pragma mark -
 #pragma mark Physics Constants
-/** The new heavier gravity for this world (so it is not so floaty) */
-#define DEFAULT_GRAVITY -28.9f
-/** The density for most physics objects */
-#define BASIC_DENSITY   0.0f
 /** The density for a bullet */
 #define HEAVY_DENSITY   10.0f
-/** Friction of most platforms */
-#define BASIC_FRICTION  0.4f
-/** The restitution for all physics objects */
-#define BASIC_RESTITUTION   0.1f
 /** The width of the rope bridge */
 #define BRIDGE_WIDTH    14.0f
 /** Offset for bullet when firing */
@@ -185,12 +191,9 @@ float BRIDGE_POS[] = { 9.0f, 3.8f };
 /** The number of frame to wait before reinitializing the game */
 #define EXIT_COUNT      240
 
+
 #pragma mark -
 #pragma mark Asset Constants
-/** The key for the earth texture in the asset manager */
-#define EARTH_TEXTURE   "earth"
-/** The key for the win door texture in the asset manager */
-#define GOAL_TEXTURE    "goal"
 /** The key for the win door texture in the asset manager */
 #define BULLET_TEXTURE  "bullet"
 /** The name of a bullet (for object identification) */
@@ -366,72 +369,70 @@ bool GameScene::init(const std::shared_ptr<AssetManager>& assets, const Rect rec
  * @return  true if the controller is initialized properly, false otherwise.
  */
 bool GameScene::init(const std::shared_ptr<AssetManager>& assets, const Rect rect, const Vec2 gravity, const std::shared_ptr<NetEventController> network, bool isHost) {
-	Size dimen = computeActiveSize();
+    Size dimen = computeActiveSize();
 
-	if (assets == nullptr) {
-		return false;
-	}
-	else if (!Scene2::init(dimen)) {
-		return false;
-	}
+    if (assets == nullptr) {
+        return false;
+    } else if (!Scene2::init(dimen)) {
+        return false;
+    }
+    
+    _isHost = isHost;
 
-	_isHost = isHost;
+    _network = network;
+    
+    // Start up the input handler
+    _assets = assets;
+    _input.init();
+    _input.update();
+    _rand.seed(0xdeadbeef);
 
-	_network = network;
+    _crateFact = CrateFactory::alloc(_assets);
 
-	// Start up the input handler
-	_assets = assets;
-	_input.init();
-	_input.update(0);
+    // IMPORTANT: SCALING MUST BE UNIFORM
+    // This means that we cannot change the aspect ratio of the physics world
+    // Shift to center if a bad fit
+    _scale = dimen.width == SCENE_WIDTH ? dimen.width/rect.size.width : dimen.height/rect.size.height;
+    Vec2 offset((dimen.width-SCENE_WIDTH)/2.0f,(dimen.height-SCENE_HEIGHT)/2.0f);
 
-	_rand.seed(0xdeadbeef);
+    // Create the scene graph
+    _worldnode = scene2::SceneNode::alloc();
+    _worldnode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
+    _worldnode->setPosition(offset);
+    
+    _debugnode = scene2::SceneNode::alloc();
+    _debugnode->setScale(_scale); // Debug node draws in PHYSICS coordinates
+    _debugnode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
+    _debugnode->setPosition(offset);
+    
+    _chargeBar = std::dynamic_pointer_cast<scene2::ProgressBar>(assets->get<scene2::SceneNode>("load_bar"));
+    _chargeBar->setPosition(Vec2(dimen.width/2.0f,dimen.height*0.9f));
+    
+    addChild(_worldnode);
+    addChild(_debugnode);
+    addChild(_chargeBar);
+    
+    _world = physics2::net::NetWorld::alloc(Rect(0,0,DEFAULT_WIDTH,DEFAULT_HEIGHT),Vec2(0,DEFAULT_GRAVITY));
+    _world->onBeginContact = [this](b2Contact* contact) {
+            beginContact(contact);
+        };
+    _world->update(FIXED_TIMESTEP_S);
+    
+    populate();
+    _active = true;
+    _complete = false;
+    setDebug(false);
 
-	_crateFact = CrateFactory::alloc(_assets);
-
-	// IMPORTANT: SCALING MUST BE UNIFORM
-	// This means that we cannot change the aspect ratio of the physics world
-	// Shift to center if a bad fit
-	_scale = dimen.width == SCENE_WIDTH ? dimen.width / rect.size.width : dimen.height / rect.size.height;
-	Vec2 offset((dimen.width - SCENE_WIDTH) / 2.0f, (dimen.height - SCENE_HEIGHT) / 2.0f);
-
-	// Create the scene graph
-	_worldnode = scene2::SceneNode::alloc();
-	_worldnode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
-	_worldnode->setPosition(offset);
-
-	_debugnode = scene2::SceneNode::alloc();
-	_debugnode->setScale(_scale); // Debug node draws in PHYSICS coordinates
-	_debugnode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
-	_debugnode->setPosition(offset);
-
-	_chargeBar = std::dynamic_pointer_cast<scene2::ProgressBar>(assets->get<scene2::SceneNode>("load_bar"));
-	_chargeBar->setPosition(Vec2(dimen.width / 2.0f, dimen.height * 0.9f));
-
-	addChild(_worldnode);
-	addChild(_debugnode);
-	//addChild(_chargeBar);
-
-	_world = physics2::net::NetWorld::alloc(Rect(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT), Vec2(0, DEFAULT_GRAVITY));
-	_world->onBeginContact = [this](b2Contact* contact) {
-		beginContact(contact);
-		};
-	_world->update(FIXED_TIMESTEP_S);
-
-	populate();
-	_active = true;
-	_complete = false;
-	setDebug(false);
-
-	//Make a std::function reference of the linkSceneToObs function in game scene for network controller
-	std::function<void(const std::shared_ptr<physics2::Obstacle>&, const std::shared_ptr<scene2::SceneNode>&)> linkSceneToObsFunc = [=](const std::shared_ptr<physics2::Obstacle>& obs, const std::shared_ptr<scene2::SceneNode>& node) {
-		this->linkSceneToObs(obs, node);
-		};
-
-	/**
-	 * TODO: Call network controller to enable physics with linkSceneToObsFunc as the method to attach nodes to obstacles and attach the crate factory to the physics controller and set _factId to its return value.
-	 *
-	 * TODO: Acquire the ownership of _cannon2 if this machine is not the host.
-	 */
+    //Make a std::function reference of the linkSceneToObs function in game scene for network controller
+    std::function<void(const std::shared_ptr<physics2::Obstacle>&,const std::shared_ptr<scene2::SceneNode>&)> linkSceneToObsFunc = [=](const std::shared_ptr<physics2::Obstacle>& obs, const std::shared_ptr<scene2::SceneNode>& node) {
+        this->linkSceneToObs(obs,node);
+    };
+    
+    /**
+     * TODO: Call network controller to enable physics with linkSceneToObsFunc as the method to attach nodes to obstacles and attach the crate factory to the physics controller and set _factId to its return value.
+     *
+     * TODO: Acquire the ownership of _cannon2 if this machine is not the host.
+     */
 #pragma mark BEGIN SOLUTION
 	_network->enablePhysics(_world, linkSceneToObsFunc);
 
@@ -497,9 +498,62 @@ void GameScene::reset() {
  * This method adds a crate at the given position during the init process.
  */
 std::shared_ptr<physics2::Obstacle> GameScene::addInitCrate(cugl::Vec2 pos) {
-	auto pair = _crateFact->createObstacle(pos, _scale);
-	addInitObstacle(pair.first, pair.second);
-	return pair.first;
+    auto pair =  _crateFact->createObstacle(pos, _scale);
+    addInitObstacle(pair.first,pair.second);
+    return pair.first;
+}
+
+/**
+ * This method adds a crate that had been fired by the player's cannon amid the simulation.
+ *
+ * If this machine is host, the crate should be fire from the left cannon (_cannon1), vice versa.
+ */
+void GameScene::fireCrate() {
+    //TODO: Add a new crate to the simulation using the addSharedObstacle() method from the physics controller, and set its velocity in the direction the cannon is aimed scaled by (50 * _input.getFirePower()).
+    //HINT: You can use the serializedParams() method of the crate factory to help you serialize the parameters.
+#pragma mark BEGIN SOLUTION
+    auto cannon = _isHost ? _cannon1 : _cannon2;
+    auto params = _crateFact->serializeParams(cannon->getPosition(), _scale);
+    auto pair = _network->getPhysController()->addSharedObstacle(_factId, params);
+    float angle = cannon->getAngle() + M_PI_2;
+    Vec2 forward(SDL_cosf(angle), SDL_sinf(angle));
+    pair.first->setLinearVelocity(forward * 50 *1);
+#pragma mark END SOLUTION
+}
+
+
+/**
+ * This method takes a crateEvent and processes it.
+ */
+void GameScene::processCrateEvent(const std::shared_ptr<CrateEvent>& event){
+    //Choose randomly between wooden crates and iron crates.
+    int indx = (_rand() % 2 == 0 ? 2 : 1);
+    std::string name = (CRATE_PREFIX "0") + std::to_string(indx);
+    auto image = _assets->get<Texture>(name);
+    Size boxSize(image->getSize() / _scale);
+    
+    auto crate = physics2::BoxObstacle::alloc(Vec2(event->getPos().x,event->getPos().y), boxSize);
+    
+    crate->setDebugColor(DYNAMIC_COLOR);
+    crate->setAngleSnap(0); // Snap to the nearest degree
+    
+    // Set the physics attributes
+    crate->setDensity(CRATE_DENSITY);
+    crate->setFriction(CRATE_FRICTION);
+    crate->setAngularDamping(CRATE_DAMPING);
+    crate->setRestitution(BASIC_RESTITUTION);
+
+    crate->setShared(true);
+    
+    auto sprite = scene2::PolygonNode::allocWithTexture(image);
+    sprite->setAnchor(Vec2::ANCHOR_CENTER);
+    sprite->setScale(1.0f);
+    
+    //TODO: add the crate and sprite to the simulation
+    //NOTE: since both the host and client will receive a CrateEvent, we don't want to use addSharedObstacle() for it because it will create two separate crate. Instead you should use addInitObstacle(), which has the same top-bit id and if all clients called init obstacle the same amount of times, the same low-bit id. There is a potential race condition where multiple clients calling addInitObstacle() can cause id to be mixed up(clients send CrateEvent at the same time). In this lab, we will not address that race condition. But you could send along an obstacle id to ensure that all clients have that id for the obstacle.
+#pragma mark BEGIN SOLUTION
+    addInitObstacle(crate,sprite);
+#pragma mark END SOLUTION
 }
 
 /**
@@ -514,39 +568,58 @@ std::shared_ptr<physics2::Obstacle> GameScene::addInitCrate(cugl::Vec2 pos) {
  * with your serialization loader, which would process a level file.
  */
 void GameScene::populate() {
-	_world = physics2::net::NetWorld::alloc(Rect(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT), Vec2(0, DEFAULT_GRAVITY));
-	_world->activateCollisionCallbacks(true);
-	_world->onBeginContact = [this](b2Contact* contact) {
-		beginContact(contact);
-		};
-	_world->beforeSolve = [this](b2Contact* contact, const b2Manifold* oldManifold) {
-		beforeSolve(contact, oldManifold);
-		};
+    _world = physics2::net::NetWorld::alloc(Rect(0,0,DEFAULT_WIDTH,DEFAULT_HEIGHT),Vec2(0,DEFAULT_GRAVITY));
+    _world->activateCollisionCallbacks(true);
+    _world->onBeginContact = [this](b2Contact* contact) {
+        beginContact(contact);
+    };
+    _world->beforeSolve = [this](b2Contact* contact, const b2Manifold* oldManifold) {
+        beforeSolve(contact,oldManifold);
+    };
+    CULog("Populating ragdoll");
+#pragma mark : Ragdoll
+    // Allocate the ragdoll and set its (empty) node. Its model handles creation of parts
+    // (both obstacles and nodes to be drawn) upon alllocation and setting the scene node.
+    _ragdoll = RagdollModel::alloc(DOLL_POS, _scale);
+    _ragdoll->buildParts(_assets);
+    
+    
+    _ragdoll->createJoints();
+    
+    auto ragdollNode = scene2::SceneNode::alloc();
+    // Add the ragdollNode to the world before calling setSceneNode,
+    // as noted in the documentation for the Ragdoll's method.
+    _worldnode->addChild(ragdollNode);
+    _ragdoll->setSceneNode(ragdollNode);
+    
+    _ragdoll->setDrawScale(_scale);
+    _ragdoll->activate(_world);
+    
+    std::shared_ptr<Texture> image;
+    std::shared_ptr<scene2::PolygonNode> sprite;
+    std::shared_ptr<scene2::WireNode> draw;
 
-	std::shared_ptr<Texture> image;
-	std::shared_ptr<scene2::PolygonNode> sprite;
-	std::shared_ptr<scene2::WireNode> draw;
+  #pragma mark : Goal door
+    image = _assets->get<Texture>(GOAL_TEXTURE);
 
-#pragma mark : Goal door
-	image = _assets->get<Texture>(GOAL_TEXTURE);
+    // Create obstacle
+    Vec2 goalPos = GOAL_POS;
+    Size goalSize(image->getSize().width / _scale,
+      image->getSize().height / _scale);
+    _goalDoor = physics2::BoxObstacle::alloc(goalPos, goalSize);
 
-	// Create obstacle
-	Vec2 goalPos = GOAL_POS;
-	Size goalSize(image->getSize().width / _scale,
-		image->getSize().height / _scale);
-	_goalDoor = physics2::BoxObstacle::alloc(goalPos, goalSize);
+    // Set the physics attributes
+    _goalDoor->setBodyType(b2_staticBody);
+    _goalDoor->setDensity(0.0f);
+    _goalDoor->setFriction(0.0f);
+    _goalDoor->setRestitution(0.0f);
+    _goalDoor->setSensor(true);
 
-	// Set the physics attributes
-	_goalDoor->setBodyType(b2_staticBody);
-	_goalDoor->setDensity(0.0f);
-	_goalDoor->setFriction(0.0f);
-	_goalDoor->setRestitution(0.0f);
-	_goalDoor->setSensor(true);
-
-	// Add the scene graph nodes to this object
-	sprite = scene2::PolygonNode::allocWithTexture(image);
-	_goalDoor->setDebugColor(DEBUG_COLOR);
-	addObstacle(_goalDoor, sprite);
+    // Add the scene graph nodes to this object
+    sprite = scene2::PolygonNode::allocWithTexture(image);
+    _goalDoor->setDebugColor(DEBUG_COLOR);
+  addObstacle(_goalDoor, sprite);
+  
 #pragma mark : Wall polygon 1
 
 	// Create ground pieces
@@ -578,25 +651,67 @@ void GameScene::populate() {
 	wallsprite1 = scene2::PolygonNode::allocWithTexture(image, wall1);
 
 #pragma mark : Wall polygon 2
-	Poly2 wall2(reinterpret_cast<Vec2*>(WALL2), 9);
-	triangulator.set(wall2.vertices);
-	triangulator.calculate();
-	wall2.setIndices(triangulator.getTriangulation());
-	triangulator.clear();
+    Poly2 wall2(reinterpret_cast<Vec2*>(WALL2),9);
+    triangulator.set(wall2.vertices);
+    triangulator.calculate();
+    wall2.setIndices(triangulator.getTriangulation());
+    triangulator.clear();
 
-	wallobj2 = physics2::PolygonObstacle::allocWithAnchor(wall2, Vec2::ANCHOR_CENTER);
-	wallobj2->setDebugColor(STATIC_COLOR);
-	wallobj2->setName(wname);
+    wallobj2 = physics2::PolygonObstacle::allocWithAnchor(wall2,Vec2::ANCHOR_CENTER);
+    wallobj2->setDebugColor(STATIC_COLOR);
+    wallobj2->setName(wname);
 
-	// Set the physics attributes
-	wallobj2->setBodyType(b2_staticBody);
-	wallobj2->setDensity(BASIC_DENSITY);
-	wallobj2->setFriction(BASIC_FRICTION);
-	wallobj2->setRestitution(BASIC_RESTITUTION);
+    // Set the physics attributes
+    wallobj2->setBodyType(b2_staticBody);
+    wallobj2->setDensity(BASIC_DENSITY);
+    wallobj2->setFriction(BASIC_FRICTION);
+    wallobj2->setRestitution(BASIC_RESTITUTION);
 
-	// Add the scene graph nodes to this object
-	wall2 *= _scale;
-	wallsprite2 = scene2::PolygonNode::allocWithTexture(image, wall2);
+    // Add the scene graph nodes to this object
+    wall2 *= _scale;
+    wallsprite2 = scene2::PolygonNode::allocWithTexture(image,wall2);
+        
+#pragma mark : Crates
+    /*
+    float f1 = _rand() % (int)(DEFAULT_WIDTH - 4) + 2;
+    float f2 = _rand() % (int)(DEFAULT_HEIGHT - 4) + 2;
+    Vec2 boxPos(f1, f2);
+        
+    for (int ii = 0; ii < NUM_CRATES; ii++) {
+        f1 = _rand() % (int)(DEFAULT_WIDTH - 6) + 3;
+        f2 = _rand() % (int)(DEFAULT_HEIGHT - 6) + 3;
+        // Pick a crate and random and generate the key
+        Vec2 boxPos(f1, f2);
+        addInitCrate(boxPos);
+    }
+     */
+        
+#pragma mark : Cannon
+    image  = _assets->get<Texture>(CANNON_TEXTURE);
+    _cannon1Node = scene2::PolygonNode::allocWithTexture(image);
+    Size canSize(image->getSize()/_scale);
+        
+    Vec2 canPos1 = ((Vec2)CAN1_POS);
+    _cannon1 = cugl::physics2::BoxObstacle::alloc(canPos1,canSize);
+    //_cannon1->setBodyType(b2BodyType::b2_kinematicBody);
+    _cannon1->setAngle(-M_PI_2);
+    _cannon1->setDebugColor(DYNAMIC_COLOR);
+    _cannon1->setSensor(true);
+        
+    image  = _assets->get<Texture>(CANNON_TEXTURE);
+    _cannon2Node = scene2::PolygonNode::allocWithTexture(image);
+    
+    Vec2 canPos2 = ((Vec2)CAN2_POS);
+    _cannon2= cugl::physics2::BoxObstacle::alloc(canPos2,canSize);
+    //_cannon2->setBodyType(b2BodyType::b2_kinematicBody);
+    _cannon2->setAngle(M_PI_2);
+    _cannon2->setDebugColor(DYNAMIC_COLOR);
+    _cannon2->setSensor(true);
+    
+    addInitObstacle(wallobj1, wallsprite1);  // All walls share the same texture
+    addInitObstacle(wallobj2, wallsprite2);  // All walls share the same texture
+    addInitObstacle(_cannon1, _cannon1Node);
+    addInitObstacle(_cannon2, _cannon2Node);
 
 #pragma mark : Walls
 	// All walls and platforms share the same texture
@@ -722,39 +837,78 @@ void GameScene::addInitObstacle(const std::shared_ptr<physics2::Obstacle>& obj,
 #pragma mark Physics Handling
 
 void GameScene::preUpdate(float dt) {
-	_input.update(dt);
+    _input.update();
+    int knob_radius_multiplier = 1;
+    std::shared_ptr<cugl::physics2::Obstacle> leftArm = _ragdoll->getPartObstacle(PART_LEFT_HAND);
+    std::shared_ptr<cugl::physics2::Obstacle> rightArm = _ragdoll->getPartObstacle(PART_RIGHT_HAND);
+    std::unordered_map<std::string,cugl::Vec2> inputs = _input.getPosition();
+    for (const auto & [ key, value ] : inputs) {
+        if (_input_to_arm.count(key)==0){ // Add touchpoint
+            cugl::Vec2 pos2d = ((cugl::Vec2)screenToWorldCoords(value));
+            if(_arm_to_input.count(PART_LEFT_HAND)==0 && (leftArm->getPosition()*_scale).distance(pos2d)<50*knob_radius_multiplier){
+                _input_to_arm[key]=PART_LEFT_HAND;
+                _arm_to_input[PART_LEFT_HAND]=key;
+                
+            }
+            else if(_arm_to_input.count(PART_RIGHT_HAND)==0 && (rightArm->getPosition()*_scale).distance(pos2d)<50*knob_radius_multiplier){
+                _input_to_arm[key]=PART_RIGHT_HAND;
+                _arm_to_input[PART_RIGHT_HAND]=key;
+            }
+        }
+        else{ // Do stuff with existing touchpoint
+            cugl::Vec2 pos_now =  ((cugl::Vec2)screenToWorldCoords(value));
+            std::shared_ptr<cugl::physics2::Obstacle> arm = _ragdoll->getPartObstacle(_input_to_arm[key]);
+            arm->setPosition(pos_now/_scale);
+        }
+    }
+    auto it = _arm_to_input.begin();
+    while (it != _arm_to_input.end()){ // Remove old touchpoints
+        auto id = it->second;
+        if (inputs.count(id)==0){
+            it = _arm_to_input.erase(it);
+            _input_to_arm.erase(id);
+        }
+        else{
+            ++it;
+        }
+    }
+    
+   // if(_input.getFirePower()>0.f){
+  //      _chargeBar->setVisible(true);
+  //      _chargeBar->setProgress(_input.getFirePower());
+  //  }
+  //  else{
+  //      _chargeBar->setVisible(false);
+  //  }
 
-	if (_input.getFirePower() > 0.f) {
-		_chargeBar->setVisible(true);
-		_chargeBar->setProgress(_input.getFirePower());
-	}
-	else {
-		_chargeBar->setVisible(false);
-	}
+    // Process the toggled key commands
+    //if (_input.didDebug()) { setDebug(!isDebug()); }
 
-	// Process the toggled key commands
-	if (_input.didDebug()) { setDebug(!isDebug()); }
-
-	if (_input.didExit()) {
-		CULog("Shutting down");
-		Application::get()->quit();
-	}
-
-	/*if (_input.didFire()) {
-		fireCrate();
-	}*/
-
-	//TODO: if _input.didBigCrate(), allocate a crate event for the center of the screen(use DEFAULT_WIDTH/2 and DEFAULT_HEIGHT/2) and send it using the pushOutEvent() method in the network controller.
+   // if (_input.didExit()) {
+   //     CULog("Shutting down");
+   //     Application::get()->quit();
+  //  }
+    
+   // if (_input.didFire()) {
+    //    fireCrate();
+    //}
+    
+//TODO: if _input.didBigCrate(), allocate a crate event for the center of the screen(use DEFAULT_WIDTH/2 and DEFAULT_HEIGHT/2) and send it using the pushOutEvent() method in the network controller.
 #pragma mark BEGIN SOLUTION
-	if (_input.didBigCrate()) {
-		CULog("BIG CRATE COMING");
-		_network->pushOutEvent(CrateEvent::allocCrateEvent(Vec2(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 2)));
-	}
+   // if (_input.didBigCrate()){
+   //     CULog("BIG CRATE COMING");
+   //     _network->pushOutEvent(CrateEvent::allocCrateEvent(Vec2(DEFAULT_WIDTH/2,DEFAULT_HEIGHT/2)));
+  //  }
 #pragma mark END SOLUTION
+    
+  //  float turnRate = _isHost ? DEFAULT_TURN_RATE : -DEFAULT_TURN_RATE;
+  //  auto cannon = _isHost ? _cannon1 : _cannon2;
+  //  cannon->setAngle(_input.getVertical() * turnRate + cannon->getAngle());
 }
 
 void GameScene::postUpdate(float dt) {
-	//Nothing to do now
+    //Nothing to do now
+    _ragdoll->update(dt);
 }
 
 void GameScene::fixedUpdate() {
@@ -805,8 +959,8 @@ void GameScene::beginContact(b2Contact* contact) {
  * to implement sound on contact, using the algorithms outlined in Ian Parberry's
  * "Introduction to Game Physics with Box2D".
  *
- * @param  contact  	The two bodies that collided
- * @param  oldManfold  	The collision manifold before contact
+ * @param  contact      The two bodies that collided
+ * @param  oldManfold      The collision manifold before contact
  */
 void GameScene::beforeSolve(b2Contact* contact, const b2Manifold* oldManifold) {
 	float speed = 0;
