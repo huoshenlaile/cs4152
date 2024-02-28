@@ -132,8 +132,11 @@ protected:
     bool _complete;
     /** Whether or not debug mode is active */
     bool _debug;
-    /** Which arm is held */
-    int _arm_held = -1;
+    /** Relates input id to arm */
+    std::unordered_map<std::string,int> _input_to_arm;
+    /** Relates arm to input id*/
+    std::unordered_map<int, std::string> _arm_to_input;
+
     
     std::shared_ptr<NetEventController> _network;
     

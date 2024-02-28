@@ -102,6 +102,56 @@ void InputController::dispose() {
 }
 
 /**
+ * Return true if the user initiated a press this frame.
+ *
+ * A press means that the user is pressing (button/finger) this
+ * animation frame, but was not pressing during the last frame.
+ *
+ * @return true if the user initiated a press this frame.
+ */
+bool InputController::didPress(){
+    for (const auto & [ key, value ] : _currDown) {
+        if (!_prevDown[key] && _currDown[key]){
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * Return true if the user initiated a release this frame.
+ *
+ * A release means that the user was pressing (button/finger) last
+ * animation frame, but is not pressing during this frame.
+ *
+ * @return true if the user initiated a release this frame.
+ */
+bool InputController::didRelease() {
+    for (const auto & [ key, value ] : _currDown) {
+        if (!_currDown[key] && _prevDown[key]){
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * Return true if the user is actively pressing this frame.
+ *
+ * This method only checks that a press is active or ongoing.
+ * It does not care when the press was initiated.
+ *
+ * @return true if the user is actively pressing this frame.
+ */
+bool InputController::isDown() {
+    for (const auto & [ key, value ] : _currDown) {
+        if (_currDown[key]){
+            return true;
+        }
+    }
+    return false;
+}
+/**
  * Updates the input controller for the latest frame.
  *
  * It might seem weird to have this method given that everything
@@ -139,92 +189,90 @@ void InputController::update() {
  * @param touchIDs     The vector of fingers on the screen
  */
 void InputController::fingerDownCB(const cugl::TouchEvent& event, const std::vector<Sint64> touchIDs) {
-    if (!_touchDown && touchIDs.size()==1) {
-        _touchDown = true;
-        _touchPos = event.position;
-        _touchID = event.touch;
+    std::string touchID = std::to_string(event.touch);
+    if (_touchPos.size() < _lengthPos && _touchPos.count(touchID)==0) {
+        _touchPos[touchID] = event.position;
     }
 }
-
-/**
- * Call back to execute when the finger is released.
- *
- * This function will record a release for the finger.
- *
- * @param event     The event with the mouse information
- * @param touchIDs     The vector of fingers on the screen
- */
-void InputController::fingerUpCB(const cugl::TouchEvent& event) {
-    if (_touchDown && event.touch==_touchID) {
-        _touchDown = false;
-        _touchID=-1;
+    
+    /**
+     * Call back to execute when the finger is released.
+     *
+     * This function will record a release for the finger.
+     *
+     * @param event     The event with the mouse information
+     */
+    void InputController::fingerUpCB(const cugl::TouchEvent& event) {
+        std::string touchID = std::to_string(event.touch);
+        if (_touchPos.count(touchID)>0) {
+            _touchPos.erase(touchID);
+        }
     }
-}
-
-/**
- * Call back to execute when a finger moves.
- *
- *
- * @param event     The event with the touch information
- */
-void InputController::fingerMotionCB(const cugl::TouchEvent& event) {
-    if (_touchDown && event.touch==_touchID) {
-        _touchPos = event.position;
+    
+    /**
+     * Call back to execute when a finger moves.
+     *
+     *
+     * @param event     The event with the touch information
+     */
+    void InputController::fingerMotionCB(const cugl::TouchEvent& event) {
+        std::string touchID = std::to_string(event.touch);
+        if (_touchPos.count(touchID)>0) {
+            _touchPos[touchID] = event.position;
+        }
     }
-}
-
-
-
+    
+    
+    
 #pragma mark Mouse Callbacks
-/**
- * Call back to execute when a mouse button is first pressed.
- *
- * This function will record a press only if the left button is pressed.
- *
- * @param event     The event with the mouse information
- * @param clicks    The number of clicks (for double clicking)
- * @param focus     Whether this device has focus (UNUSED)
- */
-void InputController::buttonDownCB(const cugl::MouseEvent& event, Uint8 clicks, bool focus) {
-    // Only recognize the left mouse button
-    if (!_mouseDown && event.buttons.hasLeft()) {
-        _mouseDown = true;
-        _mousePos = event.position;
+    /**
+     * Call back to execute when a mouse button is first pressed.
+     *
+     * This function will record a press only if the left button is pressed.
+     *
+     * @param event     The event with the mouse information
+     * @param clicks    The number of clicks (for double clicking)
+     * @param focus     Whether this device has focus (UNUSED)
+     */
+    void InputController::buttonDownCB(const cugl::MouseEvent& event, Uint8 clicks, bool focus) {
+        // Only recognize the left mouse button
+        if (_mousePos.count("0")==0 && event.buttons.hasLeft()) {
+            _mousePos["0"] = event.position;
+        }
     }
-}
-
-/**
- * Call back to execute when a mouse button is first released.
- *
- * This function will record a release for the left mouse button.
- *
- * @param event     The event with the mouse information
- * @param clicks    The number of clicks (for double clicking)
- * @param focus     Whether this device has focus (UNUSED)
- */
-void InputController::buttonUpCB(const cugl::MouseEvent& event, Uint8 clicks, bool focus) {
-    // Only recognize the left mouse button
-    if (_mouseDown && event.buttons.hasLeft()) {
-        _mouseDown = false;
+    
+    /**
+     * Call back to execute when a mouse button is first released.
+     *
+     * This function will record a release for the left mouse button.
+     *
+     * @param event     The event with the mouse information
+     * @param clicks    The number of clicks (for double clicking)
+     * @param focus     Whether this device has focus (UNUSED)
+     */
+    void InputController::buttonUpCB(const cugl::MouseEvent& event, Uint8 clicks, bool focus) {
+        // Only recognize the left mouse button
+        if (_mousePos.count("0")>=0 && event.buttons.hasLeft()) {
+            _mousePos.erase("0");
+        }
     }
-}
-
-/**
- * Call back to execute when the mouse moves.
- *
- * This input controller sets the pointer awareness only to monitor a mouse
- * when it is dragged (moved with button down), not when it is moved. This
- * cuts down on spurious inputs. In addition, this method only pays attention
- * to drags initiated with the left mouse button.
- *
- * @param event     The event with the mouse information
- * @param previous  The previously reported mouse location
- * @param focus     Whether this device has focus (UNUSED)
- */
-void InputController::motionCB(const cugl::MouseEvent& event, const Vec2 previous, bool focus) {
-    if (_mouseDown) {
-        _mousePos = event.position;
+    
+    /**
+     * Call back to execute when the mouse moves.
+     *
+     * This input controller sets the pointer awareness only to monitor a mouse
+     * when it is dragged (moved with button down), not when it is moved. This
+     * cuts down on spurious inputs. In addition, this method only pays attention
+     * to drags initiated with the left mouse button.
+     *
+     * @param event     The event with the mouse information
+     * @param previous  The previously reported mouse location
+     * @param focus     Whether this device has focus (UNUSED)
+     */
+    void InputController::motionCB(const cugl::MouseEvent& event, const Vec2 previous, bool focus) {
+        if (_mousePos.count("0")>=0) {
+            _mousePos["0"] = event.position;
+        }
     }
-}
-
+    
 

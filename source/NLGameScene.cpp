@@ -288,7 +288,6 @@ bool GameScene::init(const std::shared_ptr<AssetManager>& assets, const Rect rec
     _assets = assets;
     _input.init();
     _input.update();
-
     _rand.seed(0xdeadbeef);
 
     _crateFact = CrateFactory::alloc(_assets);
@@ -640,29 +639,41 @@ void GameScene::addInitObstacle(const std::shared_ptr<physics2::Obstacle>& obj,
 
 void GameScene::preUpdate(float dt) {
     _input.update();
-    if(_input.didPress()){
-        cugl::Vec2 pos2d = ((cugl::Vec2)screenToWorldCoords(_input.getPosition()));
-        int knob_radius_multiplier = 1;
-        std::shared_ptr<cugl::physics2::Obstacle> leftArm = _ragdoll->getPartObstacle(PART_LEFT_HAND);
-        std::shared_ptr<cugl::physics2::Obstacle> rightArm = _ragdoll->getPartObstacle(PART_RIGHT_HAND);
-        if((leftArm->getPosition()*_scale).distance(pos2d)<50*knob_radius_multiplier){
-            _arm_held = PART_LEFT_HAND;
+    int knob_radius_multiplier = 1;
+    std::shared_ptr<cugl::physics2::Obstacle> leftArm = _ragdoll->getPartObstacle(PART_LEFT_HAND);
+    std::shared_ptr<cugl::physics2::Obstacle> rightArm = _ragdoll->getPartObstacle(PART_RIGHT_HAND);
+    std::unordered_map<std::string,cugl::Vec2> inputs = _input.getPosition();
+    for (const auto & [ key, value ] : inputs) {
+        if (_input_to_arm.count(key)==0){ // Add touchpoint
+            cugl::Vec2 pos2d = ((cugl::Vec2)screenToWorldCoords(value));
+            if(_arm_to_input.count(PART_LEFT_HAND)==0 && (leftArm->getPosition()*_scale).distance(pos2d)<50*knob_radius_multiplier){
+                _input_to_arm[key]=PART_LEFT_HAND;
+                _arm_to_input[PART_LEFT_HAND]=key;
+                
+            }
+            else if(_arm_to_input.count(PART_RIGHT_HAND)==0 && (rightArm->getPosition()*_scale).distance(pos2d)<50*knob_radius_multiplier){
+                _input_to_arm[key]=PART_RIGHT_HAND;
+                _arm_to_input[PART_RIGHT_HAND]=key;
+            }
         }
-        else if((rightArm->getPosition()*_scale).distance(pos2d)<50*knob_radius_multiplier){
-            _arm_held = PART_RIGHT_HAND;
+        else{ // Do stuff with existing touchpoint
+            cugl::Vec2 pos_now =  ((cugl::Vec2)screenToWorldCoords(value));
+            std::shared_ptr<cugl::physics2::Obstacle> arm = _ragdoll->getPartObstacle(_input_to_arm[key]);
+            arm->setPosition(pos_now/_scale);
+        }
+    }
+    auto it = _arm_to_input.begin();
+    while (it != _arm_to_input.end()){ // Remove old touchpoints
+        auto id = it->second;
+        if (inputs.count(id)==0){
+            it = _arm_to_input.erase(it);
+            _input_to_arm.erase(id);
         }
         else{
-            _arm_held = -1;
+            ++it;
         }
     }
-    else if (_input.isDown() && _arm_held != -1){
-        cugl::Vec2 pos_now =  ((cugl::Vec2)screenToWorldCoords(_input.getPosition()));
-        std::shared_ptr<cugl::physics2::Obstacle> arm = _ragdoll->getPartObstacle(_arm_held);
-        arm->setPosition(pos_now/_scale);
-    }
-   else if (_input.didRelease() && _arm_held!=-1){
-       _arm_held = -1;
-   }
+    
    // if(_input.getFirePower()>0.f){
   //      _chargeBar->setVisible(true);
   //      _chargeBar->setProgress(_input.getFirePower());

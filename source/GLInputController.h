@@ -28,32 +28,32 @@ protected:
     /** Whether the input device was successfully initialized */
     bool _active;
     /** The current touch/mouse position */
-    cugl::Vec2 _currPos;
+    std::unordered_map<std::string, cugl::Vec2> _currPos;
     /** The previous touch/mouse position */
-    cugl::Vec2 _prevPos;
+    std::unordered_map<std::string, cugl::Vec2> _prevPos;
+    /** Max num of positions*/
+    int _lengthPos = 2;
     /** Whether there is an active button/touch press */
-    bool _currDown;
+    std::unordered_map<std::string, bool> _currDown;
     /** Whether there was an active button/touch press last frame*/
-    bool _prevDown;
+    std::unordered_map<std::string, bool> _prevDown;
 
 protected:
-	/** The key for the mouse listeners */
-	Uint32 _mouseKey;
+    /** The key for the mouse listeners */
+    Uint32 _mouseKey;
     /** The mouse position (for mice-based interfaces) */
-    cugl::Vec2 _mousePos;
+    std::unordered_map<std::string, cugl::Vec2> _mousePos;
     /** Whether the (left) mouse button is down */
-    bool _mouseDown;
+    std::unordered_map<std::string, bool> _mouseDown;
     
-	// ADD NEW ATTRIBUTES HERE FOR EXTRA CREDIT
+    // ADD NEW ATTRIBUTES HERE FOR EXTRA CREDIT
     
-    /** The finger that is being used */
-    Sint64 _touchID;
-    /** The finger position  */
-    cugl::Vec2 _touchPos;
+    /** The finger IDs and positions  */
+    std::unordered_map<std::string, cugl::Vec2> _touchPos;
     /** Whether a finger is down */
-    bool _touchDown;
+    std::unordered_map<std::string, bool> _touchDown;
     
-	
+    
 #pragma mark Input Control
 public:
     /**
@@ -119,12 +119,13 @@ public:
      */
     bool isActive() const { return _active; }
     
+    
     /**
      * Returns the current mouse/touch position
      *
      * @return the current mouse/touch position
      */
-    const cugl::Vec2& getPosition() const {
+    const std::unordered_map<std::string, cugl::Vec2>& getPosition() const {
         return _currPos;
     }
 
@@ -133,7 +134,7 @@ public:
      *
      * @return the previous mouse/touch position
      */
-    const cugl::Vec2& getPrevious() const {
+    const std::unordered_map<std::string, cugl::Vec2>& getPrevious() const {
         return _prevPos;
     }
     
@@ -145,10 +146,8 @@ public:
      *
      * @return true if the user initiated a press this frame.
      */
-    bool didPress() const {
-        return !_prevDown && _currDown;
-    }
-
+    bool didPress();
+   
     /**
      * Return true if the user initiated a release this frame.
      *
@@ -157,9 +156,7 @@ public:
      *
      * @return true if the user initiated a release this frame.
      */
-    bool didRelease() const {
-        return !_currDown && _prevDown;
-    }
+    bool didRelease();
 
     /**
      * Return true if the user is actively pressing this frame.
@@ -169,10 +166,8 @@ public:
      *
      * @return true if the user is actively pressing this frame.
      */
-    bool isDown() const {
-        return _currDown;
-    }
-
+    bool isDown();
+    
 #pragma mark Touch Callbacks
 private:
     /**
@@ -241,7 +236,7 @@ private:
      */
     void motionCB(const cugl::MouseEvent& event, const cugl::Vec2 previous, bool focus);
     
-	// ADD THE TOUCH CALLBACKS FOR EXTRA CREDIT
+    // ADD THE TOUCH CALLBACKS FOR EXTRA CREDIT
 };
 
 #endif /* __GL_INPUT_CONTROLLER_H__ */
