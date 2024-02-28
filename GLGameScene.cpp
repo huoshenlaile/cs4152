@@ -258,8 +258,7 @@ void GameScene::render(const std::shared_ptr<cugl::SpriteBatch>& batch) {
 	//rectTrans = rectTrans.rotate(_rectObs->getAngle());
 	//rectTrans = rectTrans.translate(_rectObs->getPosition() * PHYSICS_SCALE);
 	batch->setColor(Color4::BLACK);
-	batch->fill(_rectPoly, getSize() / 2);
-	batch->fill(_rectPoly2, getSize() / 2);
+	for (auto it : _rectPoly) batch->fill(it, getSize() / 2);
 
 	/*batch->setColor(Color4::WHITE);
 	for (auto it : _handles) batch->fill(it, getSize() / 2);
@@ -308,6 +307,8 @@ void GameScene::buildGeometry() {
 	_splineObs->setPosition(getSize() / (2 * PHYSICS_SCALE));
 	//_world->addObstacle(_splineObs);
 
+	configure();
+
 	//// Rectangle
 	//SplinePather splinePather1;
 	//splinePather1.set(&_rect);
@@ -326,7 +327,7 @@ void GameScene::buildGeometry() {
 	_rectObs->setPosition((0.5 * getSize()) / (2 * PHYSICS_SCALE));
 	_world->addObstacle(_rectObs);*/
 
-	PolyFactory rect;
+	/*PolyFactory rect;
 	_rectPoly = rect.makeRect(-1 * getSize() / 2, Vec2(600, 100));
 	Poly2 rectCopy = _rectPoly;
 	rectCopy /= PHYSICS_SCALE;
@@ -341,7 +342,7 @@ void GameScene::buildGeometry() {
 	_rectObs2 = physics2::PolygonObstacle::alloc(rectCopy2);
 	_rectObs2->setBodyType(b2_staticBody);
 	_rectObs2->setPosition(getSize() / (2 * PHYSICS_SCALE));
-	_world->addObstacle(_rectObs2);
+	_world->addObstacle(_rectObs2);*/
 
 	/*for (int pos = 0; pos <= 7; pos = pos + 2) {
 		vector<Vec2> controlPoint(2);
@@ -377,4 +378,27 @@ void GameScene::buildGeometry() {
 	_starObs->setDensity(1);
 	_starObs->setPosition(getSize() / (2 * PHYSICS_SCALE));
 	_world->addObstacle(_starObs);
+}
+void GameScene::configure() {
+	//std::ifstream i("rect.json");
+	//nlohmann::json j;
+	//i >> j;
+	PolyFactory rect;
+	Poly2 rectPoly = rect.makeRect(-1 * getSize() / 2, Vec2(600, 100));
+	_rectPoly.push_back(rectPoly);
+	Poly2 rectCopy = rectPoly;
+	rectCopy /= PHYSICS_SCALE;
+	_rectObs = physics2::PolygonObstacle::alloc(rectCopy);
+	_rectObs->setBodyType(b2_staticBody);
+	_rectObs->setPosition(getSize() / (2 * PHYSICS_SCALE));
+	_world->addObstacle(_rectObs);
+
+	Poly2 rectPoly2 = rect.makeRect(Vec2(40, -getSize().height / 2), Vec2(600, 100));
+	_rectPoly.push_back(rectPoly2);
+	Poly2 rectCopy2 = rectPoly2;
+	rectCopy2 /= PHYSICS_SCALE;
+	_rectObs2 = physics2::PolygonObstacle::alloc(rectCopy2);
+	_rectObs2->setBodyType(b2_staticBody);
+	_rectObs2->setPosition(getSize() / (2 * PHYSICS_SCALE));
+	_world->addObstacle(_rectObs2);
 }

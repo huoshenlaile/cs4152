@@ -17,6 +17,8 @@
 #include <cugl/cugl.h>
 #include <vector>
 #include "GLInputController.h"
+//#include <nlohmann/json.hpp> // Include the JSON library header
+#include <fstream> // For file reading
 
 /**
  * This class is the primary gameplay constroller for the demo.
@@ -34,6 +36,7 @@ protected:
 	// MODELS should be shared pointers or a data structure of shared pointers
 	/** The spline for the exterior circle */
 	cugl::Spline2 _spline;
+	cugl::Spline2 _rect;
 	/** The physics world to animate the falling */
 	std::shared_ptr<cugl::physics2::ObstacleWorld> _world;
 	/** The outside "circle" */
@@ -43,11 +46,14 @@ protected:
 
 	// PUT OTHER ATTRIBUTES HERE AS NECESSARY
 	cugl::Poly2 _poly;
+	std::vector<cugl::Poly2> _rectPoly;
 	std::vector<cugl::Poly2> _handles;
 	std::vector<cugl::Poly2> _knobs;
 	cugl::Poly2 _starPoly;
 	std::shared_ptr<cugl::physics2::PolygonObstacle> _starObs;
 	std::shared_ptr<cugl::physics2::PolygonObstacle> _splineObs;
+	std::shared_ptr<cugl::physics2::PolygonObstacle> _rectObs;
+	std::shared_ptr<cugl::physics2::PolygonObstacle> _rectObs2;
 
 	bool _selected;
 	int _selectedIdx;
@@ -189,6 +195,8 @@ public:
 	 * @param batch     The SpriteBatch to draw with.
 	 */
 	void render(const std::shared_ptr<cugl::SpriteBatch>& batch) override;
+
+	void configure();
 };
 
 #endif /* __SG_GAME_SCENE_H__ */
