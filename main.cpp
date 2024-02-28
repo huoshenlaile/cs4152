@@ -1,6 +1,6 @@
 //
 //  main.cpp
-//  Geometry Lab
+//  Cornell University Game Library (CUGL)
 //
 //  This is the main entry class for your application.  You may need to modify
 //  it slightly for your application class or platform.
@@ -25,11 +25,10 @@
 //      3. This notice may not be removed or altered from any source distribution.
 //
 //  Author: Walker White
-//  Version: 1/29/24
-//
+//  Version: 7/1/16
 
 // Include your application class
-#include "GLApp.h"
+#include "NLApp.h"
 
 using namespace cugl;
 
@@ -44,17 +43,21 @@ using namespace cugl;
  */
 int main(int argc, char * argv[]) {
     // Change this to your application class
-    GeometryApp app;
+    NetApp app;
     
     // Set the properties of your application
-    app.setName("Geometry Lab");
+    app.setName("Networked Physics Demo");
     app.setOrganization("GDIAC");
     app.setHighDPI(true);
+
+    //app.setFullscreen(true);
+    //app.setDisplaySize(1024, 576);
+    app.setVSync(true);
     //app.setFPS(60.0f);
-
-    // VARY THIS TO TRY OUT YOUR SCENE GRAPH
-    app.setDisplaySize(1280, 720); // 16x9,  Android phones, PC Gaming
-
+#if CU_PLATFORM == CU_PLATFORM_MACOS || CU_PLATFORM == CU_PLATFORM_WINDOWS
+    app.setMultiSampled(true);
+#endif
+    
     /// DO NOT MODIFY ANYTHING BELOW THIS LINE
     if (!app.init()) {
         return 1;
