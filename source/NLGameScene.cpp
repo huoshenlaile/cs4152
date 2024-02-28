@@ -60,14 +60,14 @@ using namespace cugl::physics2::net;
 // IMPORTANT: Note that Box2D units do not equal drawing units
 /** The wall vertices */
 float WALL1[] = { 0.0f,  0.0f, 16.0f,  0.0f, 16.0f,  1.0f,
-                  3.0f,  1.0f,  3.0f,  5.0f,  2.0f,  7.0f,
-                  1.0f, 17.0f,  8.0f, 15.0f, 16.0f, 17.0f,
-                 16.0f, 18.0f,  0.0f, 18.0f};
-float WALL2[] = {32.0f, 18.0f, 16.0f, 18.0f, 16.0f, 17.0f,
+                    3.0f,  1.0f,  3.0f,  5.0f,  2.0f,  7.0f,
+                      1.0f, 17.0f,  8.0f, 15.0f, 16.0f, 17.0f,
+                     16.0f, 18.0f,  0.0f, 18.0f };
+float WALL2[] = { 32.0f, 18.0f, 16.0f, 18.0f, 16.0f, 17.0f,
                  31.0f, 16.0f, 30.0f, 10.0f, 31.0f,  1.0f,
-                 16.0f,  1.0f, 16.0f,  0.0f, 32.0f,  0.0f};
+                 16.0f,  1.0f, 16.0f,  0.0f, 32.0f,  0.0f };
 float WALL3[] = { 4.0f,  9.5f,  8.0f,  9.5f,
-                  8.0f, 10.5f,  4.0f, 10.5f };
+                8.0f, 10.5f,  4.0f, 10.5f };
 
 /** The positions of the crate pyramid */
 float BOXES[] = { 14.5f, 14.25f,
@@ -685,31 +685,31 @@ void GameScene::populate() {
      */
         
 #pragma mark : Cannon
-    image  = _assets->get<Texture>(CANNON_TEXTURE);
-    _cannon1Node = scene2::PolygonNode::allocWithTexture(image);
-    Size canSize(image->getSize()/_scale);
-        
-    Vec2 canPos1 = ((Vec2)CAN1_POS);
-    _cannon1 = cugl::physics2::BoxObstacle::alloc(canPos1,canSize);
-    //_cannon1->setBodyType(b2BodyType::b2_kinematicBody);
-    _cannon1->setAngle(-M_PI_2);
-    _cannon1->setDebugColor(DYNAMIC_COLOR);
-    _cannon1->setSensor(true);
-        
-    image  = _assets->get<Texture>(CANNON_TEXTURE);
-    _cannon2Node = scene2::PolygonNode::allocWithTexture(image);
+//    image  = _assets->get<Texture>(CANNON_TEXTURE);
+//    _cannon1Node = scene2::PolygonNode::allocWithTexture(image);
+//    Size canSize(image->getSize()/_scale);
+//        
+//    Vec2 canPos1 = ((Vec2)CAN1_POS);
+//    _cannon1 = cugl::physics2::BoxObstacle::alloc(canPos1,canSize);
+//    //_cannon1->setBodyType(b2BodyType::b2_kinematicBody);
+//    _cannon1->setAngle(-M_PI_2);
+//    _cannon1->setDebugColor(DYNAMIC_COLOR);
+//    _cannon1->setSensor(true);
+//        
+//    image  = _assets->get<Texture>(CANNON_TEXTURE);
+//    _cannon2Node = scene2::PolygonNode::allocWithTexture(image);
+//    
+//    Vec2 canPos2 = ((Vec2)CAN2_POS);
+//    _cannon2= cugl::physics2::BoxObstacle::alloc(canPos2,canSize);
+//    //_cannon2->setBodyType(b2BodyType::b2_kinematicBody);
+//    _cannon2->setAngle(M_PI_2);
+//    _cannon2->setDebugColor(DYNAMIC_COLOR);
+//    _cannon2->setSensor(true);
     
-    Vec2 canPos2 = ((Vec2)CAN2_POS);
-    _cannon2= cugl::physics2::BoxObstacle::alloc(canPos2,canSize);
-    //_cannon2->setBodyType(b2BodyType::b2_kinematicBody);
-    _cannon2->setAngle(M_PI_2);
-    _cannon2->setDebugColor(DYNAMIC_COLOR);
-    _cannon2->setSensor(true);
-    
-    addInitObstacle(wallobj1, wallsprite1);  // All walls share the same texture
-    addInitObstacle(wallobj2, wallsprite2);  // All walls share the same texture
-    addInitObstacle(_cannon1, _cannon1Node);
-    addInitObstacle(_cannon2, _cannon2Node);
+//    addInitObstacle(wallobj1, wallsprite1);  // All walls share the same texture
+//    addInitObstacle(wallobj2, wallsprite2);  // All walls share the same texture
+//    addInitObstacle(_cannon1, _cannon1Node);
+//    addInitObstacle(_cannon2, _cannon2Node);
 
 #pragma mark : Walls
 	// All walls and platforms share the same texture
