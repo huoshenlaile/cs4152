@@ -24,6 +24,7 @@
 #include "GLInputController.h"
 #include "NLCrateEvent.h"
 #include "RGRagdollModel.h"
+#include "NLCharacterEvent.h"
 
 using namespace cugl::physics2::net;
 using namespace cugl;
@@ -200,6 +201,11 @@ protected:
      * This method takes a crateEvent and processes it.
      */
     void processCrateEvent(const std::shared_ptr<CrateEvent>& event);
+    
+    /**
+     * This method takes a crateEvent and processes it.
+     */
+    void processCharacterEvent(const std::shared_ptr<CharacterEvent>& event);
 
     /**
      * Returns the active screen size of this scene.
