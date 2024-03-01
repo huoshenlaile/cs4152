@@ -236,65 +236,65 @@ float BRIDGE_POS[] = { 9.0f, 3.8f };
 /** Opacity of the physics outlines */
 #define DEBUG_OPACITY   192
 
-/**
- * Generate a pair of Obstacle and SceneNode using the given parameters
- */
-std::pair<std::shared_ptr<physics2::Obstacle>, std::shared_ptr<scene2::SceneNode>> CrateFactory::createObstacle(Vec2 pos, float scale) {
-	int indx = (_rand() % 2 == 0 ? 2 : 1);
-	std::string name = (CRATE_PREFIX "0") + std::to_string(indx);
-	auto image = _assets->get<Texture>(name);
-	Size boxSize(image->getSize() / scale / 2.f);
+// /**
+// * Generate a pair of Obstacle and SceneNode using the given parameters
+// */
+//std::pair<std::shared_ptr<physics2::Obstacle>, std::shared_ptr<scene2::SceneNode>> CrateFactory::createObstacle(Vec2 pos, float scale) {
+//	int indx = (_rand() % 2 == 0 ? 2 : 1);
+//	std::string name = (CRATE_PREFIX "0") + std::to_string(indx);
+//	auto image = _assets->get<Texture>(name);
+//	Size boxSize(image->getSize() / scale / 2.f);
+//
+//#pragma mark BEGIN SOLUTION
+//	auto crate = physics2::BoxObstacle::alloc(pos, boxSize);
+//
+//	crate->setDebugColor(DYNAMIC_COLOR);
+//	crate->setAngleSnap(0); // Snap to the nearest degree
+//
+//	crate->setDensity(CRATE_DENSITY);
+//	crate->setFriction(CRATE_FRICTION);
+//	crate->setAngularDamping(CRATE_DAMPING);
+//	crate->setRestitution(BASIC_RESTITUTION);
+//
+//	crate->setShared(true);
+//
+//	auto sprite = scene2::PolygonNode::allocWithTexture(image);
+//	sprite->setAnchor(Vec2::ANCHOR_CENTER);
+//	sprite->setScale(0.5f);
+//
+//	return std::make_pair(crate, sprite);
+//#pragma mark END SOLUTION
+//}
 
-#pragma mark BEGIN SOLUTION
-	auto crate = physics2::BoxObstacle::alloc(pos, boxSize);
+// /**
+// * Helper method for converting normal parameters into byte vectors used for syncing.
+// */
+//std::shared_ptr<std::vector<std::byte>> CrateFactory::serializeParams(Vec2 pos, float scale) {
+//	// TODO: Use _serializer to serialize pos and scale (remember to make a shared copy of the serializer reference, otherwise it will be lost if the serializer is reset).
+//#pragma mark BEGIN SOLUTION
+//	_serializer.reset();
+//	_serializer.writeFloat(pos.x);
+//	_serializer.writeFloat(pos.y);
+//	_serializer.writeFloat(scale);
+//	return std::make_shared<std::vector<std::byte>>(_serializer.serialize());
+//#pragma mark END SOLUTION
+//}
 
-	crate->setDebugColor(DYNAMIC_COLOR);
-	crate->setAngleSnap(0); // Snap to the nearest degree
-
-	crate->setDensity(CRATE_DENSITY);
-	crate->setFriction(CRATE_FRICTION);
-	crate->setAngularDamping(CRATE_DAMPING);
-	crate->setRestitution(BASIC_RESTITUTION);
-
-	crate->setShared(true);
-
-	auto sprite = scene2::PolygonNode::allocWithTexture(image);
-	sprite->setAnchor(Vec2::ANCHOR_CENTER);
-	sprite->setScale(0.5f);
-
-	return std::make_pair(crate, sprite);
-#pragma mark END SOLUTION
-}
-
-/**
- * Helper method for converting normal parameters into byte vectors used for syncing.
- */
-std::shared_ptr<std::vector<std::byte>> CrateFactory::serializeParams(Vec2 pos, float scale) {
-	// TODO: Use _serializer to serialize pos and scale (remember to make a shared copy of the serializer reference, otherwise it will be lost if the serializer is reset).
-#pragma mark BEGIN SOLUTION
-	_serializer.reset();
-	_serializer.writeFloat(pos.x);
-	_serializer.writeFloat(pos.y);
-	_serializer.writeFloat(scale);
-	return std::make_shared<std::vector<std::byte>>(_serializer.serialize());
-#pragma mark END SOLUTION
-}
-
-/**
- * Generate a pair of Obstacle and SceneNode using serialized parameters.
- */
-std::pair<std::shared_ptr<physics2::Obstacle>, std::shared_ptr<scene2::SceneNode>> CrateFactory::createObstacle(const std::vector<std::byte>& params) {
-	// TODO: Use _deserializer to deserialize byte vectors packed by {@link serializeParams()} and call the regular createObstacle() method with them.
-#pragma mark BEGIN SOLUTION
-	_deserializer.reset();
-	_deserializer.receive(params);
-	float x = _deserializer.readFloat();
-	float y = _deserializer.readFloat();
-	Vec2 pos = Vec2(x, y);
-	float scale = _deserializer.readFloat();
-	return createObstacle(pos, scale);
-#pragma mark END SOLUTION
-}
+// /**
+// * Generate a pair of Obstacle and SceneNode using serialized parameters.
+// */
+//std::pair<std::shared_ptr<physics2::Obstacle>, std::shared_ptr<scene2::SceneNode>> CrateFactory::createObstacle(const std::vector<std::byte>& params) {
+//	// TODO: Use _deserializer to deserialize byte vectors packed by {@link serializeParams()} and call the regular createObstacle() method with them.
+//#pragma mark BEGIN SOLUTION
+//	_deserializer.reset();
+//	_deserializer.receive(params);
+//	float x = _deserializer.readFloat();
+//	float y = _deserializer.readFloat();
+//	Vec2 pos = Vec2(x, y);
+//	float scale = _deserializer.readFloat();
+//	return createObstacle(pos, scale);
+//#pragma mark END SOLUTION
+//}
 
 #pragma mark -
 #pragma mark Constructors
@@ -385,7 +385,7 @@ bool GameScene::init(const std::shared_ptr<AssetManager>& assets, const Rect rec
     _input.update();
     _rand.seed(0xdeadbeef);
 
-    _crateFact = CrateFactory::alloc(_assets);
+//    _crateFact = CrateFactory::alloc(_assets);
 
     // IMPORTANT: SCALING MUST BE UNIFORM
     // This means that we cannot change the aspect ratio of the physics world
@@ -438,7 +438,7 @@ bool GameScene::init(const std::shared_ptr<AssetManager>& assets, const Rect rec
 		_network->getPhysController()->acquireObs(_cannon2, 0);
 	}
 
-	_factId = _network->getPhysController()->attachFactory(_crateFact);
+//	_factId = _network->getPhysController()->attachFactory(_crateFact);
 #pragma mark END SOLUTION
 
 	//TODO: For task 5, attach CrateEvent to the network controller
@@ -492,67 +492,67 @@ void GameScene::reset() {
 	Application::get()->resetFixedRemainder();
 }
 
-/**
- * This method adds a crate at the given position during the init process.
- */
-std::shared_ptr<physics2::Obstacle> GameScene::addInitCrate(cugl::Vec2 pos) {
-    auto pair =  _crateFact->createObstacle(pos, _scale);
-    addInitObstacle(pair.first,pair.second);
-    return pair.first;
-}
+// /**
+// * This method adds a crate at the given position during the init process.
+// */
+//std::shared_ptr<physics2::Obstacle> GameScene::addInitCrate(cugl::Vec2 pos) {
+//    auto pair =  _crateFact->createObstacle(pos, _scale);
+//    addInitObstacle(pair.first,pair.second);
+//    return pair.first;
+//}
 
-/**
- * This method adds a crate that had been fired by the player's cannon amid the simulation.
- *
- * If this machine is host, the crate should be fire from the left cannon (_cannon1), vice versa.
- */
-void GameScene::fireCrate() {
-    //TODO: Add a new crate to the simulation using the addSharedObstacle() method from the physics controller, and set its velocity in the direction the cannon is aimed scaled by (50 * _input.getFirePower()).
-    //HINT: You can use the serializedParams() method of the crate factory to help you serialize the parameters.
-#pragma mark BEGIN SOLUTION
-    auto cannon = _isHost ? _cannon1 : _cannon2;
-    auto params = _crateFact->serializeParams(cannon->getPosition(), _scale);
-    auto pair = _network->getPhysController()->addSharedObstacle(_factId, params);
-    float angle = cannon->getAngle() + M_PI_2;
-    Vec2 forward(SDL_cosf(angle), SDL_sinf(angle));
-    pair.first->setLinearVelocity(forward * 50 *1);
-#pragma mark END SOLUTION
-}
+// /**
+// * This method adds a crate that had been fired by the player's cannon amid the simulation.
+// *
+// * If this machine is host, the crate should be fire from the left cannon (_cannon1), vice versa.
+// */
+//void GameScene::fireCrate() {
+//    //TODO: Add a new crate to the simulation using the addSharedObstacle() method from the physics controller, and set its velocity in the direction the cannon is aimed scaled by (50 * _input.getFirePower()).
+//    //HINT: You can use the serializedParams() method of the crate factory to help you serialize the parameters.
+//#pragma mark BEGIN SOLUTION
+//    auto cannon = _isHost ? _cannon1 : _cannon2;
+//    auto params = _crateFact->serializeParams(cannon->getPosition(), _scale);
+//    auto pair = _network->getPhysController()->addSharedObstacle(_factId, params);
+//    float angle = cannon->getAngle() + M_PI_2;
+//    Vec2 forward(SDL_cosf(angle), SDL_sinf(angle));
+//    pair.first->setLinearVelocity(forward * 50 *1);
+//#pragma mark END SOLUTION
+//}
 
 
-/**
- * This method takes a crateEvent and processes it.
- */
-void GameScene::processCrateEvent(const std::shared_ptr<CrateEvent>& event){
-    //Choose randomly between wooden crates and iron crates.
-    int indx = (_rand() % 2 == 0 ? 2 : 1);
-    std::string name = (CRATE_PREFIX "0") + std::to_string(indx);
-    auto image = _assets->get<Texture>(name);
-    Size boxSize(image->getSize() / _scale);
-    
-    auto crate = physics2::BoxObstacle::alloc(Vec2(event->getPos().x,event->getPos().y), boxSize);
-    
-    crate->setDebugColor(DYNAMIC_COLOR);
-    crate->setAngleSnap(0); // Snap to the nearest degree
-    
-    // Set the physics attributes
-    crate->setDensity(CRATE_DENSITY);
-    crate->setFriction(CRATE_FRICTION);
-    crate->setAngularDamping(CRATE_DAMPING);
-    crate->setRestitution(BASIC_RESTITUTION);
-
-    crate->setShared(true);
-    
-    auto sprite = scene2::PolygonNode::allocWithTexture(image);
-    sprite->setAnchor(Vec2::ANCHOR_CENTER);
-    sprite->setScale(1.0f);
-    
-    //TODO: add the crate and sprite to the simulation
-    //NOTE: since both the host and client will receive a CrateEvent, we don't want to use addSharedObstacle() for it because it will create two separate crate. Instead you should use addInitObstacle(), which has the same top-bit id and if all clients called init obstacle the same amount of times, the same low-bit id. There is a potential race condition where multiple clients calling addInitObstacle() can cause id to be mixed up(clients send CrateEvent at the same time). In this lab, we will not address that race condition. But you could send along an obstacle id to ensure that all clients have that id for the obstacle.
-#pragma mark BEGIN SOLUTION
-    addInitObstacle(crate,sprite);
-#pragma mark END SOLUTION
-}
+// /**
+// * This method takes a crateEvent and processes it.
+// */
+//void GameScene::processCrateEvent(const std::shared_ptr<CrateEvent>& event){
+//    //Choose randomly between wooden crates and iron crates.
+//    int indx = (_rand() % 2 == 0 ? 2 : 1);
+//    std::string name = (CRATE_PREFIX "0") + std::to_string(indx);
+//    auto image = _assets->get<Texture>(name);
+//    Size boxSize(image->getSize() / _scale);
+//    
+//    auto crate = physics2::BoxObstacle::alloc(Vec2(event->getPos().x,event->getPos().y), boxSize);
+//    
+//    crate->setDebugColor(DYNAMIC_COLOR);
+//    crate->setAngleSnap(0); // Snap to the nearest degree
+//    
+//    // Set the physics attributes
+//    crate->setDensity(CRATE_DENSITY);
+//    crate->setFriction(CRATE_FRICTION);
+//    crate->setAngularDamping(CRATE_DAMPING);
+//    crate->setRestitution(BASIC_RESTITUTION);
+//
+//    crate->setShared(true);
+//    
+//    auto sprite = scene2::PolygonNode::allocWithTexture(image);
+//    sprite->setAnchor(Vec2::ANCHOR_CENTER);
+//    sprite->setScale(1.0f);
+//    
+//    //TODO: add the crate and sprite to the simulation
+//    //NOTE: since both the host and client will receive a CrateEvent, we don't want to use addSharedObstacle() for it because it will create two separate crate. Instead you should use addInitObstacle(), which has the same top-bit id and if all clients called init obstacle the same amount of times, the same low-bit id. There is a potential race condition where multiple clients calling addInitObstacle() can cause id to be mixed up(clients send CrateEvent at the same time). In this lab, we will not address that race condition. But you could send along an obstacle id to ensure that all clients have that id for the obstacle.
+//#pragma mark BEGIN SOLUTION
+//    addInitObstacle(crate,sprite);
+//#pragma mark END SOLUTION
+//}
 
 /**
  * Lays out the game geography.

@@ -252,7 +252,7 @@ void NetApp::updateHostScene(float timestep) {
 /**
  * Inidividualized update method for the client scene.
  *
- * This method keeps the primary {@link #update} from being a mess of switch
+ * This method keeps the primary {\link #update} from being a mess of switch
  * statements. It also handles the transition logic from the client scene.
  *
  * @param timestep  The amount of time (in seconds) since the last frame

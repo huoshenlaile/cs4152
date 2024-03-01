@@ -46,8 +46,8 @@ int main(int argc, char * argv[]) {
     NetApp app;
     
     // Set the properties of your application
-    app.setName("Networked Physics Demo");
-    app.setOrganization("GDIAC");
+    app.setName("Dusty Paint: Gameplay Prototype");
+    app.setOrganization("Vme50 Studio");
     app.setHighDPI(true);
 
     //app.setFullscreen(true);
