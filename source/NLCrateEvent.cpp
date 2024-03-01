@@ -7,6 +7,8 @@
 //  Created by Barry Lyu  on 12/15/23.
 //
 
+
+// TODO: Modify this into our own NetEvent Class!! -- George
 #include "NLCrateEvent.h"
 
 /**

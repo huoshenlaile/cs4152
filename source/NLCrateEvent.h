@@ -7,6 +7,7 @@
 //  Created by Barry Lyu  on 12/15/23.
 //
 
+// TODO: Modify this into our own NetEvent Class!! -- George
 #ifndef NLCrateEvent_h
 #define NLCrateEvent_h
 

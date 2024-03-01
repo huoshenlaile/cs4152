@@ -28,6 +28,9 @@
 using namespace cugl::physics2::net;
 using namespace cugl;
 
+class CrateFactory : public ObstacleFactory {
+    // TODO: Modify this into our own Network Physics Class! -- George
+}; 
 // /**
 // * The factory class for crate objects.
 // *

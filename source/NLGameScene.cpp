@@ -432,19 +432,19 @@ bool GameScene::init(const std::shared_ptr<AssetManager>& assets, const Rect rec
      */
 #pragma mark BEGIN SOLUTION
 	_network->enablePhysics(_world, linkSceneToObsFunc);
-
 	if (!isHost) {
 		_network->getPhysController()->acquireObs(_cannon2, 0);
 	}
-
 //	_factId = _network->getPhysController()->attachFactory(_crateFact);
 #pragma mark END SOLUTION
 
+    
 	//TODO: For task 5, attach CrateEvent to the network controller
 #pragma mark BEGIN SOLUTION
 	_network->attachEventType<CrateEvent>();
 #pragma mark END SOLUTION
 
+    
 	// XNA nostalgia
 	Application::get()->setClearColor(Color4f::CORNFLOWER);
 	return true;
