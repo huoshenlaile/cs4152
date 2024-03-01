@@ -51,8 +51,8 @@ using namespace cugl::physics2::net;
 
 #define DEFAULT_TURN_RATE 0.05f
 
-/** To automate the loading of crate files */
-#define NUM_CRATES 100
+///** To automate the loading of crate files */
+//#define NUM_CRATES 100
 
 
 // Since these appear only once, we do not care about the magic numbers.
@@ -88,12 +88,12 @@ float CAN2_POS[] = { 30,9 };
 #define CANNON_TEXTURE        "rocket"
 /** The key for the win door texture in the asset manager */
 #define GOAL_TEXTURE        "goal"
-/** The key prefix for the multiple crate assets */
-#define CRATE_PREFIX        "crate"
-/** The key for the fire textures in the asset manager */
-#define MAIN_FIRE_TEXTURE   "flames"
-#define RGHT_FIRE_TEXTURE   "flames-right"
-#define LEFT_FIRE_TEXTURE   "flames-left"
+///** The key prefix for the multiple crate assets */
+//#define CRATE_PREFIX        "crate"
+///** The key for the fire textures in the asset manager */
+//#define MAIN_FIRE_TEXTURE   "flames"
+//#define RGHT_FIRE_TEXTURE   "flames-right"
+//#define LEFT_FIRE_TEXTURE   "flames-left"
 
 /** Color to outline the physics nodes */
 #define STATIC_COLOR    Color4::WHITE
@@ -117,18 +117,18 @@ float CAN2_POS[] = { 30,9 };
 // Physics constants for initialization
 /** Density of non-crate objects */
 #define BASIC_DENSITY       0.0f
-/** Density of the crate objects */
-#define CRATE_DENSITY       1.0f
 /** Friction of non-crate objects */
 #define BASIC_FRICTION      0.1f
-/** Friction of the crate objects */
-#define CRATE_FRICTION      0.2f
-/** Angular damping of the crate objects */
-#define CRATE_DAMPING       1.0f
 /** Collision restitution for all objects */
 #define BASIC_RESTITUTION   0.1f
 /** Threshold for generating sound on collision */
 #define SOUND_THRESHOLD     3
+///** Friction of the crate objects */
+//#define CRATE_FRICTION      0.2f
+///** Angular damping of the crate objects */
+//#define CRATE_DAMPING       1.0f
+///** Density of the crate objects */
+//#define CRATE_DENSITY       1.0f
 
 #define FIXED_TIMESTEP_S 0.02f
 float DOLL_POS[] = { 16, 10 };
@@ -167,69 +167,68 @@ float PLATFORMS[PLATFORM_COUNT][PLATFORM_VERTS] = {
 
 /** The goal door position */
 float GOAL_POS[] = { 4.0f,14.0f };
-/** The position of the spinning barrier */
-//float SPIN_POS[] = { 13.0f,12.5f };
-float SPIN_POS[] = { 15.5f,12.0f };
 /** The initial position of the dude */
 float DUDE_POS[] = { 2.5f, 5.0f };
-/** The position of the rope bridge */
-float BRIDGE_POS[] = { 9.0f, 3.8f };
+///** The position of the rope bridge */
+//float BRIDGE_POS[] = { 9.0f, 3.8f };
+///** The position of the spinning barrier */
+//float SPIN_POS[] = { 15.5f,12.0f };
 
 
 #pragma mark -
 #pragma mark Physics Constants
-/** The density for a bullet */
-#define HEAVY_DENSITY   10.0f
-/** The width of the rope bridge */
-#define BRIDGE_WIDTH    14.0f
-/** Offset for bullet when firing */
-#define BULLET_OFFSET   0.5f
-/** The speed of the bullet after firing */
-#define BULLET_SPEED   20.0f
+///** The density for a bullet */
+//#define HEAVY_DENSITY   10.0f
+///** The width of the rope bridge */
+//#define BRIDGE_WIDTH    14.0f
+///** Offset for bullet when firing */
+//#define BULLET_OFFSET   0.5f
+///** The speed of the bullet after firing */
+//#define BULLET_SPEED   20.0f
 /** The number of frame to wait before reinitializing the game */
 #define EXIT_COUNT      240
 
 
 #pragma mark -
 #pragma mark Asset Constants
-/** The key for the win door texture in the asset manager */
-#define BULLET_TEXTURE  "bullet"
-/** The name of a bullet (for object identification) */
-#define BULLET_NAME     "bullet"
 /** The name of a wall (for object identification) */
 #define WALL_NAME       "wall"
 /** The name of a platform (for object identification) */
 #define PLATFORM_NAME   "platform"
-/** The font for victory/failure messages */
-#define MESSAGE_FONT    "retro"
-/** The message for winning the game */
-#define WIN_MESSAGE     "VICTORY!"
-/** The color of the win message */
-#define WIN_COLOR       Color4::YELLOW
-/** The message for losing the game */
-#define LOSE_MESSAGE    "FAILURE!"
-/** The color of the lose message */
-#define LOSE_COLOR      Color4::RED
-/** The key the basic game music */
-#define GAME_MUSIC      "game"
-/** The key the victory game music */
-#define WIN_MUSIC       "win"
-/** The key the failure game music */
-#define LOSE_MUSIC      "lose"
-/** The sound effect for firing a bullet */
-#define PEW_EFFECT      "pew"
-/** The sound effect for a bullet collision */
-#define POP_EFFECT      "pop"
-/** The sound effect for jumping */
-#define JUMP_EFFECT     "jump"
-/** The volume for the music */
-#define MUSIC_VOLUME    0.7f
-/** The volume for sound effects */
-#define EFFECT_VOLUME   0.8f
-/** The image for the left dpad/joystick */
-#define LEFT_IMAGE      "dpad_left"
-/** The image for the right dpad/joystick */
-#define RIGHT_IMAGE     "dpad_right"
+///** The key for the win door texture in the asset manager */
+//#define BULLET_TEXTURE  "bullet"
+///** The name of a bullet (for object identification) */
+//#define BULLET_NAME     "bullet"
+///** The font for victory/failure messages */
+//#define MESSAGE_FONT    "retro"
+///** The message for winning the game */
+//#define WIN_MESSAGE     "VICTORY!"
+///** The color of the win message */
+//#define WIN_COLOR       Color4::YELLOW
+///** The message for losing the game */
+//#define LOSE_MESSAGE    "FAILURE!"
+///** The color of the lose message */
+//#define LOSE_COLOR      Color4::RED
+///** The key the basic game music */
+//#define GAME_MUSIC      "game"
+///** The key the victory game music */
+//#define WIN_MUSIC       "win"
+///** The key the failure game music */
+//#define LOSE_MUSIC      "lose"
+///** The sound effect for firing a bullet */
+//#define PEW_EFFECT      "pew"
+///** The sound effect for a bullet collision */
+//#define POP_EFFECT      "pop"
+///** The sound effect for jumping */
+//#define JUMP_EFFECT     "jump"
+///** The volume for the music */
+//#define MUSIC_VOLUME    0.7f
+///** The volume for sound effects */
+//#define EFFECT_VOLUME   0.8f
+///** The image for the left dpad/joystick */
+//#define LEFT_IMAGE      "dpad_left"
+///** The image for the right dpad/joystick */
+//#define RIGHT_IMAGE     "dpad_right"
 
 /** Color to outline the physics nodes */
 #define DEBUG_COLOR     Color4::YELLOW
@@ -915,13 +914,13 @@ void GameScene::fixedUpdate() {
 	//Hint: You can check if ptr points to an object of class A using std::dynamic_pointer_cast<A>(ptr). You should always check isInAvailable() before popInEvent().
 
 #pragma mark BEGIN SOLUTION
-	if (_network->isInAvailable()) {
-		auto e = _network->popInEvent();
-		if (auto crateEvent = std::dynamic_pointer_cast<CrateEvent>(e)) {
-			CULog("BIG CRATE GOT");
-			//processCrateEvent(crateEvent);
-		}
-	}
+//	if (_network->isInAvailable()) {
+//		auto e = _network->popInEvent();
+//		if (auto crateEvent = std::dynamic_pointer_cast<CrateEvent>(e)) {
+//			CULog("BIG CRATE GOT");
+//			//processCrateEvent(crateEvent);
+//		}
+//	}
 #pragma mark END SOLUTION
 	_world->update(FIXED_TIMESTEP_S);
 }
