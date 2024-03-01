@@ -835,21 +835,21 @@ void GameScene::addInitObstacle(const std::shared_ptr<physics2::Obstacle>& obj,
 
 void GameScene::preUpdate(float dt) {
     _input.update();
-    int knob_radius_multiplier = 1;
+    int knob_radius = 200;
     std::shared_ptr<cugl::physics2::Obstacle> leftArm = _ragdoll->getPartObstacle(PART_LEFT_HAND);
     std::shared_ptr<cugl::physics2::Obstacle> rightArm = _ragdoll->getPartObstacle(PART_RIGHT_HAND);
     std::unordered_map<std::string,cugl::Vec2> inputs = _input.getPosition();
     for (const auto & [ key, value ] : inputs) {
-        if (_input_to_arm.count(key)==0){ // Add touchpoint
+        if (_input_to_arm.count(key) == 0){ // Add touchpoint
             cugl::Vec2 pos2d = ((cugl::Vec2)screenToWorldCoords(value));
-            if(_arm_to_input.count(PART_LEFT_HAND)==0 && (leftArm->getPosition()*_scale).distance(pos2d)<50*knob_radius_multiplier){
-                _input_to_arm[key]=PART_LEFT_HAND;
-                _arm_to_input[PART_LEFT_HAND]=key;
+            if(_arm_to_input.count(PART_LEFT_HAND) == 0 && (leftArm->getPosition() * _scale).distance(pos2d) < knob_radius){
+                _input_to_arm[key] = PART_LEFT_HAND;
+                _arm_to_input[PART_LEFT_HAND] = key;
                 
             }
-            else if(_arm_to_input.count(PART_RIGHT_HAND)==0 && (rightArm->getPosition()*_scale).distance(pos2d)<50*knob_radius_multiplier){
-                _input_to_arm[key]=PART_RIGHT_HAND;
-                _arm_to_input[PART_RIGHT_HAND]=key;
+            else if(_arm_to_input.count(PART_RIGHT_HAND) == 0 && (rightArm->getPosition() * _scale).distance(pos2d) < knob_radius){
+                _input_to_arm[key] = PART_RIGHT_HAND;
+                _arm_to_input[PART_RIGHT_HAND] = key;
             }
         }
         else{ // Do stuff with existing touchpoint
