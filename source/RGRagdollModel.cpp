@@ -279,6 +279,8 @@ void RagdollModel::deactivate(const std::shared_ptr<physics2::ObstacleWorld>& wo
  */
 bool RagdollModel::createJoints() {
     std::shared_ptr<physics2::RevoluteJoint> joint;
+    std::shared_ptr<physics2::WeldJoint> jointW;
+    float small = 0.001f;
 
 //    // NECK JOINT
 //    joint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_HEAD],
@@ -328,25 +330,75 @@ bool RagdollModel::createJoints() {
     joint->setLowerAngle(-M_PI / 2.0f);
     _joints.push_back(joint);
     
-    // RIGID WRISTS
-    joint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_LEFT_FOREARM],
-                                                        _obstacles[PART_LEFT_HAND]);
-    joint->setLocalAnchorA(-HAND_OFFSET / 2, 0);
-    joint->setLocalAnchorB(HAND_OFFSET / 2, 0);
-    joint->enableLimit(true);
-    joint->setUpperAngle(0);
-    joint->setLowerAngle(0);
-    _joints.push_back(joint);
+//    // RIGID WRISTS
+//    joint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_LEFT_FOREARM],
+//                                                        _obstacles[PART_LEFT_HAND]);
+//    joint->setLocalAnchorA(-HAND_OFFSET / 2, 0);
+//    joint->setLocalAnchorB(HAND_OFFSET / 2, 0);
+//    joint->enableLimit(true);
+//    joint->setUpperAngle(0);
+//    joint->setLowerAngle(0);
+//    _joints.push_back(joint);
+//    
+//    joint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_RIGHT_FOREARM],
+//                                                        _obstacles[PART_RIGHT_HAND]);
+//    joint->setLocalAnchorA(HAND_OFFSET / 2, 0);
+//    joint->setLocalAnchorB(-HAND_OFFSET / 2, 0);
+//    joint->enableLimit(true);
+//    joint->setUpperAngle(0);
+//    joint->setLowerAngle(0);
+//    _joints.push_back(joint);
     
-    joint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_RIGHT_FOREARM],
-                                                        _obstacles[PART_RIGHT_HAND]);
-    joint->setLocalAnchorA(HAND_OFFSET / 2, 0);
-    joint->setLocalAnchorB(-HAND_OFFSET / 2, 0);
-    joint->enableLimit(true);
-    joint->setUpperAngle(0);
-    joint->setLowerAngle(0);
-    _joints.push_back(joint);
+//    // SHOULDERS
+//    joint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_LEFT_ARM],
+//                                                        _obstacles[PART_BODY]);
+//    joint->setLocalAnchorA(ARM_XOFFSET / 2, 0);
+//    joint->setLocalAnchorB(-ARM_XOFFSET / 2, ARM_YOFFSET);
+//    joint->enableLimit(true);
+//    joint->setUpperAngle(small);
+//    joint->setLowerAngle(small);
+//    _joints.push_back(joint);
+//
+//    joint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_RIGHT_ARM],
+//                                                        _obstacles[PART_BODY]);
+//    joint->setLocalAnchorA(-ARM_XOFFSET / 2, 0);
+//    joint->setLocalAnchorB(ARM_XOFFSET / 2, ARM_YOFFSET);
+//    joint->enableLimit(true);
+//    joint->setUpperAngle(small);
+//    joint->setLowerAngle(small);
+//    _joints.push_back(joint);
+//
+//    // ELBOWS
+//    joint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_LEFT_FOREARM],
+//                                                        _obstacles[PART_LEFT_ARM]);
+//    joint->setLocalAnchorA(FOREARM_OFFSET / 2, 0);
+//    joint->setLocalAnchorB(-FOREARM_OFFSET / 2, 0);
+//    joint->enableLimit(true);
+//    joint->setUpperAngle(small);
+//    joint->setLowerAngle(small);
+//    _joints.push_back(joint);
+//
+//    joint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_RIGHT_FOREARM],
+//                                                        _obstacles[PART_RIGHT_ARM]);
+//    joint->setLocalAnchorA(-FOREARM_OFFSET / 2, 0);
+//    joint->setLocalAnchorB(FOREARM_OFFSET / 2, 0);
+//    joint->enableLimit(true);
+//    joint->setUpperAngle(small);
+//    joint->setLowerAngle(small);
+//    _joints.push_back(joint);
 
+    // RIGID WRISTS USING WELD JOINTS
+    jointW = physics2::WeldJoint::allocWithObstacles(_obstacles[PART_LEFT_FOREARM], _obstacles[PART_LEFT_HAND]);
+    jointW->setLocalAnchorA(-HAND_OFFSET / 2, 0);
+    jointW->setLocalAnchorB(HAND_OFFSET / 2, 0);
+    _joints.push_back(jointW);
+
+    jointW = physics2::WeldJoint::allocWithObstacles(_obstacles[PART_RIGHT_FOREARM], _obstacles[PART_RIGHT_HAND]);
+    jointW->setLocalAnchorA(HAND_OFFSET / 2, 0);
+    jointW->setLocalAnchorB(-HAND_OFFSET / 2, 0);
+    _joints.push_back(jointW);
+
+    
 //    // HIPS
 //    joint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_LEFT_THIGH],
 //                                                        _obstacles[PART_BODY]);
