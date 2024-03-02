@@ -11,7 +11,7 @@
 //  Version: 1/10/17
 //
 #include "NLApp.h"
-
+#include "Platform/PLPlatformConstants.hpp"
 using namespace cugl;
 
 
@@ -51,6 +51,9 @@ void NetApp::onStartup() {
 
     _loading.init(_assets);
     _status = LOAD;
+    
+    _assets->loadAsync<PlatformModel>(LEVEL_ONE_KEY,LEVEL_ONE_FILE,nullptr);
+    _assets->attach<PlatformModel>(GenericLoader<PlatformModel>::alloc()->getHook());
     
     // Que up the other assets
     AudioEngine::start(24);

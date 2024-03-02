@@ -383,14 +383,31 @@ bool GameScene::init(const std::shared_ptr<AssetManager>& assets, const Rect rec
     _input.init();
     _input.update();
     _rand.seed(0xdeadbeef);
-
+    
+    _scale = dimen.width == SCENE_WIDTH ? dimen.width/rect.size.width : dimen.height/rect.size.height;
+    Vec2 offset((dimen.width-SCENE_WIDTH)/2.0f,(dimen.height-SCENE_HEIGHT)/2.0f);
+    
+    _rootnode = scene2::SceneNode::alloc();
+    _rootnode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
+    _rootnode->setPosition(offset);
+    
+    _level = assets->get<PlatformModel>("level1");
+    if (_level == nullptr) {
+        CULog("Fail!");
+        return false;
+    }
+    std::shared_ptr<cugl::physics2::net::NetWorld> platformWorld = _level->getWorld();
+    activateWorldCollisions(platformWorld);
+    _level->setAssets(_assets);
+    _level->setRootNode(_rootnode); // Obtains ownership of root.
+    
+    
 //    _crateFact = CrateFactory::alloc(_assets);
 
     // IMPORTANT: SCALING MUST BE UNIFORM
     // This means that we cannot change the aspect ratio of the physics world
     // Shift to center if a bad fit
-    _scale = dimen.width == SCENE_WIDTH ? dimen.width/rect.size.width : dimen.height/rect.size.height;
-    Vec2 offset((dimen.width-SCENE_WIDTH)/2.0f,(dimen.height-SCENE_HEIGHT)/2.0f);
+    
 
     // Create the scene graph
     _worldnode = scene2::SceneNode::alloc();
@@ -458,6 +475,7 @@ void GameScene::dispose() {
 		removeAllChildren();
 		_input.dispose();
 		_world = nullptr;
+        _level = nullptr;
 		_worldnode = nullptr;
 		_debugnode = nullptr;
 		_winnode = nullptr;
@@ -710,6 +728,8 @@ void GameScene::populate() {
 //    addInitObstacle(_cannon1, _cannon1Node);
 //    addInitObstacle(_cannon2, _cannon2Node);
 
+    
+    
 #pragma mark : Walls
 	// All walls and platforms share the same texture
 	image = _assets->get<Texture>(EARTH_TEXTURE);
@@ -830,10 +850,53 @@ void GameScene::addInitObstacle(const std::shared_ptr<physics2::Obstacle>& obj,
 	linkSceneToObs(obj, node);
 }
 
+
+/**
+ * Activates world collision callbacks on the given physics world and sets the onBeginContact and beforeSolve callbacks
+ *
+ * @param world the physics world to activate world collision callbacks on
+ */
+void GameScene::activateWorldCollisions(const std::shared_ptr<cugl::physics2::net::NetWorld>& world) {
+    //TODO: add physics to world
+//    world->activateCollisionCallbacks(true);
+//    world->onBeginContact = [this](b2Contact* contact) {
+//        beginContact(contact);
+//    };
+//    world->beforeSolve = [this](b2Contact* contact, const b2Manifold* oldManifold) {
+//        beforeSolve(contact, oldManifold);
+//    };
+}
+
+
 #pragma mark -
 #pragma mark Physics Handling
 
 void GameScene::preUpdate(float dt) {
+    if (_level == nullptr) {
+        return;
+    }
+
+    // Check to see if new level loaded yet
+    if (_loadnode->isVisible()) {
+        if (_assets->complete()) {
+            _level = nullptr;
+
+            // Access and initialize level
+            _level = _assets->get<PlatformModel>("level1");
+            _level->setAssets(_assets);
+            _level->setRootNode(_rootnode); // Obtains ownership of root.
+            _level->showDebug(_debug);
+
+            activateWorldCollisions(_level->getWorld());
+
+            _loadnode->setVisible(false);
+        }
+        else {
+            // Level is not loaded yet; refuse input
+            return;
+        }
+    }
+    
     _input.update();
     int knob_radius = 200;
     std::shared_ptr<cugl::physics2::Obstacle> leftArm = _ragdoll->getPartObstacle(PART_LEFT_HAND);
@@ -901,6 +964,8 @@ void GameScene::preUpdate(float dt) {
   //  float turnRate = _isHost ? DEFAULT_TURN_RATE : -DEFAULT_TURN_RATE;
   //  auto cannon = _isHost ? _cannon1 : _cannon2;
   //  cannon->setAngle(_input.getVertical() * turnRate + cannon->getAngle());
+    // Turn the physics engine crank.
+    _level->getWorld()->update(dt);
 }
 
 void GameScene::postUpdate(float dt) {

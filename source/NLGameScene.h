@@ -24,6 +24,7 @@
 #include "GLInputController.h"
 #include "NLCrateEvent.h"
 #include "RGRagdollModel.h"
+#include "./Platform/PLPlatform.hpp"
 
 using namespace cugl::physics2::net;
 using namespace cugl;
@@ -115,6 +116,13 @@ protected:
     /** The scale between the physics world and the screen (MUST BE UNIFORM) */
     float _scale;
     
+    /** Platform level model */
+    std::shared_ptr<PlatformModel> _level;
+    /** Reference to the reset message label */
+    std::shared_ptr<cugl::scene2::Label> _loadnode;
+    /** Reference to the physics root of the scene graph */
+    std::shared_ptr<cugl::scene2::SceneNode> _rootnode;
+    
     std::mt19937 _rand;
 
 //    std::shared_ptr<CrateFactory> _crateFact;
@@ -164,6 +172,14 @@ protected:
      * with your serialization loader, which would process a level file.
      */
     void populate();
+    
+    /**
+     * Activates world collision callbacks on the given physics world and sets the onBeginContact and beforeSolve callbacks
+     *
+     * @param world the physics world to activate world collision callbacks on
+     */
+    void activateWorldCollisions(const std::shared_ptr<cugl::physics2::net::NetWorld>& world);
+ 
     
     /**
      * Adds the physics object to the physics world and loosely couples it to the scene graph
