@@ -24,63 +24,11 @@
 #include "GLInputController.h"
 #include "NLCrateEvent.h"
 #include "RGRagdollModel.h"
+#include "PLPlatform.h"
+#include "CLCameraController.h"
 
 using namespace cugl::physics2::net;
 using namespace cugl;
-
-class CrateFactory : public ObstacleFactory {
-    // TODO: Modify this into our own Network Physics Class! -- George
-}; 
-// /**
-// * The factory class for crate objects.
-// *
-// * This class is used to support automatically syncing newly added obstacle mid-simulation.
-// * Obstacles added throught the ObstacleFactory class from one client will be added to all
-// * clients in the simulations.
-// */
-//class CrateFactory : public ObstacleFactory {
-//public:
-//	/** Pointer to the AssetManager for texture access, etc. */
-//	std::shared_ptr<cugl::AssetManager> _assets;
-//	/** Deterministic random generator for crate type */
-//	std::mt19937 _rand;
-//	/** Serializer for supporting parameters */
-//	LWSerializer _serializer;
-//	/** Deserializer for supporting parameters */
-//	LWDeserializer _deserializer;
-//
-//	/**
-//	 * Allocates a new instance of the factory using the given AssetManager.
-//	 */
-//	static std::shared_ptr<CrateFactory> alloc(std::shared_ptr<AssetManager>& assets) {
-//		auto f = std::make_shared<CrateFactory>();
-//		f->init(assets);
-//		return f;
-//	};
-//
-//	/**
-//	 * Initializes empty factories using the given AssetManager.
-//	 */
-//	void init(std::shared_ptr<AssetManager>& assets) {
-//		_assets = assets;
-//		_rand.seed(0xdeadbeef);
-//	}
-//
-//	/**
-//	 * Generate a pair of Obstacle and SceneNode using the given parameters
-//	 */
-//	std::pair<std::shared_ptr<physics2::Obstacle>, std::shared_ptr<scene2::SceneNode>> createObstacle(Vec2 pos, float scale);
-//
-//	/**
-//	 * Helper method for converting normal parameters into byte vectors used for syncing.
-//	 */
-//	std::shared_ptr<std::vector<std::byte>> serializeParams(Vec2 pos, float scale);
-//
-//	/**
-//	 * Generate a pair of Obstacle and SceneNode using serialized parameters.
-//	 */
-//	std::pair<std::shared_ptr<physics2::Obstacle>, std::shared_ptr<scene2::SceneNode>> createObstacle(const std::vector<std::byte>& params) override;
-//};
 
 /**
  * This class is the primary gameplay constroller for the demo.
@@ -98,22 +46,23 @@ protected:
     /** Controller for abstracting out input across multiple platforms */
     InputController _input;
     
-    // VIEW
-  	/** Reference to the goalDoor (for collision detection) */
-    std::shared_ptr<cugl::physics2::BoxObstacle>    _goalDoor;
-    /** Reference to the physics root of the scene graph */
-    std::shared_ptr<cugl::scene2::SceneNode> _worldnode;
-    /** Reference to the debug root of the scene graph */
-    std::shared_ptr<cugl::scene2::SceneNode> _debugnode;
     /** Reference to the win message label */
     std::shared_ptr<cugl::scene2::Label> _winnode;
     
-    std::shared_ptr<cugl::scene2::ProgressBar> _chargeBar;
 
-    /** The Box2D world */
-    std::shared_ptr<cugl::physics2::net::NetWorld> _world;
     /** The scale between the physics world and the screen (MUST BE UNIFORM) */
     float _scale;
+    
+    /** Platform level model */
+    std::shared_ptr<PlatformModel> _level;
+    /** Reference to the reset message label */
+    std::shared_ptr<cugl::scene2::Label> _loadnode;
+    /** Reference to the ui layer */
+    std::shared_ptr<cugl::scene2::SceneNode> _uinode;
+    /** Reference to the physics root of the scene graph */
+    std::shared_ptr<cugl::scene2::SceneNode> _rootnode;
+    
+    CameraController _camera;
     
     std::mt19937 _rand;
 
@@ -164,6 +113,14 @@ protected:
      * with your serialization loader, which would process a level file.
      */
     void populate();
+    
+    /**
+     * Activates world collision callbacks on the given physics world and sets the onBeginContact and beforeSolve callbacks
+     *
+     * @param world the physics world to activate world collision callbacks on
+     */
+    void activateWorldCollisions(const std::shared_ptr<cugl::physics2::net::NetWorld>& world);
+ 
     
     /**
      * Adds the physics object to the physics world and loosely couples it to the scene graph
@@ -313,7 +270,7 @@ public:
 	 *
 	 * @param value whether debug mode is active.
 	 */
-	void setDebug(bool value) { _debug = value; _debugnode->setVisible(value); }
+	void setDebug(bool value) {}
 
 	/**
 	 * Returns true if the level is completed.
