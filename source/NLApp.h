@@ -32,7 +32,7 @@ enum Status {
     MENU,
     HOST,
     CLIENT,
-    GAME,
+    GAME
 };
 
 protected:
