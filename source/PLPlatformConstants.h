@@ -5,8 +5,8 @@
 //  Created by Jinseok Oh on 3/2/24.
 //
 
-#ifndef PLPlatformConstants_hpp
-#define PLPlatformConstants_hpp
+#ifndef __PL_Platform_Constants_H__
+#define __PL_Platform_Constants_H__
 
 #include <stdio.h>
 
@@ -53,7 +53,7 @@
 /** The source for our level file */
 #define LEVEL_ONE_FILE      "json/level.json"
 /** The key for our loaded level */
-#define LEVEL_ONE_KEY       "level1"
+#define LEVEL_ONE_KEY       "biglevel"
 
 
-#endif /* PLPlatformConstants_hpp */
+#endif /* __PL_Platform_Constants_H__ */

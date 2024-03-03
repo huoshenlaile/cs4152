@@ -5,8 +5,8 @@
 //  Created by Jinseok Oh on 3/2/24.
 //
 
-#include "PLPlatform.hpp"
-#include "PLPlatformConstants.hpp"
+#include "PLPlatform.h"
+#include "PLPlatformConstants.h"
 
 std::vector<float> PlatformModel::getVertices(const std::shared_ptr<JsonValue>& json) {
     std::vector<float> vertices = std::vector<float>();
@@ -37,6 +37,7 @@ Color4 PlatformModel::parseColor(std::string name) {
     } else if (name == "green") {
         return Color4::GREEN;
     } else if (name == "blue") {
+        printf("BLUE IS HERE!");
         return Color4::BLUE;
     } else if (name == "black") {
         return Color4::BLACK;
@@ -45,6 +46,68 @@ Color4 PlatformModel::parseColor(std::string name) {
     }
     return Color4::WHITE;
 }
+
+
+/**
+ * Loads this game level from the source file
+ *
+ * This load method should NEVER access the AssetManager.  Assets are loaded in
+ * parallel, not in sequence.  If an asset (like a game level) has references to
+ * other assets, then these should be connected later, during scene initialization.
+ *
+ * @return true if successfully loaded the asset from a file
+ */
+bool PlatformModel::preload(const std::string& file) {
+    std::shared_ptr<JsonReader> reader = JsonReader::allocWithAsset(file);
+    return preload(reader->readJson());
+}
+
+
+/**
+ * Loads this game level from the source file
+ *
+ * This load method should NEVER access the AssetManager.  Assets are loaded in
+ * parallel, not in sequence.  If an asset (like a game level) has references to
+ * other assets, then these should be connected later, during scene initialization.
+ *
+ * @return true if successfully loaded the asset from a file
+ */
+bool PlatformModel:: preload(const std::shared_ptr<cugl::JsonValue>& json) {
+    if (json == nullptr) {
+        CUAssertLog(false, "Failed to load level file");
+        return false;
+    }
+    // Initial geometry
+    float w = json->get(WIDTH_FIELD)->asFloat();
+    float h = json->get(HEIGHT_FIELD)->asFloat();
+    float g = json->get("properties")->get(0)->getFloat("value", -4.9);
+    _bounds.size.set(w, h);
+    _gravity.set(0,g);
+    /** Create the physics world */
+    _world = cugl::physics2::net::NetWorld::alloc(getBounds(),getGravity());
+
+    // Get each object in each layer, then decide what to do based off of what
+    // type the object is.
+    for (int i = 0; i < json->get("layers")->size(); i++) {
+        // Get the objects per layer
+        auto objects = json->get("layers")->get(i)->get("objects");
+        for (int j = 0; j < objects->size(); j++) {
+            // For each object, determine what it is and load it
+            loadObject(objects->get(j));
+        }
+    }
+
+    return true;
+}
+bool PlatformModel::loadObject(const std::shared_ptr<JsonValue>& json) {
+    auto type = json->get("type")->asString();
+    if (type == WALLS_FIELD) {
+        return loadWall(json);
+    }
+    return false;
+}
+
+
 /**
 * Loads a single wall object
 *
@@ -64,6 +127,10 @@ bool PlatformModel::loadWall(const std::shared_ptr<JsonValue>& json) {
     success = success && polysize > 0;
 
     std::vector<float> vertices = getVertices(json);
+    for(auto i = 0; i<vertices.size();i++){
+        std::cout << vertices[i] << std::endl;
+    }
+    std::cout<<"vertices..."<<std::endl;
     success = success && 2*polysize == vertices.size();
 
     Vec2* verts = reinterpret_cast<Vec2*>(&vertices[0]);
@@ -76,6 +143,9 @@ bool PlatformModel::loadWall(const std::shared_ptr<JsonValue>& json) {
     
     // Get the object, which is automatically retained
     std::shared_ptr<WallModel> wallobj = WallModel::alloc(wall);
+    std::cout<<"interesting..."<<std::endl;
+    std::cout<<wallobj->getPosition().x<< " , "<< wallobj->getPosition().y<<std::endl;
+    std::cout<<"right..."<<std::endl;
     wallobj->setName(WALLS_FIELD+json->getString("id"));
 
     wallobj->setBodyType((b2BodyType)walljson->get("obstacle")->getInt(BODYTYPE_FIELD));
@@ -100,6 +170,7 @@ bool PlatformModel::loadWall(const std::shared_ptr<JsonValue>& json) {
 }
 
 PlatformModel::PlatformModel(void) : Asset(),
+_debugnode(nullptr),
 _root(nullptr),
 _world(nullptr),
 _worldnode(nullptr),
@@ -124,11 +195,26 @@ void PlatformModel::clearRootNode() {
     }
     _worldnode->removeFromParent();
     _worldnode->removeAllChildren();
+    _debugnode->removeFromParent();
+    _debugnode->removeAllChildren();
     _worldnode = nullptr;
-
+    _debugnode = nullptr;
     _root = nullptr;
 }
 
+
+/**
+* Toggles whether to show the debug layer of this game world.
+*
+* The debug layer displays wireframe outlines of the physics fixtures.
+*
+* @param  flag whether to show the debug layer of this game world
+*/
+void PlatformModel::showDebug(bool flag) {
+    if (_debugnode != nullptr) {
+        _debugnode->setVisible(flag);
+    }
+}
 
 /**
 * Sets the scene graph node for drawing purposes.
@@ -153,6 +239,10 @@ void PlatformModel::setRootNode(const std::shared_ptr<scene2::SceneNode>& node){
     float yScale = (_world->getBounds().getMaxY() * _scale.y) / _root->getContentSize().height;
     _root->setContentSize(_root->getContentSize().width * xScale, _root->getContentSize().height * yScale);
 
+    
+    std::cout << "printing root contensize"<< std::endl;
+    std::cout << _root->getContentSize().width * xScale << "  " << _root->getContentSize().height * yScale << std::endl;
+    
     _scale.set(_root->getContentSize().width/_bounds.size.width,
              _root->getContentSize().height/_bounds.size.height);
 
@@ -160,41 +250,23 @@ void PlatformModel::setRootNode(const std::shared_ptr<scene2::SceneNode>& node){
     _worldnode = scene2::SceneNode::alloc();
     _worldnode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
     _worldnode->setPosition(Vec2::ZERO);
-  
-    _root->addChild(_worldnode);
+        
+    _debugnode = scene2::SceneNode::alloc();
+    std::cout << "current scale" << _scale.x << "  then y value "<< _scale.y <<std::endl;
+    _debugnode->setScale(_scale); // Debug node draws in PHYSICS coordinates
+    _debugnode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
+    _debugnode->setPosition(Vec2::ZERO);
+//    _debugnode->setVisible(false);
     
-
-    // Add the individual elements
-    std::shared_ptr<scene2::PolygonNode> poly;
-    std::shared_ptr<scene2::WireNode> draw;
-//
-//    if (_goalDoor != nullptr) {
-//        auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(_goalDoor->getTextureKey()));
-//        addObstacle(_goalDoor,sprite); // Put this at the very back
-//    }
-
-//    for(auto it = _crates.begin(); it != _crates.end(); ++it) {
-//        std::shared_ptr<CrateModel> crate = *it;
-//        auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(crate->getTextureKey()));
-//        addObstacle(crate,sprite);   // PUT SAME TEXTURES IN SAME LAYER!!!
-//    }
-
+    _root->addChild(_worldnode);
+    _root->addChild(_debugnode);
+    
     for(auto it = _walls.begin(); it != _walls.end(); ++it) {
         std::shared_ptr<WallModel> wall = *it;
-        auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(wall->getTextureKey()),
-                                                            wall->getPolygon() * _scale);
+        auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(wall->getTextureKey()),wall->getPolygon() * _scale);
         addObstacle(wall,sprite);  // All walls share the same texture
     }
   
-//  if (_rocket != nullptr) {
-//        auto rocketNode = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(_rocket->getTextureKey()));
-//        _rocket->setShipNode(rocketNode, _assets);
-//        _rocket->setDrawScale(_scale.x);
-//
-//        // Create the polygon node (empty, as the model will initialize)
-//        _worldnode->addChild(rocketNode);
-//        _rocket->setDebugScene(_debugnode);
-//    }
 }
 
 /**
@@ -209,11 +281,12 @@ void PlatformModel::setRootNode(const std::shared_ptr<scene2::SceneNode>& node){
  * param obj    The physics object to add
  * param node   The scene graph node to attach it to
  */
-void PlatformModel::addObstacle(const std::shared_ptr<cugl::physics2::Obstacle>& obj,
-                             const std::shared_ptr<cugl::scene2::SceneNode>& node) {
+void PlatformModel::addObstacle(const std::shared_ptr<cugl::physics2::Obstacle>& obj, const std::shared_ptr<cugl::scene2::SceneNode>& node) {
     _world->addObstacle(obj);
-
+    obj->setDebugScene(_debugnode);
+    
     // Position the scene graph node (enough for static objects)
+    
     node->setPosition(obj->getPosition()*_scale);
     _worldnode->addChild(node);
 
@@ -226,4 +299,3 @@ void PlatformModel::addObstacle(const std::shared_ptr<cugl::physics2::Obstacle>&
         });
     }
 }
-

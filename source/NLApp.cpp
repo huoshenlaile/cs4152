@@ -11,7 +11,7 @@
 //  Version: 1/10/17
 //
 #include "NLApp.h"
-#include "Platform/PLPlatformConstants.hpp"
+#include "PLPlatformConstants.h"
 using namespace cugl;
 
 
@@ -48,21 +48,24 @@ void NetApp::onStartup() {
     _assets->attach<scene2::SceneNode>(Scene2Loader::alloc()->getHook());
     _assets->attach<JsonValue>(JsonLoader::alloc()->getHook());
     _assets->attach<WidgetValue>(WidgetLoader::alloc()->getHook());
-
+    _assets->attach<PlatformModel>(GenericLoader<PlatformModel>::alloc()->getHook());
+    
     _loading.init(_assets);
     _status = LOAD;
     
-    _assets->loadAsync<PlatformModel>(LEVEL_ONE_KEY,LEVEL_ONE_FILE,nullptr);
-    _assets->attach<PlatformModel>(GenericLoader<PlatformModel>::alloc()->getHook());
-    
     // Que up the other assets
     AudioEngine::start(24);
+    
     _assets->loadDirectoryAsync("json/assets.json",nullptr);
+    _assets->loadAsync<PlatformModel>(LEVEL_ONE_KEY,LEVEL_ONE_FILE,nullptr);
+
+    
+    
     
     cugl::net::NetworkLayer::start(net::NetworkLayer::Log::INFO);
-    
-    Application::onStartup(); // YOU MUST END with call to parent
     setDeterministic(true);
+    Application::onStartup(); // YOU MUST END with call to parent
+    
 }
 
 /**
@@ -139,7 +142,7 @@ void NetApp::preUpdate(float timestep){
         _mainmenu.setActive(true);
         _hostgame.init(_assets,_network);
         _joingame.init(_assets,_network);
-        //_gameplay.init(_assets);
+//        _gameplay.init(_assets);
         _status = MENU;
     }
     else if (_status == MENU) {
