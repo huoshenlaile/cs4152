@@ -1,6 +1,6 @@
 //
-//  NLLoadingScene.h
-//  Networked Physics Demo
+//  RGLoadingScene.h
+//  Ragdoll Demo
 //
 //  This module provides a very barebones loading screen.  Most of the time you
 //  will not need a loading screen, because the assets will load so fast.  But
@@ -12,11 +12,12 @@
 //  Author: Walker White
 //  Version: 1/10/17
 //
-#ifndef __NL_LOADING_SCENE_H__
-#define __NL_LOADING_SCENE_H__
+#ifndef __RG_LOADING_SCENE_H__
+#define __RG_LOADING_SCENE_H__
 #include <cugl/cugl.h>
 
-
+#pragma mark -
+#pragma mark GameController
 /**
  * This class is a simple loading screen for asychronous asset loading.
  *
@@ -42,7 +43,7 @@ protected:
     std::shared_ptr<cugl::scene2::SceneNode>  _brand;
     /** The "play" button */
     std::shared_ptr<cugl::scene2::Button>    _button;
-
+    
     // MODEL
     /** The progress displayed on the screen */
     float _progress;
@@ -56,7 +57,7 @@ protected:
      * ratios
      */
     cugl::Size computeActiveSize() const;
-        
+    
 public:
 #pragma mark -
 #pragma mark Constructors
@@ -66,7 +67,7 @@ public:
      * This constructor does not allocate any objects or start the game.
      * This allows us to use the object without a heap pointer.
      */
-    LoadingScene() : cugl::Scene2(), _progress(0.0f) {}
+    LoadingScene() : Scene2(), _progress(0.0f) {}
     
     /**
      * Disposes of all (non-static) resources allocated to this mode.
@@ -114,5 +115,4 @@ public:
     bool isPending( ) const;
 };
 
-
-#endif /* __NL_LOADING_SCENE_H__ */
+#endif /* __RG_LOADING_SCENE_H__ */

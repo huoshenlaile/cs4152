@@ -1,8 +1,8 @@
 ---
-name:   Gameplay Prototype                  # The application display name
-short:  prototype1                   # A shortened name for reference
-appid:  edu.cornell.gdiac.vme50proto       # Application identifier for Mac, iOS, Android
-suffix: G74C2FGE
+name:   Ragdoll Demo                 # The application display name
+short:  Ragdoll                      # A shortened name for reference
+appid:  edu.cornell.gdiac.physics3   # Application identifier for Mac, iOS, Android
+suffix: GEB273BA
 
 build:  build                       # The build directory (targets are each a subdirectory)
 assets: assets                      # The folder with the game assets (do not list asset)
@@ -19,4 +19,4 @@ targets:                        # The target platforms to build for
     - android                   # Android Studio
     - apple                     # XCode (note macOS and iOS use one project)
     - windows                   # Windows Sisual Studio
-    - cmake                     # This supports all Desktop platform
+    - cmake                     # This supports all Desktop platform GEB273BA

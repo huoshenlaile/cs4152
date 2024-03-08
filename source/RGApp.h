@@ -1,6 +1,6 @@
 //
-//  NLApp.h
-//  Networked Physics Demo
+//  RGApp.h
+//  Ragdoll Demo
 //  This is the root class for your game.  The file main.cpp accesses this class
 //  to run the application.  While you could put most of your game logic in
 //  this class, we prefer to break the game up into player modes and have a
@@ -8,40 +8,24 @@
 //
 //  This file is based on the CS 3152 PhysicsDemo Lab by Don Holden, 2007
 //
-//  Author: Walker White
-//  Version: 1/10/17
+//  Author: Walker White and Anthony Perello
+//  Version: 1/26/17
 //
-#ifndef __NL_APP_H__
-#define __NL_APP_H__
+#ifndef __RG_APP_H__
+#define __RG_APP_H__
 #include <cugl/cugl.h>
-#include "NLGameScene.h"
-#include "NLLoadingScene.h"
-#include "NLMenuScene.h"
-#include "NLClientScene.h"
-#include "NLHostScene.h"
-
-using namespace cugl::physics2::net;
+#include "RGGameScene.h"
+#include "RGLoadingScene.h"
 
 /**
- * This class represents the application root for the ship demo.
+ * This class represents the application root for the ragdoll demo.
  */
-class NetApp : public cugl::Application {
-    
-enum Status {
-    LOAD,
-    MENU,
-    HOST,
-    CLIENT,
-    GAME
-};
-
+class RagdollApp : public cugl::Application {
 protected:
     /** The global sprite batch for drawing (only want one of these) */
     std::shared_ptr<cugl::SpriteBatch> _batch;
     /** The global asset manager */
     std::shared_ptr<cugl::AssetManager> _assets;
-
-    std::shared_ptr<NetEventController> _network;
     
     // Player modes
     /** The primary controller for the game world */
@@ -49,16 +33,8 @@ protected:
     /** The controller for the loading screen */
     LoadingScene _loading;
     
-    MenuScene _mainmenu;
-    
-    ClientScene _joingame;
-    
-    HostScene _hostgame;
-    
     /** Whether or not we have finished loading all assets */
     bool _loaded;
-    
-    Status _status;
     
 public:
 #pragma mark Constructors
@@ -71,7 +47,7 @@ public:
      * of initialization from the constructor allows main.cpp to perform
      * advanced configuration of the application before it starts.
      */
-    NetApp() : cugl::Application(), _loaded(false) {}
+    RagdollApp() : cugl::Application(), _loaded(false) {}
     
     /**
      * Disposes of this application, releasing all resources.
@@ -80,7 +56,7 @@ public:
      * It simply calls the dispose() method in Application.  There is nothing
      * special to do here.
      */
-    ~NetApp() { }
+    ~RagdollApp() { }
     
     
 #pragma mark Application State
@@ -137,14 +113,6 @@ public:
     
     
 #pragma mark Application Loop
-    
-
-    virtual void preUpdate(float timestep) override;
-
-    virtual void postUpdate(float timestep) override;
-
-    virtual void fixedUpdate() override;
-    
     /**
      * The method called to update the application data.
      *
@@ -154,40 +122,80 @@ public:
      * When overriding this method, you do not need to call the parent method
      * at all. The default implmentation does nothing.
      *
-     * @param timestep  The amount of time (in seconds) since the last frame
+     * @param dt    The amount of time (in seconds) since the last frame
      */
-    virtual void update(float timestep) override;
-    
-    /**
-     * Inidividualized update method for the menu scene.
-     *
-     * This method keeps the primary {@link #update} from being a mess of switch
-     * statements. It also handles the transition logic from the menu scene.
-     *
-     * @param timestep  The amount of time (in seconds) since the last frame
-     */
-    void updateMenuScene(float timestep);
+    virtual void update(float dt) override;
 
     /**
-     * Inidividualized update method for the host scene.
+     * The method called to indicate the start of a deterministic loop.
      *
-     * This method keeps the primary {@link #update} from being a mess of switch
-     * statements. It also handles the transition logic from the host scene.
+     * This method is used instead of {@link #update} if {@link #setDeterministic}
+     * is set to true. It marks the beginning of the core application loop,
+     * which is concluded with a call to {@link #postUpdate}.
      *
-     * @param timestep  The amount of time (in seconds) since the last frame
+     * This method should be used to process any events that happen early in
+     * the application loop, such as user input or events created by the
+     * {@link schedule} method. In particular, no new user input will be
+     * recorded between the time this method is called and {@link #postUpdate}
+     * is invoked.
+     *
+     * Note that the time passed as a parameter is the time measured from the
+     * start of the previous frame to the start of the current frame. It is
+     * measured before any input or callbacks are processed. It agrees with
+     * the value sent to {@link #postUpdate} this animation frame.
+     *
+     * @param dt    The amount of time (in seconds) since the last frame
      */
-    void updateHostScene(float timestep);
+    virtual void preUpdate(float dt) override;
     
     /**
-     * Inidividualized update method for the client scene.
+     * The method called to provide a deterministic application loop.
      *
-     * This method keeps the primary {@link #update} from being a mess of switch
-     * statements. It also handles the transition logic from the client scene.
+     * This method provides an application loop that runs at a guaranteed fixed
+     * timestep. This method is (logically) invoked every {@link getFixedStep}
+     * microseconds. By that we mean if the method {@link draw} is called at
+     * time T, then this method is guaranteed to have been called exactly
+     * floor(T/s) times this session, where s is the fixed time step.
      *
-     * @param timestep  The amount of time (in seconds) since the last frame
+     * This method is always invoked in-between a call to {@link #preUpdate}
+     * and {@link #postUpdate}. However, to guarantee determinism, it is
+     * possible that this method is called multiple times between those two
+     * calls. Depending on the value of {@link #getFixedStep}, it can also
+     * (periodically) be called zero times, particularly if {@link #getFPS}
+     * is much faster.
+     *
+     * As such, this method should only be used for portions of the application
+     * that must be deterministic, such as the physics simulation. It should
+     * not be used to process user input (as no user input is recorded between
+     * {@link #preUpdate} and {@link #postUpdate}) or to animate models.
      */
-    void updateClientScene(float timestep);
+    virtual void fixedUpdate() override;
 
+    /**
+     * The method called to indicate the end of a deterministic loop.
+     *
+     * This method is used instead of {@link #update} if {@link #setDeterministic}
+     * is set to true. It marks the end of the core application loop, which was
+     * begun with a call to {@link #preUpdate}.
+     *
+     * This method is the final portion of the update loop called before any
+     * drawing occurs. As such, it should be used to implement any final
+     * animation in response to the simulation provided by {@link #fixedUpdate}.
+     * In particular, it should be used to interpolate any visual differences
+     * between the the simulation timestep and the FPS.
+     *
+     * This method should not be used to process user input, as no new input
+     * will have been recorded since {@link #preUpdate} was called.
+     *
+     * Note that the time passed as a parameter is the time measured from the
+     * start of the previous frame to the start of the current frame. It is
+     * measured before any input or callbacks are processed. It agrees with
+     * the value sent to {@link #preUpdate} this animation frame.
+     *
+     * @param dt    The amount of time (in seconds) since the last frame
+     */
+    virtual void postUpdate(float dt) override;
+    
     /**
      * The method called to draw the application to the screen.
      *
@@ -199,4 +207,4 @@ public:
      */
     virtual void draw() override;
 };
-#endif /* __NL_APP_H__ */
+#endif /* __RG_APP_H__ */

@@ -33,37 +33,40 @@
 #define _RG_RAGDOLL_MODEL_H
 #include <cugl/cugl.h>
 #include <vector>
+#include "RGBubbleGenerator.h"
 
 #pragma mark -
 #pragma mark Body Part Indices
 /** Indices for the body parts in the bodies array */
 #define PART_NONE           -1
 #define PART_BODY           0
-//#define PART_HEAD           1
-#define PART_LEFT_ARM       1
-#define PART_RIGHT_ARM      2
-#define PART_LEFT_FOREARM   3
-#define PART_RIGHT_FOREARM  4
-#define PART_LEFT_HAND      5
-#define PART_RIGHT_HAND     6
+#define PART_LEFT_E1        1
+#define PART_RIGHT_E1       2
+#define PART_LEFT_E2        3
+#define PART_RIGHT_E2       4
+#define PART_LEFT_E3        5
+#define PART_RIGHT_E3       6
+#define PART_LEFT_E4        7
+#define PART_RIGHT_E4       8
+#define PART_LEFT_E5        9
+#define PART_RIGHT_E5       10
+#define PART_LEFT_HAND      11
+#define PART_RIGHT_HAND     12
 
-#define NUM_OF_PARTS        6
-//#define PART_LEFT_THIGH     6
-//#define PART_RIGHT_THIGH    7
-//#define PART_LEFT_SHIN      8
-//#define PART_RIGHT_SHIN     9
+#pragma mark -
+#pragma mark ATTENTION! PART CHANGE HERE
 
 
 #pragma mark -
 #pragma mark Body Part Textures
 /** Textures for the body parts in the asset manager */
-#define HEAD_TEXTURE        "head"
 #define BODY_TEXTURE        "body"
-#define ARM_TEXTURE         "arm"
-#define FOREARM_TEXTURE     "forearm"
-#define THIGH_TEXTURE       "thigh"
-#define SHIN_TEXTURE        "shin"
-#define HAND_TEXTURE        "hand"
+#define E1_TEXTURE          "arm"
+#define E2_TEXTURE          "miarm"
+#define E3_TEXTURE          "miarm"
+#define E4_TEXTURE          "miarm"
+#define E5_TEXTURE          "miarm"
+#define HAND_TEXTURE          "forearm"
 
 
 #pragma mark -
@@ -87,35 +90,27 @@
 //                |   |   |
 //                |___|___|
 //
-/** Distance between torso center and face center */
-#define TORSO_OFFSET    3.8f
 /** Y-distance between torso center and arm center */
-#define ARM_YOFFSET     0.0f
+#define E1_YOFFSET      0.75f
 /** X-distance between torso center and arm center */
-#define ARM_XOFFSET     3.15f
+#define E1_XOFFSET      3.15f
 /** Distance between center of arm and center of forearm */
-#define FOREARM_OFFSET  2.75f
-/** Distance between the hand and the center of the forearm */
-#define HAND_OFFSET     1.5f
-/** X-distance from center of torso to center of leg */
-#define THIGH_XOFFSET   0.75f
-/** Y-distance from center of torso to center of thigh */
-#define THIGH_YOFFSET   3.5f
-/** Distance between center of thigh and center of shin */
-#define SHIN_OFFSET     2.25f
+#define E2_OFFSET  2.1f
+#define E3_OFFSET  2.1f
+#define E4_OFFSET  0.0f
+#define E5_OFFSET  2.1f
+#define HAND_OFFSET  2.1f
 
 
 #pragma mark -
 #pragma mark Physics Constants
 /** The density for each body part */
-#define DEFAULT_DENSITY  0.3f
+#define DEFAULT_DENSITY  1.0f
 /** The density for the center of mass */
 #define CENTROID_DENSITY 0.1f
 /** The radius for the center of mass */
 #define CENTROID_RADIUS  0.1f
 
-
-using namespace cugl;
 
 #pragma mark -
 #pragma mark Ragdoll
@@ -137,6 +132,8 @@ private:
 protected:
     /** The object name */
     std::string _name;
+	/** Bubble generator to glue to snorkler. */
+	std::shared_ptr<BubbleGenerator> _bubbler;
 	/** The textures for the individual body parts */
     std::vector<std::shared_ptr<cugl::Texture>> _textures;
     /** The collection of obstacles in this model */
@@ -386,16 +383,26 @@ public:
      * @param texture   The texture for the given body part
      */
     void setPart(int part, const std::shared_ptr<Texture>& texture);
-    
-    /**
-     * Returns the center for the given body part.
-     *
-     *
-     * @return the texture for the given body part
-     */
-    const std::shared_ptr<cugl::physics2::Obstacle> getPartObstacle(int part) const {
-        return _obstacles[part];
+
+	/**
+	 * Returns the bubble generator for this ragdoll
+	 *
+	 * The bubble generator will be offset at the snorkel on the head.
+	 *
+	 * @return the bubble generator for this ragdoll
+	 */
+	const std::shared_ptr<BubbleGenerator> getBubbleGenerator() const {
+        return _bubbler;
     }
+
+    /**
+     * Creates the bubble generator for this ragdoll
+     *
+     * The bubble generator will be offset at the snorkel on the head.
+     *
+     * @param texture   The texture for an individual bubble
+     */
+    void makeBubbleGenerator(const std::shared_ptr<Texture>& bubble);
 
     
 #pragma mark -

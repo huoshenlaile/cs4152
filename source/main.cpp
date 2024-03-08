@@ -28,7 +28,7 @@
 //  Version: 7/1/16
 
 // Include your application class
-#include "NLApp.h"
+#include "RGApp.h"
 
 using namespace cugl;
 
@@ -43,20 +43,16 @@ using namespace cugl;
  */
 int main(int argc, char * argv[]) {
     // Change this to your application class
-    NetApp app;
+    RagdollApp app;
     
     // Set the properties of your application
-    app.setName("Dusty Paint: Gameplay Prototype");
-    app.setOrganization("Vme50 Studio");
+    app.setName("Ragdoll Demo");
+    app.setOrganization("GDIAC");
     app.setHighDPI(true);
 
     //app.setFullscreen(true);
-    //app.setDisplaySize(1024, 576);
-    app.setVSync(true);
-    //app.setFPS(60.0f);
-#if CU_PLATFORM == CU_PLATFORM_MACOS || CU_PLATFORM == CU_PLATFORM_WINDOWS
-    app.setMultiSampled(true);
-#endif
+    app.setDisplaySize(1024, 576);
+    app.setFPS(60.0f);
     
     /// DO NOT MODIFY ANYTHING BELOW THIS LINE
     if (!app.init()) {
