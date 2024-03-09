@@ -363,7 +363,7 @@ public:
      */
     bool buildParts(const std::shared_ptr<AssetManager>& assets);
     
-    void addRagdollToWorld(const std::shared_ptr<cugl::physics2::net::NetWorld>& _world, const std::shared_ptr<cugl::scene2::SceneNode>& _worldnode, float _scale);
+    void linkPartsToWorld(const std::shared_ptr<cugl::physics2::net::NetWorld>& _world, const std::shared_ptr<cugl::scene2::SceneNode>& _worldnode, float _scale);
     
     
 #pragma mark -

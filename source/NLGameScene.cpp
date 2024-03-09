@@ -572,21 +572,21 @@ void GameScene::populate() {
 #pragma mark : Ragdoll
     // Allocate the ragdoll and set its (empty) node. Its model handles creation of parts
     // (both obstacles and nodes to be drawn) upon alllocation and setting the scene node.
-    _ragdoll = RagdollModel::alloc(DOLL_POS, _scale);
-    _ragdoll->buildParts(_assets);
+    _ragdoll1 = RagdollModel::alloc(DOLL_POS, _scale);
+    _ragdoll1->buildParts(_assets);
     CULog("Done build parts");
 
-    _ragdoll->createJoints();
+    _ragdoll1->createJoints();
     CULog("Done creating joints");
 
     auto ragdollNode = scene2::SceneNode::alloc();
     // Add the ragdollNode to the world before calling setSceneNode,
     // as noted in the documentation for the Ragdoll's method.
     _worldnode->addChild(ragdollNode);
-    _ragdoll->setDrawScale(_scale);
+    _ragdoll1->setDrawScale(_scale);
     
-    _ragdoll->addRagdollToWorld(_world, ragdollNode, _scale);
-    //_ragdoll->activate(_world);
+    // Adds ragdoll parts to physics world, and links the parts to scene node
+    _ragdoll1->linkPartsToWorld(_world, ragdollNode, _scale);
     
     std::shared_ptr<Texture> image;
     std::shared_ptr<scene2::PolygonNode> sprite;
@@ -832,8 +832,8 @@ void GameScene::addInitObstacle(const std::shared_ptr<physics2::Obstacle>& obj,
 void GameScene::preUpdate(float dt) {
     _input.update();
     int knob_radius = 200;
-    std::shared_ptr<cugl::physics2::Obstacle> leftArm = _ragdoll->getPartObstacle(PART_LEFT_HAND);
-    std::shared_ptr<cugl::physics2::Obstacle> rightArm = _ragdoll->getPartObstacle(PART_RIGHT_HAND);
+    std::shared_ptr<cugl::physics2::Obstacle> leftArm = _ragdoll1->getPartObstacle(PART_LEFT_HAND);
+    std::shared_ptr<cugl::physics2::Obstacle> rightArm = _ragdoll1->getPartObstacle(PART_RIGHT_HAND);
     std::unordered_map<std::string,cugl::Vec2> inputs = _input.getPosition();
     for (const auto & [ key, value ] : inputs) {
         if (_input_to_arm.count(key) == 0){ // Add touchpoint
@@ -850,7 +850,7 @@ void GameScene::preUpdate(float dt) {
         }
         else{ // Do stuff with existing touchpoint
             cugl::Vec2 pos_now =  ((cugl::Vec2)screenToWorldCoords(value));
-            std::shared_ptr<cugl::physics2::Obstacle> arm = _ragdoll->getPartObstacle(_input_to_arm[key]);
+            std::shared_ptr<cugl::physics2::Obstacle> arm = _ragdoll1->getPartObstacle(_input_to_arm[key]);
             arm->setPosition(pos_now/_scale);
         }
     }
@@ -870,7 +870,7 @@ void GameScene::preUpdate(float dt) {
 
 void GameScene::postUpdate(float dt) {
     //Nothing to do now
-    _ragdoll->update(dt);
+    _ragdoll1->update(dt);
 }
 
 void GameScene::fixedUpdate() {

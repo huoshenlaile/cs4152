@@ -280,17 +280,9 @@ void RagdollModel::deactivate(const std::shared_ptr<physics2::ObstacleWorld>& wo
 bool RagdollModel::createJoints() {
     std::shared_ptr<physics2::RevoluteJoint> joint;
     std::shared_ptr<physics2::WeldJoint> jointW;
+    std::shared_ptr<physics2::PrismaticJoint> jointP;
     float small = 0.001f;
 
-//    // NECK JOINT
-//    joint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_HEAD],
-//                                                        _obstacles[PART_BODY]);
-//    joint->setLocalAnchorA(0, (-TORSO_OFFSET) / 2);
-//    joint->setLocalAnchorB(0, (TORSO_OFFSET) / 2);
-//    joint->enableLimit(true);
-//    joint->setUpperAngle(M_PI / 2.0f);
-//    joint->setLowerAngle(-M_PI / 2.0f);
-//    _joints.push_back(joint);
 
     // SHOULDERS
     joint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_LEFT_ARM],
@@ -330,114 +322,19 @@ bool RagdollModel::createJoints() {
     joint->setLowerAngle(-M_PI / 2.0f);
     _joints.push_back(joint);
     
-//    // RIGID WRISTS
-//    joint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_LEFT_FOREARM],
-//                                                        _obstacles[PART_LEFT_HAND]);
-//    joint->setLocalAnchorA(-HAND_OFFSET / 2, 0);
-//    joint->setLocalAnchorB(HAND_OFFSET / 2, 0);
-//    joint->enableLimit(true);
-//    joint->setUpperAngle(0);
-//    joint->setLowerAngle(0);
-//    _joints.push_back(joint);
-//    
-//    joint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_RIGHT_FOREARM],
-//                                                        _obstacles[PART_RIGHT_HAND]);
-//    joint->setLocalAnchorA(HAND_OFFSET / 2, 0);
-//    joint->setLocalAnchorB(-HAND_OFFSET / 2, 0);
-//    joint->enableLimit(true);
-//    joint->setUpperAngle(0);
-//    joint->setLowerAngle(0);
-//    _joints.push_back(joint);
-    
-//    // SHOULDERS
-//    joint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_LEFT_ARM],
-//                                                        _obstacles[PART_BODY]);
-//    joint->setLocalAnchorA(ARM_XOFFSET / 2, 0);
-//    joint->setLocalAnchorB(-ARM_XOFFSET / 2, ARM_YOFFSET);
-//    joint->enableLimit(true);
-//    joint->setUpperAngle(small);
-//    joint->setLowerAngle(small);
-//    _joints.push_back(joint);
-//
-//    joint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_RIGHT_ARM],
-//                                                        _obstacles[PART_BODY]);
-//    joint->setLocalAnchorA(-ARM_XOFFSET / 2, 0);
-//    joint->setLocalAnchorB(ARM_XOFFSET / 2, ARM_YOFFSET);
-//    joint->enableLimit(true);
-//    joint->setUpperAngle(small);
-//    joint->setLowerAngle(small);
-//    _joints.push_back(joint);
-//
-//    // ELBOWS
-//    joint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_LEFT_FOREARM],
-//                                                        _obstacles[PART_LEFT_ARM]);
-//    joint->setLocalAnchorA(FOREARM_OFFSET / 2, 0);
-//    joint->setLocalAnchorB(-FOREARM_OFFSET / 2, 0);
-//    joint->enableLimit(true);
-//    joint->setUpperAngle(small);
-//    joint->setLowerAngle(small);
-//    _joints.push_back(joint);
-//
-//    joint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_RIGHT_FOREARM],
-//                                                        _obstacles[PART_RIGHT_ARM]);
-//    joint->setLocalAnchorA(-FOREARM_OFFSET / 2, 0);
-//    joint->setLocalAnchorB(FOREARM_OFFSET / 2, 0);
-//    joint->enableLimit(true);
-//    joint->setUpperAngle(small);
-//    joint->setLowerAngle(small);
-//    _joints.push_back(joint);
-
     // RIGID WRISTS USING WELD JOINTS
-    jointW = physics2::WeldJoint::allocWithObstacles(_obstacles[PART_LEFT_FOREARM], _obstacles[PART_LEFT_HAND]);
-    jointW->setLocalAnchorA(-HAND_OFFSET / 2, 0);
-    jointW->setLocalAnchorB(HAND_OFFSET / 2, 0);
-    _joints.push_back(jointW);
+    jointP = physics2::PrismaticJoint::allocWithObstacles(_obstacles[PART_LEFT_FOREARM], _obstacles[PART_LEFT_HAND]);
+    jointP->setLocalAnchorA(-HAND_OFFSET / 2, 0);
+    jointP->setLocalAnchorB(HAND_OFFSET / 2, 0);
+    jointP->enableLimit(true);
+    _joints.push_back(jointP);
 
-    jointW = physics2::WeldJoint::allocWithObstacles(_obstacles[PART_RIGHT_FOREARM], _obstacles[PART_RIGHT_HAND]);
-    jointW->setLocalAnchorA(HAND_OFFSET / 2, 0);
-    jointW->setLocalAnchorB(-HAND_OFFSET / 2, 0);
-    _joints.push_back(jointW);
+    jointP = physics2::PrismaticJoint::allocWithObstacles(_obstacles[PART_RIGHT_FOREARM], _obstacles[PART_RIGHT_HAND]);
+    jointP->setLocalAnchorA(HAND_OFFSET / 2, 0);
+    jointP->setLocalAnchorB(-HAND_OFFSET / 2, 0);
+    jointP->enableLimit(true);
+    _joints.push_back(jointP);
 
-    
-//    // HIPS
-//    joint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_LEFT_THIGH],
-//                                                        _obstacles[PART_BODY]);
-//    joint->setLocalAnchorA(0, THIGH_YOFFSET / 2);
-//    joint->setLocalAnchorB(-THIGH_XOFFSET, -THIGH_YOFFSET / 2);
-//    joint->enableLimit(true);
-//    joint->setUpperAngle(M_PI / 2.0f);
-//    joint->setLowerAngle(-M_PI / 2.0f);
-//    _joints.push_back(joint);
-//    
-//    joint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_RIGHT_THIGH],
-//                                                        _obstacles[PART_BODY]);
-//    joint->setLocalAnchorA(0, THIGH_YOFFSET / 2);
-//    joint->setLocalAnchorB(THIGH_XOFFSET, -THIGH_YOFFSET / 2);
-//    joint->enableLimit(true);
-//    joint->setUpperAngle(M_PI / 2.0f);
-//    joint->setLowerAngle(-M_PI / 2.0f);
-//    _joints.push_back(joint);
-
-//    // KNEES
-//    joint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_LEFT_THIGH],
-//                                                        _obstacles[PART_LEFT_SHIN]);
-//    joint->setLocalAnchorA(0, -SHIN_OFFSET / 2);
-//    joint->setLocalAnchorB(0, SHIN_OFFSET / 2);
-//    joint->enableLimit(true);
-//    joint->setUpperAngle(M_PI / 2.0f);
-//    joint->setLowerAngle(-M_PI / 2.0f);
-//    _joints.push_back(joint);
-//
-//    joint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_RIGHT_THIGH],
-//                                                        _obstacles[PART_RIGHT_SHIN]);
-//    joint->setLocalAnchorA(0, -SHIN_OFFSET / 2);
-//    joint->setLocalAnchorB(0, SHIN_OFFSET / 2);
-//    joint->enableLimit(true);
-//    joint->setUpperAngle(M_PI / 2.0f);
-//    joint->setLowerAngle(-M_PI / 2.0f);
-//    _joints.push_back(joint);
-
-    // Weld bubbler to the head.
     return true;
 }
 
@@ -490,7 +387,7 @@ void RagdollModel::setSceneNode(const std::shared_ptr<cugl::scene2::SceneNode>& 
  * @param scenenode  The scene graph node representing this Ragdoll, which has been added to the world node already.
  */
 
-void RagdollModel::addRagdollToWorld(const std::shared_ptr<cugl::physics2::net::NetWorld>& _world, const std::shared_ptr<cugl::scene2::SceneNode>& _scenenode, float _scale) {
+void RagdollModel::linkPartsToWorld(const std::shared_ptr<cugl::physics2::net::NetWorld>& _world, const std::shared_ptr<cugl::scene2::SceneNode>& _scenenode, float _scale) {
     _node = _scenenode;
     for(int i = 0; i < _obstacles.size(); i++){
         auto obj = _obstacles[i];

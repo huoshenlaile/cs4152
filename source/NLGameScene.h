@@ -128,7 +128,8 @@ protected:
     std::shared_ptr<cugl::scene2::SceneNode> _cannon2Node;
     std::shared_ptr<cugl::physics2::BoxObstacle> _cannon2;
     
-    std::shared_ptr<RagdollModel> _ragdoll;
+    std::shared_ptr<RagdollModel> _ragdoll1;
+    std::shared_ptr<RagdollModel> _ragdoll2;
 
     /** Host is by default the left cannon */
     bool _isHost;
