@@ -40,9 +40,6 @@ protected:
     float _maxZoom;
 
 public:
-#pragma mark -
-#pragma mark Constructors
-
     /*
     * Creates a new camera controller with the default values.
     *
@@ -72,8 +69,6 @@ public:
     * @return true if the controller is initialized properly, false otherwise
     */
     bool init(const std::shared_ptr<cugl::scene2::SceneNode> target, const std::shared_ptr<cugl::scene2::SceneNode> root, float lerp, std::shared_ptr <cugl::OrthographicCamera> camera, std::shared_ptr<scene2::SceneNode> ui, float maxZoom);
-#pragma mark -
-#pragma mark Camera Handling
 
     /*
     * The method called to update the camera
@@ -90,7 +85,6 @@ public:
     * @param zoom The zoom multiplier
     */
     void setZoom(float zoom);
-
 
     /*
     * This method adds the zoom of the camera by a value.

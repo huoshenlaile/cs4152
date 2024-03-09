@@ -9,9 +9,6 @@
 
 using namespace cugl;
 
-#pragma mark -
-#pragma mark Initializers
-
 bool CameraController::init(const std::shared_ptr<cugl::scene2::SceneNode> target, const std::shared_ptr<cugl::scene2::SceneNode> root, float lerp, std::shared_ptr <cugl::OrthographicCamera> camera, std::shared_ptr<scene2::SceneNode> ui, float maxZoom) {
     _target = target;
     _root = root;
@@ -22,9 +19,6 @@ bool CameraController::init(const std::shared_ptr<cugl::scene2::SceneNode> targe
 
     return true;
 }
-
-#pragma mark -
-#pragma mark Camera Handling
 
 void CameraController::update(float dt) {
     Vec2 cameraPos = Vec2(_camera->getPosition().x, _camera->getPosition().y);
