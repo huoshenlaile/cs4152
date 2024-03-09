@@ -21,6 +21,8 @@ sources:                            # The list of the source code files
     - source/objects/*.h
     - source/helpers/*.cpp
     - source/helpers/*.h
+    - source/models/*.cpp
+    - source/models/*.h
 
 # This must be one of portrait, landscape, portrait-flipped, landscape-flipped,
 targets:                        # The target platforms to build for
