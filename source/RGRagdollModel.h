@@ -36,34 +36,56 @@
 
 #pragma mark -
 #pragma mark Body Part Indices
+///** Indices for the body parts in the bodies array */
+//#define PART_NONE           -1
+//#define PART_BODY           0
+////#define PART_HEAD           1
+//#define PART_LEFT_ARM       1
+//#define PART_RIGHT_ARM      2
+//#define PART_LEFT_FOREARM   3
+//#define PART_RIGHT_FOREARM  4
+//#define PART_LEFT_HAND      5
+//#define PART_RIGHT_HAND     6
+//
+//#define NUM_OF_PARTS        6
+////#define PART_LEFT_THIGH     6
+////#define PART_RIGHT_THIGH    7
+////#define PART_LEFT_SHIN      8
+////#define PART_RIGHT_SHIN     9
 /** Indices for the body parts in the bodies array */
 #define PART_NONE           -1
 #define PART_BODY           0
-//#define PART_HEAD           1
-#define PART_LEFT_ARM       1
-#define PART_RIGHT_ARM      2
-#define PART_LEFT_FOREARM   3
-#define PART_RIGHT_FOREARM  4
-#define PART_LEFT_HAND      5
-#define PART_RIGHT_HAND     6
-
-#define NUM_OF_PARTS        6
-//#define PART_LEFT_THIGH     6
-//#define PART_RIGHT_THIGH    7
-//#define PART_LEFT_SHIN      8
-//#define PART_RIGHT_SHIN     9
+#define PART_LEFT_E1        1
+#define PART_RIGHT_E1       2
+#define PART_LEFT_E2        3
+#define PART_RIGHT_E2       4
+#define PART_LEFT_E3        5
+#define PART_RIGHT_E3       6
+#define PART_LEFT_E4        7
+#define PART_RIGHT_E4       8
+#define PART_LEFT_E5        9
+#define PART_RIGHT_E5       10
+#define PART_LEFT_HAND      11
+#define PART_RIGHT_HAND     12
 
 
 #pragma mark -
 #pragma mark Body Part Textures
 /** Textures for the body parts in the asset manager */
-#define HEAD_TEXTURE        "head"
+//#define HEAD_TEXTURE        "head"
+//#define BODY_TEXTURE        "body"
+//#define ARM_TEXTURE         "arm"
+//#define FOREARM_TEXTURE     "forearm"
+//#define THIGH_TEXTURE       "thigh"
+//#define SHIN_TEXTURE        "shin"
+//#define HAND_TEXTURE        "hand"
 #define BODY_TEXTURE        "body"
-#define ARM_TEXTURE         "arm"
-#define FOREARM_TEXTURE     "forearm"
-#define THIGH_TEXTURE       "thigh"
-#define SHIN_TEXTURE        "shin"
-#define HAND_TEXTURE        "hand"
+#define E1_TEXTURE          "arm"
+#define E2_TEXTURE          "miarm"
+#define E3_TEXTURE          "miarm"
+#define E4_TEXTURE          "miarm"
+#define E5_TEXTURE          "miarm"
+#define HAND_TEXTURE          "forearm"
 
 
 #pragma mark -
@@ -87,23 +109,32 @@
 //                |   |   |
 //                |___|___|
 //
-/** Distance between torso center and face center */
-#define TORSO_OFFSET    3.8f
+///** Distance between torso center and face center */
+//#define TORSO_OFFSET    3.8f
+///** Y-distance between torso center and arm center */
+//#define ARM_YOFFSET     0.0f
+///** X-distance between torso center and arm center */
+//#define ARM_XOFFSET     3.15f
+///** Distance between center of arm and center of forearm */
+//#define FOREARM_OFFSET  2.75f
+///** Distance between the hand and the center of the forearm */
+//#define HAND_OFFSET     1.5f
+///** X-distance from center of torso to center of leg */
+//#define THIGH_XOFFSET   0.75f
+///** Y-distance from center of torso to center of thigh */
+//#define THIGH_YOFFSET   3.5f
+///** Distance between center of thigh and center of shin */
+//#define SHIN_OFFSET     2.25f
 /** Y-distance between torso center and arm center */
-#define ARM_YOFFSET     0.0f
+#define E1_YOFFSET      0.75f
 /** X-distance between torso center and arm center */
-#define ARM_XOFFSET     3.15f
+#define E1_XOFFSET      3.15f
 /** Distance between center of arm and center of forearm */
-#define FOREARM_OFFSET  2.75f
-/** Distance between the hand and the center of the forearm */
-#define HAND_OFFSET     1.5f
-/** X-distance from center of torso to center of leg */
-#define THIGH_XOFFSET   0.75f
-/** Y-distance from center of torso to center of thigh */
-#define THIGH_YOFFSET   3.5f
-/** Distance between center of thigh and center of shin */
-#define SHIN_OFFSET     2.25f
-
+#define E2_OFFSET  2.1f
+#define E3_OFFSET  2.1f
+#define E4_OFFSET  0.0f
+#define E5_OFFSET  2.1f
+#define HAND_OFFSET  2.1f
 
 #pragma mark -
 #pragma mark Physics Constants

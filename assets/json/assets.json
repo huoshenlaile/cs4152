@@ -50,6 +50,11 @@
             "minfilter": "linear",
             "magfilter": "linear"
         },
+        "miarm": {
+            "file":      "textures/tux_arm.png",
+            "minfilter": "linear",
+            "magfilter": "linear"
+        },
         "forearm": {
             "file":      "textures/tux_forearm.png",
             "minfilter": "linear",
