@@ -7,6 +7,7 @@ using namespace cugl;
 
 #include <cugl/physics2/CUPolygonObstacle.h>
 
+/** This class loads a wall object*/
 class WallModel :public physics2::PolygonObstacle{
 private:
     /** This macro disables the copy constructor (not allowed on scene graphs) */

@@ -9,6 +9,12 @@
 
 using namespace cugl;
 
+/** This class handles loading the entire level. The scene and the physical world
+ * objects are all created here. This class parses the json file and creates 
+ * correspoding objects. Camera is set in this class as well for the scene. Must 
+ * asynchronously load the json file along with attaching hooks to parse
+ * the json file an App.cpp.
+*/
 class LevelScene : public Asset{
 protected:
     /** The root node of this level */
