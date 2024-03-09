@@ -475,6 +475,56 @@ void RagdollModel::setSceneNode(const std::shared_ptr<cugl::scene2::SceneNode>& 
 }
 
 /**
+ * Sets the scene graph node representing this Ragdoll, and adds it to physics.
+ *
+ * Note that this method also handles creating the nodes for the body parts
+ * of this Ragdoll. Since the obstacles are decoupled from the scene graph,
+ * initialization (which creates the obstacles) occurs prior to the call to
+ * this method. Therefore, to be drawn to the screen, the nodes of the attached
+ * bodies must be added here.
+ * *
+ * By storing a reference to the scene graph node, the model can update
+ * the node to be in sync with the physics info. It does this via the
+ * {@link Obstacle#update(float)} method.
+ *
+ * @param scenenode  The scene graph node representing this Ragdoll, which has been added to the world node already.
+ */
+
+void RagdollModel::addRagdollToWorld(const std::shared_ptr<cugl::physics2::net::NetWorld>& _world, const std::shared_ptr<cugl::scene2::SceneNode>& _scenenode, float _scale) {
+    _node = _scenenode;
+    for(int i = 0; i < _obstacles.size(); i++){
+        auto obj = _obstacles[i];
+        std::shared_ptr<Texture> image = _textures[i];
+        std::shared_ptr<scene2::PolygonNode> sprite = scene2::PolygonNode::allocWithTexture(image);
+        if (i == PART_RIGHT_ARM || i == PART_RIGHT_FOREARM) {
+            sprite->flipHorizontal(true); // More reliable than rotating 90 degrees.
+        }
+
+        _world->initObstacle(obj);
+        //obj->setDebugScene(_debugnode);
+        _scenenode->addChild(sprite);
+        // Dynamic objects need constant updating
+        if (obj->getBodyType() == b2_dynamicBody) {
+            scene2::SceneNode* weak = sprite.get(); // No need for smart pointer in callback
+            obj->setListener([=](physics2::Obstacle* obs) {
+                //float leftover = Application::get()->getFixedRemainder() / 1000000.f;
+                //Vec2 pos = obs->getPosition() + leftover * obs->getLinearVelocity();
+                //float angle = obs->getAngle() + leftover * obs->getAngularVelocity();
+
+                weak->setPosition(obs->getPosition() * _scale);
+                weak->setAngle(obs->getAngle());
+            });
+        }
+    }
+    for(int i = 0; i < _joints.size(); i++){
+        auto joint = _joints[i];
+        _world->addJoint(joint);
+    }
+ 
+}
+
+
+/**
  * Sets the parent scene graph node for the debug wireframe
  *
  * The given node is the parent coordinate space for drawing physics.

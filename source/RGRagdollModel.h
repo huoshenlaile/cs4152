@@ -363,6 +363,8 @@ public:
      */
     bool buildParts(const std::shared_ptr<AssetManager>& assets);
     
+    void addRagdollToWorld(const std::shared_ptr<cugl::physics2::net::NetWorld>& _world, const std::shared_ptr<cugl::scene2::SceneNode>& _worldnode, float _scale);
+    
     
 #pragma mark -
 #pragma mark Attribute Accessors
@@ -395,6 +397,14 @@ public:
      */
     const std::shared_ptr<cugl::physics2::Obstacle> getPartObstacle(int part) const {
         return _obstacles[part];
+    }
+    
+    const std::vector<std::shared_ptr<cugl::physics2::Obstacle>> getObstacles() const {
+        return _obstacles;
+    }
+    
+    const std::vector<std::shared_ptr<cugl::physics2::Joint>> getJoints() const {
+        return _joints;
     }
 
     

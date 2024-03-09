@@ -579,20 +579,14 @@ void GameScene::populate() {
     _ragdoll->createJoints();
     CULog("Done creating joints");
 
-    
     auto ragdollNode = scene2::SceneNode::alloc();
     // Add the ragdollNode to the world before calling setSceneNode,
     // as noted in the documentation for the Ragdoll's method.
     _worldnode->addChild(ragdollNode);
-    _ragdoll->setSceneNode(ragdollNode);
-    
     _ragdoll->setDrawScale(_scale);
     
-    /*for(obstacle : ragdoll){
-        addObstable();
-    }*/
-    // DOES SAME THING AS
-    _ragdoll->activate(_world);
+    _ragdoll->addRagdollToWorld(_world, ragdollNode, _scale);
+    //_ragdoll->activate(_world);
     
     std::shared_ptr<Texture> image;
     std::shared_ptr<scene2::PolygonNode> sprite;
@@ -872,37 +866,6 @@ void GameScene::preUpdate(float dt) {
         }
     }
     
-   // if(_input.getFirePower()>0.f){
-  //      _chargeBar->setVisible(true);
-  //      _chargeBar->setProgress(_input.getFirePower());
-  //  }
-  //  else{
-  //      _chargeBar->setVisible(false);
-  //  }
-
-    // Process the toggled key commands
-    //if (_input.didDebug()) { setDebug(!isDebug()); }
-
-   // if (_input.didExit()) {
-   //     CULog("Shutting down");
-   //     Application::get()->quit();
-  //  }
-    
-   // if (_input.didFire()) {
-    //    fireCrate();
-    //}
-    
-//TODO: if _input.didBigCrate(), allocate a crate event for the center of the screen(use DEFAULT_WIDTH/2 and DEFAULT_HEIGHT/2) and send it using the pushOutEvent() method in the network controller.
-#pragma mark BEGIN SOLUTION
-   // if (_input.didBigCrate()){
-   //     CULog("BIG CRATE COMING");
-   //     _network->pushOutEvent(CrateEvent::allocCrateEvent(Vec2(DEFAULT_WIDTH/2,DEFAULT_HEIGHT/2)));
-  //  }
-#pragma mark END SOLUTION
-    
-  //  float turnRate = _isHost ? DEFAULT_TURN_RATE : -DEFAULT_TURN_RATE;
-  //  auto cannon = _isHost ? _cannon1 : _cannon2;
-  //  cannon->setAngle(_input.getVertical() * turnRate + cannon->getAngle());
 }
 
 void GameScene::postUpdate(float dt) {
@@ -912,10 +875,6 @@ void GameScene::postUpdate(float dt) {
 
 void GameScene::fixedUpdate() {
 	//TODO: check for available incoming events from the network controller and call processCrateEvent if it is a CrateEvent.
-
-	//Hint: You can check if ptr points to an object of class A using std::dynamic_pointer_cast<A>(ptr). You should always check isInAvailable() before popInEvent().
-
-#pragma mark BEGIN SOLUTION
 //	if (_network->isInAvailable()) {
 //		auto e = _network->popInEvent();
 //		if (auto crateEvent = std::dynamic_pointer_cast<CrateEvent>(e)) {
@@ -923,7 +882,6 @@ void GameScene::fixedUpdate() {
 //			//processCrateEvent(crateEvent);
 //		}
 //	}
-#pragma mark END SOLUTION
 	_world->update(FIXED_TIMESTEP_S);
 }
 
