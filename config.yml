@@ -13,6 +13,12 @@ orientation: landscape              # The orientation for mobile devices
 sources:                            # The list of the source code files
     - source/*.cpp
     - source/*.h
+    - source/scenes/*.cpp
+    - source/scenes/*.h
+    - source/controllers/*.cpp
+    - source/controllers/*.h
+    - source/objects/*.cpp
+    - source/objects/*.h
 
 # This must be one of portrait, landscape, portrait-flipped, landscape-flipped,
 targets:                        # The target platforms to build for

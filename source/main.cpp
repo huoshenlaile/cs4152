@@ -28,7 +28,7 @@
 //  Version: 7/1/16
 
 // Include your application class
-#include "NLApp.h"
+#include "DPApp.h"
 
 using namespace cugl;
 
@@ -43,7 +43,7 @@ using namespace cugl;
  */
 int main(int argc, char * argv[]) {
     // Change this to your application class
-    NetApp app;
+    DpApp app;
     
     // Set the properties of your application
     app.setName("Dusty Paint: Gameplay Prototype");
