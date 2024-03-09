@@ -430,20 +430,15 @@ bool GameScene::init(const std::shared_ptr<AssetManager>& assets, const Rect rec
      *
      * TODO: Acquire the ownership of _cannon2 if this machine is not the host.
      */
-#pragma mark BEGIN SOLUTION
 	_network->enablePhysics(_world, linkSceneToObsFunc);
-	if (!isHost) {
+	/*if (!isHost) {
 		_network->getPhysController()->acquireObs(_cannon2, 0);
-	}
+	}*/
 //	_factId = _network->getPhysController()->attachFactory(_crateFact);
-#pragma mark END SOLUTION
 
     
 	//TODO: For task 5, attach CrateEvent to the network controller
-#pragma mark BEGIN SOLUTION
 	_network->attachEventType<CrateEvent>();
-#pragma mark END SOLUTION
-
     
 	// XNA nostalgia
 	Application::get()->setClearColor(Color4f::CORNFLOWER);
@@ -579,9 +574,11 @@ void GameScene::populate() {
     // (both obstacles and nodes to be drawn) upon alllocation and setting the scene node.
     _ragdoll = RagdollModel::alloc(DOLL_POS, _scale);
     _ragdoll->buildParts(_assets);
-    
-    
+    CULog("Done build parts");
+
     _ragdoll->createJoints();
+    CULog("Done creating joints");
+
     
     auto ragdollNode = scene2::SceneNode::alloc();
     // Add the ragdollNode to the world before calling setSceneNode,
@@ -590,6 +587,11 @@ void GameScene::populate() {
     _ragdoll->setSceneNode(ragdollNode);
     
     _ragdoll->setDrawScale(_scale);
+    
+    /*for(obstacle : ragdoll){
+        addObstable();
+    }*/
+    // DOES SAME THING AS
     _ragdoll->activate(_world);
     
     std::shared_ptr<Texture> image;

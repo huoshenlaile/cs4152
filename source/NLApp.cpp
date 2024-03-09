@@ -136,7 +136,7 @@ void NetApp::preUpdate(float timestep){
         _mainmenu.setActive(true);
         _hostgame.init(_assets,_network);
         _joingame.init(_assets,_network);
-        //_gameplay.init(_assets);
+        //_gameplay.init(_assets, _network, _status == HOST);
         _status = MENU;
     }
     else if (_status == MENU) {
