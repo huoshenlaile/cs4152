@@ -1,10 +1,3 @@
-//
-//  CameraController.cpp
-//  Prototype1
-//
-//  Created by Jinseok Oh on 3/9/24.
-//
-
 #include "CameraController.h"
 
 using namespace cugl;

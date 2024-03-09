@@ -1,10 +1,3 @@
-//
-//  CameraController.hpp
-//  Prototype1
-//
-//  Created by Jinseok Oh on 3/9/24.
-//
-
 #ifndef __CAMERA__CONTROLLER_H
 #define __CAMERA__CONTROLLER_H
 
@@ -13,7 +6,6 @@
 #include <cugl/cugl.h>
 
 using namespace cugl;
-
 
 /*
 * A controller for the perspective in the game. It will follow a
@@ -38,7 +30,6 @@ protected:
     float _timer;
     /* The maximum allowed zoom */
     float _maxZoom;
-
 public:
     /*
     * Creates a new camera controller with the default values.
@@ -47,7 +38,7 @@ public:
     * This allows us to use a controller without a heap pointer.
     */
     CameraController() {};
-
+    
     /*
     * Destroys the CameraController, releasing all resources.
     */
