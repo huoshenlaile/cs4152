@@ -5,7 +5,7 @@
 #include <cugl/assets/CUAsset.h>
 #include <cugl/cugl.h>
 #include <cugl/io/CUJsonReader.h>
-#include "models/WallModel.h"
+#include "../models/WallModel.h"
 
 using namespace cugl;
 
@@ -70,8 +70,8 @@ public:
      *
      * @return  an autoreleased level file
      */
-    static std::shared_ptr<PlatformModel> alloc() {
-        std::shared_ptr<PlatformModel> result = std::make_shared<PlatformModel>();
+    static std::shared_ptr<LevelScene> alloc() {
+        std::shared_ptr<LevelScene> result = std::make_shared<LevelScene>();
         return (result->init("") ? result : nullptr);
     }
 
@@ -83,8 +83,8 @@ public:
      *
      * @return  an autoreleased level file
      */
-    static std::shared_ptr<PlatformModel> alloc(std::string file) {
-        std::shared_ptr<PlatformModel> result = std::make_shared<PlatformModel>();
+    static std::shared_ptr<LevelScene> alloc(std::string file) {
+        std::shared_ptr<LevelScene> result = std::make_shared<LevelScene>();
         return (result->init(file) ? result : nullptr);
     }
 
@@ -181,7 +181,7 @@ public:
     /**
      * Creates a new, empty level.
      */
-    PlatformModel(void);
+    LevelScene(void);
 
     /**
      * Converts the string to a color
@@ -198,7 +198,7 @@ public:
     /**
      * Destroys this level, releasing all resources.
      */
-    virtual ~PlatformModel(void);
+    virtual ~LevelScene(void);
 
     /**
      * Adds the physics object to the physics world and loosely couples it to the scene graph
