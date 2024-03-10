@@ -1,7 +1,7 @@
 #include "LevelScene.h"
 #include "LevelConstants.h"
 
-std::vector<float> PlatformModel::getVertices(const std::shared_ptr<JsonValue>& json) {
+std::vector<float> LevelScene::getVertices(const std::shared_ptr<JsonValue>& json) {
     std::vector<float> vertices = std::vector<float>();
     for (auto it = json->get(VERTICES_FIELD)->children().begin(); it != json->get(VERTICES_FIELD)->children().end(); it++) {
         vertices.push_back(((_bounds.getMaxY() * _scale.y) - ((*it)->get(1)->asFloat() + json->getFloat("y"))) / _scale.y);
@@ -22,7 +22,7 @@ std::vector<float> PlatformModel::getVertices(const std::shared_ptr<JsonValue>& 
 *
 * @return the color for the string
 */
-Color4 PlatformModel::parseColor(std::string name) {
+Color4 LevelScene::parseColor(std::string name) {
     if (name == "yellow") {
         return Color4::YELLOW;
     } else if (name == "red") {
@@ -49,7 +49,7 @@ Color4 PlatformModel::parseColor(std::string name) {
  *
  * @return true if successfully loaded the asset from a file
  */
-bool PlatformModel::preload(const std::string& file) {
+bool LevelScene::preload(const std::string& file) {
     std::shared_ptr<JsonReader> reader = JsonReader::allocWithAsset(file);
     return preload(reader->readJson());
 }
@@ -63,7 +63,7 @@ bool PlatformModel::preload(const std::string& file) {
  *
  * @return true if successfully loaded the asset from a file
  */
-bool PlatformModel:: preload(const std::shared_ptr<cugl::JsonValue>& json) {
+bool LevelScene:: preload(const std::shared_ptr<cugl::JsonValue>& json) {
     if (json == nullptr) {
         CUAssertLog(false, "Failed to load level file");
         return false;
@@ -91,7 +91,7 @@ bool PlatformModel:: preload(const std::shared_ptr<cugl::JsonValue>& json) {
     return true;
 }
 
-bool PlatformModel::loadObject(const std::shared_ptr<JsonValue>& json) {
+bool LevelScene::loadObject(const std::shared_ptr<JsonValue>& json) {
     auto type = json->get("type")->asString();
     if (type == WALLS_FIELD) {
         return loadWall(json);
@@ -110,7 +110,7 @@ bool PlatformModel::loadObject(const std::shared_ptr<JsonValue>& json) {
 * @retain the wall
 * @return true if the wall was successfully loaded
 */
-bool PlatformModel::loadWall(const std::shared_ptr<JsonValue>& json) {
+bool LevelScene::loadWall(const std::shared_ptr<JsonValue>& json) {
     bool success = true;
 
     auto walljson = json->get("properties")->get(0)->get("value");
@@ -160,7 +160,7 @@ bool PlatformModel::loadWall(const std::shared_ptr<JsonValue>& json) {
     return success;
 }
 
-PlatformModel::PlatformModel(void) : Asset(),
+LevelScene::LevelScene(void) : Asset(),
 _debugnode(nullptr),
 _root(nullptr),
 _world(nullptr),
@@ -173,14 +173,14 @@ _scale(32, 32)
 /**
 * Destroys this level, releasing all resources.
 */
-PlatformModel::~PlatformModel(void) {
+LevelScene::~LevelScene(void) {
     clearRootNode();
 }
 
 /**
 * Clears the root scene graph node for this level
 */
-void PlatformModel::clearRootNode() {
+void LevelScene::clearRootNode() {
     if (_root == nullptr) {
         return;
     }
@@ -201,7 +201,7 @@ void PlatformModel::clearRootNode() {
 *
 * @param  flag whether to show the debug layer of this game world
 */
-void PlatformModel::showDebug(bool flag) {
+void LevelScene::showDebug(bool flag) {
     if (_debugnode != nullptr) {
         _debugnode->setVisible(flag);
     }
@@ -219,7 +219,7 @@ void PlatformModel::showDebug(bool flag) {
 * @retain  a reference to this scene graph node
 * @release the previous scene graph node used by this object
 */
-void PlatformModel::setRootNode(const std::shared_ptr<scene2::SceneNode>& node){
+void LevelScene::setRootNode(const std::shared_ptr<scene2::SceneNode>& node){
     if (_root != nullptr) {
         clearRootNode();
     }
@@ -269,7 +269,7 @@ void PlatformModel::setRootNode(const std::shared_ptr<scene2::SceneNode>& node){
  * param obj    The physics object to add
  * param node   The scene graph node to attach it to
  */
-void PlatformModel::addObstacle(const std::shared_ptr<cugl::physics2::Obstacle>& obj, const std::shared_ptr<cugl::scene2::SceneNode>& node) {
+void LevelScene::addObstacle(const std::shared_ptr<cugl::physics2::Obstacle>& obj, const std::shared_ptr<cugl::scene2::SceneNode>& node) {
     _world->addObstacle(obj);
     obj->setDebugScene(_debugnode);
     
