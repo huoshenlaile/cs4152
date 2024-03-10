@@ -7,7 +7,3 @@
 
 #include <stdio.h>
 
-#ifndef PlatformModel
-#define PlatformModel
-
-#endif
