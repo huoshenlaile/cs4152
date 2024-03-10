@@ -24,7 +24,7 @@
 #include "GLInputController.h"
 #include "NLCrateEvent.h"
 #include "RGRagdollModel.h"
-#include "DPCharacterController.hpp"
+#include "DPCharacterController.h"
 
 using namespace cugl::physics2::net;
 using namespace cugl;

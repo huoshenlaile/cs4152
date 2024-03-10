@@ -6,7 +6,7 @@
 //
 
 #include <cugl/cugl.h>
-#include "DPCharacterController.hpp"
+#include "DPCharacterController.h"
  
 using namespace cugl;
 float DOLL_POS[] = { 16, 10 };
