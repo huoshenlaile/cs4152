@@ -5,7 +5,7 @@
 #include <cugl/assets/CUAsset.h>
 #include <cugl/cugl.h>
 #include <cugl/io/CUJsonReader.h>
-#include "models/WallModel.h"
+#include "../models/WallModel.h"
 
 using namespace cugl;
 
