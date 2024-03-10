@@ -29,7 +29,7 @@ using namespace cugl::physics2::net;
  */
 class DPApp : public cugl::Application {
     
-enum Status {
+enum GameStatus {
     LOAD,
     MENU,
     HOST,
@@ -56,7 +56,7 @@ protected:
     LoadScene       _loadscene;
     SettingScene    _settingscene;
     
-    Status _status;
+    GameStatus _status;
     bool loaded = false;
     
 public:
