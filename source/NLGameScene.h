@@ -24,6 +24,7 @@
 #include "GLInputController.h"
 #include "NLCrateEvent.h"
 #include "RGRagdollModel.h"
+#include "DPCharacterController.hpp"
 
 using namespace cugl::physics2::net;
 using namespace cugl;
@@ -96,8 +97,10 @@ protected:
     
     // CONTROLLERS
     /** Controller for abstracting out input across multiple platforms */
-    InputController _input;
-    
+    std::shared_ptr<InputController> _input1;
+    CharacterController _charControl1;
+    CharacterController _charControl2;
+
     // VIEW
   	/** Reference to the goalDoor (for collision detection) */
     std::shared_ptr<cugl::physics2::BoxObstacle>    _goalDoor;
@@ -128,8 +131,8 @@ protected:
     std::shared_ptr<cugl::scene2::SceneNode> _cannon2Node;
     std::shared_ptr<cugl::physics2::BoxObstacle> _cannon2;
     
-    std::shared_ptr<RagdollModel> _ragdoll1;
-    std::shared_ptr<RagdollModel> _ragdoll2;
+    //std::shared_ptr<RagdollModel> _ragdoll1;
+    //std::shared_ptr<RagdollModel> _ragdoll2;
 
     /** Host is by default the left cannon */
     bool _isHost;

@@ -131,9 +131,6 @@ float CAN2_POS[] = { 30,9 };
 //#define CRATE_DENSITY       1.0f
 
 #define FIXED_TIMESTEP_S 0.02f
-float DOLL_POS[] = { 16, 10 };
-
-
 
 /** This is the aspect ratio for physics */
 #define SCENE_ASPECT 9.0/16.0
@@ -380,8 +377,11 @@ bool GameScene::init(const std::shared_ptr<AssetManager>& assets, const Rect rec
     
     // Start up the input handler
     _assets = assets;
-    _input.init();
-    _input.update();
+    _input1 = std::make_shared<InputController>();
+    
+    _input1->init();
+    _input1->update();
+    
     _rand.seed(0xdeadbeef);
 
 //    _crateFact = CrateFactory::alloc(_assets);
@@ -391,7 +391,10 @@ bool GameScene::init(const std::shared_ptr<AssetManager>& assets, const Rect rec
     // Shift to center if a bad fit
     _scale = dimen.width == SCENE_WIDTH ? dimen.width/rect.size.width : dimen.height/rect.size.height;
     Vec2 offset((dimen.width-SCENE_WIDTH)/2.0f,(dimen.height-SCENE_HEIGHT)/2.0f);
-
+    
+    _charControl1.init(_input1, _scale);
+    _charControl2.init(_input1, _scale);
+    
     // Create the scene graph
     _worldnode = scene2::SceneNode::alloc();
     _worldnode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
@@ -451,7 +454,10 @@ bool GameScene::init(const std::shared_ptr<AssetManager>& assets, const Rect rec
 void GameScene::dispose() {
 	if (_active) {
 		removeAllChildren();
-		_input.dispose();
+		//_input->dispose();
+        _input1 = nullptr;
+        _charControl1.dispose();
+        _charControl2.dispose();
 		_world = nullptr;
 		_worldnode = nullptr;
 		_debugnode = nullptr;
@@ -570,23 +576,9 @@ void GameScene::populate() {
     };
     CULog("Populating ragdoll");
 #pragma mark : Ragdoll
-    // Allocate the ragdoll and set its (empty) node. Its model handles creation of parts
-    // (both obstacles and nodes to be drawn) upon alllocation and setting the scene node.
-    _ragdoll1 = RagdollModel::alloc(DOLL_POS, _scale);
-    _ragdoll1->buildParts(_assets);
-    CULog("Done build parts");
-
-    _ragdoll1->createJoints();
-    CULog("Done creating joints");
-
-    auto ragdollNode = scene2::SceneNode::alloc();
-    // Add the ragdollNode to the world before calling setSceneNode,
-    // as noted in the documentation for the Ragdoll's method.
-    _worldnode->addChild(ragdollNode);
-    _ragdoll1->setDrawScale(_scale);
+    _charControl1.populate(_worldnode, _world, _assets);
+    _charControl2.populate(_worldnode, _world, _assets);
     
-    // Adds ragdoll parts to physics world, and links the parts to scene node
-    _ragdoll1->linkPartsToWorld(_world, ragdollNode, _scale);
     
     std::shared_ptr<Texture> image;
     std::shared_ptr<scene2::PolygonNode> sprite;
@@ -830,47 +822,17 @@ void GameScene::addInitObstacle(const std::shared_ptr<physics2::Obstacle>& obj,
 #pragma mark Physics Handling
 
 void GameScene::preUpdate(float dt) {
-    _input.update();
-    int knob_radius = 200;
-    std::shared_ptr<cugl::physics2::Obstacle> leftArm = _ragdoll1->getPartObstacle(PART_LEFT_HAND);
-    std::shared_ptr<cugl::physics2::Obstacle> rightArm = _ragdoll1->getPartObstacle(PART_RIGHT_HAND);
-    std::unordered_map<std::string,cugl::Vec2> inputs = _input.getPosition();
-    for (const auto & [ key, value ] : inputs) {
-        if (_input_to_arm.count(key) == 0){ // Add touchpoint
-            cugl::Vec2 pos2d = ((cugl::Vec2)screenToWorldCoords(value));
-            if(_arm_to_input.count(PART_LEFT_HAND) == 0 && (leftArm->getPosition() * _scale).distance(pos2d) < knob_radius){
-                _input_to_arm[key] = PART_LEFT_HAND;
-                _arm_to_input[PART_LEFT_HAND] = key;
-                
-            }
-            else if(_arm_to_input.count(PART_RIGHT_HAND) == 0 && (rightArm->getPosition() * _scale).distance(pos2d) < knob_radius){
-                _input_to_arm[key] = PART_RIGHT_HAND;
-                _arm_to_input[PART_RIGHT_HAND] = key;
-            }
-        }
-        else{ // Do stuff with existing touchpoint
-            cugl::Vec2 pos_now =  ((cugl::Vec2)screenToWorldCoords(value));
-            std::shared_ptr<cugl::physics2::Obstacle> arm = _ragdoll1->getPartObstacle(_input_to_arm[key]);
-            arm->setPosition(pos_now/_scale);
-        }
+    _input1->update();
+    if(_isHost){
+        _charControl1.updatePositionFromInput(*this);
+    } else {
+        _charControl2.updatePositionFromInput(*this);
     }
-    auto it = _arm_to_input.begin();
-    while (it != _arm_to_input.end()){ // Remove old touchpoints
-        auto id = it->second;
-        if (inputs.count(id)==0){
-            it = _arm_to_input.erase(it);
-            _input_to_arm.erase(id);
-        }
-        else{
-            ++it;
-        }
-    }
-    
 }
 
 void GameScene::postUpdate(float dt) {
     //Nothing to do now
-    _ragdoll1->update(dt);
+    _charControl1._ragdoll->update(dt);
 }
 
 void GameScene::fixedUpdate() {
