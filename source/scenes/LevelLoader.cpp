@@ -1,7 +1,7 @@
-#include "LevelScene.h"
+#include "LevelLoader.h"
 #include "LevelConstants.h"
 
-std::vector<float> LevelScene::getVertices(const std::shared_ptr<JsonValue>& json) {
+std::vector<float> LevelLoader::getVertices(const std::shared_ptr<JsonValue>& json) {
     std::vector<float> vertices = std::vector<float>();
     for (auto it = json->get(VERTICES_FIELD)->children().begin(); it != json->get(VERTICES_FIELD)->children().end(); it++) {
         vertices.push_back(((_bounds.getMaxY() * _scale.y) - ((*it)->get(1)->asFloat() + json->getFloat("y"))) / _scale.y);
@@ -22,7 +22,7 @@ std::vector<float> LevelScene::getVertices(const std::shared_ptr<JsonValue>& jso
 *
 * @return the color for the string
 */
-Color4 LevelScene::parseColor(std::string name) {
+Color4 LevelLoader::parseColor(std::string name) {
     if (name == "yellow") {
         return Color4::YELLOW;
     } else if (name == "red") {
@@ -49,7 +49,7 @@ Color4 LevelScene::parseColor(std::string name) {
  *
  * @return true if successfully loaded the asset from a file
  */
-bool LevelScene::preload(const std::string& file) {
+bool LevelLoader::preload(const std::string& file) {
     std::shared_ptr<JsonReader> reader = JsonReader::allocWithAsset(file);
     return preload(reader->readJson());
 }
@@ -63,7 +63,7 @@ bool LevelScene::preload(const std::string& file) {
  *
  * @return true if successfully loaded the asset from a file
  */
-bool LevelScene:: preload(const std::shared_ptr<cugl::JsonValue>& json) {
+bool LevelLoader:: preload(const std::shared_ptr<cugl::JsonValue>& json) {
     if (json == nullptr) {
         CUAssertLog(false, "Failed to load level file");
         return false;
@@ -91,7 +91,7 @@ bool LevelScene:: preload(const std::shared_ptr<cugl::JsonValue>& json) {
     return true;
 }
 
-bool LevelScene::loadObject(const std::shared_ptr<JsonValue>& json) {
+bool LevelLoader::loadObject(const std::shared_ptr<JsonValue>& json) {
     auto type = json->get("type")->asString();
     if (type == WALLS_FIELD) {
         return loadWall(json);
@@ -110,7 +110,7 @@ bool LevelScene::loadObject(const std::shared_ptr<JsonValue>& json) {
 * @retain the wall
 * @return true if the wall was successfully loaded
 */
-bool LevelScene::loadWall(const std::shared_ptr<JsonValue>& json) {
+bool LevelLoader::loadWall(const std::shared_ptr<JsonValue>& json) {
     bool success = true;
 
     auto walljson = json->get("properties")->get(0)->get("value");
@@ -160,7 +160,7 @@ bool LevelScene::loadWall(const std::shared_ptr<JsonValue>& json) {
     return success;
 }
 
-LevelScene::LevelScene(void) : Asset(),
+LevelLoader::LevelLoader(void) : Asset(),
 _debugnode(nullptr),
 _root(nullptr),
 _world(nullptr),
@@ -173,14 +173,14 @@ _scale(32, 32)
 /**
 * Destroys this level, releasing all resources.
 */
-LevelScene::~LevelScene(void) {
+LevelLoader::~LevelLoader(void) {
     clearRootNode();
 }
 
 /**
 * Clears the root scene graph node for this level
 */
-void LevelScene::clearRootNode() {
+void LevelLoader::clearRootNode() {
     if (_root == nullptr) {
         return;
     }
@@ -201,7 +201,7 @@ void LevelScene::clearRootNode() {
 *
 * @param  flag whether to show the debug layer of this game world
 */
-void LevelScene::showDebug(bool flag) {
+void LevelLoader::showDebug(bool flag) {
     if (_debugnode != nullptr) {
         _debugnode->setVisible(flag);
     }
@@ -219,7 +219,7 @@ void LevelScene::showDebug(bool flag) {
 * @retain  a reference to this scene graph node
 * @release the previous scene graph node used by this object
 */
-void LevelScene::setRootNode(const std::shared_ptr<scene2::SceneNode>& node){
+void LevelLoader::setRootNode(const std::shared_ptr<scene2::SceneNode>& node){
     if (_root != nullptr) {
         clearRootNode();
     }
@@ -266,10 +266,10 @@ void LevelScene::setRootNode(const std::shared_ptr<scene2::SceneNode>& node){
  * the two.  This function is an example of the latter.
  *
  *
- * param obj    The physics object to add
- * param node   The scene graph node to attach it to
+ * @param obj    The physics object to add
+ * @param node   The scene graph node to attach it to
  */
-void LevelScene::addObstacle(const std::shared_ptr<cugl::physics2::Obstacle>& obj, const std::shared_ptr<cugl::scene2::SceneNode>& node) {
+void LevelLoader::addObstacle(const std::shared_ptr<cugl::physics2::Obstacle>& obj, const std::shared_ptr<cugl::scene2::SceneNode>& node) {
     _world->addObstacle(obj);
     obj->setDebugScene(_debugnode);
     

@@ -15,7 +15,7 @@ using namespace cugl;
  * asynchronously load the json file along with attaching hooks to parse
  * the json file an App.cpp.
 */
-class LevelScene : public Asset{
+class LevelLoader : public Asset{
 protected:
     /** The root node of this level */
     std::shared_ptr<scene2::SceneNode> _root;
@@ -70,8 +70,8 @@ public:
      *
      * @return  an autoreleased level file
      */
-    static std::shared_ptr<LevelScene> alloc() {
-        std::shared_ptr<LevelScene> result = std::make_shared<LevelScene>();
+    static std::shared_ptr<LevelLoader> alloc() {
+        std::shared_ptr<LevelLoader> result = std::make_shared<LevelLoader>();
         return (result->init("") ? result : nullptr);
     }
 
@@ -83,8 +83,8 @@ public:
      *
      * @return  an autoreleased level file
      */
-    static std::shared_ptr<LevelScene> alloc(std::string file) {
-        std::shared_ptr<LevelScene> result = std::make_shared<LevelScene>();
+    static std::shared_ptr<LevelLoader> alloc(std::string file) {
+        std::shared_ptr<LevelLoader> result = std::make_shared<LevelLoader>();
         return (result->init(file) ? result : nullptr);
     }
 
@@ -181,7 +181,7 @@ public:
     /**
      * Creates a new, empty level.
      */
-    LevelScene(void);
+    LevelLoader(void);
 
     /**
      * Converts the string to a color
@@ -198,7 +198,7 @@ public:
     /**
      * Destroys this level, releasing all resources.
      */
-    virtual ~LevelScene(void);
+    virtual ~LevelLoader(void);
 
     /**
      * Adds the physics object to the physics world and loosely couples it to the scene graph

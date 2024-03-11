@@ -21,7 +21,7 @@
 #include "scenes/LoadScene.h"
 #include "scenes/MenuScene.h"
 #include "scenes/SettingScene.h"
-#include "scenes/RestoreScene.h"
+#include "scenes/RestorationScene.h"
 using namespace cugl::physics2::net;
 
 /**
@@ -50,11 +50,12 @@ protected:
     
     std::shared_ptr<InputController> _input;
     
-    HostScene       _hostscene;
-    ClientScene     _clientscene;
-    GameScene       _gamescene;
-    LoadScene       _loadscene;
-    SettingScene    _settingscene;
+    HostScene       _hostScene;
+    ClientScene     _clientScene;
+    GameScene       _gameScene;
+    LoadScene       _loadScene;
+    SettingScene    _settingScene;
+    MenuScene       _menuScene;
     
     GameStatus _status;
     bool loaded = false;
@@ -98,7 +99,7 @@ public:
     
     void updateSettings(float timestep);
     
-    void updateRestore(float timestep);
+    void updateRestoration(float timestep);
     
     virtual void draw() override;
 };

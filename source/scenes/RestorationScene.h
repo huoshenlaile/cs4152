@@ -3,7 +3,7 @@
 
 #include <cugl/cugl.h>
 
-class RestoreScene: public cugl::Scene2 {
+class RestorationScene: public cugl::Scene2 {
     
 };
 

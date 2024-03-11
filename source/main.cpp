@@ -58,7 +58,8 @@ int main(int argc, char * argv[]) {
     app.setMultiSampled(true);
 #endif
     
-    /// DO NOT MODIFY ANYTHING BELOW THIS LINE
+    /// DO NOT MODIFY ANYTHING BELOW THIS LINE?
+    /// This is from Walker actually. If you wanna modify, I won't judge you. Well I may, if you crash the program.
     if (!app.init()) {
         return 1;
     }
