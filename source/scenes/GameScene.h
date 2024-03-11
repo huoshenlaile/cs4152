@@ -3,6 +3,7 @@
 
 #include <cugl/cugl.h>
 #include "../controllers/InputController.h"
+#include "../controllers/InteractionController.h"
 #include "../models/CharacterModel.h"
 
 class GameScene: public cugl::Scene2 {
@@ -13,6 +14,12 @@ protected:
     // CONTROLLERS
     /** Controller for abstracting out input across multiple platforms */
     InputController _input;
+    /** Controller for handling all kinds of interactions*/
+    InteractionController _interactionController;
+    /** Network Controller*/
+    std::shared_ptr<NetEventController> _network;
+    /** Character Controller*/
+    CharacterController _characterController;
     
     // VIEW
       /** Reference to the goalDoor (for collision detection) */
@@ -23,18 +30,12 @@ protected:
     std::shared_ptr<cugl::scene2::SceneNode> _debugnode;
     /** Reference to the win message label */
     std::shared_ptr<cugl::scene2::Label> _winnode;
-    
-    std::shared_ptr<cugl::scene2::ProgressBar> _chargeBar;
 
     /** The Box2D world */
     std::shared_ptr<cugl::physics2::net::NetWorld> _world;
     /** The scale between the physics world and the screen (MUST BE UNIFORM) */
     float _scale;
     
-    std::mt19937 _rand;
-
-//    std::shared_ptr<CrateFactory> _crateFact;
-//    Uint32 _factId;
 
     // Physics objects for the game
     /** Reference to the player1 cannon */
@@ -43,8 +44,6 @@ protected:
     /** Reference to the player2 cannon */
     std::shared_ptr<cugl::scene2::SceneNode> _cannon2Node;
     std::shared_ptr<cugl::physics2::BoxObstacle> _cannon2;
-    
-    std::shared_ptr<CharacterModel> _character;
 
     /** Host is by default the left cannon */
     bool _isHost;
@@ -57,16 +56,8 @@ protected:
     std::unordered_map<std::string,int> _input_to_arm;
     /** Relates arm to input id*/
     std::unordered_map<int, std::string> _arm_to_input;
-
-    
-    std::shared_ptr<NetEventController> _network;
     
 #pragma mark Internal Object Management
-    
-//    /**
-//     * This method adds a crate at the given position during the init process.
-//     */
-//    std::shared_ptr<cugl::physics2::Obstacle> addInitCrate(cugl::Vec2 pos);
     
     /**
      * Lays out the game geography.
@@ -107,18 +98,6 @@ protected:
      */
     void linkSceneToObs(const std::shared_ptr<cugl::physics2::Obstacle>& obj,
         const std::shared_ptr<cugl::scene2::SceneNode>& node);
-    
-//    /**
-//     * This method adds a crate that had been fired by the player's cannon amid the simulation.
-//     *
-//     * If this machine is host, the crate should be fire from the left cannon (_cannon1), vice versa.
-//     */
-//    void fireCrate();
-    
-//    /**
-//     * This method takes a crateEvent and processes it.
-//     */
-//    void processCrateEvent(const std::shared_ptr<CrateEvent>& event);
 
     /**
      * Returns the active screen size of this scene.
@@ -255,7 +234,10 @@ public:
     virtual void preUpdate(float timestep);
     virtual void postUpdate(float timestep);
     virtual void fixedUpdate();
+    
     /**
+     * I DON'T THINK WE ARE USING THIS METHOD.
+     *
      * The method called to update the game mode.
      *
      * This method contains any gameplay code that is not an OpenGL call.
@@ -268,31 +250,6 @@ public:
      * Resets the status of the game so that we can play again.
      */
     void reset();
-
-#pragma mark -
-#pragma mark Collision Handling
-    /**
-     * Processes the start of a collision
-     *
-     * This method is called when we first get a collision between two objects.
-     * We use this method to test if it is the "right" kind of collision.  In
-     * particular, we use it to test if we make it to the win door.
-     *
-     * @param  contact  The two bodies that collided
-     */
-    void beginContact(b2Contact* contact);
-
-    /**
-     * Handles any modifications necessary before collision resolution
-     *
-     * This method is called just before Box2D resolves a collision.  We use
-     * this method to implement sound on contact, using the algorithms outlined
-     * in Ian Parberry's "Introduction to Game Physics with Box2D".
-     *
-     * @param  contact  The two bodies that collided
-     * @param  contact  The collision manifold before contact
-     */
-    void beforeSolve(b2Contact* contact, const b2Manifold* oldManifold);
 };
 
 

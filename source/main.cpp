@@ -43,7 +43,7 @@ using namespace cugl;
  */
 int main(int argc, char * argv[]) {
     // Change this to your application class
-    DpApp app;
+    DPApp app;
     
     // Set the properties of your application
     app.setName("Dusty Paint: Gameplay Prototype");
