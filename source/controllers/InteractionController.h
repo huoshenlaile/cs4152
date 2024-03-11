@@ -2,17 +2,37 @@
 #define __INTERACTION_CONTROLLER_H__
 
 #include <cugl/cugl.h>
+#include <stdio.h>
+#include <box2d/b2_world.h>
+#include <box2d/b2_contact.h>
+#include <box2d/b2_collision.h>
+#include <ctime>
+#include <string>
+#include <iostream>
+#include <sstream>
 #include "NetworkController.h"
+#include "../models/WallModel.h"
+#include "../models/PlatformModel.h"
+#include "../models/ButtonModel.h"
+#include "../models/CharacterModel.h"
+
 
 using namespace cugl::physics2::net;
 
 class InteractionController {
 protected:
-    /** */
+    /** Network Controller? */
     NetEventController _netController;
+    // TODO: Interaction Controller SHOULD have access to models. Models should be passed in as parameters in initializers.
     
 public:
-#pragma mark -
+
+    /** the TENTATIVE initializer for this (feel free to change), according to our arch spec
+     */
+    bool init(std::vector<std::shared_ptr<PlatformModel>> platforms,                std::shared_ptr<CharacterModel> character,
+              std::vector<std::shared_ptr<ButtonModel>> buttons,
+              std::vector<std::shared_ptr<WallModel>> walls);
+    
 #pragma mark Collision Handling
     /**
      * Processes the start of a collision

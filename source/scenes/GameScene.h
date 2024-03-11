@@ -2,9 +2,34 @@
 #define __GAME_SCENE_H__
 
 #include <cugl/cugl.h>
+#include <box2d/b2_world.h>
+#include <box2d/b2_contact.h>
+#include <box2d/b2_collision.h>
+#include <ctime>
+#include <string>
+#include <iostream>
+#include <sstream>
 #include "../controllers/InputController.h"
 #include "../controllers/InteractionController.h"
-#include "../models/CharacterModel.h"
+#include "../controllers/CharacterController.h"
+#include "../controllers/AudioController.h"
+#include "../models/PlatformModel.h"
+#include "../models/ButtonModel.h"
+#include "../models/WallModel.h"
+
+/** This is the size of the active portion of the screen */
+#define SCENE_WIDTH 1024
+#define SCENE_HEIGHT 576
+
+/** Width of the game world in Box2d units */
+#define DEFAULT_WIDTH   32.0f
+/** Height of the game world in Box2d units */
+#define DEFAULT_HEIGHT  18.0f
+/** The default value of gravity (going down) */
+#define DEFAULT_GRAVITY -4.9f
+
+#define DEFAULT_TURN_RATE 0.05f
+#define FIXED_TIMESTEP_S 0.02f
 
 class GameScene: public cugl::Scene2 {
 protected:
@@ -20,6 +45,14 @@ protected:
     std::shared_ptr<NetEventController> _network;
     /** Character Controller*/
     CharacterController _characterController;
+    /** Audio Controller*/
+    AudioController _audioController;
+    
+    // MODELS
+    // TODO: Do we need a vector of these?
+    PlatformModel _platform;
+    WallModel _wall;
+    ButtonModel _button;
     
     // VIEW
       /** Reference to the goalDoor (for collision detection) */

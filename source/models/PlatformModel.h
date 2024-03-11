@@ -10,7 +10,7 @@
 
 class PlatformModel {
     //TODO: populate this!
-}
+};
 
 
 #endif /* PlatformModel_h */
