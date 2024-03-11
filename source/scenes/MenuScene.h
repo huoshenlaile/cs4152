@@ -7,19 +7,21 @@
 class MenuScene : public cugl::Scene2 {
 public:
     /**
-     * The menu choice.
+     * The menu SceneStatus.
      *
      * This state allows the top level application to know what the user
      * chose.
      */
-    enum Choice {
-        /** User has not yet made a choice */
+    enum SceneStatus {
+        /** User has not yet made a SceneStatus */
         NONE,
         /** User wants to host a game */
         HOST,
         /** User wants to join a game */
         JOIN
     };
+    /** The player menu SceneStatus */
+    SceneStatus status;
 
 protected:
     /** The asset manager for this scene. */
@@ -28,8 +30,7 @@ protected:
     std::shared_ptr<cugl::scene2::Button> _hostbutton;
     /** The menu button for joining a game */
     std::shared_ptr<cugl::scene2::Button> _joinbutton;
-    /** The player menu choice */
-    Choice _choice;
+
     
 public:
 #pragma mark -
@@ -81,15 +82,6 @@ public:
      * @param value whether the scene is currently active
      */
     virtual void setActive(bool value) override;
-    
-    /**
-     * Returns the user's menu choice.
-     *
-     * This will return NONE if the user had no yet made a choice.
-     *
-     * @return the user's menu choice.
-     */
-    Choice getChoice() const { return _choice; }
 
 };
 #endif

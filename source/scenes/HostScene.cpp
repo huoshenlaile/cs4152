@@ -1,5 +1,3 @@
-
-
 #include "HostScene.h"
 #include <iostream>
 #include <sstream>
@@ -85,7 +83,7 @@ bool HostScene::init(const std::shared_ptr<cugl::AssetManager>& assets, std::sha
     // Program the buttons
     _backout->addListener([this](const std::string& name, bool down) {
         if (down) {
-            _backClicked = true;
+            this -> state = BACK;
         }
     });
 
@@ -134,7 +132,7 @@ void HostScene::setActive(bool value) {
             _backout->activate();
             _network->disconnect();
             _network->connectAsHost();
-            _backClicked = false;
+            state = INSCENE;
         } else {
             _gameid->setText("");
             _startgame->deactivate();
@@ -176,7 +174,7 @@ void HostScene::updateText(const std::shared_ptr<scene2::Button>& button, const 
  */
 void HostScene::update(float timestep) {
     if(_network->getStatus() == NetEventController::Status::CONNECTED){
-        if (!_startGameClicked) {
+        if (this -> state != STARTGAME) {
             updateText(_startgame, "Start Game");
             _startgame->activate();
         }
@@ -186,6 +184,12 @@ void HostScene::update(float timestep) {
         }
         _gameid->setText(hex2dec(_network->getRoomID()));
         _player->setText(std::to_string(_network->getNumPlayers()));
+    } else if (_network->getStatus() == NetEventController::Status::HANDSHAKE && _network->getShortUID()) {
+        state = HANDSHAKE;
+    } else if (_network->getStatus() == NetEventController::Status::INGAME) {
+        state = STARTGAME;
+    } else if (_network->getStatus() == NetEventController::Status::NETERROR) {
+        state = NETERROR;
     }
 }
 
@@ -194,5 +198,5 @@ void HostScene::update(float timestep) {
  */
 void HostScene::startGame(){
     _network->startGame();
-    _startGameClicked = true;
+    // this -> state = STARTGAME;
 }

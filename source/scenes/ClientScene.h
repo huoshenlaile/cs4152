@@ -10,8 +10,6 @@ class ClientScene: public cugl::Scene2 {
 protected:
     /** The asset manager for this scene. */
     std::shared_ptr<cugl::AssetManager> _assets;
-    /** The network connection (as made by this scene) */
-    std::shared_ptr<NetEventController> _network;
 
     /** The menu button for starting a game */
     std::shared_ptr<cugl::scene2::Button> _startgame;
@@ -22,6 +20,8 @@ protected:
     /** The players label (for updating) */
     std::shared_ptr<cugl::scene2::Label> _player;
     
+    /** The network connection (as made by this scene) */
+    std::shared_ptr<NetEventController> _network;
     /** The network configuration */
     cugl::net::NetcodeConfig _config;
     

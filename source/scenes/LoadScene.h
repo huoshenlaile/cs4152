@@ -2,6 +2,7 @@
 #define __LOAD_SCENE_H__
 
 #include <cugl/cugl.h>
+using namespace cugl::physics2::net;
 
 /**
  * This class is a simple loading screen for asychronous asset loading.
@@ -35,6 +36,11 @@ protected:
     float _progress;
     /** Whether or not the player has pressed play to continue */
     bool  _completed;
+    
+    /** The network connection (as made by this scene) */
+    std::shared_ptr<NetEventController> _network;
+    /** The network configuration */
+    cugl::net::NetcodeConfig _config;
     
     /**
      * Returns the active screen size of this scene.

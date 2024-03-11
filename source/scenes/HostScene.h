@@ -24,11 +24,6 @@ protected:
     std::shared_ptr<cugl::scene2::Label> _gameid;
     /** The players label (for updating) */
     std::shared_ptr<cugl::scene2::Label> _player;
-
-    /** Whether the startGame button had been pressed. */
-    bool _startGameClicked = false;
-    /** Whether the back button had been pressed. */
-    bool _backClicked = false;
     
     /** The network configuration */
     cugl::net::NetcodeConfig _config;
@@ -42,6 +37,15 @@ protected:
     int _receiveCount;
 
 public:
+    /** the state of this scene, referenced by DPApp*/
+    enum SceneState {
+        INSCENE,
+        HANDSHAKE,
+        STARTGAME,
+        BACK,
+        NETERROR
+    };
+    SceneState state;
 #pragma mark -
 #pragma mark Constructors
     /**
@@ -100,11 +104,6 @@ public:
      * @param timestep  The amount of time (in seconds) since the last frame
      */
     void update(float timestep) override;
-    
-    /**
-     * Returns whether the back button is pressed
-     */
-    bool getBackClicked() { return _backClicked; };
 
 private:
     /**

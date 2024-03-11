@@ -75,6 +75,7 @@ void DPApp::onShutdown() {
     Application::onShutdown();  // YOU MUST END with call to parent
 }
 
+
 /**
  * The method called when the application is suspended and put in the background.
  *
@@ -87,8 +88,10 @@ void DPApp::onShutdown() {
  * the background.
  */
 void DPApp::onSuspend() {
+    // TODO: Restoration Scene may come in here
     AudioEngine::get()->pause();
 }
+
 
 /**
  * The method called when the application resumes and put in the foreground.
@@ -141,11 +144,13 @@ void DPApp::preUpdate(float timestep){
     }
 }
 
+
 void DPApp::postUpdate(float timestep) {
     if (_status == GAME) {
         _gameScene.postUpdate(timestep);
     }
 }
+
 
 void DPApp::fixedUpdate() {
     if (_status == GAME) {
@@ -182,18 +187,18 @@ void DPApp::update(float timestep) {
  */
 void DPApp::updateMenu(float timestep) {
     _menuScene.update(timestep);
-    switch (_menuScene.getChoice()) {
-        case MenuScene::Choice::HOST:
+    switch (_menuScene.status) {
+        case MenuScene::HOST:
             _menuScene.setActive(false);
             _hostScene.setActive(true);
             _status = HOST;
             break;
-        case MenuScene::Choice::JOIN:
+        case MenuScene::JOIN:
             _menuScene.setActive(false);
             _clientScene.setActive(true);
             _status = CLIENT;
             break;
-        case MenuScene::Choice::NONE:
+        case MenuScene::NONE:
             // DO NOTHING
             break;
     }
@@ -209,22 +214,21 @@ void DPApp::updateMenu(float timestep) {
  */
 void DPApp::updateHost(float timestep) {
     _hostScene.update(timestep);
-    if(_hostScene.getBackClicked()){
+    if(_hostScene.state == HostScene::BACK){
         _status = MENU;
         _hostScene.setActive(false);
         _menuScene.setActive(true);
     }
-    else if (_network->getStatus() == NetEventController::Status::HANDSHAKE && _network->getShortUID()) {
+    else if (_hostScene.state == HostScene::HANDSHAKE) {
         _gameScene.init(_assets, _network, true);
         _network->markReady();
     }
-    else if (_network->getStatus() == NetEventController::Status::INGAME) {
+    else if (_hostScene.state == HostScene::STARTGAME) {
         _hostScene.setActive(false);
         _gameScene.setActive(true);
         _status = GAME;
     }
-    else if (_network->getStatus() == NetEventController::Status::NETERROR) {
-        _network->disconnect();
+    else if (_hostScene.state == HostScene::NETERROR) {
         _hostScene.setActive(false);
         _menuScene.setActive(true);
         _gameScene.dispose();
@@ -241,8 +245,6 @@ void DPApp::updateHost(float timestep) {
  * @param timestep  The amount of time (in seconds) since the last frame
  */
 void DPApp::updateClient(float timestep) {
-    //TODO: Write transition logic for client scene
-#pragma mark SOLUTION
     _clientScene.update(timestep);
     if(_clientScene.getBackClicked()){
         _status = MENU;
@@ -265,7 +267,6 @@ void DPApp::updateClient(float timestep) {
         _gameScene.dispose();
         _status = MENU;
     }
-#pragma mark END SOLUTION
 }
 
 /**

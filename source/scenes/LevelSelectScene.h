@@ -1,22 +1,29 @@
-#ifndef __SETTING_SCENE_H__
-#define __SETTING_SCENE_H__
+#ifndef LevelSelectScreen_h
+#define LevelSelectScreen_h
 
 #include <cugl/cugl.h>
+using namespace cugl::physics2::net;
 
-class SettingScene: public cugl::Scene2 {
+class LevelSelectScene : public cugl::Scene2{
     
 protected:
     /** The asset manager for this scene. */
     std::shared_ptr<cugl::AssetManager> _assets;
+    /** The network connection (as made by this scene) */
+    std::shared_ptr<NetEventController> _network;
+    /** The network configuration */
+    cugl::net::NetcodeConfig _config;
+    /** do we need this? can only the host choose levels?*/
+    bool isHost;
     
 public:
     /**
-     * Creates a new Setting Scene with the default values.
+     * Creates a new  menu scene with the default values.
      *
      * This constructor does not allocate any objects or start the game.
      * This allows us to use the object without a heap pointer.
      */
-    SettingScene() : cugl::Scene2() {}
+    LevelSelectScene() : cugl::Scene2() {}
     
     /**
      * Disposes of all (non-static) resources allocated to this mode.
@@ -24,7 +31,7 @@ public:
      * This method is different from dispose() in that it ALSO shuts off any
      * static resources, like the input controller.
      */
-    ~SettingScene() { dispose(); }
+    ~LevelSelectScene() { dispose(); }
     
     /**
      * Disposes of all (non-static) resources allocated to this mode.
@@ -57,6 +64,7 @@ public:
      * @param value whether the scene is currently active
      */
     virtual void setActive(bool value) override;
-};
+    
+}
 
-#endif
+#endif /* LevelSelectScreen_h */

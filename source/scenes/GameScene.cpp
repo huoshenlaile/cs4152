@@ -43,7 +43,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
     Vec2 offset {(dimen.width - SCENE_WIDTH) / 2.0f, 
                     (dimen.height - SCENE_HEIGHT) / 2.0f};
     
-    // TODO: add children to the scene
+    // TODO: add children to the scene, initialize Controllers
     // Create the scene graph
     _worldnode = scene2::SceneNode::alloc();
     _worldnode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
@@ -151,7 +151,6 @@ void GameScene::addInitObstacle(const std::shared_ptr<physics2::Obstacle>& obj,
     linkSceneToObs(obj, node);
 }
 
-#pragma mark -
 #pragma mark Physics Handling
 
 void GameScene::preUpdate(float dt) {
