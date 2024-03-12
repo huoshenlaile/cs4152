@@ -32,6 +32,15 @@
 
 using namespace cugl;
 
+struct TouchInstance {
+	/** The anchor touch position (on start) */
+	cugl::Vec2 position;
+	/** The current touch time */
+	cugl::Timestamp timestamp;
+	/** The touch id(s) for future reference */
+	std::unordered_set<Uint64> touchids;
+};
+
 /**
  * The main entry point of any CUGL application.
  *
@@ -41,33 +50,33 @@ using namespace cugl;
  *
  * @return the exit status of the application
  */
-int main(int argc, char * argv[]) {
-    // Change this to your application class
-    DPApp app;
-    
-    // Set the properties of your application
-    app.setName("Dusty Paint: Gameplay Prototype");
-    app.setOrganization("Vme50 Studio");
-    app.setHighDPI(true);
+int main(int argc, char* argv[]) {
+	// Change this to your application class
+	DPApp app;
 
-    //app.setFullscreen(true);
-    //app.setDisplaySize(1024, 576);
-    app.setVSync(true);
-    //app.setFPS(60.0f);
+	// Set the properties of your application
+	app.setName("Dusty Paint: Gameplay Prototype");
+	app.setOrganization("Vme50 Studio");
+	app.setHighDPI(true);
+
+	//app.setFullscreen(true);
+	//app.setDisplaySize(1024, 576);
+	app.setVSync(true);
+	//app.setFPS(60.0f);
 #if CU_PLATFORM == CU_PLATFORM_MACOS || CU_PLATFORM == CU_PLATFORM_WINDOWS
-    app.setMultiSampled(true);
+	app.setMultiSampled(true);
 #endif
-    
-    /// DO NOT MODIFY ANYTHING BELOW THIS LINE?
-    /// This is from Walker actually. If you wanna modify, I won't judge you. Well I may, if you crash the program.
-    if (!app.init()) {
-        return 1;
-    }
-    
-    app.onStartup();
-    while (app.step());
-    app.onShutdown();
 
-    exit(0);    // Necessary to quit on mobile devices
-    return 0;   // This line is never reached
+	/// DO NOT MODIFY ANYTHING BELOW THIS LINE?
+	/// This is from Walker actually. If you wanna modify, I won't judge you. Well I may, if you crash the program.
+	if (!app.init()) {
+		return 1;
+	}
+
+	app.onStartup();
+	while (app.step());
+	app.onShutdown();
+
+	exit(0);    // Necessary to quit on mobile devices
+	return 0;   // This line is never reached
 }
