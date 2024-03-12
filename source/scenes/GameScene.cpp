@@ -34,6 +34,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
         return false;
     }
     
+    state = INGAME;
     _isHost = isHost;
     _network = network;
     _assets = assets;
