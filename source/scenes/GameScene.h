@@ -20,7 +20,7 @@ protected:
     /** Character Controller*/
     CharacterController _characterController;
     /** Audio Controller*/
-    AudioController _audioController;
+    std::shared_ptr<AudioController> _audioController;
     
     // MODELS
     // TODO: Do we need a vector of these?

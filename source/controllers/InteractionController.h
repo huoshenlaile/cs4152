@@ -29,9 +29,12 @@ public:
 
     /** the TENTATIVE initializer for this (feel free to change), according to our arch spec
      */
-    bool init(std::vector<std::shared_ptr<PlatformModel>> platforms,                std::shared_ptr<CharacterModel> character,
+    bool init(std::vector<std::shared_ptr<PlatformModel>> platforms,                
+              std::shared_ptr<CharacterModel> character,
               std::vector<std::shared_ptr<ButtonModel>> buttons,
               std::vector<std::shared_ptr<WallModel>> walls);
+    
+    
     
 #pragma mark Collision Handling
     /**

@@ -69,6 +69,21 @@
             "file":      "textures/crate01.png",
             "minfilter": "linear",
             "magfilter": "linear"
+        },
+        "body1": {
+            "file": "textures/body1.png",
+            "minfilter": "linear",
+            "magfilter": "linear"
+        },
+        "j1": {
+            "file": "textures/j1.png",
+            "minfilter": "linear",
+            "magfilter": "linear"
+        },
+        "hand1": {
+            "file": "textures/hand1.png",
+            "minfilter": "linear",
+            "magfilter": "linear"
         }
 	},
     "jsons": {
@@ -93,6 +108,11 @@
         "left-burn": {
             "type":     "sample",
             "file":     "sounds/sideburner-left.wav",
+            "volume":   0.5
+        },
+        "PhantomLiberty": {
+            "type":     "sample",
+            "file":     "sounds/PhantomLiberty.mp3",
             "volume":   0.5
         }
     },

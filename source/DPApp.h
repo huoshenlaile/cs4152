@@ -1,6 +1,5 @@
 //
 //  DPApp.h
-//  Prototype1
 //
 //  Created by Xilai Dai on 3/8/24.
 //
@@ -103,7 +102,7 @@ public:
     
     void updateClient(float timestep);
     
-//    void updateGame(float timestep);  // NOT required, as Game scene use deterministic update
+//    void updateGame(float timestep);  // NOT required, as Game scene uses deterministic update
     
     void updateSettings(float timestep);
     

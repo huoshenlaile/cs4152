@@ -5,54 +5,55 @@
 using namespace cugl::physics2::net;
 
 class LevelSelectScene : public cugl::Scene2 {
-    
+
 protected:
-    /** The asset manager for this scene. */
-    std::shared_ptr<cugl::AssetManager> _assets;
-    /** The network connection (as made by this scene) */
-    std::shared_ptr<NetEventController> _network;
-    /** The network configuration */
-    cugl::net::NetcodeConfig _config;
-    /** do we need this? can only the host choose levels?*/
-    bool isHost;
-    
+	/** The asset manager for this scene. */
+	std::shared_ptr<cugl::AssetManager> _assets;
+	/** The network connection (as made by this scene) */
+	std::shared_ptr<NetEventController> _network;
+	/** The network configuration */
+	cugl::net::NetcodeConfig _config;
+	/** do we need this? can only the host choose levels?*/
+	bool isHost;
+
 public:
-    /**
-     * Creates a new  menu scene with the default values.
-     *
-     * This constructor does not allocate any objects or start the game.
-     * This allows us to use the object without a heap pointer.
-     */
-    LevelSelectScene() : cugl::Scene2() {}
-    
-    /**
-     * Disposes of all (non-static) resources allocated to this mode.
-     *
-     * This method is different from dispose() in that it ALSO shuts off any
-     * static resources, like the input controller.
-     */
-    ~LevelSelectScene() { dispose(); }
-    
-    /**
-     * Disposes of all (non-static) resources allocated to this mode.
-     */
-    void dispose() override;
-    
-    /**
-     * Initializes the controller contents.
-     *
-     * In previous labs, this method "started" the scene.  But in this
-     * case, we only use to initialize the scene user interface.  We
-     * do not activate the user interface yet, as an active user
-     * interface will still receive input EVEN WHEN IT IS HIDDEN.
-     *
-     * That is why we have the method {@link #setActive}.
-     *
-     * @param assets    The (loaded) assets for this game mode
-     *
-     * @return true if the controller is initialized properly, false otherwise.
-     */
-    bool init(const std::shared_ptr<cugl::AssetManager>& assets);
+	/**
+	 * Creates a new  menu scene with the default values.
+	 *
+	 * This constructor does not allocate any objects or start the game.
+	 * This allows us to use the object without a heap pointer.
+	 */
+	LevelSelectScene() : cugl::Scene2() {}
+
+	/**
+	 * Disposes of all (non-static) resources allocated to this mode.
+	 *
+	 * This method is different from dispose() in that it ALSO shuts off any
+	 * static resources, like the input controller.
+	 */
+	~LevelSelectScene() { dispose(); }
+
+	/**
+	 * Disposes of all (non-static) resources allocated to this mode.
+	 */
+	void dispose() override;
+
+	/**
+	 * Initializes the controller contents.
+	 *
+	 * In previous labs, this method "started" the scene.  But in this
+	 * case, we only use to initialize the scene user interface.  We
+	 * do not activate the user interface yet, as an active user
+	 * interface will still receive input EVEN WHEN IT IS HIDDEN.
+	 *
+	 * That is why we have the method {@link #setActive}.
+	 *
+	 * @param assets    The (loaded) assets for this game mode
+	 *
+	 * @return true if the controller is initialized properly, false otherwise.
+	 */
+	bool init(const std::shared_ptr<cugl::AssetManager>& assets);
+
 
     /**
      * Sets whether the scene is currently active
