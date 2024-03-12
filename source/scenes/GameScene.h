@@ -1,6 +1,9 @@
 #ifndef __GAME_SCENE_H__
 #define __GAME_SCENE_H__
 #include "../helpers/GameSceneConstants.h"
+#include "../helpers/LevelLoader.h"
+#include "../helpers/LevelConstants.h"
+#include "../controllers/CameraController.h"
 
 class GameScene: public cugl::Scene2 {
 protected:
@@ -34,9 +37,12 @@ protected:
     std::shared_ptr<cugl::scene2::SceneNode> _debugnode;
     /** Reference to the win message label */
     std::shared_ptr<cugl::scene2::Label> _winnode;
-
-    /** The Box2D world */
-    std::shared_ptr<cugl::physics2::net::NetWorld> _world;
+    /** Reference to the ui layer */
+    std::shared_ptr<cugl::scene2::SceneNode> _uinode;
+    
+    CameraController _camera;
+    
+    std::shared_ptr<LevelLoader> _level;
     /** The scale between the physics world and the screen (MUST BE UNIFORM) */
     float _scale;
     
@@ -62,46 +68,6 @@ protected:
     std::unordered_map<int, std::string> _arm_to_input;
     
 #pragma mark Internal Object Management
-    
-    /**
-     * Lays out the game geography.
-     *
-     * Pay close attention to how we attach physics objects to a scene graph.
-     * The simplest way is to make a subclass. However,
-     * for simple objects you can just use a callback function to lightly couple
-     * them.  This is what we do with the crates.
-     *
-     * This method is really, really long.  In practice, you would replace this
-     * with your serialization loader, which would process a level file.
-     */
-    void populate();
-    
-    /**
-     * Adds the physics object to the physics world and loosely couples it to the scene graph
-     *
-     * There are two ways to link a physics object to a scene graph node on the
-     * screen.  One way is to make a subclass of a physics object.
-     * The other is to use callback functions to loosely couple
-     * the two.  This function is an example of the latter.
-     * the two.  This function is an example of the latter.
-     *
-     * param obj    The physics object to add
-     * param node   The scene graph node to attach it to
-     */
-    void addInitObstacle(const std::shared_ptr<cugl::physics2::Obstacle>& obj,
-                     const std::shared_ptr<cugl::scene2::SceneNode>& node);
-
-    void addObstacle(const std::shared_ptr<cugl::physics2::Obstacle>& obj,
-        const std::shared_ptr<cugl::scene2::SceneNode>& node,
-        bool useObjPosition = true);
-  
-    /**
-     * This method links a scene node to the obstacle.
-     *
-     * This method adds a listener so that the sceneNode will move along with the obstacle.
-     */
-    void linkSceneToObs(const std::shared_ptr<cugl::physics2::Obstacle>& obj,
-        const std::shared_ptr<cugl::scene2::SceneNode>& node);
 
     /**
      * Returns the active screen size of this scene.

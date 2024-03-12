@@ -118,10 +118,6 @@ bool LevelLoader::loadWall(const std::shared_ptr<JsonValue>& json) {
     success = success && polysize > 0;
 
     std::vector<float> vertices = getVertices(json);
-    for(auto i = 0; i<vertices.size();i++){
-        std::cout << vertices[i] << std::endl;
-    }
-    std::cout<<"vertices..."<<std::endl;
     success = success && 2*polysize == vertices.size();
 
     Vec2* verts = reinterpret_cast<Vec2*>(&vertices[0]);
@@ -134,9 +130,6 @@ bool LevelLoader::loadWall(const std::shared_ptr<JsonValue>& json) {
     
     // Get the object, which is automatically retained
     std::shared_ptr<WallModel> wallobj = WallModel::alloc(wall);
-    std::cout<<"interesting..."<<std::endl;
-    std::cout<<wallobj->getPosition().x<< " , "<< wallobj->getPosition().y<<std::endl;
-    std::cout<<"right..."<<std::endl;
     wallobj->setName(WALLS_FIELD+json->getString("id"));
 
     wallobj->setBodyType((b2BodyType)walljson->get("obstacle")->getInt(BODYTYPE_FIELD));
@@ -229,9 +222,6 @@ void LevelLoader::setRootNode(const std::shared_ptr<scene2::SceneNode>& node){
     float xScale = (_world->getBounds().getMaxX() * _scale.x) / _root->getContentSize().width;
     float yScale = (_world->getBounds().getMaxY() * _scale.y) / _root->getContentSize().height;
     _root->setContentSize(_root->getContentSize().width * xScale, _root->getContentSize().height * yScale);
-
-    std::cout << "printing root contensize"<< std::endl;
-    std::cout << _root->getContentSize().width * xScale << "  " << _root->getContentSize().height * yScale << std::endl;
     
     _scale.set(_root->getContentSize().width/_bounds.size.width,
              _root->getContentSize().height/_bounds.size.height);
@@ -242,7 +232,6 @@ void LevelLoader::setRootNode(const std::shared_ptr<scene2::SceneNode>& node){
     _worldnode->setPosition(Vec2::ZERO);
         
     _debugnode = scene2::SceneNode::alloc();
-    std::cout << "current scale" << _scale.x << "  then y value "<< _scale.y <<std::endl;
     _debugnode->setScale(_scale); // Debug node draws in PHYSICS coordinates
     _debugnode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
     _debugnode->setPosition(Vec2::ZERO);
@@ -253,6 +242,9 @@ void LevelLoader::setRootNode(const std::shared_ptr<scene2::SceneNode>& node){
     for(auto it = _walls.begin(); it != _walls.end(); ++it) {
         std::shared_ptr<WallModel> wall = *it;
         auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(wall->getTextureKey()),wall->getPolygon() * _scale);
+        if (wall == nullptr){
+            continue;
+        }
         addObstacle(wall,sprite);  // All walls share the same texture
     }
 }

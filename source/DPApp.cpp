@@ -33,17 +33,20 @@ void DPApp::onStartup() {
     _assets->attach<JsonValue>(JsonLoader::alloc()->getHook());
     _assets->attach<WidgetValue>(WidgetLoader::alloc()->getHook());
     _assets->attach<LevelLoader>(GenericLoader<LevelLoader>::alloc()->getHook());
+    
     _loadScene.init(_assets);
     _status = LOAD;
     
+    _loaded = false;
     // Que up the other assets
     AudioEngine::start(24);
     _assets->loadDirectoryAsync("json/assets.json",nullptr);
+    _assets->loadAsync<LevelLoader>(LEVEL_ONE_KEY,LEVEL_ONE_FILE,nullptr);
     
     cugl::net::NetworkLayer::start(net::NetworkLayer::Log::INFO);
-    
-    Application::onStartup(); // YOU MUST END with call to parent
     setDeterministic(true);
+    Application::onStartup(); // YOU MUST END with call to parent
+    
 }
 
 
@@ -237,7 +240,11 @@ void DPApp::updateHost(float timestep) {
             _menuScene.setActive(true);
             break;
         case HostScene::HANDSHAKE:
-            _gameScene.init(_assets, _network, true);
+            if (!_loaded){
+                _gameScene.init(_assets, _network, true);
+                _loaded = true;
+            }
+            
             _network->markReady();
             break;
         case HostScene::STARTGAME:

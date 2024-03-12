@@ -1,4 +1,17 @@
 #include "GameScene.h"
+#include <box2d/b2_world.h>
+#include <box2d/b2_contact.h>
+#include <box2d/b2_collision.h>
+#include <ctime>
+#include <string>
+#include <iostream>
+#include <sstream>
+
+using namespace cugl;
+using namespace cugl::physics2::net;
+
+#define STATIC_COLOR    Color4::WHITE
+#define PRIMARY_FONT        "retro"
 
 #pragma mark Initializers and Disposer
 /**
@@ -27,7 +40,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
 
 bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cugl::Rect rect, const cugl::Vec2 gravity, const std::shared_ptr<NetEventController> network, bool isHost) {
     Size dimen = computeActiveSize();
-
+        
     if (assets == nullptr) {
         return false;
     } else if (!Scene2::init(dimen)) {
@@ -44,6 +57,17 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
     Vec2 offset {(dimen.width - SCENE_WIDTH) / 2.0f, 
                     (dimen.height - SCENE_HEIGHT) / 2.0f};
     
+    //make the getter for loading the map
+    _level = assets->get<LevelLoader>(LEVEL_ONE_KEY);
+    if (_level == nullptr) {
+        CULog("Fail!");
+        return false;
+    }
+    
+    _assets = assets;
+    std::shared_ptr<cugl::physics2::net::NetWorld> platformWorld = _level->getWorld();
+
+    
     // TODO: add children to the scene, initialize Controllers
     // Create the scene graph
     _worldnode = scene2::SceneNode::alloc();
@@ -55,10 +79,26 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
     _debugnode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
     _debugnode->setPosition(offset);
     
-    addChild(_worldnode);
-    addChild(_debugnode);
+    _winnode = scene2::Label::allocWithText("VICTORY!", _assets->get<Font>(PRIMARY_FONT));
+    _winnode->setAnchor(Vec2::ANCHOR_CENTER);
+    _winnode->setPosition(computeActiveSize() / 2);
+    _winnode->setForeground(STATIC_COLOR);
+    _winnode->setVisible(false);
     
-    populate();
+    _uinode = scene2::SceneNode::alloc();
+    _uinode->setContentSize(dimen);
+    _uinode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
+    _uinode->addChild(_winnode);
+    
+    addChild(_worldnode);
+    addChild(_uinode);
+    
+    _worldnode->setContentSize(Size(SCENE_WIDTH,SCENE_HEIGHT));
+    _level->setAssets(_assets);
+    _level->setRootNode(_worldnode);
+    
+    
+    _camera.init(_worldnode,_worldnode,1.0f, std::dynamic_pointer_cast<OrthographicCamera>(getCamera()), _uinode, 2.0f);
     _active = true;
     _complete = false;
     setDebug(false);
@@ -77,7 +117,6 @@ void GameScene::dispose() {
         
         removeAllChildren();
         _input.dispose();
-        _world = nullptr;
         _worldnode = nullptr;
         _debugnode = nullptr;
         _winnode = nullptr;
@@ -99,55 +138,20 @@ void GameScene::reset() {
     _worldnode->removeAllChildren();
     _debugnode->removeAllChildren();
     setComplete(false);
-    populate();
     Application::get()->resetFixedRemainder();
 }
 
 
-void GameScene::populate() {
-    _world = physics2::net::NetWorld::alloc(Rect(0,0,DEFAULT_WIDTH,DEFAULT_HEIGHT),Vec2(0,DEFAULT_GRAVITY));
-    _world->activateCollisionCallbacks(true);
-    _world->onBeginContact = [this](b2Contact* contact) {
-        _interactionController.beginContact(contact);
-    };
-    _world->beforeSolve = [this](b2Contact* contact, const b2Manifold* oldManifold) {
-        _interactionController.beforeSolve(contact,oldManifold);
-    };
-}
-
-
-void GameScene::linkSceneToObs(const std::shared_ptr<physics2::Obstacle>& obj,
-    const std::shared_ptr<scene2::SceneNode>& node) {
-    node->setPosition(obj->getPosition() * _scale);
-    _worldnode->addChild(node);
-
-    // Dynamic objects need constant updating
-    if (obj->getBodyType() == b2_dynamicBody) {
-        scene2::SceneNode* weak = node.get(); // No need for smart pointer in callback
-        obj->setListener([=](physics2::Obstacle* obs) {
-            float leftover = Application::get()->getFixedRemainder() / 1000000.f;
-            Vec2 pos = obs->getPosition() + leftover * obs->getLinearVelocity();
-            float angle = obs->getAngle() + leftover * obs->getAngularVelocity();
-            weak->setPosition(pos * _scale);
-            weak->setAngle(angle);
-            });
-    }
-}
-
-
-void GameScene::addInitObstacle(const std::shared_ptr<physics2::Obstacle>& obj,
-    const std::shared_ptr<scene2::SceneNode>& node) {
-    _world->initObstacle(obj);
-    if (_isHost) {
-        _world->getOwnedObstacles().insert({ obj,0 });
-    }
-    linkSceneToObs(obj, node);
-}
-
 #pragma mark Physics Handling
 
 void GameScene::preUpdate(float dt) {
+    if(_level == nullptr){
+        return;
+    }
     _input.update();
+    //TODO: error handle for loading different levels when we have multiple levels
+    _camera.update(dt);
+    _level->getWorld()->update(dt);
 }
 
 
@@ -156,7 +160,7 @@ void GameScene::postUpdate(float dt) {
 
 
 void GameScene::fixedUpdate() {
-    _world->update(FIXED_TIMESTEP_S);
+    
 }
 
 

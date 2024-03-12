@@ -26,6 +26,7 @@
 #include "scenes/LevelSelectScene.h"
 
 #include "helpers/LevelLoader.h"
+#include "helpers/LevelConstants.h"
 using namespace cugl::physics2::net;
 
 /**
@@ -53,6 +54,9 @@ protected:
     std::shared_ptr<NetEventController> _network;
     
     std::shared_ptr<InputController> _input;
+    
+    /** Whether or not we have finished loading all assets */
+    bool _loaded;
     
     HostScene       _hostScene;
     ClientScene     _clientScene;
