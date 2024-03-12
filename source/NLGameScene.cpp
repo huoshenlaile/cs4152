@@ -421,6 +421,9 @@ bool GameScene::init(const std::shared_ptr<AssetManager>& assets, const Rect rec
     _world->onBeginContact = [this](b2Contact* contact) {
             beginContact(contact);
         };
+    _world->onEndContact = [this](b2Contact* contact) {
+            endContact(contact);
+        };
     _world->update(FIXED_TIMESTEP_S);
     
     populate();
@@ -625,22 +628,26 @@ void GameScene::populate() {
     _goalDoor->setDensity(0.0f);
     _goalDoor->setFriction(0.0f);
     _goalDoor->setRestitution(0.0f);
-    _goalDoor->setSensor(true);
 
     // Add the scene graph nodes to this object
     sprite = scene2::PolygonNode::allocWithTexture(image);
     _goalDoor->setDebugColor(DEBUG_COLOR);
   addObstacle(_goalDoor, sprite);
     // TODO: Need to refactor this
-    std::shared_ptr<std::unordered_map<std::string, std::string>> actions;
-    actions->insert({"open","true"});
     
-    subscriber_struct sub = { "button1", "pressed", actions};
+    subscriber_struct sub1 = { "button1", "pressed", std::unordered_map<std::string, std::string>({{"open","true"}})};
+    subscriber_struct sub2 = { "button1", "released", std::unordered_map<std::string, std::string>({{"open","false"}})};
+
     if (subscriptions.count("button1")>=0){
         if (subscriptions["button1"].count("pressed")==0){
             subscriptions["button1"]["pressed"] = std::vector<const subscriber_struct>();
         }
-        subscriptions["button1"]["pressed"].push_back(sub);
+        if (subscriptions["button1"].count("released")==0){
+            subscriptions["button1"]["released"] = std::vector<const subscriber_struct>();
+        }
+        subscriptions["button1"]["pressed"].push_back(sub1);
+        subscriptions["button1"]["released"].push_back(sub2);
+
     }
   
 #pragma mark : Wall polygon 1
@@ -868,10 +875,15 @@ void GameScene::preUpdate(float dt) {
     }
     while (!message_queue.empty()){
         publisher_struct publication = message_queue.front();
-        std::vector<const subscriber_struct> subs = subscriptions[publication.pub_id][publication.trigger];
-        for(const subscriber_struct& s : subs){
-            std::cout << s.pub_id;
-            _goalDoor->setY(_goalDoor->getY()+2.0f);
+        for(const subscriber_struct& s : subscriptions[publication.pub_id][publication.trigger]){
+            // TODO: Replace with running the action specified in s
+            if (s.listening_for=="pressed"){
+                _charControl1._ragdoll->getPartObstacle(0)->setPosition(1000.0f, 1000.0f);
+            }
+            if (s.listening_for=="released"){
+                _goalDoor->setPosition(GOAL_POS);
+            }
+            std::cout << s.pub_id<< " " << s.listening_for <<"\n";
         }
         message_queue.pop();
     }
@@ -940,8 +952,6 @@ std::vector<int> GameScene::checkIfPlayerTouched(b2Body* body1, b2Body* body2){
 /**
  * Processes the start of a collision
  *
- * Since this game has no real need to determine collisions, right now this is left empty.
- *
  * @param  contact  The two bodies that collided
  */
 void GameScene::beginContact(b2Contact* contact) {
@@ -953,13 +963,46 @@ void GameScene::beginContact(b2Contact* contact) {
     std::vector<int> player_touchers = GameScene::checkIfPlayerTouched(body1, body2);
     if (player_touchers[0]>0 || player_touchers[1]>0){
         if(body1->GetUserData().pointer == button_ptr || body2->GetUserData().pointer == button_ptr) {
-            // A player has pressed the button
+            if (!_button_down){
+                // A player has pressed the button
+                //_button_down=true;
+                std::shared_ptr<std::unordered_map<std::string, std::string>> body;
+                
+                publisher_struct pub = { "button1", "pressed", "pressed", body};
+                message_queue.push(pub);
+                if (subscriptions.count("button1")==0){
+                    subscriptions["button1"] = std::unordered_map<std::string, std::vector<const subscriber_struct>>();
+                }
+            }
+        }
+    }
+
+}
+
+/**
+ * Processes the end of a collision
+ *
+ * @param  contact  The two bodies that collided
+ */
+void GameScene::endContact(b2Contact* contact) {
+    // This won't run for some reason, callback isn't being called
+    b2Body* body1 = contact->GetFixtureA()->GetBody();
+    b2Body* body2 = contact->GetFixtureB()->GetBody();
+    // If we hit the button
+    intptr_t button_ptr = reinterpret_cast<intptr_t>(_button.get());
+    
+    std::vector<int> player_touchers = GameScene::checkIfPlayerTouched(body1, body2);
+    std::cout << player_touchers[0] << ", " << player_touchers[1] << "\n";
+    if (player_touchers[0]>0 || player_touchers[1]>0){
+        if(body1->GetUserData().pointer == button_ptr || body2->GetUserData().pointer == button_ptr) {
+            // A player has released the button
+            _button_down=false;
             std::shared_ptr<std::unordered_map<std::string, std::string>> body;
             
-            publisher_struct pub = { "button1", "pressed", "pressed", body};
+            publisher_struct pub = { "button1", "released", "released", body};
             message_queue.push(pub);
             if (subscriptions.count("button1")==0){
-                subscriptions["button1"] = {{"pressed", std::vector<const subscriber_struct>()}};
+                subscriptions["button1"] = std::unordered_map<std::string, std::vector<const subscriber_struct>>();
             }
         }
     }

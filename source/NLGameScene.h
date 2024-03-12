@@ -104,6 +104,7 @@ protected:
     // VIEW
     /** Reference to the button (for collision detection) */
     std::shared_ptr<cugl::physics2::BoxObstacle>    _button;
+    bool _button_down = false;
   	/** Reference to the goalDoor (for collision detection) */
     std::shared_ptr<cugl::physics2::BoxObstacle>    _goalDoor;
     /** Reference to the physics root of the scene graph */
@@ -161,7 +162,7 @@ protected:
     typedef struct { // Each subscriber will have a list of these, easy to serialize
       std::string pub_id;
       std::string listening_for;
-      std::shared_ptr<std::unordered_map<std::string, std::string>> actions;
+      std::unordered_map<std::string, std::string> actions;
     } subscriber_struct;
     
     std::queue<const publisher_struct> message_queue;
@@ -399,6 +400,14 @@ public:
      */
     void beginContact(b2Contact* contact);
 
+    /**
+     * Processes the end of a collision
+     *
+     *
+     * @param  contact  The two bodies that collided
+     */
+    void endContact(b2Contact* contact);
+    
     /**
      * Handles any modifications necessary before collision resolution
      *
