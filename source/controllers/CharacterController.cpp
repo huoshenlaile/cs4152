@@ -57,6 +57,22 @@ bool CharacterController::buildParts(const std::shared_ptr<AssetManager>& assets
             return false;
         }
     
+    Vec2 pos = _offset;
+    CULog("CharacterController buildParts _offset: %f, %f",_offset.x, _offset.y);
+    makePart(PART_BODY, PART_NONE, pos);
+    makePart(PART_JR1, PART_BODY, Vec2(CJOINT_OFFSET, 0));
+    makePart(PART_JR2, PART_JR1, Vec2(CJOINT_OFFSET, 0));
+    makePart(PART_JR3, PART_JR2, Vec2(CJOINT_OFFSET, 0));
+    makePart(PART_JR4, PART_JR3, Vec2(0, 0));
+    makePart(PART_JR5, PART_JR4, Vec2(CJOINT_OFFSET, 0));
+    makePart(PART_RH, PART_JR4, Vec2(CJOINT_OFFSET, 0));
+    
+    makePart(PART_LR1, PART_BODY, Vec2(-CJOINT_OFFSET, 0));
+    makePart(PART_LR2, PART_LR1, Vec2(-CJOINT_OFFSET, 0));
+    makePart(PART_LR3, PART_LR2, Vec2(-CJOINT_OFFSET, 0));
+    makePart(PART_LR4, PART_LR3, Vec2(0, 0));
+    makePart(PART_LR5, PART_LR4, Vec2(-CJOINT_OFFSET, 0));
+    makePart(PART_LH, PART_LR5, Vec2(-CJOINT_OFFSET, 0));
     return true;
 }
 

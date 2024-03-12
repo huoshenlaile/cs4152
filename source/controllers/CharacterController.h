@@ -61,14 +61,15 @@ protected:
     std::shared_ptr<cugl::scene2::SceneNode> _node;
     cugl::Mat4 _affine;
     float _drawScale;
+    std::string getPartName(int part);
     
+    std::shared_ptr<cugl::physics2::BoxObstacle> makePart(int part, int connect, const cugl::Vec2& pos);
+public:
     CharacterController(void) : _drawScale(0) { }
     virtual ~CharacterController(void) { dispose(); }
     void dispose();
     
-    std::string getPartName(int part);
     
-    std::shared_ptr<cugl::physics2::BoxObstacle> makePart(int part, int connect, const cugl::Vec2& pos);
     
     bool init() {
         return init(cugl::Vec2::ZERO, 1.0f);
