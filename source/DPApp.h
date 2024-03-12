@@ -9,6 +9,7 @@
 #define __DP_APP_H__
 
 #include <cugl/cugl.h>
+
 #include "controllers/AudioController.h"
 #include "controllers/CharacterController.h"
 #include "controllers/InputController.h"
@@ -23,6 +24,8 @@
 #include "scenes/SettingScene.h"
 #include "scenes/RestorationScene.h"
 #include "scenes/LevelSelectScene.h"
+
+#include "helpers/LevelLoader.h"
 using namespace cugl::physics2::net;
 
 /**
