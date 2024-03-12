@@ -35,6 +35,8 @@ bool LoadScene::init(const std::shared_ptr<AssetManager>& assets) {
         return false;
     }
     
+    state = LOADING;
+    
     // IMMEDIATELY load the splash screen assets
     _assets = assets;
     _assets->loadDirectory("json/loading.json");
@@ -91,6 +93,9 @@ void LoadScene::update(float progress) {
             _button->activate();
         }
         _bar->setProgress(_progress);
+    }
+    if (this -> _active == false) {
+        state = LOADED;
     }
 }
 

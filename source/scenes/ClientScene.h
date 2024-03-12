@@ -24,11 +24,17 @@ protected:
     std::shared_ptr<NetEventController> _network;
     /** The network configuration */
     cugl::net::NetcodeConfig _config;
-    
-    /** Whether the back button had been clicked. */
-    bool _backClicked = false;
 
 public:
+    /** the state of this scene, referenced by DPApp*/
+    enum SceneState {
+        INSCENE,
+        HANDSHAKE,
+        STARTGAME,
+        BACK,
+        NETERROR
+    };
+    SceneState state;
 #pragma mark -
 #pragma mark Constructors
     /**
@@ -87,11 +93,6 @@ public:
      * @param timestep  The amount of time (in seconds) since the last frame
      */
     void update(float timestep) override;
-    
-    /**
-     * Returns whether the back button has been clicked
-     */
-    bool getBackClicked() { return _backClicked; }
 
 private:
     /**

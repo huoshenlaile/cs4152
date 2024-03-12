@@ -22,6 +22,7 @@
 #include "scenes/MenuScene.h"
 #include "scenes/SettingScene.h"
 #include "scenes/RestorationScene.h"
+#include "scenes/LevelSelectScene.h"
 using namespace cugl::physics2::net;
 
 /**
@@ -34,7 +35,7 @@ enum GameStatus {
     MENU,
     HOST,
     CLIENT,
-    LEVEL,
+    LEVELSELECT,
     GAME,
     SETTING,
     RESTORE
@@ -56,6 +57,8 @@ protected:
     LoadScene       _loadScene;
     SettingScene    _settingScene;
     MenuScene       _menuScene;
+    LevelSelectScene _levelSelectScene;
+    RestorationScene _restorationScene;
     
     GameStatus _status;
     bool loaded = false;
@@ -95,11 +98,15 @@ public:
     
 //    void updateGame(float timestep);  // NOT required, as Game scene use deterministic update
     
-    void updateLevel(float timestep);
-    
     void updateSettings(float timestep);
     
     void updateRestoration(float timestep);
+    
+    void updateLoad(float timestep);
+    
+    void updateLevelSelect(float timestep);
+    
+    void updateSetting(float timestep);
     
     virtual void draw() override;
 };

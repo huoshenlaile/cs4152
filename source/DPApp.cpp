@@ -61,6 +61,10 @@ void DPApp::onShutdown() {
     _menuScene.dispose();
     _hostScene.dispose();
     _clientScene.dispose();
+    _levelSelectScene.dispose();
+    _settingScene.dispose();
+    _restorationScene.dispose();
+    _loadScene.dispose();
     _assets = nullptr;
     _batch = nullptr;
     
@@ -109,21 +113,12 @@ void DPApp::onResume() {
 
 
 #pragma mark -
-#pragma mark Application Loop
+#pragma mark GENERAL UPDATES
 
 void DPApp::preUpdate(float timestep){
-    if (_status == LOAD && _loadScene.isActive()) {
-        _loadScene.update(0.01f);
-    }
-    else if (_status == LOAD) {
-        _network = NetEventController::alloc(_assets);
-        _loadScene.dispose(); // Disables the input listeners in this mode
-        _menuScene.init(_assets);
-        _menuScene.setActive(true);
-        _hostScene.init(_assets,_network);
-        _clientScene.init(_assets,_network);
-        //_gameScene.init(_assets);
-        _status = MENU;
+    if (_status == LOAD) {
+        // TODO: 0.01f? Why? Because Walker used this...
+        updateLoad(0.01f);
     }
     else if (_status == MENU) {
         updateMenu(timestep);
@@ -133,6 +128,15 @@ void DPApp::preUpdate(float timestep){
     }
     else if (_status == CLIENT){
         updateClient(timestep);
+    }
+    else if (_status == SETTING) {
+        updateSetting(timestep);
+    }
+    else if (_status == LEVELSELECT) {
+        updateLevelSelect(timestep);
+    }
+    else if (_status == RESTORE) {
+        updateRestoration(timestep);
     }
     else if (_status == GAME){
         if(_gameScene.isComplete()){
@@ -161,6 +165,8 @@ void DPApp::fixedUpdate() {
     }
 }
 
+
+#pragma mark SCENE-SPECIFIC UPDATES
 /**
  * The method called to update the application data.
  *
@@ -251,29 +257,72 @@ void DPApp::updateHost(float timestep) {
  */
 void DPApp::updateClient(float timestep) {
     _clientScene.update(timestep);
-    if(_clientScene.getBackClicked()){
-        _status = MENU;
-        _clientScene.setActive(false);
-        _menuScene.setActive(true);
-    }
-    else if (_network->getStatus() == NetEventController::Status::HANDSHAKE && _network->getShortUID()) {
-        _gameScene.init(_assets, _network, false);
-        _network->markReady();
-    }
-    else if (_network->getStatus() == NetEventController::Status::INGAME) {
-        _clientScene.setActive(false);
-        _gameScene.setActive(true);
-        _status = GAME;
-    }
-    else if (_network->getStatus() == NetEventController::Status::NETERROR) {
-        _network->disconnect();
-        _clientScene.setActive(false);
-        _menuScene.setActive(true);
-        _gameScene.dispose();
-        _status = MENU;
+    switch (_clientScene.state) {
+        case ClientScene::BACK:
+            _status = MENU;
+            _clientScene.setActive(false);
+            _menuScene.setActive(true);
+            break;
+        case ClientScene::HANDSHAKE:
+            _gameScene.init(_assets, _network, false);
+            _network->markReady();
+            break;
+        case ClientScene::STARTGAME:
+            _clientScene.setActive(false);
+            _gameScene.setActive(true);
+            _status = GAME;
+            break;
+        case ClientScene::NETERROR:
+            _network->disconnect();
+            _clientScene.setActive(false);
+            _menuScene.setActive(true);
+            _gameScene.dispose();
+            _status = MENU;
+            break;
+        default:
+            break;
     }
 }
 
+
+void DPApp::updateLoad(float timestep) {
+    switch (_loadScene.state) {
+        case LoadScene::LOADING:
+            _loadScene.update(0.01f);
+            break;
+        case LoadScene::LOADED:
+            _network = NetEventController::alloc(_assets);
+            _loadScene.dispose(); // Disables the input listeners in this mode
+            _menuScene.init(_assets);
+            _menuScene.setActive(true);
+            _hostScene.init(_assets,_network);
+            _clientScene.init(_assets,_network);
+            //_gameScene.init(_assets);
+            _status = MENU;
+            break;
+    }
+}
+
+
+void DPApp::updateSetting(float timestep) {
+    _settingScene.update(timestep);
+    // TODO: !
+}
+
+
+void DPApp::updateLevelSelect(float timestep) {
+    _levelSelectScene.update(timestep);
+    // TODO: !
+}
+
+
+void DPApp::updateRestoration(float timestep) {
+    _restorationScene.update(timestep);
+    // TODO: !
+}
+
+
+#pragma mark DRAW
 /**
  * The method called to draw the application to the screen.
  *
