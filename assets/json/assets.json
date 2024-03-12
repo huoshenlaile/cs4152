@@ -94,6 +94,11 @@
             "type":     "sample",
             "file":     "sounds/sideburner-left.wav",
             "volume":   0.5
+        },
+        "PhantomLiberty": {
+            "type":     "sample",
+            "file":     "sounds/PhantomLiberty.mp3",
+            "volume":   0.5
         }
     },
 	"fonts": {
@@ -134,7 +139,7 @@
                     },
                     "layout" : {
                         "priority" : 1,
-                        "padding"  : [0,50,0,0]
+                        "padding"  : [0,100,0,0]
                     }
                 },
                "join": {
@@ -144,6 +149,21 @@
                         "variables" : {
                             "size": [400,100],
                             "text": "Join Game",
+                            "color": "#000088"
+                        }
+                    },
+                    "layout" : {
+                        "priority" : 1,
+                        "padding"  : [0,50,0,0]
+                    }
+                },
+               "setting": {
+                    "type"   : "Widget",
+                    "data"   : {
+                        "key"     : "textbutton",
+                        "variables" : {
+                            "size": [400,100],
+                            "text": "Settings",
                             "color": "#000088"
                         }
                     },

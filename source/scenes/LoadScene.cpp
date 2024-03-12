@@ -9,17 +9,7 @@ using namespace cugl;
 #pragma mark -
 #pragma mark Constructors
 
-/**
- * Initializes the controller contents, making it ready for loading
- *
- * The constructor does not allocate any objects or memory.  This allows
- * us to have a non-pointer reference to this controller, reducing our
- * memory allocation.  Instead, allocation happens in this method.
- *
- * @param assets    The (loaded) assets for this game mode
- *
- * @return true if the controller is initialized properly, false otherwise.
- */
+
 bool LoadScene::init(const std::shared_ptr<AssetManager>& assets) {
     // Initialize the scene to a locked width
     Size dimen = Application::get()->getDisplaySize();
@@ -75,13 +65,7 @@ void LoadScene::dispose() {
 
 #pragma mark -
 #pragma mark Progress Monitoring
-/**
- * The method called to update the game mode.
- *
- * This method updates the progress bar amount.
- *
- * @param timestep  The amount of time (in seconds) since the last frame
- */
+
 void LoadScene::update(float progress) {
     if (_progress < 1) {
         _progress = _assets->progress();

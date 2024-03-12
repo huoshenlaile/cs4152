@@ -34,6 +34,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
         return false;
     }
     
+    state = INGAME;
     _isHost = isHost;
     _network = network;
     _assets = assets;
@@ -62,6 +63,12 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
     _complete = false;
     setDebug(false);
     
+    auto source = _assets->get<Sound>("PhantomLiberty");
+    std::string key = "1234123414523145";
+    if (!AudioEngine::get()->isActive(key)) {
+        AudioEngine::get() -> play(key, source, false, source->getVolume());
+    }
+    
     return true;
 }
 
@@ -88,14 +95,6 @@ void GameScene::dispose() {
 
 #pragma mark -
 #pragma mark Level Layout
-
-std::shared_ptr<physics2::PolygonObstacle> wallobj1;
-std::shared_ptr<physics2::PolygonObstacle> wallobj2;
-std::shared_ptr<scene2::PolygonNode> wallsprite1;
-std::shared_ptr<scene2::PolygonNode> wallsprite2;
-
-std::vector<std::shared_ptr<physics2::BoxObstacle>> boxes;
-std::vector<std::shared_ptr<scene2::PolygonNode>> nodes;
 
 /**
  * Resets the status of the game so that we can play again.

@@ -1,6 +1,5 @@
 //
 //  DPApp.h
-//  Prototype1
 //
 //  Created by Xilai Dai on 3/8/24.
 //
@@ -9,6 +8,7 @@
 #define __DP_APP_H__
 
 #include <cugl/cugl.h>
+
 #include "controllers/AudioController.h"
 #include "controllers/CharacterController.h"
 #include "controllers/InputController.h"
@@ -23,6 +23,8 @@
 #include "scenes/SettingScene.h"
 #include "scenes/RestorationScene.h"
 #include "scenes/LevelSelectScene.h"
+
+#include "helpers/LevelLoader.h"
 using namespace cugl::physics2::net;
 
 /**
@@ -96,7 +98,7 @@ public:
     
     void updateClient(float timestep);
     
-//    void updateGame(float timestep);  // NOT required, as Game scene use deterministic update
+//    void updateGame(float timestep);  // NOT required, as Game scene uses deterministic update
     
     void updateSettings(float timestep);
     

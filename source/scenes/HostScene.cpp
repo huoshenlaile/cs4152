@@ -6,12 +6,10 @@ using namespace cugl;
 using namespace cugl::net;
 using namespace std;
 
-#pragma mark -
-#pragma mark Level Layout
-
 /** Regardless of logo, lock the height to this */
 #define SCENE_HEIGHT  720
 
+#pragma mark Helpers
 /**
  * Converts a hexadecimal string to a decimal string
  *
@@ -39,22 +37,8 @@ static std::string hex2dec(const std::string hex) {
     return result;
 }
 
-#pragma mark -
-#pragma mark Provided Methods
-/**
- * Initializes the controller contents, and starts the game
- *
- * In previous labs, this method "started" the scene.  But in this
- * case, we only use to initialize the scene user interface.  We
- * do not activate the user interface yet, as an active user
- * interface will still receive input EVEN WHEN IT IS HIDDEN.
- *
- * That is why we have the method {@link #setActive}.
- *
- * @param assets    The (loaded) assets for this game mode
- *
- * @return true if the controller is initialized properly, false otherwise.
- */
+
+#pragma mark Class Methods
 bool HostScene::init(const std::shared_ptr<cugl::AssetManager>& assets, std::shared_ptr<NetEventController> network) {
     // Initialize the scene to a locked width
     Size dimen = Application::get()->getDisplaySize();
@@ -163,8 +147,7 @@ void HostScene::updateText(const std::shared_ptr<scene2::Button>& button, const 
 
 }
 
-#pragma mark -
-#pragma mark Student Methods
+
 /**
  * The method called to update the scene.
  *
@@ -200,3 +183,5 @@ void HostScene::startGame(){
     _network->startGame();
     // this -> state = STARTGAME;
 }
+
+
