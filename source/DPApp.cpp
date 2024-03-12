@@ -1,6 +1,5 @@
 //
 //  DPApp.cpp
-//  Prototype1
 //
 //  Created by Xilai Dai on 3/8/24.
 //
@@ -185,14 +184,6 @@ void DPApp::update(float timestep) {
 }
 
 
-/**
- * Inidividualized update method for the menu scene.
- *
- * This method keeps the primary {@link #update} from being a mess of switch
- * statements. It also handles the transition logic from the menu scene.
- *
- * @param timestep  The amount of time (in seconds) since the last frame
- */
 void DPApp::updateMenu(float timestep) {
     _menuScene.update(timestep);
     switch (_menuScene.status) {
@@ -220,14 +211,7 @@ void DPApp::updateMenu(float timestep) {
     }
 }
 
-/**
- * Inidividualized update method for the host scene.
- *
- * This method keeps the primary {@link #update} from being a mess of switch
- * statements. It also handles the transition logic from the host scene.
- *
- * @param timestep  The amount of time (in seconds) since the last frame
- */
+
 void DPApp::updateHost(float timestep) {
     _hostScene.update(timestep);
     switch (_hostScene.state) {
@@ -257,14 +241,7 @@ void DPApp::updateHost(float timestep) {
     }
 }
 
-/**
- * Inidividualized update method for the client scene.
- *
- * This method keeps the primary {\link #update} from being a mess of switch
- * statements. It also handles the transition logic from the client scene.
- *
- * @param timestep  The amount of time (in seconds) since the last frame
- */
+
 void DPApp::updateClient(float timestep) {
     _clientScene.update(timestep);
     switch (_clientScene.state) {

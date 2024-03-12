@@ -1,6 +1,5 @@
 //
 //  DPApp.h
-//  Prototype1
 //
 //  Created by Xilai Dai on 3/8/24.
 //

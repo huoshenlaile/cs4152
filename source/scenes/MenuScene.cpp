@@ -3,29 +3,11 @@
 using namespace cugl;
 using namespace std;
 
-#pragma mark -
-#pragma mark Level Layout
-
 /** Regardless of logo, lock the height to this */
 #define SCENE_HEIGHT  720
 
-
-#pragma mark -
 #pragma mark Constructors
-/**
- * Initializes the controller contents, and starts the game
- *
- * In previous labs, this method "started" the scene.  But in this
- * case, we only use to initialize the scene user interface.  We
- * do not activate the user interface yet, as an active user
- * interface will still receive input EVEN WHEN IT IS HIDDEN.
- *
- * That is why we have the method {@link #setActive}.
- *
- * @param assets    The (loaded) assets for this game mode
- *
- * @return true if the controller is initialized properly, false otherwise.
- */
+
 bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     // Initialize the scene to a locked width
     Size dimen = Application::get()->getDisplaySize();
@@ -48,7 +30,6 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     _joinbutton = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("menu_join"));
     _settingbutton = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("menu_setting"));
     
-    // Program the buttons
     _hostbutton->addListener([this](const std::string& name, bool down) {
         if (down) {
             status = HOST;

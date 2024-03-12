@@ -7,9 +7,6 @@
 using namespace cugl;
 using namespace cugl::physics2::net;
 
-#pragma mark -
-#pragma mark Level Layout
-
 /** Regardless of logo, lock the height to this */
 #define SCENE_HEIGHT  720
 
@@ -34,17 +31,7 @@ static std::string dec2hex(const std::string dec) {
     return strtool::to_hexstring(value,4);
 }
 
-/**
- * Initializes the controller contents, and starts the game
- *
- * The constructor does not allocate any objects or memory.  This allows
- * us to have a non-pointer reference to this controller, reducing our
- * memory allocation.  Instead, allocation happens in this method.
- *
- * @param assets    The (loaded) assets for this game mode
- *
- * @return true if the controller is initialized properly, false otherwise.
- */
+
 bool ClientScene::init(const std::shared_ptr<cugl::AssetManager>& assets, std::shared_ptr<NetEventController> network) {
     // Initialize the scene to a locked width
     Size dimen = Application::get()->getDisplaySize();
@@ -155,13 +142,7 @@ void ClientScene::updateText(const std::shared_ptr<scene2::Button>& button, cons
 
 }
 
-/**
- * The method called to update the scene.
- *
- * We need to update this method to constantly talk to the server
- *
- * @param timestep  The amount of time (in seconds) since the last frame
- */
+
 void ClientScene::update(float timestep) {
     // Do this last for button safety
     configureStartButton();
