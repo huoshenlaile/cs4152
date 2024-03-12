@@ -1,12 +1,9 @@
 #include "LoadScene.h"
 using namespace cugl;
 
-
-// TODO: Implement Loading Scene
 /** This is the ideal size of the logo */
 #define SCENE_SIZE  1024
 
-#pragma mark -
 #pragma mark Constructors
 
 
@@ -56,7 +53,8 @@ void LoadScene::dispose() {
     }
     _button = nullptr;
     _brand = nullptr;
-    _bar->removeFromParent();
+    // TODO: I comment this out because otw app will crash upon shutdown.
+    // _bar->removeFromParent();
     _bar = nullptr;
     _assets = nullptr;
     _progress = 0.0f;
