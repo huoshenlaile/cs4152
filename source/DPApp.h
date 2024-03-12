@@ -22,6 +22,8 @@
 #include "scenes/MenuScene.h"
 #include "scenes/SettingScene.h"
 #include "scenes/RestorationScene.h"
+
+#include "helpers/LevelLoader.h"
 using namespace cugl::physics2::net;
 
 /**
