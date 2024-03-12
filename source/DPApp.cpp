@@ -10,6 +10,8 @@
 
 using namespace cugl;
 
+
+#pragma mark STARTUP, SHUTDOWN
 void DPApp::onStartup() {
     _assets = AssetManager::alloc();
     _batch  = SpriteBatch::alloc();
@@ -206,6 +208,14 @@ void DPApp::updateMenu(float timestep) {
             break;
         case MenuScene::NONE:
             // DO NOTHING
+            break;
+        case MenuScene::SETTING:
+            _menuScene.setActive(false);
+            _settingScene.setActive(true);
+            _status = SETTING;
+            break;
+        case MenuScene::QUIT:
+            onShutdown();
             break;
     }
 }
