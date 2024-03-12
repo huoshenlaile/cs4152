@@ -65,7 +65,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
     
     _audioController = std::make_shared<AudioController>();
     _audioController->init(_assets);
-    _audioController->play("12341234142351501829340hahaha", "PhantomLiberty")
+    _audioController->play("12341234142351501829340hahaha", "PhantomLiberty");
     
     return true;
 }
