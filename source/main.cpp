@@ -50,14 +50,16 @@ struct TouchInstance {
  *
  * @return the exit status of the application
  */
-int main(int argc, char* argv[]) {
-	// Change this to your application class
-	DPApp app;
 
-	// Set the properties of your application
-	app.setName("Dusty Paint: Gameplay Prototype");
-	app.setOrganization("Vme50 Studio");
-	app.setHighDPI(true);
+int main(int argc, char * argv[]) {
+    // Change this to your application class
+    DPApp app;
+    
+    // Set the properties of your application
+    app.setName("Dusty Paint: Technical Prototype");
+    app.setOrganization("Vme50 Studio");
+    app.setHighDPI(true);
+
 
 	//app.setFullscreen(true);
 	//app.setDisplaySize(1024, 576);

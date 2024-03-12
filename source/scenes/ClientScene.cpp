@@ -7,9 +7,6 @@
 using namespace cugl;
 using namespace cugl::physics2::net;
 
-#pragma mark -
-#pragma mark Level Layout
-
 /** Regardless of logo, lock the height to this */
 #define SCENE_HEIGHT  720
 
@@ -34,17 +31,7 @@ static std::string dec2hex(const std::string dec) {
     return strtool::to_hexstring(value,4);
 }
 
-/**
- * Initializes the controller contents, and starts the game
- *
- * The constructor does not allocate any objects or memory.  This allows
- * us to have a non-pointer reference to this controller, reducing our
- * memory allocation.  Instead, allocation happens in this method.
- *
- * @param assets    The (loaded) assets for this game mode
- *
- * @return true if the controller is initialized properly, false otherwise.
- */
+
 bool ClientScene::init(const std::shared_ptr<cugl::AssetManager>& assets, std::shared_ptr<NetEventController> network) {
     // Initialize the scene to a locked width
     Size dimen = Application::get()->getDisplaySize();
@@ -72,7 +59,7 @@ bool ClientScene::init(const std::shared_ptr<cugl::AssetManager>& assets, std::s
     _backout->addListener([this](const std::string& name, bool down) {
         if (down) {
             _network->disconnect();
-            _backClicked = true;
+            state = BACK;
         }
     });
 
@@ -126,7 +113,7 @@ void ClientScene::setActive(bool value) {
             _backout->activate();
             _player->setText("1");
             configureStartButton();
-            _backClicked = false;
+            state = INSCENE;
             // Don't reset the room id
         } else {
             _gameid->deactivate();
@@ -155,18 +142,19 @@ void ClientScene::updateText(const std::shared_ptr<scene2::Button>& button, cons
 
 }
 
-/**
- * The method called to update the scene.
- *
- * We need to update this method to constantly talk to the server
- *
- * @param timestep  The amount of time (in seconds) since the last frame
- */
+
 void ClientScene::update(float timestep) {
     // Do this last for button safety
     configureStartButton();
     if(_network->getStatus() == NetEventController::Status::CONNECTED || _network->getStatus() == NetEventController::Status::HANDSHAKE){
         _player->setText(std::to_string(_network->getNumPlayers()));
+    }
+    if (_network->getStatus() == NetEventController::Status::HANDSHAKE && _network->getShortUID()) {
+        this->state = HANDSHAKE;
+    } else if (_network->getStatus() == NetEventController::Status::INGAME) {
+        this->state = STARTGAME;
+    } else if (_network->getStatus() == NetEventController::Status::NETERROR) {
+        this->state = NETERROR;
     }
 }
 

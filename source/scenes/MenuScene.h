@@ -5,6 +5,20 @@
 #include <vector>
 
 class MenuScene : public cugl::Scene2 {
+
+protected:
+    /** The asset manager for this scene. */
+    std::shared_ptr<cugl::AssetManager> _assets;
+    /** The menu button for hosting a game */
+    std::shared_ptr<cugl::scene2::Button> _hostbutton;
+    /** The menu button for joining a game */
+    std::shared_ptr<cugl::scene2::Button> _joinbutton;
+    /** The menu button for setting a game (lol) */
+    std::shared_ptr<cugl::scene2::Button> _settingbutton;
+    /** The menu button for quiting a game */
+    std::shared_ptr<cugl::scene2::Button> _quitbutton;
+
+    
 public:
     /**
      * The menu SceneStatus.
@@ -18,21 +32,12 @@ public:
         /** User wants to host a game */
         HOST,
         /** User wants to join a game */
-        JOIN
+        JOIN,
+        SETTING,
+        QUIT
     };
     /** The player menu SceneStatus */
     SceneStatus status;
-
-protected:
-    /** The asset manager for this scene. */
-    std::shared_ptr<cugl::AssetManager> _assets;
-    /** The menu button for hosting a game */
-    std::shared_ptr<cugl::scene2::Button> _hostbutton;
-    /** The menu button for joining a game */
-    std::shared_ptr<cugl::scene2::Button> _joinbutton;
-
-    
-public:
 #pragma mark -
 #pragma mark Constructors
     /**

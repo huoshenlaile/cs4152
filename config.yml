@@ -1,6 +1,6 @@
 ---
-name:   Gameplay Prototype                  # The application display name
-short:  prototype1                   # A shortened name for reference
+name:   Vme50 Studio Presents Dusty Paints               # The application display name
+short:  Dusty Paints                   # A shortened name for reference
 appid:  edu.cornell.gdiac.vme50proto       # Application identifier for Mac, iOS, Android
 suffix: G74C2FGE
 

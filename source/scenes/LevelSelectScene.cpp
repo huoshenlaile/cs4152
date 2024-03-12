@@ -1,5 +1,7 @@
 #include <stdio.h>
+
 #include <iostream>
+
 #include "LevelSelectScene.h"
 
 void LevelSelectScene::dispose() {
@@ -7,5 +9,13 @@ void LevelSelectScene::dispose() {
 }
 
 void LevelSelectScene::setActive(bool value) {
+
 	std::cout << "LevelSelect set active" << std::endl;
 }
+
+
+
+void LevelSelectScene::update(float timestep) {
+    std::cout << "LevelSelect is updating" << std::endl;
+}
+

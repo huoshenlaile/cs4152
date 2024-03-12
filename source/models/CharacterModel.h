@@ -2,7 +2,7 @@
 //  CharacterModel.hpp
 //  DustyPaints
 //
-//  Created by Haoxuan Zou on 3/11/24.
+//  Created by Haoxuan😅 Zou on 3/11/24.
 //
 
 #ifndef __CharacterModel_h

@@ -1,10 +1,11 @@
-#ifndef LevelSelectScreen_h
-#define LevelSelectScreen_h
+#ifndef LevelSelectScene_h
+#define LevelSelectScene_h
 
 #include <cugl/cugl.h>
 using namespace cugl::physics2::net;
 
 class LevelSelectScene : public cugl::Scene2 {
+
 protected:
 	/** The asset manager for this scene. */
 	std::shared_ptr<cugl::AssetManager> _assets;
@@ -53,16 +54,26 @@ public:
 	 */
 	bool init(const std::shared_ptr<cugl::AssetManager>& assets);
 
-	/**
-	 * Sets whether the scene is currently active
-	 *
-	 * This method should be used to toggle all the UI elements.  Buttons
-	 * should be activated when it is made active and deactivated when
-	 * it is not.
-	 *
-	 * @param value whether the scene is currently active
-	 */
-	virtual void setActive(bool value) override;
+
+    /**
+     * Sets whether the scene is currently active
+     *
+     * This method should be used to toggle all the UI elements.  Buttons
+     * should be activated when it is made active and deactivated when
+     * it is not.
+     *
+     * @param value whether the scene is currently active
+     */
+    virtual void setActive(bool value) override;
+    
+    /**
+     * The method called to update the scene.
+     *
+     * We need to update this method to constantly talk to the server
+     *
+     * @param timestep  The amount of time (in seconds) since the last frame
+     */
+    void update(float timestep) override;
 };
 
-#endif /* LevelSelectScreen_h */
+#endif /* LevelSelectScene_h */

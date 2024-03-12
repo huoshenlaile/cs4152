@@ -72,7 +72,7 @@ public:
     /**
      * Disposes of all (non-static) resources allocated to this mode.
      */
-    void dispose();
+    void dispose() override;
     
     /**
      * Initializes the controller contents, making it ready for loading
@@ -87,18 +87,25 @@ public:
      */
     bool init(const std::shared_ptr<cugl::AssetManager>& assets);
     
-    
-#pragma mark -
-#pragma mark Progress Monitoring
     /**
-     * The method called to update the game mode.
+     * The method called to update the scene.
      *
-     * This method updates the progress bar amount.
+     * We need to update this method to constantly talk to the server
      *
      * @param timestep  The amount of time (in seconds) since the last frame
      */
-    void update(float timestep);
+    void update(float timestep) override;
     
+    
+#pragma mark -
+#pragma mark Progress Monitoring
+    /** the state of this scene, referenced by DPApp*/
+    enum SceneState {
+       LOADING,
+        LOADED
+    };
+    SceneState state;
+
     /**
      * Returns true if loading is complete, but the player has not pressed play
      *

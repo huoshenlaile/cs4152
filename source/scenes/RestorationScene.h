@@ -62,6 +62,15 @@ public:
      * @param value whether the scene is currently active
      */
     virtual void setActive(bool value) override;
+    
+    /**
+     * The method called to update the scene.
+     *
+     * We need to update this method to constantly talk to the server
+     *
+     * @param timestep  The amount of time (in seconds) since the last frame
+     */
+    void update(float timestep) override;
 };
 
 #endif
