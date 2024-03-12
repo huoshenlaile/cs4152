@@ -419,11 +419,16 @@ bool GameScene::init(const std::shared_ptr<AssetManager>& assets, const Rect rec
     
     // if it works it works
     _world = physics2::net::NetWorld::alloc(Rect(0,0,DEFAULT_WIDTH,DEFAULT_HEIGHT),Vec2(0,DEFAULT_GRAVITY));
-    _world->activateCollisionCallbacks(true);
-
+    _world->onBeginContact = [this](b2Contact* contact) {
+            beginContact(contact);
+        };
+    _world->onEndContact = [this](b2Contact* contact) {
+            endContact(contact);
+        };
     _world->update(FIXED_TIMESTEP_S);
-
+    
     populate();
+
     
     _active = true;
     _complete = false;
@@ -573,16 +578,16 @@ void GameScene::reset() {
  */
 void GameScene::populate() {
     _world = physics2::net::NetWorld::alloc(Rect(0,0,DEFAULT_WIDTH,DEFAULT_HEIGHT),Vec2(0,DEFAULT_GRAVITY));
-    _world->activateCollisionCallbacks(true);
-    _world->onBeginContact = [this](b2Contact* contact) {
+        _world->activateCollisionCallbacks(true);
+        _world->onBeginContact = [this](b2Contact* contact) {
             beginContact(contact);
         };
-    _world->onEndContact = [this](b2Contact* contact) {
+        _world->onEndContact = [this](b2Contact* contact) {
             endContact(contact);
         };
-    _world->beforeSolve = [this](b2Contact* contact, const b2Manifold* oldManifold) {
-        beforeSolve(contact,oldManifold);
-    };
+        _world->beforeSolve = [this](b2Contact* contact, const b2Manifold* oldManifold) {
+            beforeSolve(contact,oldManifold);
+        };
 
     CULog("Populating ragdoll");
 #pragma mark : Ragdoll
@@ -992,6 +997,7 @@ void GameScene::endContact(b2Contact* contact) {
     b2Body* body2 = contact->GetFixtureB()->GetBody();
     // If we hit the button
     intptr_t button_ptr = reinterpret_cast<intptr_t>(_button.get());
+    CULog("ENDED CONTACT");
     
     std::vector<int> player_touchers = GameScene::checkIfPlayerTouched(body1, body2);
     if (player_touchers[0]>0 || player_touchers[1]>0){
