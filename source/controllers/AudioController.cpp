@@ -1,11 +1,30 @@
 #include "AudioController.h"
 
 
-bool AudioController::play(const std::string key, const std::shared_ptr<Sound> &sound, bool loop = false, float volume = 1.0f, bool force = false) {
-    if (!AudioEngine::get()->isActive(key)) {
-        AudioEngine::get() -> play(key, sound, false, sound->getVolume());
+AudioController::AudioController() {
+    
+};
+
+
+bool AudioController::init(std::shared_ptr<cugl::AssetManager> _assets) {
+    this -> _assets = _assets;
+    return true;
+}
+
+
+void AudioController::dispose() {
+    this -> _assets = nullptr;
+}
+
+
+bool AudioController::play(const std::string key, const std::string soundName, bool loop, float volume, bool force) {
+    auto sound = _assets -> get<Sound>(soundName);
+    if (volume == -1.0f) {
+        volume = sound -> getVolume();
+    }
+    if (!AudioEngine::get() -> isActive(key)) {
+        AudioEngine::get() -> play(key, sound, loop, volume, force);
         return true;
     }
-    
     return false;
 }

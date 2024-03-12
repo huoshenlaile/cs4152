@@ -6,10 +6,19 @@ using namespace cugl;
 
 class AudioController {
     // TODO: How to do this?
-    
+protected:
+    std::shared_ptr<cugl::AssetManager> _assets;
     
 public:
-    bool play(const std::string key, const std::shared_ptr<Sound> &sound,
-              bool loop, float volume, bool force);
+    
+    AudioController();
+    ~AudioController() {dispose();};
+    
+    void dispose();
+    
+    bool init(std::shared_ptr<cugl::AssetManager> _assets);
+    
+    bool play(const std::string key, const std::string soundName,
+              bool loop = false, float volume = -1.0f, bool force = false);
 };
 #endif
