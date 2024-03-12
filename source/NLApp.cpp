@@ -232,6 +232,7 @@ void NetApp::updateHostScene(float timestep) {
         _mainmenu.setActive(true);
     }
     else if (_network->getStatus() == NetEventController::Status::HANDSHAKE && _network->getShortUID()) {
+        CULog("attempting to init HOST game");
         _gameplay.init(_assets, _network, true);
         _network->markReady();
     }
@@ -267,6 +268,7 @@ void NetApp::updateClientScene(float timestep) {
         _mainmenu.setActive(true);
     }
     else if (_network->getStatus() == NetEventController::Status::HANDSHAKE && _network->getShortUID()) {
+        CULog("attempting to init game");
         _gameplay.init(_assets, _network, false);
         _network->markReady();
     }

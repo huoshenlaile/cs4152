@@ -417,16 +417,14 @@ bool GameScene::init(const std::shared_ptr<AssetManager>& assets, const Rect rec
     addChild(_debugnode);
     addChild(_chargeBar);
     
+    // if it works it works
     _world = physics2::net::NetWorld::alloc(Rect(0,0,DEFAULT_WIDTH,DEFAULT_HEIGHT),Vec2(0,DEFAULT_GRAVITY));
-    _world->onBeginContact = [this](b2Contact* contact) {
-            beginContact(contact);
-        };
-    _world->onEndContact = [this](b2Contact* contact) {
-            endContact(contact);
-        };
+    _world->activateCollisionCallbacks(true);
+
     _world->update(FIXED_TIMESTEP_S);
-    
+
     populate();
+    
     _active = true;
     _complete = false;
     setDebug(false);
@@ -577,11 +575,15 @@ void GameScene::populate() {
     _world = physics2::net::NetWorld::alloc(Rect(0,0,DEFAULT_WIDTH,DEFAULT_HEIGHT),Vec2(0,DEFAULT_GRAVITY));
     _world->activateCollisionCallbacks(true);
     _world->onBeginContact = [this](b2Contact* contact) {
-        beginContact(contact);
-    };
+            beginContact(contact);
+        };
+    _world->onEndContact = [this](b2Contact* contact) {
+            endContact(contact);
+        };
     _world->beforeSolve = [this](b2Contact* contact, const b2Manifold* oldManifold) {
         beforeSolve(contact,oldManifold);
     };
+
     CULog("Populating ragdoll");
 #pragma mark : Ragdoll
     _charControl1.populate(_worldnode, _world, _assets);
@@ -878,10 +880,10 @@ void GameScene::preUpdate(float dt) {
         for(const subscriber_struct& s : subscriptions[publication.pub_id][publication.trigger]){
             // TODO: Replace with running the action specified in s
             if (s.listening_for=="pressed"){
-                _charControl1._ragdoll->getPartObstacle(0)->setPosition(1000.0f, 1000.0f);
+                _charControl1._ragdoll->getPartObstacle(0)->setPosition(10.0f, 10.0f);
             }
             if (s.listening_for=="released"){
-                _goalDoor->setPosition(GOAL_POS);
+                _charControl1._ragdoll->getPartObstacle(0)->setPosition(2.0f, 2.0f);
             }
             std::cout << s.pub_id<< " " << s.listening_for <<"\n";
         }
@@ -992,7 +994,6 @@ void GameScene::endContact(b2Contact* contact) {
     intptr_t button_ptr = reinterpret_cast<intptr_t>(_button.get());
     
     std::vector<int> player_touchers = GameScene::checkIfPlayerTouched(body1, body2);
-    std::cout << player_touchers[0] << ", " << player_touchers[1] << "\n";
     if (player_touchers[0]>0 || player_touchers[1]>0){
         if(body1->GetUserData().pointer == button_ptr || body2->GetUserData().pointer == button_ptr) {
             // A player has released the button
