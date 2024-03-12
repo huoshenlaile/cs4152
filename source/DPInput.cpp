@@ -194,9 +194,7 @@ void PlatformInput::fillHand(Vec2 leftHandPos, Vec2 rightHandPos) {
 
 Vec2 PlatformInput::getLeftHandMovement() {
 	if (!_character.leftHand.assigned) return { -1,-1 };
-	else {
-		return _character.leftHand.curr - _character.leftHand.prev;
-	}
+	else return _character.leftHand.curr - _character.leftHand.prev;
 }
 
 Vec2 PlatformInput::getrightHandMovement() {

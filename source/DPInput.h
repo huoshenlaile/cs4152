@@ -43,7 +43,7 @@ protected:
 		/** The current touch time */
 		cugl::Timestamp timestamp;
 		/** The touch id(s) for future reference */
-		std::unordered_set<TouchID> touchids;
+		std::unordered_set<Uint64> touchids;
 	};
 
 	/** The bounds of the entire game screen (in touch coordinates) */
