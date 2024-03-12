@@ -89,14 +89,6 @@ void GameScene::dispose() {
 #pragma mark -
 #pragma mark Level Layout
 
-std::shared_ptr<physics2::PolygonObstacle> wallobj1;
-std::shared_ptr<physics2::PolygonObstacle> wallobj2;
-std::shared_ptr<scene2::PolygonNode> wallsprite1;
-std::shared_ptr<scene2::PolygonNode> wallsprite2;
-
-std::vector<std::shared_ptr<physics2::BoxObstacle>> boxes;
-std::vector<std::shared_ptr<scene2::PolygonNode>> nodes;
-
 /**
  * Resets the status of the game so that we can play again.
  *
