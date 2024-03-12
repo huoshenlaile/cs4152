@@ -102,6 +102,8 @@ protected:
     CharacterController _charControl2;
 
     // VIEW
+    /** Reference to the button (for collision detection) */
+    std::shared_ptr<cugl::physics2::BoxObstacle>    _button;
   	/** Reference to the goalDoor (for collision detection) */
     std::shared_ptr<cugl::physics2::BoxObstacle>    _goalDoor;
     /** Reference to the physics root of the scene graph */
@@ -148,6 +150,23 @@ protected:
 
     
     std::shared_ptr<NetEventController> _network;
+    
+    typedef struct {
+      std::string pub_id;
+      std::string trigger;
+      std::string message;
+      std::shared_ptr<std::unordered_map<std::string, std::string>> body;
+    } publisher_struct;
+    
+    typedef struct { // Each subscriber will have a list of these, easy to serialize
+      std::string pub_id;
+      std::string listening_for;
+      std::shared_ptr<std::unordered_map<std::string, std::string>> actions;
+    } subscriber_struct;
+    
+    std::queue<const publisher_struct> message_queue;
+    std::unordered_map<std::string, std::unordered_map<std::string, std::vector<const subscriber_struct>>> subscriptions;
+    // subscriptions[pub_id][listening_for]
     
 #pragma mark Internal Object Management
     
@@ -359,6 +378,16 @@ public:
 
 #pragma mark -
 #pragma mark Collision Handling
+    
+    /**
+     * Checks if a player was part of a collision
+     *
+     * @param  body1  One of the colliding objects
+     * @param  body2  The other colliding object
+     *
+     * @return A vector of two integers, the first for body1 and the second body2 respectively, where the value 1 represents player one, 2 represents player two, and 0 represents a non-player object
+     */
+    std::vector<int> checkIfPlayerTouched(b2Body* body1, b2Body* body2);
     /**
      * Processes the start of a collision
      *

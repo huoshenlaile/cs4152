@@ -88,6 +88,9 @@ float CAN2_POS[] = { 30,9 };
 #define CANNON_TEXTURE        "rocket"
 /** The key for the win door texture in the asset manager */
 #define GOAL_TEXTURE        "goal"
+
+#define BUTTON_TEXTURE        "button_ingame"
+
 ///** The key prefix for the multiple crate assets */
 //#define CRATE_PREFIX        "crate"
 ///** The key for the fire textures in the asset manager */
@@ -162,6 +165,8 @@ float PLATFORMS[PLATFORM_COUNT][PLATFORM_VERTS] = {
 	{ 1.0f,12.5f, 1.0f,12.0f, 15.0f,12.0f, 15.0f,12.5f}
 };
 
+/** The button  position */
+float BUTTON_POS[] = { 7.0f,14.0f };
 /** The goal door position */
 float GOAL_POS[] = { 4.0f,14.0f };
 /** The initial position of the dude */
@@ -584,6 +589,28 @@ void GameScene::populate() {
     std::shared_ptr<scene2::PolygonNode> sprite;
     std::shared_ptr<scene2::WireNode> draw;
 
+  #pragma mark : Button
+    image = _assets->get<Texture>(BUTTON_TEXTURE);
+
+    // Create obstacle
+    Vec2 buttonPos = BUTTON_POS;
+    Size buttonSize(image->getSize().width / _scale,
+      image->getSize().height / _scale);
+    _button = physics2::BoxObstacle::alloc(buttonPos, buttonSize);
+
+    // Set the physics attributes
+    _button->setBodyType(b2_staticBody);
+    _button->setDensity(0.0f);
+    _button->setFriction(0.0f);
+    _button->setRestitution(0.0f);
+    _button->setSensor(true);
+
+    // Add the scene graph nodes to this object
+    sprite = scene2::PolygonNode::allocWithTexture(image);
+    _button->setDebugColor(DEBUG_COLOR);
+  addObstacle(_button, sprite);
+    
+    
   #pragma mark : Goal door
     image = _assets->get<Texture>(GOAL_TEXTURE);
 
@@ -604,6 +631,17 @@ void GameScene::populate() {
     sprite = scene2::PolygonNode::allocWithTexture(image);
     _goalDoor->setDebugColor(DEBUG_COLOR);
   addObstacle(_goalDoor, sprite);
+    // TODO: Need to refactor this
+    std::shared_ptr<std::unordered_map<std::string, std::string>> actions;
+    actions->insert({"open","true"});
+    
+    subscriber_struct sub = { "button1", "pressed", actions};
+    if (subscriptions.count("button1")>=0){
+        if (subscriptions["button1"].count("pressed")==0){
+            subscriptions["button1"]["pressed"] = std::vector<const subscriber_struct>();
+        }
+        subscriptions["button1"]["pressed"].push_back(sub);
+    }
   
 #pragma mark : Wall polygon 1
 
@@ -828,6 +866,15 @@ void GameScene::preUpdate(float dt) {
     } else {
         _charControl2.updatePositionFromInput(*this);
     }
+    while (!message_queue.empty()){
+        publisher_struct publication = message_queue.front();
+        std::vector<const subscriber_struct> subs = subscriptions[publication.pub_id][publication.trigger];
+        for(const subscriber_struct& s : subs){
+            std::cout << s.pub_id;
+            _goalDoor->setY(_goalDoor->getY()+2.0f);
+        }
+        message_queue.pop();
+    }
 }
 
 void GameScene::postUpdate(float dt) {
@@ -861,6 +908,35 @@ void GameScene::update(float dt) {
 	//deprecated
 }
 
+std::vector<int> GameScene::checkIfPlayerTouched(b2Body* body1, b2Body* body2){
+    std::vector<std::shared_ptr<cugl::physics2::Obstacle>>  body_p1 = _charControl1._ragdoll->getObstacles();
+    std::vector<std::shared_ptr<cugl::physics2::Obstacle>>  body_p2 = _charControl2._ragdoll->getObstacles();
+    std::vector<intptr_t> p1_ptrs;
+    std::vector<intptr_t> p2_ptrs;
+
+    std::transform(body_p1.begin(), body_p1.end(), std::back_inserter(p1_ptrs), [](std::shared_ptr<cugl::physics2::Obstacle> &n) {
+        return reinterpret_cast<intptr_t>(n.get());
+    });
+    std::transform(body_p2.begin(), body_p2.end(), std::back_inserter(p2_ptrs), [](std::shared_ptr<cugl::physics2::Obstacle> &n) {
+        return reinterpret_cast<intptr_t>(n.get());
+    });
+    
+    std::vector<int> output = {0, 0};
+    if (std::find(std::begin(p1_ptrs), std::end(p1_ptrs), body1->GetUserData().pointer)!=std::end(p1_ptrs)){
+        output[0] = 1;
+    }
+    else if (std::find(std::begin(p2_ptrs), std::end(p2_ptrs), body1->GetUserData().pointer)!=std::end(p2_ptrs)){
+        output[0] = 2;
+    }
+    if (std::find(std::begin(p1_ptrs), std::end(p1_ptrs), body2->GetUserData().pointer)!=std::end(p1_ptrs)){
+        output[1] = 1;
+    }
+    else if (std::find(std::begin(p2_ptrs), std::end(p2_ptrs), body2->GetUserData().pointer)!=std::end(p2_ptrs)){
+        output[1] = 2;
+    }
+    return output;
+
+}
 /**
  * Processes the start of a collision
  *
@@ -869,6 +945,25 @@ void GameScene::update(float dt) {
  * @param  contact  The two bodies that collided
  */
 void GameScene::beginContact(b2Contact* contact) {
+    b2Body* body1 = contact->GetFixtureA()->GetBody();
+    b2Body* body2 = contact->GetFixtureB()->GetBody();
+    // If we hit the button
+    intptr_t button_ptr = reinterpret_cast<intptr_t>(_button.get());
+    
+    std::vector<int> player_touchers = GameScene::checkIfPlayerTouched(body1, body2);
+    if (player_touchers[0]>0 || player_touchers[1]>0){
+        if(body1->GetUserData().pointer == button_ptr || body2->GetUserData().pointer == button_ptr) {
+            // A player has pressed the button
+            std::shared_ptr<std::unordered_map<std::string, std::string>> body;
+            
+            publisher_struct pub = { "button1", "pressed", "pressed", body};
+            message_queue.push(pub);
+            if (subscriptions.count("button1")==0){
+                subscriptions["button1"] = {{"pressed", std::vector<const subscriber_struct>()}};
+            }
+        }
+    }
+
 }
 
 /**

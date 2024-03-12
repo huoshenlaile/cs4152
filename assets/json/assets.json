@@ -8,6 +8,9 @@
 		"goal": {
 			"file":     "textures/goaldoor.png"
 		},
+        "button_ingame": {
+            "file":     "textures/button_1536958"
+        }
         "crate01": {
             "file":     "textures/crate01.png"
         },
