@@ -94,6 +94,11 @@
             "type":     "sample",
             "file":     "sounds/sideburner-left.wav",
             "volume":   0.5
+        },
+        "PhantomLiberty": {
+            "type":     "sample",
+            "file":     "sounds/PhantomLiberty.mp3",
+            "volume":   0.5
         }
     },
 	"fonts": {

@@ -63,6 +63,12 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
     _complete = false;
     setDebug(false);
     
+    auto source = _assets->get<Sound>("PhantomLiberty");
+    std::string key = "1234123414523145";
+    if (!AudioEngine::get()->isActive(key)) {
+        AudioEngine::get() -> play(key, source, false, source->getVolume());
+    }
+    
     return true;
 }
 

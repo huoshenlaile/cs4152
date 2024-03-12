@@ -335,7 +335,15 @@ void DPApp::draw() {
             break;
         case GAME:
             _gameScene.render(_batch);
-        default:
+            break;
+        case SETTING:
+            _settingScene.render(_batch);
+            break;
+        case RESTORE:
+            _restorationScene.render(_batch);
+            break;
+        case LEVELSELECT:
+            _levelSelectScene.render(_batch);
             break;
     }
 }
