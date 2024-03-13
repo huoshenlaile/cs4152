@@ -176,13 +176,24 @@ public:
 
 #pragma mark -
 #pragma mark Touch and Mouse Callbacks
-	/**
-	 * Callback for the beginning of a touch event
-	 *
-	 * @param event The associated event
-	 * @param focus	Whether the listener currently has focus
-	 *
-	 */
+    /**
+     * Callback for the beginning of a touch event
+     * **FROM GEORGE: The NAMING of this class is UNCLEAR. Here's the logic:
+     *
+     * _character is an inner abstract struct, used to denote the positions of two hands.
+     *
+     * the logic is as such:
+     * Since the _character is an inner struct, at first we should assign the POSITIONS OF CHARACTER's two hands to _character using "FillHands()" function.
+     *
+     * When the player first touches a finger onto the screen, both 'leftHand' and 'rightHand' OF _character are unassigned.
+     *
+     * Then, we compare the positions of these hands with player's finger, and assign the nearest hand to player's finger. When the player puts the other finger on, the leftover hand (be it right or left) is assigned. That is to say: **leftHand and rightHand should match with character's two hands, but are not matched with player's two fingers.*
+     *
+     * ***Similar things happen when the player removes fingers. The corresponding hand gets unassigned.
+     *
+     * @param event The associated event
+     * @param focus    Whether the listener currently has focus
+     */
 	void touchBeganCB(const cugl::TouchEvent& event, bool focus);
 
 	/**
@@ -208,6 +219,10 @@ public:
 
 	cugl::Vec2 getTouchPosition(cugl::TouchEvent touchEvent);
 
+    /**
+     This function matches the real game character's two hands positions with the two hands positions of the inner _character model.
+     Hence, it should be called right after the entire class is initialized.
+     */
 	void fillHand(cugl::Vec2 leftHandPos, cugl::Vec2 rightHandPos);
 
 	cugl::Vec2 getLeftHandMovement();
