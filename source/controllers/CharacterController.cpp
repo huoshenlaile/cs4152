@@ -68,7 +68,7 @@ bool CharacterController::buildParts(const std::shared_ptr<AssetManager>& assets
     makePart(PART_JR3, PART_JR2, Vec2(CJOINT_OFFSET, 0));
     makePart(PART_JR4, PART_JR3, Vec2(0, 0));
     makePart(PART_JR5, PART_JR4, Vec2(CJOINT_OFFSET, 0));
-    makePart(PART_RH, PART_JR4, Vec2(CJOINT_OFFSET, 0));
+    makePart(PART_RH, PART_JR5, Vec2(CJOINT_OFFSET, 0));
     
     makePart(PART_LR1, PART_BODY, Vec2(-CJOINT_OFFSET, 0));
     makePart(PART_LR2, PART_LR1, Vec2(-CJOINT_OFFSET, 0));
@@ -188,11 +188,11 @@ bool CharacterController::createJoints(){
     prijoint = physics2::PrismaticJoint::allocWithObstacles(_obstacles[PART_JR5],_obstacles[PART_RH]);
     prijoint->setLocalAnchorA(0, 0);
     prijoint->setLocalAnchorB(0, 0);
-    prijoint->setLocalAxisA(2, 0);
+    prijoint->setLocalAxisA(1, 0);
     prijoint->enableLimit(true);
     prijoint->setUpperTranslation(1.5f * CJOINT_OFFSET);
     prijoint->setLowerTranslation(0.2f * CJOINT_OFFSET);
-    //prijoint->setCollideConnected(true);
+    prijoint->setCollideConnected(true);
     _joints.push_back(prijoint);
 
     // left part

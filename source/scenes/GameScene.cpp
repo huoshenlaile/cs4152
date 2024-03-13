@@ -52,8 +52,8 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
     _network = network;
     _assets = assets;
     _platformWorld = physics2::net::NetWorld::alloc(Rect(0,0,DEFAULT_WIDTH,DEFAULT_HEIGHT),Vec2(0,DEFAULT_GRAVITY));
-    _input.init(rect);
-    _input.update(0);
+    _input.init();
+    _input.update();
     
     _scale = dimen.width == SCENE_WIDTH ? dimen.width/rect.size.width : dimen.height/rect.size.height;
     Vec2 offset {(dimen.width - SCENE_WIDTH) / 2.0f, 
@@ -100,7 +100,6 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
 
     
 #pragma mark Character 1
-<<<<<<< HEAD
     _characterControllerA = CharacterController::alloc({10,8},  200);
     _characterControllerA->buildParts(_assets);
     _characterControllerA->createJoints();
@@ -111,29 +110,13 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
     _characterControllerA->linkPartsToWorld(_platformWorld, charNode, _scale);
 
 #pragma mark Character 2
-<<<<<<< HEAD
-    _characterControllerB = CharacterController::alloc({20,8}, 200);
-=======
-    _characterControllerB = CharacterController::alloc({20,8},200);
->>>>>>> parent of 6d9fa5f (Merge remote-tracking branch 'refs/remotes/origin/main')
+    _characterControllerB = CharacterController::alloc({22,8}, 200);
     _characterControllerB->buildParts(_assets);
     _characterControllerB->createJoints();
     
     auto charNodeB = scene2::SceneNode::alloc();
     _worldnode->addChild(charNodeB);
     _characterControllerB->linkPartsToWorld(_platformWorld, charNodeB, _scale);
-=======
-    _characterController = CharacterController::alloc({15,8},200);
-    _characterController->buildParts(_assets);
-    _characterController->createJoints();
-    
-    auto charNode = scene2::SceneNode::alloc();
-    _worldnode->addChild(charNode);
-//    _characterController->setSceneNode(charNode);
-//    _characterController->setDrawScale(16.0f);
-    //_characterController->activate(_platformWorld);
-    _characterController->linkPartsToWorld(_platformWorld, charNode, _scale);
->>>>>>> 957b87a (debugging)
     
     
 #pragma mark Esther
@@ -228,7 +211,7 @@ void GameScene::preUpdate(float dt) {
     if(_level == nullptr){
         return;
     }
-    _input.update(dt);
+    _input.update();
     _interactionController.preUpdate(dt);
     //TODO: error handle for loading different levels when we have multiple levels
     _camera.update(dt);
