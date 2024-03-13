@@ -36,6 +36,7 @@
 #define HAND_TEXTURE "hand1"
 
 #define CJOINT_OFFSET 1.0f
+#define MAX_FORCE 1.0f
 
 
 #pragma mark -

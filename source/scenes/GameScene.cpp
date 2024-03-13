@@ -100,6 +100,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
 
     
 #pragma mark Character 1
+<<<<<<< HEAD
     _characterControllerA = CharacterController::alloc({10,8},  200);
     _characterControllerA->buildParts(_assets);
     _characterControllerA->createJoints();
@@ -117,6 +118,18 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
     auto charNodeB = scene2::SceneNode::alloc();
     _worldnode->addChild(charNodeB);
     _characterControllerB->linkPartsToWorld(_platformWorld, charNodeB, _scale);
+=======
+    _characterController = CharacterController::alloc({15,8},200);
+    _characterController->buildParts(_assets);
+    _characterController->createJoints();
+    
+    auto charNode = scene2::SceneNode::alloc();
+    _worldnode->addChild(charNode);
+//    _characterController->setSceneNode(charNode);
+//    _characterController->setDrawScale(16.0f);
+    //_characterController->activate(_platformWorld);
+    _characterController->linkPartsToWorld(_platformWorld, charNode, _scale);
+>>>>>>> 957b87a (debugging)
     
     
 #pragma mark Esther

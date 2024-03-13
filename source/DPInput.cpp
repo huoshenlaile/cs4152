@@ -114,21 +114,21 @@ Vec2 PlatformInput::touch2Screen(const Vec2 pos) const {
  * @param focus	Whether the listener currently has focus
  */
 void PlatformInput::touchBeganCB(const TouchEvent& event, bool focus) {
-	if (!_character.leftHand.assigned || _character.rightHand.assigned) {
+	if (!_character.leftHand.assigned && _character.rightHand.assigned) {
 		// Assign this touch to left hand
 		_character.leftHand.assigned = true;
 		_character.leftHand.prev = event.position;
 		_character.leftHand.curr = event.position;
 		_character.leftHand.touchID = event.touch;
 	}
-	else if (!_character.rightHand.assigned || _character.leftHand.assigned) {
+	else if (!_character.rightHand.assigned && _character.leftHand.assigned) {
 		// Assign this touch to right hand
 		_character.rightHand.assigned = true;
 		_character.rightHand.prev = event.position;
 		_character.rightHand.curr = event.position;
 		_character.rightHand.touchID = event.touch;
 	}
-	else if (!_character.leftHand.assigned || !_character.rightHand.assigned) {
+	else if (!_character.leftHand.assigned && !_character.rightHand.assigned) {
 		if (_character.leftHand.hand.distance(event.position) < _character.rightHand.hand.distance(event.position)) {
 			// Assign this touch to left hand
 			_character.leftHand.assigned = true;
