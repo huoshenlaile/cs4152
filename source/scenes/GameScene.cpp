@@ -100,16 +100,23 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
 
     
 #pragma mark Character 1
-    _characterController = CharacterController::alloc({10,8},_scale);
-    _characterController->buildParts(_assets);
-    _characterController->createJoints();
+    _characterControllerA = CharacterController::alloc({10,8},_scale);
+    _characterControllerA->buildParts(_assets);
+    _characterControllerA->createJoints();
     
     auto charNode = scene2::SceneNode::alloc();
     _worldnode->addChild(charNode);
-    _characterController->setSceneNode(charNode);
-//    _characterController->setDrawScale(16.0f);
-    //_characterController->activate(_platformWorld);
-    _characterController->linkPartsToWorld(_platformWorld, charNode, _scale);
+    //_characterController->setSceneNode(charNode);
+    _characterControllerA->linkPartsToWorld(_platformWorld, charNode, _scale);
+
+#pragma mark Character 2
+    _characterControllerB = CharacterController::alloc({10,4},_scale);
+    _characterControllerB->buildParts(_assets);
+    _characterControllerB->createJoints();
+    
+    auto charNodeB = scene2::SceneNode::alloc();
+    _worldnode->addChild(charNodeB);
+    _characterControllerB->linkPartsToWorld(_platformWorld, charNodeB, _scale);
     
     
 #pragma mark Esther
@@ -155,6 +162,8 @@ void GameScene::dispose() {
         _winnode = nullptr;
         _complete = false;
         _debug = false;
+        _characterControllerA->dispose();
+        _characterControllerB->dispose();
         Scene2::dispose();
     }
 }
@@ -168,6 +177,7 @@ void GameScene::dispose() {
  * This method disposes of the world and creates a new one.
  */
 void GameScene::reset() {
+    CULog("GAME RESET");
     _worldnode->removeAllChildren();
     _debugnode->removeAllChildren();
     setComplete(false);

@@ -11,7 +11,10 @@ bool CharacterController::init(const cugl::Vec2 &pos, float scale){
 
 void CharacterController::dispose(){
     _node = nullptr;
+    leftHandJoint = nullptr;
+    rightHandJoint = nullptr;
     _obstacles.clear();
+    _joints.clear();
 }
 
 std::shared_ptr<physics2::BoxObstacle> CharacterController::makePart(int part, int connect, const Vec2& pos) {
@@ -346,6 +349,7 @@ void CharacterController::setDrawScale(float scale){
     _drawScale = scale;
 }
 
+//DEPRECATED
 void CharacterController::activate(const std::shared_ptr<cugl::physics2::net::NetWorld>& world) {
     for(auto it = _obstacles.begin(); it != _obstacles.end(); ++it) {
         world->addObstacle(*it);
@@ -355,6 +359,7 @@ void CharacterController::activate(const std::shared_ptr<cugl::physics2::net::Ne
     }
 }
 
+//DEPRECATED
 void CharacterController::deactivate(const std::shared_ptr<cugl::physics2::net::NetWorld>& world) {
     for(auto it = _obstacles.begin(); it != _obstacles.end(); ++it) {
         world->removeObstacle(*it);

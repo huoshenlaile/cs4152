@@ -19,7 +19,8 @@ protected:
     /** Network Controller*/
     std::shared_ptr<NetEventController> _network;
     /** Character Controller*/
-    std::shared_ptr<CharacterController> _characterController;
+    std::shared_ptr<CharacterController> _characterControllerA;
+    std::shared_ptr<CharacterController> _characterControllerB;
     /** Audio Controller*/
     std::shared_ptr<AudioController> _audioController;
     
