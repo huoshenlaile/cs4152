@@ -258,7 +258,10 @@ void DPApp::updateClient(float timestep) {
             _menuScene.setActive(true);
             break;
         case ClientScene::HANDSHAKE:
-            _gameScene.init(_assets, _network, false);
+            if(!_loaded){
+                _gameScene.init(_assets, _network, false);
+                _loaded = true;
+            }
             _network->markReady();
             break;
         case ClientScene::STARTGAME:
@@ -291,6 +294,7 @@ void DPApp::updateLoad(float timestep) {
             _menuScene.setActive(true);
             _hostScene.init(_assets,_network);
             _clientScene.init(_assets,_network);
+            _settingScene.init(_assets);
             //_gameScene.init(_assets);
             _status = MENU;
             break;
@@ -300,7 +304,16 @@ void DPApp::updateLoad(float timestep) {
 
 void DPApp::updateSetting(float timestep) {
     _settingScene.update(timestep);
-    // TODO: !
+    switch (_settingScene.state) {
+        case SettingScene::BACK:
+            _status = MENU;
+            _settingScene.setActive(false);
+            _menuScene.setActive(true);
+            break;
+        default:
+            break;
+    }
+
 }
 
 
@@ -327,6 +340,7 @@ void DPApp::updateRestoration(float timestep) {
  * at all. The default implmentation does nothing.
  */
 void DPApp::draw() {
+    CULog("Rendering time");
     switch (_status) {
         case LOAD:
             _loadScene.render(_batch);

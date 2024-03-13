@@ -114,6 +114,11 @@ public:
     
     bool moveRightHand(cugl::Vec2 offset);
     bool moveLeftHand(cugl::Vec2 offset);
+    
+    const std::vector<std::shared_ptr<cugl::physics2::Obstacle>> getObstacles() const { return _obstacles; }
+    const std::vector<std::shared_ptr<cugl::physics2::Joint>> getJoints() const { return _joints; }
+
+    
 };
 
 #endif /* CharacterController_h */

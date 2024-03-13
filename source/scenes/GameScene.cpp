@@ -53,6 +53,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
     _assets = assets;
     _input.init();
     _input.update();
+    
     _scale = dimen.width == SCENE_WIDTH ? dimen.width/rect.size.width : dimen.height/rect.size.height;
     Vec2 offset {(dimen.width - SCENE_WIDTH) / 2.0f, 
                     (dimen.height - SCENE_HEIGHT) / 2.0f};
@@ -97,6 +98,12 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
     _level->setAssets(_assets);
     _level->setRootNode(_worldnode);
     
+    //TODO: fix this init after finishing characterControllers
+    _interactionController.init({}, nullptr, nullptr, {}, {});
+    
+    //TODO: remove, this is for testing purposes
+    InteractionController::PublisherMessage pub = { "button1", "pressed", "pressed", nullptr};
+    _interactionController.publishMessage(std::move(pub));
     
     _camera.init(_worldnode,_worldnode,1.0f, std::dynamic_pointer_cast<OrthographicCamera>(getCamera()), _uinode, 2.0f);
     _active = true;
@@ -193,6 +200,7 @@ void GameScene::preUpdate(float dt) {
         return;
     }
     _input.update();
+    _interactionController.preUpdate(dt);
     //TODO: error handle for loading different levels when we have multiple levels
     _camera.update(dt);
 //    _level->getWorld()->update(dt);
