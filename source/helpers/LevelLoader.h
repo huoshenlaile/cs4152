@@ -29,7 +29,7 @@ protected:
     std::shared_ptr<scene2::SceneNode> _worldnode;
     /** Reference to the debug root of the scene graph */
     std::shared_ptr<scene2::SceneNode> _debugnode;
-    /** The physics word; part of the model (though listeners elsewhere) */
+    /** The physics world; part of the model (though listeners elsewhere) */
     std::shared_ptr<cugl::physics2::net::NetWorld> _world;
     /** Reference to all the walls */
     std::vector<std::shared_ptr<WallModel>> _walls;
@@ -151,6 +151,11 @@ public:
      * @return the physics world in this game level
      */
     const std::shared_ptr<cugl::physics2::net::NetWorld>& getWorld() { return _world; }
+    
+    
+    void setWorld(std::shared_ptr<cugl::physics2::net::NetWorld> world) {
+        this->_world = world;
+    }
 
     /**
      * Loads this game level from the source file

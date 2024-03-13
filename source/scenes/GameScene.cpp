@@ -51,22 +51,14 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
     _isHost = isHost;
     _network = network;
     _assets = assets;
+    _platformWorld = physics2::net::NetWorld::alloc(Rect(0,0,DEFAULT_WIDTH,DEFAULT_HEIGHT),Vec2(0,DEFAULT_GRAVITY));
     _input.init();
     _input.update();
     
     _scale = dimen.width == SCENE_WIDTH ? dimen.width/rect.size.width : dimen.height/rect.size.height;
     Vec2 offset {(dimen.width - SCENE_WIDTH) / 2.0f, 
                     (dimen.height - SCENE_HEIGHT) / 2.0f};
-    
-    //make the getter for loading the map
-    _level = assets->get<LevelLoader>(LEVEL_ONE_KEY);
-    if (_level == nullptr) {
-        CULog("Fail!");
-        return false;
-    }
-    
-    _assets = assets;
-    _platformWorld = _level->getWorld();
+
 
     
     // TODO: add children to the scene, initialize Controllers
@@ -93,10 +85,38 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
     
     addChild(_worldnode);
     addChild(_uinode);
-    
     _worldnode->setContentSize(Size(SCENE_WIDTH,SCENE_HEIGHT));
+    
+    
+    //make the getter for loading the map
+    _level = assets->get<LevelLoader>(LEVEL_ONE_KEY);
+    if (_level == nullptr) {
+        CULog("Fail!");
+        return false;
+    }
+    _level->setWorld(_platformWorld);
     _level->setAssets(_assets);
     _level->setRootNode(_worldnode);
+
+    
+#pragma mark Character 1
+    _characterController = CharacterController::alloc({10,8},_scale);
+    _characterController->buildParts(_assets);
+    _characterController->createJoints();
+    
+    auto charNode = scene2::SceneNode::alloc();
+    _worldnode->addChild(charNode);
+    _characterController->setSceneNode(charNode);
+//    _characterController->setDrawScale(16.0f);
+    //_characterController->activate(_platformWorld);
+    _characterController->linkPartsToWorld(_platformWorld, charNode, _scale);
+    
+    
+#pragma mark Esther
+    _network->attachEventType<GrabEvent>();
+    _network->attachEventType<PauseEvent>();
+#pragma mark Esther
+    
     
     //TODO: fix this init after finishing characterControllers
     _interactionController.init({}, nullptr, nullptr, {}, {});
@@ -110,29 +130,11 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
     _complete = false;
     setDebug(false);
     
+    
 //    _audioController = std::make_shared<AudioController>();
 //    _audioController->init(_assets);
 //    _audioController->play("box2DtheWORSTphysicsEngineIEverUsed", "PhantomLiberty");
     
-#pragma mark Character 1
-    _characterController = CharacterController::alloc({10,5},32);
-    _characterController->buildParts(_assets);
-    _characterController->createJoints();
-    
-    auto charNode = scene2::SceneNode::alloc();
-    _worldnode->addChild(charNode);
-    _characterController->setSceneNode(charNode);
-    _characterController->setDrawScale(32.0f);
-    _characterController->activate(_platformWorld);
-    
-    #pragma mark Grab Esther
-        _network->attachEventType<GrabEvent>();
-    #pragma mark Grab Esther
-    
-    
-#pragma mark Pause Esther
-    _network->attachEventType<PauseEvent>();
-#pragma mark Pause Esther
     
     return true;
 }
@@ -203,7 +205,7 @@ void GameScene::preUpdate(float dt) {
     _interactionController.preUpdate(dt);
     //TODO: error handle for loading different levels when we have multiple levels
     _camera.update(dt);
-//    _level->getWorld()->update(dt);
+
     
 #pragma mark Grab Esther
     //TODO: if (indicator == true), allocate a crate event for the center of the screen(use DEFAULT_WIDTH/2 and DEFAULT_HEIGHT/2) and send it using the pushOutEvent() method in the network controller.
@@ -257,6 +259,8 @@ void GameScene::fixedUpdate() {
         }
     }
 #pragma mark Pause Esther
+    
+    
     _platformWorld->update(0.1);
     CULog("fixed update called");
 }
