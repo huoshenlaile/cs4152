@@ -258,7 +258,10 @@ void DPApp::updateClient(float timestep) {
             _menuScene.setActive(true);
             break;
         case ClientScene::HANDSHAKE:
-            _gameScene.init(_assets, _network, false);
+            if(!_loaded){
+                _gameScene.init(_assets, _network, false);
+                _loaded = true;
+            }
             _network->markReady();
             break;
         case ClientScene::STARTGAME:
