@@ -14,27 +14,63 @@
 #include "../models/WallModel.h"
 #include "../models/PlatformModel.h"
 #include "../models/ButtonModel.h"
-#include "../models/CharacterModel.h"
+#include "CharacterController.h"
 
 
 using namespace cugl::physics2::net;
 
+#define PLAYER_ONE 1
+#define PLAYER_TWO 2
+#define NOT_PLAYER 0
+
 class InteractionController {
 protected:
     /** Network Controller? */
-    NetEventController _netController;
+    std::shared_ptr<NetEventController> _netController;
     // TODO: Interaction Controller SHOULD have access to models. Models should be passed in as parameters in initializers.
+    std::shared_ptr<CharacterController> _characterControllerA;
+    std::shared_ptr<CharacterController> _characterControllerB;
+    
+    std::vector<std::shared_ptr<PlatformModel>> _platforms;
+    std::vector<std::shared_ptr<ButtonModel>> _buttons;
+    std::vector<std::shared_ptr<WallModel>> _walls;
+    
+    struct PlayersContact {
+        int bodyOne = NOT_PLAYER;
+        int bodyTwo = NOT_PLAYER;
+    };
+    
+    PlayersContact checkContactForPlayer(b2Body* body1, b2Body* body2);
     
 public:
+    struct PublisherMessage {
+          std::string pub_id;
+          std::string trigger;
+          std::string message;
+          std::shared_ptr<std::unordered_map<std::string, std::string>> body;
+    };
+    
+    struct SubscriberMessage {
+          std::string pub_id;
+          std::string listening_for;
+          std::unordered_map<std::string, std::string> actions;
+    };
+    
+    std::queue<PublisherMessage> messageQueue;
+    std::unordered_map<std::string, std::unordered_map<std::string, std::vector<SubscriberMessage>>> subscriptions;
+
 
     /** the TENTATIVE initializer for this (feel free to change), according to our arch spec
      */
     bool init(std::vector<std::shared_ptr<PlatformModel>> platforms,                
-              std::shared_ptr<CharacterModel> character,
+              std::shared_ptr<CharacterController> characterA,
+              std::shared_ptr<CharacterController> characterB,
               std::vector<std::shared_ptr<ButtonModel>> buttons,
               std::vector<std::shared_ptr<WallModel>> walls);
     
     
+    //TODO: Make this method protected, but public right now for testing
+    void publishMessage(PublisherMessage&& message);
     
 #pragma mark Collision Handling
     /**
@@ -47,6 +83,8 @@ public:
      * @param  contact  The two bodies that collided
      */
     void beginContact(b2Contact* contact);
+    
+    void endContact(b2Contact* contact);
 
     /**
      * Handles any modifications necessary before collision resolution
@@ -59,6 +97,12 @@ public:
      * @param  contact  The collision manifold before contact
      */
     void beforeSolve(b2Contact* contact, const b2Manifold* oldManifold);
+    
+    /**
+     * Handles message subscription processing
+     * @param  dt  timestep
+     */
+    void preUpdate(float dt);
 };
 
 #endif /* InteractionController_h */
