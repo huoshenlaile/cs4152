@@ -52,8 +52,8 @@ protected:
     std::shared_ptr<cugl::AssetManager> _assets;
 
     std::shared_ptr<NetEventController> _network;
-
-    std::shared_ptr<PlatformInput> _input;
+    
+    std::shared_ptr<InputController> _input;
     
     /** Whether or not we have finished loading all assets */
     bool _loaded;
