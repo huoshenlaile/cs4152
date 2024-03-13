@@ -4,6 +4,7 @@
 #include "../helpers/LevelLoader.h"
 #include "../helpers/LevelConstants.h"
 #include "../controllers/CameraController.h"
+#include "../controllers/PauseEvent.h"
 
 class GameScene: public cugl::Scene2 {
 protected:
@@ -207,6 +208,21 @@ public:
      * @param value whether the level is completed.
      */
     void setComplete(bool value) { _complete = value; _winnode->setVisible(value); }
+    
+#pragma mark Grab Esther
+    /**
+     * This method takes a grabEvent and processes it.
+     */
+    void processGrabEvent(const std::shared_ptr<GrabEvent>& event);
+#pragma mark Grab Esther
+    
+    
+#pragma mark Pause Esther
+    /**
+     * This method takes a grabEvent and processes it.
+     */
+    void processPauseEvent(const std::shared_ptr<PauseEvent>& event);
+#pragma mark Pause Esther
 
 #pragma mark -
 #pragma mark Gameplay Handling

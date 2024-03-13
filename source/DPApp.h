@@ -14,6 +14,7 @@
 #include "controllers/InputController.h"
 #include "controllers/InteractionController.h"
 #include "controllers/NetworkController.h"
+#include "controllers/PauseEvent.h"
 
 #include "scenes/ClientScene.h"
 #include "scenes/HostScene.h"

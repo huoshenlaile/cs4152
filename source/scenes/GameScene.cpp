@@ -107,6 +107,16 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
     _audioController->init(_assets);
     _audioController->play("12341234142351501829340hahaha", "PhantomLiberty");
     
+    
+    #pragma mark Grab Esther
+        _network->attachEventType<GrabEvent>();
+    #pragma mark Grab Esther
+    
+    
+#pragma mark Pause Esther
+    _network->attachEventType<PauseEvent>();
+#pragma mark Pause Esther
+    
     return true;
 }
 
@@ -146,6 +156,26 @@ void GameScene::reset() {
 }
 
 
+#pragma mark Grab Esther
+/**
+ * This method takes a grabEvent and processes it.
+ */
+void GameScene::processGrabEvent(const std::shared_ptr<GrabEvent>& event){
+    //TODO: Waiting for Other Module
+}
+#pragma mark Grab Esther
+
+
+#pragma mark Pause Esther
+/**
+ * This method takes a grabEvent and processes it.
+ */
+void GameScene::processPauseEvent(const std::shared_ptr<PauseEvent>& event){
+    //TODO: Waiting for Other Module
+}
+#pragma mark Pause Esther
+
+
 #pragma mark Physics Handling
 
 void GameScene::preUpdate(float dt) {
@@ -156,6 +186,29 @@ void GameScene::preUpdate(float dt) {
     //TODO: error handle for loading different levels when we have multiple levels
     _camera.update(dt);
     _level->getWorld()->update(dt);
+    
+#pragma mark Grab Esther
+    //TODO: if (indicator == true), allocate a crate event for the center of the screen(use DEFAULT_WIDTH/2 and DEFAULT_HEIGHT/2) and send it using the pushOutEvent() method in the network controller.
+//    if (???????){
+//        CULog("Grab Event COMING");
+//        _network->pushOutEvent(GrabEvent::allocGrabEvent(Vec2(DEFAULT_WIDTH/2,DEFAULT_HEIGHT/2)));
+//    }
+    
+#pragma mark Grab Esther
+    
+    
+    
+#pragma mark Pause Esther
+    //TODO: if (indicator == true), allocate a pause event for the center of the screen(use DEFAULT_WIDTH/2 and DEFAULT_HEIGHT/2) and send it using the pushOutEvent() method in the network controller.
+//    if (???????){
+//        CULog("Pause Event COMING");
+//        _network->pushOutEvent(PauseEvent::allocPauseEvent(Vec2(DEFAULT_WIDTH/2,DEFAULT_HEIGHT/2)));
+//    }
+    
+#pragma mark Pause Esther
+    
+    
+    
 }
 
 
@@ -164,6 +217,28 @@ void GameScene::postUpdate(float dt) {
 
 
 void GameScene::fixedUpdate() {
+#pragma mark Grab Esther
+    //TODO: check for available incoming events from the network controller and call processGrabEvent if it is a GrabEvent.
+    if(_network->isInAvailable()){
+        auto e = _network->popInEvent();
+        if(auto grabEvent = std::dynamic_pointer_cast<GrabEvent>(e)){
+            CULog("BIG Grab Event GOT");
+            processGrabEvent(grabEvent);
+        }
+    }
+#pragma mark Grab Esther
+    
+    
+#pragma mark Pause Esther
+    //TODO: check for available incoming events from the network controller and call processGrabEvent if it is a GrabEvent.
+    if(_network->isInAvailable()){
+        auto e = _network->popInEvent();
+        if(auto pauseEvent = std::dynamic_pointer_cast<PauseEvent>(e)){
+            CULog("BIG Pause Event GOT");
+            processPauseEvent(pauseEvent);
+        }
+    }
+#pragma mark Pause Esther
     
 }
 
