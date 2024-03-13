@@ -188,11 +188,11 @@ bool CharacterController::createJoints(){
     prijoint = physics2::PrismaticJoint::allocWithObstacles(_obstacles[PART_JR5],_obstacles[PART_RH]);
     prijoint->setLocalAnchorA(0, 0);
     prijoint->setLocalAnchorB(0, 0);
-    prijoint->setLocalAxisA(2, 0);
+    prijoint->setLocalAxisA(1, 0);
     prijoint->enableLimit(true);
     prijoint->setUpperTranslation(1.5f * CJOINT_OFFSET);
     prijoint->setLowerTranslation(0.2f * CJOINT_OFFSET);
-    //prijoint->setCollideConnected(true);
+    prijoint->setCollideConnected(true);
     _joints.push_back(prijoint);
 
     // left part
