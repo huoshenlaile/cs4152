@@ -3,13 +3,21 @@
 
 #include <cugl/cugl.h>
 
-class SettingScene: public cugl::Scene2 {
+using namespace cugl;
+class SettingScene: public Scene2 {
     
 protected:
     /** The asset manager for this scene. */
-    std::shared_ptr<cugl::AssetManager> _assets;
+    std::shared_ptr<AssetManager> _assets;
+    std::shared_ptr<cugl::scene2::Button> _backout;
     
 public:
+    enum SceneState {
+        INSCENE,
+        BACK
+    };
+    SceneState state;
+
     /**
      * Creates a new Setting Scene with the default values.
      *
