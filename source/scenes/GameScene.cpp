@@ -52,8 +52,8 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
     _network = network;
     _assets = assets;
     _platformWorld = physics2::net::NetWorld::alloc(Rect(0,0,DEFAULT_WIDTH,DEFAULT_HEIGHT),Vec2(0,DEFAULT_GRAVITY));
-    _input.init();
-    _input.update();
+    _input.init(rect);
+    _input.update(0);
     
     _scale = dimen.width == SCENE_WIDTH ? dimen.width/rect.size.width : dimen.height/rect.size.height;
     Vec2 offset {(dimen.width - SCENE_WIDTH) / 2.0f, 
@@ -228,7 +228,7 @@ void GameScene::preUpdate(float dt) {
     if(_level == nullptr){
         return;
     }
-    _input.update();
+    _input.update(dt);
     _interactionController.preUpdate(dt);
     //TODO: error handle for loading different levels when we have multiple levels
     _camera.update(dt);
