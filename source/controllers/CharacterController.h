@@ -64,6 +64,12 @@ protected:
     std::string getPartName(int part);
     
     std::shared_ptr<cugl::physics2::BoxObstacle> makePart(int part, int connect, const cugl::Vec2& pos);
+    
+    cugl::Vec2 leftHandOffset;
+    cugl::Vec2 rightHandOffset;
+    // TODO fix memory leak, when dispose, should be none.
+    std::shared_ptr<physics2::MotorJoint> leftHandJoint;
+    std::shared_ptr<physics2::MotorJoint> rightHandJoint;
 public:
     CharacterController(void) : _drawScale(0) { }
     virtual ~CharacterController(void) { dispose(); }

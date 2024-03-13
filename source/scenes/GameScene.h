@@ -19,9 +19,12 @@ protected:
     /** Network Controller*/
     std::shared_ptr<NetEventController> _network;
     /** Character Controller*/
-    CharacterController _characterController;
+    std::shared_ptr<CharacterController> _characterController;
     /** Audio Controller*/
     std::shared_ptr<AudioController> _audioController;
+    
+    
+    std::shared_ptr<cugl::physics2::net::NetWorld> _platformWorld;
     
     // MODELS
     // TODO: Do we need a vector of these?

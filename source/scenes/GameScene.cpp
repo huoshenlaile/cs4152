@@ -65,7 +65,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
     }
     
     _assets = assets;
-    std::shared_ptr<cugl::physics2::net::NetWorld> platformWorld = _level->getWorld();
+    _platformWorld = _level->getWorld();
 
     
     // TODO: add children to the scene, initialize Controllers
@@ -107,6 +107,16 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
     _audioController->init(_assets);
     _audioController->play("12341234142351501829340hahaha", "PhantomLiberty");
     
+#pragma mark Character 1
+    _characterController = CharacterController::alloc({10,5},32);
+    _characterController->buildParts(_assets);
+    _characterController->createJoints();
+    
+    auto charNode = scene2::SceneNode::alloc();
+    _worldnode->addChild(charNode);
+    _characterController->setSceneNode(charNode);
+    _characterController->setDrawScale(32.0f);
+    _characterController->activate(_platformWorld);
     
     #pragma mark Grab Esther
         _network->attachEventType<GrabEvent>();
@@ -185,7 +195,7 @@ void GameScene::preUpdate(float dt) {
     _input.update();
     //TODO: error handle for loading different levels when we have multiple levels
     _camera.update(dt);
-    _level->getWorld()->update(dt);
+//    _level->getWorld()->update(dt);
     
 #pragma mark Grab Esther
     //TODO: if (indicator == true), allocate a crate event for the center of the screen(use DEFAULT_WIDTH/2 and DEFAULT_HEIGHT/2) and send it using the pushOutEvent() method in the network controller.
@@ -239,7 +249,8 @@ void GameScene::fixedUpdate() {
         }
     }
 #pragma mark Pause Esther
-    
+    _platformWorld->update(0.1);
+    CULog("fixed update called");
 }
 
 
