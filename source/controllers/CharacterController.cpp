@@ -111,22 +111,22 @@ bool CharacterController::createJoints(){
     std::shared_ptr<physics2::DistanceJoint> distjoint;
     std::shared_ptr<physics2::WeldJoint> weldjoint;
 
-    motjoint = physics2::MotorJoint::allocWithObstacles(_obstacles[PART_BODY],_obstacles[PART_RH]);
-    motjoint->setMaxForce(10000.0f);
-    motjoint->setMaxTorque(1000.0f);
-    motjoint->setAngularOffset(0);
-    motjoint->setLinearOffset(4,-1);
-    _joints.push_back(motjoint);
-    rightHandJoint = motjoint;
-
-    motjoint = physics2::MotorJoint::allocWithObstacles(_obstacles[PART_BODY],_obstacles[PART_LH]);
-    motjoint->setMaxForce(10000.0f);
-    motjoint->setMaxTorque(1000.0f);
-    motjoint->setAngularOffset(0);
-    motjoint->setLinearOffset(-4,-1);
-    _joints.push_back(motjoint);
-    leftHandJoint = motjoint;
-    return true;
+    //motjoint = physics2::MotorJoint::allocWithObstacles(_obstacles[PART_BODY],_obstacles[PART_RH]);
+    //motjoint->setMaxForce(10000.0f);
+    //motjoint->setMaxTorque(1000.0f);
+    //motjoint->setAngularOffset(0);
+    //motjoint->setLinearOffset(4,-1);
+    //_joints.push_back(motjoint);
+    //rightHandJoint = motjoint;
+//
+    //motjoint = physics2::MotorJoint::allocWithObstacles(_obstacles[PART_BODY],_obstacles[PART_LH]);
+    //motjoint->setMaxForce(10000.0f);
+    //motjoint->setMaxTorque(1000.0f);
+    //motjoint->setAngularOffset(0);
+    //motjoint->setLinearOffset(-4,-1);
+    //_joints.push_back(motjoint);
+    //leftHandJoint = motjoint;
+    //return true;
 
 
     // right arm, forearm, hand
@@ -186,6 +186,7 @@ bool CharacterController::createJoints(){
     prijoint->enableLimit(true);
     prijoint->setUpperTranslation(1.5f * CJOINT_OFFSET);
     prijoint->setLowerTranslation(0.2f * CJOINT_OFFSET);
+    //prijoint->setCollideConnected(true);
     _joints.push_back(prijoint);
 
     // left part
