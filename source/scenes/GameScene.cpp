@@ -110,7 +110,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
     _characterControllerA->linkPartsToWorld(_platformWorld, charNode, _scale);
 
 #pragma mark Character 2
-    _characterControllerB = CharacterController::alloc({22,8}, 200);
+    _characterControllerB = CharacterController::alloc({20,8}, 200);
     _characterControllerB->buildParts(_assets);
     _characterControllerB->createJoints();
     

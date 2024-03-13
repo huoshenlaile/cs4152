@@ -68,7 +68,7 @@ bool CharacterController::buildParts(const std::shared_ptr<AssetManager>& assets
     makePart(PART_JR3, PART_JR2, Vec2(CJOINT_OFFSET, 0));
     makePart(PART_JR4, PART_JR3, Vec2(0, 0));
     makePart(PART_JR5, PART_JR4, Vec2(CJOINT_OFFSET, 0));
-    makePart(PART_RH, PART_JR5, Vec2(CJOINT_OFFSET, 0));
+    makePart(PART_RH, PART_JR4, Vec2(CJOINT_OFFSET, 0));
     
     makePart(PART_LR1, PART_BODY, Vec2(-CJOINT_OFFSET, 0));
     makePart(PART_LR2, PART_LR1, Vec2(-CJOINT_OFFSET, 0));
