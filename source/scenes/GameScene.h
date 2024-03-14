@@ -1,10 +1,7 @@
 #ifndef __GAME_SCENE_H__
 #define __GAME_SCENE_H__
 #include "../helpers/GameSceneConstants.h"
-#include "../helpers/LevelLoader.h"
-#include "../helpers/LevelConstants.h"
-#include "../controllers/CameraController.h"
-#include "../controllers/PauseEvent.h"
+
 
 class GameScene: public cugl::Scene2 {
 protected:
@@ -13,7 +10,7 @@ protected:
     
     // CONTROLLERS
     /** Controller for abstracting out input across multiple platforms */
-    InputController _input;
+//    InputController _input;
     /** Controller for handling all kinds of interactions*/
     InteractionController _interactionController;
     /** Network Controller*/
@@ -23,6 +20,7 @@ protected:
     std::shared_ptr<CharacterController> _characterControllerB;
     /** Audio Controller*/
     std::shared_ptr<AudioController> _audioController;
+    std::shared_ptr<PlatformInput> _inputController;
     
     
     std::shared_ptr<cugl::physics2::net::NetWorld> _platformWorld;

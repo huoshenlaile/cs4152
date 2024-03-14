@@ -23,6 +23,11 @@
 #include "../models/PlatformModel.h"
 #include "../models/ButtonModel.h"
 #include "../models/WallModel.h"
+#include "../helpers/LevelLoader.h"
+#include "../helpers/LevelConstants.h"
+#include "../controllers/CameraController.h"
+#include "../controllers/PauseEvent.h"
+#include "../DPInput.h"
 
 /** This is the size of the active portion of the screen */
 #define SCENE_WIDTH 1024

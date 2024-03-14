@@ -32,7 +32,7 @@
 #define PART_LH     12
 
 #define BODY_TEXTURE "body1"
-#define CJOINT_TEXTURE "j1"
+#define CJOINT_TEXTURE "hand1"
 #define HAND_TEXTURE "hand1"
 
 #define CJOINT_OFFSET 1.0f

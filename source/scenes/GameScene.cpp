@@ -52,8 +52,12 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
     _network = network;
     _assets = assets;
     _platformWorld = physics2::net::NetWorld::alloc(Rect(0,0,DEFAULT_WIDTH,DEFAULT_HEIGHT),Vec2(0,DEFAULT_GRAVITY));
-    _input.init();
-    _input.update();
+    
+    _inputController = std::make_shared<PlatformInput>();
+    _inputController -> init(rect);
+    //_inputController -> update(dt);
+//    _input.init();
+//    _input.update();
     
     _scale = dimen.width == SCENE_WIDTH ? dimen.width/rect.size.width : dimen.height/rect.size.height;
     Vec2 offset {(dimen.width - SCENE_WIDTH) / 2.0f, 
@@ -100,7 +104,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
 
     
 #pragma mark Character 1
-    _characterControllerA = CharacterController::alloc({10,8},  200);
+    _characterControllerA = CharacterController::alloc({6,13},  100);
     _characterControllerA->buildParts(_assets);
     _characterControllerA->createJoints();
     
@@ -110,13 +114,13 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
     _characterControllerA->linkPartsToWorld(_platformWorld, charNode, _scale);
 
 #pragma mark Character 2
-    _characterControllerB = CharacterController::alloc({22,8}, 200);
-    _characterControllerB->buildParts(_assets);
-    _characterControllerB->createJoints();
-    
-    auto charNodeB = scene2::SceneNode::alloc();
-    _worldnode->addChild(charNodeB);
-    _characterControllerB->linkPartsToWorld(_platformWorld, charNodeB, _scale);
+//    _characterControllerB = CharacterController::alloc({22,8}, 200);
+//    _characterControllerB->buildParts(_assets);
+//    _characterControllerB->createJoints();
+//    
+//    auto charNodeB = scene2::SceneNode::alloc();
+//    _worldnode->addChild(charNodeB);
+//    _characterControllerB->linkPartsToWorld(_platformWorld, charNodeB, _scale);
     
     
 #pragma mark Esther
@@ -156,7 +160,9 @@ void GameScene::dispose() {
         // TODO: implemetation
         
         removeAllChildren();
-        _input.dispose();
+//        _input.dispose();
+        _inputController -> dispose();
+        _inputController = nullptr;
         _worldnode = nullptr;
         _debugnode = nullptr;
         _winnode = nullptr;
@@ -211,7 +217,8 @@ void GameScene::preUpdate(float dt) {
     if(_level == nullptr){
         return;
     }
-    _input.update();
+    // _input.update();
+    _inputController -> update(dt);
     _interactionController.preUpdate(dt);
     //TODO: error handle for loading different levels when we have multiple levels
     _camera.update(dt);

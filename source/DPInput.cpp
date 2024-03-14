@@ -7,6 +7,11 @@ using namespace cugl;
 #pragma mark -
 #pragma mark Input Controller
 
+PlatformInput::PlatformInput() {
+    
+}
+
+
 void PlatformInput::dispose() {
 	if (_active) {
 #ifndef CU_TOUCH_SCREEN
