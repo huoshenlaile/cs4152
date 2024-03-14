@@ -31,9 +31,15 @@
 #define PART_LR5    11
 #define PART_LH     12
 
+<<<<<<< HEAD
 #define BODY_TEXTURE "body192"
 #define CJOINT_TEXTURE "joint32"
 #define HAND_TEXTURE "hand64"
+=======
+#define BODY_TEXTURE "body1"
+#define CJOINT_TEXTURE "j1"
+#define HAND_TEXTURE "hand1"
+>>>>>>> e0b0c48 (debugging)
 
 #define MAX_TORQUE 100000.0f
 #define MAX_FORCE 100000.0f

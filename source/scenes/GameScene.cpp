@@ -53,9 +53,9 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
     _assets = assets;
     _platformWorld = physics2::net::NetWorld::alloc(Rect(0,0,DEFAULT_WIDTH,DEFAULT_HEIGHT),Vec2(0,DEFAULT_GRAVITY));
     
+    // TODO: setup the inputController (PlatformInput, from Harry)
     _inputController = std::make_shared<PlatformInput>();
     _inputController -> init(rect);
-    //_inputController -> update(dt);
 //    _input.init();
 //    _input.update();
     
