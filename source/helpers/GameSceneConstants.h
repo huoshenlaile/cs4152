@@ -43,4 +43,6 @@
 #define DEFAULT_TURN_RATE 0.05f
 #define FIXED_TIMESTEP_S 0.02f
 
+#define INPUT_DAMPING 0.8f
+
 #endif /* GameSceneConstants_h */

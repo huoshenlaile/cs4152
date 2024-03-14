@@ -340,7 +340,6 @@ void DPApp::updateRestoration(float timestep) {
  * at all. The default implmentation does nothing.
  */
 void DPApp::draw() {
-    CULog("Rendering time");
     switch (_status) {
         case LOAD:
             _loadScene.render(_batch);

@@ -271,9 +271,6 @@ void CharacterController::setSceneNode(const std::shared_ptr<cugl::scene2::Scene
 	for (int ii = 0; ii <= PART_LH; ii++) {
         std::shared_ptr<Texture> image = _textures[ii];
 		std::shared_ptr<scene2::PolygonNode> sprite = scene2::PolygonNode::allocWithTexture(image);
-//		if (ii == PART_RIGHT_ARM || ii == PART_RIGHT_FOREARM) {
-//			sprite->flipHorizontal(true); // More reliable than rotating 90 degrees.
-//		}
 		_node->addChild(sprite);
 	}
 
@@ -305,6 +302,9 @@ void CharacterController::deactivate(const std::shared_ptr<cugl::physics2::net::
 
 
 bool CharacterController::moveLeftHand(cugl::Vec2 offset){
+    if (offset.x != 0) {
+        CULog("Now, move left hand called: %f, %f",offset.x, offset.y);
+    }
     float a = _obstacles[PART_BODY]->getAngle();
     leftHandOffset = leftHandOffset + Vec2(offset.x * cos(a) + offset.y * sin(a), - offset.x * sin(a) + offset.y * cos(a));
     // normalize leftHandOffset to 4 * HALF_CJOINT_OFFSET if it is too long
@@ -325,7 +325,9 @@ bool CharacterController::moveLeftHand(cugl::Vec2 offset){
 
 
 bool CharacterController::moveRightHand(cugl::Vec2 offset){
-    CULog("move right hand called: %f, %f",offset.x, offset.y);
+    if (offset.x != 0) {
+        CULog("Now, move right hand called: %f, %f",offset.x, offset.y);
+    }
     float a = _obstacles[PART_BODY]->getAngle();
     rightHandOffset = rightHandOffset + Vec2(offset.x * cos(a) + offset.y * sin(a), - offset.x * sin(a) + offset.y * cos(a));
     // normalize rightHandOffset to 4 * HALF_CJOINT_OFFSET if it is too long
@@ -388,9 +390,6 @@ void CharacterController::linkPartsToWorld(const std::shared_ptr<cugl::physics2:
         auto obj = _obstacles[i];
         std::shared_ptr<Texture> image = _textures[i];
         std::shared_ptr<scene2::PolygonNode> sprite = scene2::PolygonNode::allocWithTexture(image);
-//        if (i == PART_RIGHT_ARM || i == PART_RIGHT_FOREARM) {
-//            sprite->flipHorizontal(true); // More reliable than rotating 90 degrees.
-//        }
 
         _world->initObstacle(obj);
         //obj->setDebugScene(_debugnode);

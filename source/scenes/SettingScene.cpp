@@ -5,10 +5,10 @@ bool SettingScene::init(const std::shared_ptr<cugl::AssetManager>& assets){
     Size dimen = Application::get()->getDisplaySize();
     dimen *= SCENE_HEIGHT/dimen.height;
     if (assets == nullptr) {
-        CULog("Failed init");
+        CULog("Failed init Setting Scene");
         return false;
     } else if (!Scene2::init(dimen)) {
-        CULog("Failed init");
+        CULog("Failed init Setting Scene");
         return false;
     }
     

@@ -31,18 +31,12 @@
 #define PART_LR5    11
 #define PART_LH     12
 
-<<<<<<< HEAD
 #define BODY_TEXTURE "body192"
 #define CJOINT_TEXTURE "joint32"
 #define HAND_TEXTURE "hand64"
-=======
-#define BODY_TEXTURE "body1"
-#define CJOINT_TEXTURE "j1"
-#define HAND_TEXTURE "hand1"
->>>>>>> e0b0c48 (debugging)
 
 #define MAX_TORQUE 100000.0f
-#define MAX_FORCE 100000.0f
+#define MAX_FORCE 1000.0f
 
 #define LENGTH_MULTIPLIER 2.0f
 #define CJOINT_OFFSET 3.0f
@@ -50,8 +44,6 @@
 #define ARM_EXTEND 1.5f // max length of arm extension multiplier
 
 
-#pragma mark -
-#pragma mark Physics Constants
 /** The density for each body part */
 #define DEFAULT_DENSITY  1.0f
 /** The density for the center of mass */
@@ -107,7 +99,7 @@ public:
     
     bool init(const cugl::Vec2& pos, float scale);
     
-#pragma mark -
+
 #pragma mark Static Constructors
     
     static std::shared_ptr<CharacterController> alloc() {
@@ -132,19 +124,19 @@ public:
     void setSceneNode(const std::shared_ptr<cugl::scene2::SceneNode>& node);
     void setDrawScale(float scale);
     
-#pragma mark -
+
 #pragma mark HAND CONTROLLER
     bool moveRightHand(cugl::Vec2 offset);
     bool moveLeftHand(cugl::Vec2 offset);
     
     Vec2 getLeftHandPosition(){
         auto p =  _obstacles[PART_LH]->getPosition();
-        CULog("773f2782 Left Hand Position: %f, %f", p.x, p.y);
+        // CULog("773f2782 Left Hand Position: %f, %f", p.x, p.y);
         return p;
     }
     Vec2 getRightHandPosition(){
         auto p = _obstacles[PART_RH]->getPosition();
-        CULog("531af435 Right Hand Position: %f, %f", p.x, p.y);
+        // CULog("531af435 Right Hand Position: %f, %f", p.x, p.y);
         return p;
     }
     const std::vector<std::shared_ptr<cugl::physics2::Obstacle>> getObstacles() const { return _obstacles; }

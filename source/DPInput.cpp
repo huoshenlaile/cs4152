@@ -119,33 +119,40 @@ Vec2 PlatformInput::touch2Screen(const Vec2 pos) const {
  * @param focus	Whether the listener currently has focus
  */
 void PlatformInput::touchBeganCB(const TouchEvent& event, bool focus) {
+    // TRANSFORM touchevent pos to screen pos.
+    Vec2 position = touch2Screen(event.position);
+    
 	if (!_character.leftHand.assigned && _character.rightHand.assigned) {
 		// Assign this touch to left hand
 		_character.leftHand.assigned = true;
-		_character.leftHand.prev = event.position;
-		_character.leftHand.curr = event.position;
+		_character.leftHand.prev = position;
+		_character.leftHand.curr = position;
 		_character.leftHand.touchID = event.touch;
 	}
 	else if (!_character.rightHand.assigned && _character.leftHand.assigned) {
 		// Assign this touch to right hand
 		_character.rightHand.assigned = true;
-		_character.rightHand.prev = event.position;
-		_character.rightHand.curr = event.position;
+		_character.rightHand.prev = position;
+		_character.rightHand.curr = position;
 		_character.rightHand.touchID = event.touch;
 	}
 	else if (!_character.leftHand.assigned && !_character.rightHand.assigned) {
-		if (_character.leftHand.hand.distance(event.position) < _character.rightHand.hand.distance(event.position)) {
+       // CULog("Now comparing distance. Distance to Left: %f, \n Distance to Right: %f", _character.leftHand.hand.distance(position), _character.rightHand.hand.distance(position));
+        // std::cout<< "Now, I think your positions is: " << position.toString() << "and character left hand: " << _character.leftHand.hand.toString() << "and right hand: " << _character.rightHand.hand.toString() << std::endl;
+		if (_character.leftHand.hand.distance(position) < _character.rightHand.hand.distance(position)) {
+            // CULog("Now, Assigning to Left");
 			// Assign this touch to left hand
 			_character.leftHand.assigned = true;
-			_character.leftHand.prev = event.position;
-			_character.leftHand.curr = event.position;
+			_character.leftHand.prev = position;
+			_character.leftHand.curr = position;
 			_character.leftHand.touchID = event.touch;
 		}
 		else {
+            // CULog("Now, Assigning to Right");
 			// Assign this touch to right hand
 			_character.rightHand.assigned = true;
-			_character.rightHand.prev = event.position;
-			_character.rightHand.curr = event.position;
+			_character.rightHand.prev = position;
+			_character.rightHand.curr = position;
 			_character.rightHand.touchID = event.touch;
 		}
 	}
@@ -180,13 +187,14 @@ void PlatformInput::touchEndedCB(const TouchEvent& event, bool focus) {
  * @param focus	Whether the listener currently has focus
  */
 void PlatformInput::touchesMovedCB(const TouchEvent& event, const Vec2& previous, bool focus) {
+    Vec2 position = touch2Screen(event.position);
 	if (_character.leftHand.touchID == event.touch) {
 		_character.leftHand.prev = _character.leftHand.curr;
-		_character.leftHand.curr = event.position;
+		_character.leftHand.curr = position;
 	}
 	else if (_character.rightHand.touchID == event.touch) {
 		_character.rightHand.prev = _character.rightHand.curr;
-		_character.rightHand.curr = event.position;
+		_character.rightHand.curr = position;
 	}
 }
 
@@ -210,13 +218,13 @@ void PlatformInput::fillHand(Vec2 leftHandPos, Vec2 rightHandPos) {
 }
 
 Vec2 PlatformInput::getLeftHandMovement() {
-	if (!_character.leftHand.assigned) return { -1,-1 };
-	else return _character.leftHand.curr - _character.leftHand.prev;
+	if (!_character.leftHand.assigned) return { 0,0 };
+	
+    return _character.leftHand.curr - _character.leftHand.prev;
 }
 
 Vec2 PlatformInput::getrightHandMovement() {
-	if (!_character.rightHand.assigned) return { -1,-1 };
-	else {
-		return _character.rightHand.curr - _character.rightHand.prev;
-	}
+	if (!_character.rightHand.assigned) return { 0,0 };
+	
+    return _character.rightHand.curr - _character.rightHand.prev;
 }

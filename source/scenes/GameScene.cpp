@@ -52,19 +52,13 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
     _network = network;
     _assets = assets;
     _platformWorld = physics2::net::NetWorld::alloc(Rect(0,0,DEFAULT_WIDTH,DEFAULT_HEIGHT),Vec2(0,DEFAULT_GRAVITY));
-    
-    // TODO: setup the inputController (PlatformInput, from Harry)
-    _inputController = std::make_shared<PlatformInput>();
-    _inputController -> init(rect);
-//    _input.init();
-//    _input.update();
+
     
     _scale = dimen.width == SCENE_WIDTH ? dimen.width/rect.size.width : dimen.height/rect.size.height;
     Vec2 offset {(dimen.width - SCENE_WIDTH) / 2.0f, 
                     (dimen.height - SCENE_HEIGHT) / 2.0f};
 
 
-    
     // TODO: add children to the scene, initialize Controllers
     // Create the scene graph
     _worldnode = scene2::SceneNode::alloc();
@@ -91,11 +85,11 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
     addChild(_uinode);
     _worldnode->setContentSize(Size(SCENE_WIDTH,SCENE_HEIGHT));
     
-    
+#pragma mark LevelLoader
     //make the getter for loading the map
     _level = assets->get<LevelLoader>(LEVEL_ONE_KEY);
     if (_level == nullptr) {
-        CULog("Fail!");
+        CULog("Fail loading levels");
         return false;
     }
     _level->setWorld(_platformWorld);
@@ -123,26 +117,30 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
 //    _worldnode->addChild(charNodeB);
 //    _characterControllerB->linkPartsToWorld(_platformWorld, charNodeB, _scale);
     
-    
-#pragma mark Esther
+#pragma mark NetEvents
     _network->attachEventType<GrabEvent>();
     _network->attachEventType<PauseEvent>();
-#pragma mark Esther
     
+#pragma mark InputControllers
+    // TODO: setup the inputController (PlatformInput, from Harry)
+    _inputController = std::make_shared<PlatformInput>();
+    _inputController -> init(rect);
+    _inputController -> fillHand(_characterControllerA->getLeftHandPosition(), _characterControllerA->getRightHandPosition());
     
+#pragma mark InteractionController
     //TODO: fix this init after finishing characterControllers
     _interactionController.init({}, nullptr, nullptr, {}, {});
-    
     //TODO: remove, this is for testing purposes
     InteractionController::PublisherMessage pub = { "button1", "pressed", "pressed", nullptr};
     _interactionController.publishMessage(std::move(pub));
+    
     
     _camera.init(_worldnode,_worldnode,1.0f, std::dynamic_pointer_cast<OrthographicCamera>(getCamera()), _uinode, 2.0f);
     _active = true;
     _complete = false;
     setDebug(false);
     
-    
+#pragma mark AudioController
 //    _audioController = std::make_shared<AudioController>();
 //    _audioController->init(_assets);
 //    _audioController->play("box2DtheWORSTphysicsEngineIEverUsed", "PhantomLiberty");
@@ -192,24 +190,20 @@ void GameScene::reset() {
 }
 
 
-#pragma mark Grab Esther
 /**
  * This method takes a grabEvent and processes it.
  */
 void GameScene::processGrabEvent(const std::shared_ptr<GrabEvent>& event){
     //TODO: Waiting for Other Module
 }
-#pragma mark Grab Esther
 
 
-#pragma mark Pause Esther
 /**
  * This method takes a grabEvent and processes it.
  */
 void GameScene::processPauseEvent(const std::shared_ptr<PauseEvent>& event){
     //TODO: Waiting for Other Module
 }
-#pragma mark Pause Esther
 
 
 #pragma mark Physics Handling
@@ -220,20 +214,22 @@ void GameScene::preUpdate(float dt) {
     }
     // _input.update();
     _inputController -> update(dt);
+    
+    /// WHY IS IT THAT I NEED TO MAKE IT NEGATIVE BEFORE PASSING IT IN?
+    _characterControllerA -> moveLeftHand(INPUT_DAMPING * _inputController -> getLeftHandMovement());
+    _characterControllerA -> moveRightHand(INPUT_DAMPING * _inputController -> getrightHandMovement());
+    _inputController -> fillHand(_characterControllerA->getLeftHandPosition(), _characterControllerA->getRightHandPosition());
+    
     _interactionController.preUpdate(dt);
     //TODO: error handle for loading different levels when we have multiple levels
     _camera.update(dt);
 
     
-#pragma mark Grab Esther
     //TODO: if (indicator == true), allocate a crate event for the center of the screen(use DEFAULT_WIDTH/2 and DEFAULT_HEIGHT/2) and send it using the pushOutEvent() method in the network controller.
 //    if (???????){
 //        CULog("Grab Event COMING");
 //        _network->pushOutEvent(GrabEvent::allocGrabEvent(Vec2(DEFAULT_WIDTH/2,DEFAULT_HEIGHT/2)));
 //    }
-    
-#pragma mark Grab Esther
-    
     
     
 #pragma mark Pause Esther
@@ -242,11 +238,7 @@ void GameScene::preUpdate(float dt) {
 //        CULog("Pause Event COMING");
 //        _network->pushOutEvent(PauseEvent::allocPauseEvent(Vec2(DEFAULT_WIDTH/2,DEFAULT_HEIGHT/2)));
 //    }
-    
-#pragma mark Pause Esther
-    
-    
-    
+
 }
 
 
@@ -255,7 +247,6 @@ void GameScene::postUpdate(float dt) {
 
 
 void GameScene::fixedUpdate() {
-#pragma mark Grab Esther
     //TODO: check for available incoming events from the network controller and call processGrabEvent if it is a GrabEvent.
     if(_network->isInAvailable()){
         auto e = _network->popInEvent();
@@ -264,10 +255,8 @@ void GameScene::fixedUpdate() {
             processGrabEvent(grabEvent);
         }
     }
-#pragma mark Grab Esther
     
     
-#pragma mark Pause Esther
     //TODO: check for available incoming events from the network controller and call processGrabEvent if it is a GrabEvent.
     if(_network->isInAvailable()){
         auto e = _network->popInEvent();
@@ -276,11 +265,9 @@ void GameScene::fixedUpdate() {
             processPauseEvent(pauseEvent);
         }
     }
-#pragma mark Pause Esther
     
     
     _platformWorld->update(0.1);
-    CULog("fixed update called");
 }
 
 
