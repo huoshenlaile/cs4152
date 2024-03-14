@@ -31,12 +31,17 @@
 #define PART_LR5    11
 #define PART_LH     12
 
-#define BODY_TEXTURE "body1"
-#define CJOINT_TEXTURE "hand1"
-#define HAND_TEXTURE "hand1"
+#define BODY_TEXTURE "body192"
+#define CJOINT_TEXTURE "joint32"
+#define HAND_TEXTURE "hand64"
 
-#define CJOINT_OFFSET 1.0f
-#define MAX_FORCE 1.0f
+#define MAX_TORQUE 100000.0f
+#define MAX_FORCE 100000.0f
+
+#define LENGTH_MULTIPLIER 2.0f
+#define CJOINT_OFFSET 3.0f
+#define HALF_CJOINT_OFFSET 1.5f
+#define ARM_EXTEND 1.5f // max length of arm extension multiplier
 
 
 #pragma mark -
@@ -65,12 +70,20 @@ protected:
     std::string getPartName(int part);
     
     std::shared_ptr<cugl::physics2::BoxObstacle> makePart(int part, int connect, const cugl::Vec2& pos);
+    Vec2 SolveAngleMiddleBisectorLine(Vec2 p);
+    Vec2 armMiddleExp_R(Vec2 end);
     
+    cugl::Vec2 leftShoulderOffset;
     cugl::Vec2 leftHandOffset;
+    cugl::Vec2 leftElbowOffset;
+    cugl::Vec2 rightShoulderOffset;
     cugl::Vec2 rightHandOffset;
+    cugl::Vec2 rightElbowOffset;
     // TODO fix memory leak, when dispose, should be none.
     std::shared_ptr<physics2::MotorJoint> leftHandJoint;
     std::shared_ptr<physics2::MotorJoint> rightHandJoint;
+    std::shared_ptr<physics2::MotorJoint> leftElbowJoint;
+    std::shared_ptr<physics2::MotorJoint> rightElbowJoint;
 public:
     CharacterController(void) : _drawScale(0) { }
     virtual ~CharacterController(void) { dispose(); }
@@ -113,9 +126,21 @@ public:
     void setSceneNode(const std::shared_ptr<cugl::scene2::SceneNode>& node);
     void setDrawScale(float scale);
     
+#pragma mark -
+#pragma mark HAND CONTROLLER
     bool moveRightHand(cugl::Vec2 offset);
     bool moveLeftHand(cugl::Vec2 offset);
     
+    Vec2 getLeftHandPosition(){
+        auto p =  _obstacles[PART_LH]->getPosition();
+        CULog("773f2782 Left Hand Position: %f, %f", p.x, p.y);
+        return p;
+    }
+    Vec2 getRightHandPosition(){
+        auto p = _obstacles[PART_RH]->getPosition();
+        CULog("531af435 Right Hand Position: %f, %f", p.x, p.y);
+        return p;
+    }
     const std::vector<std::shared_ptr<cugl::physics2::Obstacle>> getObstacles() const { return _obstacles; }
     const std::vector<std::shared_ptr<cugl::physics2::Joint>> getJoints() const { return _joints; }
     
