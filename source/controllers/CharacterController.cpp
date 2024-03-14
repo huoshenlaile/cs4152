@@ -287,8 +287,30 @@ bool CharacterController::createJoints(){
     rightElbowJoint->setLinearOffset(rightShoulderOffset + rightElbowOffset);
     _joints.push_back(rightElbowJoint);
 
+    // auto dummy_joints_right = dummy_jointsmaker({PART_BODY, PART_JR1, PART_JR2, PART_JR3, PART_JR4, PART_JR5, PART_JR6, PART_RH});
+    // _joints.insert(_joints.end(), dummy_joints_right.begin(), dummy_joints_right.end());
+    // auto dummy_joints_left = dummy_jointsmaker({PART_BODY, PART_LR1, PART_LR2, PART_LR3, PART_LR4, PART_LR5, PART_LR6, PART_LH});
+    // _joints.insert(_joints.end(), dummy_joints_left.begin(), dummy_joints_left.end());
+
+    // dummy joints before these obstacles so they collision can be disabled:
     return true;
 }
+
+
+
+std::vector<std::shared_ptr<cugl::physics2::Joint>> CharacterController::dummy_jointsmaker(std::vector<int> part_indices){
+    std::vector<std::shared_ptr<cugl::physics2::Joint>> dummy_joints;
+    for (int i = 0; i < part_indices.size(); i++){
+        for (int j = i + 1; j < part_indices.size(); j++){
+            std::shared_ptr<physics2::MotorJoint> dummy_joint = physics2::MotorJoint::allocWithObstacles(_obstacles[i], _obstacles[j]);
+            dummy_joint->setMaxForce(0);
+            dummy_joint->setMaxTorque(0);
+            dummy_joints.push_back(dummy_joint);
+        }
+    }
+    return dummy_joints;
+}
+
 
 void CharacterController::setSceneNode(const std::shared_ptr<cugl::scene2::SceneNode>& node){
 	_node = node;

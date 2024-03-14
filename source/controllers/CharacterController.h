@@ -72,7 +72,7 @@ protected:
     std::shared_ptr<cugl::physics2::BoxObstacle> makePart(int part, int connect, const cugl::Vec2& pos);
     Vec2 SolveAngleMiddleBisectorLine(Vec2 p);
     Vec2 armMiddleExp_R(Vec2 end);
-    
+    std::vector<std::shared_ptr<cugl::physics2::Joint>> dummy_jointsmaker(std::vector<int> part_indices);
     cugl::Vec2 leftShoulderOffset;
     cugl::Vec2 leftHandOffset;
     cugl::Vec2 leftElbowOffset;
