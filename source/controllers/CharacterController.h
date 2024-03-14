@@ -36,7 +36,7 @@
 #define HAND_TEXTURE "hand64"
 
 #define MAX_TORQUE 100000.0f
-#define MAX_FORCE 1000.0f
+#define MAX_FORCE 100000.0f
 
 #define LENGTH_MULTIPLIER 2.0f
 #define CJOINT_OFFSET 3.0f

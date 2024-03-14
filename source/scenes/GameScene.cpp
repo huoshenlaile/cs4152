@@ -214,10 +214,8 @@ void GameScene::preUpdate(float dt) {
     }
     // _input.update();
     _inputController -> update(dt);
-    
-    /// WHY IS IT THAT I NEED TO MAKE IT NEGATIVE BEFORE PASSING IT IN?
-    _characterControllerA -> moveLeftHand(INPUT_DAMPING * _inputController -> getLeftHandMovement());
-    _characterControllerA -> moveRightHand(INPUT_DAMPING * _inputController -> getrightHandMovement());
+    _characterControllerA -> moveLeftHand(INPUT_SCALER * _inputController -> getLeftHandMovement());
+    _characterControllerA -> moveRightHand(INPUT_SCALER * _inputController -> getrightHandMovement());
     _inputController -> fillHand(_characterControllerA->getLeftHandPosition(), _characterControllerA->getRightHandPosition());
     
     _interactionController.preUpdate(dt);

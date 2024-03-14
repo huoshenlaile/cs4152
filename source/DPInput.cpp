@@ -169,13 +169,13 @@ void PlatformInput::touchEndedCB(const TouchEvent& event, bool focus) {
 		_character.leftHand.assigned = false;
 		_character.leftHand.prev = Vec2(-1, -1);
 		_character.leftHand.curr = Vec2(-1, -1);
-		_character.leftHand.touchID = 0;
+		_character.leftHand.touchID = -1;
 	}
 	else if (_character.rightHand.touchID == event.touch) {
 		_character.rightHand.assigned = false;
 		_character.rightHand.prev = Vec2(-1, -1);
 		_character.rightHand.curr = Vec2(-1, -1);
-		_character.rightHand.touchID = 0;
+		_character.rightHand.touchID = -1;
 	}
 }
 

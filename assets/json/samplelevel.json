@@ -42,7 +42,7 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0.2,
+                                 "friction":10,
                                  "restitution":0.1,
                                  "rotation":false,
                                  "texture":"earth"
@@ -91,7 +91,7 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0.2,
+                                 "friction":10,
                                  "restitution":0.1,
                                  "rotation":false,
                                  "texture":"earth"
@@ -120,7 +120,7 @@
         {
          "name":"gravity",
          "type":"float",
-         "value":-4.9
+         "value":-9.8
         }],
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
