@@ -23,13 +23,15 @@
 #define PART_JR3    3
 #define PART_JR4    4
 #define PART_JR5    5
-#define PART_RH     6
-#define PART_LR1    7
-#define PART_LR2    8
-#define PART_LR3    9
-#define PART_LR4    10
-#define PART_LR5    11
-#define PART_LH     12
+#define PART_JR6    6
+#define PART_RH     7
+#define PART_LR1    8
+#define PART_LR2    9
+#define PART_LR3    10
+#define PART_LR4    11
+#define PART_LR5    12
+#define PART_LR6    13
+#define PART_LH     14
 
 #define BODY_TEXTURE "body192"
 #define CJOINT_TEXTURE "joint32"
