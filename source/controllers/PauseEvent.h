@@ -18,6 +18,7 @@ protected:
     LWSerializer _serializer;
     LWDeserializer _deserializer;
     Vec2 _pos;
+    bool _isPause;
     
 public:
     /**
@@ -29,7 +30,7 @@ public:
      */
     std::shared_ptr<NetEvent> newEvent() override;
     
-    static std::shared_ptr<NetEvent> allocPauseEvent(Vec2 pos);
+    static std::shared_ptr<NetEvent> allocPauseEvent(Vec2 pos, bool pause);
     
     /**
      * Serialize any paramater that the event contains to a vector of bytes.
@@ -48,6 +49,9 @@ public:
     
     /** Gets the position of the event. */
     Vec2 getPos() { return _pos; }
+    
+    /** Gets the position of the event. */
+    bool isPause() { return _isPause; }
 };
 
 
