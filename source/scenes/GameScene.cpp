@@ -132,7 +132,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets, const cu
 	// TODO: setup the inputController (PlatformInput, from Harry)
 	_inputController = std::make_shared<PlatformInput>();
 	_inputController->init(rect);
-	_inputController->fillHand(_characterControllerA->getLeftHandPosition(), _characterControllerA->getRightHandPosition());
+	_inputController->fillHand(_characterControllerA->getLeftHandPosition(), _characterControllerA->getRightHandPosition(), _characterControllerA->getLHPos(), _characterControllerA->getRHPos());
 
 #pragma mark InteractionController
 	//TODO: fix this init after finishing characterControllers
@@ -164,7 +164,7 @@ void GameScene::dispose() {
 		// TODO: implemetation
 
 		removeAllChildren();
-		//        _input.dispose();
+		//_input.dispose();
 		_inputController->dispose();
 		_inputController = nullptr;
 		_worldnode = nullptr;
@@ -215,11 +215,10 @@ void GameScene::preUpdate(float dt) {
 	if (_level == nullptr) {
 		return;
 	}
-	// _input.update();
 	_inputController->update(dt);
 	_characterControllerA->moveLeftHand(INPUT_SCALER * _inputController->getLeftHandMovement());
 	_characterControllerA->moveRightHand(INPUT_SCALER * _inputController->getrightHandMovement());
-	_inputController->fillHand(_characterControllerA->getLeftHandPosition(), _characterControllerA->getRightHandPosition());
+	_inputController->fillHand(_characterControllerA->getLeftHandPosition(), _characterControllerA->getRightHandPosition(), _characterControllerA->getLHPos(), _characterControllerA->getRHPos());
 
 	_interactionController.preUpdate(dt);
 	//TODO: error handle for loading different levels when we have multiple levels
@@ -242,7 +241,7 @@ void GameScene::preUpdate(float dt) {
 }
 
 void GameScene::postUpdate(float dt) {
-	CULog("_platformWorld gravity: %f, %f", _platformWorld->getGravity().x, _platformWorld->getGravity().y);
+	    CULog("_platformWorld gravity: %f, %f", _platformWorld->getGravity().x, _platformWorld->getGravity().y);
 }
 
 void GameScene::fixedUpdate(float dt) {
@@ -250,7 +249,7 @@ void GameScene::fixedUpdate(float dt) {
 	if (_network->isInAvailable()) {
 		auto e = _network->popInEvent();
 		if (auto grabEvent = std::dynamic_pointer_cast<GrabEvent>(e)) {
-			CULog("BIG Grab Event GOT");
+			//CULog("BIG Grab Event GOT");
 			processGrabEvent(grabEvent);
 		}
 	}
@@ -259,13 +258,13 @@ void GameScene::fixedUpdate(float dt) {
 	if (_network->isInAvailable()) {
 		auto e = _network->popInEvent();
 		if (auto pauseEvent = std::dynamic_pointer_cast<PauseEvent>(e)) {
-			CULog("BIG Pause Event GOT");
+			//CULog("BIG Pause Event GOT");
 			processPauseEvent(pauseEvent);
 		}
 	}
-	std::cout << "position" << _characterControllerA->getBodySceneNode()->getPositionX() << _characterControllerA->getBodySceneNode()->getPositionY() << std::endl;
+	//std::cout << "position" << _characterControllerA->getBodySceneNode()->getPositionX() << _characterControllerA->getBodySceneNode()->getPositionY() << std::endl;
 	_platformWorld->update(dt);
-	//_camera.update(dt);
+	_camera.update(dt);
 }
 
 void GameScene::update(float dt) {

@@ -87,6 +87,8 @@ protected:
 	std::shared_ptr<physics2::MotorJoint> rightForearmJoint;
 
 	std::shared_ptr<scene2::PolygonNode> _bodyNode;
+	std::shared_ptr<scene2::PolygonNode> _LHNode;
+	std::shared_ptr<scene2::PolygonNode> _RHNode;
 public:
 	CharacterController(void) : _drawScale(0) { }
 	virtual ~CharacterController(void) { dispose(); }
@@ -129,19 +131,23 @@ public:
 	void enableMotor();
 	void disableMotor();
 
-	std::shared_ptr<scene2::PolygonNode> getBodySceneNode() { return _bodyNode; };
+	std::shared_ptr<scene2::PolygonNode> getBodySceneNode() { std::cout << "bodynodeX " << _bodyNode->getPositionX() << std::endl; return _bodyNode; };
+
+	Vec2 getLHPos() { return _LHNode->getPosition(); }
+	Vec2 getRHPos() { return _RHNode->getPosition(); }
+
 #pragma mark HAND CONTROLLER
 	bool moveRightHand(cugl::Vec2 offset);
 	bool moveLeftHand(cugl::Vec2 offset);
 
 	Vec2 getLeftHandPosition() {
 		auto p = _obstacles[PART_LH]->getPosition();
-		CULog("773f2782 Left Hand Position: %f, %f", p.x, p.y);
+		//CULog("Left Hand Position: %f, %f", p.x, p.y);
 		return p;
 	}
 	Vec2 getRightHandPosition() {
 		auto p = _obstacles[PART_RH]->getPosition();
-		CULog("531af435 Right Hand Position: %f, %f", p.x, p.y);
+		//CULog("Right Hand Position: %f, %f", p.x, p.y);
 		return p;
 	}
 	const std::vector<std::shared_ptr<cugl::physics2::Obstacle>> getObstacles() const { return _obstacles; }

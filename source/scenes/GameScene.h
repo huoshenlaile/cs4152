@@ -8,8 +8,7 @@ protected:
 	std::shared_ptr<cugl::AssetManager> _assets;
 
 	// CONTROLLERS
-	/** Controller for abstracting out input across multiple platforms */
-//    InputController _input;
+	// InputController _input;
 	/** Controller for handling all kinds of interactions*/
 	InteractionController _interactionController;
 	/** Network Controller*/
