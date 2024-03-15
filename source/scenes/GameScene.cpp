@@ -103,7 +103,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets, const cu
 	    _level->setWorld(_platformWorld);
 	_level->setAssets(_assets);
 	_level->setRootNode(_worldnode);
-    // 321
+    // 1234
 //	_platformWorld = _level->getPhysicsWorld();
 
 #pragma mark Character 1
