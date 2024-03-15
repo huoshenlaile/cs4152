@@ -33,8 +33,6 @@ protected:
 	  /** Reference to the goalDoor (for collision detection) */
 	std::shared_ptr<cugl::physics2::BoxObstacle>    _goalDoor;
 	/** Reference to the physics root of the scene graph */
-	std::shared_ptr<cugl::scene2::SceneNode> _rootnode;
-	/** Reference to the physics root of the scene graph */
 	std::shared_ptr<cugl::scene2::SceneNode> _worldnode;
 	/** Reference to the debug root of the scene graph */
 	std::shared_ptr<cugl::scene2::SceneNode> _debugnode;
@@ -42,6 +40,8 @@ protected:
 	std::shared_ptr<cugl::scene2::Label> _winnode;
 	/** Reference to the ui layer */
 	std::shared_ptr<cugl::scene2::SceneNode> _uinode;
+	/** Reference to the reset message label */
+	std::shared_ptr<cugl::scene2::Label> _loadnode;
 
 	CameraController _camera;
 

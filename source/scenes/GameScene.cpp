@@ -12,6 +12,8 @@ using namespace cugl::physics2::net;
 
 #define STATIC_COLOR    Color4::WHITE
 #define PRIMARY_FONT        "retro"
+/** The message to display on a level reset */
+#define RESET_MESSAGE       "Resetting"
 
 #pragma mark Initializers and Disposer
 /**
@@ -58,9 +60,6 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets, const cu
 
 	// TODO: add children to the scene, initialize Controllers
 	// Create the scene graph
-	_rootnode = scene2::SceneNode::alloc();
-	_rootnode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
-	_rootnode->setPosition(offset);
 	_worldnode = scene2::SceneNode::alloc();
 	_worldnode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
 	_worldnode->setPosition(offset);
@@ -69,6 +68,12 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets, const cu
 	_debugnode->setScale(_scale); // Debug node draws in PHYSICS coordinates
 	_debugnode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
 	_debugnode->setPosition(offset);
+
+	_loadnode = scene2::Label::allocWithText(RESET_MESSAGE, _assets->get<Font>(PRIMARY_FONT));
+	_loadnode->setAnchor(Vec2::ANCHOR_CENTER);
+	_loadnode->setPosition(computeActiveSize() / 2);
+	_loadnode->setForeground(STATIC_COLOR);
+	_loadnode->setVisible(false);
 
 	_winnode = scene2::Label::allocWithText("VICTORY!", _assets->get<Font>(PRIMARY_FONT));
 	_winnode->setAnchor(Vec2::ANCHOR_CENTER);
@@ -80,11 +85,14 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets, const cu
 	_uinode->setContentSize(dimen);
 	_uinode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
 	_uinode->addChild(_winnode);
-	//_uinode->addChild(_loadnode);
+	_uinode->addChild(_loadnode);
 
 	addChild(_worldnode);
 	addChild(_uinode);
+
 	_worldnode->setContentSize(Size(SCENE_WIDTH, SCENE_HEIGHT));
+	//_level->setAssets(_assets);
+	//_level->setRootNode(_rootnode); // Obtains ownership of root.
 
 #pragma mark LevelLoader
 	//make the getter for loading the map
@@ -145,9 +153,9 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets, const cu
 	//    _audioController = std::make_shared<AudioController>();
 	//    _audioController->init(_assets);
 	//    _audioController->play("box2DtheWORSTphysicsEngineIEverUsed", "PhantomLiberty");
-
-	_camera.init(_characterControllerA->getBodySceneNode(), _rootnode, 10.0f, std::dynamic_pointer_cast<OrthographicCamera>(getCamera()), _uinode, 2.0f);
 	_camera.setTarget(_characterControllerA->getBodySceneNode());
+	_camera.init(_characterControllerA->getBodySceneNode(), _worldnode, 10.0f, std::dynamic_pointer_cast<OrthographicCamera>(getCamera()), _uinode, 2.0f);
+
 	return true;
 }
 
@@ -186,6 +194,7 @@ void GameScene::reset() {
 	_worldnode->removeAllChildren();
 	_debugnode->removeAllChildren();
 	setComplete(false);
+	_camera.setTarget(_characterControllerA->getBodySceneNode());
 	Application::get()->resetFixedRemainder();
 }
 
@@ -237,6 +246,7 @@ void GameScene::preUpdate(float dt) {
 
 void GameScene::postUpdate(float dt) {
 	//    CULog("_platformWorld gravity: %f, %f", _platformWorld->getGravity().x, _platformWorld->getGravity().y);
+	_camera.update(dt);
 }
 
 void GameScene::fixedUpdate(float dt) {
@@ -257,8 +267,9 @@ void GameScene::fixedUpdate(float dt) {
 			processPauseEvent(pauseEvent);
 		}
 	}
-
+	std::cout << "position" << _characterControllerA->getBodySceneNode()->getPositionX() << _characterControllerA->getBodySceneNode()->getPositionY() << std::endl;
 	_platformWorld->update(dt);
+	_camera.update(dt);
 }
 
 void GameScene::update(float dt) {
