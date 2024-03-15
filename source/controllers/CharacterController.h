@@ -38,7 +38,7 @@
 #define HAND_TEXTURE "hand64"
 
 #define MAX_TORQUE 100000.0f
-#define MAX_FORCE 100000.0f
+#define MAX_FORCE  100000.0f
 
 #define LENGTH_MULTIPLIER 2.0f
 #define CJOINT_OFFSET 3.0f
@@ -53,6 +53,7 @@
 /** The radius for the center of mass */
 #define CENTROID_RADIUS  0.1f
 
+#define BODY_DENSITY 5.0f
 
 using namespace cugl;
 
@@ -68,11 +69,11 @@ protected:
     cugl::Mat4 _affine;
     float _drawScale;
     std::string getPartName(int part);
-    
+    bool _motorEnabled = true;
     std::shared_ptr<cugl::physics2::BoxObstacle> makePart(int part, int connect, const cugl::Vec2& pos);
     Vec2 SolveAngleMiddleBisectorLine(Vec2 p);
     Vec2 armMiddleExp_R(Vec2 end);
-    
+    std::vector<std::shared_ptr<cugl::physics2::Joint>> dummy_jointsmaker(std::vector<int> part_indices);
     cugl::Vec2 leftShoulderOffset;
     cugl::Vec2 leftHandOffset;
     cugl::Vec2 leftElbowOffset;
@@ -84,6 +85,15 @@ protected:
     std::shared_ptr<physics2::MotorJoint> rightHandJoint;
     std::shared_ptr<physics2::MotorJoint> leftElbowJoint;
     std::shared_ptr<physics2::MotorJoint> rightElbowJoint;
+    
+    // arm joints
+    std::shared_ptr<physics2::MotorJoint> leftArmJoint;
+    std::shared_ptr<physics2::MotorJoint> rightArmJoint;
+    std::shared_ptr<physics2::MotorJoint> leftForearmJoint;
+    std::shared_ptr<physics2::MotorJoint> rightForearmJoint;
+
+
+    std::shared_ptr<scene2::PolygonNode> _bodyNode;
 public:
     CharacterController(void) : _drawScale(0) { }
     virtual ~CharacterController(void) { dispose(); }
@@ -126,7 +136,10 @@ public:
     void setSceneNode(const std::shared_ptr<cugl::scene2::SceneNode>& node);
     void setDrawScale(float scale);
     
+    void enableMotor();
+    void disableMotor();
 
+    std::shared_ptr<scene2::PolygonNode> getBodySceneNode() {return _bodyNode;};
 #pragma mark HAND CONTROLLER
     bool moveRightHand(cugl::Vec2 offset);
     bool moveLeftHand(cugl::Vec2 offset);

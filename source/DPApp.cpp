@@ -170,7 +170,8 @@ void DPApp::postUpdate(float timestep) {
 
 void DPApp::fixedUpdate() {
     if (_status == GAME) {
-        _gameScene.fixedUpdate();
+        float time = getFixedStep()/1000000.0f;
+        _gameScene.fixedUpdate(time);
     } else if(_status == PAUSE){
         _pauseScene.fixedUpdate();
     }

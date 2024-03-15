@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objecttypes>
+ <objecttype name="crate" color="#a0a0a4">
+  <property name="properties" type="class" propertytype="CrateProperties" default=""/>
+ </objecttype>
+ <objecttype name="exit" color="#a0a0a4">
+  <property name="properties" type="class" propertytype="ExitProperties" default=""/>
+ </objecttype>
+ <objecttype name="rocket" color="#a0a0a4">
+  <property name="properties" type="class" propertytype="RocketProperties" default=""/>
+ </objecttype>
+ <objecttype name="wall" color="#a0a0a4">
+  <property name="properties" type="class" propertytype="WallProperties" default=""/>
+ </objecttype>
+</objecttypes>

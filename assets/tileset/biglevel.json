@@ -8,55 +8,6 @@
          "name":"Objects",
          "objects":[
                 {
-                 "height":0,
-                 "id":11,
-                 "name":"",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":0,
-                         "y":-1088
-                        }, 
-                        {
-                         "x":64,
-                         "y":-1088
-                        }, 
-                        {
-                         "x":64,
-                         "y":0
-                        }],
-                 "properties":[
-                        {
-                         "name":"properties",
-                         "propertytype":"WallProperties",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":192,
-                                 "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
-                                 "rotation":false,
-                                 "texture":"earth"
-                                }
-                            }
-                        }],
-                 "rotation":0,
-                 "type":"wall",
-                 "visible":true,
-                 "width":0,
-                 "x":0,
-                 "y":1152
-                }, 
-                {
                  "gid":6,
                  "height":64,
                  "id":18,
@@ -253,6 +204,39 @@
                  "width":64,
                  "x":598,
                  "y":1064
+                }, 
+                {
+                 "gid":6,
+                 "height":64,
+                 "id":34,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"properties",
+                         "propertytype":"CrateProperties",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":2,
+                                 "damping":1,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":192,
+                                 "density":1,
+                                 "friction":0.2,
+                                 "restitution":0.1,
+                                 "rotation":false,
+                                 "texture":"crate02"
+                                }
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"crate",
+                 "visible":true,
+                 "width":64,
+                 "x":768,
+                 "y":737
                 }, 
                 {
                  "height":0,
@@ -625,7 +609,7 @@
                  "gid":1,
                  "height":64,
                  "id":49,
-                 "name":"crate01",
+                 "name":"",
                  "properties":[
                         {
                          "name":"properties",
@@ -653,6 +637,72 @@
                  "width":64,
                  "x":502,
                  "y":771
+                }, 
+                {
+                 "gid":1,
+                 "height":64,
+                 "id":50,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"properties",
+                         "propertytype":"CrateProperties",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":2,
+                                 "damping":1,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":192,
+                                 "density":1,
+                                 "friction":0.2,
+                                 "restitution":0.1,
+                                 "rotation":false,
+                                 "texture":"crate01"
+                                }
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"crate",
+                 "visible":true,
+                 "width":64,
+                 "x":299,
+                 "y":983
+                }, 
+                {
+                 "gid":1,
+                 "height":64,
+                 "id":51,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"properties",
+                         "propertytype":"CrateProperties",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":2,
+                                 "damping":1,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":192,
+                                 "density":1,
+                                 "friction":0.2,
+                                 "restitution":0.1,
+                                 "rotation":false,
+                                 "texture":"crate01"
+                                }
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"crate",
+                 "visible":true,
+                 "width":64,
+                 "x":263,
+                 "y":1078
                 }, 
                 {
                  "height":0,
@@ -797,412 +847,44 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":1290.33721144968,
-                 "y":606.586149584487
+                 "x":832,
+                 "y":896
                 }, 
                 {
                  "gid":7,
                  "height":57,
-                 "id":59,
+                 "id":55,
                  "name":"",
-                 "properties":[
-                        {
-                         "name":"properties",
-                         "propertytype":"RocketProperties",
-                         "type":"class",
-                         "value":
-                            {
-                             "burn":"burn",
-                             "flames":"flames",
-                             "flames-left":"flames-left",
-                             "flames-right":"flames-right",
-                             "left-sound":"left-burn",
-                             "main-sound":"burn",
-                             "obstacle":
-                                {
-                                 "bodytype":2,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":192,
-                                 "density":1,
-                                 "friction":0.1,
-                                 "restitution":0.4,
-                                 "rotation":false,
-                                 "texture":"rocket"
-                                },
-                             "right-sound":"right-burn",
-                             "thrust":30
-                            }
-                        }],
                  "rotation":0,
-                 "type":"rocket",
+                 "type":"",
                  "visible":true,
                  "width":50,
-                 "x":896,
+                 "x":864,
                  "y":1088
                 }, 
                 {
                  "gid":8,
                  "height":96,
-                 "id":60,
+                 "id":56,
                  "name":"",
-                 "properties":[
-                        {
-                         "name":"properties",
-                         "propertytype":"ExitProperties",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":192,
-                                 "density":0,
-                                 "friction":0,
-                                 "restitution":0,
-                                 "rotation":false,
-                                 "texture":"goal"
-                                }
-                            }
-                        }],
                  "rotation":0,
-                 "type":"exit",
+                 "type":"",
                  "visible":true,
                  "width":96,
-                 "x":192,
-                 "y":736
+                 "x":195,
+                 "y":732
                 }, 
                 {
-                 "height":0,
-                 "id":86,
+                 "gid":1,
+                 "height":64,
+                 "id":58,
                  "name":"",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":0.666666666666742,
-                         "y":8
-                        }, 
-                        {
-                         "x":-16.6666666666665,
-                         "y":13.3333333333333
-                        }, 
-                        {
-                         "x":-23.3333333333333,
-                         "y":29.3333333333333
-                        }, 
-                        {
-                         "x":-23.3333333333333,
-                         "y":56
-                        }, 
-                        {
-                         "x":-38,
-                         "y":67.3333333333333
-                        }, 
-                        {
-                         "x":-60.6666666666665,
-                         "y":72.6666666666666
-                        }, 
-                        {
-                         "x":-91.3333333333333,
-                         "y":79.3333333333333
-                        }, 
-                        {
-                         "x":-114.666666666667,
-                         "y":81.3333333333333
-                        }, 
-                        {
-                         "x":-153.333333333333,
-                         "y":94
-                        }, 
-                        {
-                         "x":-174,
-                         "y":110
-                        }, 
-                        {
-                         "x":-178.666666666667,
-                         "y":128.666666666667
-                        }, 
-                        {
-                         "x":-162.666666666667,
-                         "y":150
-                        }, 
-                        {
-                         "x":-148,
-                         "y":168
-                        }, 
-                        {
-                         "x":-147.333333333333,
-                         "y":179.333333333333
-                        }, 
-                        {
-                         "x":-156,
-                         "y":195.333333333333
-                        }, 
-                        {
-                         "x":-163.333333333333,
-                         "y":206
-                        }, 
-                        {
-                         "x":-188.666666666667,
-                         "y":213.333333333333
-                        }, 
-                        {
-                         "x":-214.666666666667,
-                         "y":214
-                        }, 
-                        {
-                         "x":-237.333333333333,
-                         "y":220.666666666667
-                        }, 
-                        {
-                         "x":-248.666666666667,
-                         "y":236
-                        }, 
-                        {
-                         "x":-250.666666666667,
-                         "y":253.333333333333
-                        }, 
-                        {
-                         "x":-237.333333333333,
-                         "y":272
-                        }, 
-                        {
-                         "x":-232.666666666667,
-                         "y":296.666666666667
-                        }, 
-                        {
-                         "x":-244.666666666667,
-                         "y":310
-                        }, 
-                        {
-                         "x":-271.333333333333,
-                         "y":316.666666666667
-                        }, 
-                        {
-                         "x":-310,
-                         "y":316.666666666667
-                        }, 
-                        {
-                         "x":-343.333333333333,
-                         "y":304.666666666667
-                        }, 
-                        {
-                         "x":-370.666666666667,
-                         "y":291.333333333333
-                        }, 
-                        {
-                         "x":-385.333333333333,
-                         "y":270
-                        }, 
-                        {
-                         "x":-389.333333333333,
-                         "y":248.666666666667
-                        }, 
-                        {
-                         "x":-374.666666666667,
-                         "y":219.333333333333
-                        }, 
-                        {
-                         "x":-359.333333333333,
-                         "y":198
-                        }, 
-                        {
-                         "x":-352,
-                         "y":182.666666666667
-                        }, 
-                        {
-                         "x":-354.666666666667,
-                         "y":168
-                        }, 
-                        {
-                         "x":-361.333333333333,
-                         "y":160
-                        }, 
-                        {
-                         "x":-370,
-                         "y":155.333333333333
-                        }, 
-                        {
-                         "x":-397.333333333333,
-                         "y":152
-                        }, 
-                        {
-                         "x":-420.666666666667,
-                         "y":145.333333333333
-                        }, 
-                        {
-                         "x":-436.666666666667,
-                         "y":128.666666666667
-                        }, 
-                        {
-                         "x":-432.666666666667,
-                         "y":97.3333333333333
-                        }, 
-                        {
-                         "x":-445.333333333333,
-                         "y":86.6666666666666
-                        }, 
-                        {
-                         "x":-495.333333333333,
-                         "y":68
-                        }, 
-                        {
-                         "x":-512.666666666667,
-                         "y":53.3333333333333
-                        }, 
-                        {
-                         "x":-528.666666666667,
-                         "y":35.3333333333333
-                        }, 
-                        {
-                         "x":-532,
-                         "y":6.66666666666663
-                        }, 
-                        {
-                         "x":-511.333333333333,
-                         "y":-20.6666666666667
-                        }, 
-                        {
-                         "x":-488,
-                         "y":-27.3333333333334
-                        }, 
-                        {
-                         "x":-434,
-                         "y":-28
-                        }, 
-                        {
-                         "x":-350.666666666667,
-                         "y":-32
-                        }, 
-                        {
-                         "x":-262,
-                         "y":-34
-                        }, 
-                        {
-                         "x":-190.666666666667,
-                         "y":-30.6666666666667
-                        }, 
-                        {
-                         "x":-122.666666666667,
-                         "y":-27.3333333333334
-                        }, 
-                        {
-                         "x":-59.3333333333333,
-                         "y":-20.6666666666667
-                        }, 
-                        {
-                         "x":-14,
-                         "y":-15.3333333333333
-                        }],
-                 "properties":[
-                        {
-                         "name":"properties",
-                         "propertytype":"WallProperties",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":192,
-                                 "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
-                                 "rotation":false,
-                                 "texture":"pop"
-                                }
-                            }
-                        }],
                  "rotation":0,
-                 "type":"wall",
+                 "type":"",
                  "visible":true,
-                 "width":0,
-                 "x":1144.17950138504,
-                 "y":392.179132040628
-                }, 
-                {
-                 "height":0,
-                 "id":87,
-                 "name":"",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":0,
-                         "y":35.9999999999999
-                        }, 
-                        {
-                         "x":-89.3333333333333,
-                         "y":34.6666666666667
-                        }, 
-                        {
-                         "x":-197.333333333333,
-                         "y":23.9999999999999
-                        }, 
-                        {
-                         "x":-217.333333333333,
-                         "y":-18.6666666666667
-                        }, 
-                        {
-                         "x":-172,
-                         "y":-42.6666666666667
-                        }, 
-                        {
-                         "x":-145.333333333333,
-                         "y":-21.3333333333333
-                        }, 
-                        {
-                         "x":-101.333333333333,
-                         "y":-9.33333333333331
-                        }, 
-                        {
-                         "x":-66.6666666666667,
-                         "y":-30.6666666666667
-                        }, 
-                        {
-                         "x":-33.3333333333333,
-                         "y":-42.6666666666667
-                        }, 
-                        {
-                         "x":-17.3333333333333,
-                         "y":-17.3333333333333
-                        }],
-                 "properties":[
-                        {
-                         "name":"properties",
-                         "propertytype":"WallProperties",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":192,
-                                 "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
-                                 "rotation":false,
-                                 "texture":"pop"
-                                }
-                            }
-                        }],
-                 "rotation":0,
-                 "type":"wall",
-                 "visible":true,
-                 "width":0,
-                 "x":453.333333333333,
-                 "y":505.333333333333
+                 "width":64,
+                 "x":502,
+                 "y":709
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1211,7 +893,7 @@
          "y":0
         }],
  "nextlayerid":8,
- "nextobjectid":89,
+ "nextobjectid":59,
  "orientation":"orthogonal",
  "properties":[
         {
@@ -1225,7 +907,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"..\/tileset\/demo_elements.tsx"
+         "source":"demo_elements.tsx"
         }],
  "tilewidth":32,
  "type":"map",

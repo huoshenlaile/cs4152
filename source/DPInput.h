@@ -6,23 +6,28 @@
 
 class PlatformInput {
 private:
-	/** Whether or not this input is active */
-	bool _active;
-	// KEYBOARD EMULATION
-	/** Whether the jump key is down */
-	bool  _keyJump;
-	/** Whether the fire key is down */
-	bool  _keyFire;
-	/** Whether the reset key is down */
-	bool  _keyReset;
-	/** Whether the debug key is down */
-	bool  _keyDebug;
-	/** Whether the exit key is down */
-	bool  _keyExit;
-	/** Whether the left arrow key is down */
-	bool  _keyLeft;
-	/** Whether the right arrow key is down */
-	bool  _keyRight;
+    /** Whether or not this input is active */
+    bool _active;
+    // KEYBOARD EMULATION
+    /** Whether the jump key is down */
+    bool  _keyJump;
+    /** Whether the fire key is down */
+    bool  _keyFire;
+    /** Whether the reset key is down */
+    bool  _keyReset;
+    /** Whether the debug key is down */
+    bool  _keyDebug;
+    /** Whether the exit key is down */
+    bool  _keyExit;
+    /** Whether the left arrow key is down */
+    bool  _keyLeft;
+    /** Whether the right arrow key is down */
+    bool  _keyRight;
+    cugl::Vec2 _rightHandCur;
+    cugl::Vec2 _rightHandPrev;
+    cugl::Vec2 _leftHandCur = {-1.0f, -1.0f};
+    cugl::Vec2 _leftHandPrev = {-1.0f, -1.0f};
+    
 
 protected:
 	// INPUT RESULTS
