@@ -127,9 +127,14 @@ Vec2 PlatformInput::touch2Screen(const Vec2 pos) const {
  * @param focus	Whether the listener currently has focus
  */
 void PlatformInput::touchBeganCB(const TouchEvent& event, bool focus) {
-	// TRANSFORM touchevent pos to screen pos.
-	Vec2 position = touch2Screen(event.position);
-
+    // TRANSFORM touchevent pos to screen pos.
+    Vec2 position = touch2Screen(event.position);
+    /*if(position.x < 2 && position.y < 2){
+        _pausePressed = true;
+        CULog("PausePressed input set to true");
+        return;
+    }*/
+    
 	if (!_character.leftHand.assigned && _character.rightHand.assigned) {
 		// Assign this touch to left hand
 		_character.leftHand.assigned = true;
@@ -174,6 +179,7 @@ void PlatformInput::touchBeganCB(const TouchEvent& event, bool focus) {
  * @param focus	Whether the listener currently has focus
  */
 void PlatformInput::touchEndedCB(const TouchEvent& event, bool focus) {
+    _pausePressed = false;
 	if (_character.leftHand.touchID == event.touch) {
 		_character.leftHand.assigned = false;
 		_character.leftHand.prev = Vec2(-1, -1);
@@ -255,6 +261,7 @@ Vec2 PlatformInput::getrightHandMovement() {
 	if (!_character.rightHand.assigned) return { 0,0 };
 	Vec2 movement = _character.rightHand.curr - _character.rightHand.prev;
 	// log movement
-	//CULog("Right Hand Movement Log: %f, %f", movement.x, movement.y);
-	return movement;
+	CULog("Right Hand Movement Log: %f, %f", movement.x, movement.y);
+    return movement;
 }
+
