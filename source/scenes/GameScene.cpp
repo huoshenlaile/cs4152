@@ -81,6 +81,17 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
     _uinode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
     _uinode->addChild(_winnode);
     
+    _pause = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("pause"));
+    
+    /*_pause->addListener([this](const std::string& name, bool down) {
+        if (down) {
+            CULog("Pause button hit");
+        }
+    });*/
+     
+    _uinode->addChild(_pause);
+
+    
     addChild(_worldnode);
     addChild(_uinode);
     _worldnode->setContentSize(Size(SCENE_WIDTH,SCENE_HEIGHT));
@@ -199,12 +210,13 @@ void GameScene::processGrabEvent(const std::shared_ptr<GrabEvent>& event){
 
 
 /**
- * This method takes a grabEvent and processes it.
+ * This method takes a pauseEvent and processes it.
  */
 void GameScene::processPauseEvent(const std::shared_ptr<PauseEvent>& event){
+    CULog("Pausing here");
+    _gamePaused = true;
     //TODO: Waiting for Other Module
 }
-
 
 #pragma mark Physics Handling
 
@@ -214,6 +226,13 @@ void GameScene::preUpdate(float dt) {
     }
     // _input.update();
     _inputController -> update(dt);
+    
+    if(_inputController->didPause()){
+        CULog("Pause Event COMING");
+        _network->pushOutEvent(PauseEvent::allocPauseEvent(Vec2(DEFAULT_WIDTH/2,DEFAULT_HEIGHT/2)));
+        return;
+    }
+    
     _characterControllerA -> moveLeftHand(INPUT_SCALER * _inputController -> getLeftHandMovement());
     _characterControllerA -> moveRightHand(INPUT_SCALER * _inputController -> getrightHandMovement());
     _inputController -> fillHand(_characterControllerA->getLeftHandPosition(), _characterControllerA->getRightHandPosition());
@@ -252,18 +271,11 @@ void GameScene::fixedUpdate() {
             CULog("BIG Grab Event GOT");
             processGrabEvent(grabEvent);
         }
-    }
-    
-    
-    //TODO: check for available incoming events from the network controller and call processGrabEvent if it is a GrabEvent.
-    if(_network->isInAvailable()){
-        auto e = _network->popInEvent();
-        if(auto pauseEvent = std::dynamic_pointer_cast<PauseEvent>(e)){
-            CULog("BIG Pause Event GOT");
+        else if(auto pauseEvent = std::dynamic_pointer_cast<PauseEvent>(e)){
+            CULog("Pause Event RECIEVED");
             processPauseEvent(pauseEvent);
         }
     }
-    
     
     _platformWorld->update(0.1);
 }

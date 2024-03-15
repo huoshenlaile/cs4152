@@ -69,6 +69,7 @@ void DPApp::onShutdown() {
     _settingScene.dispose();
     _restorationScene.dispose();
     _loadScene.dispose();
+    _pauseScene.dispose();
     _assets = nullptr;
     _batch = nullptr;
     
@@ -147,8 +148,14 @@ void DPApp::preUpdate(float timestep){
             _gameScene.reset();
             _status = MENU;
             _menuScene.setActive(true);
+        } else if(_gameScene.isPaused()){
+            _status = PAUSE;
+            _gameScene.setActive(false);
+            _pauseScene.setActive(true);
         }
         _gameScene.preUpdate(timestep);
+    } else if(_status == PAUSE){
+        updatePause(timestep);
     }
 }
 
@@ -214,6 +221,20 @@ void DPApp::updateMenu(float timestep) {
     }
 }
 
+void DPApp::updatePause(float timestep) {
+    _pauseScene.update(timestep);
+    switch (_pauseScene.state) {
+        case PauseScene::BACK:
+            _status = GAME;
+            _pauseScene.setActive(false);
+            _gameScene.setActive(true);
+            break;
+        default:
+            break;
+    }
+
+    
+}
 
 void DPApp::updateHost(float timestep) {
     _hostScene.update(timestep);
@@ -294,7 +315,9 @@ void DPApp::updateLoad(float timestep) {
             _menuScene.setActive(true);
             _hostScene.init(_assets,_network);
             _clientScene.init(_assets,_network);
+            _pauseScene.init(_assets);
             _settingScene.init(_assets);
+            //_pauseScene.init(_assets);
             //_gameScene.init(_assets);
             _status = MENU;
             break;

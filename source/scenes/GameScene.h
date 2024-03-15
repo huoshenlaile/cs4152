@@ -22,6 +22,7 @@ protected:
     std::shared_ptr<AudioController> _audioController;
     std::shared_ptr<PlatformInput> _inputController;
     
+    std::shared_ptr<cugl::scene2::Button> _pause;
     
     std::shared_ptr<cugl::physics2::net::NetWorld> _platformWorld;
     
@@ -65,6 +66,8 @@ protected:
     bool _complete;
     /** Whether or not debug mode is active */
     bool _debug;
+    
+    bool _gamePaused;
     /** Relates input id to arm */
     std::unordered_map<std::string,int> _input_to_arm;
     /** Relates arm to input id*/
@@ -201,6 +204,7 @@ public:
      * @return true if the level is completed.
      */
     bool isComplete() const { return _complete; }
+    bool isPaused() const { return _gamePaused; }
 
     /**
      * Sets whether the level is completed.
