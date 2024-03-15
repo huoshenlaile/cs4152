@@ -37,8 +37,8 @@
 #define CJOINT_TEXTURE "joint32"
 #define HAND_TEXTURE "hand64"
 
-#define MAX_TORQUE 100000.0f
-#define MAX_FORCE 100000.0f
+#define MAX_TORQUE 1000000.0f
+#define MAX_FORCE  100000.0f
 
 #define LENGTH_MULTIPLIER 2.0f
 #define CJOINT_OFFSET 3.0f
@@ -68,7 +68,7 @@ protected:
     cugl::Mat4 _affine;
     float _drawScale;
     std::string getPartName(int part);
-    
+    bool _motorEnabled = true;
     std::shared_ptr<cugl::physics2::BoxObstacle> makePart(int part, int connect, const cugl::Vec2& pos);
     Vec2 SolveAngleMiddleBisectorLine(Vec2 p);
     Vec2 armMiddleExp_R(Vec2 end);
@@ -84,6 +84,7 @@ protected:
     std::shared_ptr<physics2::MotorJoint> rightHandJoint;
     std::shared_ptr<physics2::MotorJoint> leftElbowJoint;
     std::shared_ptr<physics2::MotorJoint> rightElbowJoint;
+    
 public:
     CharacterController(void) : _drawScale(0) { }
     virtual ~CharacterController(void) { dispose(); }
@@ -126,6 +127,8 @@ public:
     void setSceneNode(const std::shared_ptr<cugl::scene2::SceneNode>& node);
     void setDrawScale(float scale);
     
+    void enableMotor();
+    void disableMotor();
 
 #pragma mark HAND CONTROLLER
     bool moveRightHand(cugl::Vec2 offset);
