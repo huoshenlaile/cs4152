@@ -287,15 +287,15 @@ bool CharacterController::createJoints(){
         rightHandJoint = physics2::MotorJoint::allocWithObstacles(_obstacles[PART_BODY],_obstacles[PART_RH]);
         rightHandJoint->setMaxForce(MAX_FORCE);
         rightHandJoint->setLinearOffset(rightShoulderOffset + rightHandOffset);
-        rightHandJoint->setMaxTorque(MAX_TORQUE);
-        rightHandJoint->setAngularOffset(0);
+//        rightHandJoint->setMaxTorque(MAX_TORQUE);
+//        rightHandJoint->setAngularOffset(0);
         _joints.push_back(rightHandJoint);
 
         leftHandJoint = physics2::MotorJoint::allocWithObstacles(_obstacles[PART_BODY],_obstacles[PART_LH]);
         leftHandJoint->setMaxForce(MAX_FORCE);
         leftHandJoint->setLinearOffset(leftShoulderOffset + leftHandOffset);
-        leftHandJoint->setMaxTorque(MAX_TORQUE);
-        leftHandJoint->setAngularOffset(0);
+//        leftHandJoint->setMaxTorque(MAX_TORQUE);
+//        leftHandJoint->setAngularOffset(0);
         _joints.push_back(leftHandJoint);
 
         leftElbowJoint = physics2::MotorJoint::allocWithObstacles(_obstacles[PART_BODY],_obstacles[PART_LR3]);
@@ -416,8 +416,8 @@ bool CharacterController::moveLeftHand(cugl::Vec2 offset){
     leftElbowOffset = leftElbowPosition;
     leftElbowJoint->setLinearOffset(leftShoulderOffset + leftElbowOffset);
 
-    leftArmJoint->setLinearOffset((leftShoulderOffset + (leftElbowOffset / 2.0f)));
-    leftForearmJoint->setLinearOffset((leftShoulderOffset + ((leftHandOffset + leftElbowOffset) / 2.0f)));
+//    leftArmJoint->setLinearOffset((leftShoulderOffset + (leftElbowOffset / 2.0f)));
+//    leftForearmJoint->setLinearOffset((leftShoulderOffset + ((leftHandOffset + leftElbowOffset) / 2.0f)));
     return true;
 }
 
@@ -447,8 +447,8 @@ bool CharacterController::moveRightHand(cugl::Vec2 offset){
     rightElbowOffset = rightElbowPosition;
     rightElbowJoint->setLinearOffset(rightShoulderOffset + rightElbowPosition);
 
-    rightArmJoint->setLinearOffset((rightShoulderOffset + (rightElbowOffset / 2.0f)));
-    rightForearmJoint->setLinearOffset((rightShoulderOffset + ((rightHandOffset + rightElbowOffset) / 2.0f)));
+//    rightArmJoint->setLinearOffset((rightShoulderOffset + (rightElbowOffset / 2.0f)));
+//    rightForearmJoint->setLinearOffset((rightShoulderOffset + ((rightHandOffset + rightElbowOffset) / 2.0f)));
     return true;
 }
 

@@ -38,7 +38,7 @@
 #define HAND_TEXTURE "hand64"
 
 #define MAX_TORQUE 100000.0f
-#define MAX_FORCE  100000.0f
+#define MAX_FORCE  10000.0f
 
 #define LENGTH_MULTIPLIER 2.0f
 #define CJOINT_OFFSET 3.0f
@@ -53,7 +53,7 @@
 /** The radius for the center of mass */
 #define CENTROID_RADIUS  0.1f
 
-#define BODY_DENSITY 5.0f
+#define BODY_DENSITY 3.0f
 
 using namespace cugl;
 

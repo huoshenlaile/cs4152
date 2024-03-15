@@ -42,7 +42,7 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0.2,
+                                 "friction":10,
                                  "restitution":0.1,
                                  "rotation":false,
                                  "texture":"earth"
@@ -75,7 +75,7 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":1,
-                                 "friction":0.2,
+                                 "friction":10,
                                  "restitution":0.1,
                                  "rotation":false,
                                  "texture":"crate02"
@@ -108,7 +108,7 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":1,
-                                 "friction":0.2,
+                                 "friction":10,
                                  "restitution":0.1,
                                  "rotation":false,
                                  "texture":"crate02"
@@ -141,7 +141,7 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":1,
-                                 "friction":0.2,
+                                 "friction":10,
                                  "restitution":0.1,
                                  "rotation":false,
                                  "texture":"crate02"
@@ -174,7 +174,7 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":1,
-                                 "friction":0.2,
+                                 "friction":10,
                                  "restitution":0.1,
                                  "rotation":false,
                                  "texture":"crate02"
@@ -207,7 +207,7 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":1,
-                                 "friction":0.2,
+                                 "friction":10,
                                  "restitution":0.1,
                                  "rotation":false,
                                  "texture":"crate02"
@@ -240,7 +240,7 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":1,
-                                 "friction":0.2,
+                                 "friction":10,
                                  "restitution":0.1,
                                  "rotation":false,
                                  "texture":"crate02"
@@ -289,7 +289,7 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0.2,
+                                 "friction":10,
                                  "restitution":0.1,
                                  "rotation":false,
                                  "texture":"earth"
@@ -338,7 +338,7 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0.2,
+                                 "friction":10,
                                  "restitution":0.1,
                                  "rotation":false,
                                  "texture":"earth"
@@ -387,7 +387,7 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0,
+                                 "friction":10,
                                  "restitution":0,
                                  "rotation":false,
                                  "texture":"earth"
@@ -464,7 +464,7 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0.2,
+                                 "friction":10,
                                  "restitution":0.1,
                                  "rotation":false,
                                  "texture":"earth"
@@ -541,7 +541,7 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0.2,
+                                 "friction":10,
                                  "restitution":0.1,
                                  "rotation":false,
                                  "texture":"earth"
@@ -574,7 +574,7 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":1,
-                                 "friction":0.2,
+                                 "friction":10,
                                  "restitution":0.1,
                                  "rotation":false,
                                  "texture":"crate01"
@@ -607,7 +607,7 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":1,
-                                 "friction":0.2,
+                                 "friction":10,
                                  "restitution":0.1,
                                  "rotation":false,
                                  "texture":"crate01"
@@ -640,7 +640,7 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":1,
-                                 "friction":0.2,
+                                 "friction":10,
                                  "restitution":0.1,
                                  "rotation":false,
                                  "texture":"crate01"
@@ -689,7 +689,7 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0.2,
+                                 "friction":10,
                                  "restitution":0.1,
                                  "rotation":false,
                                  "texture":"earth"
@@ -786,7 +786,7 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0.2,
+                                 "friction":10,
                                  "restitution":0.1,
                                  "rotation":false,
                                  "texture":"earth"
@@ -825,7 +825,7 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":1,
-                                 "friction":0.1,
+                                 "friction":10.1,
                                  "restitution":0.4,
                                  "rotation":false,
                                  "texture":"rocket"
@@ -860,7 +860,7 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0,
+                                 "friction":10,
                                  "restitution":0,
                                  "rotation":false,
                                  "texture":"goal"
@@ -1113,7 +1113,7 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0.2,
+                                 "friction":10,
                                  "restitution":0.1,
                                  "rotation":false,
                                  "texture":"pop"
@@ -1190,7 +1190,7 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0.2,
+                                 "friction":10,
                                  "restitution":0.1,
                                  "rotation":false,
                                  "texture":"pop"
