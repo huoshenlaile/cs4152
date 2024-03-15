@@ -86,7 +86,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
     _pause->addListener([this](const std::string& name, bool down) {
         if (down) {
             CULog("Pause button hit");
-            _network->pushOutEvent(PauseEvent::allocPauseEvent(Vec2(DEFAULT_WIDTH/2,DEFAULT_HEIGHT/2)));
+            _network->pushOutEvent(PauseEvent::allocPauseEvent(Vec2(DEFAULT_WIDTH/2,DEFAULT_HEIGHT/2), true));
         }
         //CULog("Pause button hit");
     });
@@ -215,7 +215,12 @@ void GameScene::processGrabEvent(const std::shared_ptr<GrabEvent>& event){
  */
 void GameScene::processPauseEvent(const std::shared_ptr<PauseEvent>& event){
     CULog("Pausing here");
-    _gamePaused = true;
+    if(event->isPause()){
+        _gamePaused = true;
+    } else {
+        _gamePaused = false;
+    }
+    
     //TODO: Waiting for Other Module
 }
 
@@ -227,12 +232,6 @@ void GameScene::preUpdate(float dt) {
     }
     // _input.update();
     _inputController -> update(dt);
-    
-    /*if(_inputController->didPause()){
-        CULog("Pause Event COMING");
-        _network->pushOutEvent(PauseEvent::allocPauseEvent(Vec2(DEFAULT_WIDTH/2,DEFAULT_HEIGHT/2)));
-        return;
-    }*/
     
     _characterControllerA -> moveLeftHand(INPUT_SCALER * _inputController -> getLeftHandMovement());
     _characterControllerA -> moveRightHand(INPUT_SCALER * _inputController -> getrightHandMovement());

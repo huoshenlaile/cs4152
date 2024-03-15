@@ -10,6 +10,8 @@
 
 #include <stdio.h>
 #include <cugl/cugl.h>
+#include "../helpers/GameSceneConstants.h"
+#include "../controllers/PauseEvent.h"
 
 using namespace cugl;
 class PauseScene : public Scene2 {
@@ -18,6 +20,8 @@ protected:
     /** The asset manager for this scene. */
     std::shared_ptr<AssetManager> _assets;
     std::shared_ptr<cugl::scene2::Button> _backout;
+    std::shared_ptr<cugl::scene2::Button> _reset;
+    std::shared_ptr<physics2::net::NetEventController> _network;
     
 public:
     enum SceneState {
@@ -61,7 +65,7 @@ public:
      *
      * @return true if the controller is initialized properly, false otherwise.
      */
-    bool init(const std::shared_ptr<cugl::AssetManager>& assets);
+    bool init(const std::shared_ptr<cugl::AssetManager>& assets, const std::shared_ptr<physics2::net::NetEventController>& network);
 
     /**
      * Sets whether the scene is currently active
@@ -82,6 +86,7 @@ public:
      * @param timestep  The amount of time (in seconds) since the last frame
      */
     void update(float timestep) override;
+    virtual void fixedUpdate();
 };
 
 #endif /* PauseScene_hpp */

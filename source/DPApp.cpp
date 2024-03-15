@@ -171,6 +171,8 @@ void DPApp::postUpdate(float timestep) {
 void DPApp::fixedUpdate() {
     if (_status == GAME) {
         _gameScene.fixedUpdate();
+    } else if(_status == PAUSE){
+        _pauseScene.fixedUpdate();
     }
     if(_network){
         _network->updateNet();
@@ -233,7 +235,6 @@ void DPApp::updatePause(float timestep) {
         default:
             break;
     }
-
     
 }
 
@@ -316,7 +317,7 @@ void DPApp::updateLoad(float timestep) {
             _menuScene.setActive(true);
             _hostScene.init(_assets,_network);
             _clientScene.init(_assets,_network);
-            _pauseScene.init(_assets);
+            _pauseScene.init(_assets, _network);
             _settingScene.init(_assets);
             //_pauseScene.init(_assets);
             //_gameScene.init(_assets);
