@@ -52,7 +52,6 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets, const cu
 	_network = network;
 	_assets = assets;
 
-	//    _platformWorld = physics2::net::NetWorld::alloc(Rect(0,0,DEFAULT_WIDTH,DEFAULT_HEIGHT),Vec2(0,DEFAULT_GRAVITY));
 
 	_scale = dimen.width == SCENE_WIDTH ? dimen.width / rect.size.width : dimen.height / rect.size.height;
 	Vec2 offset{ (dimen.width - SCENE_WIDTH) / 2.0f,
@@ -101,11 +100,12 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets, const cu
 		CULog("Fail loading levels");
 		return false;
 	}
-	//    _level->setWorld(_platformWorld);
+    // TODO: see the changes here - setting the world here somehow passes in our gravity factor.
+        _platformWorld = physics2::net::NetWorld::alloc(_level->getBounds(),Vec2(0,DEFAULT_GRAVITY));
+	    _level->setWorld(_platformWorld);
 	_level->setAssets(_assets);
 	_level->setRootNode(_worldnode);
-
-	_platformWorld = _level->getPhysicsWorld();
+//	_platformWorld = _level->getPhysicsWorld();
 
 #pragma mark Character 1
 	_characterControllerA = CharacterController::alloc({ 16,10 }, _scale);
