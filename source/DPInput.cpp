@@ -60,6 +60,13 @@ bool PlatformInput::init(const Rect bounds) {
  * frame, so we need to accumulate all of the data together.
  */
 void PlatformInput::update(float dt) {
+    if (_character.leftHand.curr == _leftHandCur && _character.leftHand.prev == _leftHandPrev) {
+        _character.leftHand.prev = _character.leftHand.curr;
+    }
+    if (_character.rightHand.curr == _rightHandCur && _character.rightHand.prev == _rightHandPrev) {
+        _character.rightHand.prev = _character.rightHand.curr;
+    }
+    
 }
 
 /**
@@ -188,14 +195,22 @@ void PlatformInput::touchEndedCB(const TouchEvent& event, bool focus) {
  */
 void PlatformInput::touchesMovedCB(const TouchEvent& event, const Vec2& previous, bool focus) {
     Vec2 position = touch2Screen(event.position);
+    CULog("Touch move at: %f %f \n", position.x, position.y);
 	if (_character.leftHand.touchID == event.touch) {
 		_character.leftHand.prev = _character.leftHand.curr;
 		_character.leftHand.curr = position;
+//        _leftHandCur = _character.leftHand.curr;
+//        _leftHandPrev = _character.leftHand.prev;
 	}
 	else if (_character.rightHand.touchID == event.touch) {
 		_character.rightHand.prev = _character.rightHand.curr;
 		_character.rightHand.curr = position;
+//        _rightHandCur = _character.rightHand.curr;
+//        _rightHandPrev = _character.rightHand.prev;
 	}
+    
+    Vec2 offset = _character.rightHand.curr - _character.rightHand.prev;
+    CULog("Touch offset is: %f %f \n", offset.x, offset.y);
 }
 
 unsigned int PlatformInput::getNumTouches() {
@@ -218,13 +233,19 @@ void PlatformInput::fillHand(Vec2 leftHandPos, Vec2 rightHandPos) {
 }
 
 Vec2 PlatformInput::getLeftHandMovement() {
+    _leftHandCur = _character.leftHand.curr;
+    _leftHandPrev = _character.leftHand.prev;
 	if (!_character.leftHand.assigned) return { 0,0 };
-	
+    Vec2 offset = _character.rightHand.curr - _character.rightHand.prev;
+    CULog("Hand left move is: %f %f \n", offset.x, offset.y);
     return _character.leftHand.curr - _character.leftHand.prev;
 }
 
 Vec2 PlatformInput::getrightHandMovement() {
+    _rightHandCur = _character.rightHand.curr;
+    _rightHandPrev = _character.rightHand.prev;
 	if (!_character.rightHand.assigned) return { 0,0 };
-	
+    Vec2 offset = _character.rightHand.curr - _character.rightHand.prev;
+    CULog("Hang right move is: %f %f \n", offset.x, offset.y);
     return _character.rightHand.curr - _character.rightHand.prev;
 }
