@@ -90,8 +90,9 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets, const cu
 	addChild(_uinode);
 
 	_worldnode->setContentSize(Size(SCENE_WIDTH, SCENE_HEIGHT));
-
+    
 #pragma mark LevelLoader
+<<<<<<< HEAD
 	//make the getter for loading the map
 	_level = assets->get<LevelLoader>(LEVEL_ONE_KEY);
 	if (_level == nullptr) {
@@ -104,6 +105,19 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets, const cu
 	_level->setAssets(_assets);
 	_level->setRootNode(_worldnode);
 //	_platformWorld = _level->getPhysicsWorld();
+=======
+    //make the getter for loading the map
+    _level = assets->get<LevelLoader>(LEVEL_ONE_KEY);
+    if (_level == nullptr) {
+        CULog("Fail loading levels");
+        return false;
+    }
+    _platformWorld = physics2::net::NetWorld::alloc(_level->getBounds(),Vec2(0,DEFAULT_GRAVITY));
+    _level->setWorld(_platformWorld);
+    _level->setAssets(_assets);
+    _level->setRootNode(_worldnode);
+    // _platformWorld = _level->getPhysicsWorld();
+>>>>>>> 0f8122e ((seems to) fix the gravity issue)
 
 #pragma mark Character 1
 	_characterControllerA = CharacterController::alloc({ 16,10 }, _scale);
