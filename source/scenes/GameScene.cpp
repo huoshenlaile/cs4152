@@ -90,8 +90,6 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets, const cu
 	addChild(_uinode);
 
 	_worldnode->setContentSize(Size(SCENE_WIDTH, SCENE_HEIGHT));
-	//_level->setAssets(_assets);
-	//_level->setRootNode(_rootnode); // Obtains ownership of root.
 
 #pragma mark LevelLoader
 	//make the getter for loading the map
