@@ -63,7 +63,7 @@ bool LevelLoader::preload(const std::string& file) {
  *
  * @return true if successfully loaded the asset from a file
  */
-bool LevelLoader:: preload(const std::shared_ptr<cugl::JsonValue>& json) {
+bool LevelLoader::preload(const std::shared_ptr<cugl::JsonValue>& json) {
     if (json == nullptr) {
         CUAssertLog(false, "Failed to load level file");
         return false;
@@ -71,11 +71,12 @@ bool LevelLoader:: preload(const std::shared_ptr<cugl::JsonValue>& json) {
     // Initial geometry
     float w = json->get(WIDTH_FIELD)->asFloat();
     float h = json->get(HEIGHT_FIELD)->asFloat();
-    float g = json->get("properties")->get(0)->getFloat("value", -4.9);
+    float g = json->get("properties")->get(0)->getFloat("value", -49);
+    CULog("WELL the level is preloaded");
     _bounds.size.set(w, h);
     _gravity.set(0,g);
     /** Create the physics world */
-     _world = cugl::physics2::net::NetWorld::alloc(getBounds(),getGravity());
+     // _world = cugl::physics2::net::NetWorld::alloc(getBounds(),getGravity());
 
     // Get each object in each layer, then decide what to do based off of what
     // type the object is.
