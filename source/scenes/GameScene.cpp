@@ -217,7 +217,7 @@ void GameScene::processPauseEvent(const std::shared_ptr<PauseEvent>& event){
     CULog("Pausing here");
     if(event->isPause()){
         _gamePaused = true;
-    } else {
+    } else { // should never occur, as resume event would be processed by pause scene
         _gamePaused = false;
     }
     
