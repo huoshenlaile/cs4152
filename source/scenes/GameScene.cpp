@@ -46,18 +46,20 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
     } else if (!Scene2::init(dimen)) {
         return false;
     }
+
+    
     
     state = INGAME;
     _isHost = isHost;
     _network = network;
     _assets = assets;
-    _platformWorld = physics2::net::NetWorld::alloc(Rect(0,0,DEFAULT_WIDTH,DEFAULT_HEIGHT),Vec2(0,DEFAULT_GRAVITY));
+   
+//    _platformWorld = physics2::net::NetWorld::alloc(Rect(0,0,DEFAULT_WIDTH,DEFAULT_HEIGHT),Vec2(0,DEFAULT_GRAVITY));
 
     
     _scale = dimen.width == SCENE_WIDTH ? dimen.width/rect.size.width : dimen.height/rect.size.height;
     Vec2 offset {(dimen.width - SCENE_WIDTH) / 2.0f, 
                     (dimen.height - SCENE_HEIGHT) / 2.0f};
-
 
     // TODO: add children to the scene, initialize Controllers
     // Create the scene graph
@@ -92,10 +94,11 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
         CULog("Fail loading levels");
         return false;
     }
-    _level->setWorld(_platformWorld);
+//    _level->setWorld(_platformWorld);
     _level->setAssets(_assets);
     _level->setRootNode(_worldnode);
 
+    _platformWorld = _level->getPhysicsWorld(); 
     
 #pragma mark Character 1
     _characterControllerA = CharacterController::alloc({16,10},  _scale);
@@ -135,7 +138,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
     _interactionController.publishMessage(std::move(pub));
     
     
-    _camera.init(_worldnode,_worldnode,1.0f, std::dynamic_pointer_cast<OrthographicCamera>(getCamera()), _uinode, 2.0f);
+//    _camera.init(charNode,_worldnode,1.0f, std::dynamic_pointer_cast<OrthographicCamera>(getCamera()), _uinode, 2.0f);
     _active = true;
     _complete = false;
     setDebug(false);
@@ -220,7 +223,7 @@ void GameScene::preUpdate(float dt) {
     
     _interactionController.preUpdate(dt);
     //TODO: error handle for loading different levels when we have multiple levels
-    _camera.update(dt);
+//    _camera.update(dt);
 
     
     //TODO: if (indicator == true), allocate a crate event for the center of the screen(use DEFAULT_WIDTH/2 and DEFAULT_HEIGHT/2) and send it using the pushOutEvent() method in the network controller.
