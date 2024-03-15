@@ -262,30 +262,33 @@ bool CharacterController::createJoints(){
     revjoint->setLowerAngle(-M_PI / 2.0f);
     _joints.push_back(revjoint);
     
-    /* new version of motor joint direct body <-> hands*/
-    rightHandJoint = physics2::MotorJoint::allocWithObstacles(_obstacles[PART_BODY],_obstacles[PART_RH]);
-    rightHandJoint->setMaxForce(MAX_FORCE);
-    rightHandJoint->setLinearOffset(rightShoulderOffset + rightHandOffset);
-    rightHandJoint->setMaxTorque(MAX_TORQUE);
-    rightHandJoint->setAngularOffset(0);
-    _joints.push_back(rightHandJoint);
+    if (_motorEnabled){
+        /* new version of motor joint direct body <-> hands*/
+        rightHandJoint = physics2::MotorJoint::allocWithObstacles(_obstacles[PART_BODY],_obstacles[PART_RH]);
+        rightHandJoint->setMaxForce(MAX_FORCE);
+        rightHandJoint->setLinearOffset(rightShoulderOffset + rightHandOffset);
+        rightHandJoint->setMaxTorque(MAX_TORQUE);
+        rightHandJoint->setAngularOffset(0);
+        _joints.push_back(rightHandJoint);
 
-    leftHandJoint = physics2::MotorJoint::allocWithObstacles(_obstacles[PART_BODY],_obstacles[PART_LH]);
-    leftHandJoint->setMaxForce(MAX_FORCE);
-    leftHandJoint->setLinearOffset(leftShoulderOffset + leftHandOffset);
-    leftHandJoint->setMaxTorque(MAX_TORQUE);
-    leftHandJoint->setAngularOffset(0);
-    _joints.push_back(leftHandJoint);
+        leftHandJoint = physics2::MotorJoint::allocWithObstacles(_obstacles[PART_BODY],_obstacles[PART_LH]);
+        leftHandJoint->setMaxForce(MAX_FORCE);
+        leftHandJoint->setLinearOffset(leftShoulderOffset + leftHandOffset);
+        leftHandJoint->setMaxTorque(MAX_TORQUE);
+        leftHandJoint->setAngularOffset(0);
+        _joints.push_back(leftHandJoint);
 
-    leftElbowJoint = physics2::MotorJoint::allocWithObstacles(_obstacles[PART_BODY],_obstacles[PART_LR3]);
-    leftElbowJoint->setMaxForce(MAX_FORCE);
-    leftElbowJoint->setLinearOffset(leftShoulderOffset + leftElbowOffset);
-    _joints.push_back(leftElbowJoint);
+        leftElbowJoint = physics2::MotorJoint::allocWithObstacles(_obstacles[PART_BODY],_obstacles[PART_LR3]);
+        leftElbowJoint->setMaxForce(MAX_FORCE);
+        leftElbowJoint->setLinearOffset(leftShoulderOffset + leftElbowOffset);
+        _joints.push_back(leftElbowJoint);
 
-    rightElbowJoint = physics2::MotorJoint::allocWithObstacles(_obstacles[PART_BODY],_obstacles[PART_JR3]);
-    rightElbowJoint->setMaxForce(MAX_FORCE);
-    rightElbowJoint->setLinearOffset(rightShoulderOffset + rightElbowOffset);
-    _joints.push_back(rightElbowJoint);
+        rightElbowJoint = physics2::MotorJoint::allocWithObstacles(_obstacles[PART_BODY],_obstacles[PART_JR3]);
+        rightElbowJoint->setMaxForce(MAX_FORCE);
+        rightElbowJoint->setLinearOffset(rightShoulderOffset + rightElbowOffset);
+        _joints.push_back(rightElbowJoint);
+    }
+    
 
     // auto dummy_joints_right = dummy_jointsmaker({PART_BODY, PART_JR1, PART_JR2, PART_JR3, PART_JR4, PART_JR5, PART_JR6, PART_RH});
     // _joints.insert(_joints.end(), dummy_joints_right.begin(), dummy_joints_right.end());
@@ -348,9 +351,7 @@ void CharacterController::deactivate(const std::shared_ptr<cugl::physics2::net::
 
 
 bool CharacterController::moveLeftHand(cugl::Vec2 offset){
-    if (offset.x != 0) {
-        CULog("Now, move left hand called: %f, %f",offset.x, offset.y);
-    }
+    if (!_motorEnabled) return false;
     float a = _obstacles[PART_BODY]->getAngle();
     leftHandOffset = leftHandOffset + Vec2(offset.x * cos(a) + offset.y * sin(a), - offset.x * sin(a) + offset.y * cos(a));
     // normalize leftHandOffset to 4 * HALF_CJOINT_OFFSET if it is too long
@@ -373,9 +374,7 @@ bool CharacterController::moveLeftHand(cugl::Vec2 offset){
 
 
 bool CharacterController::moveRightHand(cugl::Vec2 offset){
-    if (offset.x != 0) {
-        CULog("Now, move right hand called: %f, %f",offset.x, offset.y);
-    }
+    if (!_motorEnabled) return false;
     float a = _obstacles[PART_BODY]->getAngle();
     rightHandOffset = rightHandOffset + Vec2(offset.x * cos(a) + offset.y * sin(a), - offset.x * sin(a) + offset.y * cos(a));
     // normalize rightHandOffset to 4 * HALF_CJOINT_OFFSET if it is too long
@@ -413,7 +412,13 @@ Vec2 CharacterController::armMiddleExp_R(Vec2 end){
     return Vec2(x, y);
 }
 
+void CharacterController::enableMotor(){
+    _motorEnabled = true;
+}
 
+void CharacterController::disableMotor(){
+    _motorEnabled = false;
+}
 
 /**
  * Sets the scene graph node representing this Ragdoll.
@@ -440,7 +445,7 @@ void CharacterController::linkPartsToWorld(const std::shared_ptr<cugl::physics2:
         std::shared_ptr<Texture> image = _textures[i];
         std::shared_ptr<scene2::PolygonNode> sprite = scene2::PolygonNode::allocWithTexture(image);
 
-        _world->initObstacle(obj);
+        _world->addObstacle(obj);
         //obj->setDebugScene(_debugnode);
         _scenenode->addChild(sprite);
         // Dynamic objects need constant updating
