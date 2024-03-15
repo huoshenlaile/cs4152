@@ -52,7 +52,6 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets, const cu
 	_network = network;
 	_assets = assets;
 
-
 	_scale = dimen.width == SCENE_WIDTH ? dimen.width / rect.size.width : dimen.height / rect.size.height;
 	Vec2 offset{ (dimen.width - SCENE_WIDTH) / 2.0f,
 					(dimen.height - SCENE_HEIGHT) / 2.0f };
@@ -90,7 +89,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets, const cu
 	addChild(_uinode);
 
 	_worldnode->setContentSize(Size(SCENE_WIDTH, SCENE_HEIGHT));
-    
+
 #pragma mark LevelLoader
 	//make the getter for loading the map
 	_level = assets->get<LevelLoader>(LEVEL_ONE_KEY);
@@ -98,12 +97,12 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets, const cu
 		CULog("Fail loading levels");
 		return false;
 	}
-    // TODO: see the changes here - setting the world here somehow passes in our gravity factor.
-        _platformWorld = physics2::net::NetWorld::alloc(_level->getBounds(),Vec2(0,DEFAULT_GRAVITY));
-	    _level->setWorld(_platformWorld);
+	// TODO: see the changes here - setting the world here somehow passes in our gravity factor.
+	_platformWorld = physics2::net::NetWorld::alloc(_level->getBounds(), Vec2(0, DEFAULT_GRAVITY));
+	_level->setWorld(_platformWorld);
 	_level->setAssets(_assets);
 	_level->setRootNode(_worldnode);
-//	_platformWorld = _level->getPhysicsWorld();
+	//	_platformWorld = _level->getPhysicsWorld();
 
 #pragma mark Character 1
 	_characterControllerA = CharacterController::alloc({ 16,10 }, _scale);
@@ -151,8 +150,8 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets, const cu
 	//    _audioController = std::make_shared<AudioController>();
 	//    _audioController->init(_assets);
 	//    _audioController->play("box2DtheWORSTphysicsEngineIEverUsed", "PhantomLiberty");
-	_camera.setTarget(_characterControllerA->getBodySceneNode());
-	_camera.init(_characterControllerA->getBodySceneNode(), _worldnode, 10.0f, std::dynamic_pointer_cast<OrthographicCamera>(getCamera()), _uinode, 2.0f);
+	//_camera.setTarget(_characterControllerA->getBodySceneNode());
+	//_camera.init(_characterControllerA->getBodySceneNode(), _worldnode, 10.0f, std::dynamic_pointer_cast<OrthographicCamera>(getCamera()), _uinode, 2.0f);
 
 	return true;
 }
@@ -226,7 +225,7 @@ void GameScene::preUpdate(float dt) {
 	//TODO: error handle for loading different levels when we have multiple levels
 //    _camera.update(dt);
 	//_camera.addZoom(_input.getZoom() * 0.01);
-	_camera.update(dt);
+	//_camera.update(dt);
 
 	//TODO: if (indicator == true), allocate a crate event for the center of the screen(use DEFAULT_WIDTH/2 and DEFAULT_HEIGHT/2) and send it using the pushOutEvent() method in the network controller.
 //    if (???????){
@@ -243,7 +242,7 @@ void GameScene::preUpdate(float dt) {
 }
 
 void GameScene::postUpdate(float dt) {
-	    CULog("_platformWorld gravity: %f, %f", _platformWorld->getGravity().x, _platformWorld->getGravity().y);
+	CULog("_platformWorld gravity: %f, %f", _platformWorld->getGravity().x, _platformWorld->getGravity().y);
 }
 
 void GameScene::fixedUpdate(float dt) {
@@ -266,7 +265,7 @@ void GameScene::fixedUpdate(float dt) {
 	}
 	std::cout << "position" << _characterControllerA->getBodySceneNode()->getPositionX() << _characterControllerA->getBodySceneNode()->getPositionY() << std::endl;
 	_platformWorld->update(dt);
-	_camera.update(dt);
+	//_camera.update(dt);
 }
 
 void GameScene::update(float dt) {
