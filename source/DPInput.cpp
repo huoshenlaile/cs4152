@@ -236,16 +236,18 @@ Vec2 PlatformInput::getLeftHandMovement() {
     _leftHandCur = _character.leftHand.curr;
     _leftHandPrev = _character.leftHand.prev;
 	if (!_character.leftHand.assigned) return { 0,0 };
-    Vec2 offset = _character.rightHand.curr - _character.rightHand.prev;
-    CULog("Hand left move is: %f %f \n", offset.x, offset.y);
-    return _character.leftHand.curr - _character.leftHand.prev;
+	Vec2 movement = _character.leftHand.curr - _character.leftHand.prev;
+	// log movement
+	CULog("Left Hand Movement Log: %f, %f", movement.x, movement.y);
+    return movement;
 }
 
 Vec2 PlatformInput::getrightHandMovement() {
     _rightHandCur = _character.rightHand.curr;
     _rightHandPrev = _character.rightHand.prev;
 	if (!_character.rightHand.assigned) return { 0,0 };
-    Vec2 offset = _character.rightHand.curr - _character.rightHand.prev;
-    CULog("Hang right move is: %f %f \n", offset.x, offset.y);
-    return _character.rightHand.curr - _character.rightHand.prev;
+	Vec2 movement = _character.rightHand.curr - _character.rightHand.prev;
+	// log movement
+	CULog("Right Hand Movement Log: %f, %f", movement.x, movement.y);
+    return movement;
 }

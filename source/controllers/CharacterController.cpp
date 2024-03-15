@@ -191,7 +191,7 @@ bool CharacterController::createJoints(){
     revjoint->enableLimit(true);
     revjoint->setUpperAngle(M_PI / 2.0f);
     revjoint->setLowerAngle(-M_PI / 2.0f);
-    _joints.push_back(revjoint);
+     _joints.push_back(revjoint);
 
     // left part
     // body->LR1 rev
@@ -201,7 +201,6 @@ bool CharacterController::createJoints(){
     revjoint->enableLimit(true);
     revjoint->setUpperAngle(M_PI / 2.0f);
     revjoint->setLowerAngle(-M_PI / 2.0f);
-
     _joints.push_back(revjoint);
 
     // LR1->LR2 pri
@@ -260,7 +259,7 @@ bool CharacterController::createJoints(){
     revjoint->enableLimit(true);
     revjoint->setUpperAngle(M_PI / 2.0f);
     revjoint->setLowerAngle(-M_PI / 2.0f);
-    _joints.push_back(revjoint);
+     _joints.push_back(revjoint);
     
     if (_motorEnabled){
         /* new version of motor joint direct body <-> hands*/

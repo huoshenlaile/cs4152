@@ -231,7 +231,7 @@ public:
 
     virtual void preUpdate(float timestep);
     virtual void postUpdate(float timestep);
-    virtual void fixedUpdate();
+    virtual void fixedUpdate(float dt);
     
     /**
      * I DON'T THINK WE ARE USING THIS METHOD.

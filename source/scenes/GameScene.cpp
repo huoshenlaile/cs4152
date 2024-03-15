@@ -247,7 +247,7 @@ void GameScene::postUpdate(float dt) {
 }
 
 
-void GameScene::fixedUpdate() {
+void GameScene::fixedUpdate(float dt) {
     //TODO: check for available incoming events from the network controller and call processGrabEvent if it is a GrabEvent.
     if(_network->isInAvailable()){
         auto e = _network->popInEvent();
@@ -268,7 +268,7 @@ void GameScene::fixedUpdate() {
     }
     
     
-    _platformWorld->update(0.1);
+    _platformWorld->update(dt);
 }
 
 
