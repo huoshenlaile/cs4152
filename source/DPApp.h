@@ -24,7 +24,7 @@
 #include "scenes/SettingScene.h"
 #include "scenes/RestorationScene.h"
 #include "scenes/LevelSelectScene.h"
-#include "scenes/PauseScene1.hpp"
+#include "scenes/PauseScene.h"
 
 #include "helpers/LevelLoader.h"
 #include "helpers/LevelConstants.h"

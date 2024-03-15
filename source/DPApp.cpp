@@ -149,6 +149,7 @@ void DPApp::preUpdate(float timestep){
             _status = MENU;
             _menuScene.setActive(true);
         } else if(_gameScene.isPaused()){
+            CULog("We pauseddddd");
             _status = PAUSE;
             _gameScene.setActive(false);
             _pauseScene.setActive(true);
@@ -387,6 +388,9 @@ void DPApp::draw() {
             break;
         case LEVELSELECT:
             _levelSelectScene.render(_batch);
+            break;
+        case PAUSE:
+            _pauseScene.render(_batch);
             break;
     }
 }

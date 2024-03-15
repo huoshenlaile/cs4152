@@ -67,7 +67,7 @@ protected:
     /** Whether or not debug mode is active */
     bool _debug;
     
-    bool _gamePaused;
+    bool _gamePaused = false;
     /** Relates input id to arm */
     std::unordered_map<std::string,int> _input_to_arm;
     /** Relates arm to input id*/
@@ -214,6 +214,8 @@ public:
      * @param value whether the level is completed.
      */
     void setComplete(bool value) { _complete = value; _winnode->setVisible(value); }
+    
+    virtual void setActive(bool value) override;
     
 #pragma mark Grab Esther
     /**

@@ -121,10 +121,11 @@ Vec2 PlatformInput::touch2Screen(const Vec2 pos) const {
 void PlatformInput::touchBeganCB(const TouchEvent& event, bool focus) {
     // TRANSFORM touchevent pos to screen pos.
     Vec2 position = touch2Screen(event.position);
-    if(position.x < 2 && position.y < 2){
+    /*if(position.x < 2 && position.y < 2){
         _pausePressed = true;
+        CULog("PausePressed input set to true");
         return;
-    }
+    }*/
     
 	if (!_character.leftHand.assigned && _character.rightHand.assigned) {
 		// Assign this touch to left hand

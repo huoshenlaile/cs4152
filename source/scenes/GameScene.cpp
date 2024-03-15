@@ -83,17 +83,18 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, const cu
     
     _pause = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("pause"));
     
-    /*_pause->addListener([this](const std::string& name, bool down) {
+    _pause->addListener([this](const std::string& name, bool down) {
         if (down) {
             CULog("Pause button hit");
+            _network->pushOutEvent(PauseEvent::allocPauseEvent(Vec2(DEFAULT_WIDTH/2,DEFAULT_HEIGHT/2)));
         }
-    });*/
+        //CULog("Pause button hit");
+    });
      
-    _uinode->addChild(_pause);
-
-    
     addChild(_worldnode);
     addChild(_uinode);
+    addChild(_pause);
+
     _worldnode->setContentSize(Size(SCENE_WIDTH,SCENE_HEIGHT));
     
 #pragma mark LevelLoader
@@ -227,11 +228,11 @@ void GameScene::preUpdate(float dt) {
     // _input.update();
     _inputController -> update(dt);
     
-    if(_inputController->didPause()){
+    /*if(_inputController->didPause()){
         CULog("Pause Event COMING");
         _network->pushOutEvent(PauseEvent::allocPauseEvent(Vec2(DEFAULT_WIDTH/2,DEFAULT_HEIGHT/2)));
         return;
-    }
+    }*/
     
     _characterControllerA -> moveLeftHand(INPUT_SCALER * _inputController -> getLeftHandMovement());
     _characterControllerA -> moveRightHand(INPUT_SCALER * _inputController -> getrightHandMovement());
@@ -283,6 +284,18 @@ void GameScene::fixedUpdate() {
 
 void GameScene::update(float dt) {
     //deprecated
+}
+
+void GameScene::setActive(bool value) {
+    Scene2::setActive(value);
+    if (value) {
+        CULog("Pause activated");
+        _pause->activate();
+        _gamePaused = false;
+    } else {
+        _pause->deactivate();
+        _pause->setDown(false);
+    }
 }
 
 

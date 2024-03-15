@@ -800,7 +800,7 @@
                 }
             }
         },
-        "pause": {
+        "resume": {
             "type": "Node",
             "format": {
                 "type": "Anchored"

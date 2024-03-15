@@ -5,7 +5,7 @@
 //  Created by Emily on 3/15/24.
 //
 
-#include "PauseScene1.hpp"
+#include "PauseScene.h"
 
 #define SCENE_HEIGHT  720
 bool PauseScene::init(const std::shared_ptr<cugl::AssetManager>& assets){
@@ -21,10 +21,10 @@ bool PauseScene::init(const std::shared_ptr<cugl::AssetManager>& assets){
     _assets = assets;
     
     // Acquire the scene built by the asset loader and resize it the scene
-    std::shared_ptr<scene2::SceneNode> scene = _assets->get<scene2::SceneNode>("pause");
+    std::shared_ptr<scene2::SceneNode> scene = _assets->get<scene2::SceneNode>("resume");
     scene->setContentSize(dimen);
     scene->doLayout(); // Repositions the HUD
-    _backout = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("pause_back"));
+    _backout = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("resume_back"));
     
     _backout->addListener([this](const std::string& name, bool down) {
         if (down) {
@@ -40,7 +40,7 @@ bool PauseScene::init(const std::shared_ptr<cugl::AssetManager>& assets){
 }
 
 void PauseScene::dispose() {
-    std::cout << "Setting dispose" << std::endl;
+    std::cout << "Pause dispose" << std::endl;
     if (_active) {
         removeAllChildren();
         _active = false;
@@ -50,6 +50,7 @@ void PauseScene::dispose() {
 
 void PauseScene::setActive(bool value) {
     if (isActive() != value) {
+        CULog("Making active %d", value);
         Scene2::setActive(value);
         if (value) {
             _backout->activate();
@@ -64,6 +65,5 @@ void PauseScene::setActive(bool value) {
 }
 
 void PauseScene::update(float timestep) {
-    std::cout << "Pausescene is updating!" << std::endl;
 }
 
