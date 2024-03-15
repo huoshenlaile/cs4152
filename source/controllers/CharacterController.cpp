@@ -86,6 +86,19 @@ bool CharacterController::buildParts(const std::shared_ptr<AssetManager>& assets
     rightHandOffset = Vec2(full_length, 0);
     leftElbowOffset = leftHandOffset / 2.0f;
     rightElbowOffset = rightHandOffset / 2.0f;
+    
+    _obstacles[PART_JR1]->setSensor(true);
+    _obstacles[PART_JR2]->setSensor(true);
+    _obstacles[PART_JR3]->setSensor(true);
+    _obstacles[PART_JR4]->setSensor(true);
+    _obstacles[PART_JR5]->setSensor(true);
+    _obstacles[PART_JR6]->setSensor(true);
+    _obstacles[PART_LR1]->setSensor(true);
+    _obstacles[PART_LR2]->setSensor(true);
+    _obstacles[PART_LR3]->setSensor(true);
+    _obstacles[PART_LR4]->setSensor(true);
+    _obstacles[PART_LR5]->setSensor(true);
+    _obstacles[PART_LR6]->setSensor(true);
     return true;
 }
 
@@ -359,6 +372,9 @@ bool CharacterController::moveLeftHand(cugl::Vec2 offset){
     if (length > full_length){
         leftHandOffset = leftHandOffset * (full_length / length);
     }
+    if (length < 2 * HALF_CJOINT_OFFSET){
+        leftHandOffset = leftHandOffset * (2 * HALF_CJOINT_OFFSET / length);
+    }
     if (leftHandOffset.x > 0){
         leftHandOffset.x = 0;
     }
@@ -381,6 +397,10 @@ bool CharacterController::moveRightHand(cugl::Vec2 offset){
     float length = rightHandOffset.length();
     if (length > full_length){
         rightHandOffset = rightHandOffset * (full_length / length);
+    }
+    // if it is shorter than 2 * HALF_CJOINT_OFFSET, then it is too short
+    if (length < 2 * HALF_CJOINT_OFFSET){
+        rightHandOffset = rightHandOffset * (2 * HALF_CJOINT_OFFSET / length);
     }
     if (rightHandOffset.x < 0){
         rightHandOffset.x = 0;
@@ -443,7 +463,10 @@ void CharacterController::linkPartsToWorld(const std::shared_ptr<cugl::physics2:
         auto obj = _obstacles[i];
         std::shared_ptr<Texture> image = _textures[i];
         std::shared_ptr<scene2::PolygonNode> sprite = scene2::PolygonNode::allocWithTexture(image);
-
+        
+        if (i == PART_BODY){
+            _bodyNode = sprite;
+        }
         _world->addObstacle(obj);
         //obj->setDebugScene(_debugnode);
         _scenenode->addChild(sprite);

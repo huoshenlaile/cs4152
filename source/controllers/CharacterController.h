@@ -85,6 +85,7 @@ protected:
     std::shared_ptr<physics2::MotorJoint> leftElbowJoint;
     std::shared_ptr<physics2::MotorJoint> rightElbowJoint;
     
+    std::shared_ptr<scene2::PolygonNode> _bodyNode;
 public:
     CharacterController(void) : _drawScale(0) { }
     virtual ~CharacterController(void) { dispose(); }
@@ -130,6 +131,7 @@ public:
     void enableMotor();
     void disableMotor();
 
+    std::shared_ptr<scene2::PolygonNode> getBodySceneNode() {return _bodyNode;};
 #pragma mark HAND CONTROLLER
     bool moveRightHand(cugl::Vec2 offset);
     bool moveLeftHand(cugl::Vec2 offset);

@@ -244,6 +244,7 @@ void GameScene::preUpdate(float dt) {
 
 
 void GameScene::postUpdate(float dt) {
+//    CULog("_platformWorld gravity: %f, %f", _platformWorld->getGravity().x, _platformWorld->getGravity().y);
 }
 
 
