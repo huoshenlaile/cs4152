@@ -37,7 +37,7 @@
 #define CJOINT_TEXTURE "joint32"
 #define HAND_TEXTURE "hand64"
 
-#define MAX_TORQUE 1000000.0f
+#define MAX_TORQUE 100000.0f
 #define MAX_FORCE  100000.0f
 
 #define LENGTH_MULTIPLIER 2.0f
@@ -53,6 +53,7 @@
 /** The radius for the center of mass */
 #define CENTROID_RADIUS  0.1f
 
+#define BODY_DENSITY 5.0f
 
 using namespace cugl;
 
@@ -85,6 +86,13 @@ protected:
     std::shared_ptr<physics2::MotorJoint> leftElbowJoint;
     std::shared_ptr<physics2::MotorJoint> rightElbowJoint;
     
+    // arm joints
+    std::shared_ptr<physics2::MotorJoint> leftArmJoint;
+    std::shared_ptr<physics2::MotorJoint> rightArmJoint;
+    std::shared_ptr<physics2::MotorJoint> leftForearmJoint;
+    std::shared_ptr<physics2::MotorJoint> rightForearmJoint;
+
+
     std::shared_ptr<scene2::PolygonNode> _bodyNode;
 public:
     CharacterController(void) : _drawScale(0) { }
