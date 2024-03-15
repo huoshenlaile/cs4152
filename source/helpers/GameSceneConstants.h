@@ -43,6 +43,6 @@
 #define DEFAULT_TURN_RATE 0.05f
 #define FIXED_TIMESTEP_S 0.02f
 
-#define INPUT_SCALER 5.f
+#define INPUT_SCALER 2.f
 
 #endif /* GameSceneConstants_h */
