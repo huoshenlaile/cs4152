@@ -1,0 +1,250 @@
+{
+    "automappingRulesFile": "",
+    "commands": [
+    ],
+    "extensionsPath": "extensions",
+    "folders": [
+    ],
+    "properties": [
+    ],
+    "propertyTypes": [
+        {
+            "id": 1,
+            "name": "bodytype",
+            "storageType": "int",
+            "type": "enum",
+            "values": [
+                "static",
+                "kinematic",
+                "dynamic"
+            ],
+            "valuesAsFlags": false
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 7,
+            "members": [
+                {
+                    "name": "obstacle",
+                    "propertyType": "Obstacle",
+                    "type": "class",
+                    "value": {
+                        "bodytype": 0,
+                        "damping": 0,
+                        "debugcolor": "yellow",
+                        "debugopacity": 192,
+                        "density": 0,
+                        "friction": 0,
+                        "restitution": 0,
+                        "rotation": false,
+                        "texture": "crate01"
+                    }
+                }
+            ],
+            "name": "CrateProperties",
+            "type": "class",
+            "useAs": [
+                "property"
+            ]
+        },
+        {
+            "id": 5,
+            "name": "debugcolor",
+            "storageType": "string",
+            "type": "enum",
+            "values": [
+                "yellow",
+                "red",
+                "blur",
+                "green",
+                "black",
+                "gray"
+            ],
+            "valuesAsFlags": false
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 12,
+            "members": [
+                {
+                    "name": "obstacle",
+                    "propertyType": "Obstacle",
+                    "type": "class",
+                    "value": {
+                        "bodytype": 0,
+                        "damping": 0,
+                        "debugcolor": "yellow",
+                        "debugopacity": 192,
+                        "density": 0,
+                        "friction": 0,
+                        "restitution": 0,
+                        "rotation": false,
+                        "texture": "exit"
+                    }
+                }
+            ],
+            "name": "ExitProperties",
+            "type": "class",
+            "useAs": [
+                "property"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 4,
+            "members": [
+                {
+                    "name": "bodytype",
+                    "propertyType": "bodytype",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "damping",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "debugcolor",
+                    "propertyType": "debugcolor",
+                    "type": "string",
+                    "value": "yellow"
+                },
+                {
+                    "name": "debugopacity",
+                    "type": "float",
+                    "value": 192
+                },
+                {
+                    "name": "density",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "friction",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "restitution",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "rotation",
+                    "type": "bool",
+                    "value": false
+                },
+                {
+                    "name": "texture",
+                    "type": "string",
+                    "value": ""
+                }
+            ],
+            "name": "Obstacle",
+            "type": "class",
+            "useAs": [
+                "property"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 13,
+            "members": [
+                {
+                    "name": "burn",
+                    "type": "string",
+                    "value": "burn"
+                },
+                {
+                    "name": "flames",
+                    "type": "string",
+                    "value": "flames"
+                },
+                {
+                    "name": "flames-left",
+                    "type": "string",
+                    "value": "flames-left"
+                },
+                {
+                    "name": "flames-right",
+                    "type": "string",
+                    "value": "flames-right"
+                },
+                {
+                    "name": "left-sound",
+                    "type": "string",
+                    "value": "left-burn"
+                },
+                {
+                    "name": "main-sound",
+                    "type": "string",
+                    "value": "afterburner"
+                },
+                {
+                    "name": "obstacle",
+                    "propertyType": "Obstacle",
+                    "type": "class",
+                    "value": {
+                        "bodytype": 2,
+                        "damping": 0,
+                        "debugcolor": "yellow",
+                        "debugopacity": 192,
+                        "density": 1,
+                        "friction": 0.1,
+                        "restitution": 0.4,
+                        "rotation": false,
+                        "texture": "rocket"
+                    }
+                },
+                {
+                    "name": "right-sound",
+                    "type": "string",
+                    "value": "right-burn"
+                },
+                {
+                    "name": "thrust",
+                    "type": "float",
+                    "value": 30
+                }
+            ],
+            "name": "RocketProperties",
+            "type": "class",
+            "useAs": [
+                "property"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 10,
+            "members": [
+                {
+                    "name": "obstacle",
+                    "propertyType": "Obstacle",
+                    "type": "class",
+                    "value": {
+                        "bodytype": 0,
+                        "damping": 0,
+                        "debugcolor": "yellow",
+                        "debugopacity": 192,
+                        "density": 0,
+                        "friction": 0,
+                        "restitution": 0,
+                        "rotation": false,
+                        "texture": "earth"
+                    }
+                }
+            ],
+            "name": "WallProperties",
+            "type": "class",
+            "useAs": [
+                "property"
+            ]
+        }
+    ]
+}
