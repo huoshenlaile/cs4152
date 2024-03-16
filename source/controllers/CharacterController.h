@@ -32,7 +32,7 @@
 #define CJOINT_TEXTURE "joint32"
 #define HAND_TEXTURE "hand64"
 
-#define MAX_TORQUE 100000.0f
+#define MAX_TORQUE 10000.0f
 #define MAX_FORCE  100000.0f
 
 #define LENGTH_MULTIPLIER 2.0f
@@ -47,7 +47,7 @@
 /** The radius for the center of mass */
 #define CENTROID_RADIUS  0.1f
 
-#define BODY_DENSITY 5.0f
+#define BODY_DENSITY 3.0f
 
 using namespace cugl;
 
@@ -131,7 +131,7 @@ public:
 	void enableMotor();
 	void disableMotor();
 
-	std::shared_ptr<scene2::PolygonNode> getBodySceneNode() { std::cout << "bodynodeX " << _bodyNode->getPositionX() << std::endl; return _bodyNode; };
+	std::shared_ptr<scene2::PolygonNode> getBodySceneNode() { return _bodyNode; };
 
 	Vec2 getLHPos() { return _LHNode->getPosition(); }
 	Vec2 getRHPos() { return _RHNode->getPosition(); }

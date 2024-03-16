@@ -281,8 +281,8 @@ void GameScene::preUpdate(float dt) {
 }
 
 void GameScene::postUpdate(float dt) {
-	CULog("_platformWorld gravity: %f, %f", _platformWorld->getGravity().x,
-		_platformWorld->getGravity().y);
+	/*CULog("_platformWorld gravity: %f, %f", _platformWorld->getGravity().x,
+		_platformWorld->getGravity().y);*/
 }
 
 void GameScene::fixedUpdate(float dt) {
@@ -291,11 +291,11 @@ void GameScene::fixedUpdate(float dt) {
 	if (_network->isInAvailable()) {
 		auto e = _network->popInEvent();
 		if (auto grabEvent = std::dynamic_pointer_cast<GrabEvent>(e)) {
-			CULog("BIG Grab Event GOT");
+			//CULog("BIG Grab Event GOT");
 			processGrabEvent(grabEvent);
 		}
 		else if (auto pauseEvent = std::dynamic_pointer_cast<PauseEvent>(e)) {
-			CULog("Pause Event RECIEVED");
+			//CULog("Pause Event RECIEVED");
 			processPauseEvent(pauseEvent);
 		}
 	}
@@ -303,7 +303,7 @@ void GameScene::fixedUpdate(float dt) {
 		<< _characterControllerA->getBodySceneNode()->getPositionX()
 		<< _characterControllerA->getBodySceneNode()->getPositionY()
 		<< std::endl;
-	_platformWorld->update(0.1);
+	_platformWorld->update(dt);
 	_camera.update(dt);
 }
 
