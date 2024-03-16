@@ -4,12 +4,11 @@
 
 class GameScene : public cugl::Scene2 {
 protected:
-
 	std::shared_ptr<cugl::AssetManager> _assets;
 
 	// CONTROLLERS
 	/** Controller for abstracting out input across multiple platforms */
-//    InputController _input;
+	//    InputController _input;
 	/** Controller for handling all kinds of interactions*/
 	InteractionController _interactionController;
 	/** Network Controller*/
@@ -31,8 +30,8 @@ protected:
 	ButtonModel _button;
 
 	// VIEW
-	  /** Reference to the goalDoor (for collision detection) */
-	std::shared_ptr<cugl::physics2::BoxObstacle>    _goalDoor;
+	/** Reference to the goalDoor (for collision detection) */
+	std::shared_ptr<cugl::physics2::BoxObstacle> _goalDoor;
 	/** Reference to the physics root of the scene graph */
 	std::shared_ptr<cugl::scene2::SceneNode> _worldnode;
 	/** Reference to the debug root of the scene graph */
@@ -43,6 +42,7 @@ protected:
 	std::shared_ptr<cugl::scene2::SceneNode> _uinode;
 	/** Reference to the reset message label */
 	std::shared_ptr<cugl::scene2::Label> _loadnode;
+	std::shared_ptr<cugl::scene2::Button> _pause;
 
 	CameraController _camera;
 
@@ -72,6 +72,8 @@ protected:
 	/** Relates arm to input id*/
 	std::unordered_map<int, std::string> _arm_to_input;
 
+	bool _gamePaused = false;
+
 #pragma mark Internal Object Management
 
 	/**
@@ -84,12 +86,7 @@ protected:
 
 public:
 	/** the state of this scene, referenced by DPApp*/
-	enum SceneState {
-		INGAME,
-		PAUSE,
-		NETERROR,
-		QUIT
-	};
+	enum SceneState { INGAME, PAUSE, NETERROR, QUIT };
 	SceneState state;
 #pragma mark -
 #pragma mark Constructors
@@ -112,7 +109,7 @@ public:
 	/**
 	 * Disposes of all (non-static) resources allocated to this mode.
 	 */
-	void dispose();
+	void dispose() override;
 
 	/**
 	 * Initializes the controller contents, and starts the game
@@ -128,7 +125,8 @@ public:
 	 *
 	 * @return true if the controller is initialized properly, false otherwise.
 	 */
-	bool init(const std::shared_ptr<cugl::AssetManager>& assets, const std::shared_ptr<NetEventController> network, bool isHost);
+	bool init(const std::shared_ptr<cugl::AssetManager>& assets,
+		const std::shared_ptr<NetEventController> network, bool isHost);
 
 	/**
 	 * Initializes the controller contents, and starts the game
@@ -146,7 +144,9 @@ public:
 	 *
 	 * @return  true if the controller is initialized properly, false otherwise.
 	 */
-	bool init(const std::shared_ptr<cugl::AssetManager>& assets, const cugl::Rect rect, const std::shared_ptr<NetEventController> network, bool isHost);
+	bool init(const std::shared_ptr<cugl::AssetManager>& assets,
+		const cugl::Rect rect,
+		const std::shared_ptr<NetEventController> network, bool isHost);
 
 	/**
 	 * Initializes the controller contents, and starts the game
@@ -165,7 +165,9 @@ public:
 	 *
 	 * @return  true if the controller is initialized properly, false otherwise.
 	 */
-	bool init(const std::shared_ptr<cugl::AssetManager>& assets, const cugl::Rect rect, const cugl::Vec2 gravity, const std::shared_ptr<NetEventController> network, bool isHost);
+	bool init(const std::shared_ptr<cugl::AssetManager>& assets,
+		const cugl::Rect rect, const cugl::Vec2 gravity,
+		const std::shared_ptr<NetEventController> network, bool isHost);
 
 #pragma mark -
 #pragma mark State Access
@@ -194,7 +196,10 @@ public:
 	 *
 	 * @param value whether debug mode is active.
 	 */
-	void setDebug(bool value) { _debug = value; _debugnode->setVisible(value); }
+	void setDebug(bool value) {
+		_debug = value;
+		_debugnode->setVisible(value);
+	}
 
 	/**
 	 * Returns true if the level is completed.
@@ -204,6 +209,7 @@ public:
 	 * @return true if the level is completed.
 	 */
 	bool isComplete() const { return _complete; }
+	bool isPaused() const { return _gamePaused; }
 
 	/**
 	 * Sets whether the level is completed.
@@ -212,7 +218,12 @@ public:
 	 *
 	 * @param value whether the level is completed.
 	 */
-	void setComplete(bool value) { _complete = value; _winnode->setVisible(value); }
+	void setComplete(bool value) {
+		_complete = value;
+		_winnode->setVisible(value);
+	}
+
+	virtual void setActive(bool value) override;
 
 #pragma mark Grab Esther
 	/**
