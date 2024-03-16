@@ -90,7 +90,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets, const cu
     _pause->addListener([this](const std::string& name, bool down) {
             if (down) {
                 CULog("Pause button hit");
-                _network->pushOutEvent(PauseEvent::allocPauseEvent(Vec2(DEFAULT_WIDTH/2,DEFAULT_HEIGHT/2)));
+                _network->pushOutEvent(PauseEvent::allocPauseEvent(Vec2(DEFAULT_WIDTH/2,DEFAULT_HEIGHT/2), true));
             }
         });
     _uinode->addChild(_pause);
@@ -232,7 +232,11 @@ void GameScene::processGrabEvent(const std::shared_ptr<GrabEvent>& event) {
  */
 void GameScene::processPauseEvent(const std::shared_ptr<PauseEvent>& event) {
     std::cout << "GAME PAUSE PROCESS EVENT" << std::endl;
-    _gamePaused = true;
+    if(event->isPause()){
+        _gamePaused = true;
+    } else {
+        _gamePaused = false;
+    }
 }
 
 #pragma mark Physics Handling

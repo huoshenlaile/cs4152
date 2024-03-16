@@ -32,7 +32,7 @@ bool PauseScene::init(const std::shared_ptr<cugl::AssetManager>& assets, const s
     _backout->addListener([this](const std::string& name, bool down) {
         if (down) {
             state = BACK;
-            _network->pushOutEvent(PauseEvent::allocPauseEvent(Vec2(DEFAULT_WIDTH/2,DEFAULT_HEIGHT/2)));
+            _network->pushOutEvent(PauseEvent::allocPauseEvent(Vec2(DEFAULT_WIDTH/2,DEFAULT_HEIGHT/2), false));
         }
     });
     
