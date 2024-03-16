@@ -50,11 +50,7 @@ public:
     /** Gets the position of the event. */
     Vec2 getPos() { return _pos; }
     
-<<<<<<< HEAD
     /** Gets the resume/pause info of the event. */
-=======
-    /** Gets the position of the event. */
->>>>>>> main
     bool isPause() { return _isPause; }
 };
 

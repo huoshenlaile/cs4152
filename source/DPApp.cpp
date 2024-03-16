@@ -311,7 +311,6 @@ void DPApp::updateLoad(float timestep) {
     _clientScene.init(_assets, _network);
     _pauseScene.init(_assets, _network);
     _settingScene.init(_assets);
-    _pauseScene.init(_assets, _network);
     //_gameScene.init(_assets);
     _status = MENU;
     break;

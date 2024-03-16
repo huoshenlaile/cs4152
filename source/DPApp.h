@@ -69,7 +69,6 @@ protected:
   MenuScene _menuScene;
   LevelSelectScene _levelSelectScene;
   RestorationScene _restorationScene;
-  PauseScene _pauseScene;
 
   GameStatus _status;
   bool loaded = false;

@@ -42,7 +42,6 @@ protected:
 	std::shared_ptr<cugl::scene2::SceneNode> _uinode;
 	/** Reference to the reset message label */
 	std::shared_ptr<cugl::scene2::Label> _loadnode;
-	std::shared_ptr<cugl::scene2::Button> _pause;
 
 	CameraController _camera;
 
@@ -71,9 +70,6 @@ protected:
 	std::unordered_map<std::string, int> _input_to_arm;
 	/** Relates arm to input id*/
 	std::unordered_map<int, std::string> _arm_to_input;
-
-	bool _gamePaused = false;
-
 #pragma mark Internal Object Management
 
 	/**
@@ -209,7 +205,6 @@ public:
 	 * @return true if the level is completed.
 	 */
 	bool isComplete() const { return _complete; }
-	bool isPaused() const { return _gamePaused; }
 
 	/**
 	 * Sets whether the level is completed.
@@ -222,8 +217,6 @@ public:
 		_complete = value;
 		_winnode->setVisible(value);
 	}
-
-	virtual void setActive(bool value) override;
 
 #pragma mark Grab Esther
 	/**

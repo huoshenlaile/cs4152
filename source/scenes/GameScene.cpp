@@ -117,7 +117,6 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets,
 
   addChild(_worldnode);
   addChild(_uinode);
-  addChild(_pause);
 
   _worldnode->setContentSize(Size(SCENE_WIDTH, SCENE_HEIGHT));
 #pragma mark LevelLoader
@@ -332,18 +331,6 @@ void GameScene::fixedUpdate(float dt) {
 
 void GameScene::update(float dt) {
   // deprecated
-}
-
-void GameScene::setActive(bool value) {
-  Scene2::setActive(value);
-  if (value) {
-    CULog("Pause activated");
-    _pause->activate();
-    _gamePaused = false;
-  } else {
-    _pause->deactivate();
-    _pause->setDown(false);
-  }
 }
 
 #pragma mark Helper Functions

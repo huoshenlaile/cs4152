@@ -78,7 +78,9 @@ void PauseScene::fixedUpdate() {
     auto e = _network->popInEvent();
     if (auto pauseEvent = std::dynamic_pointer_cast<PauseEvent>(e)) {
       CULog("Pause Event RECIEVED");
-      state = BACK;
+        if(!pauseEvent->isPause()){
+            state = BACK;
+        }
     }
   }
 }
