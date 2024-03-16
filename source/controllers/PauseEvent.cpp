@@ -19,9 +19,10 @@ std::shared_ptr<NetEvent> PauseEvent::newEvent(){
     return std::make_shared<PauseEvent>();
 }
 
-std::shared_ptr<NetEvent> PauseEvent::allocPauseEvent(Vec2 pos){
+std::shared_ptr<NetEvent> PauseEvent::allocPauseEvent(Vec2 pos, bool pause){
     auto event = std::make_shared<PauseEvent>();
     event->_pos = pos;
+    event->_isPause = pause;
     return event;
 }
 
@@ -32,6 +33,7 @@ std::vector<std::byte> PauseEvent::serialize(){
     _serializer.reset();
     _serializer.writeFloat(_pos.x);
     _serializer.writeFloat(_pos.y);
+    _serializer.writeBool(_isPause);
     return _serializer.serialize();
 }
 /**
@@ -49,6 +51,7 @@ void PauseEvent::deserialize(const std::vector<std::byte>& data){
     float x = _deserializer.readFloat();
     float y = _deserializer.readFloat();
     _pos = Vec2(x,y);
+    _isPause = _deserializer.readBool();
 }
 
 

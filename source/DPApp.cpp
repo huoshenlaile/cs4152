@@ -69,6 +69,7 @@ void DPApp::onShutdown() {
     _settingScene.dispose();
     _restorationScene.dispose();
     _loadScene.dispose();
+    _pauseScene.dispose();
     _assets = nullptr;
     _batch = nullptr;
     
@@ -147,8 +148,15 @@ void DPApp::preUpdate(float timestep){
             _gameScene.reset();
             _status = MENU;
             _menuScene.setActive(true);
+        } else if(_gameScene.isPaused()){
+            CULog("We pauseddddd");
+            _status = PAUSE;
+            _gameScene.setActive(false);
+            _pauseScene.setActive(true);
         }
         _gameScene.preUpdate(timestep);
+    } else if(_status == PAUSE){
+        updatePause(timestep);
     }
 }
 
@@ -164,6 +172,8 @@ void DPApp::fixedUpdate() {
     if (_status == GAME) {
         float time = getFixedStep()/1000000.0f;
         _gameScene.fixedUpdate(time);
+    } else if(_status == PAUSE){
+        _pauseScene.fixedUpdate();
     }
     if(_network){
         _network->updateNet();
@@ -215,6 +225,19 @@ void DPApp::updateMenu(float timestep) {
     }
 }
 
+void DPApp::updatePause(float timestep) {
+    _pauseScene.update(timestep);
+    switch (_pauseScene.state) {
+        case PauseScene::BACK:
+            _status = GAME;
+            _pauseScene.setActive(false);
+            _gameScene.setActive(true);
+            break;
+        default:
+            break;
+    }
+    
+}
 
 void DPApp::updateHost(float timestep) {
     _hostScene.update(timestep);
@@ -295,7 +318,9 @@ void DPApp::updateLoad(float timestep) {
             _menuScene.setActive(true);
             _hostScene.init(_assets,_network);
             _clientScene.init(_assets,_network);
+            _pauseScene.init(_assets, _network);
             _settingScene.init(_assets);
+            //_pauseScene.init(_assets);
             //_gameScene.init(_assets);
             _status = MENU;
             break;
@@ -365,6 +390,9 @@ void DPApp::draw() {
             break;
         case LEVELSELECT:
             _levelSelectScene.render(_batch);
+            break;
+        case PAUSE:
+            _pauseScene.render(_batch);
             break;
     }
 }
