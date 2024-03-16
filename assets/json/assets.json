@@ -6,7 +6,7 @@
             "wrapT": "repeat"
         },
         "pop": {
-            "file": "textures/pop.png",
+            "file": "textures/popleft.png",
             "wrapS": "repeat",
             "wrapT": "repeat"
         },
