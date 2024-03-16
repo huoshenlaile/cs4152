@@ -31,7 +31,7 @@ void DPApp::onStartup() {
     _assets->attach<scene2::SceneNode>(Scene2Loader::alloc()->getHook());
     _assets->attach<JsonValue>(JsonLoader::alloc()->getHook());
     _assets->attach<WidgetValue>(WidgetLoader::alloc()->getHook());
-    _assets->attach<LevelLoader>(GenericLoader<LevelLoader>::alloc()->getHook());
+    _assets->attach<LevelLoader>(GenericLoader<LevelLoader>::alloc()->getHook()); 
     
     _loadScene.init(_assets);
     _status = LOAD;

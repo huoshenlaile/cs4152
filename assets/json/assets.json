@@ -5,6 +5,11 @@
       "wrapS": "repeat",
       "wrapT": "repeat"
     },
+    "popart_platformbubble_2_214x100":{
+        "file": "textures/popart_platformbubble_2_214x100.png",
+        "wrapS": "clamp",
+        "wrapT": "clamp"
+    },
     "pop": {
       "file": "textures/pop.png",
       "wrapS": "repeat",
@@ -12,18 +17,18 @@
     },
     "popart_platformbubble_left": {
       "file": "textures/popart_platformbubble_left.png",
-      "wrapS": "repeat",
-      "wrapT": "repeat"
+      "wrapS": "clamp",
+      "wrapT": "clamp"
     },
     "popart_platformbubble_right": {
       "file": "textures/popart_platformbubble_right.png",
-      "wrapS": "repeat",
-      "wrapT": "repeat"
+      "wrapS": "clamp",
+      "wrapT": "clamp"
     },
     "popart_platformLine": {
       "file": "textures/popart_platformLine.png",
-      "wrapS": "repeat",
-      "wrapT": "repeat"
+      "wrapS": "clamp",
+      "wrapT": "clamp"
     },
     "goal": {
       "file": "textures/popart_goal.png"

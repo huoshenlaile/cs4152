@@ -369,10 +369,10 @@ void GameScene::fixedUpdate(float dt) {
 			processPauseEvent(pauseEvent);
 		}
 	}
-	std::cout << "position"
-		<< _characterControllerA->getBodySceneNode()->getPositionX()
-		<< _characterControllerA->getBodySceneNode()->getPositionY()
-		<< std::endl;
+//	std::cout << "position"
+//		<< _characterControllerA->getBodySceneNode()->getPositionX()
+//		<< _characterControllerA->getBodySceneNode()->getPositionY()
+//		<< std::endl;
 	_platformWorld->update(dt);
 	_camera.update(dt);
 }

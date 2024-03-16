@@ -167,6 +167,7 @@ bool LevelLoader::loadGoalDoor(const std::shared_ptr<JsonValue>& json) {
 * @return true if the wall was successfully loaded
 */
 bool LevelLoader::loadWall(const std::shared_ptr<JsonValue>& json) {
+//    std::cout << "loading wall " << std::endl;
     bool success = true;
 
     auto walljson = json->get("properties")->get(0)->get("value");
@@ -307,6 +308,7 @@ void LevelLoader::setRootNode(const std::shared_ptr<scene2::SceneNode>& node){
         if (wall == nullptr){
             continue;
         }
+        std::cout << "drawing wall and adding to worlds" << std::endl;
         addObstacle(wall,sprite);  // All walls share the same texture
     }
 }
@@ -339,4 +341,5 @@ void LevelLoader::addObstacle(const std::shared_ptr<cugl::physics2::Obstacle>& o
             weak->setAngle(obs->getAngle());
         });
     }
+    std::cout<<"success"<<std::endl;
 }
