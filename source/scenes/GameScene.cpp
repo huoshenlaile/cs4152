@@ -85,6 +85,16 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets, const cu
 	_uinode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
 	_uinode->addChild(_winnode);
 	_uinode->addChild(_loadnode);
+    
+    _pause = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("pause"));
+    _pause->addListener([this](const std::string& name, bool down) {
+            if (down) {
+                CULog("Pause button hit");
+                _network->pushOutEvent(PauseEvent::allocPauseEvent(Vec2(DEFAULT_WIDTH/2,DEFAULT_HEIGHT/2)));
+            }
+        });
+    _uinode->addChild(_pause);
+
 
 	addChild(_worldnode);
 	addChild(_uinode);
@@ -143,7 +153,8 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets, const cu
 	_interactionController.publishMessage(std::move(pub));
 
 	//    _camera.init(charNode,_worldnode,1.0f, std::dynamic_pointer_cast<OrthographicCamera>(getCamera()), _uinode, 2.0f);
-	_active = true;
+	_active = false;
+    _gamePaused = false;
 	_complete = false;
 	setDebug(false);
 
@@ -179,6 +190,19 @@ void GameScene::dispose() {
 	}
 }
 
+void GameScene::setActive(bool value) {
+    if(isActive() != value){
+        Scene2::setActive(value);
+        if (value) {
+            _pause->activate();
+            _gamePaused = false;
+        } else {
+            _pause->deactivate();
+            _pause->setDown(false);
+        }
+    }
+}
+
 #pragma mark -
 #pragma mark Level Layout
 
@@ -204,10 +228,11 @@ void GameScene::processGrabEvent(const std::shared_ptr<GrabEvent>& event) {
 }
 
 /**
- * This method takes a grabEvent and processes it.
+ * This method takes a pauseEvent and processes it.
  */
 void GameScene::processPauseEvent(const std::shared_ptr<PauseEvent>& event) {
-	//TODO: Waiting for Other Module
+    std::cout << "GAME PAUSE PROCESS EVENT" << std::endl;
+    _gamePaused = true;
 }
 
 #pragma mark Physics Handling
@@ -234,16 +259,10 @@ void GameScene::preUpdate(float dt) {
 //        _network->pushOutEvent(GrabEvent::allocGrabEvent(Vec2(DEFAULT_WIDTH/2,DEFAULT_HEIGHT/2)));
 //    }
 
-#pragma mark Pause Esther
-	//TODO: if (indicator == true), allocate a pause event for the center of the screen(use DEFAULT_WIDTH/2 and DEFAULT_HEIGHT/2) and send it using the pushOutEvent() method in the network controller.
-//    if (???????){
-//        CULog("Pause Event COMING");
-//        _network->pushOutEvent(PauseEvent::allocPauseEvent(Vec2(DEFAULT_WIDTH/2,DEFAULT_HEIGHT/2)));
-//    }
 }
 
 void GameScene::postUpdate(float dt) {
-	    CULog("_platformWorld gravity: %f, %f", _platformWorld->getGravity().x, _platformWorld->getGravity().y);
+	    //CULog("_platformWorld gravity: %f, %f", _platformWorld->getGravity().x, _platformWorld->getGravity().y);
 }
 
 void GameScene::fixedUpdate(float dt) {
@@ -254,17 +273,14 @@ void GameScene::fixedUpdate(float dt) {
 			CULog("BIG Grab Event GOT");
 			processGrabEvent(grabEvent);
 		}
+        else if (auto pauseEvent = std::dynamic_pointer_cast<PauseEvent>(e)) {
+            CULog("BIG Pause Event GOT");
+            processPauseEvent(pauseEvent);
+        }
 	}
 
 	//TODO: check for available incoming events from the network controller and call processGrabEvent if it is a GrabEvent.
-	if (_network->isInAvailable()) {
-		auto e = _network->popInEvent();
-		if (auto pauseEvent = std::dynamic_pointer_cast<PauseEvent>(e)) {
-			CULog("BIG Pause Event GOT");
-			processPauseEvent(pauseEvent);
-		}
-	}
-	std::cout << "position" << _characterControllerA->getBodySceneNode()->getPositionX() << _characterControllerA->getBodySceneNode()->getPositionY() << std::endl;
+	//std::cout << "position" << _characterControllerA->getBodySceneNode()->getPositionX() << _characterControllerA->getBodySceneNode()->getPositionY() << std::endl;
 	_platformWorld->update(dt);
 	_camera.update(dt);
 }

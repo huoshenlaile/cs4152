@@ -723,6 +723,87 @@
                 }
             }
         },
+        "resume": {
+                    "type": "Node",
+                    "format": {
+                        "type": "Float",
+                        "orientation": "vertical",
+                        "x_alignment": "center",
+                        "y_alignment": "middle"
+                    },
+                    "children": {
+                        "title": {
+                            "type": "Label",
+                            "data": {
+                                "anchor": [
+                                    0.5,
+                                    1.0
+                                ],
+                                "scale": 1.5,
+                                "font": "gyparody",
+                                "text": "Pause Scene",
+                                "padding": [
+                                    20,
+                                    20,
+                                    20,
+                                    20
+                                ],
+                                "halign": "center",
+                                "valign": "middle"
+                            },
+                            "layout": {
+                                "x_anchor": "center",
+                                "y_anchor": "top"
+                            }
+                        },
+                        "back": {
+                            "type": "Widget",
+                            "data": {
+                                "key": "textbutton",
+                                "variables": {
+                                    "size": [
+                                        400,
+                                        100
+                                    ],
+                                    "text": "Resume",
+                                    "color": "#000088"
+                                }
+                            },
+                            "layout": {
+                                "priority": 1,
+                                "padding": [
+                                    0,
+                                    100,
+                                    0,
+                                    0
+                                ]
+                            }
+                        },
+                        "reset": {
+                            "type": "Widget",
+                            "data": {
+                                "key": "textbutton",
+                                "variables": {
+                                    "size": [
+                                        400,
+                                        100
+                                    ],
+                                    "text": "Reset",
+                                    "color": "#000088"
+                                }
+                            },
+                            "layout": {
+                                "priority": 1,
+                                "padding": [
+                                    0,
+                                    50,
+                                    0,
+                                    0
+                                ]
+                            }
+                        }
+                    }
+                },
         "settings": {
             "type": "Node",
             "format": {
@@ -778,6 +859,31 @@
                         "absolute": true
                     }
                 }
+            }
+        },
+        "pause" : {
+            "type": "Button",
+            "data": {
+                "upnode": "up",
+                "anchor": [
+                    0.0,
+                    0.0
+                ]
+            },
+            "children": {
+                "up": {
+                    "type": "Image",
+                    "data": {
+                        "texture": "left"
+                    }
+                }
+            },
+            "layout": {
+                "x_anchor": "left",
+                "y_anchor": "bottom",
+                "y_offset": 10,
+                "x_offset": 10,
+                "absolute": true
             }
         },
         "game": {

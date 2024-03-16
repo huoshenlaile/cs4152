@@ -69,6 +69,7 @@ void DPApp::onShutdown() {
     _settingScene.dispose();
     _restorationScene.dispose();
     _loadScene.dispose();
+    _pauseScene.dispose();
     _assets = nullptr;
     _batch = nullptr;
     
@@ -147,8 +148,24 @@ void DPApp::preUpdate(float timestep){
             _gameScene.reset();
             _status = MENU;
             _menuScene.setActive(true);
+        } else if(_gameScene.isPaused()){
+            _status = PAUSE;
+            _gameScene.setActive(false);
+            _pauseScene.setActive(true);
         }
         _gameScene.preUpdate(timestep);
+    } else if(_status == PAUSE){
+        _pauseScene.update(timestep);
+        switch(_pauseScene.state){
+            case PauseScene::BACK:
+                _pauseScene.setActive(false);
+                _gameScene.setActive(true);
+                _status = GAME;
+                break;
+            default:
+                break;
+                
+        }
     }
 }
 
@@ -164,6 +181,9 @@ void DPApp::fixedUpdate() {
     if (_status == GAME) {
         float time = getFixedStep()/1000000.0f;
         _gameScene.fixedUpdate(time);
+    }
+    if(_status == PAUSE) {
+        _pauseScene.fixedUpdate();
     }
     if(_network){
         _network->updateNet();
@@ -296,6 +316,7 @@ void DPApp::updateLoad(float timestep) {
             _hostScene.init(_assets,_network);
             _clientScene.init(_assets,_network);
             _settingScene.init(_assets);
+            _pauseScene.init(_assets, _network);
             //_gameScene.init(_assets);
             _status = MENU;
             break;
@@ -365,6 +386,9 @@ void DPApp::draw() {
             break;
         case LEVELSELECT:
             _levelSelectScene.render(_batch);
+            break;
+        case PAUSE:
+            _pauseScene.render(_batch);
             break;
     }
 }

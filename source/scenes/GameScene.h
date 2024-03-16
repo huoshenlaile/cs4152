@@ -22,6 +22,7 @@ protected:
 	std::shared_ptr<PlatformInput> _inputController;
 
 	std::shared_ptr<cugl::physics2::net::NetWorld> _platformWorld;
+    std::shared_ptr<cugl::scene2::Button> _pause;
 
 	// MODELS
 	// TODO: Do we need a vector of these?
@@ -64,6 +65,8 @@ protected:
 	bool _complete;
 	/** Whether or not debug mode is active */
 	bool _debug;
+    
+    bool _gamePaused;
 	/** Relates input id to arm */
 	std::unordered_map<std::string, int> _input_to_arm;
 	/** Relates arm to input id*/
@@ -172,7 +175,9 @@ public:
 	 * @return true if the gameplay controller is currently active
 	 */
 	bool isActive() const { return _active; }
-
+    virtual void setActive(bool value) override;
+    
+    bool isPaused() const {return _gamePaused; }
 	/**
 	 * Returns true if debug mode is active.
 	 *

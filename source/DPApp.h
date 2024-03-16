@@ -24,6 +24,7 @@
 #include "scenes/SettingScene.h"
 #include "scenes/RestorationScene.h"
 #include "scenes/LevelSelectScene.h"
+#include "scenes/PauseScene.h"
 
 #include "helpers/LevelLoader.h"
 #include "helpers/LevelConstants.h"
@@ -42,7 +43,8 @@ enum GameStatus {
     LEVELSELECT,
     GAME,
     SETTING,
-    RESTORE
+    RESTORE,
+    PAUSE
 };
 
 protected:
@@ -66,6 +68,7 @@ protected:
     MenuScene       _menuScene;
     LevelSelectScene _levelSelectScene;
     RestorationScene _restorationScene;
+    PauseScene       _pauseScene;
     
     GameStatus _status;
     bool loaded = false;
