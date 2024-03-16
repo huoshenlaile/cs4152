@@ -119,6 +119,16 @@
       "file": "textures/hand64.png",
       "minfilter": "linear",
       "magfilter": "linear"
+    },
+    "lhand64": {
+        "file": "textures/lhand64.png",
+        "minfilter": "linear",
+        "magfilter": "linear"
+    },
+    "rhand64": {
+        "file": "textures/rhand64.png",
+        "minfilter": "linear",
+        "magfilter": "linear"
     }
   },
     "jsons": {
