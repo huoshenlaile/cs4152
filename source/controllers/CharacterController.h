@@ -31,6 +31,8 @@
 #define BODY_TEXTURE "body192"
 #define CJOINT_TEXTURE "joint32"
 #define HAND_TEXTURE "hand64"
+#define L_HAND_TEXTURE "lhand64"
+#define R_HAND_TEXTURE "rhand64"
 
 #define MAX_TORQUE 10000.0f
 #define MAX_FORCE  100000.0f
@@ -85,7 +87,9 @@ protected:
 	std::shared_ptr<physics2::MotorJoint> rightArmJoint;
 	std::shared_ptr<physics2::MotorJoint> leftForearmJoint;
 	std::shared_ptr<physics2::MotorJoint> rightForearmJoint;
-
+    
+    
+    std::vector<std::shared_ptr<scene2::PolygonNode>> _lineNodes;
 	std::shared_ptr<scene2::PolygonNode> _bodyNode;
 	std::shared_ptr<scene2::PolygonNode> _LHNode;
 	std::shared_ptr<scene2::PolygonNode> _RHNode;
@@ -172,6 +176,10 @@ public:
 	 * @param node  The scene graph node representing this Ragdoll, which has been added to the world node already.
 	 */
 	void linkPartsToWorld(const std::shared_ptr<cugl::physics2::net::NetWorld>& _world, const std::shared_ptr<cugl::scene2::SceneNode>& _scenenode, float _scale);
+    
+    
+    
+    void drawCharacterLines(float scale);
 };
 
 #endif /* CharacterController_h */

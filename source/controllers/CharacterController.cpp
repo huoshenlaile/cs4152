@@ -116,9 +116,10 @@ std::string CharacterController::getPartName(int part) {
 	switch (part) {
 	case PART_BODY:
 		return BODY_TEXTURE;
-	case PART_RH:
-	case PART_LH:
-		return HAND_TEXTURE;
+    case PART_RH:
+        return R_HAND_TEXTURE;
+    case PART_LH:
+        return L_HAND_TEXTURE;
 	case PART_JR1:
 	case PART_JR2:
 	case PART_JR3:
@@ -488,8 +489,13 @@ void CharacterController::disableMotor() {
  */
 void CharacterController::linkPartsToWorld(const std::shared_ptr<cugl::physics2::net::NetWorld>& _world, const std::shared_ptr<cugl::scene2::SceneNode>& _scenenode, float _scale) {
 	_node = _scenenode;
+    drawCharacterLines(_scale);
 	for (int i = 0; i < _obstacles.size(); i++) {
 		auto obj = _obstacles[i];
+        if ((i >= PART_JR1 && i <= PART_JR6) || (i >= PART_LR1 && i <= PART_LR6)) {
+            _world->addObstacle(obj);
+            continue;
+        }
 		std::shared_ptr<Texture> image = _textures[i];
 		std::shared_ptr<scene2::PolygonNode> sprite = scene2::PolygonNode::allocWithTexture(image);
 
@@ -512,6 +518,7 @@ void CharacterController::linkPartsToWorld(const std::shared_ptr<cugl::physics2:
 
 				weak->setPosition(obs->getPosition() * _scale);
 				weak->setAngle(obs->getAngle());
+                drawCharacterLines(_scale);
 				});
 		}
 	}
@@ -520,3 +527,52 @@ void CharacterController::linkPartsToWorld(const std::shared_ptr<cugl::physics2:
 		_world->addJoint(joint);
 	}
 }
+
+
+
+void CharacterController::drawCharacterLines(float scale) {
+    if (_obstacles.size() >= PART_LH + 1) {
+        Vec2 lr1Pos = _obstacles[PART_LR1]->getPosition();
+        Vec2 lr3Pos = _obstacles[PART_LR3]->getPosition();
+        Vec2 lr4Pos = _obstacles[PART_LR4]->getPosition();
+        Vec2 lhPos = _obstacles[PART_LH]->getPosition();
+        Vec2 jr1Pos = _obstacles[PART_JR1]->getPosition();
+        Vec2 jr3Pos = _obstacles[PART_JR3]->getPosition();
+        Vec2 jr4Pos = _obstacles[PART_JR4]->getPosition();
+        Vec2 rhPos = _obstacles[PART_RH]->getPosition();
+//        CULog("lr1Pos is : %f %f \n", lr1Pos.x, lr1Pos.y);
+//        CULog("lr3Pos is : %f %f \n", lr3Pos.x, lr3Pos.y);
+
+        auto createLine = [&](const Vec2& start, const Vec2& end, size_t index) {
+            float length = (start - end).length();
+            float angle = atan2(end.y - start.y, end.x - start.x);
+            Rect lineRect(0, 0, length*1.1 * scale, 5.0f);
+            Vec2 center = (start + end) / 2.0f;
+
+            std::shared_ptr<scene2::PolygonNode> line;
+            if (index < _lineNodes.size()) {
+                line = _lineNodes[index];
+                line->setPolygon(Rect(0, 0, length*1.1 * scale, 15.0f ));
+            } else {
+                line = scene2::PolygonNode::allocWithPoly(lineRect);
+                _lineNodes.push_back(line);
+                _node->addChild(line);
+            }
+
+            line->setPosition(center * scale);
+            line->setAngle(angle);
+            line->setColor(Color4::BLACK);
+        };
+
+        createLine(lr1Pos-0.2*(lr3Pos - lr1Pos), lr3Pos, 0);
+        createLine(lr4Pos, lhPos, 1);
+        createLine(jr1Pos - 0.2*(jr3Pos - jr1Pos), jr3Pos, 2);
+        createLine(jr4Pos, rhPos, 3);
+//        createLine(lr1Pos, lr3Pos, 0);
+//        createLine(lr4Pos, lhPos, 1);
+//        createLine(jr1Pos, jr3Pos, 2);
+//        createLine(jr4Pos, rhPos, 3);
+
+    }
+}
+
