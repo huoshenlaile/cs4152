@@ -1,121 +1,121 @@
 {
-  "textures": {
-    "earth": {
-      "file": "textures/earthtile.png",
-      "wrapS": "repeat",
-      "wrapT": "repeat"
+    "textures": {
+        "earth": {
+            "file": "textures/earthtile.png",
+            "wrapS": "repeat",
+            "wrapT": "repeat"
+        },
+        "pop": {
+            "file": "textures/pop.png",
+            "wrapS": "repeat",
+            "wrapT": "repeat"
+        },
+        "goal": {
+            "file": "textures/goaldoor.png"
+        },
+        "crate01": {
+            "file": "textures/crate01.png"
+        },
+        "crate02": {
+            "file": "textures/crate02.png"
+        },
+        "rocket": {
+            "file": "textures/rocket.png"
+        },
+        "flames": {
+            "file": "textures/flames.png"
+        },
+        "flames-right": {
+            "file": "textures/flames-right.png"
+        },
+        "flames-left": {
+            "file": "textures/flames-left.png"
+        },
+        "button": {
+            "file": "textures/button.png"
+        },
+        "frame": {
+            "file": "textures/frame.png"
+        },
+        "left": {
+            "file": "textures/left_arrow.png"
+        },
+        "head": {
+            "file": "textures/ProfWhite.png",
+            "minfilter": "linear",
+            "magfilter": "linear"
+        },
+        "body": {
+            "file": "textures/ProfWhite.png",
+            "minfilter": "linear",
+            "magfilter": "linear"
+        },
+        "arm": {
+            "file": "textures/tux_arm.png",
+            "minfilter": "linear",
+            "magfilter": "linear"
+        },
+        "forearm": {
+            "file": "textures/tux_forearm.png",
+            "minfilter": "linear",
+            "magfilter": "linear"
+        },
+        "thigh": {
+            "file": "textures/tux_thigh.png",
+            "minfilter": "linear",
+            "magfilter": "linear"
+        },
+        "shin": {
+            "file": "textures/tux_shin.png",
+            "minfilter": "linear",
+            "magfilter": "linear"
+        },
+        "hand": {
+            "file": "textures/crate01.png",
+            "minfilter": "linear",
+            "magfilter": "linear"
+        },
+        "body1": {
+            "file": "textures/body1.png",
+            "minfilter": "linear",
+            "magfilter": "linear"
+        },
+        "j1": {
+            "file": "textures/j1.png",
+            "minfilter": "linear",
+            "magfilter": "linear"
+        },
+        "hand1": {
+            "file": "textures/hand1.png",
+            "minfilter": "linear",
+            "magfilter": "linear"
+        },
+        "body192": {
+            "file": "textures/body192.png",
+            "minfilter": "linear",
+            "magfilter": "linear"
+        },
+        "joint32": {
+            "file": "textures/joint32.png",
+            "minfilter": "linear",
+            "magfilter": "linear"
+        },
+        "hand64": {
+            "file": "textures/hand64.png",
+            "minfilter": "linear",
+            "magfilter": "linear"
+        },
+        "lhand64": {
+            "file": "textures/lhand64.png",
+            "minfilter": "linear",
+            "magfilter": "linear"
+        },
+        "rhand64": {
+            "file": "textures/rhand64.png",
+            "minfilter": "linear",
+            "magfilter": "linear"
+        }
     },
-    "pop": {
-      "file": "textures/pop.png",
-      "wrapS": "repeat",
-      "wrapT": "repeat"
-    },
-    "goal": {
-      "file": "textures/goaldoor.png"
-    },
-    "crate01": {
-      "file": "textures/crate01.png"
-    },
-    "crate02": {
-      "file": "textures/crate02.png"
-    },
-    "rocket": {
-      "file": "textures/rocket.png"
-    },
-    "flames": {
-      "file": "textures/flames.png"
-    },
-    "flames-right": {
-      "file": "textures/flames-right.png"
-    },
-    "flames-left": {
-      "file": "textures/flames-left.png"
-    },
-    "button": {
-      "file": "textures/button.png"
-    },
-    "frame": {
-      "file": "textures/frame.png"
-    },
-    "left": {
-      "file": "textures/left_arrow.png"
-    },
-    "head": {
-      "file": "textures/ProfWhite.png",
-      "minfilter": "linear",
-      "magfilter": "linear"
-    },
-    "body": {
-      "file": "textures/ProfWhite.png",
-      "minfilter": "linear",
-      "magfilter": "linear"
-    },
-    "arm": {
-      "file": "textures/tux_arm.png",
-      "minfilter": "linear",
-      "magfilter": "linear"
-    },
-    "forearm": {
-      "file": "textures/tux_forearm.png",
-      "minfilter": "linear",
-      "magfilter": "linear"
-    },
-    "thigh": {
-      "file": "textures/tux_thigh.png",
-      "minfilter": "linear",
-      "magfilter": "linear"
-    },
-    "shin": {
-      "file": "textures/tux_shin.png",
-      "minfilter": "linear",
-      "magfilter": "linear"
-    },
-    "hand": {
-      "file": "textures/crate01.png",
-      "minfilter": "linear",
-      "magfilter": "linear"
-    },
-    "body1": {
-      "file": "textures/body1.png",
-      "minfilter": "linear",
-      "magfilter": "linear"
-    },
-    "j1": {
-      "file": "textures/j1.png",
-      "minfilter": "linear",
-      "magfilter": "linear"
-    },
-    "hand1": {
-      "file": "textures/hand1.png",
-      "minfilter": "linear",
-      "magfilter": "linear"
-    },
-    "body192": {
-      "file": "textures/body192.png",
-      "minfilter": "linear",
-      "magfilter": "linear"
-    },
-    "joint32": {
-      "file": "textures/joint32.png",
-      "minfilter": "linear",
-      "magfilter": "linear"
-    },
-    "hand64": {
-      "file": "textures/hand64.png",
-      "minfilter": "linear",
-      "magfilter": "linear"
-    },
-    "lhand64": {
-        "file": "textures/lhand64.png",
-        "minfilter": "linear",
-        "magfilter": "linear"
-    },
-    "rhand64": {
-        "file": "textures/rhand64.png",
-        "minfilter": "linear",
-        "magfilter": "linear"
-    }
-  },
     "jsons": {
         "server": "json/server.json"
     },
@@ -163,7 +163,7 @@
         "labelbox": "widgets/labelbox.json"
     },
     "scene2s": {
-        "pause" : {
+        "pause": {
             "type": "Button",
             "data": {
                 "upnode": "up",
@@ -758,63 +758,6 @@
                 }
             }
         },
-        "settings": {
-            "type": "Node",
-            "format": {
-                "type": "Anchored"
-            },
-            "children": {
-                "title": {
-                    "type": "Label",
-                    "data": {
-                        "anchor": [
-                            0.5,
-                            1.0
-                        ],
-                        "scale": 1.5,
-                        "font": "gyparody",
-                        "text": "Settings",
-                        "padding": [
-                            20,
-                            20,
-                            20,
-                            20
-                        ],
-                        "halign": "center",
-                        "valign": "middle"
-                    },
-                    "layout": {
-                        "x_anchor": "center",
-                        "y_anchor": "top"
-                    }
-                },
-                "back": {
-                    "type": "Button",
-                    "data": {
-                        "upnode": "up",
-                        "anchor": [
-                            0.0,
-                            0.0
-                        ]
-                    },
-                    "children": {
-                        "up": {
-                            "type": "Image",
-                            "data": {
-                                "texture": "left"
-                            }
-                        }
-                    },
-                    "layout": {
-                        "x_anchor": "left",
-                        "y_anchor": "bottom",
-                        "y_offset": 10,
-                        "x_offset": 10,
-                        "absolute": true
-                    }
-                }
-            }
-        },
         "resume": {
             "type": "Node",
             "format": {
@@ -894,6 +837,88 @@
                         ]
                     }
                 }
+            }
+        },
+        "settings": {
+            "type": "Node",
+            "format": {
+                "type": "Anchored"
+            },
+            "children": {
+                "title": {
+                    "type": "Label",
+                    "data": {
+                        "anchor": [
+                            0.5,
+                            1.0
+                        ],
+                        "scale": 1.5,
+                        "font": "gyparody",
+                        "text": "Settings",
+                        "padding": [
+                            20,
+                            20,
+                            20,
+                            20
+                        ],
+                        "halign": "center",
+                        "valign": "middle"
+                    },
+                    "layout": {
+                        "x_anchor": "center",
+                        "y_anchor": "top"
+                    }
+                },
+                "back": {
+                    "type": "Button",
+                    "data": {
+                        "upnode": "up",
+                        "anchor": [
+                            0.0,
+                            0.0
+                        ]
+                    },
+                    "children": {
+                        "up": {
+                            "type": "Image",
+                            "data": {
+                                "texture": "left"
+                            }
+                        }
+                    },
+                    "layout": {
+                        "x_anchor": "left",
+                        "y_anchor": "bottom",
+                        "y_offset": 10,
+                        "x_offset": 10,
+                        "absolute": true
+                    }
+                }
+            }
+        },
+        "pause": {
+            "type": "Button",
+            "data": {
+                "upnode": "up",
+                "anchor": [
+                    0.0,
+                    0.0
+                ]
+            },
+            "children": {
+                "up": {
+                    "type": "Image",
+                    "data": {
+                        "texture": "left"
+                    }
+                }
+            },
+            "layout": {
+                "x_anchor": "left",
+                "y_anchor": "bottom",
+                "y_offset": 10,
+                "x_offset": 10,
+                "absolute": true
             }
         },
         "game": {
