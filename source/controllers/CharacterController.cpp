@@ -30,11 +30,11 @@ std::shared_ptr<physics2::BoxObstacle> CharacterController::makePart(int part, i
 
     std::shared_ptr<physics2::BoxObstacle> body = physics2::BoxObstacle::alloc(pos2, size);
     // log all information
-    CULog("part: %d", part);
-    CULog("connect: %d", connect);
-    CULog("pos: %f, %f", pos.x, pos.y);
-    CULog("pos2: %f, %f", pos2.x, pos2.y);
-    CULog("size: %f, %f", size.width, size.height);
+//    CULog("part: %d", part);
+//    CULog("connect: %d", connect);
+//    CULog("pos: %f, %f", pos.x, pos.y);
+//    CULog("pos2: %f, %f", pos2.x, pos2.y);
+//    CULog("size: %f, %f", size.width, size.height);
     body->setName(getPartName(part));
     if (part == PART_BODY){
         body->setDensity(BODY_DENSITY);

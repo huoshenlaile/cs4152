@@ -195,7 +195,7 @@ void PlatformInput::touchEndedCB(const TouchEvent& event, bool focus) {
  */
 void PlatformInput::touchesMovedCB(const TouchEvent& event, const Vec2& previous, bool focus) {
     Vec2 position = touch2Screen(event.position);
-    CULog("Touch move at: %f %f \n", position.x, position.y);
+//    CULog("Touch move at: %f %f \n", position.x, position.y);
 	if (_character.leftHand.touchID == event.touch) {
 		_character.leftHand.prev = _character.leftHand.curr;
 		_character.leftHand.curr = position;
@@ -210,7 +210,7 @@ void PlatformInput::touchesMovedCB(const TouchEvent& event, const Vec2& previous
 	}
     
     Vec2 offset = _character.rightHand.curr - _character.rightHand.prev;
-    CULog("Touch offset is: %f %f \n", offset.x, offset.y);
+//    CULog("Touch offset is: %f %f \n", offset.x, offset.y);
 }
 
 unsigned int PlatformInput::getNumTouches() {
@@ -238,7 +238,7 @@ Vec2 PlatformInput::getLeftHandMovement() {
 	if (!_character.leftHand.assigned) return { 0,0 };
 	Vec2 movement = _character.leftHand.curr - _character.leftHand.prev;
 	// log movement
-	CULog("Left Hand Movement Log: %f, %f", movement.x, movement.y);
+//	CULog("Left Hand Movement Log: %f, %f", movement.x, movement.y);
     return movement;
 }
 
@@ -248,6 +248,6 @@ Vec2 PlatformInput::getrightHandMovement() {
 	if (!_character.rightHand.assigned) return { 0,0 };
 	Vec2 movement = _character.rightHand.curr - _character.rightHand.prev;
 	// log movement
-	CULog("Right Hand Movement Log: %f, %f", movement.x, movement.y);
+//	CULog("Right Hand Movement Log: %f, %f", movement.x, movement.y);
     return movement;
 }

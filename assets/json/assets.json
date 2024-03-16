@@ -10,8 +10,13 @@
       "wrapS": "repeat",
       "wrapT": "repeat"
     },
+    "popart_platformbubble_left": {
+      "file": "textures/popart_platformbubble_left.png",
+      "wrapS": "repeat",
+      "wrapT": "repeat"
+    },
     "goal": {
-      "file": "textures/goaldoor.png"
+      "file": "textures/popart_goal.png"
     },
     "crate01": {
       "file": "textures/crate01.png"

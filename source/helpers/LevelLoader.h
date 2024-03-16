@@ -6,6 +6,7 @@
 #include <cugl/cugl.h>
 #include <cugl/io/CUJsonReader.h>
 #include "../models/WallModel.h"
+#include "../models/ExitModel.h"
 
 using namespace cugl;
 
@@ -33,6 +34,8 @@ protected:
     std::shared_ptr<cugl::physics2::net::NetWorld> _world;
     /** Reference to all the walls */
     std::vector<std::shared_ptr<WallModel>> _walls;
+    /** Reference to the end destination of the game*/
+    std::shared_ptr<ExitModel> _goalDoor;
     /** The AssetManager for the game mode */
     std::shared_ptr<cugl::AssetManager> _assets;
 public:
@@ -52,6 +55,26 @@ public:
     const Vec2& getGravity() const { return _gravity; }
 
     /**
+    * Obtains a physics position for the game world from a tiled json object.
+    *
+    * This conversion is necessary since y=0 in tiled is at the top of the screen,
+    * whilst y=0 in our game is at the bottom.
+    *
+    * @param the json file for the tiled object that the position needs to be obtained from
+    *
+    * @return the resultant tiled position
+    *
+    */
+    Vec2 getObjectPos(const std::shared_ptr<JsonValue>& json);
+
+    /**
+     * Returns the exit door in this game level
+     *
+     * @return the exit door in this game level
+     */
+    const std::shared_ptr<ExitModel>& getExit() { return _goalDoor; }
+    
+    /**
     * Determines which object is currently being parsed,
     * and then sends the object over
     * to the respective load function
@@ -62,6 +85,19 @@ public:
     */
     bool loadObject(const std::shared_ptr<JsonValue>& json);
 
+    /**
+     * Loads the singular exit door
+     *
+     * The exit door will will be stored in _goalDoor field and retained.
+     * If the exit fails to load, then _goalDoor will be nullptr.
+     *
+     * @param  reader   a JSON reader with cursor ready to read the exit
+     *
+     * @retain the exit door
+     * @return true if the exit door was successfully loaded
+     */
+    bool loadGoalDoor(const std::shared_ptr<JsonValue>& json);
+    
     /**
      * Creates a new game level with no source file.
      *
