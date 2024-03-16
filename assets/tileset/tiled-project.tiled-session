@@ -113,10 +113,10 @@
     "project": "tiled-project.tiled-project",
     "property.type": "ExitProperties",
     "recentFiles": [
+        "/Users/jinseokoh/gamedesign/cs4152/assets/json/samplelevel.json",
         "/Users/jinseokoh/gamedesign/cs4152/assets/json/samplelevelc.json",
         "biglevel.json",
         "/Users/jinseokoh/gamedesign/cs4152/assets/json/tutorialLevel.json",
-        "/Users/jinseokoh/gamedesign/cs4152/assets/json/samplelevel.json",
         "demo_elements.tsx",
         "tutorialLevelFinal.tmj",
         "/Users/jinseokoh/gamedesign/cs4152/assets/json/tiralmap.tmj",
