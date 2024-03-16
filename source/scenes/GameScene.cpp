@@ -157,12 +157,6 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets, const cu
     _gamePaused = false;
 	_complete = false;
 	setDebug(false);
-    
-    //Make a std::function reference of the linkSceneToObs function in game scene for network controller
-        std::function<void(const std::shared_ptr<physics2::Obstacle>&,const std::shared_ptr<scene2::SceneNode>&)> linkSceneToObsFunc = [=](const std::shared_ptr<physics2::Obstacle>& obs, const std::shared_ptr<scene2::SceneNode>& node) {
-            this->linkSceneToObs(obs,node);
-        };
-    _network->enablePhysics(_platformWorld, linkSceneToObsFunc);
 
 #pragma mark AudioController
 	//    _audioController = std::make_shared<AudioController>();
@@ -173,25 +167,6 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets, const cu
 
 	return true;
 }
-
-void GameScene::linkSceneToObs(const std::shared_ptr<physics2::Obstacle>& obj,
-    const std::shared_ptr<scene2::SceneNode>& node) {
-    node->setPosition(obj->getPosition() * _scale);
-    _worldnode->addChild(node);
-
-    // Dynamic objects need constant updating
-    if (obj->getBodyType() == b2_dynamicBody) {
-        scene2::SceneNode* weak = node.get(); // No need for smart pointer in callback
-        obj->setListener([=](physics2::Obstacle* obs) {
-            float leftover = Application::get()->getFixedRemainder() / 1000000.f;
-            Vec2 pos = obs->getPosition() + leftover * obs->getLinearVelocity();
-            float angle = obs->getAngle() + leftover * obs->getAngularVelocity();
-            weak->setPosition(pos * _scale);
-            weak->setAngle(angle);
-            });
-    }
-}
-
 
 /**
  * Disposes of all (non-static) resources allocated to this mode.
@@ -256,6 +231,7 @@ void GameScene::processGrabEvent(const std::shared_ptr<GrabEvent>& event) {
  * This method takes a pauseEvent and processes it.
  */
 void GameScene::processPauseEvent(const std::shared_ptr<PauseEvent>& event) {
+    std::cout << "GAME PAUSE PROCESS EVENT" << std::endl;
     if(event->isPause()){
         _gamePaused = true;
     } else {
@@ -291,7 +267,6 @@ void GameScene::preUpdate(float dt) {
 
 void GameScene::postUpdate(float dt) {
 	    //CULog("_platformWorld gravity: %f, %f", _platformWorld->getGravity().x, _platformWorld->getGravity().y);
-    _characterControllerA->update(dt);
 }
 
 void GameScene::fixedUpdate(float dt) {

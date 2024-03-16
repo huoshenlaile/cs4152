@@ -166,9 +166,6 @@ public:
 	 * @return  true if the controller is initialized properly, false otherwise.
 	 */
 	bool init(const std::shared_ptr<cugl::AssetManager>& assets, const cugl::Rect rect, const cugl::Vec2 gravity, const std::shared_ptr<NetEventController> network, bool isHost);
-    
-    void linkSceneToObs(const std::shared_ptr<physics2::Obstacle>& obj,
-                        const std::shared_ptr<scene2::SceneNode>& node);
 
 #pragma mark -
 #pragma mark State Access

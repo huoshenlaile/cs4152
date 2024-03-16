@@ -506,7 +506,7 @@ void CharacterController::linkPartsToWorld(const std::shared_ptr<cugl::physics2:
         if (i == PART_BODY){
             _bodyNode = sprite;
         }
-        _world->initObstacle(obj);
+        _world->addObstacle(obj);
         //obj->setDebugScene(_debugnode);
         _scenenode->addChild(sprite);
         // Dynamic objects need constant updating
@@ -527,24 +527,4 @@ void CharacterController::linkPartsToWorld(const std::shared_ptr<cugl::physics2:
         _world->addJoint(joint);
     }
  
-}
-
-void CharacterController::update(float delta) {
-    if (_node != nullptr) {
-        std::vector<std::shared_ptr<scene2::SceneNode>> children = _node->getChildren();
-        int ii = 0;
-        
-        // Update the nodes of the attached bodies
-        for (auto it = children.begin(); it != children.end(); ++it) {
-            Vec2 pos = _obstacles[ii]->getPosition();
-            pos += _obstacles[ii]->getLinearVelocity()*delta;
-            (*it)->setPosition(pos*_drawScale);
-            
-            float angle = _obstacles[ii]->getAngle();
-            angle += _obstacles[ii]->getAngularVelocity()*delta;
-            (*it)->setAngle(angle);
-            
-            ii++;
-        }
-    }
 }
