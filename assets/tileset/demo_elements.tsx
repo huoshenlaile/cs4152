@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="ragdoll_elements" tilewidth="96" tileheight="96" tilecount="5" columns="0" objectalignment="bottomleft">
+<tileset version="1.10" tiledversion="1.10.2" name="ragdoll_elements" tilewidth="214" tileheight="100" tilecount="6" columns="0" objectalignment="bottomleft">
  <editorsettings>
   <export target="ragdoll_elements..tsx" format="tsx"/>
  </editorsettings>
@@ -124,5 +124,11 @@
    </property>
   </properties>
   <image width="64" height="64" source="earthtile.png"/>
+ </tile>
+ <tile id="9">
+  <image width="214" height="100" source="../textures/popleft.png"/>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="19.5618" y="10.0604" width="175.497" height="85.5131"/>
+  </objectgroup>
  </tile>
 </tileset>

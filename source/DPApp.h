@@ -17,108 +17,110 @@
 #include "controllers/PauseEvent.h"
 
 #include "scenes/ClientScene.h"
-#include "scenes/HostScene.h"
 #include "scenes/GameScene.h"
+#include "scenes/HostScene.h"
+#include "scenes/LevelSelectScene.h"
 #include "scenes/LoadScene.h"
 #include "scenes/MenuScene.h"
-#include "scenes/SettingScene.h"
-#include "scenes/RestorationScene.h"
-#include "scenes/LevelSelectScene.h"
 #include "scenes/PauseScene.h"
+#include "scenes/RestorationScene.h"
+#include "scenes/SettingScene.h"
 
-#include "helpers/LevelLoader.h"
 #include "helpers/LevelConstants.h"
+#include "helpers/LevelLoader.h"
 using namespace cugl::physics2::net;
 
 /**
  * This class represents the application root for the ship demo.
  */
 class DPApp : public cugl::Application {
-	enum GameStatus {
-		LOAD,
-		MENU,
-		HOST,
-		CLIENT,
-		LEVELSELECT,
-		GAME,
-		SETTING,
-		RESTORE,
-		PAUSE
-	};
+
+  enum GameStatus {
+    LOAD,
+    MENU,
+    HOST,
+    CLIENT,
+    LEVELSELECT,
+    GAME,
+    SETTING,
+    RESTORE,
+    PAUSE
+  };
 
 protected:
-	/** The global sprite batch for drawing (only want one of these) */
-	std::shared_ptr<cugl::SpriteBatch> _batch;
-	/** The global asset manager */
-	std::shared_ptr<cugl::AssetManager> _assets;
+  /** The global sprite batch for drawing (only want one of these) */
+  std::shared_ptr<cugl::SpriteBatch> _batch;
+  /** The global asset manager */
+  std::shared_ptr<cugl::AssetManager> _assets;
 
-	std::shared_ptr<NetEventController> _network;
+  std::shared_ptr<NetEventController> _network;
 
-	std::shared_ptr<InputController> _input;
+  std::shared_ptr<InputController> _input;
 
-	/** Whether or not we have finished loading all assets */
-	bool _loaded;
+  /** Whether or not we have finished loading all assets */
+  bool _loaded;
 
-	HostScene       _hostScene;
-	ClientScene     _clientScene;
-	GameScene       _gameScene;
-	PauseScene      _pauseScene;
-	LoadScene       _loadScene;
-	SettingScene    _settingScene;
-	MenuScene       _menuScene;
-	LevelSelectScene _levelSelectScene;
-	RestorationScene _restorationScene;
+  HostScene _hostScene;
+  ClientScene _clientScene;
+  GameScene _gameScene;
+  PauseScene _pauseScene;
+  LoadScene _loadScene;
+  SettingScene _settingScene;
+  MenuScene _menuScene;
+  LevelSelectScene _levelSelectScene;
+  RestorationScene _restorationScene;
 
-	GameStatus _status;
-	bool loaded = false;
+  GameStatus _status;
+  bool loaded = false;
 
 public:
 #pragma mark Constructors
 
-	DPApp() : cugl::Application() {}
+  DPApp() : cugl::Application() {}
 
-	~DPApp() { }
+  ~DPApp() {}
 
 #pragma mark Application State
 
-	virtual void onStartup() override;
+  virtual void onStartup() override;
 
-	virtual void onShutdown() override;
+  virtual void onShutdown() override;
 
-	virtual void onSuspend() override;
+  virtual void onSuspend() override;
 
-	virtual void onResume()  override;
+  virtual void onResume() override;
 
 #pragma mark Application Loop
 
-	virtual void preUpdate(float timestep) override;
+  virtual void preUpdate(float timestep) override;
 
-	virtual void postUpdate(float timestep) override;
+  virtual void postUpdate(float timestep) override;
 
-	virtual void fixedUpdate() override;
+  virtual void fixedUpdate() override;
 
-	virtual void update(float timestep) override;
+  virtual void update(float timestep) override;
 
-	void updateMenu(float timestep);
+  void updateMenu(float timestep);
 
-	void updateHost(float timestep);
+  void updateHost(float timestep);
 
-	void updateClient(float timestep);
+  void updateClient(float timestep);
 
-	void updatePause(float timestep);
+  void updatePause(float timestep);
 
-	//    void updateGame(float timestep);  // NOT required, as Game scene uses deterministic update
+  //    void updateGame(float timestep);  // NOT required, as Game scene uses
+  //    deterministic update
 
-	void updateSettings(float timestep);
+  void updateSettings(float timestep);
 
-	void updateRestoration(float timestep);
+  void updateRestoration(float timestep);
 
-	void updateLoad(float timestep);
+  void updateLoad(float timestep);
 
-	void updateLevelSelect(float timestep);
+  void updateLevelSelect(float timestep);
 
-	void updateSetting(float timestep);
+  void updateSetting(float timestep);
 
-	virtual void draw() override;
+  virtual void draw() override;
 };
 #endif /* DPApp_h */

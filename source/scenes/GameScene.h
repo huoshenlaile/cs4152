@@ -21,6 +21,7 @@ protected:
 	std::shared_ptr<PlatformInput> _inputController;
 
 	std::shared_ptr<cugl::physics2::net::NetWorld> _platformWorld;
+    std::shared_ptr<cugl::scene2::Button> _pause;
 
 	// MODELS
 	// TODO: Do we need a vector of these?
@@ -41,7 +42,6 @@ protected:
 	std::shared_ptr<cugl::scene2::SceneNode> _uinode;
 	/** Reference to the reset message label */
 	std::shared_ptr<cugl::scene2::Label> _loadnode;
-	std::shared_ptr<cugl::scene2::Button> _pause;
 
 	CameraController _camera;
 
@@ -64,13 +64,12 @@ protected:
 	bool _complete;
 	/** Whether or not debug mode is active */
 	bool _debug;
+    
+    bool _gamePaused;
 	/** Relates input id to arm */
 	std::unordered_map<std::string, int> _input_to_arm;
 	/** Relates arm to input id*/
 	std::unordered_map<int, std::string> _arm_to_input;
-
-	bool _gamePaused = false;
-
 #pragma mark Internal Object Management
 
 	/**
@@ -174,7 +173,9 @@ public:
 	 * @return true if the gameplay controller is currently active
 	 */
 	bool isActive() const { return _active; }
-
+    virtual void setActive(bool value) override;
+    
+    bool isPaused() const {return _gamePaused; }
 	/**
 	 * Returns true if debug mode is active.
 	 *
@@ -204,7 +205,6 @@ public:
 	 * @return true if the level is completed.
 	 */
 	bool isComplete() const { return _complete; }
-	bool isPaused() const { return _gamePaused; }
 
 	/**
 	 * Sets whether the level is completed.
@@ -217,8 +217,6 @@ public:
 		_complete = value;
 		_winnode->setVisible(value);
 	}
-
-	virtual void setActive(bool value) override;
 
 #pragma mark Grab Esther
 	/**
