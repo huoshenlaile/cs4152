@@ -178,6 +178,8 @@ public:
      * @param node  The scene graph node representing this Ragdoll, which has been added to the world node already.
      */
     void linkPartsToWorld(const std::shared_ptr<cugl::physics2::net::NetWorld>& _world, const std::shared_ptr<cugl::scene2::SceneNode>& _scenenode, float _scale);
+    
+    void update(float delta);
 
     
 };
