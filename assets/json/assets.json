@@ -15,6 +15,16 @@
       "wrapS": "repeat",
       "wrapT": "repeat"
     },
+    "popart_platformbubble_right": {
+      "file": "textures/popart_platformbubble_right.png",
+      "wrapS": "repeat",
+      "wrapT": "repeat"
+    },
+    "popart_platformLine": {
+      "file": "textures/popart_platformLine.png",
+      "wrapS": "repeat",
+      "wrapT": "repeat"
+    },
     "goal": {
       "file": "textures/popart_goal.png"
     },

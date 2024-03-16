@@ -42,9 +42,9 @@
 #define BOUNDARY_FIELD      "boundary"
 
 /** The source for our level file */
-#define LEVEL_ONE_FILE      "json/samplelevelc.json"
+#define LEVEL_ONE_FILE      "json/samplelevel.json"
 /** The key for our loaded level */
-#define LEVEL_ONE_KEY       "tutorialLevel"
+#define LEVEL_ONE_KEY       "samplelevel"
 
 
 #endif
