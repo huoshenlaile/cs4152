@@ -11,9 +11,11 @@
 #include <iostream>
 #include <sstream>
 #include "NetworkController.h"
+#include "../helpers/LevelLoader.h" //Need to include in dependency graph
 #include "../models/WallModel.h"
 #include "../models/PlatformModel.h"
 #include "../models/ButtonModel.h"
+#include "../models/ExitModel.h"
 #include "CharacterController.h"
 
 
@@ -34,6 +36,8 @@ protected:
     std::vector<std::shared_ptr<PlatformModel>> _platforms;
     std::vector<std::shared_ptr<ButtonModel>> _buttons;
     std::vector<std::shared_ptr<WallModel>> _walls;
+    std::shared_ptr<LevelLoader> _level;
+
     
     struct PlayersContact {
         int bodyOne = NOT_PLAYER;
@@ -58,7 +62,7 @@ public:
     
     std::queue<PublisherMessage> messageQueue;
     std::unordered_map<std::string, std::unordered_map<std::string, std::vector<SubscriberMessage>>> subscriptions;
-
+    //subscriptions[pub_id][listening_for]
 
     /** the TENTATIVE initializer for this (feel free to change), according to our arch spec
      */
@@ -66,11 +70,21 @@ public:
               std::shared_ptr<CharacterController> characterA,
               std::shared_ptr<CharacterController> characterB,
               std::vector<std::shared_ptr<ButtonModel>> buttons,
-              std::vector<std::shared_ptr<WallModel>> walls);
+              std::vector<std::shared_ptr<WallModel>> walls,
+              std::shared_ptr<LevelLoader> level);
     
     
     //TODO: Make this method protected, but public right now for testing
     void publishMessage(PublisherMessage&& message);
+/** 
+ * Creates a new subscription
+ *
+ * @param message  The subscriber message
+ *
+ * @return true if the publisher exists and the subscriber was added, false otherwise
+ */
+    bool addSubscription(SubscriberMessage&& message);
+
     
 #pragma mark Collision Handling
     /**

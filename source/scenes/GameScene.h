@@ -27,7 +27,7 @@ protected:
 	// TODO: Do we need a vector of these?
 	PlatformModel _platform;
 	WallModel _wall;
-	ButtonModel _button;
+	std::shared_ptr<ButtonModel> _button;
 
 	// VIEW
 	/** Reference to the goalDoor (for collision detection) */
