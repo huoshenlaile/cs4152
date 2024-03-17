@@ -5,10 +5,22 @@
             "wrapS": "repeat",
             "wrapT": "repeat"
         },
-        "pop": {
-            "file": "textures/popleft.png",
+        "popleft": {
+            "file": "textures/popart_platformbubble_left.png"
+        },
+        "popright": {
+            "file": "textures/popart_platformbubble_right.png"
+        },
+        "popmid": {
+            "file": "textures/popart_platformLine.png"
+        },
+        "pinkbackground":{
+            "file": "textures/popart_background.png",
             "wrapS": "repeat",
             "wrapT": "repeat"
+        },
+        "goalpop": {
+            "file": "textures/popart_goal.png"
         },
         "goal": {
             "file": "textures/goaldoor.png"

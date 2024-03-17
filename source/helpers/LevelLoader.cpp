@@ -81,7 +81,9 @@ bool LevelLoader::preload(const std::shared_ptr<cugl::JsonValue>& json) {
     _gravity.set(0,-90.0f);
     /** Create the physics world */
       _world = cugl::physics2::net::NetWorld::alloc(getBounds(),Vec2(0,-90.f));
-
+    
+//
+//    cugl::scene2::TexturedNode();
     // Get each object in each layer, then decide what to do based off of what
     // type the object is.
     for (int i = 0; i < json->get("layers")->size(); i++) {
@@ -93,6 +95,7 @@ bool LevelLoader::preload(const std::shared_ptr<cugl::JsonValue>& json) {
         }
     }
 
+    
     return true;
 }
 
@@ -104,6 +107,12 @@ bool LevelLoader::loadObject(const std::shared_ptr<JsonValue>& json) {
         return loadGoalDoor(json);
     }
     return false;
+}
+
+void LevelLoader::setBackgroundScene(){
+    auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(LEVEL_ONE_BACKGROUND), Rect(-100.0f,-100.0f,20000.0f, 20000.0f)); //TODO: don't hard code
+//    sprite->setPosition(Vec2(0.0f,0.0f));
+    _worldnode->addChild(sprite);
 }
 
 /**
@@ -296,6 +305,8 @@ void LevelLoader::setRootNode(const std::shared_ptr<scene2::SceneNode>& node){
     _root->addChild(_worldnode);
     _root->addChild(_debugnode);
     
+    setBackgroundScene();
+    
     if (_goalDoor != nullptr) {
         auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(_goalDoor->getTextureKey()));
         addObstacle(_goalDoor,sprite); // Put this at the very back
@@ -304,7 +315,8 @@ void LevelLoader::setRootNode(const std::shared_ptr<scene2::SceneNode>& node){
     for(auto it = _walls.begin(); it != _walls.end(); ++it) {
         std::shared_ptr<WallModel> wall = *it;
         auto txt = _assets->get<Texture>(wall->getTextureKey());
-        auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(wall->getTextureKey()),wall->getPolygon() * _scale);
+        std::cout<< wall->getTextureKey() << std::endl;
+        auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(wall->getTextureKey()));
         if (wall == nullptr){
             continue;
         }

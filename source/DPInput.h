@@ -36,7 +36,7 @@ protected:
 	bool _debugPressed;
 	/** Whether the exit action was chosen. */
 	bool _exitPressed;
-    bool _pausePressed;
+	bool _pausePressed;
 	/** How much did we move horizontally? */
 	float _horizontal;
 
@@ -172,8 +172,8 @@ public:
 	 * @return true if the player wants to go toggle the debug mode.
 	 */
 	bool didDebug() const { return _debugPressed; }
-    
-    bool didPause() const { return _pausePressed; }
+
+	bool didPause() const { return _pausePressed; }
 
 	/**
 	 * Returns true if the exit button was pressed.

@@ -137,7 +137,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	_platformWorld = _level->getPhysicsWorld();
 
 #pragma mark Character 1
-	_characterControllerA = CharacterController::alloc({ 16, 10 }, _scale);
+	_characterControllerA = CharacterController::alloc({ 16, 25 }, _scale);
 	CULog("7538fe43 _scale = %f", _scale);
 	_characterControllerA->buildParts(_assets);
 	_characterControllerA->createJoints();
@@ -218,63 +218,10 @@ void GameScene::activateWorldCollisions(const std::shared_ptr<physics2::Obstacle
     world->onEndContact = [this](b2Contact* contact) {
         _interactionController.endContact(contact);
     };
+
 }
 
-/**
- * Handles any modifications necessary before collision resolution
- *
- * This method is called just before Box2D resolves a collision.  We use this method
- * to implement sound on contact, using the algorithms outlined in Ian Parberry's
- * "Introduction to Game Physics with Box2D".
- *
- * @param  contact      The two bodies that collided
- * @param  oldManfold      The collision manifold before contact
- s
-void GameScene::beforeSolve(b2Contact* contact, const b2Manifold* oldManifold) {
-    float speed = 0;
 
-    // Use Ian Parberry's method to compute a speed threshold
-    b2Body* body1 = contact->GetFixtureA()->GetBody();
-    b2Body* body2 = contact->GetFixtureB()->GetBody();
-    b2WorldManifold worldManifold;
-    contact->GetWorldManifold(&worldManifold);
-    b2PointState state1[2], state2[2];
-    b2GetPointStates(state1, state2, oldManifold, contact->GetManifold());
-    for (int ii = 0; ii < 2; ii++) {
-        if (state2[ii] == b2_addState) {
-            b2Vec2 wp = worldManifold.points[0];
-            b2Vec2 v1 = body1->GetLinearVelocityFromWorldPoint(wp);
-            b2Vec2 v2 = body2->GetLinearVelocityFromWorldPoint(wp);
-            b2Vec2 dv = v1 - v2;
-            speed = b2Dot(dv, worldManifold.normal);
-        }
-    }
-}
-*/
-/**
- * Processes the start of a collision
- *
- * This method is called when we first get a collision between two objects.  We use
- * this method to test if it is the "right" kind of collision.  In particular, we
- * use it to test if we make it to the win door.
- *
- * @param  contact  The two bodies that collided
- 
-void GameScene::beginContact(b2Contact* contact) {
-    b2Body* body1 = contact->GetFixtureA()->GetBody();
-    b2Body* body2 = contact->GetFixtureB()->GetBody();
-
-    // If we hit the "win" door, we are done
-    intptr_t rptr = reinterpret_cast<intptr_t>(_characterControllerA.get());
-    intptr_t dptr = reinterpret_cast<intptr_t>(_level->getExit().get());
-
-    if ((body1->GetUserData().pointer == rptr && body2->GetUserData().pointer == dptr) ||
-        (body1->GetUserData().pointer == dptr && body2->GetUserData().pointer == rptr)) {
-        std::cout<<"completed level" << std::endl;
-        setComplete(true);
-    }
-}
-*/
 /**
  * Disposes of all (non-static) resources allocated to this mode.
  */
@@ -356,6 +303,24 @@ void GameScene::preUpdate(float dt) {
 	}
 	// _input.update();
 	_inputController->update(dt);
+
+	/*if (_inputController->didPress()) {
+		CULog("Here!!!");
+		CULog("World coord at: %f %f \n", _inputController->touchPos.x, _inputController->touchPos.y);
+		_inputController->worldtouchPos = (Vec2)Scene2::screenToWorldCoords(_inputController->touchPos);
+	}*/
+	//_inputController->process();
+	//Vec2 touchPos;
+	/*if (_inputController->didPress() || _inputController->isDown()) {
+		Vec3 worldCoords = Scene2::screenToWorldCoords(_inputController->getEvent().position);
+		CULog("Event coord at: %f %f \n", _inputController->getEvent().position.x, _inputController->getEvent().position.y);
+		touchPos = (Vec2)worldCoords;
+		_inputController->setTouchEventPos(touchPos);
+		_inputController->touchPos = Vec2(touchPos.x, touchPos.y);
+		CULog("World coord at: %f %f \n", touchPos.x, touchPos.y);
+		CULog("World coord at: %f %f \n", _inputController->getEvent().position.x, _inputController->getEvent().position.y);
+		CULog("World coord at: %f %f \n", _inputController->touchPos.x, _inputController->touchPos.y);
+	}*/
 	_characterControllerA->moveLeftHand(INPUT_SCALER *
 		_inputController->getLeftHandMovement());
 	_characterControllerA->moveRightHand(
@@ -390,7 +355,7 @@ void GameScene::preUpdate(float dt) {
 	//    _camera.update(dt);
 	//_camera.addZoom(_input.getZoom() * 0.01);
 	_camera.update(dt);
-	_camera.setZoom(0.5);
+	//_camera.setZoom(0.5);
 	// TODO: if (indicator == true), allocate a crate event for the center of the
 	// screen(use DEFAULT_WIDTH/2 and DEFAULT_HEIGHT/2) and send it using the
 	// pushOutEvent() method in the network controller.
