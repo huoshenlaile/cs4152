@@ -281,6 +281,24 @@ void GameScene::preUpdate(float dt) {
 	}
 	// _input.update();
 	_inputController->update(dt);
+
+	if (_inputController->didPress()) {
+		CULog("Here!!!");
+		CULog("World coord at: %f %f \n", _inputController->touchPos.x, _inputController->touchPos.y);
+		_inputController->worldtouchPos = (Vec2)Scene2::screenToWorldCoords(_inputController->touchPos);
+	}
+	_inputController->process();
+	//Vec2 touchPos;
+	/*if (_inputController->didPress() || _inputController->isDown()) {
+		Vec3 worldCoords = Scene2::screenToWorldCoords(_inputController->getEvent().position);
+		CULog("Event coord at: %f %f \n", _inputController->getEvent().position.x, _inputController->getEvent().position.y);
+		touchPos = (Vec2)worldCoords;
+		_inputController->setTouchEventPos(touchPos);
+		_inputController->touchPos = Vec2(touchPos.x, touchPos.y);
+		CULog("World coord at: %f %f \n", touchPos.x, touchPos.y);
+		CULog("World coord at: %f %f \n", _inputController->getEvent().position.x, _inputController->getEvent().position.y);
+		CULog("World coord at: %f %f \n", _inputController->touchPos.x, _inputController->touchPos.y);
+	}*/
 	_characterControllerA->moveLeftHand(INPUT_SCALER *
 		_inputController->getLeftHandMovement());
 	_characterControllerA->moveRightHand(
@@ -296,7 +314,7 @@ void GameScene::preUpdate(float dt) {
 	//    _camera.update(dt);
 	//_camera.addZoom(_input.getZoom() * 0.01);
 	_camera.update(dt);
-	_camera.setZoom(0.5);
+	//_camera.setZoom(0.5);
 	// TODO: if (indicator == true), allocate a crate event for the center of the
 	// screen(use DEFAULT_WIDTH/2 and DEFAULT_HEIGHT/2) and send it using the
 	// pushOutEvent() method in the network controller.
