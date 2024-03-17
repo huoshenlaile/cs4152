@@ -110,7 +110,7 @@ bool LevelLoader::loadObject(const std::shared_ptr<JsonValue>& json) {
 }
 
 void LevelLoader::setBackgroundScene(){
-    auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(LEVEL_ONE_BACKGROUND), Rect(-100.0f,-100.0f,20000.0f, 20000.0f));
+    auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(LEVEL_ONE_BACKGROUND), Rect(-100.0f,-100.0f,20000.0f, 20000.0f)); //TODO: don't hard code
 //    sprite->setPosition(Vec2(0.0f,0.0f));
     _worldnode->addChild(sprite);
 }

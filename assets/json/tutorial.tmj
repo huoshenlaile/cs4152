@@ -8,18 +8,6 @@
          "name":"objects",
          "objects":[
                 {
-                 "gid":17,
-                 "height":2255.02054231717,
-                 "id":9,
-                 "name":"popart_background",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":4813.29498767461,
-                 "x":-3.19638455217751,
-                 "y":2249.12078882498
-                }, 
-                {
                  "height":0,
                  "id":5,
                  "name":"",
@@ -212,8 +200,57 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":0.35739205433697,
-                 "y":2243.35271719874
+                 "x":1.26331224276837,
+                 "y":2242.89975710452
+                }, 
+                {
+                 "height":0,
+                 "id":10,
+                 "name":"",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":0,
+                         "y":-2242.24218458644
+                        }, 
+                        {
+                         "x":12.4585,
+                         "y":-2242.24218458644
+                        }, 
+                        {
+                         "x":12.4585,
+                         "y":0
+                        }],
+                 "properties":[
+                        {
+                         "name":"properties",
+                         "propertytype":"WallProperties",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":192,
+                                 "density":0,
+                                 "friction":0.2,
+                                 "restitution":0.1,
+                                 "rotation":false,
+                                 "texture":"earth"
+                                }
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"wall",
+                 "visible":true,
+                 "width":0,
+                 "x":0.884939540680806,
+                 "y":2241.95524671172
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -222,7 +259,7 @@
          "y":0
         }],
  "nextlayerid":3,
- "nextobjectid":10,
+ "nextobjectid":11,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
