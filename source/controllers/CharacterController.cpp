@@ -69,7 +69,7 @@ std::shared_ptr<physics2::PolygonObstacle> CharacterController::makePart(int par
 	// log friction information:
     if (part == PART_LH || part == PART_RH) {
 		
-		body->setFriction(3.5f);
+		body->setFriction(5.5f);
 	}else{
 		body->setFriction(0.5f);
 	}
@@ -106,21 +106,26 @@ bool CharacterController::buildParts(const std::shared_ptr<AssetManager>& assets
 	Vec2 pos = _offset;
 	CULog("CharacterController buildParts _offset: %f, %f", _offset.x, _offset.y);
 	makePart(PART_BODY, PART_NONE, pos);
-	makePart(PART_JR1, PART_BODY, Vec2(CJOINT_OFFSET, 0));
-	makePart(PART_JR2, PART_JR1, Vec2(HALF_CJOINT_OFFSET, 0));
-	makePart(PART_JR3, PART_JR2, Vec2(HALF_CJOINT_OFFSET, 0));
-	makePart(PART_JR4, PART_JR3, Vec2(0, 0));
-	makePart(PART_JR5, PART_JR4, Vec2(HALF_CJOINT_OFFSET, 0));
-	makePart(PART_JR6, PART_JR5, Vec2(HALF_CJOINT_OFFSET, 0));
-	makePart(PART_RH, PART_JR6, Vec2(0, 0));
+	// makePart(PART_JR1, PART_BODY, Vec2(CJOINT_OFFSET, 0));
+	// makePart(PART_JR2, PART_JR1, Vec2(HALF_CJOINT_OFFSET, 0));
+	// makePart(PART_JR3, PART_JR2, Vec2(HALF_CJOINT_OFFSET, 0));
+	// makePart(PART_JR4, PART_JR3, Vec2(0, 0));
+	// makePart(PART_JR5, PART_JR4, Vec2(HALF_CJOINT_OFFSET, 0));
+	// makePart(PART_JR6, PART_JR5, Vec2(HALF_CJOINT_OFFSET, 0));
+	// makePart(PART_RH, PART_JR6, Vec2(0, 0));
 
-	makePart(PART_LR1, PART_BODY, Vec2(-CJOINT_OFFSET, 0));
-	makePart(PART_LR2, PART_LR1, Vec2(-HALF_CJOINT_OFFSET, 0));
-	makePart(PART_LR3, PART_LR2, Vec2(-HALF_CJOINT_OFFSET, 0));
-	makePart(PART_LR4, PART_LR3, Vec2(0, 0));
-	makePart(PART_LR5, PART_LR4, Vec2(-HALF_CJOINT_OFFSET, 0));
-	makePart(PART_LR6, PART_LR5, Vec2(-HALF_CJOINT_OFFSET, 0));
-	makePart(PART_LH, PART_LR6, Vec2(0, 0));
+	// makePart(PART_LR1, PART_BODY, Vec2(-CJOINT_OFFSET, 0));
+	// makePart(PART_LR2, PART_LR1, Vec2(-HALF_CJOINT_OFFSET, 0));
+	// makePart(PART_LR3, PART_LR2, Vec2(-HALF_CJOINT_OFFSET, 0));
+	// makePart(PART_LR4, PART_LR3, Vec2(0, 0));
+	// makePart(PART_LR5, PART_LR4, Vec2(-HALF_CJOINT_OFFSET, 0));
+	// makePart(PART_LR6, PART_LR5, Vec2(-HALF_CJOINT_OFFSET, 0));
+	// makePart(PART_LH, PART_LR6, Vec2(0, 0));
+
+
+	makePart(PART_RH, PART_BODY, Vec2(4 * HALF_CJOINT_OFFSET, 0));
+	makePart(PART_LH, PART_BODY, Vec2(-4 * HALF_CJOINT_OFFSET , 0));
+
 
 	leftShoulderOffset = Vec2(-CJOINT_OFFSET, 0);
 	rightShoulderOffset = Vec2(CJOINT_OFFSET, 0);
@@ -130,18 +135,18 @@ bool CharacterController::buildParts(const std::shared_ptr<AssetManager>& assets
 	leftElbowOffset = leftHandOffset / 2.0f;
 	rightElbowOffset = rightHandOffset / 2.0f;
 
-	_obstacles[PART_JR1]->setSensor(true);
-	_obstacles[PART_JR2]->setSensor(true);
-	_obstacles[PART_JR3]->setSensor(true);
-	_obstacles[PART_JR4]->setSensor(true);
-	_obstacles[PART_JR5]->setSensor(true);
-	_obstacles[PART_JR6]->setSensor(true);
-	_obstacles[PART_LR1]->setSensor(true);
-	_obstacles[PART_LR2]->setSensor(true);
-	_obstacles[PART_LR3]->setSensor(true);
-	_obstacles[PART_LR4]->setSensor(true);
-	_obstacles[PART_LR5]->setSensor(true);
-	_obstacles[PART_LR6]->setSensor(true);
+	// _obstacles[PART_JR1]->setSensor(true);
+	// _obstacles[PART_JR2]->setSensor(true);
+	// _obstacles[PART_JR3]->setSensor(true);
+	// _obstacles[PART_JR4]->setSensor(true);
+	// _obstacles[PART_JR5]->setSensor(true);
+	// _obstacles[PART_JR6]->setSensor(true);
+	// _obstacles[PART_LR1]->setSensor(true);
+	// _obstacles[PART_LR2]->setSensor(true);
+	// _obstacles[PART_LR3]->setSensor(true);
+	// _obstacles[PART_LR4]->setSensor(true);
+	// _obstacles[PART_LR5]->setSensor(true);
+	// _obstacles[PART_LR6]->setSensor(true);
 	return true;
 }
 
@@ -153,19 +158,19 @@ std::string CharacterController::getPartName(int part) {
         return R_HAND_TEXTURE;
     case PART_LH:
         return L_HAND_TEXTURE;
-	case PART_JR1:
-	case PART_JR2:
-	case PART_JR3:
-	case PART_JR4:
-	case PART_JR5:
-	case PART_JR6:
-	case PART_LR1:
-	case PART_LR2:
-	case PART_LR3:
-	case PART_LR4:
-	case PART_LR5:
-	case PART_LR6:
-		return CJOINT_TEXTURE;
+	// case PART_JR1:
+	// case PART_JR2:
+	// case PART_JR3:
+	// case PART_JR4:
+	// case PART_JR5:
+	// case PART_JR6:
+	// case PART_LR1:
+	// case PART_LR2:
+	// case PART_LR3:
+	// case PART_LR4:
+	// case PART_LR5:
+	// case PART_LR6:
+	// 	return CJOINT_TEXTURE;
 	default:
 		return "UNKNOWN";
 	}
@@ -180,139 +185,139 @@ bool CharacterController::createJoints() {
 
 	// right arm, forearm, hand
 	// BODY->JR1 rev
-	revjoint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_BODY], _obstacles[PART_JR1]);
-	revjoint->setLocalAnchorA(CJOINT_OFFSET, 0);
-	revjoint->setLocalAnchorB(0, 0);
-	revjoint->enableLimit(true);
-	revjoint->setUpperAngle(M_PI / 2.0f);
-	revjoint->setLowerAngle(-M_PI / 2.0f);
-	_joints.push_back(revjoint);
+	// revjoint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_BODY], _obstacles[PART_JR1]);
+	// revjoint->setLocalAnchorA(CJOINT_OFFSET, 0);
+	// revjoint->setLocalAnchorB(0, 0);
+	// revjoint->enableLimit(true);
+	// revjoint->setUpperAngle(M_PI / 2.0f);
+	// revjoint->setLowerAngle(-M_PI / 2.0f);
+	// _joints.push_back(revjoint);
 
 	// JR1->JR2 pri
-	prijoint = physics2::PrismaticJoint::allocWithObstacles(_obstacles[PART_JR1], _obstacles[PART_JR2]);
-	prijoint->setLocalAnchorA(0, 0);
-	prijoint->setLocalAnchorB(0, 0);
-	prijoint->setLocalAxisA(1, 0);
-	prijoint->enableLimit(true);
-	prijoint->setUpperTranslation(ARM_EXTEND * HALF_CJOINT_OFFSET);
-	prijoint->setLowerTranslation(0.1f * HALF_CJOINT_OFFSET);
-	_joints.push_back(prijoint);
+	// prijoint = physics2::PrismaticJoint::allocWithObstacles(_obstacles[PART_JR1], _obstacles[PART_JR2]);
+	// prijoint->setLocalAnchorA(0, 0);
+	// prijoint->setLocalAnchorB(0, 0);
+	// prijoint->setLocalAxisA(1, 0);
+	// prijoint->enableLimit(true);
+	// prijoint->setUpperTranslation(ARM_EXTEND * HALF_CJOINT_OFFSET);
+	// prijoint->setLowerTranslation(0.1f * HALF_CJOINT_OFFSET);
+	// _joints.push_back(prijoint);
 
 	// JR2->JR3 pri
-	prijoint = physics2::PrismaticJoint::allocWithObstacles(_obstacles[PART_JR2], _obstacles[PART_JR3]);
-	prijoint->setLocalAnchorA(0, 0);
-	prijoint->setLocalAnchorB(0, 0);
-	prijoint->setLocalAxisA(1, 0);
-	prijoint->enableLimit(true);
-	prijoint->setUpperTranslation(ARM_EXTEND * HALF_CJOINT_OFFSET);
-	prijoint->setLowerTranslation(0.1f * HALF_CJOINT_OFFSET);
-	_joints.push_back(prijoint);
+	// prijoint = physics2::PrismaticJoint::allocWithObstacles(_obstacles[PART_JR2], _obstacles[PART_JR3]);
+	// prijoint->setLocalAnchorA(0, 0);
+	// prijoint->setLocalAnchorB(0, 0);
+	// prijoint->setLocalAxisA(1, 0);
+	// prijoint->enableLimit(true);
+	// prijoint->setUpperTranslation(ARM_EXTEND * HALF_CJOINT_OFFSET);
+	// prijoint->setLowerTranslation(0.1f * HALF_CJOINT_OFFSET);
+	// _joints.push_back(prijoint);
 
 	// JR3->JR4 rev, both anchor is 0,0
-	revjoint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_JR3], _obstacles[PART_JR4]);
-	revjoint->setLocalAnchorA(0, 0);
-	revjoint->setLocalAnchorB(0, 0);
-	revjoint->enableLimit(true);
-	revjoint->setUpperAngle(M_PI / 2.0f);
-	revjoint->setLowerAngle(-M_PI / 2.0f);
-	_joints.push_back(revjoint);
+	// revjoint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_JR3], _obstacles[PART_JR4]);
+	// revjoint->setLocalAnchorA(0, 0);
+	// revjoint->setLocalAnchorB(0, 0);
+	// revjoint->enableLimit(true);
+	// revjoint->setUpperAngle(M_PI / 2.0f);
+	// revjoint->setLowerAngle(-M_PI / 2.0f);
+	// _joints.push_back(revjoint);
 
 	// JR4->JR5 pri
-	prijoint = physics2::PrismaticJoint::allocWithObstacles(_obstacles[PART_JR4], _obstacles[PART_JR5]);
-	prijoint->setLocalAnchorA(0, 0);
-	prijoint->setLocalAnchorB(0, 0);
-	prijoint->setLocalAxisA(1, 0);
-	prijoint->enableLimit(true);
-	prijoint->setUpperTranslation(ARM_EXTEND * HALF_CJOINT_OFFSET);
-	prijoint->setLowerTranslation(0.1f * HALF_CJOINT_OFFSET);
-	_joints.push_back(prijoint);
+	// prijoint = physics2::PrismaticJoint::allocWithObstacles(_obstacles[PART_JR4], _obstacles[PART_JR5]);
+	// prijoint->setLocalAnchorA(0, 0);
+	// prijoint->setLocalAnchorB(0, 0);
+	// prijoint->setLocalAxisA(1, 0);
+	// prijoint->enableLimit(true);
+	// prijoint->setUpperTranslation(ARM_EXTEND * HALF_CJOINT_OFFSET);
+	// prijoint->setLowerTranslation(0.1f * HALF_CJOINT_OFFSET);
+	// _joints.push_back(prijoint);
 
 	// JR5->JR6 pri
-	prijoint = physics2::PrismaticJoint::allocWithObstacles(_obstacles[PART_JR5], _obstacles[PART_JR6]);
-	prijoint->setLocalAnchorA(0, 0);
-	prijoint->setLocalAnchorB(0, 0);
-	prijoint->setLocalAxisA(1, 0);
-	prijoint->enableLimit(true);
-	prijoint->setUpperTranslation(ARM_EXTEND * HALF_CJOINT_OFFSET);
-	prijoint->setLowerTranslation(0.1f * HALF_CJOINT_OFFSET);
-	_joints.push_back(prijoint);
+	// prijoint = physics2::PrismaticJoint::allocWithObstacles(_obstacles[PART_JR5], _obstacles[PART_JR6]);
+	// prijoint->setLocalAnchorA(0, 0);
+	// prijoint->setLocalAnchorB(0, 0);
+	// prijoint->setLocalAxisA(1, 0);
+	// prijoint->enableLimit(true);
+	// prijoint->setUpperTranslation(ARM_EXTEND * HALF_CJOINT_OFFSET);
+	// prijoint->setLowerTranslation(0.1f * HALF_CJOINT_OFFSET);
+	// _joints.push_back(prijoint);
 
 	// JR6->RH rev
-	revjoint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_JR6], _obstacles[PART_RH]);
-	revjoint->setLocalAnchorA(0, 0);
-	revjoint->setLocalAnchorB(0, 0);
-	revjoint->enableLimit(true);
-	revjoint->setUpperAngle(M_PI / 2.0f);
-	revjoint->setLowerAngle(-M_PI / 2.0f);
-	_joints.push_back(revjoint);
+	// revjoint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_JR6], _obstacles[PART_RH]);
+	// revjoint->setLocalAnchorA(0, 0);
+	// revjoint->setLocalAnchorB(0, 0);
+	// revjoint->enableLimit(true);
+	// revjoint->setUpperAngle(M_PI / 2.0f);
+	// revjoint->setLowerAngle(-M_PI / 2.0f);
+	// _joints.push_back(revjoint);
 
 	// left part
 	// body->LR1 rev
-	revjoint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_BODY], _obstacles[PART_LR1]);
-	revjoint->setLocalAnchorA(-CJOINT_OFFSET, 0);
-	revjoint->setLocalAnchorB(0, 0);
-	revjoint->enableLimit(true);
-	revjoint->setUpperAngle(M_PI / 2.0f);
-	revjoint->setLowerAngle(-M_PI / 2.0f);
-	_joints.push_back(revjoint);
+	// revjoint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_BODY], _obstacles[PART_LR1]);
+	// revjoint->setLocalAnchorA(-CJOINT_OFFSET, 0);
+	// revjoint->setLocalAnchorB(0, 0);
+	// revjoint->enableLimit(true);
+	// revjoint->setUpperAngle(M_PI / 2.0f);
+	// revjoint->setLowerAngle(-M_PI / 2.0f);
+	// _joints.push_back(revjoint);
 
 	// LR1->LR2 pri
-	prijoint = physics2::PrismaticJoint::allocWithObstacles(_obstacles[PART_LR1], _obstacles[PART_LR2]);
-	prijoint->setLocalAnchorA(0, 0);
-	prijoint->setLocalAnchorB(0, 0);
-	prijoint->setLocalAxisA(-1, 0);
-	prijoint->enableLimit(true);
-	prijoint->setUpperTranslation(ARM_EXTEND * HALF_CJOINT_OFFSET);
-	prijoint->setLowerTranslation(0.1f * HALF_CJOINT_OFFSET);
-	_joints.push_back(prijoint);
+	// prijoint = physics2::PrismaticJoint::allocWithObstacles(_obstacles[PART_LR1], _obstacles[PART_LR2]);
+	// prijoint->setLocalAnchorA(0, 0);
+	// prijoint->setLocalAnchorB(0, 0);
+	// prijoint->setLocalAxisA(-1, 0);
+	// prijoint->enableLimit(true);
+	// prijoint->setUpperTranslation(ARM_EXTEND * HALF_CJOINT_OFFSET);
+	// prijoint->setLowerTranslation(0.1f * HALF_CJOINT_OFFSET);
+	// _joints.push_back(prijoint);
 
 	// LR2->LR3 pri
-	prijoint = physics2::PrismaticJoint::allocWithObstacles(_obstacles[PART_LR2], _obstacles[PART_LR3]);
-	prijoint->setLocalAnchorA(0, 0);
-	prijoint->setLocalAnchorB(0, 0);
-	prijoint->setLocalAxisA(-1, 0);
-	prijoint->enableLimit(true);
-	prijoint->setUpperTranslation(ARM_EXTEND * HALF_CJOINT_OFFSET);
-	prijoint->setLowerTranslation(0.1f * HALF_CJOINT_OFFSET);
-	_joints.push_back(prijoint);
+	// prijoint = physics2::PrismaticJoint::allocWithObstacles(_obstacles[PART_LR2], _obstacles[PART_LR3]);
+	// prijoint->setLocalAnchorA(0, 0);
+	// prijoint->setLocalAnchorB(0, 0);
+	// prijoint->setLocalAxisA(-1, 0);
+	// prijoint->enableLimit(true);
+	// prijoint->setUpperTranslation(ARM_EXTEND * HALF_CJOINT_OFFSET);
+	// prijoint->setLowerTranslation(0.1f * HALF_CJOINT_OFFSET);
+	// _joints.push_back(prijoint);
 
 	// LR3->LR4 rev, both anchor is 0,0
-	revjoint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_LR3], _obstacles[PART_LR4]);
-	revjoint->setLocalAnchorA(0, 0);
-	revjoint->setLocalAnchorB(0, 0);
-	revjoint->enableLimit(true);
-	revjoint->setUpperAngle(M_PI / 2.0f);
-	revjoint->setLowerAngle(-M_PI / 2.0f);
-	_joints.push_back(revjoint);
+	// revjoint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_LR3], _obstacles[PART_LR4]);
+	// revjoint->setLocalAnchorA(0, 0);
+	// revjoint->setLocalAnchorB(0, 0);
+	// revjoint->enableLimit(true);
+	// revjoint->setUpperAngle(M_PI / 2.0f);
+	// revjoint->setLowerAngle(-M_PI / 2.0f);
+	// _joints.push_back(revjoint);
 
 	// LR4->LR5 pri
-	prijoint = physics2::PrismaticJoint::allocWithObstacles(_obstacles[PART_LR4], _obstacles[PART_LR5]);
-	prijoint->setLocalAnchorA(0, 0);
-	prijoint->setLocalAnchorB(0, 0);
-	prijoint->setLocalAxisA(-1, 0);
-	prijoint->enableLimit(true);
-	prijoint->setUpperTranslation(ARM_EXTEND * HALF_CJOINT_OFFSET);
-	prijoint->setLowerTranslation(0.1f * HALF_CJOINT_OFFSET);
-	_joints.push_back(prijoint);
+	// prijoint = physics2::PrismaticJoint::allocWithObstacles(_obstacles[PART_LR4], _obstacles[PART_LR5]);
+	// prijoint->setLocalAnchorA(0, 0);
+	// prijoint->setLocalAnchorB(0, 0);
+	// prijoint->setLocalAxisA(-1, 0);
+	// prijoint->enableLimit(true);
+	// prijoint->setUpperTranslation(ARM_EXTEND * HALF_CJOINT_OFFSET);
+	// prijoint->setLowerTranslation(0.1f * HALF_CJOINT_OFFSET);
+	// _joints.push_back(prijoint);
 
 	// LR5->LR6 pri
-	prijoint = physics2::PrismaticJoint::allocWithObstacles(_obstacles[PART_LR5], _obstacles[PART_LR6]);
-	prijoint->setLocalAnchorA(0, 0);
-	prijoint->setLocalAnchorB(0, 0);
-	prijoint->setLocalAxisA(-1, 0);
-	prijoint->enableLimit(true);
-	prijoint->setUpperTranslation(ARM_EXTEND * HALF_CJOINT_OFFSET);
-	prijoint->setLowerTranslation(0.1f * HALF_CJOINT_OFFSET);
-	_joints.push_back(prijoint);
+	// prijoint = physics2::PrismaticJoint::allocWithObstacles(_obstacles[PART_LR5], _obstacles[PART_LR6]);
+	// prijoint->setLocalAnchorA(0, 0);
+	// prijoint->setLocalAnchorB(0, 0);
+	// prijoint->setLocalAxisA(-1, 0);
+	// prijoint->enableLimit(true);
+	// prijoint->setUpperTranslation(ARM_EXTEND * HALF_CJOINT_OFFSET);
+	// prijoint->setLowerTranslation(0.1f * HALF_CJOINT_OFFSET);
+	// _joints.push_back(prijoint);
 
 	// LR6->LH rev
-	revjoint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_LR6], _obstacles[PART_LH]);
-	revjoint->setLocalAnchorA(0, 0);
-	revjoint->setLocalAnchorB(0, 0);
-	revjoint->enableLimit(true);
-	revjoint->setUpperAngle(M_PI / 2.0f);
-	revjoint->setLowerAngle(-M_PI / 2.0f);
-	_joints.push_back(revjoint);
+	// revjoint = physics2::RevoluteJoint::allocWithObstacles(_obstacles[PART_LR6], _obstacles[PART_LH]);
+	// revjoint->setLocalAnchorA(0, 0);
+	// revjoint->setLocalAnchorB(0, 0);
+	// revjoint->enableLimit(true);
+	// revjoint->setUpperAngle(M_PI / 2.0f);
+	// revjoint->setLowerAngle(-M_PI / 2.0f);
+	// _joints.push_back(revjoint);
 
 	if (_motorEnabled) {
 		/* new version of motor joint direct body <-> hands*/
@@ -330,43 +335,38 @@ bool CharacterController::createJoints() {
 		leftHandJoint->setAngularOffset(0);
 		_joints.push_back(leftHandJoint);
 
-		leftElbowJoint = physics2::MotorJoint::allocWithObstacles(_obstacles[PART_BODY], _obstacles[PART_LR3]);
-		leftElbowJoint->setMaxForce(MAX_FORCE);
-		leftElbowJoint->setLinearOffset(leftShoulderOffset + leftElbowOffset);
-		_joints.push_back(leftElbowJoint);
+		// leftElbowJoint = physics2::MotorJoint::allocWithObstacles(_obstacles[PART_BODY], _obstacles[PART_LR3]);
+		// leftElbowJoint->setMaxForce(MAX_FORCE);
+		// leftElbowJoint->setLinearOffset(leftShoulderOffset + leftElbowOffset);
+		// _joints.push_back(leftElbowJoint);
 
-		rightElbowJoint = physics2::MotorJoint::allocWithObstacles(_obstacles[PART_BODY], _obstacles[PART_JR3]);
-		rightElbowJoint->setMaxForce(MAX_FORCE);
-		rightElbowJoint->setLinearOffset(rightShoulderOffset + rightElbowOffset);
-		_joints.push_back(rightElbowJoint);
+		// rightElbowJoint = physics2::MotorJoint::allocWithObstacles(_obstacles[PART_BODY], _obstacles[PART_JR3]);
+		// rightElbowJoint->setMaxForce(MAX_FORCE);
+		// rightElbowJoint->setLinearOffset(rightShoulderOffset + rightElbowOffset);
+		// _joints.push_back(rightElbowJoint);
 
-		leftArmJoint = physics2::MotorJoint::allocWithObstacles(_obstacles[PART_BODY], _obstacles[PART_LR2]);
-		leftArmJoint->setMaxForce(MAX_FORCE / 10.0f);
-		leftArmJoint->setLinearOffset(leftShoulderOffset + (leftElbowOffset / 2.0f));
-		_joints.push_back(leftArmJoint);
+		// leftArmJoint = physics2::MotorJoint::allocWithObstacles(_obstacles[PART_BODY], _obstacles[PART_LR2]);
+		// leftArmJoint->setMaxForce(MAX_FORCE / 10.0f);
+		// leftArmJoint->setLinearOffset(leftShoulderOffset + (leftElbowOffset / 2.0f));
+		// _joints.push_back(leftArmJoint);
 
-		rightArmJoint = physics2::MotorJoint::allocWithObstacles(_obstacles[PART_BODY], _obstacles[PART_JR2]);
-		rightArmJoint->setMaxForce(MAX_FORCE / 10.0f);
-		rightArmJoint->setLinearOffset(rightShoulderOffset + (rightElbowOffset / 2.0f));
-		_joints.push_back(rightArmJoint);
+		// rightArmJoint = physics2::MotorJoint::allocWithObstacles(_obstacles[PART_BODY], _obstacles[PART_JR2]);
+		// rightArmJoint->setMaxForce(MAX_FORCE / 10.0f);
+		// rightArmJoint->setLinearOffset(rightShoulderOffset + (rightElbowOffset / 2.0f));
+		// _joints.push_back(rightArmJoint);
 
-		leftForearmJoint = physics2::MotorJoint::allocWithObstacles(_obstacles[PART_BODY], _obstacles[PART_LR5]);
-		leftForearmJoint->setMaxForce(MAX_FORCE / 10.0f);
-		leftForearmJoint->setLinearOffset(leftShoulderOffset + ((leftHandOffset + leftElbowOffset) / 2.0f));
-		_joints.push_back(leftForearmJoint);
+		// leftForearmJoint = physics2::MotorJoint::allocWithObstacles(_obstacles[PART_BODY], _obstacles[PART_LR5]);
+		// leftForearmJoint->setMaxForce(MAX_FORCE / 10.0f);
+		// leftForearmJoint->setLinearOffset(leftShoulderOffset + ((leftHandOffset + leftElbowOffset) / 2.0f));
+		// _joints.push_back(leftForearmJoint);
 
-		rightForearmJoint = physics2::MotorJoint::allocWithObstacles(_obstacles[PART_BODY], _obstacles[PART_JR5]);
-		rightForearmJoint->setMaxForce(MAX_FORCE / 10.0f);
-		rightForearmJoint->setLinearOffset(rightShoulderOffset + ((rightHandOffset + rightElbowOffset) / 2.0f));
-		_joints.push_back(rightForearmJoint);
+		// rightForearmJoint = physics2::MotorJoint::allocWithObstacles(_obstacles[PART_BODY], _obstacles[PART_JR5]);
+		// rightForearmJoint->setMaxForce(MAX_FORCE / 10.0f);
+		// rightForearmJoint->setLinearOffset(rightShoulderOffset + ((rightHandOffset + rightElbowOffset) / 2.0f));
+		// _joints.push_back(rightForearmJoint);
 	}
 
-	// auto dummy_joints_right = dummy_jointsmaker({PART_BODY, PART_JR1, PART_JR2, PART_JR3, PART_JR4, PART_JR5, PART_JR6, PART_RH});
-	// _joints.insert(_joints.end(), dummy_joints_right.begin(), dummy_joints_right.end());
-	// auto dummy_joints_left = dummy_jointsmaker({PART_BODY, PART_LR1, PART_LR2, PART_LR3, PART_LR4, PART_LR5, PART_LR6, PART_LH});
-	// _joints.insert(_joints.end(), dummy_joints_left.begin(), dummy_joints_left.end());
 
-	// dummy joints before these obstacles so they collision can be disabled:
 	return true;
 }
 
@@ -434,16 +434,16 @@ bool CharacterController::moveLeftHand(cugl::Vec2 offset) {
 	}
 	leftHandJoint->setLinearOffset(leftShoulderOffset + leftHandOffset);
 	float a2 = -atan2(leftHandOffset.y, -leftHandOffset.x);
-	// leftHandJoint->setAngularOffset(a2); // set angle as hand rotation
-	leftHandJoint->setAngularOffset(-a); // set angle as body rotation, keep hand horizontal
+	leftHandJoint->setAngularOffset(a2); // set angle as hand rotation
+	// leftHandJoint->setAngularOffset(-a); // set angle as body rotation, keep hand horizontal
 
 	Vec2 leftElbowPosition = armMiddleExp_R(Vec2(-leftHandOffset.x, leftHandOffset.y));
 	leftElbowPosition.x = -leftElbowPosition.x;
 	leftElbowOffset = leftElbowPosition;
-	leftElbowJoint->setLinearOffset(leftShoulderOffset + leftElbowOffset);
-
-	leftArmJoint->setLinearOffset((leftShoulderOffset + (leftElbowOffset / 2.0f)));
-	leftForearmJoint->setLinearOffset((leftShoulderOffset + ((leftHandOffset + leftElbowOffset) / 2.0f)));
+	// move elbow and arms
+	// leftElbowJoint->setLinearOffset(leftShoulderOffset + leftElbowOffset);
+	// leftArmJoint->setLinearOffset((leftShoulderOffset + (leftElbowOffset / 2.0f)));
+	// leftForearmJoint->setLinearOffset((leftShoulderOffset + ((leftHandOffset + leftElbowOffset) / 2.0f)));
 	return true;
 }
 
@@ -467,13 +467,13 @@ bool CharacterController::moveRightHand(cugl::Vec2 offset) {
 	rightHandJoint->setLinearOffset(rightShoulderOffset + rightHandOffset);
 	float a2 = atan2(rightHandOffset.y, rightHandOffset.x);
 	rightHandJoint->setAngularOffset(a2); // set angle as hand rotation
-	rightHandJoint->setAngularOffset(-a); // set angle as body rotation, keep hand horizontal
+	// rightHandJoint->setAngularOffset(-a); // set angle as body rotation, keep hand horizontal
 	Vec2 rightElbowPosition = armMiddleExp_R(rightHandOffset);
 	rightElbowOffset = rightElbowPosition;
-	rightElbowJoint->setLinearOffset(rightShoulderOffset + rightElbowPosition);
-
-	rightArmJoint->setLinearOffset((rightShoulderOffset + (rightElbowOffset / 2.0f)));
-	rightForearmJoint->setLinearOffset((rightShoulderOffset + ((rightHandOffset + rightElbowOffset) / 2.0f)));
+	// move elbow and arms
+	// rightElbowJoint->setLinearOffset(rightShoulderOffset + rightElbowPosition);
+	// rightArmJoint->setLinearOffset((rightShoulderOffset + (rightElbowOffset / 2.0f)));
+	// rightForearmJoint->setLinearOffset((rightShoulderOffset + ((rightHandOffset + rightElbowOffset) / 2.0f)));
 	return true;
 }
 
@@ -525,10 +525,10 @@ void CharacterController::linkPartsToWorld(const std::shared_ptr<cugl::physics2:
     drawCharacterLines(_scale);
 	for (int i = 0; i < _obstacles.size(); i++) {
 		auto obj = _obstacles[i];
-        if ((i >= PART_JR1 && i <= PART_JR6) || (i >= PART_LR1 && i <= PART_LR6)) {
-            _world->addObstacle(obj);
-            continue;
-        }
+        // if ((i >= PART_JR1 && i <= PART_JR6) || (i >= PART_LR1 && i <= PART_LR6)) {
+        //     _world->addObstacle(obj);
+        //     continue;
+        // }
 		std::shared_ptr<Texture> image = _textures[i];
 		std::shared_ptr<scene2::PolygonNode> sprite = scene2::PolygonNode::allocWithTexture(image);
 
@@ -565,13 +565,15 @@ void CharacterController::linkPartsToWorld(const std::shared_ptr<cugl::physics2:
 
 void CharacterController::drawCharacterLines(float scale) {
     if (_obstacles.size() >= PART_LH + 1) {
-        Vec2 lr1Pos = _obstacles[PART_LR1]->getPosition();
-        Vec2 lr3Pos = _obstacles[PART_LR3]->getPosition();
-        Vec2 lr4Pos = _obstacles[PART_LR4]->getPosition();
+		float body_angle = _obstacles[PART_BODY]->getAngle();
+		Vec2 leftshoulder = _obstacles[PART_BODY]->getPosition() + Vec2(leftShoulderOffset.x * cos(body_angle) - leftShoulderOffset.y * sin(body_angle), leftShoulderOffset.x * sin(body_angle) + leftShoulderOffset.y * cos(body_angle));
+		Vec2 rightshoulder = _obstacles[PART_BODY]->getPosition() + Vec2(rightShoulderOffset.x * cos(body_angle) - rightShoulderOffset.y * sin(body_angle), rightShoulderOffset.x * sin(body_angle) + rightShoulderOffset.y * cos(body_angle));
+        
+		Vec2 lr1Pos = leftshoulder;
+        Vec2 lr3Pos = lr1Pos + Vec2(leftElbowOffset.x * cos(body_angle) - leftElbowOffset.y * sin(body_angle), leftElbowOffset.x * sin(body_angle) + leftElbowOffset.y * cos(body_angle));
         Vec2 lhPos = _obstacles[PART_LH]->getPosition();
-        Vec2 jr1Pos = _obstacles[PART_JR1]->getPosition();
-        Vec2 jr3Pos = _obstacles[PART_JR3]->getPosition();
-        Vec2 jr4Pos = _obstacles[PART_JR4]->getPosition();
+        Vec2 jr1Pos = rightshoulder;
+        Vec2 jr3Pos = jr1Pos + Vec2(rightElbowOffset.x * cos(body_angle) - rightElbowOffset.y * sin(body_angle), rightElbowOffset.x * sin(body_angle) + rightElbowOffset.y * cos(body_angle));
         Vec2 rhPos = _obstacles[PART_RH]->getPosition();
 //        CULog("lr1Pos is : %f %f \n", lr1Pos.x, lr1Pos.y);
 //        CULog("lr3Pos is : %f %f \n", lr3Pos.x, lr3Pos.y);
@@ -598,9 +600,9 @@ void CharacterController::drawCharacterLines(float scale) {
         };
 
         createLine(lr1Pos-0.2*(lr3Pos - lr1Pos), lr3Pos, 0);
-        createLine(lr4Pos, lhPos, 1);
+        createLine(lr3Pos, lhPos, 1);
         createLine(jr1Pos - 0.2*(jr3Pos - jr1Pos), jr3Pos, 2);
-        createLine(jr4Pos, rhPos, 3);
+        createLine(jr3Pos, rhPos, 3);
 //        createLine(lr1Pos, lr3Pos, 0);
 //        createLine(lr4Pos, lhPos, 1);
 //        createLine(jr1Pos, jr3Pos, 2);
