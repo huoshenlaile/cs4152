@@ -8,7 +8,7 @@
          "name":"objects",
          "objects":[
                 {
-                 "height":0,
+                 "height":49.8132642861166,
                  "id":5,
                  "name":"",
                  "polygon":[
@@ -50,9 +50,9 @@
                             }
                         }],
                  "rotation":0,
-                 "type":"wall",
+                 "type":"exit",
                  "visible":true,
-                 "width":0,
+                 "width":49.8132642861166,
                  "x":4025.39990529421,
                  "y":1591.12971377951
                 }, 

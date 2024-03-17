@@ -59,6 +59,11 @@ void InteractionController::beginContact(b2Contact* contact) {
     intptr_t goal_ptr = reinterpret_cast<intptr_t>(_level->getExit().get());
     InteractionController::PlayersContact contact_info = checkContactForPlayer(body1, body2);
     if (contact_info.bodyOne!=NOT_PLAYER || contact_info.bodyTwo != NOT_PLAYER){
+        //std::cout << "Player touch\n";
+        //std::cout << body1->GetUserData().pointer << "\n";
+       // std::cout << body2->GetUserData().pointer << "\n";
+        //std::cout << goal_ptr << "\n";
+
         if(body1->GetUserData().pointer == goal_ptr || body2->GetUserData().pointer == goal_ptr) {
             // TODO: generalize this to all buttons
             // A player has pressed the button

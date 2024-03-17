@@ -185,6 +185,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	_gamePaused = false;
 	_complete = false;
 	setDebug(false);
+    activateWorldCollisions(_platformWorld);
 
 #pragma mark AudioController
 	//    _audioController = std::make_shared<AudioController>();
@@ -197,9 +198,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 		_uinode, 5.0f);
 	_camera.setZoom(0.6);
     
-    
-    activateWorldCollisions(_platformWorld);
-	return true;
+    return true;
 }
 
 /**

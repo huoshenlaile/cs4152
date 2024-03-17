@@ -50,7 +50,7 @@
                             }
                         }],
                  "rotation":0,
-                 "type":"wall",
+                 "type":"exit",
                  "visible":true,
                  "width":0,
                  "x":4139.25672789406,
