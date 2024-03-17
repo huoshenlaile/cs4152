@@ -102,14 +102,14 @@ void PlatformInput::update(float dt) {
 	int count = 0;
 	CULog("Here!!!");
 
-	for (auto i = _character._touchInfo.begin(); i != _character._touchInfo.end(); i++) {
+	for (auto i = _character._touchInfo.begin(); i != _character._touchInfo.end();) {
 		if (touch->touchReleased(i->id)) {
 			CULog("Release");
 			if (i->type == 1) _character.leftHand.assigned = false;
 			else if (i->type == 2) _character.rightHand.assigned = false;
-			_character._touchInfo.erase(i);
-			break;
+			i = _character._touchInfo.erase(i);
 		}
+		else i++;
 	}
 
 	for (auto i = _character._touchInfo.begin(); i != _character._touchInfo.end(); i++) {
@@ -239,14 +239,14 @@ void PlatformInput::process() {
 		}
 	}
 
-	for (auto i = _character._touchInfo.begin(); i != _character._touchInfo.end(); i++) {
+	for (auto i = _character._touchInfo.begin(); i != _character._touchInfo.end();) {
 		if (touch->touchReleased(i->id)) {
 			CULog("Release");
 			if (i->type == 1) _character.leftHand.assigned = false;
 			else if (i->type == 2) _character.rightHand.assigned = false;
-			_character._touchInfo.erase(i);
-			break;
+			i = _character._touchInfo.erase(i);
 		}
+		else i++;
 	}
 
 	//// Press
