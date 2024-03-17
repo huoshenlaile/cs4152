@@ -34,7 +34,7 @@
 #define L_HAND_TEXTURE "lhand64"
 #define R_HAND_TEXTURE "rhand64"
 
-#define MAX_TORQUE 10000.0f
+#define MAX_TORQUE 1000000.0f
 #define MAX_FORCE  100000.0f
 
 #define LENGTH_MULTIPLIER 2.0f
@@ -49,7 +49,7 @@
 /** The radius for the center of mass */
 #define CENTROID_RADIUS  0.1f
 
-#define BODY_DENSITY 3.0f
+#define BODY_DENSITY 3.7f
 
 using namespace cugl;
 
@@ -66,7 +66,7 @@ protected:
 	float _drawScale;
 	std::string getPartName(int part);
 	bool _motorEnabled = true;
-	std::shared_ptr<cugl::physics2::BoxObstacle> makePart(int part, int connect, const cugl::Vec2& pos);
+	std::shared_ptr<cugl::physics2::PolygonObstacle> makePart(int part, int connect, const cugl::Vec2& pos);
 	Vec2 SolveAngleMiddleBisectorLine(Vec2 p);
 	Vec2 armMiddleExp_R(Vec2 end);
 	std::vector<std::shared_ptr<cugl::physics2::Joint>> dummy_jointsmaker(std::vector<int> part_indices);

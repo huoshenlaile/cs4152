@@ -17,18 +17,41 @@ void CharacterController::dispose() {
 	_joints.clear();
 }
 
-std::shared_ptr<physics2::BoxObstacle> CharacterController::makePart(int part, int connect, const Vec2& pos) {
+std::shared_ptr<physics2::PolygonObstacle> CharacterController::makePart(int part, int connect, const Vec2& pos) {
 	std::shared_ptr<Texture> image = _textures[part];
 	Size size = image->getSize();
 	size.width /= _drawScale;
 	size.height /= _drawScale;
-
+	float w = size.width / 2.0f;
+	float h = size.height / 2.0f;
 	Vec2 pos2 = pos;
 	if (connect != PART_NONE) {
 		pos2 += _obstacles[connect]->getPosition();
 	}
 
-	std::shared_ptr<physics2::BoxObstacle> body = physics2::BoxObstacle::alloc(pos2, size);
+	// std::shared_ptr<physics2::BoxObstacle> body = physics2::BoxObstacle::alloc(pos2, size);
+	// create body  polygon as octagon
+	// calculate index first
+
+	float oct[] = {	- w, - h * 0.414f,
+					- w * 0.414f, - h,
+					w * 0.414f, - h,
+					w, - h * 0.414f,
+					w, h * 0.414f,
+					w * 0.414f, h,
+					- w * 0.414f, h,
+					- w, h * 0.414f};
+	
+
+	cugl::Poly2 octpoly = cugl::Poly2(reinterpret_cast<Vec2*>(oct), 8);
+	EarclipTriangulator triangulator;
+	triangulator.set(octpoly.vertices);
+	triangulator.calculate();
+	octpoly.setIndices(triangulator.getTriangulation());
+	triangulator.clear();
+	std::shared_ptr<physics2::PolygonObstacle> body = physics2::PolygonObstacle::allocWithAnchor(octpoly, Vec2(0.5,0.5));
+	body->setBodyType(b2_dynamicBody);
+	body->setPosition(pos2);
 	// log all information
 	//CULog("part: %d", part);
 	//CULog("connect: %d", connect);
@@ -42,12 +65,22 @@ std::shared_ptr<physics2::BoxObstacle> CharacterController::makePart(int part, i
 	else {
 		body->setDensity(DEFAULT_DENSITY);
 	}
+	// add extra friction to the PART_LH and PART_RH
 	// log friction information:
-//    CULog("body part %d friction: %f", part, body->getFriction());
-	body->setFriction(2.5f);
-	_obstacles.push_back(body);
+    if (part == PART_LH || part == PART_RH) {
+		
+		body->setFriction(3.5f);
+	}else{
+		body->setFriction(0.5f);
+	}
+
+	// log friction information:
+   	CULog("makePart body part %d friction: %f", part, body->getFriction());
+	
+	
 	// log parts and resitituion
-//    CULog("body part %d restitution: %f", part, body->getRestitution());
+   	CULog("makePart body part %d restitution: %f", part, body->getRestitution());
+	_obstacles.push_back(body);
 	return body;
 }
 
@@ -388,7 +421,7 @@ bool CharacterController::moveLeftHand(cugl::Vec2 offset) {
 	float a = _obstacles[PART_BODY]->getAngle();
 	leftHandOffset = leftHandOffset + Vec2(offset.x * cos(a) + offset.y * sin(a), -offset.x * sin(a) + offset.y * cos(a));
 	// normalize leftHandOffset to 4 * HALF_CJOINT_OFFSET if it is too long
-	float full_length = 4 * HALF_CJOINT_OFFSET;
+	float full_length = 5 * HALF_CJOINT_OFFSET;
 	float length = leftHandOffset.length();
 	if (length > full_length) {
 		leftHandOffset = leftHandOffset * (full_length / length);
@@ -419,7 +452,7 @@ bool CharacterController::moveRightHand(cugl::Vec2 offset) {
 	float a = _obstacles[PART_BODY]->getAngle();
 	rightHandOffset = rightHandOffset + Vec2(offset.x * cos(a) + offset.y * sin(a), -offset.x * sin(a) + offset.y * cos(a));
 	// normalize rightHandOffset to 4 * HALF_CJOINT_OFFSET if it is too long
-	float full_length = 4 * HALF_CJOINT_OFFSET;
+	float full_length = 5 * HALF_CJOINT_OFFSET;
 	float length = rightHandOffset.length();
 	if (length > full_length) {
 		rightHandOffset = rightHandOffset * (full_length / length);
