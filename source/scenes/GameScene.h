@@ -214,7 +214,7 @@ public:
 	 * @param value whether the level is completed.
 	 */
 	void setComplete(bool value) {
-		_complete = value;
+		//_complete = value;
 		_winnode->setVisible(value);
 	}
 
