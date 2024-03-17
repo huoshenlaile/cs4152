@@ -172,11 +172,11 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 
 #pragma mark InteractionController
 	// TODO: fix this init after finishing characterControllers
-    _interactionController.init({}, _characterControllerA, nullptr, {}, {}, _level);
+	_interactionController.init({}, _characterControllerA, nullptr, {}, {}, _level);
 	// TODO: remove, this is for testing purposes
-    InteractionController::SubscriberMessage sub = { "goalDoor", "contacted",
-        std::unordered_map<std::string, std::string>({{"win","true"}})};
-    _interactionController.addSubscription(std::move(sub));
+	InteractionController::SubscriberMessage sub = { "goalDoor", "contacted",
+		std::unordered_map<std::string, std::string>({{"win","true"}}) };
+	_interactionController.addSubscription(std::move(sub));
 
 	//    _camera.init(charNode,_worldnode,1.0f,
 	//    std::dynamic_pointer_cast<OrthographicCamera>(getCamera()),
@@ -185,7 +185,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	_gamePaused = false;
 	_complete = false;
 	setDebug(false);
-    activateWorldCollisions(_platformWorld);
+	activateWorldCollisions(_platformWorld);
 
 #pragma mark AudioController
 	//    _audioController = std::make_shared<AudioController>();
@@ -197,8 +197,8 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 		std::dynamic_pointer_cast<OrthographicCamera>(getCamera()),
 		_uinode, 5.0f);
 	_camera.setZoom(0.6);
-    
-    return true;
+
+	return true;
 }
 
 /**
@@ -207,19 +207,17 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
  * @param world the physics world to activate world collision callbacks on
  */
 void GameScene::activateWorldCollisions(const std::shared_ptr<physics2::ObstacleWorld>& world) {
-    world->activateCollisionCallbacks(true);
-    world->onBeginContact = [this](b2Contact* contact) {
-        _interactionController.beginContact(contact);
-    };
-    world->beforeSolve = [this](b2Contact* contact, const b2Manifold* oldManifold) {
-        _interactionController.beforeSolve(contact, oldManifold);
-    };
-    world->onEndContact = [this](b2Contact* contact) {
-        _interactionController.endContact(contact);
-    };
-
+	world->activateCollisionCallbacks(true);
+	world->onBeginContact = [this](b2Contact* contact) {
+		_interactionController.beginContact(contact);
+		};
+	world->beforeSolve = [this](b2Contact* contact, const b2Manifold* oldManifold) {
+		_interactionController.beforeSolve(contact, oldManifold);
+		};
+	world->onEndContact = [this](b2Contact* contact) {
+		_interactionController.endContact(contact);
+		};
 }
-
 
 /**
  * Disposes of all (non-static) resources allocated to this mode.
@@ -302,6 +300,19 @@ void GameScene::preUpdate(float dt) {
 	}
 	// _input.update();
 	_inputController->update(dt);
+	auto character = _inputController->getCharacter();
+	for (auto i = character->_touchInfo.begin(); i != character->_touchInfo.end(); i++) {
+		i->worldPos = (Vec2)Scene2::screenToWorldCoords(i->position);
+		CULog("Touch coord at: %f %f \n", i->position.x, i->position.y);
+		CULog("World coord at: %f %f \n", i->worldPos.x, i->worldPos.y);
+	}
+	//_inputController->worldtouchPos = (Vec2)Scene2::screenToWorldCoords(_inputController->touchPos);
+
+	_inputController->fillHand(_characterControllerA->getLeftHandPosition(),
+		_characterControllerA->getRightHandPosition(),
+		_characterControllerA->getLHPos(),
+		_characterControllerA->getRHPos());
+	_inputController->process();
 
 	/*if (_inputController->didPress()) {
 		CULog("Here!!!");
@@ -330,25 +341,25 @@ void GameScene::preUpdate(float dt) {
 		_characterControllerA->getRHPos());
 
 	//_interactionController.preUpdate(dt);
-    while (!_interactionController.messageQueue.empty()){
-        InteractionController::PublisherMessage publication = _interactionController.messageQueue.front();
-       // std::cout <<"PUB: "<< publication.pub_id<< " " << publication.trigger << " " << publication.message << "\n";
-        for(const InteractionController::SubscriberMessage& s : _interactionController.subscriptions[publication.pub_id][publication.message]){
-           // std::cout << "SUB: " << s.pub_id << " " << s.listening_for << "\n";
-            if (s.listening_for=="pressed"){
-                CULog("Do press button action");
-            }
-            if (s.listening_for=="released"){
-                CULog("Do release button action");
-            }
-            if (s.pub_id=="goalDoor" && s.listening_for=="contacted"){
-                CULog("Winner!");
-                setComplete(true);
-            }
-            std::cout << s.pub_id<< " " << s.listening_for <<"\n";
-        }
-        _interactionController.messageQueue.pop();
-    }
+	while (!_interactionController.messageQueue.empty()) {
+		InteractionController::PublisherMessage publication = _interactionController.messageQueue.front();
+		// std::cout <<"PUB: "<< publication.pub_id<< " " << publication.trigger << " " << publication.message << "\n";
+		for (const InteractionController::SubscriberMessage& s : _interactionController.subscriptions[publication.pub_id][publication.message]) {
+			// std::cout << "SUB: " << s.pub_id << " " << s.listening_for << "\n";
+			if (s.listening_for == "pressed") {
+				CULog("Do press button action");
+			}
+			if (s.listening_for == "released") {
+				CULog("Do release button action");
+			}
+			if (s.pub_id == "goalDoor" && s.listening_for == "contacted") {
+				CULog("Winner!");
+				setComplete(true);
+			}
+			std::cout << s.pub_id << " " << s.listening_for << "\n";
+		}
+		_interactionController.messageQueue.pop();
+	}
 	// TODO: error handle for loading different levels when we have multiple
 	// levels
 	//    _camera.update(dt);

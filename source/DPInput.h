@@ -5,6 +5,9 @@
 #include <unordered_set>
 
 class PlatformInput {
+public:
+	cugl::Vec2 touchPos;
+	cugl::Vec2 worldtouchPos;
 private:
 	/** Whether or not this input is active */
 	bool _active;
@@ -40,6 +43,10 @@ protected:
 	/** How much did we move horizontally? */
 	float _horizontal;
 
+	bool _currDown;
+	bool _prevDown;
+	bool _touchDown;
+
 protected:
 	/** Information representing a single "touch" (possibly multi-finger) */
 	struct TouchInstance {
@@ -56,19 +63,27 @@ protected:
 	/** The bounds of the entire game screen (in scene coordinates) */
 	cugl::Rect _sbounds;
 
+	struct TouchInfo {
+		cugl::Vec2 position;
+		cugl::Vec2 worldPos;
+		cugl::TouchID id;
+		int type = 0;
+	};
 	struct Character {
 		struct Hand {
-			cugl::Vec2 hand, prev, curr;
+			cugl::Vec2 hand = cugl::Vec2(0, 0);
+			cugl::Vec2 prev = cugl::Vec2(0, 0);
+			cugl::Vec2 curr = cugl::Vec2(0, 0);
 			cugl::TouchID touchID;
-			bool assigned;
-			cugl::Vec2 HandPos;
+			bool assigned = false;
+			cugl::Vec2 HandPos = cugl::Vec2(0, 0);
 		};
 		Hand leftHand;
 		Hand rightHand;
+		std::vector<TouchInfo> _touchInfo;
 	};
 
 	Character _character;
-
 	/**
 	 * Populates the initial values of the TouchInstances
 	 */
@@ -236,6 +251,24 @@ public:
 	cugl::Vec2 getLeftHandMovement();
 
 	cugl::Vec2 getrightHandMovement();
+
+	bool didPress() const {
+		return !_prevDown && _currDown;
+	}
+
+	bool didRelease() const {
+		return !_currDown && _prevDown;
+	}
+
+	bool isDown() const {
+		return _currDown;
+	}
+
+	void process();
+
+	Character* getCharacter() {
+		return &_character;
+	}
 };
 
 #endif /* __PF_INPUT_H__ */
