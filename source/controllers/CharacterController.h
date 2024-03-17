@@ -47,7 +47,7 @@
 #define CJOINT_OFFSET 3.0f
 #define HALF_CJOINT_OFFSET 1.5f
 #define MAX_ARM_LENGTH 6.0f
-#define MIN_ARM_LENGTH 1.2f
+#define MIN_ARM_LENGTH 0.0f
 
 
  /** The density for each body part */
