@@ -11,22 +11,28 @@
 
  */
 
+// #define PART_NONE   -1
+// #define PART_BODY   0
+// #define PART_JR1    1
+// #define PART_JR2    2
+// #define PART_JR3    3
+// #define PART_JR4    4
+// #define PART_JR5    5
+// #define PART_JR6    6
+// #define PART_RH     7
+// #define PART_LR1    8
+// #define PART_LR2    9
+// #define PART_LR3    10
+// #define PART_LR4    11
+// #define PART_LR5    12
+// #define PART_LR6    13
+// #define PART_LH     14
+
 #define PART_NONE   -1
 #define PART_BODY   0
-#define PART_JR1    1
-#define PART_JR2    2
-#define PART_JR3    3
-#define PART_JR4    4
-#define PART_JR5    5
-#define PART_JR6    6
-#define PART_RH     7
-#define PART_LR1    8
-#define PART_LR2    9
-#define PART_LR3    10
-#define PART_LR4    11
-#define PART_LR5    12
-#define PART_LR6    13
-#define PART_LH     14
+#define PART_RH     1
+#define PART_LH     2
+
 
 #define BODY_TEXTURE "body192"
 #define CJOINT_TEXTURE "joint32"
@@ -34,7 +40,7 @@
 #define L_HAND_TEXTURE "lhand64"
 #define R_HAND_TEXTURE "rhand64"
 
-#define MAX_TORQUE 10000.0f
+#define MAX_TORQUE 10000000.0f
 #define MAX_FORCE  100000.0f
 
 #define LENGTH_MULTIPLIER 2.0f
@@ -49,7 +55,7 @@
 /** The radius for the center of mass */
 #define CENTROID_RADIUS  0.1f
 
-#define BODY_DENSITY 3.0f
+#define BODY_DENSITY 3.7f
 
 using namespace cugl;
 
@@ -66,7 +72,7 @@ protected:
 	float _drawScale;
 	std::string getPartName(int part);
 	bool _motorEnabled = true;
-	std::shared_ptr<cugl::physics2::BoxObstacle> makePart(int part, int connect, const cugl::Vec2& pos);
+	std::shared_ptr<cugl::physics2::PolygonObstacle> makePart(int part, int connect, const cugl::Vec2& pos);
 	Vec2 SolveAngleMiddleBisectorLine(Vec2 p);
 	Vec2 armMiddleExp_R(Vec2 end);
 	std::vector<std::shared_ptr<cugl::physics2::Joint>> dummy_jointsmaker(std::vector<int> part_indices);
