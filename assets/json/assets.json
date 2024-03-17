@@ -46,6 +46,9 @@
         "button": {
             "file": "textures/button.png"
         },
+        "button_ingame": {
+            "file": "textures/button_interact.png"
+        },
         "frame": {
             "file": "textures/frame.png"
         },

@@ -134,6 +134,7 @@ void DPApp::preUpdate(float timestep) {
       _gameScene.reset();
       _status = MENU;
       _menuScene.setActive(true);
+      _gameScene.setComplete(false);
     } else if (_gameScene.isPaused()) {
       _status = PAUSE;
       _gameScene.setActive(false);

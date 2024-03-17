@@ -27,7 +27,7 @@ protected:
 	// TODO: Do we need a vector of these?
 	PlatformModel _platform;
 	WallModel _wall;
-	ButtonModel _button;
+	std::shared_ptr<ButtonModel> _button;
 
 	// VIEW
 	/** Reference to the goalDoor (for collision detection) */
@@ -214,7 +214,7 @@ public:
 	 * @param value whether the level is completed.
 	 */
 	void setComplete(bool value) {
-		_complete = value;
+		//_complete = value;
 		_winnode->setVisible(value);
 	}
 

@@ -172,11 +172,11 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 
 #pragma mark InteractionController
 	// TODO: fix this init after finishing characterControllers
-	_interactionController.init({}, nullptr, nullptr, {}, {});
+    _interactionController.init({}, _characterControllerA, nullptr, {}, {}, _level);
 	// TODO: remove, this is for testing purposes
-	InteractionController::PublisherMessage pub = { "button1", "pressed",
-												   "pressed", nullptr };
-	_interactionController.publishMessage(std::move(pub));
+    InteractionController::SubscriberMessage sub = { "goalDoor", "contacted",
+        std::unordered_map<std::string, std::string>({{"win","true"}})};
+    _interactionController.addSubscription(std::move(sub));
 
 	//    _camera.init(charNode,_worldnode,1.0f,
 	//    std::dynamic_pointer_cast<OrthographicCamera>(getCamera()),
@@ -196,7 +196,9 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 		std::dynamic_pointer_cast<OrthographicCamera>(getCamera()),
 		_uinode, 5.0f);
 	_camera.setZoom(0.6);
-
+    
+    
+    activateWorldCollisions(_platformWorld);
 	return true;
 }
 
@@ -206,69 +208,19 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
  * @param world the physics world to activate world collision callbacks on
  */
 void GameScene::activateWorldCollisions(const std::shared_ptr<physics2::ObstacleWorld>& world) {
-	world->activateCollisionCallbacks(true);
-	world->onBeginContact = [this](b2Contact* contact) {
-		beginContact(contact);
-		};
-	world->beforeSolve = [this](b2Contact* contact, const b2Manifold* oldManifold) {
-		beforeSolve(contact, oldManifold);
-		};
+    world->activateCollisionCallbacks(true);
+    world->onBeginContact = [this](b2Contact* contact) {
+        _interactionController.beginContact(contact);
+    };
+    world->beforeSolve = [this](b2Contact* contact, const b2Manifold* oldManifold) {
+        _interactionController.beforeSolve(contact, oldManifold);
+    };
+    world->onEndContact = [this](b2Contact* contact) {
+        _interactionController.endContact(contact);
+    };
+
 }
 
-/**
- * Handles any modifications necessary before collision resolution
- *
- * This method is called just before Box2D resolves a collision.  We use this method
- * to implement sound on contact, using the algorithms outlined in Ian Parberry's
- * "Introduction to Game Physics with Box2D".
- *
- * @param  contact      The two bodies that collided
- * @param  oldManfold      The collision manifold before contact
- */
-void GameScene::beforeSolve(b2Contact* contact, const b2Manifold* oldManifold) {
-	float speed = 0;
-
-	// Use Ian Parberry's method to compute a speed threshold
-	b2Body* body1 = contact->GetFixtureA()->GetBody();
-	b2Body* body2 = contact->GetFixtureB()->GetBody();
-	b2WorldManifold worldManifold;
-	contact->GetWorldManifold(&worldManifold);
-	b2PointState state1[2], state2[2];
-	b2GetPointStates(state1, state2, oldManifold, contact->GetManifold());
-	for (int ii = 0; ii < 2; ii++) {
-		if (state2[ii] == b2_addState) {
-			b2Vec2 wp = worldManifold.points[0];
-			b2Vec2 v1 = body1->GetLinearVelocityFromWorldPoint(wp);
-			b2Vec2 v2 = body2->GetLinearVelocityFromWorldPoint(wp);
-			b2Vec2 dv = v1 - v2;
-			speed = b2Dot(dv, worldManifold.normal);
-		}
-	}
-}
-
-/**
- * Processes the start of a collision
- *
- * This method is called when we first get a collision between two objects.  We use
- * this method to test if it is the "right" kind of collision.  In particular, we
- * use it to test if we make it to the win door.
- *
- * @param  contact  The two bodies that collided
- */
-void GameScene::beginContact(b2Contact* contact) {
-	b2Body* body1 = contact->GetFixtureA()->GetBody();
-	b2Body* body2 = contact->GetFixtureB()->GetBody();
-
-	// If we hit the "win" door, we are done
-	intptr_t rptr = reinterpret_cast<intptr_t>(_characterControllerA.get());
-	intptr_t dptr = reinterpret_cast<intptr_t>(_level->getExit().get());
-
-	if ((body1->GetUserData().pointer == rptr && body2->GetUserData().pointer == dptr) ||
-		(body1->GetUserData().pointer == dptr && body2->GetUserData().pointer == rptr)) {
-		std::cout << "completed level" << std::endl;
-		setComplete(true);
-	}
-}
 
 /**
  * Disposes of all (non-static) resources allocated to this mode.
@@ -378,7 +330,26 @@ void GameScene::preUpdate(float dt) {
 		_characterControllerA->getLHPos(),
 		_characterControllerA->getRHPos());
 
-	_interactionController.preUpdate(dt);
+	//_interactionController.preUpdate(dt);
+    while (!_interactionController.messageQueue.empty()){
+        InteractionController::PublisherMessage publication = _interactionController.messageQueue.front();
+       // std::cout <<"PUB: "<< publication.pub_id<< " " << publication.trigger << " " << publication.message << "\n";
+        for(const InteractionController::SubscriberMessage& s : _interactionController.subscriptions[publication.pub_id][publication.message]){
+           // std::cout << "SUB: " << s.pub_id << " " << s.listening_for << "\n";
+            if (s.listening_for=="pressed"){
+                CULog("Do press button action");
+            }
+            if (s.listening_for=="released"){
+                CULog("Do release button action");
+            }
+            if (s.pub_id=="goalDoor" && s.listening_for=="contacted"){
+                CULog("Winner!");
+                setComplete(true);
+            }
+            std::cout << s.pub_id<< " " << s.listening_for <<"\n";
+        }
+        _interactionController.messageQueue.pop();
+    }
 	// TODO: error handle for loading different levels when we have multiple
 	// levels
 	//    _camera.update(dt);

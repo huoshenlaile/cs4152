@@ -203,13 +203,13 @@ void PlatformInput::touchEndedCB(const TouchEvent& event, bool focus) {
  */
 void PlatformInput::touchesMovedCB(const TouchEvent& event, const Vec2& previous, bool focus) {
 	Vec2 position = touch2Screen(event.position);
-	CULog("Left Hand Pos at: %f %f \n", _character.leftHand.HandPos.x, _character.leftHand.HandPos.y);
-	CULog("Right Hand Pos at: %f %f \n", _character.rightHand.HandPos.x, _character.rightHand.HandPos.y);
-	CULog("Touch move at: %f %f \n", event.position.x, event.position.y);
-	CULog("Touch move at: %f %f \n", position.x, position.y);
+	//CULog("Left Hand Pos at: %f %f \n", _character.leftHand.HandPos.x, _character.leftHand.HandPos.y);
+	//CULog("Right Hand Pos at: %f %f \n", _character.rightHand.HandPos.x, _character.rightHand.HandPos.y);
+	//CULog("Touch move at: %f %f \n", event.position.x, event.position.y);
+	//CULog("Touch move at: %f %f \n", position.x, position.y);
 	//CULog("Touch move at: %f %f \n", worldPos.x, worldPos.y);
-	CULog("Left hand pos: %f %f \n", _character.leftHand.hand.x, _character.leftHand.hand.y);
-	CULog("Right hand pos: %f %f \n", _character.rightHand.hand.x, _character.rightHand.hand.y);
+	//CULog("Left hand pos: %f %f \n", _character.leftHand.hand.x, _character.leftHand.hand.y);
+	//CULog("Right hand pos: %f %f \n", _character.rightHand.hand.x, _character.rightHand.hand.y);
 	if (_character.leftHand.touchID == event.touch) {
 		_character.leftHand.prev = _character.leftHand.curr;
 		_character.leftHand.curr = position;
