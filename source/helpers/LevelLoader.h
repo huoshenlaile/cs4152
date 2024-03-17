@@ -192,6 +192,9 @@ public:
     void setWorld(std::shared_ptr<cugl::physics2::net::NetWorld> world) {
         this->_world = world;
     }
+    
+    /** Sets the background image of the level*/
+    void setBackgroundScene();
 
     /**
      * Loads this game level from the source file

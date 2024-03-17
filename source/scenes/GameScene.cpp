@@ -137,7 +137,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	_platformWorld = _level->getPhysicsWorld();
 
 #pragma mark Character 1
-	_characterControllerA = CharacterController::alloc({ 16, 10 }, _scale);
+	_characterControllerA = CharacterController::alloc({ 16, 25 }, _scale);
 	CULog("7538fe43 _scale = %f", _scale);
 	_characterControllerA->buildParts(_assets);
 	_characterControllerA->createJoints();
