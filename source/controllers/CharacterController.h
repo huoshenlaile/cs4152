@@ -41,7 +41,7 @@
 #define R_HAND_TEXTURE "rhand64"
 
 #define MAX_TORQUE 10000000.0f
-#define MAX_FORCE  100000.0f
+#define MAX_FORCE  300000.0f
 
 #define LENGTH_MULTIPLIER 2.0f
 #define CJOINT_OFFSET 3.0f

@@ -66,10 +66,11 @@ std::shared_ptr<physics2::PolygonObstacle> CharacterController::makePart(int par
 		body->setDensity(DEFAULT_DENSITY);
 	}
 	// add extra friction to the PART_LH and PART_RH
-	// log friction information:
+	// set always upward direction
     if (part == PART_LH || part == PART_RH) {
 		
 		body->setFriction(5.5f);
+		body->setFixedRotation(true);
 	}else{
 		body->setFriction(0.5f);
 	}
@@ -324,15 +325,15 @@ bool CharacterController::createJoints() {
 		rightHandJoint = physics2::MotorJoint::allocWithObstacles(_obstacles[PART_BODY], _obstacles[PART_RH]);
 		rightHandJoint->setMaxForce(MAX_FORCE);
 		rightHandJoint->setLinearOffset(rightShoulderOffset + rightHandOffset);
-		rightHandJoint->setMaxTorque(MAX_TORQUE);
-		rightHandJoint->setAngularOffset(0);
+		// rightHandJoint->setMaxTorque(MAX_TORQUE);
+		// rightHandJoint->setAngularOffset(0);
 		_joints.push_back(rightHandJoint);
 
 		leftHandJoint = physics2::MotorJoint::allocWithObstacles(_obstacles[PART_BODY], _obstacles[PART_LH]);
 		leftHandJoint->setMaxForce(MAX_FORCE);
 		leftHandJoint->setLinearOffset(leftShoulderOffset + leftHandOffset);
-		leftHandJoint->setMaxTorque(MAX_TORQUE);
-		leftHandJoint->setAngularOffset(0);
+		// leftHandJoint->setMaxTorque(MAX_TORQUE);
+		// leftHandJoint->setAngularOffset(0);
 		_joints.push_back(leftHandJoint);
 
 		// leftElbowJoint = physics2::MotorJoint::allocWithObstacles(_obstacles[PART_BODY], _obstacles[PART_LR3]);
@@ -434,9 +435,9 @@ bool CharacterController::moveLeftHand(cugl::Vec2 offset) {
 	}
 	leftHandJoint->setLinearOffset(leftShoulderOffset + leftHandOffset);
 	float a2 = -atan2(leftHandOffset.y, -leftHandOffset.x);
-	leftHandJoint->setAngularOffset(a2); // set angle as hand rotation
+	_obstacles[PART_LH]->setAngle(a2);
+	// leftHandJoint->setAngularOffset(a2); // set angle as hand rotation
 	// leftHandJoint->setAngularOffset(-a); // set angle as body rotation, keep hand horizontal
-
 	Vec2 leftElbowPosition = armMiddleExp_R(Vec2(-leftHandOffset.x, leftHandOffset.y));
 	leftElbowPosition.x = -leftElbowPosition.x;
 	leftElbowOffset = leftElbowPosition;
@@ -466,7 +467,8 @@ bool CharacterController::moveRightHand(cugl::Vec2 offset) {
 	}
 	rightHandJoint->setLinearOffset(rightShoulderOffset + rightHandOffset);
 	float a2 = atan2(rightHandOffset.y, rightHandOffset.x);
-	rightHandJoint->setAngularOffset(a2); // set angle as hand rotation
+	_obstacles[PART_RH]->setAngle(a2);
+	// rightHandJoint->setAngularOffset(a2); // set angle as hand rotation
 	// rightHandJoint->setAngularOffset(-a); // set angle as body rotation, keep hand horizontal
 	Vec2 rightElbowPosition = armMiddleExp_R(rightHandOffset);
 	rightElbowOffset = rightElbowPosition;
