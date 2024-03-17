@@ -206,13 +206,13 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
  * @param world the physics world to activate world collision callbacks on
  */
 void GameScene::activateWorldCollisions(const std::shared_ptr<physics2::ObstacleWorld>& world) {
-    world->activateCollisionCallbacks(true);
-    world->onBeginContact = [this](b2Contact* contact) {
-        beginContact(contact);
-    };
-    world->beforeSolve = [this](b2Contact* contact, const b2Manifold* oldManifold) {
-        beforeSolve(contact, oldManifold);
-    };
+	world->activateCollisionCallbacks(true);
+	world->onBeginContact = [this](b2Contact* contact) {
+		beginContact(contact);
+		};
+	world->beforeSolve = [this](b2Contact* contact, const b2Manifold* oldManifold) {
+		beforeSolve(contact, oldManifold);
+		};
 }
 
 /**
@@ -226,24 +226,24 @@ void GameScene::activateWorldCollisions(const std::shared_ptr<physics2::Obstacle
  * @param  oldManfold      The collision manifold before contact
  */
 void GameScene::beforeSolve(b2Contact* contact, const b2Manifold* oldManifold) {
-    float speed = 0;
+	float speed = 0;
 
-    // Use Ian Parberry's method to compute a speed threshold
-    b2Body* body1 = contact->GetFixtureA()->GetBody();
-    b2Body* body2 = contact->GetFixtureB()->GetBody();
-    b2WorldManifold worldManifold;
-    contact->GetWorldManifold(&worldManifold);
-    b2PointState state1[2], state2[2];
-    b2GetPointStates(state1, state2, oldManifold, contact->GetManifold());
-    for (int ii = 0; ii < 2; ii++) {
-        if (state2[ii] == b2_addState) {
-            b2Vec2 wp = worldManifold.points[0];
-            b2Vec2 v1 = body1->GetLinearVelocityFromWorldPoint(wp);
-            b2Vec2 v2 = body2->GetLinearVelocityFromWorldPoint(wp);
-            b2Vec2 dv = v1 - v2;
-            speed = b2Dot(dv, worldManifold.normal);
-        }
-    }
+	// Use Ian Parberry's method to compute a speed threshold
+	b2Body* body1 = contact->GetFixtureA()->GetBody();
+	b2Body* body2 = contact->GetFixtureB()->GetBody();
+	b2WorldManifold worldManifold;
+	contact->GetWorldManifold(&worldManifold);
+	b2PointState state1[2], state2[2];
+	b2GetPointStates(state1, state2, oldManifold, contact->GetManifold());
+	for (int ii = 0; ii < 2; ii++) {
+		if (state2[ii] == b2_addState) {
+			b2Vec2 wp = worldManifold.points[0];
+			b2Vec2 v1 = body1->GetLinearVelocityFromWorldPoint(wp);
+			b2Vec2 v2 = body2->GetLinearVelocityFromWorldPoint(wp);
+			b2Vec2 dv = v1 - v2;
+			speed = b2Dot(dv, worldManifold.normal);
+		}
+	}
 }
 
 /**
@@ -256,18 +256,18 @@ void GameScene::beforeSolve(b2Contact* contact, const b2Manifold* oldManifold) {
  * @param  contact  The two bodies that collided
  */
 void GameScene::beginContact(b2Contact* contact) {
-    b2Body* body1 = contact->GetFixtureA()->GetBody();
-    b2Body* body2 = contact->GetFixtureB()->GetBody();
+	b2Body* body1 = contact->GetFixtureA()->GetBody();
+	b2Body* body2 = contact->GetFixtureB()->GetBody();
 
-    // If we hit the "win" door, we are done
-    intptr_t rptr = reinterpret_cast<intptr_t>(_characterControllerA.get());
-    intptr_t dptr = reinterpret_cast<intptr_t>(_level->getExit().get());
+	// If we hit the "win" door, we are done
+	intptr_t rptr = reinterpret_cast<intptr_t>(_characterControllerA.get());
+	intptr_t dptr = reinterpret_cast<intptr_t>(_level->getExit().get());
 
-    if ((body1->GetUserData().pointer == rptr && body2->GetUserData().pointer == dptr) ||
-        (body1->GetUserData().pointer == dptr && body2->GetUserData().pointer == rptr)) {
-        std::cout<<"completed level" << std::endl;
-        setComplete(true);
-    }
+	if ((body1->GetUserData().pointer == rptr && body2->GetUserData().pointer == dptr) ||
+		(body1->GetUserData().pointer == dptr && body2->GetUserData().pointer == rptr)) {
+		std::cout << "completed level" << std::endl;
+		setComplete(true);
+	}
 }
 
 /**
@@ -352,12 +352,12 @@ void GameScene::preUpdate(float dt) {
 	// _input.update();
 	_inputController->update(dt);
 
-	if (_inputController->didPress()) {
+	/*if (_inputController->didPress()) {
 		CULog("Here!!!");
 		CULog("World coord at: %f %f \n", _inputController->touchPos.x, _inputController->touchPos.y);
 		_inputController->worldtouchPos = (Vec2)Scene2::screenToWorldCoords(_inputController->touchPos);
-	}
-	_inputController->process();
+	}*/
+	//_inputController->process();
 	//Vec2 touchPos;
 	/*if (_inputController->didPress() || _inputController->isDown()) {
 		Vec3 worldCoords = Scene2::screenToWorldCoords(_inputController->getEvent().position);

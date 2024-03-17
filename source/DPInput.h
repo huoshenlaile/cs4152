@@ -5,9 +5,6 @@
 #include <unordered_set>
 
 class PlatformInput {
-public:
-	cugl::Vec2 touchPos;
-	cugl::Vec2 worldtouchPos;
 private:
 	/** Whether or not this input is active */
 	bool _active;
@@ -43,10 +40,6 @@ protected:
 	/** How much did we move horizontally? */
 	float _horizontal;
 
-	bool _currDown;
-	bool _prevDown;
-	bool _touchDown;
-
 protected:
 	/** Information representing a single "touch" (possibly multi-finger) */
 	struct TouchInstance {
@@ -72,10 +65,10 @@ protected:
 		};
 		Hand leftHand;
 		Hand rightHand;
-		cugl::TouchEvent _event;
 	};
 
 	Character _character;
+
 	/**
 	 * Populates the initial values of the TouchInstances
 	 */
@@ -243,20 +236,6 @@ public:
 	cugl::Vec2 getLeftHandMovement();
 
 	cugl::Vec2 getrightHandMovement();
-
-	bool didPress() const {
-		return !_prevDown && _currDown;
-	}
-
-	bool didRelease() const {
-		return !_currDown && _prevDown;
-	}
-
-	bool isDown() const {
-		return _currDown;
-	}
-
-	void process();
 };
 
 #endif /* __PF_INPUT_H__ */
