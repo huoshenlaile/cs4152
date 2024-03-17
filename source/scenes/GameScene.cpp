@@ -352,17 +352,16 @@ void GameScene::preUpdate(float dt) {
 	// _input.update();
 	//_inputController->update(dt);
 
-	if (_inputController->didPress()) {
 		//CULog("Here!!!");
 		//CULog("World coord at: %f %f \n", _inputController->touchPos.x, _inputController->touchPos.y);
-		auto character = _inputController->getCharacter();
-		for (auto i = character->_touchInfo.begin(); i != character->_touchInfo.end(); i++) {
-			i->worldPos = (Vec2)Scene2::screenToWorldCoords(i->position);
-			CULog("World coord at: %f %f \n", i->worldPos.x, i->worldPos.y);
-		}
-		//_inputController->worldtouchPos = (Vec2)Scene2::screenToWorldCoords(_inputController->touchPos);
-	}
 	_inputController->update(dt);
+	auto character = _inputController->getCharacter();
+	for (auto i = character->_touchInfo.begin(); i != character->_touchInfo.end(); i++) {
+		i->worldPos = (Vec2)Scene2::screenToWorldCoords(i->position);
+		CULog("Touch coord at: %f %f \n", i->position.x, i->position.y);
+		CULog("World coord at: %f %f \n", i->worldPos.x, i->worldPos.y);
+	}
+	//_inputController->worldtouchPos = (Vec2)Scene2::screenToWorldCoords(_inputController->touchPos);
 
 	_inputController->fillHand(_characterControllerA->getLeftHandPosition(),
 		_characterControllerA->getRightHandPosition(),
