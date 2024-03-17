@@ -231,7 +231,36 @@ public:
 	 */
 	void processPauseEvent(const std::shared_ptr<PauseEvent>& event);
 #pragma mark Pause Esther
-
+    
+    /**
+     * Handles any modifications necessary before collision resolution
+     *
+     * This method is called just before Box2D resolves a collision.  We use
+     * this method to implement sound on contact, using the algorithms outlined
+     * in Ian Parberry's "Introduction to Game Physics with Box2D".
+     *
+     * @param  contact  The two bodies that collided
+     * @param  contact  The collision manifold before contact
+     */
+    void beforeSolve(b2Contact* contact, const b2Manifold* oldManifold);
+    
+    /**
+     * Processes the start of a collision
+     *
+     * This method is called when we first get a collision between two objects.
+     * We use this method to test if it is the "right" kind of collision.  In
+     * particular, we use it to test if we make it to the win door.
+     *
+     * @param  contact  The two bodies that collided
+     */
+    void beginContact(b2Contact* contact);
+    
+    /**
+     * Activates world collision callbacks on the given physics world and sets the onBeginContact and beforeSolve callbacks
+     *
+     * @param world the physics world to activate world collision callbacks on
+     */
+    void activateWorldCollisions(const std::shared_ptr<physics2::ObstacleWorld>& world);
 #pragma mark -
 #pragma mark Gameplay Handling
 

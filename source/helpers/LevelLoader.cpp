@@ -12,6 +12,10 @@ std::vector<float> LevelLoader::getVertices(const std::shared_ptr<JsonValue>& js
     return vertices;
 }
 
+Vec2 LevelLoader::getObjectPos(const std::shared_ptr<JsonValue>& json) {
+    Vec2 pos = Vec2(json->getFloat("x") / _scale.x, ((_bounds.getMaxY() * _scale.y) - json->getFloat("y") + _scale.y) / _scale.y);
+    return pos;
+}
 /**
 * Converts the string to a color
 *
@@ -71,13 +75,15 @@ bool LevelLoader::preload(const std::shared_ptr<cugl::JsonValue>& json) {
     // Initial geometry
     float w = json->get(WIDTH_FIELD)->asFloat();
     float h = json->get(HEIGHT_FIELD)->asFloat();
-    float g = json->get("properties")->get(0)->getFloat("value", -49);
-    CULog("WELL the level is preloaded");
+//    float g = json->get("properties")->get(0)->getFloat("value", -49);
+//    CULog("WELL the level is preloaded");
     _bounds.size.set(w, h);
-    _gravity.set(0,g);
+    _gravity.set(0,-90.0f);
     /** Create the physics world */
       _world = cugl::physics2::net::NetWorld::alloc(getBounds(),Vec2(0,-90.f));
-
+    
+//
+//    cugl::scene2::TexturedNode();
     // Get each object in each layer, then decide what to do based off of what
     // type the object is.
     for (int i = 0; i < json->get("layers")->size(); i++) {
@@ -89,6 +95,7 @@ bool LevelLoader::preload(const std::shared_ptr<cugl::JsonValue>& json) {
         }
     }
 
+    
     return true;
 }
 
@@ -96,8 +103,65 @@ bool LevelLoader::loadObject(const std::shared_ptr<JsonValue>& json) {
     auto type = json->get("type")->asString();
     if (type == WALLS_FIELD) {
         return loadWall(json);
+    }else if (type == GOALDOOR_FIELD) {
+        return loadGoalDoor(json);
     }
     return false;
+}
+
+void LevelLoader::setBackgroundScene(){
+    auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(LEVEL_ONE_BACKGROUND), Rect(-100.0f,-100.0f,20000.0f, 20000.0f)); //TODO: don't hard code
+//    sprite->setPosition(Vec2(0.0f,0.0f));
+    _worldnode->addChild(sprite);
+}
+
+/**
+* Loads the singular exit door
+*
+* The exit door will will be stored in _goalDoor field and retained.
+* If the exit fails to load, then _goalDoor will be nullptr.
+*
+* @param  reader   a JSON reader with cursor ready to read the exit
+*
+* @retain the exit door
+* @return true if the exit door was successfully loaded
+*/
+bool LevelLoader::loadGoalDoor(const std::shared_ptr<JsonValue>& json) {
+    bool success = false;
+    auto goal = json->get("properties")->get(0)->get("value");
+    if (goal != nullptr) {
+        success = true;
+
+        Vec2 goalPos = getObjectPos(json);
+        Vec2 goalSize = Vec2(json->getFloat("width") / _scale.x, json->getFloat("height") / _scale.y);
+        // For whatever reason, the goal objects in particular are offset by this amount.
+        goalPos.x += goalSize.x / 2;
+        goalPos.y += goalSize.y / 6;
+
+        // Get the object, which is automatically retained
+        _goalDoor = ExitModel::alloc(goalPos,(Size)goalSize);
+        _goalDoor->setName(GOALDOOR_FIELD);
+
+        _goalDoor->setDensity(goal->get("obstacle")->getDouble(DENSITY_FIELD));
+        _goalDoor->setFriction(goal->get("obstacle")->getDouble(FRICTION_FIELD));
+        _goalDoor->setRestitution(goal->get("obstacle")->getDouble(RESTITUTION_FIELD));
+        _goalDoor->setSensor(true);
+
+        _goalDoor->setBodyType((b2BodyType)goal->get("obstacle")->getInt(BODYTYPE_FIELD));
+
+        // Set the texture value
+        success = success && goal->get("obstacle")->get(TEXTURE_FIELD)->isString();
+        _goalDoor->setTextureKey(goal->get("obstacle")->get(TEXTURE_FIELD)->asString());
+        _goalDoor->setDebugColor(parseColor(goal->get("obstacle")->getString(DEBUG_COLOR_FIELD)));
+
+        if (success) {
+//            _world->addObstacle(_goalDoor);
+        }
+        else {
+            _goalDoor = nullptr;
+        }
+    }
+    return success;
 }
 
 /**
@@ -112,6 +176,7 @@ bool LevelLoader::loadObject(const std::shared_ptr<JsonValue>& json) {
 * @return true if the wall was successfully loaded
 */
 bool LevelLoader::loadWall(const std::shared_ptr<JsonValue>& json) {
+//    std::cout << "loading wall " << std::endl;
     bool success = true;
 
     auto walljson = json->get("properties")->get(0)->get("value");
@@ -240,12 +305,22 @@ void LevelLoader::setRootNode(const std::shared_ptr<scene2::SceneNode>& node){
     _root->addChild(_worldnode);
     _root->addChild(_debugnode);
     
+    setBackgroundScene();
+    
+    if (_goalDoor != nullptr) {
+        auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(_goalDoor->getTextureKey()));
+        addObstacle(_goalDoor,sprite); // Put this at the very back
+    }
+    
     for(auto it = _walls.begin(); it != _walls.end(); ++it) {
         std::shared_ptr<WallModel> wall = *it;
-        auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(wall->getTextureKey()),wall->getPolygon() * _scale);
+        auto txt = _assets->get<Texture>(wall->getTextureKey());
+        std::cout<< wall->getTextureKey() << std::endl;
+        auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(wall->getTextureKey()));
         if (wall == nullptr){
             continue;
         }
+        std::cout << "drawing wall and adding to worlds" << std::endl;
         addObstacle(wall,sprite);  // All walls share the same texture
     }
 }
@@ -278,4 +353,5 @@ void LevelLoader::addObstacle(const std::shared_ptr<cugl::physics2::Obstacle>& o
             weak->setAngle(obs->getAngle());
         });
     }
+    std::cout<<"success"<<std::endl;
 }

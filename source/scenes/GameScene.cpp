@@ -137,7 +137,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	_platformWorld = _level->getPhysicsWorld();
 
 #pragma mark Character 1
-	_characterControllerA = CharacterController::alloc({ 16, 10 }, _scale);
+	_characterControllerA = CharacterController::alloc({ 16, 25 }, _scale);
 	CULog("7538fe43 _scale = %f", _scale);
 	_characterControllerA->buildParts(_assets);
 	_characterControllerA->createJoints();
@@ -198,6 +198,76 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	_camera.setZoom(0.6);
 
 	return true;
+}
+
+/**
+ * Activates world collision callbacks on the given physics world and sets the onBeginContact and beforeSolve callbacks
+ *
+ * @param world the physics world to activate world collision callbacks on
+ */
+void GameScene::activateWorldCollisions(const std::shared_ptr<physics2::ObstacleWorld>& world) {
+    world->activateCollisionCallbacks(true);
+    world->onBeginContact = [this](b2Contact* contact) {
+        beginContact(contact);
+    };
+    world->beforeSolve = [this](b2Contact* contact, const b2Manifold* oldManifold) {
+        beforeSolve(contact, oldManifold);
+    };
+}
+
+/**
+ * Handles any modifications necessary before collision resolution
+ *
+ * This method is called just before Box2D resolves a collision.  We use this method
+ * to implement sound on contact, using the algorithms outlined in Ian Parberry's
+ * "Introduction to Game Physics with Box2D".
+ *
+ * @param  contact      The two bodies that collided
+ * @param  oldManfold      The collision manifold before contact
+ */
+void GameScene::beforeSolve(b2Contact* contact, const b2Manifold* oldManifold) {
+    float speed = 0;
+
+    // Use Ian Parberry's method to compute a speed threshold
+    b2Body* body1 = contact->GetFixtureA()->GetBody();
+    b2Body* body2 = contact->GetFixtureB()->GetBody();
+    b2WorldManifold worldManifold;
+    contact->GetWorldManifold(&worldManifold);
+    b2PointState state1[2], state2[2];
+    b2GetPointStates(state1, state2, oldManifold, contact->GetManifold());
+    for (int ii = 0; ii < 2; ii++) {
+        if (state2[ii] == b2_addState) {
+            b2Vec2 wp = worldManifold.points[0];
+            b2Vec2 v1 = body1->GetLinearVelocityFromWorldPoint(wp);
+            b2Vec2 v2 = body2->GetLinearVelocityFromWorldPoint(wp);
+            b2Vec2 dv = v1 - v2;
+            speed = b2Dot(dv, worldManifold.normal);
+        }
+    }
+}
+
+/**
+ * Processes the start of a collision
+ *
+ * This method is called when we first get a collision between two objects.  We use
+ * this method to test if it is the "right" kind of collision.  In particular, we
+ * use it to test if we make it to the win door.
+ *
+ * @param  contact  The two bodies that collided
+ */
+void GameScene::beginContact(b2Contact* contact) {
+    b2Body* body1 = contact->GetFixtureA()->GetBody();
+    b2Body* body2 = contact->GetFixtureB()->GetBody();
+
+    // If we hit the "win" door, we are done
+    intptr_t rptr = reinterpret_cast<intptr_t>(_characterControllerA.get());
+    intptr_t dptr = reinterpret_cast<intptr_t>(_level->getExit().get());
+
+    if ((body1->GetUserData().pointer == rptr && body2->GetUserData().pointer == dptr) ||
+        (body1->GetUserData().pointer == dptr && body2->GetUserData().pointer == rptr)) {
+        std::cout<<"completed level" << std::endl;
+        setComplete(true);
+    }
 }
 
 /**

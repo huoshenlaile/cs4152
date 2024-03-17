@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="ragdoll_elements" tilewidth="214" tileheight="100" tilecount="6" columns="0" objectalignment="bottomleft">
+<tileset version="1.10" tiledversion="1.10.2" name="ragdoll_elements" tilewidth="2501" tileheight="1080" tilecount="13" columns="0" objectalignment="bottomleft">
  <editorsettings>
   <export target="ragdoll_elements..tsx" format="tsx"/>
  </editorsettings>
@@ -125,10 +125,50 @@
   </properties>
   <image width="64" height="64" source="earthtile.png"/>
  </tile>
- <tile id="9">
+ <tile id="9" type="wall">
+  <properties>
+   <property name="properties" type="class" propertytype="WallProperties">
+    <properties>
+     <property name="obstacle" type="class" propertytype="Obstacle">
+      <properties>
+       <property name="bodytype" type="int" propertytype="bodytype" value="1"/>
+       <property name="damping" type="float" value="0"/>
+       <property name="debugcolor" type="class" propertytype="debugcolor"/>
+       <property name="debugopacity" type="float" value="192"/>
+       <property name="density" type="float" value="0"/>
+       <property name="friction" type="float" value="0"/>
+       <property name="restitution" type="float" value="0"/>
+       <property name="rotation" type="bool" value="false"/>
+       <property name="texture" value="earth"/>
+      </properties>
+     </property>
+    </properties>
+   </property>
+  </properties>
   <image width="214" height="100" source="../textures/popleft.png"/>
   <objectgroup draworder="index" id="2">
-   <object id="1" x="19.5618" y="10.0604" width="175.497" height="85.5131"/>
+   <object id="1" x="9.46814" y="10.0604" width="172.615" height="84.5282"/>
   </objectgroup>
+ </tile>
+ <tile id="10">
+  <image width="100" height="100" source="../textures/goalpop.png"/>
+ </tile>
+ <tile id="11">
+  <image width="214" height="100" source="../textures/popright.png"/>
+ </tile>
+ <tile id="12">
+  <image width="1500" height="700" source="../textures/popart_platformbubble_left.png"/>
+ </tile>
+ <tile id="13">
+  <image width="1500" height="700" source="../textures/popart_platformbubble_right.png"/>
+ </tile>
+ <tile id="14">
+  <image width="2501" height="301" source="../textures/popart_platformLine.png"/>
+ </tile>
+ <tile id="15">
+  <image width="700" height="700" source="../textures/popart_goal.png"/>
+ </tile>
+ <tile id="16">
+  <image width="2340" height="1080" source="../textures/popart_background.png"/>
  </tile>
 </tileset>
