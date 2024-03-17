@@ -350,14 +350,25 @@ void GameScene::preUpdate(float dt) {
 		return;
 	}
 	// _input.update();
+	//_inputController->update(dt);
+
+	if (_inputController->didPress()) {
+		//CULog("Here!!!");
+		//CULog("World coord at: %f %f \n", _inputController->touchPos.x, _inputController->touchPos.y);
+		auto character = _inputController->getCharacter();
+		for (auto i = character->_touchInfo.begin(); i != character->_touchInfo.end(); i++) {
+			i->worldPos = (Vec2)Scene2::screenToWorldCoords(i->position);
+			CULog("World coord at: %f %f \n", i->worldPos.x, i->worldPos.y);
+		}
+		//_inputController->worldtouchPos = (Vec2)Scene2::screenToWorldCoords(_inputController->touchPos);
+	}
 	_inputController->update(dt);
 
-	/*if (_inputController->didPress()) {
-		CULog("Here!!!");
-		CULog("World coord at: %f %f \n", _inputController->touchPos.x, _inputController->touchPos.y);
-		_inputController->worldtouchPos = (Vec2)Scene2::screenToWorldCoords(_inputController->touchPos);
-	}*/
-	//_inputController->process();
+	_inputController->fillHand(_characterControllerA->getLeftHandPosition(),
+		_characterControllerA->getRightHandPosition(),
+		_characterControllerA->getLHPos(),
+		_characterControllerA->getRHPos());
+	_inputController->process();
 	//Vec2 touchPos;
 	/*if (_inputController->didPress() || _inputController->isDown()) {
 		Vec3 worldCoords = Scene2::screenToWorldCoords(_inputController->getEvent().position);
@@ -373,10 +384,6 @@ void GameScene::preUpdate(float dt) {
 		_inputController->getLeftHandMovement());
 	_characterControllerA->moveRightHand(
 		INPUT_SCALER * _inputController->getrightHandMovement());
-	_inputController->fillHand(_characterControllerA->getLeftHandPosition(),
-		_characterControllerA->getRightHandPosition(),
-		_characterControllerA->getLHPos(),
-		_characterControllerA->getRHPos());
 
 	_interactionController.preUpdate(dt);
 	// TODO: error handle for loading different levels when we have multiple
