@@ -33,7 +33,7 @@ std::shared_ptr<physics2::Obstacle> CharacterController::makePart(int part, int 
 	// calculate index first
 	std::shared_ptr<physics2::Obstacle> body;
 	
-	if (part == PART_NONE){
+	if (part == PART_BODY){
 		body = physics2::BoxObstacle::alloc(pos2, size);
 	}else{
 	float w = size.width / 2.0f;
@@ -69,8 +69,12 @@ std::shared_ptr<physics2::Obstacle> CharacterController::makePart(int part, int 
 	body->setName(getPartName(part));
 	if (part == PART_BODY) {
 		body->setDensity(BODY_DENSITY);
+		// CULog("makePart body centroid position: %f, %f", body->getCentroid().x, body->getCentroid().y);
 	}
-	else {
+	else if (part == PART_RH || part == PART_LH) {
+		body->setDensity(HAND_DENSITY);
+	} else
+	{
 		body->setDensity(DEFAULT_DENSITY);
 	}
 	// add extra friction to the PART_LH and PART_RH

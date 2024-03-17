@@ -376,8 +376,10 @@ void GameScene::preUpdate(float dt) {
 }
 
 void GameScene::postUpdate(float dt) {
-	// CULog("_platformWorld gravity: %f, %f", _platformWorld->getGravity().x,
-	// _platformWorld->getGravity().y);
+	// _platformWorld->setGravity(Vec2(0, -30.0f));
+	// CULog("_platformWorld gravity: %f, %f", _platformWorld->getGravity().x, _platformWorld->getGravity().y);
+	// _platformWorld->setGravity(Vec2(0, -98));
+	
 }
 
 void GameScene::fixedUpdate(float dt) {

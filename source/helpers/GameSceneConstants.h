@@ -38,11 +38,11 @@
 /** Height of the game world in Box2d units */
 #define DEFAULT_HEIGHT  18.0f
 /** The default value of gravity (going down) */
-#define DEFAULT_GRAVITY -120.f
+#define DEFAULT_GRAVITY -150.f
 
 #define DEFAULT_TURN_RATE 0.05f
 #define FIXED_TIMESTEP_S 0.02f
 
-#define INPUT_SCALER 2.5f
+#define INPUT_SCALER 1.5f
 
 #endif /* GameSceneConstants_h */

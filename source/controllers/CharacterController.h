@@ -41,12 +41,12 @@
 #define R_HAND_TEXTURE "rhand64"
 
 #define MAX_TORQUE 10000000.0f
-#define MAX_FORCE  50000.0f
+#define MAX_FORCE  30000.0f
 
 
 #define CJOINT_OFFSET 3.0f
 #define HALF_CJOINT_OFFSET 1.5f
-#define MAX_ARM_LENGTH 6.0f
+#define MAX_ARM_LENGTH 5.8f
 #define MIN_ARM_LENGTH 0.0f
 
 
@@ -57,9 +57,9 @@
 /** The radius for the center of mass */
 #define CENTROID_RADIUS  0.1f
 
-#define BODY_DENSITY 3.7f
-
-#define HAND_FRICTION 1.0f
+#define BODY_DENSITY 1.0f
+#define HAND_DENSITY 1.0f
+#define HAND_FRICTION 0.3f
 
 using namespace cugl;
 
