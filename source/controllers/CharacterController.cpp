@@ -17,13 +17,12 @@ void CharacterController::dispose() {
 	_joints.clear();
 }
 
-std::shared_ptr<physics2::PolygonObstacle> CharacterController::makePart(int part, int connect, const Vec2& pos) {
+std::shared_ptr<physics2::Obstacle> CharacterController::makePart(int part, int connect, const Vec2& pos) {
 	std::shared_ptr<Texture> image = _textures[part];
 	Size size = image->getSize();
 	size.width /= _drawScale;
 	size.height /= _drawScale;
-	float w = size.width / 2.0f;
-	float h = size.height / 2.0f;
+	
 	Vec2 pos2 = pos;
 	if (connect != PART_NONE) {
 		pos2 += _obstacles[connect]->getPosition();
@@ -32,7 +31,13 @@ std::shared_ptr<physics2::PolygonObstacle> CharacterController::makePart(int par
 	// std::shared_ptr<physics2::BoxObstacle> body = physics2::BoxObstacle::alloc(pos2, size);
 	// create body  polygon as octagon
 	// calculate index first
-
+	std::shared_ptr<physics2::Obstacle> body;
+	
+	if (part == PART_NONE){
+		body = physics2::BoxObstacle::alloc(pos2, size);
+	}else{
+	float w = size.width / 2.0f;
+	float h = size.height / 2.0f;
 	float oct[] = {	- w, - h * 0.414f,
 					- w * 0.414f, - h,
 					w * 0.414f, - h,
@@ -49,9 +54,12 @@ std::shared_ptr<physics2::PolygonObstacle> CharacterController::makePart(int par
 	triangulator.calculate();
 	octpoly.setIndices(triangulator.getTriangulation());
 	triangulator.clear();
-	std::shared_ptr<physics2::PolygonObstacle> body = physics2::PolygonObstacle::allocWithAnchor(octpoly, Vec2(0.5,0.5));
-	body->setBodyType(b2_dynamicBody);
+
+	body = physics2::PolygonObstacle::allocWithAnchor(octpoly, Vec2(0.5,0.5));
 	body->setPosition(pos2);
+	}
+	body->setBodyType(b2_dynamicBody);
+	
 	// log all information
 	//CULog("part: %d", part);
 	//CULog("connect: %d", connect);
@@ -69,7 +77,7 @@ std::shared_ptr<physics2::PolygonObstacle> CharacterController::makePart(int par
 	// set always upward direction
     if (part == PART_LH || part == PART_RH) {
 		
-		body->setFriction(5.5f);
+		body->setFriction(HAND_FRICTION);
 		body->setFixedRotation(true);
 	}else{
 		body->setFriction(0.5f);
@@ -421,21 +429,20 @@ bool CharacterController::moveLeftHand(cugl::Vec2 offset) {
 	if (!_motorEnabled) return false;
 	float a = _obstacles[PART_BODY]->getAngle();
 	leftHandOffset = leftHandOffset + Vec2(offset.x * cos(a) + offset.y * sin(a), -offset.x * sin(a) + offset.y * cos(a));
-	// normalize leftHandOffset to 4 * HALF_CJOINT_OFFSET if it is too long
-	float full_length = 5 * HALF_CJOINT_OFFSET;
+
 	float length = leftHandOffset.length();
-	if (length > full_length) {
-		leftHandOffset = leftHandOffset * (full_length / length);
+	if (length > MAX_ARM_LENGTH) {
+		leftHandOffset = leftHandOffset * (MAX_ARM_LENGTH / length);
 	}
-	if (length < HALF_CJOINT_OFFSET) {
-		leftHandOffset = leftHandOffset * (HALF_CJOINT_OFFSET / length);
+	if (length < MIN_ARM_LENGTH) {
+		leftHandOffset = leftHandOffset * (MIN_ARM_LENGTH / length);
 	}
 	if (leftHandOffset.x > 0) {
 		leftHandOffset.x = 0;
 	}
 	leftHandJoint->setLinearOffset(leftShoulderOffset + leftHandOffset);
 	float a2 = -atan2(leftHandOffset.y, -leftHandOffset.x);
-	_obstacles[PART_LH]->setAngle(a2);
+	// _obstacles[PART_LH]->setAngle(a2);
 	// leftHandJoint->setAngularOffset(a2); // set angle as hand rotation
 	// leftHandJoint->setAngularOffset(-a); // set angle as body rotation, keep hand horizontal
 	Vec2 leftElbowPosition = armMiddleExp_R(Vec2(-leftHandOffset.x, leftHandOffset.y));
@@ -452,22 +459,20 @@ bool CharacterController::moveRightHand(cugl::Vec2 offset) {
 	if (!_motorEnabled) return false;
 	float a = _obstacles[PART_BODY]->getAngle();
 	rightHandOffset = rightHandOffset + Vec2(offset.x * cos(a) + offset.y * sin(a), -offset.x * sin(a) + offset.y * cos(a));
-	// normalize rightHandOffset to 4 * HALF_CJOINT_OFFSET if it is too long
-	float full_length = 5 * HALF_CJOINT_OFFSET;
+
 	float length = rightHandOffset.length();
-	if (length > full_length) {
-		rightHandOffset = rightHandOffset * (full_length / length);
+	if (length > MAX_ARM_LENGTH) {
+		rightHandOffset = rightHandOffset * (MAX_ARM_LENGTH / length);
 	}
-	// if it is shorter than 2 * HALF_CJOINT_OFFSET, then it is too short
-	if (length < HALF_CJOINT_OFFSET) {
-		rightHandOffset = rightHandOffset * (HALF_CJOINT_OFFSET / length);
+	if (length < MIN_ARM_LENGTH) {
+		rightHandOffset = rightHandOffset * (MIN_ARM_LENGTH / length);
 	}
 	if (rightHandOffset.x < 0) {
 		rightHandOffset.x = 0;
 	}
 	rightHandJoint->setLinearOffset(rightShoulderOffset + rightHandOffset);
 	float a2 = atan2(rightHandOffset.y, rightHandOffset.x);
-	_obstacles[PART_RH]->setAngle(a2);
+	// _obstacles[PART_RH]->setAngle(a2);
 	// rightHandJoint->setAngularOffset(a2); // set angle as hand rotation
 	// rightHandJoint->setAngularOffset(-a); // set angle as body rotation, keep hand horizontal
 	Vec2 rightElbowPosition = armMiddleExp_R(rightHandOffset);

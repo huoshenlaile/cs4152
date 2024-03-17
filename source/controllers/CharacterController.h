@@ -41,12 +41,14 @@
 #define R_HAND_TEXTURE "rhand64"
 
 #define MAX_TORQUE 10000000.0f
-#define MAX_FORCE  300000.0f
+#define MAX_FORCE  50000.0f
 
-#define LENGTH_MULTIPLIER 2.0f
+
 #define CJOINT_OFFSET 3.0f
 #define HALF_CJOINT_OFFSET 1.5f
-#define ARM_EXTEND 1.5f // max length of arm extension multiplier
+#define MAX_ARM_LENGTH 6.0f
+#define MIN_ARM_LENGTH 1.2f
+
 
  /** The density for each body part */
 #define DEFAULT_DENSITY  1.0f
@@ -56,6 +58,8 @@
 #define CENTROID_RADIUS  0.1f
 
 #define BODY_DENSITY 3.7f
+
+#define HAND_FRICTION 1.0f
 
 using namespace cugl;
 
@@ -72,7 +76,7 @@ protected:
 	float _drawScale;
 	std::string getPartName(int part);
 	bool _motorEnabled = true;
-	std::shared_ptr<cugl::physics2::PolygonObstacle> makePart(int part, int connect, const cugl::Vec2& pos);
+	std::shared_ptr<cugl::physics2::Obstacle> makePart(int part, int connect, const cugl::Vec2& pos);
 	Vec2 SolveAngleMiddleBisectorLine(Vec2 p);
 	Vec2 armMiddleExp_R(Vec2 end);
 	std::vector<std::shared_ptr<cugl::physics2::Joint>> dummy_jointsmaker(std::vector<int> part_indices);
