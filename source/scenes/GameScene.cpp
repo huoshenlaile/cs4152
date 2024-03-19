@@ -131,14 +131,13 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	// gravity factor.
 	//        _platformWorld =
 	//        physics2::net::NetWorld::alloc(_level->getBounds(),Vec2(0,DEFAULT_GRAVITY));
-	//	    _level->setWorld(_platformWorld);
 	_level->setAssets(_assets);
 	_level->setRootNode(_worldnode);
 	_platformWorld = _level->getPhysicsWorld();
 
 #pragma mark Character 1
 	_characterControllerA = CharacterController::alloc({ 16, 25 }, _scale);
-	CULog("7538fe43 _scale = %f", _scale);
+//	CULog("7538fe43 _scale = %f", _scale);
 	_characterControllerA->buildParts(_assets);
 	_characterControllerA->createJoints();
 
@@ -303,8 +302,8 @@ void GameScene::preUpdate(float dt) {
 	auto character = _inputController->getCharacter();
 	for (auto i = character->_touchInfo.begin(); i != character->_touchInfo.end(); i++) {
 		i->worldPos = (Vec2)Scene2::screenToWorldCoords(i->position);
-		CULog("Touch coord at: %f %f \n", i->position.x, i->position.y);
-		CULog("World coord at: %f %f \n", i->worldPos.x, i->worldPos.y);
+//		CULog("Touch coord at: %f %f \n", i->position.x, i->position.y);
+//		CULog("World coord at: %f %f \n", i->worldPos.x, i->worldPos.y);
 	}
 	//_inputController->worldtouchPos = (Vec2)Scene2::screenToWorldCoords(_inputController->touchPos);
 
@@ -403,6 +402,7 @@ void GameScene::fixedUpdate(float dt) {
 	// _characterControllerA->getBodySceneNode()->getPositionY() << std::endl;
 	_platformWorld->update(dt);
 	_camera.update(dt);
+    _level->update(dt);
 }
 
 void GameScene::update(float dt) {

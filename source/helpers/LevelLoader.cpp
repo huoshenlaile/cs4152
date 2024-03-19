@@ -109,9 +109,8 @@ bool LevelLoader::loadObject(const std::shared_ptr<JsonValue>& json) {
     return false;
 }
 
-void LevelLoader::setBackgroundScene(){
-    auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(LEVEL_ONE_BACKGROUND), Rect(-100.0f,-100.0f,20000.0f, 20000.0f)); //TODO: don't hard code
-//    sprite->setPosition(Vec2(0.0f,0.0f));
+void LevelLoader::setBackgroundScene(std::shared_ptr<Texture> background){
+    auto sprite = scene2::PolygonNode::allocWithTexture(background, Rect(-100.0f,-100.0f,20000.0f, 20000.0f)); //TODO: don't hard code
     _worldnode->addChild(sprite);
 }
 
@@ -176,10 +175,9 @@ bool LevelLoader::loadGoalDoor(const std::shared_ptr<JsonValue>& json) {
 * @return true if the wall was successfully loaded
 */
 bool LevelLoader::loadWall(const std::shared_ptr<JsonValue>& json) {
-//    std::cout << "loading wall " << std::endl;
     bool success = true;
-
     auto walljson = json->get("properties")->get(0)->get("value");
+    
     int polysize = (int)json->get(VERTICES_FIELD)->children().size();
     success = success && polysize > 0;
 
@@ -209,6 +207,11 @@ bool LevelLoader::loadWall(const std::shared_ptr<JsonValue>& json) {
     wallobj->setTextureKey(walljson->get("obstacle")->getString(TEXTURE_FIELD));
     wallobj->setDebugColor(parseColor(walljson->get("obstacle")->getString(DEBUG_COLOR_FIELD)));
 
+    if(walljson->get("obstacle")->getBool(ROTATION_FIELD)){
+        wallobj->setBodyType(b2_dynamicBody);
+        wallobj->setAngularVelocity(10.0);
+    }
+    
     if (success) {
         _walls.push_back(wallobj);
     } else {
@@ -216,6 +219,7 @@ bool LevelLoader::loadWall(const std::shared_ptr<JsonValue>& json) {
     }
 
     vertices.clear();
+
     return success;
 }
 
@@ -302,14 +306,19 @@ void LevelLoader::setRootNode(const std::shared_ptr<scene2::SceneNode>& node){
     _debugnode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
     _debugnode->setPosition(Vec2::ZERO);
     
+    _wallnode = scene2::SceneNode::alloc();
+    _wallnode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
+    _wallnode->setPosition(Vec2::ZERO);
+    
     _root->addChild(_worldnode);
     _root->addChild(_debugnode);
+    _root->addChild(_wallnode);
     
-    setBackgroundScene();
+    setBackgroundScene(_assets->get<Texture>(LEVEL_ONE_BACKGROUND));
     
     if (_goalDoor != nullptr) {
         auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(_goalDoor->getTextureKey()));
-        addObstacle(_goalDoor,sprite); // Put this at the very back
+        addObstacle(_goalDoor,sprite, _worldnode); // Put this at the very back
     }
     
     for(auto it = _walls.begin(); it != _walls.end(); ++it) {
@@ -320,9 +329,16 @@ void LevelLoader::setRootNode(const std::shared_ptr<scene2::SceneNode>& node){
         if (wall == nullptr){
             continue;
         }
-        std::cout << "drawing wall and adding to worlds" << std::endl;
-        addObstacle(wall,sprite);  // All walls share the same texture
+        addObstacle(wall,sprite, _wallnode);  // All walls share the same texture
     }
+    
+//    for(auto it = _revJoints.begin(); it != _revJoints.end(); ++it){
+//        std::shared_ptr<cugl::physics2::RevoluteJoint> joint = *it;
+//        if(joint == nullptr){
+//            continue;
+//        }
+//        _world->addJoint(joint);
+//    }
 }
 
 /**
@@ -336,15 +352,15 @@ void LevelLoader::setRootNode(const std::shared_ptr<scene2::SceneNode>& node){
  *
  * @param obj    The physics object to add
  * @param node   The scene graph node to attach it to
+ * @param parentnode The parent graph node to attach the node to
  */
-void LevelLoader::addObstacle(const std::shared_ptr<cugl::physics2::Obstacle>& obj, const std::shared_ptr<cugl::scene2::SceneNode>& node) {
+void LevelLoader::addObstacle(const std::shared_ptr<cugl::physics2::Obstacle>& obj, const std::shared_ptr<cugl::scene2::SceneNode>& node, const std::shared_ptr<cugl::scene2::SceneNode>& parentnode) {
     _world->addObstacle(obj);
     obj->setDebugScene(_debugnode);
     
-    // Position the scene graph node (enough for static objects)
     node->setPosition(obj->getPosition()*_scale);
-    _worldnode->addChild(node);
-
+    parentnode->addChild(node);
+    
     // Dynamic objects need constant updating
     if (obj->getBodyType() == b2_dynamicBody) {
         scene2::SceneNode* weak = node.get(); // No need for smart pointer in callback
@@ -353,5 +369,23 @@ void LevelLoader::addObstacle(const std::shared_ptr<cugl::physics2::Obstacle>& o
             weak->setAngle(obs->getAngle());
         });
     }
-    std::cout<<"success"<<std::endl;
+}
+
+void LevelLoader::update(float dt){
+    if (_wallnode != nullptr) {
+        std::vector<std::shared_ptr<scene2::SceneNode>> children = _wallnode->getChildren();
+        int ii = 0;
+        
+        for (auto it = children.begin(); it != children.end(); ++it) {
+            Vec2 pos = _walls[ii]->getPosition();
+            pos += _walls[ii]->getLinearVelocity()*dt;
+            (*it)->setPosition(pos*_scale);
+            
+            float angle = _walls[ii]->getAngle();
+            angle += _walls[ii]->getAngularVelocity()*dt;
+            (*it)->setAngle(angle);
+
+            ii++;
+        }
+    }
 }

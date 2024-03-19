@@ -9,55 +9,6 @@
          "objects":[
                 {
                  "height":0,
-                 "id":5,
-                 "name":"",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":0,
-                         "y":-544.507271962525
-                        }, 
-                        {
-                         "x":358.280255504475,
-                         "y":-544.507271962525
-                        }, 
-                        {
-                         "x":358.280255504475,
-                         "y":0
-                        }],
-                 "properties":[
-                        {
-                         "name":"properties",
-                         "propertytype":"WallProperties",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":192,
-                                 "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
-                                 "rotation":false,
-                                 "texture":"goalpop"
-                                }
-                            }
-                        }],
-                 "rotation":0,
-                 "type":"exit",
-                 "visible":true,
-                 "width":0,
-                 "x":4139.25672789406,
-                 "y":1199.73052036065
-                }, 
-                {
-                 "height":0,
                  "id":6,
                  "name":"",
                  "polygon":[
@@ -251,6 +202,55 @@
                  "width":0,
                  "x":0.884939540680806,
                  "y":2241.95524671172
+                }, 
+                {
+                 "height":0,
+                 "id":11,
+                 "name":"",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":0,
+                         "y":-65.6271590493602
+                        }, 
+                        {
+                         "x":393.930438756855,
+                         "y":-65.6271590493602
+                        }, 
+                        {
+                         "x":393.930438756855,
+                         "y":0
+                        }],
+                 "properties":[
+                        {
+                         "name":"properties",
+                         "propertytype":"WallProperties",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":192,
+                                 "density":0,
+                                 "friction":0.2,
+                                 "restitution":0.1,
+                                 "rotation":true,
+                                 "texture":"earth"
+                                }
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"wall",
+                 "visible":true,
+                 "width":0,
+                 "x":1369.1871891983,
+                 "y":1243.39400141011
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -259,7 +259,7 @@
          "y":0
         }],
  "nextlayerid":3,
- "nextobjectid":11,
+ "nextobjectid":12,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

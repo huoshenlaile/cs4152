@@ -12,10 +12,15 @@ using namespace cugl;
 
 /** This class handles loading the entire level. The scene and the physical world
  * objects are all created here. This class parses the json file and creates 
- * correspoding objects. Camera is set in this class as well for the scene. Must 
- * asynchronously load the json file along with attaching hooks to parse
+ * correspoding objects. Must asynchronously load the json file along with attaching hooks to parse
  * the json file an App.cpp.
-*/
+ *
+ * Following is the scene hierarchy of this class:
+ *             _root
+ *        /               |               \
+ * _worldnode _debugnode _wallnode
+ */
+
 class LevelLoader : public Asset{
 protected:
     /** The root node of this level */
@@ -26,7 +31,7 @@ protected:
     Vec2 _gravity;
     /** The level drawing scale (difference between physics and drawing coordinates) */
     Vec2 _scale;
-    /** Reference to the physics root of the scene graph */
+    /** Reference to the physics root of the scene graph that contains scene nodes except scene nodes for walls */
     std::shared_ptr<scene2::SceneNode> _worldnode;
     /** Reference to the debug root of the scene graph */
     std::shared_ptr<scene2::SceneNode> _debugnode;
@@ -34,10 +39,15 @@ protected:
     std::shared_ptr<cugl::physics2::net::NetWorld> _world;
     /** Reference to all the walls */
     std::vector<std::shared_ptr<WallModel>> _walls;
+    /** Reference to wall scene nodes*/
+    std::shared_ptr<scene2::SceneNode> _wallnode;
+    /** Reference to all joints*/
+    std::vector<std::shared_ptr<cugl::physics2::RevoluteJoint>> _revJoints;
     /** Reference to the end destination of the game*/
     std::shared_ptr<ExitModel> _goalDoor;
     /** The AssetManager for the game mode */
     std::shared_ptr<cugl::AssetManager> _assets;
+    
 public:
 #pragma mark Physics Attributes
     /**
@@ -188,14 +198,6 @@ public:
      */
     const std::shared_ptr<cugl::physics2::net::NetWorld>& getWorld() { return _world; }
     
-    
-    void setWorld(std::shared_ptr<cugl::physics2::net::NetWorld> world) {
-        this->_world = world;
-    }
-    
-    /** Sets the background image of the level*/
-    void setBackgroundScene();
-
     /**
      * Loads this game level from the source file
      *
@@ -256,11 +258,26 @@ public:
      * param node   The scene graph node to attach it to
      */
     void addObstacle(const std::shared_ptr<cugl::physics2::Obstacle>& obj,
-                     const std::shared_ptr<cugl::scene2::SceneNode>& node);
+                     const std::shared_ptr<cugl::scene2::SceneNode>& node,
+                     const std::shared_ptr<cugl::scene2::SceneNode>& parentnode);
     
+    /**
+     * Updates the dynamic platforms.
+     *
+     * param dt    timestep
+     */
+    void update(float dt);
     
+#pragma mark -
+#pragma mark Attribute Accessors
+    /** Returns the physics world of the game scene.*/
     std::shared_ptr<cugl::physics2::net::NetWorld> getPhysicsWorld(){
         return _world;
     }
+    
+    /** Sets the background image of the level
+     * param background    The background texture to load
+     */
+    void setBackgroundScene(std::shared_ptr<Texture> background);
 };
 #endif
