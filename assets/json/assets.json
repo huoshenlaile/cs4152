@@ -6,13 +6,19 @@
             "wrapT": "repeat"
         },
         "popleft": {
-            "file": "textures/popart_platformbubble_left.png"
+            "file": "textures/popart_platformbubble_left.png",
+            "wrapS": "repeat",
+            "wrapT": "repeat"
         },
         "popright": {
-            "file": "textures/popart_platformbubble_right.png"
+            "file": "textures/popart_platformbubble_right.png",
+            "wrapS": "repeat",
+            "wrapT": "repeat"
         },
         "popmid": {
-            "file": "textures/popart_platformLine.png"
+            "file": "textures/popart_platformLine.png",
+            "wrapS": "repeat",
+            "wrapT": "repeat"
         },
         "pinkbackground":{
             "file": "textures/popart_background.png",

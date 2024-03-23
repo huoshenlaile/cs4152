@@ -94,8 +94,6 @@ bool LevelLoader::preload(const std::shared_ptr<cugl::JsonValue>& json) {
             loadObject(objects->get(j));
         }
     }
-
-    
     return true;
 }
 
@@ -185,11 +183,15 @@ bool LevelLoader::loadWall(const std::shared_ptr<JsonValue>& json) {
     success = success && 2*polysize == vertices.size();
 
     Vec2* verts = reinterpret_cast<Vec2*>(&vertices[0]);
-    Poly2 wall(verts,(int)vertices.size()/2);
+    cugl::Poly2 wall(verts,(int)vertices.size()/2);
     EarclipTriangulator triangulator;
     triangulator.set(wall.vertices);
     triangulator.calculate();
     wall.setIndices(triangulator.getTriangulation());
+    
+    _wallpoly.push_back(std::make_shared<Poly2>(wall));
+    
+//    cugl::scene2::MeshNode::allocWithTexturePoly(_assets->get<Texture>(LEVEL_ONE_BACKGROUND), wall.setIndices(triangulator.getTriangulation()));
     triangulator.clear();
     
     // Get the object, which is automatically retained
@@ -209,7 +211,7 @@ bool LevelLoader::loadWall(const std::shared_ptr<JsonValue>& json) {
 
     if(walljson->get("obstacle")->getBool(ROTATION_FIELD)){
         wallobj->setBodyType(b2_dynamicBody);
-        wallobj->setAngularVelocity(10.0);
+        wallobj->setAngularVelocity(5.0);
     }
     
     if (success) {
@@ -321,15 +323,45 @@ void LevelLoader::setRootNode(const std::shared_ptr<scene2::SceneNode>& node){
         addObstacle(_goalDoor,sprite, _worldnode); // Put this at the very back
     }
     
+    
+    int ii=0;
     for(auto it = _walls.begin(); it != _walls.end(); ++it) {
         std::shared_ptr<WallModel> wall = *it;
         auto txt = _assets->get<Texture>(wall->getTextureKey());
-        std::cout<< wall->getTextureKey() << std::endl;
+        
+//        auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(wall->getTextureKey()), wall->getPolygon() * _scale);
         auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(wall->getTextureKey()));
+//        sprite->setAbsolute(true);
+        float minx = 0;
+        float maxx = 0;
+        float miny = 0;
+        float maxy = 0;
+        
+        //Import asset -> trace over asset -> maintain relative dimension and should be fine -> can scale pysical platforms? idk.
+        
+        //we can scale the image -> need to find a better way of scaling the image
+        //get width and height of the platform. scale the contentsize of the image to fit the thingy
+        for(int tt=0; tt < _wallpoly[ii]->size();tt++){
+            Vec2 vertex = _wallpoly[ii]->vertices[tt];
+            
+            minx = fmin(minx, vertex.x);
+            maxx = fmax(maxx, vertex.x);
+            
+            miny = fmin(miny, vertex.y);
+            maxy = fmax(maxy, vertex.y);
+        }
+        
+        
+        sprite->setContentSize(wall->getWidth()*_scale.x, wall->getHeight()*_scale.y);
+//        sprite->setPolygon(_wallpoly[ii]);
         if (wall == nullptr){
             continue;
         }
-        addObstacle(wall,sprite, _wallnode);  // All walls share the same texture
+//        std::cout<< ii << std::endl;
+//        auto sprite2 = scene2::MeshNode::allocWithTexture(_assets->get<Texture>(wall->getTextureKey()));
+        
+        addObstacle(wall, sprite, _wallnode);  // All walls share the same texture
+        ii++;
     }
     
 //    for(auto it = _revJoints.begin(); it != _revJoints.end(); ++it){

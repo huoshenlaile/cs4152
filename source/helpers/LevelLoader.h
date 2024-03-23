@@ -7,6 +7,7 @@
 #include <cugl/io/CUJsonReader.h>
 #include "../models/WallModel.h"
 #include "../models/ExitModel.h"
+#include <algorithm>
 
 using namespace cugl;
 
@@ -47,6 +48,9 @@ protected:
     std::shared_ptr<ExitModel> _goalDoor;
     /** The AssetManager for the game mode */
     std::shared_ptr<cugl::AssetManager> _assets;
+    /** List of wall polygons*/
+    std::vector<std::shared_ptr<cugl::Poly2>> _wallpoly;
+//    std::vector<<cugl::Poly2>> _wallpoly;
     
 public:
 #pragma mark Physics Attributes
