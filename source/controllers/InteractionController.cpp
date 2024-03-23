@@ -57,6 +57,11 @@ void InteractionController::beginContact(b2Contact* contact) {
     // TODO: generalize this to all buttons
     //intptr_t button_ptr = 0; //reinterpret_cast<intptr_t>(_button.get());
     intptr_t goal_ptr = reinterpret_cast<intptr_t>(_level->getExit().get());
+    std::unordered_set<intptr_t> sensor_ptrs;
+    std::vector<std::shared_ptr<SensorModel>> sensors = _level->getSensors();
+    std::transform(sensors.begin(), sensors.end(), std::inserter(sensor_ptrs, sensor_ptrs.end()), [](std::shared_ptr<SensorModel> &n) {
+            return reinterpret_cast<intptr_t>(n.get());
+        });
     InteractionController::PlayersContact contact_info = checkContactForPlayer(body1, body2);
     if (contact_info.bodyOne!=NOT_PLAYER || contact_info.bodyTwo != NOT_PLAYER){
         //std::cout << "Player touch\n";
@@ -74,6 +79,19 @@ void InteractionController::beginContact(b2Contact* contact) {
             PublisherMessage pub = { "goalDoor", "contacted", "contacted", body};
             CULog("Reached goal");
             publishMessage(std::move(pub));
+        }
+        for (const intptr_t& sensor_ptr : sensor_ptrs){
+            if(body1->GetUserData().pointer == sensor_ptr || body2->GetUserData().pointer == sensor_ptr) {
+                // TODO: generalize this to all buttons
+                // A player has pressed the button
+                //_button_down=true;
+                std::shared_ptr<std::unordered_map<std::string, std::string>> body;
+                
+                
+                PublisherMessage pub = { "sensor", "contacted", "contacted", body};
+                CULog("Sensor pub");
+                publishMessage(std::move(pub));
+            }
         }
     }
 }

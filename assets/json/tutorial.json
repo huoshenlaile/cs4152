@@ -7,36 +7,36 @@
          "id":2,
          "name":"objects",
          "objects":[
-                {
+             {
                  "height":49.8132642861166,
                  "id":5,
                  "name":"",
                  "polygon":[
-                        {
+                     {
                          "x":0,
                          "y":0
-                        }, 
-                        {
+                     },
+                     {
                          "x":0,
                          "y":-544.507271962525
-                        }, 
-                        {
+                     },
+                     {
                          "x":358.280255504475,
                          "y":-544.507271962525
-                        }, 
-                        {
+                     },
+                     {
                          "x":358.280255504475,
                          "y":0
-                        }],
+                     }],
                  "properties":[
-                        {
+                     {
                          "name":"properties",
                          "propertytype":"WallProperties",
                          "type":"class",
                          "value":
-                            {
+                         {
                              "obstacle":
-                                {
+                             {
                                  "bodytype":0,
                                  "damping":0,
                                  "debugcolor":"yellow",
@@ -46,46 +46,46 @@
                                  "restitution":0.1,
                                  "rotation":false,
                                  "texture":"goalpop"
-                                }
-                            }
-                        }],
+                             }
+                         }
+                     }],
                  "rotation":0,
                  "type":"exit",
                  "visible":true,
                  "width":49.8132642861166,
                  "x":4025.39990529421,
                  "y":1591.12971377951
-                }, 
-                {
+             },
+             {
                  "height":0,
                  "id":6,
                  "name":"",
                  "polygon":[
-                        {
+                     {
                          "x":0,
                          "y":0
-                        }, 
-                        {
+                     },
+                     {
                          "x":0,
                          "y":-525.728326582994
-                        }, 
-                        {
+                     },
+                     {
                          "x":1427.20282294676,
                          "y":-525.728326582994
-                        }, 
-                        {
+                     },
+                     {
                          "x":1427.20282294676,
                          "y":0
-                        }],
+                     }],
                  "properties":[
-                        {
+                     {
                          "name":"properties",
                          "propertytype":"WallProperties",
                          "type":"class",
                          "value":
-                            {
+                         {
                              "obstacle":
-                                {
+                             {
                                  "bodytype":0,
                                  "damping":0,
                                  "debugcolor":"yellow",
@@ -95,46 +95,46 @@
                                  "restitution":0.1,
                                  "rotation":false,
                                  "texture":"popright"
-                                }
-                            }
-                        }],
+                             }
+                         }
+                     }],
                  "rotation":0,
                  "type":"wall",
                  "visible":true,
                  "width":0,
                  "x":3310.97605027607,
                  "y":2131.93177499445
-                }, 
-                {
+             },
+             {
                  "height":0,
                  "id":7,
                  "name":"",
                  "polygon":[
-                        {
+                     {
                          "x":0,
                          "y":0
-                        }, 
-                        {
+                     },
+                     {
                          "x":0,
                          "y":-56.9029396718329
-                        }, 
-                        {
+                     },
+                     {
                          "x":2493.07712805329,
                          "y":-56.9029396718329
-                        }, 
-                        {
+                     },
+                     {
                          "x":2493.07712805329,
                          "y":0
-                        }],
+                     }],
                  "properties":[
-                        {
+                     {
                          "name":"properties",
                          "propertytype":"WallProperties",
                          "type":"class",
                          "value":
-                            {
+                         {
                              "obstacle":
-                                {
+                             {
                                  "bodytype":0,
                                  "damping":0,
                                  "debugcolor":"yellow",
@@ -144,46 +144,46 @@
                                  "restitution":0.1,
                                  "rotation":false,
                                  "texture":"popmid"
-                                }
-                            }
-                        }],
+                             }
+                         }
+                     }],
                  "rotation":0,
                  "type":"wall",
                  "visible":true,
                  "width":0,
                  "x":1137.76974096708,
                  "y":1744.91521185696
-                }, 
-                {
+             },
+             {
                  "height":0,
                  "id":8,
                  "name":"",
                  "polygon":[
-                        {
+                     {
                          "x":0,
                          "y":0
-                        }, 
-                        {
+                     },
+                     {
                          "x":0,
                          "y":-575.592624195592
-                        }, 
-                        {
+                     },
+                     {
                          "x":1245.85432562493,
                          "y":-575.592624195592
-                        }, 
-                        {
+                     },
+                     {
                          "x":1245.85432562493,
                          "y":0
-                        }],
+                     }],
                  "properties":[
-                        {
+                     {
                          "name":"properties",
                          "propertytype":"WallProperties",
                          "type":"class",
                          "value":
-                            {
+                         {
                              "obstacle":
-                                {
+                             {
                                  "bodytype":0,
                                  "damping":0,
                                  "debugcolor":"yellow",
@@ -193,17 +193,17 @@
                                  "restitution":0.1,
                                  "rotation":false,
                                  "texture":"popleft"
-                                }
-                            }
-                        }],
+                             }
+                         }
+                     }],
                  "rotation":0,
                  "type":"wall",
                  "visible":true,
                  "width":0,
                  "x":0.35739205433697,
                  "y":2263.47344154482
-                }, 
-                {
+             },
+             {
                  "gid":15,
                  "height":301,
                  "id":9,
@@ -214,8 +214,8 @@
                  "width":2501,
                  "x":932.628062360801,
                  "y":1869.10372255807
-                }, 
-                {
+             },
+             {
                  "gid":13,
                  "height":700,
                  "id":10,
@@ -226,8 +226,8 @@
                  "width":1500,
                  "x":-146.497391236547,
                  "y":2310.33755457034
-                }, 
-                {
+             },
+             {
                  "gid":14,
                  "height":700,
                  "id":11,
@@ -238,7 +238,40 @@
                  "width":1500,
                  "x":3271.65153463529,
                  "y":2202.81878355225
-                }],
+             },
+             {
+              "height":800.5082288003845,
+              "id":12,
+              "name":"",
+              "properties":[
+                     {
+                      "name":"properties",
+                      "propertytype":"ExitProperties",
+                      "type":"class",
+                      "value":
+                         {
+                          "obstacle":
+                             {
+                              "bodytype":0,
+                              "damping":0,
+                              "debugcolor":"yellow",
+                              "debugopacity":192,
+                              "density":0,
+                              "friction":0,
+                              "restitution":0,
+                              "rotation":false,
+                              "texture":"frame"
+                             }
+                         }
+                     }],
+              "rotation":0,
+              "type":"sensor",
+              "visible":true,
+              "width":500.8132642861166,
+              "x":1000.39990529421,
+              "y":1491.12971377951
+             }
+         ],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -246,7 +279,7 @@
          "y":0
         }],
  "nextlayerid":3,
- "nextobjectid":12,
+ "nextobjectid":13,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

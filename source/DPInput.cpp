@@ -71,10 +71,12 @@ void PlatformInput::update(float dt) {
 	//if (_character.rightHand.curr == _rightHandCur && _character.rightHand.prev == _rightHandPrev) {
 	//	_character.rightHand.prev = _character.rightHand.curr;
 	//}
-	CULog("Loop begins");
+	//CULog("Loop begins");
+#ifdef CU_TOUCH_SCREEN
+
 	Touchscreen* touch = Input::get<Touchscreen>();
 	for (auto touchID : touch->touchSet()) {
-		CULog("Press");
+		//CULog("Press");
 		bool exist = false;
 		for (auto info : _character._touchInfo) {
 			if (info.id == touchID) exist = true;
@@ -90,11 +92,11 @@ void PlatformInput::update(float dt) {
 	}
 
 	int count = 0;
-	CULog("Here!!!");
+	//CULog("Here!!!");
 
 	for (auto i = _character._touchInfo.begin(); i != _character._touchInfo.end();) {
 		if (touch->touchReleased(i->id)) {
-			CULog("Release");
+			//CULog("Release");
 			if (i->type == 1) _character.leftHand.assigned = false;
 			else if (i->type == 2) _character.rightHand.assigned = false;
 			i = _character._touchInfo.erase(i);
@@ -103,15 +105,16 @@ void PlatformInput::update(float dt) {
 	}
 
 	for (auto i = _character._touchInfo.begin(); i != _character._touchInfo.end(); i++) {
-		CULog("Touchid %d", i->id);
+		//CULog("Touchid %d", i->id);
 		Vec2 position = touch2Screen(touch->touchPosition(i->id));
 		i->position = touch->touchPosition(i->id);
-		CULog("count: %d", count);
-		CULog("size of touchInfo %d", _character._touchInfo.size());
-		CULog("Current Postion %f, %f", position.x, position.y);
-		CULog("Event type %d", i->type);
+		//CULog("count: %d", count);
+		//CULog("size of touchInfo %d", _character._touchInfo.size());
+		//CULog("Current Postion %f, %f", position.x, position.y);
+		//CULog("Event type %d", i->type);
 		count++;
 	}
+#endif
 }
 void PlatformInput::process() {
 	/*CULog("Loop begins");
@@ -146,13 +149,13 @@ void PlatformInput::process() {
 	}*/
 	Touchscreen* touch = Input::get<Touchscreen>();
 	for (auto i = _character._touchInfo.begin(); i != _character._touchInfo.end(); i++) {
-		CULog("Touchid %d", i->id);
+		//CULog("Touchid %d", i->id);
 		Vec2 position = touch2Screen(touch->touchPosition(i->id));
 		i->position = position;
 		//CULog("count: %d", count);
-		CULog("size of touchInfo %d", _character._touchInfo.size());
-		CULog("Current Postion %f, %f", position.x, position.y);
-		CULog("Event type %d", i->type);
+		//CULog("size of touchInfo %d", _character._touchInfo.size());
+		//CULog("Current Postion %f, %f", position.x, position.y);
+		//CULog("Event type %d", i->type);
 		//count++;
 	}
 	for (auto i = _character._touchInfo.begin(); i != _character._touchInfo.end(); i++) {
@@ -164,14 +167,14 @@ void PlatformInput::process() {
 		}*/
 		// Not assigned yet
 		//_character.leftHand.assigned = false;
-		if (_character.leftHand.assigned) CULog("leftHand is assigned");
-		else CULog("leftHand is not assigned");
-		if (_character.rightHand.assigned) CULog("rightHand is assigned");
-		else CULog("rightHand is not assigned");
+		//if (_character.leftHand.assigned) CULog("leftHand is assigned");
+		//else CULog("leftHand is not assigned");
+		//if (_character.rightHand.assigned) CULog("rightHand is assigned");
+		//else CULog("rightHand is not assigned");
 		if (i->type == 0) {
 			if (!_character.leftHand.assigned && _character.rightHand.assigned) {
 				// Assign this touch to left hand
-				CULog("Assign to leftHand");
+				//CULog("Assign to leftHand");
 				_character.leftHand.assigned = true;
 				_character.leftHand.prev = position;
 				_character.leftHand.curr = position;
@@ -180,7 +183,7 @@ void PlatformInput::process() {
 			}
 			else if (!_character.rightHand.assigned && _character.leftHand.assigned) {
 				// Assign this touch to right hand
-				CULog("Assign to rightHand");
+				//CULog("Assign to rightHand");
 				_character.rightHand.assigned = true;
 				_character.rightHand.prev = position;
 				_character.rightHand.curr = position;
@@ -188,12 +191,12 @@ void PlatformInput::process() {
 				i->type = 2;
 			}
 			else if (!_character.leftHand.assigned && !_character.rightHand.assigned) {
-				CULog("LeftHand realworldPos %f, %f", _character.leftHand.HandPos.x, _character.leftHand.HandPos.y);
-				CULog("RightHand realworldPos %f, %f", _character.rightHand.HandPos.x, _character.rightHand.HandPos.y);
-				CULog("Realworld touchPos %f, %f", i->worldPos.x, i->worldPos.y);
-				CULog("Now comparing distance. Distance to Left: %f, \n Distance to Right: %f", _character.leftHand.HandPos.distance(worldtouchPos), _character.rightHand.HandPos.distance(worldtouchPos));
+				//CULog("LeftHand realworldPos %f, %f", _character.leftHand.HandPos.x, _character.leftHand.HandPos.y);
+				//CULog("RightHand realworldPos %f, %f", _character.rightHand.HandPos.x, _character.rightHand.HandPos.y);
+				//CULog("Realworld touchPos %f, %f", i->worldPos.x, i->worldPos.y);
+				//CULog("Now comparing distance. Distance to Left: %f, \n Distance to Right: %f", _character.leftHand.HandPos.distance(worldtouchPos), _character.rightHand.HandPos.distance(worldtouchPos));
 				if (_character.leftHand.HandPos.distance(i->worldPos) < _character.rightHand.HandPos.distance(i->worldPos)) {
-					CULog("Now, Assigning to Left");
+				//	CULog("Now, Assigning to Left");
 					// Assign this touch to left hand
 					_character.leftHand.assigned = true;
 					_character.leftHand.prev = position;
@@ -202,7 +205,7 @@ void PlatformInput::process() {
 					i->type = 1;
 				}
 				else {
-					CULog("Now, Assigning to Right");
+					//CULog("Now, Assigning to Right");
 					// Assign this touch to right hand
 					_character.rightHand.assigned = true;
 					_character.rightHand.prev = position;
@@ -214,24 +217,24 @@ void PlatformInput::process() {
 		}
 		// Has been assigned to left hand
 		else if (i->type == 1) {
-			CULog("Moving the leftHand");
+			//CULog("Moving the leftHand");
 			_character.leftHand.prev = _character.leftHand.curr;
 			_character.leftHand.curr = position;
-			CULog("left hand prev pos: %f, %f", _character.leftHand.prev.x, _character.leftHand.prev.y);
-			CULog("left hand curr pos: %f, %f", _character.leftHand.curr.x, _character.leftHand.curr.y);
+			//CULog("left hand prev pos: %f, %f", _character.leftHand.prev.x, _character.leftHand.prev.y);
+			//CULog("left hand curr pos: %f, %f", _character.leftHand.curr.x, _character.leftHand.curr.y);
 		}
 		//Has been assigned to right hand
 		else if (i->type == 2) {
-			CULog("Moving the rightHand");
+			//CULog("Moving the rightHand");
 			_character.rightHand.prev = _character.rightHand.curr;
 			_character.rightHand.curr = position;
-			CULog("right hand curr pos: %f, %f", _character.rightHand.curr.x, _character.rightHand.curr.y);
+			//CULog("right hand curr pos: %f, %f", _character.rightHand.curr.x, _character.rightHand.curr.y);
 		}
 	}
 
 	for (auto i = _character._touchInfo.begin(); i != _character._touchInfo.end();) {
 		if (touch->touchReleased(i->id)) {
-			CULog("Release");
+			//CULog("Release");
 			if (i->type == 1) _character.leftHand.assigned = false;
 			else if (i->type == 2) _character.rightHand.assigned = false;
 			i = _character._touchInfo.erase(i);
