@@ -57,8 +57,7 @@ bool PlatformInput::init(const Rect bounds) {
 
 void PlatformInput::update(float dt) {
 	//CULog("World coord in GF at: %f %f \n", touchPos.x, touchPos.y);
-	_prevDown = _currDown;
-	_currDown = _touchDown;
+	
 
 	/*if (!_currDown) CULog("curr is not DOWN!");
 	else CULog("curr is DOWN!");
@@ -77,6 +76,7 @@ void PlatformInput::update(float dt) {
 	Touchscreen* touch = Input::get<Touchscreen>();
 	for (auto touchID : touch->touchSet()) {
 		//CULog("Press");
+
 		bool exist = false;
 		for (auto info : _character._touchInfo) {
 			if (info.id == touchID) exist = true;
@@ -97,6 +97,7 @@ void PlatformInput::update(float dt) {
 	for (auto i = _character._touchInfo.begin(); i != _character._touchInfo.end();) {
 		if (touch->touchReleased(i->id)) {
 			//CULog("Release");
+
 			if (i->type == 1) _character.leftHand.assigned = false;
 			else if (i->type == 2) _character.rightHand.assigned = false;
 			i = _character._touchInfo.erase(i);
@@ -105,6 +106,7 @@ void PlatformInput::update(float dt) {
 	}
 
 	for (auto i = _character._touchInfo.begin(); i != _character._touchInfo.end(); i++) {
+
 		//CULog("Touchid %d", i->id);
 		Vec2 position = touch2Screen(touch->touchPosition(i->id));
 		i->position = touch->touchPosition(i->id);
@@ -112,33 +114,46 @@ void PlatformInput::update(float dt) {
 		//CULog("size of touchInfo %d", _character._touchInfo.size());
 		//CULog("Current Postion %f, %f", position.x, position.y);
 		//CULog("Event type %d", i->type);
+
 		count++;
 	}
 #endif
 }
 void PlatformInput::process() {
-	/*CULog("Loop begins");
+//	CULog("Loop begins");
+//	Touchscreen* touch = Input::get<Touchscreen>();
+//	for (auto touchID : touch->touchSet()) {
+//		CULog("Press");
+//		bool exist = false;
+//		for (auto info : _character._touchInfo) {
+//			if (info.id == touchID) exist = true;
+//		}
+//		if (!exist) {
+//			TouchInfo touchInfo;
+//			touchInfo.position = touch->touchPosition(touchID);
+//			touchInfo.worldPos = cugl::Vec2(0, 0);
+//			touchInfo.id = touchID;
+//			touchInfo.type = 0;
+//			_character._touchInfo.push_back(touchInfo);
+//		}
+//	}
+//
+//	int count = 0;
+//	CULog("Here!!!");
+//
+//	for (auto i = _character._touchInfo.begin(); i != _character._touchInfo.end(); i++) {
+//		if (touch->touchReleased(i->id)) {
+//			CULog("Release");
+//			if (i->type == 1) _character.leftHand.assigned = false;
+//			else if (i->type == 2) _character.rightHand.assigned = false;
+//			_character._touchInfo.erase(i);
+//			break;
+//		}
+//	}
+    
 	Touchscreen* touch = Input::get<Touchscreen>();
-	for (auto touchID : touch->touchSet()) {
-		CULog("Press");
-		bool exist = false;
-		for (auto info : _character._touchInfo) {
-			if (info.id == touchID) exist = true;
-		}
-		if (!exist) {
-			TouchInfo touchInfo;
-			touchInfo.position = touch->touchPosition(touchID);
-			touchInfo.worldPos = cugl::Vec2(0, 0);
-			touchInfo.id = touchID;
-			touchInfo.type = 0;
-			_character._touchInfo.push_back(touchInfo);
-		}
-	}
-
-	int count = 0;
-	CULog("Here!!!");
-
 	for (auto i = _character._touchInfo.begin(); i != _character._touchInfo.end(); i++) {
+
 		if (touch->touchReleased(i->id)) {
 			CULog("Release");
 			if (i->type == 1) _character.leftHand.assigned = false;
@@ -167,6 +182,7 @@ void PlatformInput::process() {
 		}*/
 		// Not assigned yet
 		//_character.leftHand.assigned = false;
+
 		//if (_character.leftHand.assigned) CULog("leftHand is assigned");
 		//else CULog("leftHand is not assigned");
 		//if (_character.rightHand.assigned) CULog("rightHand is assigned");
@@ -229,6 +245,7 @@ void PlatformInput::process() {
 			_character.rightHand.prev = _character.rightHand.curr;
 			_character.rightHand.curr = position;
 			//CULog("right hand curr pos: %f, %f", _character.rightHand.curr.x, _character.rightHand.curr.y);
+
 		}
 	}
 
@@ -399,7 +416,7 @@ void PlatformInput::touchBeganCB(const TouchEvent& event, bool focus) {
 		_character._touchInfo.push_back(touchInfo);
 	}
 	touchPos = event.position;
-	CULog("Original touch move at: %f %f \n", event.position.x, event.position.y);
+//	CULog("Original touch move at: %f %f \n", event.position.x, event.position.y);
 	//// TRANSFORM touchevent pos to screen pos.
 	//Vec2 position = touch2Screen(event.position);
 

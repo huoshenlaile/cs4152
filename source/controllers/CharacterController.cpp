@@ -9,11 +9,35 @@ bool CharacterController::init(const cugl::Vec2& pos, float scale) {
 	return true;
 }
 
+CharacterController::CharacterController(void) : _drawScale(0){
+}
+/**
+* Destroys this level, releasing all resources.
+*/
+CharacterController::~CharacterController(void) {
+    //nothing for now, adding dispose causes an error: resetting the map for the second time, the game would crash because the joint to remove did not exist
+    //This may need to be fixed in the future
+//    dispose();
+}
+
 void CharacterController::dispose() {
-	_node = nullptr;
-	leftHandJoint = nullptr;
-	rightHandJoint = nullptr;
+    printf("removing joints");
+    for(auto it = _joints.begin(); it != _joints.end(); ++it) {
+        if (_world != nullptr) {
+            _world->removeJoint(*it);
+        }
+    (*it) = nullptr;
+    }
+    
+    for(auto it = _obstacles.begin(); it != _obstacles.end(); ++it) {
+        if (_world != nullptr) {
+            _world->removeObstacle((*it));
+        }
+    (*it) = nullptr;
+    }
+    _node->removeAllChildren();
 	_obstacles.clear();
+    _lineNodes.clear();
 	_joints.clear();
 }
 
@@ -190,11 +214,11 @@ std::string CharacterController::getPartName(int part) {
 }
 
 bool CharacterController::createJoints() {
-	std::shared_ptr<physics2::RevoluteJoint> revjoint;
-	std::shared_ptr<physics2::MotorJoint> motjoint;
-	std::shared_ptr<physics2::PrismaticJoint> prijoint;
-	std::shared_ptr<physics2::DistanceJoint> distjoint;
-	std::shared_ptr<physics2::WeldJoint> weldjoint;
+//	std::shared_ptr<physics2::RevoluteJoint> revjoint;
+//	std::shared_ptr<physics2::MotorJoint> motjoint;
+//	std::shared_ptr<physics2::PrismaticJoint> prijoint;
+//	std::shared_ptr<physics2::DistanceJoint> distjoint;
+//	std::shared_ptr<physics2::WeldJoint> weldjoint;
 
 	// right arm, forearm, hand
 	// BODY->JR1 rev
@@ -421,12 +445,12 @@ void CharacterController::activate(const std::shared_ptr<cugl::physics2::net::Ne
 
 //DEPRECATED
 void CharacterController::deactivate(const std::shared_ptr<cugl::physics2::net::NetWorld>& world) {
-	for (auto it = _obstacles.begin(); it != _obstacles.end(); ++it) {
-		world->removeObstacle(*it);
-	}
-	for (auto it = _joints.begin(); it != _joints.end(); ++it) {
-		world->removeJoint(*it);
-	}
+//	for (auto it = _obstacles.begin(); it != _obstacles.end(); ++it) {
+//		world->removeObstacle(*it);
+//	}
+//	for (auto it = _joints.begin(); it != _joints.end(); ++it) {
+//		world->removeJoint(*it);
+//	}
 }
 
 bool CharacterController::moveLeftHand(cugl::Vec2 offset) {
@@ -532,6 +556,7 @@ void CharacterController::disableMotor() {
  * @param node  The scene graph node representing this Ragdoll, which has been added to the world node already.
  */
 void CharacterController::linkPartsToWorld(const std::shared_ptr<cugl::physics2::net::NetWorld>& _world, const std::shared_ptr<cugl::scene2::SceneNode>& _scenenode, float _scale) {
+    this->_world = _world;
 	_node = _scenenode;
     drawCharacterLines(_scale);
 	for (int i = 0; i < _obstacles.size(); i++) {
@@ -567,6 +592,7 @@ void CharacterController::linkPartsToWorld(const std::shared_ptr<cugl::physics2:
 		}
 	}
 	for (int i = 0; i < _joints.size(); i++) {
+        printf("adding joints again");
 		auto joint = _joints[i];
 		_world->addJoint(joint);
 	}

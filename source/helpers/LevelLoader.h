@@ -43,6 +43,14 @@ protected:
     /** The AssetManager for the game mode */
     std::shared_ptr<cugl::AssetManager> _assets;
 public:
+    /**
+     * Unloads this game level, releasing all sources
+     *
+     * This load method should NEVER access the AssetManager.  Assets are loaded and
+     * unloaded in parallel, not in sequence.  If an asset (like a game level) has
+     * references to other assets, then these should be disconnected earlier.
+     */
+    void unload();
 #pragma mark Physics Attributes
     /**
      * Returns the bounds of this level in physics coordinates

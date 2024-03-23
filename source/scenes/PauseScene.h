@@ -24,7 +24,7 @@ protected:
   std::shared_ptr<physics2::net::NetEventController> _network;
 
 public:
-  enum SceneState { INSCENE, BACK };
+  enum SceneState { INSCENE, BACK, RESET };
   SceneState state;
 
   /**

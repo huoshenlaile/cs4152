@@ -97,24 +97,25 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 		_assets->get<scene2::SceneNode>("pause"));
 	_pause->addListener([this](const std::string& name, bool down) {
 		if (down) {
-			CULog("Pause button hit");
-			_network->pushOutEvent(PauseEvent::allocPauseEvent(
-				Vec2(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 2), true));
+            _gamePaused = true;
+//			CULog("Pause button hit");
+//			_network->pushOutEvent(PauseEvent::allocPauseEvent(
+//				Vec2(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 2), true));
 		}
 		});
 	_uinode->addChild(_pause);
-
-	_pause = std::dynamic_pointer_cast<scene2::Button>(
-		_assets->get<scene2::SceneNode>("pause"));
-
-	_pause->addListener([this](const std::string& name, bool down) {
-		if (down) {
-			CULog("Pause button hit");
-			_network->pushOutEvent(PauseEvent::allocPauseEvent(
-				Vec2(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 2), true));
-		}
-		// CULog("Pause button hit");
-		});
+//
+//	_pause = std::dynamic_pointer_cast<scene2::Button>(
+//		_assets->get<scene2::SceneNode>("pause"));
+//
+//	_pause->addListener([this](const std::string& name, bool down) {
+//		if (down) {
+//			CULog("Pause button hit");
+//			_network->pushOutEvent(PauseEvent::allocPauseEvent(
+//				Vec2(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 2), true));
+//		}
+//		// CULog("Pause button hit");
+//		});
 
 	addChild(_worldnode);
 	addChild(_uinode);
@@ -127,11 +128,6 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 		CULog("Fail loading levels");
 		return false;
 	}
-	// TODO: see the changes here - setting the world here somehow passes in our
-	// gravity factor.
-	//        _platformWorld =
-	//        physics2::net::NetWorld::alloc(_level->getBounds(),Vec2(0,DEFAULT_GRAVITY));
-	//	    _level->setWorld(_platformWorld);
 	_level->setAssets(_assets);
 	_level->setRootNode(_worldnode);
 	_platformWorld = _level->getPhysicsWorld();
@@ -229,11 +225,10 @@ void GameScene::activateWorldCollisions(const std::shared_ptr<physics2::Obstacle
 void GameScene::dispose() {
 	if (_active) {
 		// TODO: implemetation
-
 		removeAllChildren();
 		//        _input.dispose();
-		_inputController->dispose();
-		_inputController = nullptr;
+//		_inputController->dispose();
+//		_inputController = nullptr;
 		_worldnode = nullptr;
 		_debugnode = nullptr;
 		_winnode = nullptr;
@@ -255,8 +250,15 @@ void GameScene::setActive(bool value) {
 		else {
 			_pause->deactivate();
 			_pause->setDown(false);
+            
 		}
 	}
+    _inputController = std::make_shared<PlatformInput>();
+    _inputController->init(Rect(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT));
+    _inputController->fillHand(_characterControllerA->getLeftHandPosition(),
+        _characterControllerA->getRightHandPosition(),
+        _characterControllerA->getLHPos(),
+        _characterControllerA->getRHPos());
 }
 
 #pragma mark -
@@ -268,11 +270,48 @@ void GameScene::setActive(bool value) {
  * This method disposes of the world and creates a new one.
  */
 void GameScene::reset() {
-	CULog("GAME RESET");
-	_worldnode->removeAllChildren();
-	_debugnode->removeAllChildren();
+    // reload the level
+    
+//	CULog("GAME RESET");
+    _assets->unload<LevelLoader>(LEVEL_ONE_KEY);
+    _assets->load<LevelLoader>(LEVEL_ONE_KEY, LEVEL_ONE_FILE);
+    
+    _level = nullptr;
+    _level = _assets->get<LevelLoader>(LEVEL_ONE_KEY);
+    _level->setAssets(_assets);
+    _level->setRootNode(_worldnode);
+    
+    _platformWorld = nullptr;
+    _platformWorld = _level->getPhysicsWorld();
+    
+    //reload the character
+//    _characterControllerA = nullptr;
+    _characterControllerA = CharacterController::alloc({ 16, 25 }, _scale);
+    CULog("7538fe43 _scale = %f", _scale);
+    _characterControllerA->buildParts(_assets);
+    _characterControllerA->createJoints();
+    auto charNode = scene2::SceneNode::alloc();
+    _worldnode->addChild(charNode);
+    _characterControllerA->linkPartsToWorld(_platformWorld, charNode, _scale);
 	setComplete(false);
+    
+    //reload the input
+    _inputController = std::make_shared<PlatformInput>();
+    _inputController->init(Rect(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT));
+    _inputController->fillHand(_characterControllerA->getLeftHandPosition(),
+        _characterControllerA->getRightHandPosition(),
+        _characterControllerA->getLHPos(),
+        _characterControllerA->getRHPos());
+    
+    //reload the camera
+    _camera.setTarget(_characterControllerA->getBodySceneNode());
+    _camera.init(_characterControllerA->getBodySceneNode(), _worldnode, 10.0f,
+        std::dynamic_pointer_cast<OrthographicCamera>(getCamera()),
+        _uinode, 5.0f);
+    _camera.setZoom(0.6);
 	_camera.setTarget(_characterControllerA->getBodySceneNode());
+    
+
 	Application::get()->resetFixedRemainder();
 }
 
@@ -309,6 +348,7 @@ void GameScene::preUpdate(float dt) {
 		i->worldPos = (Vec2)Scene2::screenToWorldCoords(i->position);
 		//CULog("Touch coord at: %f %f \n", i->position.x, i->position.y);
 		//CULog("World coord at: %f %f \n", i->worldPos.x, i->worldPos.y);
+
 	}
 	//_inputController->worldtouchPos = (Vec2)Scene2::screenToWorldCoords(_inputController->touchPos);
 
@@ -392,17 +432,19 @@ void GameScene::postUpdate(float dt) {
 void GameScene::fixedUpdate(float dt) {
 	// TODO: check for available incoming events from the network controller and
 	// call processGrabEvent if it is a GrabEvent.
-	if (_network->isInAvailable()) {
-		auto e = _network->popInEvent();
-		if (auto grabEvent = std::dynamic_pointer_cast<GrabEvent>(e)) {
-			// CULog("BIG Grab Event GOT");
-			processGrabEvent(grabEvent);
-		}
-		else if (auto pauseEvent = std::dynamic_pointer_cast<PauseEvent>(e)) {
-			CULog("BIG Pause Event GOT");
-			processPauseEvent(pauseEvent);
-		}
-	}
+    
+//    processPauseEvent();
+//	if (_network->isInAvailable()) {
+//		auto e = _network->popInEvent();
+//		if (auto grabEvent = std::dynamic_pointer_cast<GrabEvent>(e)) {
+//			// CULog("BIG Grab Event GOT");
+//			processGrabEvent(grabEvent);
+//		}
+//		else if (auto pauseEvent = std::dynamic_pointer_cast<PauseEvent>(e)) {
+//			CULog("BIG Pause Event GOT");
+//			processPauseEvent(pauseEvent);
+//		}
+//	}
 
 	// TODO: check for available incoming events from the network controller and
 	// call processGrabEvent if it is a GrabEvent. std::cout << "position" <<
