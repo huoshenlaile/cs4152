@@ -170,9 +170,13 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	// TODO: fix this init after finishing characterControllers
 	_interactionController.init({}, _characterControllerA, nullptr, {}, {}, _level);
 	// TODO: remove, this is for testing purposes
-	InteractionController::SubscriberMessage sub = { "goalDoor", "contacted",
+	InteractionController::SubscriberMessage sub1 = { "goalDoor", "contacted",
 		std::unordered_map<std::string, std::string>({{"win","true"}}) };
-	_interactionController.addSubscription(std::move(sub));
+	_interactionController.addSubscription(std::move(sub1));
+    InteractionController::SubscriberMessage sub2 = { "sensor", "contacted",
+        std::unordered_map<std::string, std::string>({{"sensed","true"}}) };
+    _interactionController.addSubscription(std::move(sub2));
+
 
 	//    _camera.init(charNode,_worldnode,1.0f,
 	//    std::dynamic_pointer_cast<OrthographicCamera>(getCamera()),
@@ -231,7 +235,7 @@ void GameScene::dispose() {
 		_complete = false;
 		_debug = false;
 		_characterControllerA->dispose();
-		_characterControllerB->dispose();
+		//_characterControllerB->dispose();
 		Scene2::dispose();
 	}
 }
@@ -342,8 +346,9 @@ void GameScene::preUpdate(float dt) {
 	auto character = _inputController->getCharacter();
 	for (auto i = character->_touchInfo.begin(); i != character->_touchInfo.end(); i++) {
 		i->worldPos = (Vec2)Scene2::screenToWorldCoords(i->position);
-//		CULog("Touch coord at: %f %f \n", i->position.x, i->position.y);
-//		CULog("World coord at: %f %f \n", i->worldPos.x, i->worldPos.y);
+		//CULog("Touch coord at: %f %f \n", i->position.x, i->position.y);
+		//CULog("World coord at: %f %f \n", i->worldPos.x, i->worldPos.y);
+
 	}
 	//_inputController->worldtouchPos = (Vec2)Scene2::screenToWorldCoords(_inputController->touchPos);
 
@@ -395,6 +400,9 @@ void GameScene::preUpdate(float dt) {
 				CULog("Winner!");
 				setComplete(true);
 			}
+            if (s.pub_id == "sensor" && s.listening_for == "contacted") {
+                CULog("DETECTED!");
+            }
 			std::cout << s.pub_id << " " << s.listening_for << "\n";
 		}
 		_interactionController.messageQueue.pop();

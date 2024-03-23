@@ -7,6 +7,8 @@
 #include <cugl/io/CUJsonReader.h>
 #include "../models/WallModel.h"
 #include "../models/ExitModel.h"
+#include "../models/SensorModel.h"
+
 
 using namespace cugl;
 
@@ -36,6 +38,8 @@ protected:
     std::vector<std::shared_ptr<WallModel>> _walls;
     /** Reference to the end destination of the game*/
     std::shared_ptr<ExitModel> _goalDoor;
+    /** Reference to the sensors of the game*/
+    std::vector<std::shared_ptr<SensorModel>> _sensors;
     /** The AssetManager for the game mode */
     std::shared_ptr<cugl::AssetManager> _assets;
 public:
@@ -83,6 +87,12 @@ public:
     const std::shared_ptr<ExitModel>& getExit() { return _goalDoor; }
     
     /**
+     * Returns the sensors in this game level
+     *
+     * @return the sensors in this game level
+     */
+    const std::vector<std::shared_ptr<SensorModel>>& getSensors() { return _sensors; }
+    /**
     * Determines which object is currently being parsed,
     * and then sends the object over
     * to the respective load function
@@ -105,6 +115,19 @@ public:
      * @return true if the exit door was successfully loaded
      */
     bool loadGoalDoor(const std::shared_ptr<JsonValue>& json);
+    
+    /**
+     * Loads a sensor obstacle
+     *
+     * The sensor door will will be stored in _sensors field and retained.
+     * If the sensor fails to load, then _sensors will be nullptr.
+     *
+     * @param  reader   a JSON reader with cursor ready to read the exit
+     *
+     * @retain the sensor
+     * @return true if the sensor was successfully loaded
+     */
+    bool loadSensor(const std::shared_ptr<JsonValue>& json);
     
     /**
      * Creates a new game level with no source file.

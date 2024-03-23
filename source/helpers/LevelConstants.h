@@ -11,6 +11,8 @@
 #define GOALDOOR_FIELD      "exit"
 #define CRATES_FIELD        "crate"
 #define WALLS_FIELD         "wall"
+#define SENSOR_FIELD        "sensor"
+
 
 /** The physics fields for each object */
 #define POSITION_FIELD      "pos"
