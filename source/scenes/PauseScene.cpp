@@ -36,14 +36,17 @@ bool PauseScene::init(
   _backout->addListener([this](const std::string &name, bool down) {
     if (down) {
       state = BACK;
-      _network->pushOutEvent(PauseEvent::allocPauseEvent(
-          Vec2(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 2), false));
+//      _network->pushOutEvent(PauseEvent::allocPauseEvent(
+//          Vec2(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 2), false));
     }
   });
 
   _reset->addListener([this](const std::string &name, bool down) {
     if (down) {
-      // state = BACK;
+//        printf("INSIDE RESET BUTTON");
+       state = RESET;
+//       _network->pushOutEvent(PauseEvent::allocPauseEvent(
+//            Vec2(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 2), false));
     }
   });
 
@@ -66,23 +69,27 @@ void PauseScene::setActive(bool value) {
     Scene2::setActive(value);
     if (value) {
       _backout->activate();
+      _reset->activate();
       state = INSCENE;
     } else {
       _backout->deactivate();
       _backout->setDown(false);
+      _reset->deactivate();
+      _reset->setDown(false);
     }
   }
 }
+
 void PauseScene::fixedUpdate() {
-  if (_network->isInAvailable()) {
-    auto e = _network->popInEvent();
-    if (auto pauseEvent = std::dynamic_pointer_cast<PauseEvent>(e)) {
-      CULog("Pause Event RECIEVED");
-        if(!pauseEvent->isPause()){
-            state = BACK;
-        }
-    }
-  }
+//  if (_network->isInAvailable()) {
+//    auto e = _network->popInEvent();
+//    if (auto pauseEvent = std::dynamic_pointer_cast<PauseEvent>(e)) {
+//      CULog("Pause Event RECIEVED");
+//        if(!pauseEvent->isPause()){
+//            state = BACK;
+//        }
+//    }
+//  }
 }
 
 void PauseScene::update(float timestep) {}

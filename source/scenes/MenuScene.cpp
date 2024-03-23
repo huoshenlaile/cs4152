@@ -27,7 +27,7 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     scene->doLayout(); // Repositions the HUD
     status = NONE;
     _hostbutton = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("menu_host"));
-    _joinbutton = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("menu_join"));
+//    _joinbutton = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("menu_join"));
     _settingbutton = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("menu_setting"));
     
     _hostbutton->addListener([this](const std::string& name, bool down) {
@@ -35,11 +35,11 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
             status = HOST;
         }
     });
-    _joinbutton->addListener([this](const std::string& name, bool down) {
-        if (down) {
-            status = JOIN;
-        }
-    });
+//    _joinbutton->addListener([this](const std::string& name, bool down) {
+//        if (down) {
+//            status = JOIN;
+//        }
+//    });
     _settingbutton->addListener([this](const std::string& name, bool down) {
         if (down) {
             status = SETTING;
@@ -77,15 +77,15 @@ void MenuScene::setActive(bool value) {
         if (value) {
             status = NONE;
             _hostbutton->activate();
-            _joinbutton->activate();
+//            _joinbutton->activate();
             _settingbutton -> activate();
         } else {
             _hostbutton->deactivate();
-            _joinbutton->deactivate();
+//            _joinbutton->deactivate();
             _settingbutton -> deactivate();
             // If any were pressed, reset them
             _hostbutton->setDown(false);
-            _joinbutton->setDown(false);
+//            _joinbutton->setDown(false);
             _settingbutton -> setDown(false);
         }
     }

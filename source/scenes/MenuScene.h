@@ -32,7 +32,7 @@ public:
         /** User wants to host a game */
         HOST,
         /** User wants to join a game */
-        JOIN,
+//        JOIN,
         SETTING,
         QUIT
     };

@@ -60,8 +60,8 @@ void DPApp::onStartup() {
 void DPApp::onShutdown() {
   _gameScene.dispose();
   _menuScene.dispose();
-  _hostScene.dispose();
-  _clientScene.dispose();
+//  _hostScene.dispose();
+//  _clientScene.dispose();
   _levelSelectScene.dispose();
   _settingScene.dispose();
   _restorationScene.dispose();
@@ -119,10 +119,6 @@ void DPApp::preUpdate(float timestep) {
     updateLoad(0.01f);
   } else if (_status == MENU) {
     updateMenu(timestep);
-  } else if (_status == HOST) {
-    updateHost(timestep);
-  } else if (_status == CLIENT) {
-    updateClient(timestep);
   } else if (_status == SETTING) {
     updateSetting(timestep);
   } else if (_status == LEVELSELECT) {
@@ -142,13 +138,19 @@ void DPApp::preUpdate(float timestep) {
     }
     _gameScene.preUpdate(timestep);
   } else if (_status == PAUSE) {
-    _pauseScene.update(timestep);
+//    _pauseScene.update(timestep);
     switch (_pauseScene.state) {
     case PauseScene::BACK:
-      _pauseScene.setActive(false);
-      _gameScene.setActive(true);
-      _status = GAME;
-      break;
+          _pauseScene.setActive(false);
+          _gameScene.setActive(true);
+          _status = GAME;
+          break;
+    case PauseScene::RESET:
+        _pauseScene.setActive(false);
+        _gameScene.reset();
+        _gameScene.setActive(true);
+        _status = GAME;
+        break;
     default:
       break;
     }
@@ -198,13 +200,8 @@ void DPApp::updateMenu(float timestep) {
   switch (_menuScene.status) {
   case MenuScene::HOST:
     _menuScene.setActive(false);
-    _hostScene.setActive(true);
-    _status = HOST;
-    break;
-  case MenuScene::JOIN:
-    _menuScene.setActive(false);
-    _clientScene.setActive(true);
-    _status = CLIENT;
+    _levelSelectScene.setActive(true);
+    _status = LEVELSELECT;
     break;
   case MenuScene::NONE:
     // DO NOTHING
@@ -223,13 +220,20 @@ void DPApp::updateMenu(float timestep) {
 void DPApp::updatePause(float timestep) {
   _pauseScene.update(timestep);
   switch (_pauseScene.state) {
-  case PauseScene::BACK:
-    _status = GAME;
-    _pauseScene.setActive(false);
-    _gameScene.setActive(true);
-    break;
-  default:
-    break;
+      case PauseScene::BACK:
+        _status = GAME;
+        _pauseScene.setActive(false);
+        _gameScene.setActive(true);
+        break;
+      case PauseScene::RESET:
+        printf("RESETTING");
+        _status = GAME;
+        _pauseScene.setActive(false);
+        _gameScene.reset();
+        _gameScene.setActive(true);
+        break;
+      default:
+        break;
   }
 }
 
@@ -308,11 +312,12 @@ void DPApp::updateLoad(float timestep) {
     _loadScene.dispose(); // Disables the input listeners in this mode
     _menuScene.init(_assets);
     _menuScene.setActive(true);
-    _hostScene.init(_assets, _network);
-    _clientScene.init(_assets, _network);
+//    _hostScene.init(_assets, _network);
+//    _clientScene.init(_assets, _network);
     _pauseScene.init(_assets, _network);
     _settingScene.init(_assets);
     //_gameScene.init(_assets);
+    _levelSelectScene.init(_assets, _network);
     _status = MENU;
     break;
   }
@@ -332,7 +337,36 @@ void DPApp::updateSetting(float timestep) {
 }
 
 void DPApp::updateLevelSelect(float timestep) {
-  _levelSelectScene.update(timestep);
+    _levelSelectScene.update(timestep);
+    switch (_levelSelectScene.state) {
+    case LevelSelectScene::BACK:
+      _status = MENU;
+      _levelSelectScene.setActive(false);
+      _menuScene.setActive(true);
+      break;
+    case LevelSelectScene::HANDSHAKE:
+      if (!_loaded) {
+        _gameScene.init(_assets, _network, true);
+        _loaded = true;
+      }
+
+      _network->markReady();
+      break;
+    case LevelSelectScene::STARTGAME:
+      _levelSelectScene.setActive(false);
+      _gameScene.setActive(true);
+      _status = GAME;
+      break;
+    case LevelSelectScene::NETERROR:
+      _levelSelectScene.setActive(false);
+      _menuScene.setActive(true);
+      _gameScene.dispose();
+      _status = MENU;
+      break;
+    case LevelSelectScene::INSCENE:
+      // Do nothing
+      break;
+    }
   // TODO: !
 }
 
@@ -358,12 +392,6 @@ void DPApp::draw() {
     break;
   case MENU:
     _menuScene.render(_batch);
-    break;
-  case HOST:
-    _hostScene.render(_batch);
-    break;
-  case CLIENT:
-    _clientScene.render(_batch);
     break;
   case GAME:
     _gameScene.render(_batch);

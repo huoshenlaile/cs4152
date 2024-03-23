@@ -233,8 +233,37 @@ _scale(32, 32)
 * Destroys this level, releasing all resources.
 */
 LevelLoader::~LevelLoader(void) {
+    unload();
     clearRootNode();
 }
+
+/**
+* Unloads this game level, releasing all sources
+*
+* This load method should NEVER access the AssetManager.  Assets are loaded and
+* unloaded in parallel, not in sequence.  If an asset (like a game level) has
+* references to other assets, then these should be disconnected earlier.
+*/
+void LevelLoader::unload() {
+    if (_goalDoor != nullptr) {
+        if (_world != nullptr) {
+            _world->removeObstacle(_goalDoor);
+        }
+        _goalDoor = nullptr;
+    }
+    for(auto it = _walls.begin(); it != _walls.end(); ++it) {
+        if (_world != nullptr) {
+            _world->removeObstacle((*it));
+        }
+    (*it) = nullptr;
+    }
+    _walls.clear();
+    if (_world != nullptr) {
+        _world->clear();
+        _world = nullptr;
+    }
+}
+
 
 /**
 * Clears the root scene graph node for this level
@@ -315,12 +344,12 @@ void LevelLoader::setRootNode(const std::shared_ptr<scene2::SceneNode>& node){
     for(auto it = _walls.begin(); it != _walls.end(); ++it) {
         std::shared_ptr<WallModel> wall = *it;
         auto txt = _assets->get<Texture>(wall->getTextureKey());
-        std::cout<< wall->getTextureKey() << std::endl;
+//        std::cout<< wall->getTextureKey() << std::endl;
         auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(wall->getTextureKey()));
         if (wall == nullptr){
             continue;
         }
-        std::cout << "drawing wall and adding to worlds" << std::endl;
+//        std::cout << "drawing wall and adding to worlds" << std::endl;
         addObstacle(wall,sprite);  // All walls share the same texture
     }
 }
@@ -353,5 +382,5 @@ void LevelLoader::addObstacle(const std::shared_ptr<cugl::physics2::Obstacle>& o
             weak->setAngle(obs->getAngle());
         });
     }
-    std::cout<<"success"<<std::endl;
+//    std::cout<<"success"<<std::endl;
 }

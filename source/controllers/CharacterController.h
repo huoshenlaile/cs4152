@@ -69,6 +69,8 @@ protected:
 	std::vector<std::shared_ptr<cugl::Texture>> _textures;
 	std::vector<std::shared_ptr<cugl::physics2::Obstacle>> _obstacles;
 	std::vector<std::shared_ptr<cugl::physics2::Joint>> _joints;
+    /** The physics world; part of the model (though listeners elsewhere) */
+    std::shared_ptr<cugl::physics2::net::NetWorld> _world;
 
 	cugl::Vec2 _offset;
 	std::shared_ptr<cugl::scene2::SceneNode> _node;
@@ -104,8 +106,8 @@ protected:
 	std::shared_ptr<scene2::PolygonNode> _LHNode;
 	std::shared_ptr<scene2::PolygonNode> _RHNode;
 public:
-	CharacterController(void) : _drawScale(0) { }
-	virtual ~CharacterController(void) { dispose(); }
+    CharacterController(void);
+    virtual ~CharacterController(void);
 	void dispose();
 
 	bool init() {
