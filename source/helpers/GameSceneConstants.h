@@ -27,7 +27,7 @@
 #include "../helpers/LevelConstants.h"
 #include "../controllers/CameraController.h"
 #include "../controllers/PauseEvent.h"
-#include "../DPInput.h"
+#include "../controllers/InputController.h"
 
 /** This is the size of the active portion of the screen */
 #define SCENE_WIDTH 1024
@@ -44,5 +44,11 @@
 #define FIXED_TIMESTEP_S 0.02f
 
 #define INPUT_SCALER 1.5f
+
+#define DEFAULT_ZOOM 0.25
+#define ZOOMIN_SPEED 0.01
+#define NOZOOM 0
+#define ZOOMIN 1
+#define ZOOMOUT 2
 
 #endif /* GameSceneConstants_h */

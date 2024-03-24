@@ -4,7 +4,9 @@
 #include <stdio.h>
 
 #include <cugl/cugl.h>
-#include "../DPInput.h"
+#include <thread>
+#include <chrono>
+#include "InputController.h"
 
 using namespace cugl;
 
@@ -98,6 +100,8 @@ public:
 	* @return The camera
 	*/
 	std::shared_ptr<cugl::OrthographicCamera> getCamera() { return _camera; };
+
+	void process(int zoomIn, float speed);
 };
 
 #endif
