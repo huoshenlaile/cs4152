@@ -198,6 +198,7 @@ bool LevelLoader::loadSensor(const std::shared_ptr<JsonValue>& json){
 
         if (success) {
            // _world->addObstacle(sensor);
+            std::cout << "SENSOR LOCATION=====: " << sensor->getPosition().x  << ", " << sensor->getY() << std::endl;
         }
         else {
             sensor = nullptr;

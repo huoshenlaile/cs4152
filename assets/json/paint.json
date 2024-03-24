@@ -1,0 +1,13 @@
+
+{
+    "paint_animation": [
+        {
+            "texture":      "textures/cugl-logo.png",
+            "polygon":     "clamp",
+        },
+        {
+            "texture":      "textures/cugl-name.png",
+            "polygon": "oop",
+        },
+    ]
+}

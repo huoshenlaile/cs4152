@@ -61,6 +61,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 		: dimen.height / rect.size.height;
 	Vec2 offset{ (dimen.width - SCENE_WIDTH) / 2.0f,
 				(dimen.height - SCENE_HEIGHT) / 2.0f };
+        
 
 	// TODO: add children to the scene, initialize Controllers
 	// Create the scene graph
@@ -98,24 +99,9 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	_pause->addListener([this](const std::string& name, bool down) {
 		if (down) {
             _gamePaused = true;
-//			CULog("Pause button hit");
-//			_network->pushOutEvent(PauseEvent::allocPauseEvent(
-//				Vec2(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 2), true));
 		}
 		});
 	_uinode->addChild(_pause);
-//
-//	_pause = std::dynamic_pointer_cast<scene2::Button>(
-//		_assets->get<scene2::SceneNode>("pause"));
-//
-//	_pause->addListener([this](const std::string& name, bool down) {
-//		if (down) {
-//			CULog("Pause button hit");
-//			_network->pushOutEvent(PauseEvent::allocPauseEvent(
-//				Vec2(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 2), true));
-//		}
-//		// CULog("Pause button hit");
-//		});
 
 	addChild(_worldnode);
 	addChild(_uinode);
@@ -131,6 +117,10 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	_level->setAssets(_assets);
 	_level->setRootNode(_worldnode);
 	_platformWorld = _level->getPhysicsWorld();
+    
+    _paintModel.init({}, _assets, _worldnode);
+    addPaintObstacles();
+
 
 #pragma mark Character 1
 	_characterControllerA = CharacterController::alloc({ 16, 25 }, _scale);
@@ -152,6 +142,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	//    _worldnode->addChild(charNodeB);
 	//    _characterControllerB->linkPartsToWorld(_platformWorld, charNodeB,
 	//    _scale);
+
 
 #pragma mark NetEvents
 	_network->attachEventType<GrabEvent>();
@@ -199,6 +190,24 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	_camera.setZoom(0.6);
 
 	return true;
+}
+
+void GameScene::addPaintObstacles(){
+    /*auto polyObs = cugl::physics2::PolygonObstacle::alloc(_paintModel.currentFrame(), {0,0});
+    polyObs->setPosition(getSize()/(2*_scale));
+    polyObs->setBodyType(b2BodyType::b2_staticBody);
+    
+    _platformWorld->addObstacle(polyObs);*/
+
+    //std::shared_ptr<Texture> image = _paintModel.currentTexture();
+    //std::shared_ptr<scene2::PolygonNode> sprite = _paintModel.currentNode();
+    //sprite->setColor(Color4::BLACK);
+    
+    //sprite->setPosition(getSize()/2);
+    //sprite->setAngle(polyObs->getAngle());
+    //_worldnode->addChild(sprite);
+    
+    
 }
 
 /**
@@ -420,6 +429,20 @@ void GameScene::preUpdate(float dt) {
 	//        CULog("Grab Event COMING");
 	//        _network->pushOutEvent(GrabEvent::allocGrabEvent(Vec2(DEFAULT_WIDTH/2,DEFAULT_HEIGHT/2)));
 	//    }
+    
+    processPaintCallbacks(dt);
+    _interactionController.detectPolyContact(_paintModel.currentNode(), _scale);
+}
+
+void GameScene::processPaintCallbacks(float millis){
+    if (_paintModel.timer <= 0) {
+        CULog("Update called");
+        _paintModel.update(_worldnode);
+        _paintModel.timer = 1000; // ten seconds
+    } else {
+        _paintModel.timer -= millis;
+    }
+    
 }
 
 void GameScene::postUpdate(float dt) {
