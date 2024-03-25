@@ -42,8 +42,8 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
+                                 "friction":10,
+                                 "restitution":0.3,
                                  "rotation":false,
                                  "texture":"alpharelease_frenchfries"
                                 }
@@ -91,8 +91,8 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
+                                 "friction":10,
+                                 "restitution":0.3,
                                  "rotation":false,
                                  "texture":"alpharelease_frenchfries"
                                 }
@@ -140,8 +140,8 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
+                                 "friction":10,
+                                 "restitution":0.3,
                                  "rotation":false,
                                  "texture":"alpharelease_frenchfries"
                                 }
@@ -285,8 +285,8 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
+                                 "friction":10,
+                                 "restitution":0.3,
                                  "rotation":false,
                                  "texture":"alpharelease_mustard"
                                 }
@@ -334,8 +334,8 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
+                                 "friction":10,
+                                 "restitution":0.3,
                                  "rotation":false,
                                  "texture":"alpharelease_frenchfries"
                                 }
@@ -439,8 +439,8 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
+                                 "friction":10,
+                                 "restitution":0.3,
                                  "rotation":false,
                                  "texture":"alpharelease_ketchup_capon"
                                 }
@@ -488,8 +488,8 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
+                                 "friction":10,
+                                 "restitution":0.3,
                                  "rotation":false,
                                  "texture":"alpharelease_frenchfries"
                                 }
@@ -593,8 +593,8 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
+                                 "friction":10,
+                                 "restitution":0.3,
                                  "rotation":false,
                                  "texture":"alpharelease_soy_capon"
                                 }

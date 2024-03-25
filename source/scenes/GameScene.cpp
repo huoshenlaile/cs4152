@@ -1,11 +1,4 @@
 #include "GameScene.h"
-#include <box2d/b2_collision.h>
-#include <box2d/b2_contact.h>
-#include <box2d/b2_world.h>
-#include <ctime>
-#include <iostream>
-#include <sstream>
-#include <string>
 
 using namespace cugl;
 using namespace cugl::physics2::net;
@@ -29,14 +22,14 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	const std::shared_ptr<NetEventController> network,
 	bool isHost) {
 	return GameScene::init(assets, Rect(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT),
-		Vec2(0, DEFAULT_GRAVITY), network, isHost);
+		Vec2(0, CHARACTER_GRAVITY), network, isHost);
 }
 
 bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	const cugl::Rect rect,
 	const std::shared_ptr<NetEventController> network,
 	bool isHost) {
-	return init(assets, rect, Vec2(0, DEFAULT_GRAVITY), network, isHost);
+	return init(assets, rect, Vec2(0, CHARACTER_GRAVITY), network, isHost);
 }
 
 bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
@@ -131,6 +124,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	_level->setAssets(_assets);
 	_level->setRootNode(_worldnode);
 	_platformWorld = _level->getPhysicsWorld();
+    _platformWorld -> setGravity(gravity);
 
 #pragma mark Character 1
 	_characterControllerA = CharacterController::alloc({ 16, 25 }, _scale);
