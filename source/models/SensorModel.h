@@ -1,7 +1,7 @@
 #ifndef __SENSOR_MODEL_H__
 #define __SENSOR_MODEL_H__
 
-#include <cugl/physics2/CUBoxObstacle.h>
+#include <cugl/physics2/CUPolygonObstacle.h>
 
 using namespace cugl;
 
@@ -15,7 +15,7 @@ using namespace cugl;
 * Note that this class does keeps track of its own assets via keys, so that
 * they can be attached later as part of the scene graph.
 */
-class SensorModel : public physics2::BoxObstacle {
+class SensorModel : public physics2::PolygonObstacle {
 private:
     /** This macro disables the copy constructor (not allowed on scene graphs) */
     CU_DISALLOW_COPY_AND_ASSIGN(SensorModel);
@@ -28,45 +28,7 @@ protected:
 #pragma mark Static Constructors
 public:
     /**
-     * Creates a new sensor at the origin.
-     *
-     * The sensor is 1 unit by 1 unit in size. The sensor is scaled so that
-     * 1 pixel = 1 Box2d unit
-     *
-     * The scene graph is completely decoupled from the physics system.
-     * The node does not have to be the same size as the physics body. We
-     * only guarantee that the scene graph node is positioned correctly
-     * according to the drawing scale.
-     *
-     * @return A newly allocated sensor at the origin
-     */
-    static std::shared_ptr<SensorModel> alloc() {
-        std::shared_ptr<SensorModel> result = std::make_shared<SensorModel>();
-        return (result->init() ? result : nullptr);
-    }
-
-    /**
-     * Creates a new sensor with the given position
-     *
-     * The sensor is 1 unit by 1 unit in size. The sensor is scaled so that
-     * 1 pixel = 1 Box2d unit
-     *
-     * The scene graph is completely decoupled from the physics system.
-     * The node does not have to be the same size as the physics body. We
-     * only guarantee that the scene graph node is positioned correctly
-     * according to the drawing scale.
-     *
-     * @param  pos  Initial position in world coordinates
-     *
-     * @return  A newly allocated Sensor, at the given position
-     */
-    static std::shared_ptr<SensorModel> alloc(const Vec2& pos) {
-        std::shared_ptr<SensorModel> result = std::make_shared<SensorModel>();
-        return (result->init(pos) ? result : nullptr);
-    }
-
-    /**
-     * Creates a new sensor with the given position and size.
+     * Creates a new sensor with the given polygon.
      *
      * The sensor size is specified in world coordinates.
      *
@@ -75,16 +37,34 @@ public:
      * only guarantee that the scene graph node is positioned correctly
      * according to the drawing scale.
      *
-     * @param  pos      Initial position in world coordinates
-     * @param  size       The dimensions of the sensor door.
+     * @param  poly    The polygon of the sensor
      *
-     * @return  A newly allocated Sensor, at the given position, with the given size
+     * @return  A newly allocated Sensor allocated via the given polygon
      */
-    static std::shared_ptr<SensorModel> alloc(const Vec2& pos, const Size& size) {
+    static std::shared_ptr<SensorModel> alloc(const Poly2& poly) {
         std::shared_ptr<SensorModel> result = std::make_shared<SensorModel>();
-        return (result->init(pos, size) ? result : nullptr);
+        return (result->init(poly) ? result : nullptr);
     }
 
+    /**
+     * Creates a new sensor with the given polygon and anchor.
+     *
+     * The sensor size is specified in world coordinates.
+     *
+     * The scene graph is completely decoupled from the physics system.
+     * The node does not have to be the same size as the physics body. We
+     * only guarantee that the scene graph node is positioned correctly
+     * according to the drawing scale.
+     *
+     * @param  poly    The polygon of the sensor
+     * @param  anchor   The rotational center of the polygon
+     *
+     * @return  A newly allocated Sensor allocated via the given polygon and anchor
+     */
+    static std::shared_ptr<SensorModel> alloc(const Poly2& poly, const Vec2& anchor) {
+        std::shared_ptr<SensorModel> result = std::make_shared<SensorModel>();
+        return (result->init(poly, anchor) ? result : nullptr);
+    }
 #pragma mark -
 #pragma mark Animation
     /**
@@ -112,7 +92,7 @@ public:
     /**
      * Creates a new sensor at the origin.
      */
-    SensorModel(void) : BoxObstacle() { }
+    SensorModel(void) : PolygonObstacle() { }
 
     /**
      * Destroys this sensor, releasing all resources.
@@ -120,36 +100,20 @@ public:
     virtual ~SensorModel(void) {}
 
     /**
-     * Initializes a new sensor at the origin.
+     * Initializes a new sensor with the given polygon
      *
-     * The sensor is 1 unit by 1 unit in size. The sensor is scaled so that
-     * 1 pixel = 1 Box2d unit
-     *
-     * The scene graph is completely decoupled from the physics system.
-     * The node does not have to be the same size as the physics body. We
-     * only guarantee that the scene graph node is positioned correctly
-     * according to the drawing scale.
-     *
-     * @return  true if the obstacle is initialized properly, false otherwise.
-     */
-    virtual bool init() override { return init(Vec2::ZERO,Size::ZERO); }
-
-    /**
-     * Initializes a new sensor with the given position
-     *
-     * The sensor is 1 unit by 1 unit in size. The sensor is scaled so that
-     * 1 pixel = 1 Box2d unit
+     * The sensor size is specified in world coordinates.
      *
      * The scene graph is completely decoupled from the physics system.
      * The node does not have to be the same size as the physics body. We
      * only guarantee that the scene graph node is positioned correctly
      * according to the drawing scale.
      *
-     * @param  pos  Initial position in world coordinates
+     * @param  poly    The polygon of the sensor
      *
      * @return  true if the obstacle is initialized properly, false otherwise.
      */
-    virtual bool init(const Vec2 pos) override { return init(pos,Size(1,1)); }
+    virtual bool init(const Poly2& poly) override { return init(poly,Vec2(0.5,0.5)); }
 
     /**
      * Initializes a new sensor with the given position and size.
@@ -161,12 +125,12 @@ public:
      * only guarantee that the scene graph node is positioned correctly
      * according to the drawing scale.
      *
-     * @param  pos      Initial position in world coordinates
-     * @param  size       The dimensions of the sensor door.
+     * @param  poly    The polygon of the sensor
+     * @param  anchor   The rotational center of the polygon
      *
      * @return  true if the obstacle is initialized properly, false otherwise.
      */
-    virtual bool init(const Vec2 pos, const Size size) override;
+    virtual bool init(const Poly2& poly, const Vec2& anchor);
 
 };
 

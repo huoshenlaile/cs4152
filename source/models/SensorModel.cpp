@@ -21,15 +21,13 @@ using namespace cugl;
  * only guarantee that the scene graph node is positioned correctly
  * according to the drawing scale.
  *
- * @param  pos      Initial position in world coordinates
- * @param  size       The dimensions of the exit door.
+ * @param  poly    The polygon of the sensor
+ * @param  anchor   The rotational center of the polygon
  *
  * @return  true if the obstacle is initialized properly, false otherwise.
  */
-bool SensorModel::init(const Vec2 pos, const Size size) {
-    BoxObstacle::init(pos,size);
-    std::string name("sensor");
-    setName(name);
+bool SensorModel::init(const Poly2& poly, const Vec2& anchor) {
+    PolygonObstacle::initWithAnchor(poly, anchor);
     setSensor(true);
     return true;
 }

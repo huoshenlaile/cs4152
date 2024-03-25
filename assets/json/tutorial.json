@@ -10,7 +10,7 @@
              {
                  "height":49.8132642861166,
                  "id":5,
-                 "name":"",
+                 "name":"exit",
                  "polygon":[
                      {
                          "x":0,
@@ -45,7 +45,21 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"goalpop"
+                                 "texture":"goalpop",
+                                 "publications":[{
+                                     "pub_id": "exit",
+                                     "trigger": "contacted",
+                                     "message": "contacted",
+                                     "body": {}
+                                 }],
+                                 "subscriptions":[{
+                                     "sub_id": "exit",
+                                     "pub_id": "exit",
+                                     "listening_for": "contacted",
+                                     "actions": {
+                                         "win" : "exit"
+                                     }
+                                 }]
                              }
                          }
                      }],
@@ -186,7 +200,7 @@
                              {
                                  "bodytype":0,
                                  "damping":0,
-                                 "debugcolor":"yellow",
+                                 "debugcolor":"green",
                                  "debugopacity":192,
                                  "density":0,
                                  "friction":20,
@@ -240,13 +254,30 @@
                  "y":2202.81878355225
              },
              {
-              "height":800.5082288003845,
-              "id":12,
-              "name":"",
+              "height":0,
+              "id":13,
+              "name":"sensor1",
+              "polygon":[
+                     {
+                      "x":400,
+                      "y":0
+                     },
+                     {
+                      "x":936.842105263158,
+                      "y":0
+                     },
+                     {
+                      "x":936.842105263158,
+                      "y":1033.263157894737
+                     },
+                     {
+                      "x":400,
+                      "y":1033.263157894737
+                     }],
               "properties":[
                      {
                       "name":"properties",
-                      "propertytype":"ExitProperties",
+                      "propertytype":"WallProperties",
                       "type":"class",
                       "value":
                          {
@@ -260,18 +291,36 @@
                               "friction":0,
                               "restitution":0,
                               "rotation":false,
-                              "texture":"frame"
+                              "texture":"head",
+                              "publications": [
+                                  {
+                                      "pub_id": "sensor1",
+                                      "trigger": "contacted",
+                                      "message": "contacted",
+                                      "body": {
+                                          "debounce" : "true",
+                                          "triggerOnce" : "true"
+                                      }
+                                  }
+                              ],
+                              "subscriptions": [{
+                                  "sub_id": "bottle1",
+                                  "pub_id": "sensor1",
+                                  "listening_for": "contacted",
+                                  "actions": {
+                                      "fire" : "bottle1"
+                                  }
+                              }]
                              }
                          }
                      }],
               "rotation":0,
               "type":"sensor",
               "visible":true,
-              "width":500.8132642861166,
-              "x":1000.39990529421,
-              "y":1491.12971377951
-             }
-         ],
+              "width":0,
+              "x":970.105263157895,
+              "y":983.578947368421
+             }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,

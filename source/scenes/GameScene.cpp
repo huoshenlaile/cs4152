@@ -162,14 +162,8 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 
 #pragma mark InteractionController
 	// TODO: fix this init after finishing characterControllers
-	_interactionController.init({}, _characterControllerA, nullptr, {}, {}, _level);
-	// TODO: remove, this is for testing purposes
-	InteractionController::SubscriberMessage sub1 = { "goalDoor", "contacted",
-		std::unordered_map<std::string, std::string>({{"win","true"}}) };
-	_interactionController.addSubscription(std::move(sub1));
-	InteractionController::SubscriberMessage sub2 = { "sensor", "contacted",
-		std::unordered_map<std::string, std::string>({{"sensed","true"}}) };
-	_interactionController.addSubscription(std::move(sub2));
+    _assets->load<JsonValue>(LEVEL_ONE_KEY_JSON, LEVEL_ONE_FILE);
+	_interactionController.init({}, _characterControllerA, nullptr, {}, {}, _level, _assets->get<JsonValue>(LEVEL_ONE_KEY_JSON));
 
 	//    _camera.init(charNode,_worldnode,1.0f,
 	//    std::dynamic_pointer_cast<OrthographicCamera>(getCamera()),
@@ -296,6 +290,11 @@ void GameScene::reset() {
 		_characterControllerA->getRightHandPosition(),
 		_characterControllerA->getLHPos(),
 		_characterControllerA->getRHPos());
+    
+    //reload interaction controller
+    _assets->unload<JsonValue>(LEVEL_ONE_KEY_JSON);
+    _assets->load<JsonValue>(LEVEL_ONE_KEY_JSON, LEVEL_ONE_FILE);
+    _interactionController.init({}, _characterControllerA, nullptr, {}, {}, _level, _assets->get<JsonValue>(LEVEL_ONE_KEY_JSON));
 
 	//reload the camera
 	_camera.setTarget(_characterControllerA->getBodySceneNode());
@@ -381,21 +380,14 @@ void GameScene::preUpdate(float dt) {
 		InteractionController::PublisherMessage publication = _interactionController.messageQueue.front();
 		// std::cout <<"PUB: "<< publication.pub_id<< " " << publication.trigger << " " << publication.message << "\n";
 		for (const InteractionController::SubscriberMessage& s : _interactionController.subscriptions[publication.pub_id][publication.message]) {
-			// std::cout << "SUB: " << s.pub_id << " " << s.listening_for << "\n";
-			if (s.listening_for == "pressed") {
-				CULog("Do press button action");
+            std::cout << s.pub_id << " " << s.listening_for << "\n";
+            if (s.actions.count("win")>0){
+                CULog("Winner!");
+                setComplete(true);
+            }
+			if (s.actions.count("fire")>0) {
+                std::cout << "Firing bottle <" << s.actions.at("fire") << ">\n\n";
 			}
-			if (s.listening_for == "released") {
-				CULog("Do release button action");
-			}
-			if (s.pub_id == "goalDoor" && s.listening_for == "contacted") {
-				CULog("Winner!");
-				setComplete(true);
-			}
-			if (s.pub_id == "sensor" && s.listening_for == "contacted") {
-				CULog("DETECTED!");
-			}
-			std::cout << s.pub_id << " " << s.listening_for << "\n";
 		}
 		_interactionController.messageQueue.pop();
 	}
