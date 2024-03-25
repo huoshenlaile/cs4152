@@ -170,9 +170,6 @@ void DPApp::fixedUpdate() {
   } else if (_status == PAUSE) {
     _pauseScene.fixedUpdate();
   }
-  if (_status == PAUSE) {
-    _pauseScene.fixedUpdate();
-  }
   if (_network) {
     _network->updateNet();
   }
@@ -198,7 +195,7 @@ void DPApp::update(float timestep) {
 void DPApp::updateMenu(float timestep) {
   _menuScene.update(timestep);
   switch (_menuScene.status) {
-  case MenuScene::HOST:
+  case MenuScene::START:
     _menuScene.setActive(false);
     _levelSelectScene.setActive(true);
     _status = LEVELSELECT;
@@ -312,13 +309,14 @@ void DPApp::updateLoad(float timestep) {
     _loadScene.dispose(); // Disables the input listeners in this mode
     _menuScene.init(_assets);
     _menuScene.setActive(true);
-//    _hostScene.init(_assets, _network);
-//    _clientScene.init(_assets, _network);
     _pauseScene.init(_assets, _network);
     _settingScene.init(_assets);
-    //_gameScene.init(_assets);
-    _levelSelectScene.init(_assets, _network);
+    _levelSelectScene.init(_assets);
     _status = MENU;
+//    _hostScene.init(_assets, _network);
+//    _clientScene.init(_assets, _network);
+//    _gameScene.init(_assets);
+//    _levelSelectScene.init(_assets, _network);
     break;
   }
 }
@@ -344,35 +342,34 @@ void DPApp::updateLevelSelect(float timestep) {
       _levelSelectScene.setActive(false);
       _menuScene.setActive(true);
       break;
-    case LevelSelectScene::HANDSHAKE:
-      if (!_loaded) {
-        _gameScene.init(_assets, _network, true);
-        _loaded = true;
-      }
-
-      _network->markReady();
-      break;
     case LevelSelectScene::STARTGAME:
       _levelSelectScene.setActive(false);
+      _gameScene.init(_assets, _network, true);
       _gameScene.setActive(true);
       _status = GAME;
-      break;
-    case LevelSelectScene::NETERROR:
-      _levelSelectScene.setActive(false);
-      _menuScene.setActive(true);
-      _gameScene.dispose();
-      _status = MENU;
       break;
     case LevelSelectScene::INSCENE:
       // Do nothing
       break;
+            
+//    case LevelSelectScene::HANDSHAKE:
+//      if (!_loaded) {
+//        _gameScene.init(_assets, _network, true);
+//        _loaded = true;
+//      }
+//      _network->markReady();
+//      break;
+//    case LevelSelectScene::NETERROR:
+//      _levelSelectScene.setActive(false);
+//      _menuScene.setActive(true);
+//      _gameScene.dispose();
+//      _status = MENU;
+//      break;
     }
-  // TODO: !
 }
 
 void DPApp::updateRestoration(float timestep) {
   _restorationScene.update(timestep);
-  // TODO: !
 }
 
 #pragma mark DRAW

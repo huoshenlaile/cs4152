@@ -4,7 +4,7 @@
 #include <cugl/cugl.h>
 #include <unordered_set>
 
-class PlatformInput {
+class InputController {
 public:
     cugl::Vec2 touchPos;
     cugl::Vec2 worldtouchPos;
@@ -109,12 +109,12 @@ public:
      * This constructor does NOT do any initialzation.  It simply allocates the
      * object. This makes it safe to use this class without a pointer.
      */
-    PlatformInput(); // Don't initialize.  Allow stack based
+    InputController(); // Don't initialize.  Allow stack based
 
     /**
      * Disposes of this input controller, releasing all listeners.
      */
-    ~PlatformInput() { dispose(); }
+    ~InputController() { dispose(); }
 
     /**
      * Deactivates this input controller, releasing all listeners.

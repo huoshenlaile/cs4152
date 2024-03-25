@@ -43,27 +43,6 @@
         "goalpop": {
             "file": "textures/popart_goal.png"
         },
-        "goal": {
-            "file": "textures/goaldoor.png"
-        },
-        "crate01": {
-            "file": "textures/crate01.png"
-        },
-        "crate02": {
-            "file": "textures/crate02.png"
-        },
-        "rocket": {
-            "file": "textures/rocket.png"
-        },
-        "flames": {
-            "file": "textures/flames.png"
-        },
-        "flames-right": {
-            "file": "textures/flames-right.png"
-        },
-        "flames-left": {
-            "file": "textures/flames-left.png"
-        },
         "button": {
             "file": "textures/button.png"
         },
@@ -75,36 +54,6 @@
         },
         "left": {
             "file": "textures/left_arrow.png"
-        },
-        "head": {
-            "file": "textures/ProfWhite.png",
-            "minfilter": "linear",
-            "magfilter": "linear"
-        },
-        "body": {
-            "file": "textures/ProfWhite.png",
-            "minfilter": "linear",
-            "magfilter": "linear"
-        },
-        "arm": {
-            "file": "textures/tux_arm.png",
-            "minfilter": "linear",
-            "magfilter": "linear"
-        },
-        "forearm": {
-            "file": "textures/tux_forearm.png",
-            "minfilter": "linear",
-            "magfilter": "linear"
-        },
-        "thigh": {
-            "file": "textures/tux_thigh.png",
-            "minfilter": "linear",
-            "magfilter": "linear"
-        },
-        "shin": {
-            "file": "textures/tux_shin.png",
-            "minfilter": "linear",
-            "magfilter": "linear"
         },
         "hand": {
             "file": "textures/crate01.png",
@@ -233,7 +182,7 @@
                 "y_alignment": "middle"
             },
             "children": {
-                "host": {
+                "start": {
                     "type": "Widget",
                     "data": {
                         "key": "textbutton",
@@ -296,7 +245,7 @@
                         ],
                         "scale": 1.5,
                         "font": "gyparody",
-                        "text": "Level Select View",
+                        "text": "Level Select",
                         "padding": [
                             20,
                             20,

@@ -7,10 +7,10 @@ using namespace cugl;
 #pragma mark -
 #pragma mark Input Controller
 
-PlatformInput::PlatformInput() {
+InputController::InputController() {
 }
 
-void PlatformInput::dispose() {
+void InputController::dispose() {
     if (_active) {
 #ifndef CU_TOUCH_SCREEN
         Input::deactivate<Keyboard>();
@@ -23,7 +23,7 @@ void PlatformInput::dispose() {
     }
 }
 
-bool PlatformInput::init(const Rect bounds) {
+bool InputController::init(const Rect bounds) {
     bool success = true;
     _sbounds = bounds;
     std::cout << _sbounds.getMinX() << " sbound " << _sbounds.getMaxX() << std::endl;
@@ -55,7 +55,7 @@ bool PlatformInput::init(const Rect bounds) {
     return success;
 }
 
-void PlatformInput::update(float dt) {
+void InputController::update(float dt) {
     //CULog("World coord in GF at: %f %f \n", touchPos.x, touchPos.y);
     _prevDown = _currDown;
     _currDown = _touchDown;
@@ -116,7 +116,7 @@ void PlatformInput::update(float dt) {
     }
 #endif
 }
-void PlatformInput::process() {
+void InputController::process() {
     /*CULog("Loop begins");
     Touchscreen* touch = Input::get<Touchscreen>();
     for (auto touchID : touch->touchSet()) {
@@ -335,7 +335,7 @@ void PlatformInput::process() {
 /**
  * Clears any buffered inputs so that we may start fresh.
  */
-void PlatformInput::clear() {
+void InputController::clear() {
     _resetPressed = false;
     _debugPressed = false;
     _exitPressed = false;
@@ -344,7 +344,7 @@ void PlatformInput::clear() {
 /**
  * Populates the initial values of the input TouchInstance
  */
-void PlatformInput::clearTouchInstance(TouchInstance& touchInstance) {
+void InputController::clearTouchInstance(TouchInstance& touchInstance) {
     touchInstance.touchids.clear();
     touchInstance.position = Vec2::ZERO;
 }
@@ -358,7 +358,7 @@ void PlatformInput::clearTouchInstance(TouchInstance& touchInstance) {
  *
  * @return the scene location of a touch
  */
-Vec2 PlatformInput::touch2Screen(const Vec2 pos) const {
+Vec2 InputController::touch2Screen(const Vec2 pos) const {
     float px = pos.x / _tbounds.size.width - _tbounds.origin.x;
     float py = pos.y / _tbounds.size.height - _tbounds.origin.y;
     Vec2 result;
@@ -388,7 +388,7 @@ Vec2 PlatformInput::touch2Screen(const Vec2 pos) const {
  * @param event The associated event
  * @param focus    Whether the listener currently has focus
  */
-void PlatformInput::touchBeganCB(const TouchEvent& event, bool focus) {
+void InputController::touchBeganCB(const TouchEvent& event, bool focus) {
     //_character._event = event;
     if (!_touchDown) {
         _touchDown = true;
@@ -452,7 +452,7 @@ void PlatformInput::touchBeganCB(const TouchEvent& event, bool focus) {
  * @param event The associated event
  * @param focus    Whether the listener currently has focus
  */
-void PlatformInput::touchEndedCB(const TouchEvent& event, bool focus) {
+void InputController::touchEndedCB(const TouchEvent& event, bool focus) {
     _pausePressed = false;
 
     if (_touchDown) {
@@ -500,7 +500,7 @@ void PlatformInput::touchEndedCB(const TouchEvent& event, bool focus) {
  * @param previous The previous position of the touch
  * @param focus    Whether the listener currently has focus
  */
-void PlatformInput::touchesMovedCB(const TouchEvent& event, const Vec2& previous, bool focus) {
+void InputController::touchesMovedCB(const TouchEvent& event, const Vec2& previous, bool focus) {
     //_character._event = event;
     if (_touchDown) {
         for (auto i : _character._touchInfo) {
@@ -536,7 +536,7 @@ void PlatformInput::touchesMovedCB(const TouchEvent& event, const Vec2& previous
     ////CULog("Touch offset is: %f %f \n", offset.x, offset.y);
 }
 
-unsigned int PlatformInput::getNumTouches() {
+unsigned int InputController::getNumTouches() {
     if (!_character.leftHand.assigned && !_character.rightHand.assigned) {
         return 0;
     }
@@ -546,18 +546,18 @@ unsigned int PlatformInput::getNumTouches() {
     else return 1;
 }
 
-Vec2 PlatformInput::getTouchPosition(TouchEvent touchEvent) {
+Vec2 InputController::getTouchPosition(TouchEvent touchEvent) {
     return touchEvent.position;
 }
 
-void PlatformInput::fillHand(Vec2 leftHandPos, Vec2 rightHandPos, Vec2 realLHPos, Vec2 realRHPos) {
+void InputController::fillHand(Vec2 leftHandPos, Vec2 rightHandPos, Vec2 realLHPos, Vec2 realRHPos) {
     _character.leftHand.hand = leftHandPos;
     _character.rightHand.hand = rightHandPos;
     _character.leftHand.HandPos = realLHPos;
     _character.rightHand.HandPos = realRHPos;
 }
 
-Vec2 PlatformInput::getLeftHandMovement() {
+Vec2 InputController::getLeftHandMovement() {
     _leftHandCur = _character.leftHand.curr;
     _leftHandPrev = _character.leftHand.prev;
     if (!_character.leftHand.assigned) return { 0,0 };
@@ -567,7 +567,7 @@ Vec2 PlatformInput::getLeftHandMovement() {
     return movement;
 }
 
-Vec2 PlatformInput::getrightHandMovement() {
+Vec2 InputController::getrightHandMovement() {
     _rightHandCur = _character.rightHand.curr;
     _rightHandPrev = _character.rightHand.prev;
     if (!_character.rightHand.assigned) return { 0,0 };

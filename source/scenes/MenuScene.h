@@ -10,13 +10,13 @@ protected:
     /** The asset manager for this scene. */
     std::shared_ptr<cugl::AssetManager> _assets;
     /** The menu button for hosting a game */
-    std::shared_ptr<cugl::scene2::Button> _hostbutton;
-    /** The menu button for joining a game */
-    std::shared_ptr<cugl::scene2::Button> _joinbutton;
-    /** The menu button for setting a game (lol) */
+    std::shared_ptr<cugl::scene2::Button> _startbutton;
+//    /** The menu button for joining a game */
+//    std::shared_ptr<cugl::scene2::Button> _joinbutton;
+    /** The menu button for setting */
     std::shared_ptr<cugl::scene2::Button> _settingbutton;
-    /** The menu button for quiting a game */
-    std::shared_ptr<cugl::scene2::Button> _quitbutton;
+//    /** The menu button for quiting a game */
+//    std::shared_ptr<cugl::scene2::Button> _quitbutton;
 
     
 public:
@@ -30,7 +30,7 @@ public:
         /** User has not yet made a SceneStatus */
         NONE,
         /** User wants to host a game */
-        HOST,
+        START,
         /** User wants to join a game */
 //        JOIN,
         SETTING,

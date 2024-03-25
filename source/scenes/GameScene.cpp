@@ -159,7 +159,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 
 #pragma mark InputControllers
 	// TODO: setup the inputController (PlatformInput, from Harry)
-	_inputController = std::make_shared<PlatformInput>();
+	_inputController = std::make_shared<InputController>();
 	_inputController->init(rect);
 	_inputController->fillHand(_characterControllerA->getLeftHandPosition(),
 		_characterControllerA->getRightHandPosition(),
@@ -191,6 +191,8 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	//    _audioController->init(_assets);
 	//    _audioController->play("box2DtheWORSTphysicsEngineIEverUsed",
 	//    "PhantomLiberty");
+    
+    
 	_camera.setTarget(_characterControllerA->getBodySceneNode());
 	_camera.init(_characterControllerA->getBodySceneNode(), _worldnode, 10.0f,
 		std::dynamic_pointer_cast<OrthographicCamera>(getCamera()),
@@ -251,7 +253,7 @@ void GameScene::setActive(bool value) {
 			_pause->setDown(false);
 		}
 	}
-	_inputController = std::make_shared<PlatformInput>();
+	_inputController = std::make_shared<InputController>();
 	_inputController->init(Rect(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT));
 	_inputController->fillHand(_characterControllerA->getLeftHandPosition(),
 		_characterControllerA->getRightHandPosition(),
@@ -294,7 +296,7 @@ void GameScene::reset() {
 	setComplete(false);
 
 	//reload the input
-	_inputController = std::make_shared<PlatformInput>();
+	_inputController = std::make_shared<InputController>();
 	_inputController->init(Rect(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT));
 	_inputController->fillHand(_characterControllerA->getLeftHandPosition(),
 		_characterControllerA->getRightHandPosition(),
