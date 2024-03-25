@@ -133,7 +133,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	_platformWorld = _level->getPhysicsWorld();
 
 #pragma mark Character 1
-	_characterControllerA = CharacterController::alloc({ 16, 25 }, _scale);
+	_characterControllerA = CharacterController::alloc(_level->getCharacterPos(), _scale);
 	CULog("7538fe43 _scale = %f", _scale);
 	_characterControllerA->buildParts(_assets);
 	_characterControllerA->createJoints();
@@ -273,11 +273,11 @@ void GameScene::reset() {
 	// reload the level
 
 //	CULog("GAME RESET");
-	_assets->unload<LevelLoader>(LEVEL_ONE_KEY);
-	_assets->load<LevelLoader>(LEVEL_ONE_KEY, LEVEL_ONE_FILE);
+	_assets->unload<LevelLoader>(ALPHA_RELEASE_KEY);
+	_assets->load<LevelLoader>(ALPHA_RELEASE_KEY, ALPHA_RELEASE_FILE);
 
 	_level = nullptr;
-	_level = _assets->get<LevelLoader>(LEVEL_ONE_KEY);
+	_level = _assets->get<LevelLoader>(ALPHA_RELEASE_KEY);
 	_level->setAssets(_assets);
 	_level->setRootNode(_worldnode);
 
@@ -286,7 +286,7 @@ void GameScene::reset() {
 
 	//reload the character
 //    _characterControllerA = nullptr;
-	_characterControllerA = CharacterController::alloc({ 16, 25 }, _scale);
+	_characterControllerA = CharacterController::alloc(_level->getCharacterPos(), _scale);
 	CULog("7538fe43 _scale = %f", _scale);
 	_characterControllerA->buildParts(_assets);
 	_characterControllerA->createJoints();

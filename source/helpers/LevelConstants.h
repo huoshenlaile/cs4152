@@ -13,7 +13,7 @@
 #define WALLS_FIELD         "wall"
 #define SENSOR_FIELD        "sensor"
 
-
+#define CHARACTER_POS       "character"
 /** The physics fields for each object */
 #define POSITION_FIELD      "pos"
 #define SIZE_FIELD          "size"

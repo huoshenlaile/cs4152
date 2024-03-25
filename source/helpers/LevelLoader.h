@@ -2,6 +2,7 @@
 #define __LEVEL_SCENE_H__
 
 #include <stdio.h>
+#include <math.h>
 #include <cugl/assets/CUAsset.h>
 #include <cugl/cugl.h>
 #include <cugl/io/CUJsonReader.h>
@@ -28,6 +29,7 @@ protected:
     Vec2 _gravity;
     /** The level drawing scale (difference between physics and drawing coordinates) */
     Vec2 _scale;
+    Vec2 _charPos;
     /** Reference to the physics root of the scene graph */
     std::shared_ptr<scene2::SceneNode> _worldnode;
     /** Reference to the debug root of the scene graph */
@@ -52,6 +54,8 @@ public:
      */
     void unload();
 #pragma mark Physics Attributes
+    
+    const Vec2 getCharacterPos() const {return _charPos;}
     /**
      * Returns the bounds of this level in physics coordinates
      *

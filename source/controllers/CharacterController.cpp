@@ -51,6 +51,7 @@ std::shared_ptr<physics2::Obstacle> CharacterController::makePart(int part, int 
 	if (connect != PART_NONE) {
 		pos2 += _obstacles[connect]->getPosition();
 	}
+    std::cout << pos2.x<< " hahah " << pos2.y << std::endl;
 
 	// std::shared_ptr<physics2::BoxObstacle> body = physics2::BoxObstacle::alloc(pos2, size);
 	// create body  polygon as octagon
@@ -141,6 +142,7 @@ bool CharacterController::buildParts(const std::shared_ptr<AssetManager>& assets
 	}
 
 	Vec2 pos = _offset;
+    std::cout << _offset.x<< " aaa "<< _offset.y << std::endl;
 	CULog("CharacterController buildParts _offset: %f, %f", _offset.x, _offset.y);
 	makePart(PART_BODY, PART_NONE, pos);
 	// makePart(PART_JR1, PART_BODY, Vec2(CJOINT_OFFSET, 0));
