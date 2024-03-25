@@ -123,7 +123,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	_worldnode->setContentSize(Size(SCENE_WIDTH, SCENE_HEIGHT));
 #pragma mark LevelLoader
 	// make the getter for loading the map
-	_level = assets->get<LevelLoader>(LEVEL_ONE_KEY);
+	_level = assets->get<LevelLoader>(ALPHA_RELEASE_KEY);
 	if (_level == nullptr) {
 		CULog("Fail loading levels");
 		return false;

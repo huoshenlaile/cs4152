@@ -39,7 +39,7 @@ void DPApp::onStartup() {
   // Que up the other assets
   AudioEngine::start(24);
   _assets->loadDirectoryAsync("json/assets.json", nullptr);
-  _assets->loadAsync<LevelLoader>(LEVEL_ONE_KEY, LEVEL_ONE_FILE, nullptr);
+  _assets->loadAsync<LevelLoader>(ALPHA_RELEASE_KEY, ALPHA_RELEASE_FILE, nullptr);
 
   cugl::net::NetworkLayer::start(net::NetworkLayer::Log::INFO);
   setDeterministic(true);

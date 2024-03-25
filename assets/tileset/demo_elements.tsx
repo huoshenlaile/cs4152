@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="ragdoll_elements" tilewidth="2501" tileheight="1080" tilecount="13" columns="0" objectalignment="bottomleft">
+<tileset version="1.10" tiledversion="1.10.2" name="ragdoll_elements" tilewidth="2581" tileheight="1080" tilecount="19" columns="0" objectalignment="bottomleft">
  <editorsettings>
   <export target="ragdoll_elements..tsx" format="tsx"/>
  </editorsettings>
@@ -133,7 +133,7 @@
       <properties>
        <property name="bodytype" type="int" propertytype="bodytype" value="1"/>
        <property name="damping" type="float" value="0"/>
-       <property name="debugcolor" type="class" propertytype="debugcolor"/>
+       <property name="debugcolor" propertytype="debugcolor" value=""/>
        <property name="debugopacity" type="float" value="192"/>
        <property name="density" type="float" value="0"/>
        <property name="friction" type="float" value="0"/>
@@ -170,5 +170,23 @@
  </tile>
  <tile id="16">
   <image width="2340" height="1080" source="../textures/popart_background.png"/>
+ </tile>
+ <tile id="17">
+  <image width="231" height="500" source="../textures/alpharelease_soy_capon.png"/>
+ </tile>
+ <tile id="18">
+  <image width="250" height="500" source="../textures/alpharelease_mustard.png"/>
+ </tile>
+ <tile id="19">
+  <image width="193" height="500" source="../textures/alpharelease_ketchup_capon.png"/>
+ </tile>
+ <tile id="20">
+  <image width="193" height="500" source="../textures/alpharelease_ketchup_capoff.png"/>
+ </tile>
+ <tile id="21">
+  <image width="175" height="52" source="../textures/alpharelease_frenchfries.png"/>
+ </tile>
+ <tile id="22">
+  <image width="2581" height="580" source="../textures/alpharelease_background.png"/>
  </tile>
 </tileset>

@@ -5,6 +5,27 @@
             "wrapS": "repeat",
             "wrapT": "repeat"
         },
+        "alpharelease_background": {
+            "file": "textures/alpharelease_background.png"
+        },
+        "alpharelease_frenchfries": {
+            "file": "textures/alpharelease_frenchfries.png"
+        },
+        "alpharelease_ketchup_capoff": {
+            "file": "textures/alpharelease_ketchup_capoff.png"
+        },
+        "alpharelease_ketchup_capon": {
+            "file": "textures/alpharelease_ketchup_capon.png"
+        },
+        "alpharelease_mustard": {
+            "file": "textures/alpharelease_mustard.png"
+        },
+        "alpharelease_soy_capon": {
+            "file": "textures/alpharelease_soy_capon.png"
+        },
+        "alpharelease_mayo_capon": {
+            "file": "textures/alpharelease_mayo_capon.png"
+        },
         "popleft": {
             "file": "textures/popart_platformbubble_left.png"
         },

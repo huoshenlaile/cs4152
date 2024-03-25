@@ -50,6 +50,12 @@
 
 #define LEVEL_ONE_BACKGROUND "pinkbackground"
 
+/** The source for our level file */
+#define ALPHA_RELEASE_FILE      "json/alpharelease.json"
+/** The key for our loaded level */
+#define ALPHA_RELEASE_KEY       "alpharelease"
+
+#define ALPHA_RELEASE_BACKGROUND "alpharelease_background"
 
 #endif
 

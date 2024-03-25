@@ -115,7 +115,11 @@ bool LevelLoader::loadObject(const std::shared_ptr<JsonValue>& json) {
 }
 
 void LevelLoader::setBackgroundScene(){
-    auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(LEVEL_ONE_BACKGROUND), Rect(-100.0f,-100.0f,20000.0f, 20000.0f)); //TODO: don't hard code
+    auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(ALPHA_RELEASE_BACKGROUND));
+    sprite->setAbsolute(true);
+    sprite->setPosition(-10.0f, 0.0f);
+    sprite->setContentSize(sprite->getContentSize().width*5, sprite->getContentSize().height*4);
+//    auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(alpharelease_background), Rect(-100.0f,-100.0f,20000.0f, 20000.0f)); //TODO: don't hard code
 //    sprite->setPosition(Vec2(0.0f,0.0f));
     _worldnode->addChild(sprite);
 }
@@ -246,7 +250,12 @@ bool LevelLoader::loadWall(const std::shared_ptr<JsonValue>& json) {
     wallobj->setDensity(walljson->get("obstacle")->getDouble(DENSITY_FIELD));
     wallobj->setFriction(walljson->get("obstacle")->getDouble(FRICTION_FIELD));
     wallobj->setRestitution(walljson->get("obstacle")->getDouble(RESTITUTION_FIELD));
-
+    
+    if(json->getFloat("rotation") != 0.0f){
+        printf("inside");
+//        wallobj->setAngle((-1.0f*json->getFloat("rotation")+90.0f) % 360.0f);
+    }
+//    wallobj->setAngle(json->getFloat("rotation"));
     // Set the texture value
     success = success && walljson->get("obstacle")->get(TEXTURE_FIELD)->isString();
     wallobj->setTextureKey(walljson->get("obstacle")->getString(TEXTURE_FIELD));
@@ -392,6 +401,11 @@ void LevelLoader::setRootNode(const std::shared_ptr<scene2::SceneNode>& node){
         auto txt = _assets->get<Texture>(wall->getTextureKey());
 //        std::cout<< wall->getTextureKey() << std::endl;
         auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(wall->getTextureKey()));
+        sprite->setContentSize(wall->getWidth()*_scale.x, wall->getHeight()*_scale.y);
+        sprite->setAngle(wall->getAngle());
+//        sprite->setAngle(-1.0f * wall->getAngle());
+        
+//        sprite->setAngle(90.0f);
         if (wall == nullptr){
             continue;
         }
