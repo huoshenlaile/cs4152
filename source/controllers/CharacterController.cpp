@@ -94,21 +94,20 @@ std::shared_ptr<physics2::Obstacle> CharacterController::makePart(int part, int 
 	if (part == PART_BODY) {
 		body->setDensity(BODY_DENSITY);
 		// CULog("makePart body centroid position: %f, %f", body->getCentroid().x, body->getCentroid().y);
-	}
-	else if (part == PART_RH || part == PART_LH) {
+	} else if (part == PART_RH || part == PART_LH) {
 		body->setDensity(HAND_DENSITY);
-	} else
-	{
+	} else {
 		body->setDensity(DEFAULT_DENSITY);
 	}
+    
 	// add extra friction to the PART_LH and PART_RH
 	// set always upward direction
     if (part == PART_LH || part == PART_RH) {
 		
 		body->setFriction(HAND_FRICTION);
 		body->setFixedRotation(true);
-	}else{
-		body->setFriction(0.5f);
+	} else {
+		body->setFriction(OTHER_FRICTION);
 	}
 
 	// log friction information:

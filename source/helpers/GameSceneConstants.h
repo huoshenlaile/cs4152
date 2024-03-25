@@ -11,19 +11,25 @@
 /** THESE BELOW are useful for CHARACTER TUNING!*/
 /** The default value of gravity (going down) */
 #define CHARACTER_GRAVITY -75.0f
+/** This is not used for now. */
 #define MAX_TORQUE 10000000.0f
+/** Character's max force */
 #define MAX_FORCE  50000.0f
-/** The density for each body part */
-#define DEFAULT_DENSITY  1.0f
-/** The density for the center of mass */
-#define CENTROID_DENSITY 0.1f
-/** The radius for the center of mass */
-#define CENTROID_RADIUS  0.1f
+/** The density for the character's body */
 #define BODY_DENSITY 0.8f
+/** The density for character's hands*/
 #define HAND_DENSITY 0.7f
+/** The density for other body parts. Right now we don't have other body parts (I think - from George). */
+#define DEFAULT_DENSITY  1.0f
+/** Friction for character's hands*/
 #define HAND_FRICTION 1.0f
+/** Friction for other body parts (right now it's just the big head I think - from George) */
+#define OTHER_FRICTION 1.0f
 /** input scaler - how effective can the finger input affect the character movement*/
 #define INPUT_SCALER 1.5f
+/** HOW LONG the arms can stretch*/
+#define MAX_ARM_LENGTH 6.8f
+#define MIN_ARM_LENGTH 0.0f
 /** THESE ABOVE are useful for CHARACTER TUNING!*/
 
 /** This is the size of the active portion of the screen */
@@ -46,7 +52,5 @@
 
 #define CJOINT_OFFSET 3.0f
 #define HALF_CJOINT_OFFSET 1.5f
-#define MAX_ARM_LENGTH 6.8f
-#define MIN_ARM_LENGTH 0.0f
 
 #endif /* GameSceneConstants_h */
