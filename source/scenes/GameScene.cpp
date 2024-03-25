@@ -450,6 +450,7 @@ void GameScene::fixedUpdate(float dt) {
 	// _characterControllerA->getBodySceneNode()->getPositionY() << std::endl;
 	_platformWorld->update(dt);
 	_camera.update(dt);
+    _characterControllerA->update(dt);
 }
 
 void GameScene::update(float dt) {

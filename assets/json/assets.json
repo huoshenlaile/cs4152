@@ -99,6 +99,24 @@
             "file": "textures/rhand64.png",
             "minfilter": "linear",
             "magfilter": "linear"
+        },
+        "black_animation": {
+            "file": "textures/black.png"
+        },
+        "pink_animation": {
+            "file": "textures/pink.png"
+        },
+        "blue_animation": {
+            "file": "textures/blue.png"
+        },
+        "green_animation": {
+            "file": "textures/green.png"
+        },
+        "purple_animation": {
+            "file": "textures/purple.png"
+        },
+        "orange_animation": {
+            "file": "textures/orange.png"
         }
     },
     "jsons": {

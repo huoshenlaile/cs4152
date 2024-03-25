@@ -48,10 +48,20 @@ class CharacterController {
 protected:
 	std::string _name;
 	std::vector<std::shared_ptr<cugl::Texture>> _textures;
+    std::shared_ptr<cugl::Texture> _blacktextures;
+    std::shared_ptr<cugl::Texture> _pinktextures;
+    std::shared_ptr<cugl::Texture> _bluetextures;
+    std::shared_ptr<cugl::Texture> _greentextures;
+    std::shared_ptr<cugl::Texture> _orangetextures;
+    std::shared_ptr<cugl::Texture> _purpletextures;
 	std::vector<std::shared_ptr<cugl::physics2::Obstacle>> _obstacles;
 	std::vector<std::shared_ptr<cugl::physics2::Joint>> _joints;
     /** The physics world; part of the model (though listeners elsewhere) */
     std::shared_ptr<cugl::physics2::net::NetWorld> _world;
+    
+    std::shared_ptr<cugl::scene2::ActionManager> _actions;
+    std::shared_ptr<cugl::scene2::Animate> _animate;
+    std::string _color;
 
 	cugl::Vec2 _offset;
 	std::shared_ptr<cugl::scene2::SceneNode> _node;
@@ -83,7 +93,7 @@ protected:
     
     
     std::vector<std::shared_ptr<scene2::PolygonNode>> _lineNodes;
-	std::shared_ptr<scene2::PolygonNode> _bodyNode;
+    std::shared_ptr<scene2::SpriteNode> _bodyNode;
 	std::shared_ptr<scene2::PolygonNode> _LHNode;
 	std::shared_ptr<scene2::PolygonNode> _RHNode;
 public:
@@ -100,6 +110,8 @@ public:
 	}
 
 	bool init(const cugl::Vec2& pos, float scale);
+    void update(float timestep);
+    void setColor(std::string color);
 
 #pragma mark Static Constructors
 
@@ -169,8 +181,6 @@ public:
 	 * @param node  The scene graph node representing this Ragdoll, which has been added to the world node already.
 	 */
 	void linkPartsToWorld(const std::shared_ptr<cugl::physics2::net::NetWorld>& _world, const std::shared_ptr<cugl::scene2::SceneNode>& _scenenode, float _scale);
-    
-    
     
     void drawCharacterLines(float scale);
 };
