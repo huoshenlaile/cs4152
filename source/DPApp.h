@@ -16,15 +16,17 @@
 #include "controllers/NetworkController.h"
 #include "controllers/PauseEvent.h"
 
-#include "scenes/ClientScene.h"
+
 #include "scenes/GameScene.h"
-#include "scenes/HostScene.h"
 #include "scenes/LevelSelectScene.h"
 #include "scenes/LoadScene.h"
 #include "scenes/MenuScene.h"
 #include "scenes/PauseScene.h"
 #include "scenes/RestorationScene.h"
 #include "scenes/SettingScene.h"
+
+//#include "scenes/ClientScene.h"
+//#include "scenes/HostScene.h"
 
 #include "helpers/LevelConstants.h"
 #include "helpers/LevelLoader.h"
@@ -59,8 +61,9 @@ protected:
 	/** Whether or not we have finished loading all assets */
 	bool _loaded;
 
-	HostScene _hostScene;
-	ClientScene _clientScene;
+//	HostScene _hostScene;
+//	ClientScene _clientScene;
+    
 	GameScene _gameScene;
 	PauseScene _pauseScene;
 	LoadScene _loadScene;

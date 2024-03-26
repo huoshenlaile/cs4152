@@ -1,3 +1,6 @@
+#ifdef NEVER_DEFINED
+
+
 #ifndef __HOST_SCENE_H__
 #define __HOST_SCENE_H__
 
@@ -125,5 +128,8 @@ private:
     void startGame();
     
 };
+
+#endif
+
 
 #endif
