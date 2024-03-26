@@ -127,6 +127,20 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	_platformWorld = _level->getPhysicsWorld();
 
     _platformWorld->setGravity(gravity);
+    
+    // TODO: MOVE THIS TO LEVEL LOADER
+    Rect rec3 (0, 0, 700, 700);
+    Rect rec2 ( 0, 0, 600, 600);
+    Rect rec1(0, 0, 500, 500);
+    
+    std::vector<Vec2> locations1{{180, 50}, {180, 50}, {180, 50} };
+    auto pm = PaintModel::alloc({rec1, rec2, rec3}, locations1, _assets, _worldnode, _scale);
+    _paintModels.push_back(pm);
+    
+    std::vector<Vec2> locations2{{200, 70}, {200, 70}, {200, 70} };
+    auto pm2 = PaintModel::alloc({rec1, rec2, rec3}, locations2, _assets, _worldnode, _scale);
+    _paintModels.push_back(pm2);
+
 
 #pragma mark Character 1
 	_characterControllerA = CharacterController::alloc(_level->getCharacterPos(), _scale);
@@ -189,19 +203,6 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	//CULog("Character Pos: %f, %f", _characterControllerA->getBodySceneNode()->getPositionX(), _characterControllerA->getBodySceneNode()->getPositionY());
 	_camera.setZoom(DEFAULT_ZOOM);
     
-    
-    // TODO: MOVE THIS TO LEVEL LOADER
-    Rect rec3 (0, 0, 700, 700);
-    Rect rec2 ( 0, 0, 600, 600);
-    Rect rec1(0, 0, 500, 500);
-    
-    std::vector<Vec2> locations1{{180, 50}, {180, 50}, {180, 50} };
-    auto pm = PaintModel::alloc({rec1, rec2, rec3}, locations1, _assets, _worldnode, _scale);
-    _paintModels.push_back(pm);
-    
-    std::vector<Vec2> locations2{{200, 70}, {200, 70}, {200, 70} };
-    auto pm2 = PaintModel::alloc({rec1, rec2, rec3}, locations2, _assets, _worldnode, _scale);
-    _paintModels.push_back(pm2);
 
 	return true;
 }
