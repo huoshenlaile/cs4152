@@ -22,6 +22,7 @@ bool InteractionController::init(std::vector<std::shared_ptr<PlatformModel>> pla
                 auto obs = objects->get(j)->get("properties")->get(0)->get("value")->get("obstacle");
                 auto pubs = obs->get("publications");
                 auto subs = obs->get("subscriptions");
+                
                 if (pubs!=nullptr){
                     for (std::shared_ptr<JsonValue> p : pubs->children()){
                         std::unordered_map<std::string, std::string> body;
@@ -101,7 +102,7 @@ bool InteractionController::addSubscription(SubscriberMessage &&message){
         subscriptions[message.pub_id][message.listening_for] = std::vector<SubscriberMessage>({message});
         
     }
-   // std::cout << "SUBNEW " << subscriptions[message.pub_id][message.listening_for].back().pub_id << subscriptions[message.pub_id][message.listening_for].back().listening_for <<"\n";
+    std::cout << "SUBNEW " << subscriptions[message.pub_id][message.listening_for].back().pub_id << subscriptions[message.pub_id][message.listening_for].back().listening_for <<"\n";
     return true;
 }
 
@@ -110,6 +111,7 @@ bool InteractionController::addPublisher(PublisherMessage &&message){
         publications[message.trigger] = std::unordered_map<std::string, PublisherMessage>();
     }
     publications[message.trigger][message.pub_id] = message;
+    std::cout << "PUBNEW " << publications[message.trigger][message.pub_id].pub_id << publications[message.trigger][message.pub_id].trigger <<"\n";
     return true;
 }
 
@@ -137,7 +139,6 @@ void InteractionController::beginContact(b2Contact* contact) {
         std::string obj_name = other_body->getName();
         if (publications["contacted"].count(obj_name)>0){
             PublisherMessage pub = publications["contacted"][obj_name];
-            pub.body["triggered"] = "true";
             publishMessage(std::move(pub));
             std::cout << "Published: " << pub.pub_id << ": " << pub.message << "\n";
         }

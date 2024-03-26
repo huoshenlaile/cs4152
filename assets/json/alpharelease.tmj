@@ -31,7 +31,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -88,7 +87,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -149,7 +147,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -198,7 +195,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -339,7 +335,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -367,7 +362,7 @@
                 {
                  "height":0,
                  "id":47,
-                 "name":"",
+                 "name":"bottle1",
                  "polygon":[
                         {
                          "x":0,
@@ -460,7 +455,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -609,7 +603,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -649,7 +642,7 @@
                 {
                  "height":0,
                  "id":53,
-                 "name":"",
+                 "name":"bottle2",
                  "polygon":[
                         {
                          "x":0,
@@ -798,7 +791,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -822,6 +814,66 @@
                  "width":0,
                  "x":6898.3673747384,
                  "y":284.946182089009
+                }, 
+                {
+                 "height":0,
+                 "id":54,
+                 "name":"sensor1",
+                 "polygon":[
+                        {
+                         "x":-567.508574992204,
+                         "y":-137.199875272841
+                        }, 
+                        {
+                         "x":-645.612387652968,
+                         "y":-396.044572038895
+                        }, 
+                        {
+                         "x":-482.015514433822,
+                         "y":-389.808214071947
+                        }, 
+                        {
+                         "x":-324.40411121744,
+                         "y":-386.690035088474
+                        }, 
+                        {
+                         "x":-343.113185118282,
+                         "y":-136.172429324263
+                        }],
+                 "rotation":0,
+                 "type":"sensor",
+                 "visible":true,
+                 "width":0,
+                 "x":5810.98339719029,
+                 "y":1123.88250319285
+                }, 
+                {
+                 "height":0,
+                 "id":55,
+                 "name":"sensor2",
+                 "polygon":[
+                        {
+                         "x":-443.724538966093,
+                         "y":220.954498314721
+                        }, 
+                        {
+                         "x":-345.371176795969,
+                         "y":620.457882481688
+                        }, 
+                        {
+                         "x":-91.2694572576511,
+                         "y":542.354069820926
+                        }, 
+                        {
+                         "x":-80.3372169322765,
+                         "y":260.146782434589
+                        }],
+                 "rotation":0,
+                 "type":"sensor",
+                 "visible":true,
+                 "width":0,
+                 "x":6289.91060025543,
+                 "y":561.941251596424
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -830,7 +882,7 @@
          "y":0
         }],
  "nextlayerid":3,
- "nextobjectid":54,
+ "nextobjectid":56,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

@@ -60,12 +60,12 @@ bool LevelSelectScene::init(const std::shared_ptr<cugl::AssetManager> &assets) {
         _assets = assets;
         
         // Acquire the scene built by the asset loader and resize it the scene
-        std::shared_ptr<scene2::SceneNode> scene = _assets->get<scene2::SceneNode>("host");
+        std::shared_ptr<scene2::SceneNode> scene = _assets->get<scene2::SceneNode>("level");
         scene->setContentSize(dimen);
         scene->doLayout(); // Repositions the HUD
 
-        _startgame = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("host_center_start"));
-        _backout = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("host_back"));
+        _startgame = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_third"));
+        _backout = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_menu"));
     //    _gameid = std::dynamic_pointer_cast<scene2::Label>(_assets->get<scene2::SceneNode>("host_center_game_field_text"));
     //    _player = std::dynamic_pointer_cast<scene2::Label>(_assets->get<scene2::SceneNode>("host_center_players_field_text"));
         
@@ -123,14 +123,14 @@ void LevelSelectScene::setActive(bool value) {
         if (value) {
             _backout->activate();
             _startgame->activate();
-            updateText(_startgame, "Start Game");
+//            updateText(_startgame, "Start Game");
 //            _network->disconnect();
 //            _network->connectAsHost();
             state = INSCENE;
         } else {
 //            _gameid->setText("");
             _startgame->deactivate();
-            updateText(_startgame, "INACTIVE");
+//            updateText(_startgame, "INACTIVE");
             _backout->deactivate();
             // If any were pressed, reset them
             _startgame->setDown(false);
@@ -152,8 +152,8 @@ void LevelSelectScene::setActive(bool value) {
  * @param text      The new text value
  */
 void LevelSelectScene::updateText(const std::shared_ptr<scene2::Button>& button, const std::string text) {
-    auto label = std::dynamic_pointer_cast<scene2::Label>(button->getChildByName("up")->getChildByName("label"));
-    label->setText(text);
+//    auto label = std::dynamic_pointer_cast<scene2::Label>(button->getChildByName("up")->getChildByName("label"));
+//    label->setText(text);
 
 }
 
