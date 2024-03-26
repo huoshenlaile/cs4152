@@ -189,6 +189,9 @@
         },
         "button_next": {
             "file": "textures/button_next.png"
+        },
+        "button_pause": {
+            "file": "textures/button_pause.png"
         }
     },
     "jsons": {
@@ -238,7 +241,9 @@
         "labelbox": "widgets/labelbox.json",
         "levelselect": "widgets/levelselect.json",
         "title": "widgets/title.json",
-        "pause": "widgets/pause.json"
+        "pause": "widgets/pause.json",
+        "levelcomplete": "widgets/levelcomplete.json",
+        "pausebutton": "widgets/pausebutton.json"
     },
     "scene2s": {
         "pause": {

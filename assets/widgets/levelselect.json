@@ -56,7 +56,7 @@
                 },
                 "data": {
                     "anchor": [
-                        0,
+                        1,
                         1
                     ],
                     "size": [
@@ -65,8 +65,8 @@
                     ],
                     "angle": 0,
                     "position": [
-                        1192,
-                        637
+                        1195,
+                        639
                     ],
                     "visible": true,
                     "upnode": "up"
@@ -132,11 +132,11 @@
                     }
                 },
                 "layout": {
-                    "x_anchor": "left",
+                    "x_anchor": "right",
                     "y_anchor": "top",
                     "absolute": false,
-                    "x_offset": 0.93,
-                    "y_offset": -0.04
+                    "x_offset": -0.02,
+                    "y_offset": -0.03
                 }
             },
             "first": {
