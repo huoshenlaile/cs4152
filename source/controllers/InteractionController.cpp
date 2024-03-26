@@ -111,6 +111,7 @@ bool InteractionController::addPublisher(PublisherMessage &&message){
         publications[message.trigger] = std::unordered_map<std::string, PublisherMessage>();
     }
     publications[message.trigger][message.pub_id] = message;
+    std::cout << "PUBNEW " << publications[message.trigger][message.pub_id].pub_id << publications[message.trigger][message.pub_id].trigger <<"\n";
     return true;
 }
 

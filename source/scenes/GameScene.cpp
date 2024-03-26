@@ -288,10 +288,9 @@ void GameScene::reset() {
 		_characterControllerA->getRHPos());
 
 	//reload interaction controller
-	_assets->unload<JsonValue>(LEVEL_ONE_KEY_JSON);
-	_assets->load<JsonValue>(LEVEL_ONE_KEY_JSON, LEVEL_ONE_FILE);
-	_interactionController.init({}, _characterControllerA, nullptr, {}, {}, _level, _assets->get<JsonValue>(LEVEL_ONE_KEY_JSON));
-
+	_assets->unload<JsonValue>(ALPHA_RELEASE_KEY_JSON);
+    _assets->load<JsonValue>(ALPHA_RELEASE_KEY_JSON, ALPHA_RELEASE_FILE);
+    _interactionController.init({}, _characterControllerA, nullptr, {}, {}, _level, _assets->get<JsonValue>(ALPHA_RELEASE_KEY_JSON));
 	//reload the camera
 	_camera.init(_characterControllerA->getBodySceneNode(), _worldnode, 10.0f,
 		std::dynamic_pointer_cast<OrthographicCamera>(getCamera()),
@@ -301,6 +300,7 @@ void GameScene::reset() {
 	//_camera.setTarget(_characterControllerA->getBodySceneNode());
 
 	Application::get()->resetFixedRemainder();
+    activateWorldCollisions(_platformWorld);
 }
 
 /**
