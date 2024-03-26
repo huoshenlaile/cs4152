@@ -11,6 +11,9 @@ bool CharacterController::init(const cugl::Vec2 &pos, float scale)
 
 	_color = "black";
 	_colorchange = false;
+    _colorlhchange = false;
+    _colorrhchange = false;
+    _colorbodychange = false;
 	_actions = scene2::ActionManager::alloc();
 	const int span = 24;
 	std::vector<int> animate;
@@ -883,20 +886,22 @@ void CharacterController::linkPartsToWorld(const std::shared_ptr<cugl::physics2:
                 _scenenode->removeChild(_bodyNode);
                 _bodyNode = newBodySprite;
                 _scenenode->addChild(_bodyNode);
+                _colorbodychange = true;
             } else if (i == PART_LH) {
                 auto newHandSprite = getTextureForHand(i, _color);
                 _scenenode->removeChild(_LHNode);
                 _LHNode = newHandSprite;
                 _scenenode->addChild(_LHNode);
+                _colorlhchange = true;
             } else if (i == PART_RH) {
                 auto newHandSprite = getTextureForHand(i, _color);
                 _scenenode->removeChild(_RHNode);
                 _RHNode = newHandSprite;
                 _scenenode->addChild(_RHNode);
+                _colorrhchange = true;
             }
         }
 
-        // Update the position and rotation of the sprite nodes
         if (i == PART_BODY) {
             _bodyNode->setPosition(obs->getPosition() * _scale);
             _bodyNode->setAngle(obs->getAngle());
@@ -907,12 +912,10 @@ void CharacterController::linkPartsToWorld(const std::shared_ptr<cugl::physics2:
             _RHNode->setPosition(obs->getPosition() * _scale);
             _RHNode->setAngle(obs->getAngle());
         }
-
         drawCharacterLines(_scale);
         drawDecoration(_scale); });
 		}
 	}
-    _colorchange = false;
 	for (int i = 0; i < _joints.size(); i++)
 	{
 		printf("adding joints again");
@@ -1056,19 +1059,20 @@ void CharacterController::update(float dt)
 {
 	if (_color != "black")
 	{
-		_actions->activate("start", _animate, _bodyNode);
-		_actions->update(dt);
-
-		if (_decorationNode != nullptr)
-		{
-			_actions->activate("decoration", _animate, _decorationNode);
-		}
+		_actions->activate("other", _animate, _bodyNode);
+        _actions->activate("decoration", _animate, _decorationNode);
+		
 	}
 	else
 	{
-		_actions->activate("start", _blackanimate, _bodyNode);
-		_actions->update(dt);
+		_actions->activate("black", _blackanimate, _bodyNode);
 	}
+    _actions->update(dt);
+    
+    if(_colorlhchange == true && _colorrhchange == true && _colorbodychange == true){
+        _colorchange = false;
+    }
+
 }
 
 void CharacterController::setColor(std::string color)

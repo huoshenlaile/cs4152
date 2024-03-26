@@ -80,6 +80,9 @@ protected:
 	std::shared_ptr<cugl::scene2::Animate> _blackanimate;
 	std::string _color;
 	bool _colorchange;
+    bool _colorbodychange;
+    bool _colorlhchange;
+    bool _colorrhchange;
 	cugl::Vec2 _offset;
 	std::shared_ptr<cugl::scene2::SceneNode> _node;
 	cugl::Mat4 _affine;
