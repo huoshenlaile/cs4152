@@ -47,6 +47,7 @@
 #define LEVEL_ONE_FILE      "json/tutorial.json"
 /** The key for our loaded level */
 #define LEVEL_ONE_KEY       "samplelevel"
+#define LEVEL_ONE_KEY_JSON       "samplelevel_json"
 
 #define LEVEL_ONE_BACKGROUND "pinkbackground"
 

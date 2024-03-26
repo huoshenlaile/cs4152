@@ -5,7 +5,8 @@ bool InteractionController::init(std::vector<std::shared_ptr<PlatformModel>> pla
     std::shared_ptr<CharacterController> characterA,
     std::shared_ptr<CharacterController> characterB,
     std::vector<std::shared_ptr<ButtonModel>> buttons, std::vector<std::shared_ptr<WallModel>> walls,
-    std::shared_ptr<LevelLoader> level) {
+    std::shared_ptr<LevelLoader> level,
+    const std::shared_ptr<cugl::JsonValue>& json) {
     
     _platforms = platforms;
     _characterControllerA = characterA;
@@ -13,7 +14,39 @@ bool InteractionController::init(std::vector<std::shared_ptr<PlatformModel>> pla
     _buttons = buttons;
     _walls = walls;
     _level = level;
-    
+    for (int i = 0; i < json->get("layers")->size(); i++) {
+        // Get the objects per layer
+        auto objects = json->get("layers")->get(i)->get("objects");
+        for (int j = 0; j < objects->size(); j++) {
+            if (objects->get(j)->get("properties") != nullptr){
+                auto obs = objects->get(j)->get("properties")->get(0)->get("value")->get("obstacle");
+                auto pubs = obs->get("publications");
+                auto subs = obs->get("subscriptions");
+                if (pubs!=nullptr){
+                    for (std::shared_ptr<JsonValue> p : pubs->children()){
+                        std::unordered_map<std::string, std::string> body;
+                        for (std::shared_ptr<JsonValue> b : p->get("body")->children()){
+                            body[b->key()] = b->asString();
+                        }
+                        PublisherMessage pub = {p->get("pub_id")->asString(), p->get("trigger")->asString(), p->get("message")->asString(), body};
+                        addPublisher(std::move(pub));
+                    }
+                }
+                if (subs!=nullptr){
+                    for (std::shared_ptr<JsonValue> s : subs->children()){
+                        std::unordered_map<std::string, std::string> actions;
+                        for (std::shared_ptr<JsonValue> a : s->get("actions")->children()){
+                            actions[a->key()] = a->asString();
+                        }
+                        SubscriberMessage sub = {s->get("pub_id")->asString(), s->get("listening_for")->asString(), actions};
+                        addSubscription(std::move(sub));
+                    }
+                }
+            }
+            
+        }
+    }
+
     return true;
 }
 
@@ -49,52 +82,6 @@ InteractionController::PlayersContact InteractionController::checkContactForPlay
 }
 
 
-void InteractionController::beginContact(b2Contact* contact) {
-    b2Body* body1 = contact->GetFixtureA()->GetBody();
-    b2Body* body2 = contact->GetFixtureB()->GetBody();
-    
-    // If we hit the button
-    // TODO: generalize this to all buttons
-    //intptr_t button_ptr = 0; //reinterpret_cast<intptr_t>(_button.get());
-    intptr_t goal_ptr = reinterpret_cast<intptr_t>(_level->getExit().get());
-    std::unordered_set<intptr_t> sensor_ptrs;
-    std::vector<std::shared_ptr<SensorModel>> sensors = _level->getSensors();
-    std::transform(sensors.begin(), sensors.end(), std::inserter(sensor_ptrs, sensor_ptrs.end()), [](std::shared_ptr<SensorModel> &n) {
-            return reinterpret_cast<intptr_t>(n.get());
-        });
-    InteractionController::PlayersContact contact_info = checkContactForPlayer(body1, body2);
-    if (contact_info.bodyOne!=NOT_PLAYER || contact_info.bodyTwo != NOT_PLAYER){
-        //std::cout << "Player touch\n";
-        //std::cout << body1->GetUserData().pointer << "\n";
-       // std::cout << body2->GetUserData().pointer << "\n";
-        //std::cout << goal_ptr << "\n";
-
-        if(body1->GetUserData().pointer == goal_ptr || body2->GetUserData().pointer == goal_ptr) {
-            // TODO: generalize this to all buttons
-            // A player has pressed the button
-            //_button_down=true;
-            std::shared_ptr<std::unordered_map<std::string, std::string>> body;
-            
-            
-            PublisherMessage pub = { "goalDoor", "contacted", "contacted", body};
-            CULog("Reached goal");
-            publishMessage(std::move(pub));
-        }
-        for (const intptr_t& sensor_ptr : sensor_ptrs){
-            if(body1->GetUserData().pointer == sensor_ptr || body2->GetUserData().pointer == sensor_ptr) {
-                // TODO: generalize this to all buttons
-                // A player has pressed the button
-                //_button_down=true;
-                std::shared_ptr<std::unordered_map<std::string, std::string>> body;
-                
-                
-                PublisherMessage pub = { "sensor", "contacted", "contacted", body};
-                CULog("Sensor pub");
-                publishMessage(std::move(pub));
-            }
-        }
-    }
-}
 
 void InteractionController::publishMessage(PublisherMessage &&message){
     messageQueue.push(message);
@@ -118,30 +105,72 @@ bool InteractionController::addSubscription(SubscriberMessage &&message){
     return true;
 }
 
+bool InteractionController::addPublisher(PublisherMessage &&message){
+    if (publications.count(message.trigger)==0){
+        publications[message.trigger] = std::unordered_map<std::string, PublisherMessage>();
+    }
+    publications[message.trigger][message.pub_id] = message;
+    return true;
+}
+
+void InteractionController::beginContact(b2Contact* contact) {
+    b2Body* body1 = contact->GetFixtureA()->GetBody();
+    b2Body* body2 = contact->GetFixtureB()->GetBody();
+    
+    // If we hit the button
+    // TODO: generalize this to all buttons
+    //intptr_t button_ptr = 0; //reinterpret_cast<intptr_t>(_button.get());
+
+    InteractionController::PlayersContact contact_info = checkContactForPlayer(body1, body2);
+    if (contact_info.bodyOne!=NOT_PLAYER || contact_info.bodyTwo != NOT_PLAYER){
+        //std::cout << "Player touch\n";
+        //std::cout << body1->GetUserData().pointer << "\n";
+       // std::cout << body2->GetUserData().pointer << "\n";
+        //std::cout << goal_ptr << "\n";
+        cugl::physics2::Obstacle* other_body;
+        if (contact_info.bodyOne!=NOT_PLAYER){
+            other_body = reinterpret_cast<cugl::physics2::Obstacle*>(body2->GetUserData().pointer);
+        }
+        else {
+            other_body = reinterpret_cast<cugl::physics2::Obstacle*>(body1->GetUserData().pointer);
+        }
+        std::string obj_name = other_body->getName();
+        if (publications["contacted"].count(obj_name)>0){
+            PublisherMessage pub = publications["contacted"][obj_name];
+            pub.body["triggered"] = "true";
+            publishMessage(std::move(pub));
+            std::cout << "Published: " << pub.pub_id << ": " << pub.message << "\n";
+        }
+    }
+}
+
 /**
  * Processes the end of a collision
  *
  * @param  contact  The two bodies that collided
  */
 void InteractionController::endContact(b2Contact* contact) {
-    // This won't run for some reason, callback isn't being called
     b2Body* body1 = contact->GetFixtureA()->GetBody();
     b2Body* body2 = contact->GetFixtureB()->GetBody();
-    // If we hit the button
-    // TODO: generalize this to all buttons
 
-    //intptr_t button_ptr = reinterpret_cast<intptr_t>(_button.get());
-    
     InteractionController::PlayersContact contact_info = checkContactForPlayer(body1, body2);
-    if (contact_info.bodyOne != NOT_PLAYER || contact_info.bodyTwo != NOT_PLAYER){
-        // TODO: generalize this to all buttons
-        if(body1->GetUserData().pointer == 0 || body2->GetUserData().pointer == 0) {
-            // A player has released the button
-            //_button_down = false;
-            std::shared_ptr<std::unordered_map<std::string, std::string>> body;
-            
-            PublisherMessage pub = { "button1", "released", "released", body};
+    if (contact_info.bodyOne!=NOT_PLAYER || contact_info.bodyTwo != NOT_PLAYER){
+        //std::cout << "Player touch\n";
+        //std::cout << body1->GetUserData().pointer << "\n";
+       // std::cout << body2->GetUserData().pointer << "\n";
+        //std::cout << goal_ptr << "\n";
+        cugl::physics2::Obstacle* other_body;
+        if (contact_info.bodyOne!=NOT_PLAYER){
+            other_body = reinterpret_cast<cugl::physics2::Obstacle*>(body2->GetUserData().pointer);
+        }
+        else {
+            other_body = reinterpret_cast<cugl::physics2::Obstacle*>(body1->GetUserData().pointer);
+        }
+        std::string obj_name = other_body->getName();
+        if (publications["released"].count(obj_name)>0){
+            PublisherMessage pub = publications["released"][obj_name];
             publishMessage(std::move(pub));
+            std::cout << "Published: " << pub.pub_id << ": " << pub.message << "\n";
         }
     }
 

@@ -44,6 +44,7 @@ protected:
     std::vector<std::shared_ptr<SensorModel>> _sensors;
     /** The AssetManager for the game mode */
     std::shared_ptr<cugl::AssetManager> _assets;
+    
 public:
     /**
      * Unloads this game level, releasing all sources

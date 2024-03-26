@@ -17,6 +17,8 @@ public:
     /** Reference to the button (for collision detection) */
     std::shared_ptr<cugl::physics2::BoxObstacle>    _button;
     
+
+    
     /** The button texture */
     std::string _buttonTexture = "button_ingame";
     /**

@@ -1,10 +1,23 @@
 #include "CharacterController.h"
 
+#define DURATION 7.0f
+
 bool CharacterController::init(const cugl::Vec2& pos, float scale) {
 	_name = "TODO_PLACEHOLDER";
 	_node = nullptr;
 	_offset = pos;
 	_drawScale = scale;
+    
+    _color = "orange";
+    _actions = scene2::ActionManager::alloc();
+    const int span = 24;
+    std::vector<int> animate;
+    for (int ii = 1; ii < span; ii++)
+    {
+        animate.push_back(ii);
+    }
+    animate.push_back(0);
+    _animate = scene2::Animate::alloc(animate, DURATION);
 
 	return true;
 }
@@ -95,21 +108,20 @@ std::shared_ptr<physics2::Obstacle> CharacterController::makePart(int part, int 
 	if (part == PART_BODY) {
 		body->setDensity(BODY_DENSITY);
 		// CULog("makePart body centroid position: %f, %f", body->getCentroid().x, body->getCentroid().y);
-	}
-	else if (part == PART_RH || part == PART_LH) {
+	} else if (part == PART_RH || part == PART_LH) {
 		body->setDensity(HAND_DENSITY);
-	} else
-	{
+	} else {
 		body->setDensity(DEFAULT_DENSITY);
 	}
+    
 	// add extra friction to the PART_LH and PART_RH
 	// set always upward direction
     if (part == PART_LH || part == PART_RH) {
 		
 		body->setFriction(HAND_FRICTION);
 		body->setFixedRotation(true);
-	}else{
-		body->setFriction(0.5f);
+	} else {
+		body->setFriction(OTHER_FRICTION);
 	}
 
 	// log friction information:
@@ -128,6 +140,63 @@ bool CharacterController::buildParts(const std::shared_ptr<AssetManager>& assets
 	// Get the images from the asset manager
 	bool success = true;
 	for (int ii = 0; ii <= PART_LH; ii++) {
+        if (ii == PART_BODY)
+        {
+            std::shared_ptr<Texture> bodySpriteSheet = assets->get<Texture>("pink_animation");
+            if (bodySpriteSheet == nullptr)
+            {
+                success = false;
+            }
+            else
+            {
+                _pinktextures = bodySpriteSheet;
+            }
+            bodySpriteSheet = assets->get<Texture>("black_animation");
+            if (bodySpriteSheet == nullptr)
+            {
+                success = false;
+            }
+            else
+            {
+                _blacktextures = bodySpriteSheet;
+            }
+            bodySpriteSheet = assets->get<Texture>("blue_animation");
+            if (bodySpriteSheet == nullptr)
+            {
+                success = false;
+            }
+            else
+            {
+                _bluetextures = bodySpriteSheet;
+            }
+            bodySpriteSheet = assets->get<Texture>("green_animation");
+            if (bodySpriteSheet == nullptr)
+            {
+                success = false;
+            }
+            else
+            {
+                _greentextures = bodySpriteSheet;
+            }
+            bodySpriteSheet = assets->get<Texture>("orange_animation");
+            if (bodySpriteSheet == nullptr)
+            {
+                success = false;
+            }
+            else
+            {
+                _orangetextures = bodySpriteSheet;
+            }
+            bodySpriteSheet = assets->get<Texture>("purple_animation");
+            if (bodySpriteSheet == nullptr)
+            {
+                success = false;
+            }
+            else
+            {
+                _purpletextures = bodySpriteSheet;
+            }
+        }
 		std::string name = getPartName(ii);
 		std::shared_ptr<Texture> image = assets->get<Texture>(name);
 		if (image == nullptr) {
@@ -422,13 +491,25 @@ std::vector<std::shared_ptr<cugl::physics2::Joint>> CharacterController::dummy_j
 	return dummy_joints;
 }
 
-void CharacterController::setSceneNode(const std::shared_ptr<cugl::scene2::SceneNode>& node) {
-	_node = node;
-	for (int ii = 0; ii <= PART_LH; ii++) {
-		std::shared_ptr<Texture> image = _textures[ii];
-		std::shared_ptr<scene2::PolygonNode> sprite = scene2::PolygonNode::allocWithTexture(image);
-		_node->addChild(sprite);
-	}
+
+void CharacterController::setSceneNode(const std::shared_ptr<cugl::scene2::SceneNode> &node)
+{
+    _node = node;
+    for (int ii = 0; ii <= PART_LH; ii++)
+    {
+        if (ii == PART_BODY)
+        {
+            std::shared_ptr<scene2::SpriteNode> bodySprite = scene2::SpriteNode::allocWithSheet(_blacktextures, 6, 4, 24);
+            bodySprite->setAnchor(Vec2::ANCHOR_CENTER);
+            _node->addChild(bodySprite);
+        }
+        else
+        {
+            std::shared_ptr<Texture> image = _textures[ii];
+            std::shared_ptr<scene2::PolygonNode> sprite = scene2::PolygonNode::allocWithTexture(image);
+            _node->addChild(sprite);
+        }
+    }
 }
 
 void CharacterController::setDrawScale(float scale) {
@@ -569,19 +650,61 @@ void CharacterController::linkPartsToWorld(const std::shared_ptr<cugl::physics2:
         // }
 		std::shared_ptr<Texture> image = _textures[i];
 		std::shared_ptr<scene2::PolygonNode> sprite = scene2::PolygonNode::allocWithTexture(image);
+        std::shared_ptr<scene2::SpriteNode> bodySprite;
 
-		if (i == PART_BODY) {
-			_bodyNode = sprite;
-		}
+        if (i == PART_BODY)
+        {
+            if (_color == "black")
+            {
+                bodySprite = scene2::SpriteNode::allocWithSheet(_blacktextures, 5, 5, 24);
+            }
+            else if (_color == "orange")
+            {
+                bodySprite = scene2::SpriteNode::allocWithSheet(_orangetextures, 5, 5, 24);
+            }
+            else if (_color == "pink")
+            {
+                bodySprite = scene2::SpriteNode::allocWithSheet(_pinktextures, 5, 5, 24);
+            }
+            else if (_color == "purple")
+            {
+                bodySprite = scene2::SpriteNode::allocWithSheet(_purpletextures, 5, 5, 24);
+            }
+            else if (_color == "green")
+            {
+                bodySprite = scene2::SpriteNode::allocWithSheet(_greentextures, 5, 5, 24);
+            }
+            else if (_color == "blue")
+            {
+                bodySprite = scene2::SpriteNode::allocWithSheet(_bluetextures, 5, 5, 24);
+            }
+            bodySprite->setAnchor(Vec2::ANCHOR_CENTER);
+            _bodyNode = bodySprite;
+            _scenenode->addChild(_bodyNode);
+        }
 		else if (i == PART_LH) _LHNode = sprite;
 		else if (i == PART_RH) _RHNode = sprite;
 
 		_world->addObstacle(obj);
 		//obj->setDebugScene(_debugnode);
-		_scenenode->addChild(sprite);
+        if (i == PART_BODY)
+        {
+        }
+        else
+        {
+            _scenenode->addChild(sprite);
+        }
 		// Dynamic objects need constant updating
 		if (obj->getBodyType() == b2_dynamicBody) {
-			scene2::SceneNode* weak = sprite.get(); // No need for smart pointer in callback
+            scene2::SceneNode *weak;
+            if (i == PART_BODY)
+            {
+                weak = bodySprite.get();
+            }
+            else
+            {
+                weak = sprite.get();
+            }// No need for smart pointer in callback
 			obj->setListener([=](physics2::Obstacle* obs) {
 				//float leftover = Application::get()->getFixedRemainder() / 1000000.f;
 				//Vec2 pos = obs->getPosition() + leftover * obs->getLinearVelocity();
@@ -635,7 +758,30 @@ void CharacterController::drawCharacterLines(float scale) {
 
             line->setPosition(center * scale);
             line->setAngle(angle);
-            line->setColor(Color4::BLACK);
+            if (_color == "black")
+            {
+                line->setColor(Color4(1, 1, 1));
+            }
+            else if (_color == "orange")
+            {
+                line->setColor(Color4(230, 111, 72));
+            }
+            else if (_color == "pink")
+            {
+                line->setColor(Color4(225, 89, 125));
+            }
+            else if (_color == "purple")
+            {
+                line->setColor(Color4(154, 101, 214));
+            }
+            else if (_color == "green")
+            {
+                line->setColor(Color4(77, 168, 88));
+            }
+            else if (_color == "blue")
+            {
+                line->setColor(Color4(74, 144, 241));
+            }
         };
 
         createLine(lr1Pos-0.2*(lr3Pos - lr1Pos), lr3Pos, 0);
@@ -648,5 +794,16 @@ void CharacterController::drawCharacterLines(float scale) {
 //        createLine(jr4Pos, rhPos, 3);
 
     }
+}
+
+void CharacterController::update(float dt)
+{
+    _actions->activate("start", _animate, _bodyNode);
+    _actions->update(dt);
+}
+
+void CharacterController::setColor(std::string color)
+{
+    _color = color;
 }
 

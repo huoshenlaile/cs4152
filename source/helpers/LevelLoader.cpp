@@ -73,6 +73,7 @@ bool LevelLoader::preload(const std::shared_ptr<cugl::JsonValue>& json) {
         CUAssertLog(false, "Failed to load level file");
         return false;
     }
+    
     // Initial geometry
     float w = json->get(WIDTH_FIELD)->asFloat();
     float h = json->get(HEIGHT_FIELD)->asFloat();
@@ -102,7 +103,6 @@ bool LevelLoader::preload(const std::shared_ptr<cugl::JsonValue>& json) {
 
 bool LevelLoader::loadObject(const std::shared_ptr<JsonValue>& json) {
     auto type = json->get("type")->asString();
-//    std::cout << json->toString();
     if (type == WALLS_FIELD) {
         return loadWall(json);
     }else if (type == GOALDOOR_FIELD) {
@@ -152,7 +152,7 @@ bool LevelLoader::loadGoalDoor(const std::shared_ptr<JsonValue>& json) {
 
         // Get the object, which is automatically retained
         _goalDoor = ExitModel::alloc(goalPos,(Size)goalSize);
-        _goalDoor->setName(GOALDOOR_FIELD);
+        _goalDoor->setName(json->getString("name"));
 
         _goalDoor->setDensity(goal->get("obstacle")->getDouble(DENSITY_FIELD));
         _goalDoor->setFriction(goal->get("obstacle")->getDouble(FRICTION_FIELD));
@@ -180,39 +180,48 @@ bool LevelLoader::loadSensor(const std::shared_ptr<JsonValue>& json){
     bool success = false;
     auto sensor_json = json->get("properties")->get(0)->get("value");
     if (sensor_json != nullptr) {
-        success = true;
-
-        Vec2 sensorPos = getObjectPos(json);
-        Vec2 sensorSize = Vec2(json->getFloat("width") / _scale.x, json->getFloat("height") / _scale.y);
-        sensorPos.x += sensorSize.x / 2;
-        sensorPos.y += sensorSize.y / 6;
-
+        bool success = true;
+        
+        int polysize = (int)json->get(VERTICES_FIELD)->children().size();
+        success = success && polysize > 0;
+        
+        std::vector<float> vertices = getVertices(json);
+        success = success && 2*polysize == vertices.size();
+        
+        Vec2* verts = reinterpret_cast<Vec2*>(&vertices[0]);
+        Poly2 sensor(verts,(int)vertices.size()/2);
+        EarclipTriangulator triangulator;
+        triangulator.set(sensor.vertices);
+        triangulator.calculate();
+        sensor.setIndices(triangulator.getTriangulation());
+        triangulator.clear();
+        
         // Get the object, which is automatically retained
-        std::shared_ptr<SensorModel> sensor = SensorModel::alloc(sensorPos,(Size)sensorSize);
-        sensor->setName(SENSOR_FIELD);
-
-        sensor->setDensity(sensor_json->get("obstacle")->getDouble(DENSITY_FIELD));
-        sensor->setFriction(sensor_json->get("obstacle")->getDouble(FRICTION_FIELD));
-        sensor->setRestitution(sensor_json->get("obstacle")->getDouble(RESTITUTION_FIELD));
-        sensor->setSensor(true);
-
-        sensor->setBodyType((b2BodyType)sensor_json->get("obstacle")->getInt(BODYTYPE_FIELD));
-
+        std::shared_ptr<SensorModel> sensorobj = SensorModel::alloc(sensor);
+        sensorobj->setName(json->getString("name"));
+        
+        sensorobj->setBodyType((b2BodyType)sensor_json->get("obstacle")->getInt(BODYTYPE_FIELD));
+        
+        sensorobj->setDensity(sensor_json->get("obstacle")->getDouble(DENSITY_FIELD));
+        sensorobj->setFriction(sensor_json->get("obstacle")->getDouble(FRICTION_FIELD));
+        sensorobj->setRestitution(sensor_json->get("obstacle")->getDouble(RESTITUTION_FIELD));
+        
         // Set the texture value
         success = success && sensor_json->get("obstacle")->get(TEXTURE_FIELD)->isString();
-        sensor->setTextureKey(sensor_json->get("obstacle")->get(TEXTURE_FIELD)->asString());
-        sensor->setDebugColor(parseColor(sensor_json->get("obstacle")->getString(DEBUG_COLOR_FIELD)));
-
+        sensorobj->setTextureKey(sensor_json->get("obstacle")->getString(TEXTURE_FIELD));
+        sensorobj->setDebugColor(parseColor(sensor_json->get("obstacle")->getString(DEBUG_COLOR_FIELD)));
+        
         if (success) {
-           // _world->addObstacle(sensor);
+            _sensors.push_back(sensorobj);
+        } else {
+            sensorobj = nullptr;
         }
-        else {
-            sensor = nullptr;
-        }
-        _sensors.push_back(sensor);
+        
+        vertices.clear();
     }
     return success;
 }
+
 
 /**
 * Loads a single wall object
@@ -316,6 +325,13 @@ void LevelLoader::unload() {
     (*it) = nullptr;
     }
     _walls.clear();
+    for(auto it = _sensors.begin(); it != _sensors.end(); ++it) {
+        if (_world != nullptr) {
+            _world->removeObstacle((*it));
+        }
+    (*it) = nullptr;
+    }
+    _sensors.clear();
     if (_world != nullptr) {
         _world->clear();
         _world = nullptr;
@@ -399,8 +415,9 @@ void LevelLoader::setRootNode(const std::shared_ptr<scene2::SceneNode>& node){
         addObstacle(_goalDoor,sprite); // Put this at the very back
     }
     for(auto it = _sensors.begin(); it != _sensors.end(); ++it) {
-        auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>((*it)->getTextureKey()));
-        addObstacle(*it,sprite); // Put this at the very back
+        std::shared_ptr<SensorModel> sensor = *it;
+        auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(sensor->getTextureKey()));
+        addObstacle(sensor,sprite); // Put this at the very back
     }
     for(auto it = _walls.begin(); it != _walls.end(); ++it) {
         std::shared_ptr<WallModel> wall = *it;
@@ -447,7 +464,7 @@ void LevelLoader::addObstacle(const std::shared_ptr<cugl::physics2::Obstacle>& o
     // Position the scene graph node (enough for static objects)
     node->setPosition(obj->getPosition()*_scale);
     _worldnode->addChild(node);
-
+    
     // Dynamic objects need constant updating
     if (obj->getBodyType() == b2_dynamicBody) {
         scene2::SceneNode* weak = node.get(); // No need for smart pointer in callback
@@ -455,6 +472,10 @@ void LevelLoader::addObstacle(const std::shared_ptr<cugl::physics2::Obstacle>& o
             weak->setPosition(obs->getPosition()*_scale);
             weak->setAngle(obs->getAngle());
         });
+    }
+    if (obj->getName() == "sensor1"){
+        std::cout << "x: " << obj->getCentroid().x << " y:" << obj->getCentroid().y << "\n";
+        std::cout << "X: " << obj->getX() << " Y: " << obj->getY() << "\n";
     }
 //    std::cout<<"success"<<std::endl;
 }
