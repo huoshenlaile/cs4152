@@ -54,6 +54,7 @@ protected:
     std::shared_ptr<cugl::Texture> _greentextures;
     std::shared_ptr<cugl::Texture> _orangetextures;
     std::shared_ptr<cugl::Texture> _purpletextures;
+    std::shared_ptr<cugl::Texture> _orangedecoration;
 	std::vector<std::shared_ptr<cugl::physics2::Obstacle>> _obstacles;
 	std::vector<std::shared_ptr<cugl::physics2::Joint>> _joints;
     /** The physics world; part of the model (though listeners elsewhere) */
@@ -94,6 +95,7 @@ protected:
     
     std::vector<std::shared_ptr<scene2::PolygonNode>> _lineNodes;
     std::shared_ptr<scene2::SpriteNode> _bodyNode;
+    std::shared_ptr<scene2::SpriteNode> _decorationNode;
 	std::shared_ptr<scene2::PolygonNode> _LHNode;
 	std::shared_ptr<scene2::PolygonNode> _RHNode;
 public:
@@ -183,6 +185,8 @@ public:
 	void linkPartsToWorld(const std::shared_ptr<cugl::physics2::net::NetWorld>& _world, const std::shared_ptr<cugl::scene2::SceneNode>& _scenenode, float _scale);
     
     void drawCharacterLines(float scale);
+    
+    void drawDecoration(float scale);
 };
 
 #endif /* CharacterController_h */

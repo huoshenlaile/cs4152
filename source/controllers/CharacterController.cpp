@@ -178,13 +178,15 @@ bool CharacterController::buildParts(const std::shared_ptr<AssetManager>& assets
                 _greentextures = bodySpriteSheet;
             }
             bodySpriteSheet = assets->get<Texture>("orange_animation");
-            if (bodySpriteSheet == nullptr)
+            std::shared_ptr<Texture> decorationSheet = assets->get<Texture>("orange_decoration");
+            if (bodySpriteSheet == nullptr || decorationSheet == nullptr)
             {
                 success = false;
             }
             else
             {
                 _orangetextures = bodySpriteSheet;
+                _orangedecoration = decorationSheet;
             }
             bodySpriteSheet = assets->get<Texture>("purple_animation");
             if (bodySpriteSheet == nullptr)
@@ -640,6 +642,7 @@ void CharacterController::linkPartsToWorld(const std::shared_ptr<cugl::physics2:
     this->_world = _world;
 	_node = _scenenode;
     drawCharacterLines(_scale);
+    drawDecoration(_scale);
 	for (int i = 0; i < _obstacles.size(); i++) {
 		auto obj = _obstacles[i];
         // if ((i >= PART_JR1 && i <= PART_JR6) || (i >= PART_LR1 && i <= PART_LR6)) {
@@ -711,6 +714,7 @@ void CharacterController::linkPartsToWorld(const std::shared_ptr<cugl::physics2:
 				weak->setPosition(obs->getPosition() * _scale);
 				weak->setAngle(obs->getAngle());
                 drawCharacterLines(_scale);
+                drawDecoration(_scale);
 				});
 		}
 	}
@@ -794,10 +798,35 @@ void CharacterController::drawCharacterLines(float scale) {
     }
 }
 
+void CharacterController::drawDecoration(float scale) {
+    if (_obstacles.size() >= PART_BODY + 1) {
+        Vec2 bodyPos = _obstacles[PART_BODY]->getPosition();
+        float bodyAngle = _obstacles[PART_BODY]->getAngle();
+
+        if (_decorationNode == nullptr) {
+            std::shared_ptr<scene2::SpriteNode> decorationSprite;
+            if (_color == "orange") {
+                decorationSprite = scene2::SpriteNode::allocWithSheet(_orangedecoration, 5, 5, 24);
+                decorationSprite->setAnchor(Vec2::ANCHOR_CENTER);
+                _decorationNode = decorationSprite;
+                _node->addChild(_decorationNode);
+            }
+        }
+        if (_decorationNode != nullptr) {
+            _decorationNode->setPosition(bodyPos * scale);
+            _decorationNode->setAngle(bodyAngle);
+        }
+    }
+}
+
 void CharacterController::update(float dt)
 {
     _actions->activate("start", _animate, _bodyNode);
     _actions->update(dt);
+
+    if (_decorationNode != nullptr) {
+        _actions->activate("decoration", _animate, _decorationNode);
+    }
 }
 
 void CharacterController::setColor(std::string color)

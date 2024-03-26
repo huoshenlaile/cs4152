@@ -117,6 +117,9 @@
         },
         "orange_animation": {
             "file": "textures/orange.png"
+        },
+        "orange_decoration": {
+            "file": "textures/orange_decoration.png"
         }
     },
     "jsons": {
