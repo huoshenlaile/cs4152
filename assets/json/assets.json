@@ -119,7 +119,19 @@
             "file": "textures/character/orange.png"
         },
         "orange_decoration": {
-            "file": "textures/orange_decoration.png"
+            "file": "textures/decoration/orange_decoration.png"
+        },
+        "pink_decoration": {
+            "file": "textures/decoration/pink_decoration.png"
+        },
+        "blue_decoration": {
+            "file": "textures/decoration/blue_decoration.png"
+        },
+        "green_decoration": {
+            "file": "textures/decoration/green_decoration.png"
+        },
+        "purple_decoration": {
+            "file": "textures/decoration/purple_decoration.png"
         }
     },
     "jsons": {
