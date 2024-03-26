@@ -21,23 +21,24 @@ void CameraController::update(float dt) {
 		if (_camera->getPosition().x >= _root->getSize().width - _camera->getViewport().getMaxX() / (2 * _camera->getZoom())) {
 			_move = false;
 		}
-		return;
 	}
-	Vec2 cameraPos = Vec2(_camera->getPosition().x, _camera->getPosition().y);
+	else {
+		Vec2 cameraPos = Vec2(_camera->getPosition().x, _camera->getPosition().y);
 
-	Vec2 target;
-	Vec2* dst = new Vec2();
-	// Lazily track the target using lerp
-	target = Vec2(_target->getWorldPosition().x, _target->getWorldPosition().y);
-	Vec2::lerp(cameraPos, target, _lerp * dt, dst);
-	// Make sure the camera never goes outside of the _root node's bounds
-	(*dst).x = std::max(std::min(_root->getSize().width - _camera->getViewport().getMaxX() / (2 * _camera->getZoom()), (*dst).x), _camera->getViewport().getMaxX() / (2 * _camera->getZoom()));
-	(*dst).y = std::max(std::min(_root->getSize().height - _camera->getViewport().getMaxY() / (2 * _camera->getZoom()), (*dst).y), _camera->getViewport().getMaxY() / (2 * _camera->getZoom()));
-	_camera->translate((*dst).x - cameraPos.x, (*dst).y - cameraPos.y);
+		Vec2 target;
+		Vec2* dst = new Vec2();
+		// Lazily track the target using lerp
+		target = Vec2(_target->getWorldPosition().x, _target->getWorldPosition().y);
+		Vec2::lerp(cameraPos, target, _lerp * dt, dst);
+		// Make sure the camera never goes outside of the _root node's bounds
+		(*dst).x = std::max(std::min(_root->getSize().width - _camera->getViewport().getMaxX() / (2 * _camera->getZoom()), (*dst).x), _camera->getViewport().getMaxX() / (2 * _camera->getZoom()));
+		(*dst).y = std::max(std::min(_root->getSize().height - _camera->getViewport().getMaxY() / (2 * _camera->getZoom()), (*dst).y), _camera->getViewport().getMaxY() / (2 * _camera->getZoom()));
+		_camera->translate((*dst).x - cameraPos.x, (*dst).y - cameraPos.y);
 
-	delete dst;
+		delete dst;
 
-	_camera->update();
+		_camera->update();
+	}
 
 	Vec2 uiPos = Vec2(_camera->getPosition().x - _camera->getViewport().getMaxX() / (2 * _camera->getZoom()), _camera->getPosition().y - _camera->getViewport().getMaxY() / (2 * _camera->getZoom()));
 	_ui->setPosition(uiPos);
