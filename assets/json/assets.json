@@ -35,7 +35,7 @@
         "popmid": {
             "file": "textures/popart_platformLine.png"
         },
-        "pinkbackground":{
+        "pinkbackground": {
             "file": "textures/popart_background.png",
             "wrapS": "repeat",
             "wrapT": "repeat"
@@ -132,6 +132,63 @@
         },
         "purple_decoration": {
             "file": "textures/decoration/purple_decoration.png"
+        },
+        "background_select": {
+            "file": "textures/background_select.png"
+        },
+        "button_fifth": {
+            "file": "textures/button_fifth.png"
+        },
+        "button_fourth": {
+            "file": "textures/button_fourth.png"
+        },
+        "button_third": {
+            "file": "textures/button_third.png"
+        },
+        "button_third_down": {
+            "file": "textures/button_third_down.png"
+        },
+        "button_second": {
+            "file": "textures/button_second.png"
+        },
+        "button_first": {
+            "file": "textures/button_first.png"
+        },
+        "button_menu": {
+            "file": "textures/button_menu.png"
+        },
+        "titlebackground": {
+            "file": "textures/titlebackground.png"
+        },
+        "dusty": {
+            "file": "textures/dusty.png"
+        },
+        "button_newgame": {
+            "file": "textures/button_newgame.png"
+        },
+        "button_levels": {
+            "file": "textures/button_levels.png"
+        },
+        "button_setting": {
+            "file": "textures/button_setting.png"
+        },
+        "pause_background": {
+            "file": "textures/pause_background.png"
+        },
+        "button_resume": {
+            "file": "textures/button_resume.png"
+        },
+        "button_restart": {
+            "file": "textures/button_restart.png"
+        },
+        "button_settingicon": {
+            "file": "textures/button_settingicon.png"
+        },
+        "complete_background": {
+            "file": "textures/complete_background.png"
+        },
+        "button_next": {
+            "file": "textures/button_next.png"
         }
     },
     "jsons": {
@@ -178,7 +235,10 @@
         "colorbutton": "widgets/colorbutton.json",
         "textbutton": "widgets/textbutton.json",
         "textfield": "widgets/textfield.json",
-        "labelbox": "widgets/labelbox.json"
+        "labelbox": "widgets/labelbox.json",
+        "levelselect": "widgets/levelselect.json",
+        "title": "widgets/title.json",
+        "pause": "widgets/pause.json"
     },
     "scene2s": {
         "pause": {
