@@ -113,6 +113,8 @@ bool LevelLoader::loadObject(const std::shared_ptr<JsonValue>& json) {
     }else if (type == CHARACTER_POS){
         _charPos = getObjectPos(json);
 //        std::cout << _charPos.x << " abcdefg "<< _charPos.y <<std::endl;
+    } else if (type == PAINT_FIELD){
+        return true;
     }
     return false;
 }

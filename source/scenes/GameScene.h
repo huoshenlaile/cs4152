@@ -23,6 +23,7 @@
 
 // INCLUDE THIS AT LAST to avoid repeat naming (will trigger bewildering bugs)
 #include "../helpers/GameSceneConstants.h"
+#include "../models/PaintGrowerModel.hpp"
 
 
 class GameScene : public cugl::Scene2 {
@@ -45,6 +46,8 @@ protected:
 
 	std::shared_ptr<cugl::physics2::net::NetWorld> _platformWorld;
     std::shared_ptr<cugl::scene2::Button> _pause;
+    
+    std::vector<std::shared_ptr<PaintModel>> _paintModels;
 
 	// MODELS
 	// TODO: Do we need a vector of these?
@@ -247,6 +250,9 @@ public:
 	void processPauseEvent(const std::shared_ptr<PauseEvent>& event);
 #pragma mark Pause Esther
     
+    void processPaintCallbacks(float millis);
+
+    
     /**
      * Handles any modifications necessary before collision resolution
      *
@@ -298,6 +304,8 @@ public:
 	 * Resets the status of the game so that we can play again.
 	 */
 	void reset();
+    
+    void addPaintObstacles();
 };
 
 #endif

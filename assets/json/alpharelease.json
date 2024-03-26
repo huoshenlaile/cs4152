@@ -474,7 +474,7 @@
                                      "pub_id": "sensor1",
                                      "listening_for": "contacted",
                                      "actions": {
-                                         "fire" : "bottle1"
+                                         "fire" : "0"
                                      }
                                  }]
                              }
@@ -630,7 +630,7 @@
                                      "pub_id": "sensor2",
                                      "listening_for": "contacted",
                                      "actions": {
-                                         "fire" : "bottle2"
+                                         "fire" : "1"
                                      }
                                  }]
                              }

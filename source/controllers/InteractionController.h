@@ -6,6 +6,7 @@
 #include <box2d/b2_world.h>
 #include <box2d/b2_contact.h>
 #include <box2d/b2_collision.h>
+#include <box2d/b2_distance.h>
 #include <ctime>
 #include <string>
 #include <iostream>
@@ -124,6 +125,8 @@ public:
      * @param  contact  The collision manifold before contact
      */
     void beforeSolve(b2Contact* contact, const b2Manifold* oldManifold);
+    
+    void detectPolyContact(const std::shared_ptr<scene2::PolygonNode>& poly2, float scale);
     
     /**
      * Handles message subscription processing

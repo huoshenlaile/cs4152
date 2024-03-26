@@ -5,6 +5,15 @@
             "wrapS": "repeat",
             "wrapT": "repeat"
         },
+        "splotch1": {
+            "file": "textures/splotch1.png"
+        },
+        "splotch2": {
+            "file": "textures/splotch2.png"
+        },
+        "splotch3": {
+            "file": "textures/splotch3.png"
+        },
         "alpharelease_background": {
             "file": "textures/alpharelease_background.png"
         },

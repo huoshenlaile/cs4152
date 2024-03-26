@@ -182,7 +182,25 @@ void InteractionController::preUpdate(float dt) {
    
 }
 
-
+void InteractionController::detectPolyContact(const std::shared_ptr<scene2::PolygonNode>& poly2, float scale){
+    //if(b2Distance(_characterControllerA->getRightHandPosition(), poly2))
+    
+    // convert poly2 vertices
+    b2DistanceProxy pol2;
+    std::vector<b2Vec2> vertices;
+    
+    /*for(const Vec2& v : poly2.getVertices() ){
+        vertices.push_back({v.x, v.y});
+    }
+    pol2.Set(vertices.data(), poly2.vertices.size(), 0);*/
+    
+    auto right_hand = _characterControllerA->getRightHandPosition() * scale;
+    if(poly2->getBoundingBox().contains(right_hand)){
+        std::cout << "OMG CHARACTER IS IN THE POLYGON!!!!!" << "hand: " << _characterControllerA->getRightHandPosition().x << ", " << _characterControllerA->getRightHandPosition().y << std::endl;
+    } else if(poly2->getBoundingBox().contains(_characterControllerA->getLeftHandPosition() * scale)) {
+        std::cout << "OMG CHARACTER IS IN THE POLYGON!!!!! left hand slay " << std::endl;
+    }
+}
 
 void InteractionController::beforeSolve(b2Contact* contact, const b2Manifold* oldManifold) {
     float speed = 0;

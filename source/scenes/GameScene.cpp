@@ -54,6 +54,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 		: dimen.height / rect.size.height;
 	Vec2 offset{ (dimen.width - SCENE_WIDTH) / 2.0f,
 				(dimen.height - SCENE_HEIGHT) / 2.0f };
+
 	//CULog("dimen: %f, %f", dimen.width, dimen.height);
 	// TODO: add children to the scene, initialize Controllers
 	// Create the scene graph
@@ -95,7 +96,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 			//			_network->pushOutEvent(PauseEvent::allocPauseEvent(
 			//				Vec2(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 2), true));
 		}
-		});
+    });
 	_uinode->addChild(_pause);
 	//
 	//	_pause = std::dynamic_pointer_cast<scene2::Button>(
@@ -124,7 +125,22 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	_level->setAssets(_assets);
 	_level->setRootNode(_worldnode);
 	_platformWorld = _level->getPhysicsWorld();
-	_platformWorld->setGravity(gravity);
+
+    _platformWorld->setGravity(gravity);
+    
+    // TODO: MOVE THIS TO LEVEL LOADER
+    Rect rec3 (0, 0, 700, 700);
+    Rect rec2 ( 0, 0, 600, 600);
+    Rect rec1(0, 0, 500, 500);
+    
+    std::vector<Vec2> locations1{{180, 50}, {180, 50}, {180, 50} };
+    auto pm = PaintModel::alloc({rec1, rec2, rec3}, locations1, _assets, _worldnode, _scale);
+    _paintModels.push_back(pm);
+    
+    std::vector<Vec2> locations2{{200, 70}, {200, 70}, {200, 70} };
+    auto pm2 = PaintModel::alloc({rec1, rec2, rec3}, locations2, _assets, _worldnode, _scale);
+    _paintModels.push_back(pm2);
+
 
 #pragma mark Character 1
 	_characterControllerA = CharacterController::alloc(_level->getCharacterPos(), _scale);
@@ -146,6 +162,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	//    _worldnode->addChild(charNodeB);
 	//    _characterControllerB->linkPartsToWorld(_platformWorld, charNodeB,
 	//    _scale);
+
 
 #pragma mark NetEvents
 	_network->attachEventType<GrabEvent>();
@@ -185,8 +202,14 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 		_uinode, 5.0f);
 	//CULog("Character Pos: %f, %f", _characterControllerA->getBodySceneNode()->getPositionX(), _characterControllerA->getBodySceneNode()->getPositionY());
 	_camera.setZoom(DEFAULT_ZOOM);
+    
 
 	return true;
+}
+
+void GameScene::addPaintObstacles(){
+
+    
 }
 
 /**
@@ -382,7 +405,10 @@ void GameScene::preUpdate(float dt) {
                 setComplete(true);
             }
 			if (s.actions.count("fire")>0) {
-                std::cout << "Firing bottle <" << s.actions.at("fire") << ">\n\n";
+                auto bottle = std::stoi(s.actions.at("fire"));
+                std::cout << "Firing bottle <" << bottle << ">\n\n";
+                //TODO: Remove after triggering, probably. I think we should keep it as a vector though, not map
+                _paintModels[bottle]->trigger();
                 // s.actions.at("fire") is the name of the paint bottle obstacle
 			}
 		}
@@ -402,6 +428,19 @@ void GameScene::preUpdate(float dt) {
 	//        CULog("Grab Event COMING");
 	//        _network->pushOutEvent(GrabEvent::allocGrabEvent(Vec2(DEFAULT_WIDTH/2,DEFAULT_HEIGHT/2)));
 	//    }
+    
+    processPaintCallbacks(dt);
+    //_interactionController.detectPolyContact(_paintModel.currentNode(), _scale);
+}
+
+void GameScene::processPaintCallbacks(float millis){
+    for(auto& pm : _paintModels){
+        pm->update(_worldnode, millis);
+        if(pm->active){
+            _interactionController.detectPolyContact(pm->currentNode(), _scale);
+        }
+    }
+    
 }
 
 void GameScene::postUpdate(float dt) {

@@ -871,6 +871,8 @@ void CharacterController::linkPartsToWorld(const std::shared_ptr<cugl::physics2:
 		auto joint = _joints[i];
 		_world->addJoint(joint);
 	}
+    std::cout << "BODY LOCATION=====" << _bodyNode->getPositionX() << ", " << _bodyNode->getPositionY() << std::endl;
+
 }
 
 void CharacterController::drawCharacterLines(float scale)
