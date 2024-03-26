@@ -79,7 +79,7 @@ protected:
 	std::shared_ptr<cugl::scene2::Animate> _animate;
 	std::shared_ptr<cugl::scene2::Animate> _blackanimate;
 	std::string _color;
-
+	bool _colorchange;
 	cugl::Vec2 _offset;
 	std::shared_ptr<cugl::scene2::SceneNode> _node;
 	cugl::Mat4 _affine;
@@ -131,9 +131,9 @@ public:
 
 	bool init(const cugl::Vec2 &pos, float scale);
 	void update(float timestep);
-    
+
 	void setColor(std::string color);
-    std::string getColor();
+	std::string getColor();
 
 #pragma mark Static Constructors
 
@@ -212,6 +212,10 @@ public:
 	void drawCharacterLines(float scale);
 
 	void drawDecoration(float scale);
+
+	std::shared_ptr<scene2::SpriteNode> getTextureForPart(int partId, const std::string &color);
+
+	std::shared_ptr<scene2::PolygonNode> getTextureForHand(int partId, const std::string &color);
 };
 
 #endif /* CharacterController_h */

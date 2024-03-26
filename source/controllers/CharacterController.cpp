@@ -10,6 +10,7 @@ bool CharacterController::init(const cugl::Vec2 &pos, float scale)
 	_drawScale = scale;
 
 	_color = "black";
+	_colorchange = false;
 	_actions = scene2::ActionManager::alloc();
 	const int span = 24;
 	std::vector<int> animate;
@@ -621,23 +622,28 @@ bool CharacterController::moveLeftHand(cugl::Vec2 offset)
 	float Hypotenuse = sqrt(1.0f + HAND_K * HAND_K);
 
 	float length = leftHandOffset.length();
-	
+
 	if (leftHandOffset.x > 0)
 	{
-		if (leftHandOffset.y >= 0){
+		if (leftHandOffset.y >= 0)
+		{
 			float k = leftHandOffset.y / leftHandOffset.x;
-			if (k < HAND_K){
+			if (k < HAND_K)
+			{
 				// need correction of hand position
 
 				leftHandOffset.x = length / Hypotenuse;
 				leftHandOffset.y = length * HAND_K / Hypotenuse;
 			}
-		}else{
-			float k = - leftHandOffset.y / leftHandOffset.x;
-			if (k < HAND_K){
-				
+		}
+		else
+		{
+			float k = -leftHandOffset.y / leftHandOffset.x;
+			if (k < HAND_K)
+			{
+
 				leftHandOffset.x = length / Hypotenuse;
-				leftHandOffset.y = - length * HAND_K / Hypotenuse;
+				leftHandOffset.y = -length * HAND_K / Hypotenuse;
 			}
 		}
 	}
@@ -677,25 +683,28 @@ bool CharacterController::moveRightHand(cugl::Vec2 offset)
 	float Hypotenuse = sqrt(1.0f + HAND_K * HAND_K);
 
 	float length = rightHandOffset.length();
-	
+
 	if (rightHandOffset.x < 0)
 	{
-		if (rightHandOffset.y >= 0){
-			float k = - rightHandOffset.y / rightHandOffset.x;
-			if (k < HAND_K){
+		if (rightHandOffset.y >= 0)
+		{
+			float k = -rightHandOffset.y / rightHandOffset.x;
+			if (k < HAND_K)
+			{
 				// need correction of hand position
 
-				rightHandOffset.x = - length / Hypotenuse;
+				rightHandOffset.x = -length / Hypotenuse;
 				rightHandOffset.y = length * HAND_K / Hypotenuse;
-
 			}
-		}else{
+		}
+		else
+		{
 			float k = rightHandOffset.y / rightHandOffset.x;
-			if (k < HAND_K){
+			if (k < HAND_K)
+			{
 
-				rightHandOffset.x = - length / Hypotenuse;
-				rightHandOffset.y = - length * HAND_K / Hypotenuse;
-				
+				rightHandOffset.x = -length / Hypotenuse;
+				rightHandOffset.y = -length * HAND_K / Hypotenuse;
 			}
 		}
 	}
@@ -785,98 +794,26 @@ void CharacterController::linkPartsToWorld(const std::shared_ptr<cugl::physics2:
 		//     continue;
 		// }
 		std::shared_ptr<Texture> image = _textures[i];
-		// std::shared_ptr<scene2::PolygonNode> sprite = scene2::PolygonNode::allocWithTexture(image);
 		std::shared_ptr<scene2::PolygonNode> sprite;
 		std::shared_ptr<scene2::SpriteNode> bodySprite;
 
-        // TODO: Put this in macros
+		// TODO: Put this in macros
 		if (i == PART_BODY)
 		{
-			if (_color == "black")
-			{
-				bodySprite = scene2::SpriteNode::allocWithSheet(_blacktextures, 9, 9, 75);
-			}
-			else if (_color == "orange")
-			{
-				bodySprite = scene2::SpriteNode::allocWithSheet(_orangetextures, 5, 5, 24);
-			}
-			else if (_color == "pink")
-			{
-				bodySprite = scene2::SpriteNode::allocWithSheet(_pinktextures, 5, 5, 24);
-			}
-			else if (_color == "purple")
-			{
-				bodySprite = scene2::SpriteNode::allocWithSheet(_purpletextures, 5, 5, 24);
-			}
-			else if (_color == "green")
-			{
-				bodySprite = scene2::SpriteNode::allocWithSheet(_greentextures, 5, 5, 24);
-			}
-			else if (_color == "blue")
-			{
-				bodySprite = scene2::SpriteNode::allocWithSheet(_bluetextures, 5, 5, 24);
-			}
-			bodySprite->setAnchor(Vec2::ANCHOR_CENTER);
+			bodySprite = getTextureForPart(i, _color);
 			_bodyNode = bodySprite;
-			_scenenode->addChild(_bodyNode);
+			_scenenode->addChild(bodySprite);
 		}
 		else if (i == PART_LH)
 		{
-			if (_color == "black")
-			{
-				sprite = scene2::PolygonNode::allocWithTexture(_blacklh);
-			}
-			else if (_color == "orange")
-			{
-				sprite = scene2::PolygonNode::allocWithTexture(_orangelh);
-			}
-			else if (_color == "pink")
-			{
-				sprite = scene2::PolygonNode::allocWithTexture(_pinklh);
-			}
-			else if (_color == "purple")
-			{
-				sprite = scene2::PolygonNode::allocWithTexture(_purplelh);
-			}
-			else if (_color == "green")
-			{
-				sprite = scene2::PolygonNode::allocWithTexture(_greenlh);
-			}
-			else if (_color == "blue")
-			{
-				sprite = scene2::PolygonNode::allocWithTexture(_bluelh);
-			}
+			sprite = getTextureForHand(i, _color);
 			_LHNode = sprite;
 		}
 		else if (i == PART_RH)
 		{
-			if (_color == "black")
-			{
-				sprite = scene2::PolygonNode::allocWithTexture(_blackrh);
-			}
-			else if (_color == "orange")
-			{
-				sprite = scene2::PolygonNode::allocWithTexture(_orangerh);
-			}
-			else if (_color == "pink")
-			{
-				sprite = scene2::PolygonNode::allocWithTexture(_pinkrh);
-			}
-			else if (_color == "purple")
-			{
-				sprite = scene2::PolygonNode::allocWithTexture(_purplerh);
-			}
-			else if (_color == "green")
-			{
-				sprite = scene2::PolygonNode::allocWithTexture(_greenrh);
-			}
-			else if (_color == "blue")
-			{
-				sprite = scene2::PolygonNode::allocWithTexture(_bluerh);
-			}
+			sprite = getTextureForHand(i, _color);
 			_RHNode = sprite;
 		}
-
 		_world->addObstacle(obj);
 		// obj->setDebugScene(_debugnode);
 		if (i == PART_BODY)
@@ -887,37 +824,102 @@ void CharacterController::linkPartsToWorld(const std::shared_ptr<cugl::physics2:
 			_scenenode->addChild(sprite);
 		}
 		// Dynamic objects need constant updating
+		// if (obj->getBodyType() == b2_dynamicBody)
+		// {
+		// 	scene2::SceneNode *weak;
+		// 	if (i == PART_BODY)
+		// 	{
+		// 		weak = bodySprite.get();
+		// 	}
+		// 	else
+		// 	{
+		// 		weak = sprite.get();
+		// 	} // No need for smart pointer in callback
+		// 	obj->setListener([=](physics2::Obstacle *obs) mutable
+		// 					 {
+		// 		//float leftover = Application::get()->getFixedRemainder() / 1000000.f;
+		// 		//Vec2 pos = obs->getPosition() + leftover * obs->getLinearVelocity();
+		// 		//float angle = obs->getAngle() + leftover * obs->getAngularVelocity();
+		// 		if(_colorchange == true){
+		// 			if (i == PART_BODY)
+		// 			{
+		//                 _scenenode->removeChild(bodySprite);
+		//                 bodySprite = getTextureForPart(i, _color);
+		//                 weak = bodySprite.get();
+		// 				_bodyNode = bodySprite;
+		// 				_scenenode->addChild(bodySprite);
+		// 			}
+		// 			else if (i == PART_LH)
+		// 			{
+		// 				_scenenode->removeChild(sprite);
+		// 				sprite = getTextureForHand(i, _color);
+		//                 weak = bodySprite.get();
+		// 				_LHNode = sprite;
+		// 				_scenenode->addChild(sprite);
+		// 			}
+		// 			else if (i == PART_RH)
+		// 			{
+		// 				_scenenode->removeChild(sprite);
+		// 				sprite = getTextureForHand(i, _color);
+		//                 weak = bodySprite.get();
+		// 				_RHNode = sprite;
+		// 				_scenenode->addChild(sprite);
+
+		// 			}
+		// 		}
+		// 		weak->setPosition(obs->getPosition() * _scale);
+		// 		weak->setAngle(obs->getAngle());
+		//         drawCharacterLines(_scale);
+		//         drawDecoration(_scale); });
+		// }
 		if (obj->getBodyType() == b2_dynamicBody)
 		{
-			scene2::SceneNode *weak;
-			if (i == PART_BODY)
-			{
-				weak = bodySprite.get();
-			}
-			else
-			{
-				weak = sprite.get();
-			} // No need for smart pointer in callback
-			obj->setListener([=](physics2::Obstacle *obs)
+			obj->setListener([=](physics2::Obstacle *obs) mutable
 							 {
-				//float leftover = Application::get()->getFixedRemainder() / 1000000.f;
-				//Vec2 pos = obs->getPosition() + leftover * obs->getLinearVelocity();
-				//float angle = obs->getAngle() + leftover * obs->getAngularVelocity();
+        if (_colorchange) {
+            // Remove the old sprite and add the new sprite based on the part
+            if (i == PART_BODY) {
+                auto newBodySprite = getTextureForPart(i, _color);
+                _scenenode->removeChild(_bodyNode);
+                _bodyNode = newBodySprite;
+                _scenenode->addChild(_bodyNode);
+            } else if (i == PART_LH) {
+                auto newHandSprite = getTextureForHand(i, _color);
+                _scenenode->removeChild(_LHNode);
+                _LHNode = newHandSprite;
+                _scenenode->addChild(_LHNode);
+            } else if (i == PART_RH) {
+                auto newHandSprite = getTextureForHand(i, _color);
+                _scenenode->removeChild(_RHNode);
+                _RHNode = newHandSprite;
+                _scenenode->addChild(_RHNode);
+            }
+        }
 
-				weak->setPosition(obs->getPosition() * _scale);
-				weak->setAngle(obs->getAngle());
-                drawCharacterLines(_scale);
-                drawDecoration(_scale); });
+        // Update the position and rotation of the sprite nodes
+        if (i == PART_BODY) {
+            _bodyNode->setPosition(obs->getPosition() * _scale);
+            _bodyNode->setAngle(obs->getAngle());
+        } else if (i == PART_LH) {
+            _LHNode->setPosition(obs->getPosition() * _scale);
+            _LHNode->setAngle(obs->getAngle());
+        } else if (i == PART_RH) {
+            _RHNode->setPosition(obs->getPosition() * _scale);
+            _RHNode->setAngle(obs->getAngle());
+        }
+
+        drawCharacterLines(_scale);
+        drawDecoration(_scale); });
 		}
 	}
+    _colorchange = false;
 	for (int i = 0; i < _joints.size(); i++)
 	{
 		printf("adding joints again");
 		auto joint = _joints[i];
 		_world->addJoint(joint);
 	}
-    std::cout << "BODY LOCATION=====" << _bodyNode->getPositionX() << ", " << _bodyNode->getPositionY() << std::endl;
-
+	std::cout << "BODY LOCATION=====" << _bodyNode->getPositionX() << ", " << _bodyNode->getPositionY() << std::endl;
 }
 
 void CharacterController::drawCharacterLines(float scale)
@@ -1071,9 +1073,116 @@ void CharacterController::update(float dt)
 
 void CharacterController::setColor(std::string color)
 {
-	_color = color;
+	if (color != _color)
+	{
+		_color = color;
+		_colorchange = true;
+	}
 }
 
-std::string CharacterController::getColor() {
-    return this -> _color;
+std::string CharacterController::getColor()
+{
+	return this->_color;
+}
+
+std::shared_ptr<scene2::SpriteNode> CharacterController::getTextureForPart(int partId, const std::string &color)
+{
+	std::shared_ptr<scene2::SpriteNode> textureNode;
+
+	if (partId == PART_BODY)
+	{
+		if (color == "black")
+		{
+			textureNode = scene2::SpriteNode::allocWithSheet(_blacktextures, 9, 9, 75);
+		}
+		else if (color == "orange")
+		{
+			textureNode = scene2::SpriteNode::allocWithSheet(_orangetextures, 5, 5, 24);
+		}
+		else if (color == "pink")
+		{
+			textureNode = scene2::SpriteNode::allocWithSheet(_pinktextures, 5, 5, 24);
+		}
+		else if (color == "purple")
+		{
+			textureNode = scene2::SpriteNode::allocWithSheet(_purpletextures, 5, 5, 24);
+		}
+		else if (color == "green")
+		{
+			textureNode = scene2::SpriteNode::allocWithSheet(_greentextures, 5, 5, 24);
+		}
+		else if (color == "blue")
+		{
+			textureNode = scene2::SpriteNode::allocWithSheet(_bluetextures, 5, 5, 24);
+		}
+	}
+
+	if (textureNode)
+	{
+		textureNode->setAnchor(Vec2::ANCHOR_CENTER);
+	}
+
+	return textureNode;
+}
+
+std::shared_ptr<scene2::PolygonNode> CharacterController::getTextureForHand(int partId, const std::string &color)
+{
+	std::shared_ptr<scene2::PolygonNode> textureNode;
+
+	if (partId == PART_LH)
+	{
+		if (color == "black")
+		{
+			textureNode = scene2::PolygonNode::allocWithTexture(_blacklh);
+		}
+		else if (color == "orange")
+		{
+			textureNode = scene2::PolygonNode::allocWithTexture(_orangelh);
+		}
+		else if (color == "pink")
+		{
+			textureNode = scene2::PolygonNode::allocWithTexture(_pinklh);
+		}
+		else if (color == "purple")
+		{
+			textureNode = scene2::PolygonNode::allocWithTexture(_purplelh);
+		}
+		else if (color == "green")
+		{
+			textureNode = scene2::PolygonNode::allocWithTexture(_greenlh);
+		}
+		else if (color == "blue")
+		{
+			textureNode = scene2::PolygonNode::allocWithTexture(_bluelh);
+		}
+	}
+	else if (partId == PART_RH)
+	{
+		if (color == "black")
+		{
+			textureNode = scene2::PolygonNode::allocWithTexture(_blackrh);
+		}
+		else if (color == "orange")
+		{
+			textureNode = scene2::PolygonNode::allocWithTexture(_orangerh);
+		}
+		else if (color == "pink")
+		{
+			textureNode = scene2::PolygonNode::allocWithTexture(_pinkrh);
+		}
+		else if (color == "purple")
+		{
+			textureNode = scene2::PolygonNode::allocWithTexture(_purplerh);
+		}
+		else if (color == "green")
+		{
+			textureNode = scene2::PolygonNode::allocWithTexture(_greenrh);
+		}
+		else if (color == "blue")
+		{
+			textureNode = scene2::PolygonNode::allocWithTexture(_bluerh);
+		}
+	}
+
+	return textureNode;
 }
