@@ -100,7 +100,12 @@ protected:
 
 public:
 	/** the state of this scene, referenced by DPApp*/
-	enum SceneState { INGAME, PAUSE, NETERROR, QUIT };
+    enum SceneState {
+        INGAME,
+        PAUSE,
+        NETERROR,
+        QUIT
+    };
 	SceneState state;
 #pragma mark -
 #pragma mark Constructors
@@ -298,7 +303,7 @@ public:
 	 *
 	 * @param timestep  The amount of time (in seconds) since the last frame
 	 */
-	void update(float timestep);
+	void update(float timestep) override;
 
 	/**
 	 * Resets the status of the game so that we can play again.

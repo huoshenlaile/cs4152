@@ -312,6 +312,12 @@
                 "key": "pausebutton"
             }
         },    
+        "levelcomplete" : {
+            "type": "Widget",
+            "data": {
+                "key": "levelcomplete"
+            }
+        },
         "settings": {
             "type": "Node",
             "format": {

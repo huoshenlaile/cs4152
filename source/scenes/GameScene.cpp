@@ -98,23 +98,12 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 		}
     });
 	_uinode->addChild(_pause);
-	//
-	//	_pause = std::dynamic_pointer_cast<scene2::Button>(
-	//		_assets->get<scene2::SceneNode>("pause"));
-	//
-	//	_pause->addListener([this](const std::string& name, bool down) {
-	//		if (down) {
-	//			CULog("Pause button hit");
-	//			_network->pushOutEvent(PauseEvent::allocPauseEvent(
-	//				Vec2(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 2), true));
-	//		}
-	//		// CULog("Pause button hit");
-	//		});
-
 	addChild(_worldnode);
 	addChild(_uinode);
+    
 
 	_worldnode->setContentSize(Size(SCENE_WIDTH, SCENE_HEIGHT));
+    
 #pragma mark LevelLoader
 	// make the getter for loading the map
 	_level = assets->get<LevelLoader>(ALPHA_RELEASE_KEY);
@@ -203,6 +192,13 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	//CULog("Character Pos: %f, %f", _characterControllerA->getBodySceneNode()->getPositionX(), _characterControllerA->getBodySceneNode()->getPositionY());
 	_camera.setZoom(DEFAULT_ZOOM);
     
+    
+    
+//    std::shared_ptr<scene2::SceneNode> levelComplete = _assets->get<scene2::SceneNode>("levelcomplete");
+//    Size tryDimen = Application::get()->getDisplaySize();
+//    levelComplete -> setContentSize(dimen);
+//    levelComplete -> doLayout(); // Repositions the HUD
+//    addChild(levelComplete);
 
 	return true;
 }
