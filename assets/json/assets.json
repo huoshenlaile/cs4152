@@ -133,7 +133,6 @@
         "purple_decoration": {
             "file": "textures/decoration/purple_decoration.png"
         },
-<<<<<<< HEAD
         "black_lh": {
             "file": "textures/hand/black_lefthand.png"
         },
@@ -169,7 +168,7 @@
         },
         "orange_rh": {
             "file": "textures/hand/orange_righthand.png"
-=======
+        },
         "background_select": {
             "file": "textures/background_select.png"
         },
@@ -226,7 +225,6 @@
         },
         "button_next": {
             "file": "textures/button_next.png"
->>>>>>> c2b4ae2a9eb53289048a5e9263185a0916e3ba77
         }
     },
     "jsons": {
