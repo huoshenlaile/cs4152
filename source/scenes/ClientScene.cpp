@@ -1,4 +1,4 @@
-
+#ifdef NEVER_DEFINED
 
 #include "ClientScene.h"
 #include <iostream>
@@ -183,3 +183,4 @@ void ClientScene::configureStartButton() {
 }
 
 
+#endif

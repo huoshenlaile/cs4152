@@ -1,3 +1,6 @@
+#ifdef NEVER_DEFINED
+
+
 #include "HostScene.h"
 #include <iostream>
 #include <sstream>
@@ -185,3 +188,5 @@ void HostScene::startGame(){
 }
 
 
+
+#endif

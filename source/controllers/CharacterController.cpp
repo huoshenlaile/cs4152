@@ -1028,3 +1028,7 @@ void CharacterController::setColor(std::string color)
 {
 	_color = color;
 }
+
+std::string CharacterController::getColor() {
+    return this -> _color;
+}
