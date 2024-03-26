@@ -62,6 +62,7 @@ protected:
     
     std::shared_ptr<cugl::scene2::ActionManager> _actions;
     std::shared_ptr<cugl::scene2::Animate> _animate;
+    std::shared_ptr<cugl::scene2::Animate> _blackanimate;
     std::string _color;
 
 	cugl::Vec2 _offset;

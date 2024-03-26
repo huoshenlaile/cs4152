@@ -101,22 +101,22 @@
             "magfilter": "linear"
         },
         "black_animation": {
-            "file": "textures/black.png"
+            "file": "textures/character/black.png"
         },
         "pink_animation": {
-            "file": "textures/pink.png"
+            "file": "textures/character/pink.png"
         },
         "blue_animation": {
-            "file": "textures/blue.png"
+            "file": "textures/character/blue.png"
         },
         "green_animation": {
-            "file": "textures/green.png"
+            "file": "textures/character/green.png"
         },
         "purple_animation": {
-            "file": "textures/purple.png"
+            "file": "textures/character/purple.png"
         },
         "orange_animation": {
-            "file": "textures/orange.png"
+            "file": "textures/character/orange.png"
         },
         "orange_decoration": {
             "file": "textures/orange_decoration.png"

@@ -8,7 +8,7 @@ bool CharacterController::init(const cugl::Vec2& pos, float scale) {
 	_offset = pos;
 	_drawScale = scale;
     
-    _color = "orange";
+    _color = "black";
     _actions = scene2::ActionManager::alloc();
     const int span = 24;
     std::vector<int> animate;
@@ -18,6 +18,15 @@ bool CharacterController::init(const cugl::Vec2& pos, float scale) {
     }
     animate.push_back(0);
     _animate = scene2::Animate::alloc(animate, DURATION);
+    
+    const int blackspan = 75;
+    std::vector<int> blackanimate;
+    for (int ii = 1; ii < blackspan; ii++)
+    {
+        blackanimate.push_back(ii);
+    }
+    blackanimate.push_back(0);
+    _blackanimate = scene2::Animate::alloc(blackanimate, DURATION);
 
 	return true;
 }
@@ -659,7 +668,7 @@ void CharacterController::linkPartsToWorld(const std::shared_ptr<cugl::physics2:
         {
             if (_color == "black")
             {
-                bodySprite = scene2::SpriteNode::allocWithSheet(_blacktextures, 5, 5, 24);
+                bodySprite = scene2::SpriteNode::allocWithSheet(_blacktextures, 9, 9, 75);
             }
             else if (_color == "orange")
             {
@@ -823,11 +832,16 @@ void CharacterController::drawDecoration(float scale) {
 
 void CharacterController::update(float dt)
 {
-    _actions->activate("start", _animate, _bodyNode);
-    _actions->update(dt);
-
-    if (_decorationNode != nullptr) {
-        _actions->activate("decoration", _animate, _decorationNode);
+    if(_color!="black"){
+        _actions->activate("start", _animate, _bodyNode);
+        _actions->update(dt);
+        
+        if (_decorationNode != nullptr) {
+            _actions->activate("decoration", _animate, _decorationNode);
+        }
+    }else{
+        _actions->activate("start", _blackanimate, _bodyNode);
+        _actions->update(dt);
     }
 }
 
