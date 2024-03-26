@@ -28,6 +28,7 @@ protected:
 #pragma mark -
 #pragma mark Static Constructors
 public:
+
     /**
      * Creates a new exit at the origin.
      *

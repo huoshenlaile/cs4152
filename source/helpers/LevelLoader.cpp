@@ -54,7 +54,7 @@ Color4 LevelLoader::parseColor(std::string name) {
  * @return true if successfully loaded the asset from a file
  */
 bool LevelLoader::preload(const std::string& file) {
-    std::cout << file;;
+//    std::cout << file;;
     std::shared_ptr<JsonReader> reader = JsonReader::allocWithAsset(file);
     return preload(reader->readJson());
 }
@@ -73,6 +73,7 @@ bool LevelLoader::preload(const std::shared_ptr<cugl::JsonValue>& json) {
         CUAssertLog(false, "Failed to load level file");
         return false;
     }
+    
     // Initial geometry
     float w = json->get(WIDTH_FIELD)->asFloat();
     float h = json->get(HEIGHT_FIELD)->asFloat();
@@ -102,14 +103,16 @@ bool LevelLoader::preload(const std::shared_ptr<cugl::JsonValue>& json) {
 
 bool LevelLoader::loadObject(const std::shared_ptr<JsonValue>& json) {
     auto type = json->get("type")->asString();
-    std::cout << json->toString();
     if (type == WALLS_FIELD) {
         return loadWall(json);
     }else if (type == GOALDOOR_FIELD) {
         return loadGoalDoor(json);
     }else if (type == SENSOR_FIELD){
-        std::cout << "Loading sensor";
+//        std::cout << "Loading sensor";
         return loadSensor(json);
+    }else if (type == CHARACTER_POS){
+        _charPos = getObjectPos(json);
+//        std::cout << _charPos.x << " abcdefg "<< _charPos.y <<std::endl;
     }
     return false;
 }
@@ -118,7 +121,7 @@ void LevelLoader::setBackgroundScene(){
     auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(ALPHA_RELEASE_BACKGROUND));
     sprite->setAbsolute(true);
     sprite->setPosition(-10.0f, 0.0f);
-    sprite->setContentSize(sprite->getContentSize().width*5, sprite->getContentSize().height*4);
+    sprite->setContentSize(sprite->getContentSize().width*4, sprite->getContentSize().height*4);
 //    auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(alpharelease_background), Rect(-100.0f,-100.0f,20000.0f, 20000.0f)); //TODO: don't hard code
 //    sprite->setPosition(Vec2(0.0f,0.0f));
     _worldnode->addChild(sprite);
@@ -149,7 +152,7 @@ bool LevelLoader::loadGoalDoor(const std::shared_ptr<JsonValue>& json) {
 
         // Get the object, which is automatically retained
         _goalDoor = ExitModel::alloc(goalPos,(Size)goalSize);
-        _goalDoor->setName(GOALDOOR_FIELD);
+        _goalDoor->setName(json->getString("name"));
 
         _goalDoor->setDensity(goal->get("obstacle")->getDouble(DENSITY_FIELD));
         _goalDoor->setFriction(goal->get("obstacle")->getDouble(FRICTION_FIELD));
@@ -177,39 +180,48 @@ bool LevelLoader::loadSensor(const std::shared_ptr<JsonValue>& json){
     bool success = false;
     auto sensor_json = json->get("properties")->get(0)->get("value");
     if (sensor_json != nullptr) {
-        success = true;
-
-        Vec2 sensorPos = getObjectPos(json);
-        Vec2 sensorSize = Vec2(json->getFloat("width") / _scale.x, json->getFloat("height") / _scale.y);
-        sensorPos.x += sensorSize.x / 2;
-        sensorPos.y += sensorSize.y / 6;
-
+        bool success = true;
+        
+        int polysize = (int)json->get(VERTICES_FIELD)->children().size();
+        success = success && polysize > 0;
+        
+        std::vector<float> vertices = getVertices(json);
+        success = success && 2*polysize == vertices.size();
+        
+        Vec2* verts = reinterpret_cast<Vec2*>(&vertices[0]);
+        Poly2 sensor(verts,(int)vertices.size()/2);
+        EarclipTriangulator triangulator;
+        triangulator.set(sensor.vertices);
+        triangulator.calculate();
+        sensor.setIndices(triangulator.getTriangulation());
+        triangulator.clear();
+        
         // Get the object, which is automatically retained
-        std::shared_ptr<SensorModel> sensor = SensorModel::alloc(sensorPos,(Size)sensorSize);
-        sensor->setName(SENSOR_FIELD);
-
-        sensor->setDensity(sensor_json->get("obstacle")->getDouble(DENSITY_FIELD));
-        sensor->setFriction(sensor_json->get("obstacle")->getDouble(FRICTION_FIELD));
-        sensor->setRestitution(sensor_json->get("obstacle")->getDouble(RESTITUTION_FIELD));
-        sensor->setSensor(true);
-
-        sensor->setBodyType((b2BodyType)sensor_json->get("obstacle")->getInt(BODYTYPE_FIELD));
-
+        std::shared_ptr<SensorModel> sensorobj = SensorModel::alloc(sensor);
+        sensorobj->setName(json->getString("name"));
+        
+        sensorobj->setBodyType((b2BodyType)sensor_json->get("obstacle")->getInt(BODYTYPE_FIELD));
+        
+        sensorobj->setDensity(sensor_json->get("obstacle")->getDouble(DENSITY_FIELD));
+        sensorobj->setFriction(sensor_json->get("obstacle")->getDouble(FRICTION_FIELD));
+        sensorobj->setRestitution(sensor_json->get("obstacle")->getDouble(RESTITUTION_FIELD));
+        
         // Set the texture value
         success = success && sensor_json->get("obstacle")->get(TEXTURE_FIELD)->isString();
-        sensor->setTextureKey(sensor_json->get("obstacle")->get(TEXTURE_FIELD)->asString());
-        sensor->setDebugColor(parseColor(sensor_json->get("obstacle")->getString(DEBUG_COLOR_FIELD)));
-
+        sensorobj->setTextureKey(sensor_json->get("obstacle")->getString(TEXTURE_FIELD));
+        sensorobj->setDebugColor(parseColor(sensor_json->get("obstacle")->getString(DEBUG_COLOR_FIELD)));
+        
         if (success) {
-           // _world->addObstacle(sensor);
+            _sensors.push_back(sensorobj);
+        } else {
+            sensorobj = nullptr;
         }
-        else {
-            sensor = nullptr;
-        }
-        _sensors.push_back(sensor);
+        
+        vertices.clear();
     }
     return success;
 }
+
 
 /**
 * Loads a single wall object
@@ -230,6 +242,7 @@ bool LevelLoader::loadWall(const std::shared_ptr<JsonValue>& json) {
     int polysize = (int)json->get(VERTICES_FIELD)->children().size();
     success = success && polysize > 0;
 
+    
     std::vector<float> vertices = getVertices(json);
     success = success && 2*polysize == vertices.size();
 
@@ -243,6 +256,7 @@ bool LevelLoader::loadWall(const std::shared_ptr<JsonValue>& json) {
     
     // Get the object, which is automatically retained
     std::shared_ptr<WallModel> wallobj = WallModel::alloc(wall);
+    
     wallobj->setName(WALLS_FIELD+json->getString("id"));
 
     wallobj->setBodyType((b2BodyType)walljson->get("obstacle")->getInt(BODYTYPE_FIELD));
@@ -250,17 +264,18 @@ bool LevelLoader::loadWall(const std::shared_ptr<JsonValue>& json) {
     wallobj->setDensity(walljson->get("obstacle")->getDouble(DENSITY_FIELD));
     wallobj->setFriction(walljson->get("obstacle")->getDouble(FRICTION_FIELD));
     wallobj->setRestitution(walljson->get("obstacle")->getDouble(RESTITUTION_FIELD));
+    wallobj->setPosition(getObjectPos(json));
     
-    if(json->getFloat("rotation") != 0.0f){
-        printf("inside");
-//        wallobj->setAngle((-1.0f*json->getFloat("rotation")+90.0f) % 360.0f);
-    }
-//    wallobj->setAngle(json->getFloat("rotation"));
+//    std::cout << wallobj->getPosition().x << ", " <<  wallobj->getPosition().y <<std::endl;
+    wallobj->setAnchor(0.5f, 0.5f);
+    
+    wallobj->setAngle((360.0f - json->getFloat("rotation")) * M_PI / 180.0f);
     // Set the texture value
     success = success && walljson->get("obstacle")->get(TEXTURE_FIELD)->isString();
     wallobj->setTextureKey(walljson->get("obstacle")->getString(TEXTURE_FIELD));
     wallobj->setDebugColor(parseColor(walljson->get("obstacle")->getString(DEBUG_COLOR_FIELD)));
-
+    
+    
     if (success) {
         _walls.push_back(wallobj);
     } else {
@@ -310,6 +325,13 @@ void LevelLoader::unload() {
     (*it) = nullptr;
     }
     _walls.clear();
+    for(auto it = _sensors.begin(); it != _sensors.end(); ++it) {
+        if (_world != nullptr) {
+            _world->removeObstacle((*it));
+        }
+    (*it) = nullptr;
+    }
+    _sensors.clear();
     if (_world != nullptr) {
         _world->clear();
         _world = nullptr;
@@ -372,7 +394,7 @@ void LevelLoader::setRootNode(const std::shared_ptr<scene2::SceneNode>& node){
     
     _scale.set(_root->getContentSize().width/_bounds.size.width,
              _root->getContentSize().height/_bounds.size.height);
-
+    
     // Create, but transfer ownership to root
     _worldnode = scene2::SceneNode::alloc();
     _worldnode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
@@ -393,15 +415,23 @@ void LevelLoader::setRootNode(const std::shared_ptr<scene2::SceneNode>& node){
         addObstacle(_goalDoor,sprite); // Put this at the very back
     }
     for(auto it = _sensors.begin(); it != _sensors.end(); ++it) {
-        auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>((*it)->getTextureKey()));
-        addObstacle(*it,sprite); // Put this at the very back
+        std::shared_ptr<SensorModel> sensor = *it;
+        auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(sensor->getTextureKey()));
+        addObstacle(sensor,sprite); // Put this at the very back
     }
     for(auto it = _walls.begin(); it != _walls.end(); ++it) {
         std::shared_ptr<WallModel> wall = *it;
         auto txt = _assets->get<Texture>(wall->getTextureKey());
 //        std::cout<< wall->getTextureKey() << std::endl;
         auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(wall->getTextureKey()));
-        sprite->setContentSize(wall->getWidth()*_scale.x, wall->getHeight()*_scale.y);
+//        if (wall->getTextureKey()!= "alpharelease_frenchfries"){
+//            sprite->setContentSize(wall->getWidth()*_scale.x*1.2, wall->getHeight()*_scale.y*1.2);
+//        }else{
+//            
+//        }
+        sprite->setContentSize(wall->getWidth()*_scale.x*1.01, wall->getHeight()*_scale.y*1.01);
+        
+        sprite->setAnchor(0.5f,0.5f);
         sprite->setAngle(wall->getAngle());
 //        sprite->setAngle(-1.0f * wall->getAngle());
         
@@ -409,6 +439,7 @@ void LevelLoader::setRootNode(const std::shared_ptr<scene2::SceneNode>& node){
         if (wall == nullptr){
             continue;
         }
+        
 //        std::cout << "drawing wall and adding to worlds" << std::endl;
         addObstacle(wall,sprite);  // All walls share the same texture
     }
@@ -428,12 +459,12 @@ void LevelLoader::setRootNode(const std::shared_ptr<scene2::SceneNode>& node){
  */
 void LevelLoader::addObstacle(const std::shared_ptr<cugl::physics2::Obstacle>& obj, const std::shared_ptr<cugl::scene2::SceneNode>& node) {
     _world->addObstacle(obj);
-    obj->setDebugScene(_debugnode);
+//    obj->setDebugScene(_debugnode);
     
     // Position the scene graph node (enough for static objects)
     node->setPosition(obj->getPosition()*_scale);
     _worldnode->addChild(node);
-
+    
     // Dynamic objects need constant updating
     if (obj->getBodyType() == b2_dynamicBody) {
         scene2::SceneNode* weak = node.get(); // No need for smart pointer in callback
@@ -441,6 +472,10 @@ void LevelLoader::addObstacle(const std::shared_ptr<cugl::physics2::Obstacle>& o
             weak->setPosition(obs->getPosition()*_scale);
             weak->setAngle(obs->getAngle());
         });
+    }
+    if (obj->getName() == "sensor1"){
+        std::cout << "x: " << obj->getCentroid().x << " y:" << obj->getCentroid().y << "\n";
+        std::cout << "X: " << obj->getX() << " Y: " << obj->getY() << "\n";
     }
 //    std::cout<<"success"<<std::endl;
 }

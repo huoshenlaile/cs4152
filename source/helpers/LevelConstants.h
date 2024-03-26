@@ -13,7 +13,7 @@
 #define WALLS_FIELD         "wall"
 #define SENSOR_FIELD        "sensor"
 
-
+#define CHARACTER_POS       "character"
 /** The physics fields for each object */
 #define POSITION_FIELD      "pos"
 #define SIZE_FIELD          "size"
@@ -47,6 +47,7 @@
 #define LEVEL_ONE_FILE      "json/tutorial.json"
 /** The key for our loaded level */
 #define LEVEL_ONE_KEY       "samplelevel"
+#define LEVEL_ONE_KEY_JSON       "samplelevel_json"
 
 #define LEVEL_ONE_BACKGROUND "pinkbackground"
 
