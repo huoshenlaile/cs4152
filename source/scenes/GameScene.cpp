@@ -180,7 +180,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	_camera.init(_characterControllerA->getBodySceneNode(), _worldnode, 10.0f,
 		std::dynamic_pointer_cast<OrthographicCamera>(getCamera()),
 		_uinode, 5.0f);
-	CULog("Character Pos: %f, %f", _characterControllerA->getBodySceneNode()->getPositionX(), _characterControllerA->getBodySceneNode()->getPositionY());
+	//CULog("Character Pos: %f, %f", _characterControllerA->getBodySceneNode()->getPositionX(), _characterControllerA->getBodySceneNode()->getPositionY());
 	_camera.setZoom(DEFAULT_ZOOM);
 
 	return true;
@@ -290,12 +290,12 @@ void GameScene::reset() {
 	_interactionController.init({}, _characterControllerA, nullptr, {}, {}, _level, _assets->get<JsonValue>(LEVEL_ONE_KEY_JSON));
 
 	//reload the camera
-	_camera.setTarget(_characterControllerA->getBodySceneNode());
 	_camera.init(_characterControllerA->getBodySceneNode(), _worldnode, 10.0f,
 		std::dynamic_pointer_cast<OrthographicCamera>(getCamera()),
 		_uinode, 5.0f);
-	_camera.setZoom(0.6);
-	_camera.setTarget(_characterControllerA->getBodySceneNode());
+	_camera.setMove(false);
+	_camera.setZoom(DEFAULT_ZOOM);
+	//_camera.setTarget(_characterControllerA->getBodySceneNode());
 
 	Application::get()->resetFixedRemainder();
 }

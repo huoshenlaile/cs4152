@@ -106,7 +106,8 @@ public:
 
 	void process(int zoomIn, float speed);
 
-	void move(cugl::Vec2 start, cugl::Vec2 end);
+	bool getMove() { return _move; }
+	void setMove(bool flag) { _move = flag; }
 };
 
 #endif

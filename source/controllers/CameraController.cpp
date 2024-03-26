@@ -90,7 +90,3 @@ void CameraController::process(int zoomIn, float speed) {
 	_camera->setZoom(truezoom);
 	_ui->setScale(1 / _camera->getZoom());
 }
-
-void CameraController::move(cugl::Vec2 start, cugl::Vec2 end) {
-	_camera->setPosition(cugl::Vec2(2000, 0));
-}
