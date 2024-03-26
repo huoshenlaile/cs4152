@@ -18,6 +18,7 @@ protected:
     std::string _wallTexture;
     
 public:
+
 #pragma mark -
 #pragma mark Initializers
     /**

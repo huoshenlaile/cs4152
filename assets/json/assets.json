@@ -14,6 +14,27 @@
         "splotch3": {
             "file": "textures/splotch3.png"
         },
+        "alpharelease_background": {
+            "file": "textures/alpharelease_background.png"
+        },
+        "alpharelease_frenchfries": {
+            "file": "textures/alpharelease_frenchfries.png"
+        },
+        "alpharelease_ketchup_capoff": {
+            "file": "textures/alpharelease_ketchup_capoff.png"
+        },
+        "alpharelease_ketchup_capon": {
+            "file": "textures/alpharelease_ketchup_capon.png"
+        },
+        "alpharelease_mustard": {
+            "file": "textures/alpharelease_mustard.png"
+        },
+        "alpharelease_soy_capon": {
+            "file": "textures/alpharelease_soy_capon.png"
+        },
+        "alpharelease_mayo_capon": {
+            "file": "textures/alpharelease_mayo_capon.png"
+        },
         "popleft": {
             "file": "textures/popart_platformbubble_left.png"
         },
@@ -23,34 +44,13 @@
         "popmid": {
             "file": "textures/popart_platformLine.png"
         },
-        "pinkbackground":{
+        "pinkbackground": {
             "file": "textures/popart_background.png",
             "wrapS": "repeat",
             "wrapT": "repeat"
         },
         "goalpop": {
             "file": "textures/popart_goal.png"
-        },
-        "goal": {
-            "file": "textures/goaldoor.png"
-        },
-        "crate01": {
-            "file": "textures/crate01.png"
-        },
-        "crate02": {
-            "file": "textures/crate02.png"
-        },
-        "rocket": {
-            "file": "textures/rocket.png"
-        },
-        "flames": {
-            "file": "textures/flames.png"
-        },
-        "flames-right": {
-            "file": "textures/flames-right.png"
-        },
-        "flames-left": {
-            "file": "textures/flames-left.png"
         },
         "button": {
             "file": "textures/button.png"
@@ -63,36 +63,6 @@
         },
         "left": {
             "file": "textures/left_arrow.png"
-        },
-        "head": {
-            "file": "textures/ProfWhite.png",
-            "minfilter": "linear",
-            "magfilter": "linear"
-        },
-        "body": {
-            "file": "textures/ProfWhite.png",
-            "minfilter": "linear",
-            "magfilter": "linear"
-        },
-        "arm": {
-            "file": "textures/tux_arm.png",
-            "minfilter": "linear",
-            "magfilter": "linear"
-        },
-        "forearm": {
-            "file": "textures/tux_forearm.png",
-            "minfilter": "linear",
-            "magfilter": "linear"
-        },
-        "thigh": {
-            "file": "textures/tux_thigh.png",
-            "minfilter": "linear",
-            "magfilter": "linear"
-        },
-        "shin": {
-            "file": "textures/tux_shin.png",
-            "minfilter": "linear",
-            "magfilter": "linear"
         },
         "hand": {
             "file": "textures/crate01.png",
@@ -138,6 +108,132 @@
             "file": "textures/rhand64.png",
             "minfilter": "linear",
             "magfilter": "linear"
+        },
+        "black_animation": {
+            "file": "textures/character/black.png"
+        },
+        "pink_animation": {
+            "file": "textures/character/pink.png"
+        },
+        "blue_animation": {
+            "file": "textures/character/blue.png"
+        },
+        "green_animation": {
+            "file": "textures/character/green.png"
+        },
+        "purple_animation": {
+            "file": "textures/character/purple.png"
+        },
+        "orange_animation": {
+            "file": "textures/character/orange.png"
+        },
+        "orange_decoration": {
+            "file": "textures/decoration/orange_decoration.png"
+        },
+        "pink_decoration": {
+            "file": "textures/decoration/pink_decoration.png"
+        },
+        "blue_decoration": {
+            "file": "textures/decoration/blue_decoration.png"
+        },
+        "green_decoration": {
+            "file": "textures/decoration/green_decoration.png"
+        },
+        "purple_decoration": {
+            "file": "textures/decoration/purple_decoration.png"
+        },
+        "black_lh": {
+            "file": "textures/hand/black_lefthand.png"
+        },
+        "black_rh": {
+            "file": "textures/hand/black_righthand.png"
+        },
+        "pink_lh": {
+            "file": "textures/hand/pink_lefthand.png"
+        },
+        "pink_rh": {
+            "file": "textures/hand/pink_righthand.png"
+        },
+        "blue_lh": {
+            "file": "textures/hand/blue_lefthand.png"
+        },
+        "blue_rh": {
+            "file": "textures/hand/blue_righthand.png"
+        },
+        "green_lh": {
+            "file": "textures/hand/green_lefthand.png"
+        },
+        "green_rh": {
+            "file": "textures/hand/green_righthand.png"
+        },
+        "purple_lh": {
+            "file": "textures/hand/purple_lefthand.png"
+        },
+        "purple_rh": {
+            "file": "textures/hand/purple_righthand.png"
+        },
+        "orange_lh": {
+            "file": "textures/hand/orange_lefthand.png"
+        },
+        "orange_rh": {
+            "file": "textures/hand/orange_righthand.png"
+        },
+        "background_select": {
+            "file": "textures/background_select.png"
+        },
+        "button_fifth": {
+            "file": "textures/button_fifth.png"
+        },
+        "button_fourth": {
+            "file": "textures/button_fourth.png"
+        },
+        "button_third": {
+            "file": "textures/button_third.png"
+        },
+        "button_second": {
+            "file": "textures/button_second.png"
+        },
+        "button_first": {
+            "file": "textures/button_first.png"
+        },
+        "button_menu": {
+            "file": "textures/button_menu.png"
+        },
+        "titlebackground": {
+            "file": "textures/titlebackground.png"
+        },
+        "dusty": {
+            "file": "textures/dusty.png"
+        },
+        "button_newgame": {
+            "file": "textures/button_newgame.png"
+        },
+        "button_levels": {
+            "file": "textures/button_levels.png"
+        },
+        "button_setting": {
+            "file": "textures/button_setting.png"
+        },
+        "pause_background": {
+            "file": "textures/pause_background.png"
+        },
+        "button_resume": {
+            "file": "textures/button_resume.png"
+        },
+        "button_restart": {
+            "file": "textures/button_restart.png"
+        },
+        "button_settingicon": {
+            "file": "textures/button_settingicon.png"
+        },
+        "complete_background": {
+            "file": "textures/complete_background.png"
+        },
+        "button_next": {
+            "file": "textures/button_next.png"
+        },
+        "button_pause": {
+            "file": "textures/button_pause.png"
         }
     },
     "jsons": {
@@ -184,7 +280,12 @@
         "colorbutton": "widgets/colorbutton.json",
         "textbutton": "widgets/textbutton.json",
         "textfield": "widgets/textfield.json",
-        "labelbox": "widgets/labelbox.json"
+        "labelbox": "widgets/labelbox.json",
+        "levelselect": "widgets/levelselect.json",
+        "title": "widgets/title.json",
+        "pause": "widgets/pause.json",
+        "levelcomplete": "widgets/levelcomplete.json",
+        "pausebutton": "widgets/pausebutton.json"
     },
     "scene2s": {
         "pause": {
@@ -221,7 +322,7 @@
                 "y_alignment": "middle"
             },
             "children": {
-                "host": {
+                "start": {
                     "type": "Widget",
                     "data": {
                         "key": "textbutton",
@@ -284,7 +385,7 @@
                         ],
                         "scale": 1.5,
                         "font": "gyparody",
-                        "text": "Level Select View",
+                        "text": "Level Select",
                         "padding": [
                             20,
                             20,
@@ -897,31 +998,7 @@
                 }
             }
         },
-        "pause": {
-            "type": "Button",
-            "data": {
-                "upnode": "up",
-                "anchor": [
-                    0.0,
-                    0.0
-                ]
-            },
-            "children": {
-                "up": {
-                    "type": "Image",
-                    "data": {
-                        "texture": "left"
-                    }
-                }
-            },
-            "layout": {
-                "x_anchor": "left",
-                "y_anchor": "bottom",
-                "y_offset": 10,
-                "x_offset": 10,
-                "absolute": true
-            }
-        },
+
         "game": {
             "type": "Node",
             "format": {

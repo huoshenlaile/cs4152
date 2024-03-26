@@ -31,7 +31,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -80,7 +79,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -129,7 +127,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -178,7 +175,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -227,7 +223,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -251,6 +246,34 @@
                  "width":0,
                  "x":0.884939540680806,
                  "y":2241.95524671172
+                }, 
+                {
+                 "height":0,
+                 "id":13,
+                 "name":"sensor1",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":336.842105263158,
+                         "y":0
+                        }, 
+                        {
+                         "x":336.842105263158,
+                         "y":633.263157894737
+                        }, 
+                        {
+                         "x":-13.4736842105264,
+                         "y":633.263157894737
+                        }],
+                 "rotation":0,
+                 "type":"sensor",
+                 "visible":true,
+                 "width":0,
+                 "x":970.105263157895,
+                 "y":983.578947368421
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -259,7 +282,7 @@
          "y":0
         }],
  "nextlayerid":3,
- "nextobjectid":11,
+ "nextobjectid":14,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

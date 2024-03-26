@@ -8,26 +8,29 @@
 #ifndef GameSceneConstants_h
 #define GameSceneConstants_h
 
-#include <cugl/cugl.h>
-#include <box2d/b2_world.h>
-#include <box2d/b2_contact.h>
-#include <box2d/b2_collision.h>
-#include <ctime>
-#include <string>
-#include <iostream>
-#include <sstream>
-#include "../controllers/InputController.h"
-#include "../controllers/InteractionController.h"
-#include "../controllers/CharacterController.h"
-#include "../controllers/AudioController.h"
-#include "../models/PlatformModel.h"
-#include "../models/ButtonModel.h"
-#include "../models/WallModel.h"
-#include "../helpers/LevelLoader.h"
-#include "../helpers/LevelConstants.h"
-#include "../controllers/CameraController.h"
-#include "../controllers/PauseEvent.h"
-#include "../DPInput.h"
+/** THESE BELOW are useful for CHARACTER TUNING!*/
+/** The default value of gravity (going down) */
+#define CHARACTER_GRAVITY -75.0f
+/** This is not used for now. */
+#define MAX_TORQUE 10000000.0f
+/** Character's max force */
+#define MAX_FORCE  50000.0f
+/** The density for the character's body */
+#define BODY_DENSITY 0.8f
+/** The density for character's hands*/
+#define HAND_DENSITY 0.7f
+/** The density for other body parts. Right now we don't have other body parts (I think - from George). */
+#define DEFAULT_DENSITY  1.0f
+/** Friction for character's hands*/
+#define HAND_FRICTION 1.0f
+/** Friction for other body parts (right now it's just the big head I think - from George) */
+#define OTHER_FRICTION 1.0f
+/** input scaler - how effective can the finger input affect the character movement*/
+#define INPUT_SCALER 1.5f
+/** HOW LONG the arms can stretch*/
+#define MAX_ARM_LENGTH 6.8f
+#define MIN_ARM_LENGTH 0.0f
+/** THESE ABOVE are useful for CHARACTER TUNING!*/
 
 /** This is the size of the active portion of the screen */
 #define SCENE_WIDTH 1024
@@ -37,12 +40,17 @@
 #define DEFAULT_WIDTH   32.0f
 /** Height of the game world in Box2d units */
 #define DEFAULT_HEIGHT  18.0f
-/** The default value of gravity (going down) */
-#define DEFAULT_GRAVITY -150.f
 
 #define DEFAULT_TURN_RATE 0.05f
 #define FIXED_TIMESTEP_S 0.02f
 
-#define INPUT_SCALER 1.5f
+#define DEFAULT_ZOOM 0.25
+#define ZOOMIN_SPEED 0.01
+#define NOZOOM 0
+#define ZOOMIN 1
+#define ZOOMOUT 2
+
+#define CJOINT_OFFSET 3.0f
+#define HALF_CJOINT_OFFSET 1.5f
 
 #endif /* GameSceneConstants_h */

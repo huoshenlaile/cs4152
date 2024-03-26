@@ -52,7 +52,7 @@ public:
           std::string pub_id;
           std::string trigger;
           std::string message;
-          std::shared_ptr<std::unordered_map<std::string, std::string>> body;
+          std::unordered_map<std::string, std::string> body;
     };
     
     struct SubscriberMessage {
@@ -62,8 +62,11 @@ public:
     };
     
     std::queue<PublisherMessage> messageQueue;
-    std::unordered_map<std::string, std::unordered_map<std::string, std::vector<SubscriberMessage>>> subscriptions;
     //subscriptions[pub_id][listening_for]
+    std::unordered_map<std::string, std::unordered_map<std::string, std::vector<SubscriberMessage>>> subscriptions;
+    
+    //publications[trigger][pub_id]
+    std::unordered_map<std::string, std::unordered_map<std::string, PublisherMessage>> publications;
 
     /** the TENTATIVE initializer for this (feel free to change), according to our arch spec
      */
@@ -72,7 +75,8 @@ public:
               std::shared_ptr<CharacterController> characterB,
               std::vector<std::shared_ptr<ButtonModel>> buttons,
               std::vector<std::shared_ptr<WallModel>> walls,
-              std::shared_ptr<LevelLoader> level);
+              std::shared_ptr<LevelLoader> level,
+              const std::shared_ptr<cugl::JsonValue>& json);
     
     
     //TODO: Make this method protected, but public right now for testing
@@ -85,6 +89,15 @@ public:
  * @return true if the publisher exists and the subscriber was added, false otherwise
  */
     bool addSubscription(SubscriberMessage&& message);
+    
+/**
+ * Creates a new publication
+ *
+ * @param message  The publisher message
+ *
+ * @return true if the publisher was added, false otherwise
+ */
+    bool addPublisher(PublisherMessage&& message);
 
     
 #pragma mark Collision Handling

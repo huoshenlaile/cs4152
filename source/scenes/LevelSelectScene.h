@@ -14,36 +14,33 @@ protected:
     /** The asset manager for this scene. */
     std::shared_ptr<cugl::AssetManager> _assets;
     /** The network connection (as made by this scene) */
-    std::shared_ptr<NetEventController> _network;
+//    std::shared_ptr<NetEventController> _network;
 
     /** The menu button for starting a game */
     std::shared_ptr<cugl::scene2::Button> _startgame;
     /** The back button for the menu scene */
     std::shared_ptr<cugl::scene2::Button> _backout;
     /** The game id label (for updating) */
-    std::shared_ptr<cugl::scene2::Label> _gameid;
+//    std::shared_ptr<cugl::scene2::Label> _gameid;
     /** The players label (for updating) */
-    std::shared_ptr<cugl::scene2::Label> _player;
+//    std::shared_ptr<cugl::scene2::Label> _player;
     
     /** The network configuration */
-    cugl::net::NetcodeConfig _config;
+//    cugl::net::NetcodeConfig _config;
     
-    cugl::Timestamp _pingTimer;
-    
-    Uint64 _totalPing;
-    
-    int _sendCount;
-    
-    int _receiveCount;
+//    cugl::Timestamp _pingTimer;
+//    Uint64 _totalPing;
+//    int _sendCount;
+//    int _receiveCount;
 
 public:
     /** the state of this scene, referenced by DPApp*/
     enum SceneState {
         INSCENE,
-        HANDSHAKE,
+//        NETERROR,
+//        HANDSHAKE,
         STARTGAME,
-        BACK,
-        NETERROR
+        BACK
     };
     SceneState state;
 #pragma mark -
@@ -84,6 +81,9 @@ public:
      * @return true if the controller is initialized properly, false otherwise.
      */
     bool init(const std::shared_ptr<cugl::AssetManager>& assets, std::shared_ptr<NetEventController> network);
+    
+    /** NOW we are NOT doing multiplayer.  So we need this simpler init.*/
+    bool init(const std::shared_ptr<cugl::AssetManager>& assets);
     
     /**
      * Sets whether the scene is currently active

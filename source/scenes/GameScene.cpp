@@ -1,11 +1,4 @@
 #include "GameScene.h"
-#include <box2d/b2_collision.h>
-#include <box2d/b2_contact.h>
-#include <box2d/b2_world.h>
-#include <ctime>
-#include <iostream>
-#include <sstream>
-#include <string>
 
 using namespace cugl;
 using namespace cugl::physics2::net;
@@ -29,14 +22,14 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	const std::shared_ptr<NetEventController> network,
 	bool isHost) {
 	return GameScene::init(assets, Rect(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT),
-		Vec2(0, DEFAULT_GRAVITY), network, isHost);
+		Vec2(0, CHARACTER_GRAVITY), network, isHost);
 }
 
 bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	const cugl::Rect rect,
 	const std::shared_ptr<NetEventController> network,
 	bool isHost) {
-	return init(assets, rect, Vec2(0, DEFAULT_GRAVITY), network, isHost);
+	return init(assets, rect, Vec2(0, CHARACTER_GRAVITY), network, isHost);
 }
 
 bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
@@ -98,10 +91,25 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 		_assets->get<scene2::SceneNode>("pause"));
 	_pause->addListener([this](const std::string& name, bool down) {
 		if (down) {
-            _gamePaused = true;
+			_gamePaused = true;
+			//			CULog("Pause button hit");
+			//			_network->pushOutEvent(PauseEvent::allocPauseEvent(
+			//				Vec2(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 2), true));
 		}
-		});
+    });
 	_uinode->addChild(_pause);
+	//
+	//	_pause = std::dynamic_pointer_cast<scene2::Button>(
+	//		_assets->get<scene2::SceneNode>("pause"));
+	//
+	//	_pause->addListener([this](const std::string& name, bool down) {
+	//		if (down) {
+	//			CULog("Pause button hit");
+	//			_network->pushOutEvent(PauseEvent::allocPauseEvent(
+	//				Vec2(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 2), true));
+	//		}
+	//		// CULog("Pause button hit");
+	//		});
 
 	addChild(_worldnode);
 	addChild(_uinode);
@@ -109,7 +117,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	_worldnode->setContentSize(Size(SCENE_WIDTH, SCENE_HEIGHT));
 #pragma mark LevelLoader
 	// make the getter for loading the map
-	_level = assets->get<LevelLoader>(LEVEL_ONE_KEY);
+	_level = assets->get<LevelLoader>(ALPHA_RELEASE_KEY);
 	if (_level == nullptr) {
 		CULog("Fail loading levels");
 		return false;
@@ -117,14 +125,14 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	_level->setAssets(_assets);
 	_level->setRootNode(_worldnode);
 	_platformWorld = _level->getPhysicsWorld();
-    
     auto pm = PaintModel::alloc({}, _assets, _worldnode);
     _paintModels.push_back(pm);
     addPaintObstacles();
 
+    _platformWorld -> setGravity(gravity);
 
 #pragma mark Character 1
-	_characterControllerA = CharacterController::alloc({ 16, 25 }, _scale);
+	_characterControllerA = CharacterController::alloc(_level->getCharacterPos(), _scale);
 	CULog("7538fe43 _scale = %f", _scale);
 	_characterControllerA->buildParts(_assets);
 	_characterControllerA->createJoints();
@@ -151,7 +159,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 
 #pragma mark InputControllers
 	// TODO: setup the inputController (PlatformInput, from Harry)
-	_inputController = std::make_shared<PlatformInput>();
+	_inputController = std::make_shared<InputController>();
 	_inputController->init(rect);
 	_inputController->fillHand(_characterControllerA->getLeftHandPosition(),
 		_characterControllerA->getRightHandPosition(),
@@ -160,15 +168,8 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 
 #pragma mark InteractionController
 	// TODO: fix this init after finishing characterControllers
-	_interactionController.init({}, _characterControllerA, nullptr, {}, {}, _level);
-	// TODO: remove, this is for testing purposes
-	InteractionController::SubscriberMessage sub1 = { "goalDoor", "contacted",
-		std::unordered_map<std::string, std::string>({{"win","true"}}) };
-	_interactionController.addSubscription(std::move(sub1));
-    InteractionController::SubscriberMessage sub2 = { "sensor", "contacted",
-        std::unordered_map<std::string, std::string>({{"sensed","true"}}) };
-    _interactionController.addSubscription(std::move(sub2));
-
+    _assets->load<JsonValue>(LEVEL_ONE_KEY_JSON, LEVEL_ONE_FILE);
+	_interactionController.init({}, _characterControllerA, nullptr, {}, {}, _level, _assets->get<JsonValue>(LEVEL_ONE_KEY_JSON));
 
 	//    _camera.init(charNode,_worldnode,1.0f,
 	//    std::dynamic_pointer_cast<OrthographicCamera>(getCamera()),
@@ -184,11 +185,13 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	//    _audioController->init(_assets);
 	//    _audioController->play("box2DtheWORSTphysicsEngineIEverUsed",
 	//    "PhantomLiberty");
+    
+    
 	_camera.setTarget(_characterControllerA->getBodySceneNode());
 	_camera.init(_characterControllerA->getBodySceneNode(), _worldnode, 10.0f,
 		std::dynamic_pointer_cast<OrthographicCamera>(getCamera()),
-		_uinode, 5.0f);
-	_camera.setZoom(0.6);
+		_uinode, 1.0f);
+	_camera.setZoom(DEFAULT_ZOOM);
 
 	return true;
 }
@@ -260,15 +263,14 @@ void GameScene::setActive(bool value) {
 		else {
 			_pause->deactivate();
 			_pause->setDown(false);
-            
 		}
 	}
-    _inputController = std::make_shared<PlatformInput>();
-    _inputController->init(Rect(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT));
-    _inputController->fillHand(_characterControllerA->getLeftHandPosition(),
-        _characterControllerA->getRightHandPosition(),
-        _characterControllerA->getLHPos(),
-        _characterControllerA->getRHPos());
+	_inputController = std::make_shared<InputController>();
+	_inputController->init(Rect(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT));
+	_inputController->fillHand(_characterControllerA->getLeftHandPosition(),
+		_characterControllerA->getRightHandPosition(),
+		_characterControllerA->getLHPos(),
+		_characterControllerA->getRHPos());
 }
 
 #pragma mark -
@@ -280,47 +282,51 @@ void GameScene::setActive(bool value) {
  * This method disposes of the world and creates a new one.
  */
 void GameScene::reset() {
-    // reload the level
-    
+	// reload the level
+
 //	CULog("GAME RESET");
-    _assets->unload<LevelLoader>(LEVEL_ONE_KEY);
-    _assets->load<LevelLoader>(LEVEL_ONE_KEY, LEVEL_ONE_FILE);
-    
-    _level = nullptr;
-    _level = _assets->get<LevelLoader>(LEVEL_ONE_KEY);
-    _level->setAssets(_assets);
-    _level->setRootNode(_worldnode);
-    
-    _platformWorld = nullptr;
-    _platformWorld = _level->getPhysicsWorld();
-    
-    //reload the character
+	_assets->unload<LevelLoader>(ALPHA_RELEASE_KEY);
+	_assets->load<LevelLoader>(ALPHA_RELEASE_KEY, ALPHA_RELEASE_FILE);
+
+	_level = nullptr;
+	_level = _assets->get<LevelLoader>(ALPHA_RELEASE_KEY);
+	_level->setAssets(_assets);
+	_level->setRootNode(_worldnode);
+
+	_platformWorld = nullptr;
+	_platformWorld = _level->getPhysicsWorld();
+
+	//reload the character
 //    _characterControllerA = nullptr;
-    _characterControllerA = CharacterController::alloc({ 16, 25 }, _scale);
-    CULog("7538fe43 _scale = %f", _scale);
-    _characterControllerA->buildParts(_assets);
-    _characterControllerA->createJoints();
-    auto charNode = scene2::SceneNode::alloc();
-    _worldnode->addChild(charNode);
-    _characterControllerA->linkPartsToWorld(_platformWorld, charNode, _scale);
+	_characterControllerA = CharacterController::alloc(_level->getCharacterPos(), _scale);
+	CULog("7538fe43 _scale = %f", _scale);
+	_characterControllerA->buildParts(_assets);
+	_characterControllerA->createJoints();
+	auto charNode = scene2::SceneNode::alloc();
+	_worldnode->addChild(charNode);
+	_characterControllerA->linkPartsToWorld(_platformWorld, charNode, _scale);
 	setComplete(false);
+
+	//reload the input
+	_inputController = std::make_shared<InputController>();
+	_inputController->init(Rect(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT));
+	_inputController->fillHand(_characterControllerA->getLeftHandPosition(),
+		_characterControllerA->getRightHandPosition(),
+		_characterControllerA->getLHPos(),
+		_characterControllerA->getRHPos());
     
-    //reload the input
-    _inputController = std::make_shared<PlatformInput>();
-    _inputController->init(Rect(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT));
-    _inputController->fillHand(_characterControllerA->getLeftHandPosition(),
-        _characterControllerA->getRightHandPosition(),
-        _characterControllerA->getLHPos(),
-        _characterControllerA->getRHPos());
-    
-    //reload the camera
-    _camera.setTarget(_characterControllerA->getBodySceneNode());
-    _camera.init(_characterControllerA->getBodySceneNode(), _worldnode, 10.0f,
-        std::dynamic_pointer_cast<OrthographicCamera>(getCamera()),
-        _uinode, 5.0f);
-    _camera.setZoom(0.6);
+    //reload interaction controller
+    _assets->unload<JsonValue>(LEVEL_ONE_KEY_JSON);
+    _assets->load<JsonValue>(LEVEL_ONE_KEY_JSON, LEVEL_ONE_FILE);
+    _interactionController.init({}, _characterControllerA, nullptr, {}, {}, _level, _assets->get<JsonValue>(LEVEL_ONE_KEY_JSON));
+
+	//reload the camera
 	_camera.setTarget(_characterControllerA->getBodySceneNode());
-    
+	_camera.init(_characterControllerA->getBodySceneNode(), _worldnode, 10.0f,
+		std::dynamic_pointer_cast<OrthographicCamera>(getCamera()),
+		_uinode, 5.0f);
+	_camera.setZoom(0.6);
+	_camera.setTarget(_characterControllerA->getBodySceneNode());
 
 	Application::get()->resetFixedRemainder();
 }
@@ -358,7 +364,6 @@ void GameScene::preUpdate(float dt) {
 		i->worldPos = (Vec2)Scene2::screenToWorldCoords(i->position);
 		//CULog("Touch coord at: %f %f \n", i->position.x, i->position.y);
 		//CULog("World coord at: %f %f \n", i->worldPos.x, i->worldPos.y);
-
 	}
 	//_inputController->worldtouchPos = (Vec2)Scene2::screenToWorldCoords(_inputController->touchPos);
 
@@ -399,30 +404,24 @@ void GameScene::preUpdate(float dt) {
 		InteractionController::PublisherMessage publication = _interactionController.messageQueue.front();
 		// std::cout <<"PUB: "<< publication.pub_id<< " " << publication.trigger << " " << publication.message << "\n";
 		for (const InteractionController::SubscriberMessage& s : _interactionController.subscriptions[publication.pub_id][publication.message]) {
-			// std::cout << "SUB: " << s.pub_id << " " << s.listening_for << "\n";
-			if (s.listening_for == "pressed") {
-				CULog("Do press button action");
-			}
-			if (s.listening_for == "released") {
-				CULog("Do release button action");
-			}
-			if (s.pub_id == "goalDoor" && s.listening_for == "contacted") {
-				CULog("Winner!");
-				setComplete(true);
-			}
-            if (s.pub_id == "sensor" && s.listening_for == "contacted") {
-                CULog("DETECTED!");
+            std::cout << s.pub_id << " " << s.listening_for << "\n";
+            if (s.actions.count("win")>0){
+                CULog("Winner!");
+                setComplete(true);
             }
-			std::cout << s.pub_id << " " << s.listening_for << "\n";
+			if (s.actions.count("fire")>0) {
+                std::cout << "Firing bottle <" << s.actions.at("fire") << ">\n\n";
+			}
 		}
 		_interactionController.messageQueue.pop();
 	}
 	// TODO: error handle for loading different levels when we have multiple
 	// levels
 	//    _camera.update(dt);
-	//_camera.addZoom(_input.getZoom() * 0.01);
 	_camera.update(dt);
-	//_camera.setZoom(0.5);
+	//_camera.process(ZOOMIN, 0.01);
+	//_camera.process(ZOOMOUT, 0.01);
+
 	// TODO: if (indicator == true), allocate a crate event for the center of the
 	// screen(use DEFAULT_WIDTH/2 and DEFAULT_HEIGHT/2) and send it using the
 	// pushOutEvent() method in the network controller.
@@ -454,13 +453,12 @@ void GameScene::postUpdate(float dt) {
 	// _platformWorld->setGravity(Vec2(0, -30.0f));
 	// CULog("_platformWorld gravity: %f, %f", _platformWorld->getGravity().x, _platformWorld->getGravity().y);
 	// _platformWorld->setGravity(Vec2(0, -98));
-	
 }
 
 void GameScene::fixedUpdate(float dt) {
 	// TODO: check for available incoming events from the network controller and
 	// call processGrabEvent if it is a GrabEvent.
-    
+
 //    processPauseEvent();
 //	if (_network->isInAvailable()) {
 //		auto e = _network->popInEvent();
@@ -480,6 +478,7 @@ void GameScene::fixedUpdate(float dt) {
 	// _characterControllerA->getBodySceneNode()->getPositionY() << std::endl;
 	_platformWorld->update(dt);
 	_camera.update(dt);
+    _characterControllerA->update(dt);
 }
 
 void GameScene::update(float dt) {

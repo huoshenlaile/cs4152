@@ -44,55 +44,58 @@ static std::string hex2dec(const std::string hex) {
 
 
 #pragma mark Class Methods
+bool LevelSelectScene::init(const std::shared_ptr<cugl::AssetManager> &assets) {
+        // Initialize the scene to a locked width
+        Size dimen = Application::get()->getDisplaySize();
+        dimen *= SCENE_HEIGHT/dimen.height;
+        if (assets == nullptr) {
+            return false;
+        } else if (!Scene2::init(dimen)) {
+            return false;
+        }
+
+    //    _network = network;
+        
+        // Start up the input handler
+        _assets = assets;
+        
+        // Acquire the scene built by the asset loader and resize it the scene
+        std::shared_ptr<scene2::SceneNode> scene = _assets->get<scene2::SceneNode>("host");
+        scene->setContentSize(dimen);
+        scene->doLayout(); // Repositions the HUD
+
+        _startgame = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("host_center_start"));
+        _backout = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("host_back"));
+    //    _gameid = std::dynamic_pointer_cast<scene2::Label>(_assets->get<scene2::SceneNode>("host_center_game_field_text"));
+    //    _player = std::dynamic_pointer_cast<scene2::Label>(_assets->get<scene2::SceneNode>("host_center_players_field_text"));
+        
+        // Program the buttons
+        _backout->addListener([this](const std::string& name, bool down) {
+            if (down) {
+                this -> state = BACK;
+            }
+        });
+
+        _startgame->addListener([this](const std::string& name, bool down) {
+            if (down) {
+                startGame();
+            }
+        });
+        
+        // Create the server configuration
+    //    auto json = _assets->get<JsonValue>("server");
+    //    _config.set(json);
+    //    _sendCount = 0;
+    //    _receiveCount = 0;
+    //    _totalPing = 0;
+        addChild(scene);
+        setActive(false);
+        return true;
+}
+
 bool LevelSelectScene::init(const std::shared_ptr<cugl::AssetManager>& assets, std::shared_ptr<NetEventController> network) {
-    // Initialize the scene to a locked width
-    Size dimen = Application::get()->getDisplaySize();
-    dimen *= SCENE_HEIGHT/dimen.height;
-    if (assets == nullptr) {
-        return false;
-    } else if (!Scene2::init(dimen)) {
-        return false;
-    }
-
-    _network = network;
-    
-    // Start up the input handler
-    _assets = assets;
-    
-    // Acquire the scene built by the asset loader and resize it the scene
-    std::shared_ptr<scene2::SceneNode> scene = _assets->get<scene2::SceneNode>("host");
-    scene->setContentSize(dimen);
-    scene->doLayout(); // Repositions the HUD
-
-    _startgame = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("host_center_start"));
-    _backout = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("host_back"));
-    _gameid = std::dynamic_pointer_cast<scene2::Label>(_assets->get<scene2::SceneNode>("host_center_game_field_text"));
-    _player = std::dynamic_pointer_cast<scene2::Label>(_assets->get<scene2::SceneNode>("host_center_players_field_text"));
-    
-    // Program the buttons
-    _backout->addListener([this](const std::string& name, bool down) {
-        if (down) {
-            this -> state = BACK;
-        }
-    });
-
-    _startgame->addListener([this](const std::string& name, bool down) {
-        if (down) {
-            startGame();
-        }
-    });
-    
-    // Create the server configuration
-    auto json = _assets->get<JsonValue>("server");
-    _config.set(json);
-    
-    _sendCount = 0;
-    _receiveCount = 0;
-    _totalPing = 0;
-
-    addChild(scene);
-    setActive(false);
-    return true;
+    // no, we don't use this. we are single-player.
+    return false;
 }
 
 /**
@@ -119,11 +122,13 @@ void LevelSelectScene::setActive(bool value) {
         Scene2::setActive(value);
         if (value) {
             _backout->activate();
-            _network->disconnect();
-            _network->connectAsHost();
+            _startgame->activate();
+            updateText(_startgame, "Start Game");
+//            _network->disconnect();
+//            _network->connectAsHost();
             state = INSCENE;
         } else {
-            _gameid->setText("");
+//            _gameid->setText("");
             _startgame->deactivate();
             updateText(_startgame, "INACTIVE");
             _backout->deactivate();
@@ -161,30 +166,31 @@ void LevelSelectScene::updateText(const std::shared_ptr<scene2::Button>& button,
  * @param timestep  The amount of time (in seconds) since the last frame
  */
 void LevelSelectScene::update(float timestep) {
-    if(_network->getStatus() == NetEventController::Status::CONNECTED){
-        if (this -> state != STARTGAME) {
-            updateText(_startgame, "Start Game");
-            _startgame->activate();
-        }
-        else {
-            updateText(_startgame, "Starting");
-            _startgame->deactivate();
-        }
-        _gameid->setText(hex2dec(_network->getRoomID()));
-        _player->setText(std::to_string(_network->getNumPlayers()));
-    } else if (_network->getStatus() == NetEventController::Status::HANDSHAKE && _network->getShortUID()) {
-        state = HANDSHAKE;
-    } else if (_network->getStatus() == NetEventController::Status::INGAME) {
-        state = STARTGAME;
-    } else if (_network->getStatus() == NetEventController::Status::NETERROR) {
-        state = NETERROR;
-    }
+//    if(_network->getStatus() == NetEventController::Status::CONNECTED){
+//        if (this -> state != STARTGAME) {
+//            updateText(_startgame, "Start Game");
+//            _startgame->activate();
+//        }
+//        else {
+//            updateText(_startgame, "Starting");
+//            _startgame->deactivate();
+//        }
+//        _gameid->setText(hex2dec(_network->getRoomID()));
+//        _player->setText(std::to_string(_network->getNumPlayers()));
+//    } else if (_network->getStatus() == NetEventController::Status::HANDSHAKE && _network->getShortUID()) {
+//        state = HANDSHAKE;
+//    } else if (_network->getStatus() == NetEventController::Status::INGAME) {
+//        state = STARTGAME;
+//    } else if (_network->getStatus() == NetEventController::Status::NETERROR) {
+//        state = NETERROR;
+//    }
 }
 
 /**
  * This method prompts the network controller to start the game.
  */
 void LevelSelectScene::startGame(){
-    _network->startGame();
+//    _network->startGame();
     // this -> state = STARTGAME;
+    this -> state = STARTGAME;
 }

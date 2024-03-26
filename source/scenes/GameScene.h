@@ -1,7 +1,30 @@
 #ifndef __GAME_SCENE_H__
 #define __GAME_SCENE_H__
+#include <cugl/cugl.h>
+#include <box2d/b2_world.h>
+#include <box2d/b2_contact.h>
+#include <box2d/b2_collision.h>
+#include <ctime>
+#include <string>
+#include <iostream>
+#include <sstream>
+#include "../controllers/InputController.h"
+#include "../controllers/InteractionController.h"
+#include "../controllers/CharacterController.h"
+#include "../controllers/AudioController.h"
+#include "../models/PlatformModel.h"
+#include "../models/ButtonModel.h"
+#include "../models/WallModel.h"
+#include "../helpers/LevelLoader.h"
+#include "../helpers/LevelConstants.h"
+#include "../controllers/CameraController.h"
+#include "../controllers/PauseEvent.h"
+#include "../controllers/InputController.h"
+
+// INCLUDE THIS AT LAST to avoid repeat naming (will trigger bewildering bugs)
 #include "../helpers/GameSceneConstants.h"
 #include "../models/PaintGrowerModel.hpp"
+
 
 class GameScene : public cugl::Scene2 {
 protected:
@@ -16,10 +39,10 @@ protected:
 	std::shared_ptr<NetEventController> _network;
 	/** Character Controller*/
 	std::shared_ptr<CharacterController> _characterControllerA;
-	std::shared_ptr<CharacterController> _characterControllerB;
+//	std::shared_ptr<CharacterController> _characterControllerB;
 	/** Audio Controller*/
 	std::shared_ptr<AudioController> _audioController;
-	std::shared_ptr<PlatformInput> _inputController;
+	std::shared_ptr<InputController> _inputController;
 
 	std::shared_ptr<cugl::physics2::net::NetWorld> _platformWorld;
     std::shared_ptr<cugl::scene2::Button> _pause;
@@ -51,14 +74,6 @@ protected:
 	std::shared_ptr<LevelLoader> _level;
 	/** The scale between the physics world and the screen (MUST BE UNIFORM) */
 	float _scale;
-
-	// Physics objects for the game
-	/** Reference to the player1 cannon */
-	std::shared_ptr<cugl::scene2::SceneNode> _cannon1Node;
-	std::shared_ptr<cugl::physics2::BoxObstacle> _cannon1;
-	/** Reference to the player2 cannon */
-	std::shared_ptr<cugl::scene2::SceneNode> _cannon2Node;
-	std::shared_ptr<cugl::physics2::BoxObstacle> _cannon2;
 
 	/** Host is by default the left cannon */
 	bool _isHost;
