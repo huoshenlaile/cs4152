@@ -745,6 +745,7 @@ void CharacterController::linkPartsToWorld(const std::shared_ptr<cugl::physics2:
 		std::shared_ptr<scene2::PolygonNode> sprite;
 		std::shared_ptr<scene2::SpriteNode> bodySprite;
 
+        // TODO: Put this in macros
 		if (i == PART_BODY)
 		{
 			if (_color == "black")
