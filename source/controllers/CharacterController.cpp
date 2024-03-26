@@ -9,7 +9,7 @@ bool CharacterController::init(const cugl::Vec2 &pos, float scale)
 	_offset = pos;
 	_drawScale = scale;
 
-	_color = "green";
+	_color = "pink";
 	_actions = scene2::ActionManager::alloc();
 	const int span = 24;
 	std::vector<int> animate;
@@ -174,7 +174,9 @@ bool CharacterController::buildParts(const std::shared_ptr<AssetManager> &assets
 		{
 			std::shared_ptr<Texture> bodySpriteSheet = assets->get<Texture>("pink_animation");
 			std::shared_ptr<Texture> decorationSheet = assets->get<Texture>("pink_decoration");
-			if (bodySpriteSheet == nullptr || decorationSheet == nullptr)
+			std::shared_ptr<Texture> lefthandSheet = assets->get<Texture>("pink_lh");
+			std::shared_ptr<Texture> righthandSheet = assets->get<Texture>("pink_rh");
+			if (bodySpriteSheet == nullptr || decorationSheet == nullptr || lefthandSheet == nullptr || righthandSheet == nullptr)
 			{
 				success = false;
 			}
@@ -182,19 +184,27 @@ bool CharacterController::buildParts(const std::shared_ptr<AssetManager> &assets
 			{
 				_pinktextures = bodySpriteSheet;
 				_pinkdecoration = decorationSheet;
+				_pinklh = lefthandSheet;
+				_pinkrh = righthandSheet;
 			}
 			bodySpriteSheet = assets->get<Texture>("black_animation");
-			if (bodySpriteSheet == nullptr)
+			lefthandSheet = assets->get<Texture>("black_lh");
+			righthandSheet = assets->get<Texture>("black_rh");
+			if (bodySpriteSheet == nullptr || lefthandSheet == nullptr || righthandSheet == nullptr)
 			{
 				success = false;
 			}
 			else
 			{
 				_blacktextures = bodySpriteSheet;
+				_blacklh = lefthandSheet;
+				_blackrh = righthandSheet;
 			}
 			bodySpriteSheet = assets->get<Texture>("blue_animation");
 			decorationSheet = assets->get<Texture>("blue_decoration");
-			if (bodySpriteSheet == nullptr || decorationSheet == nullptr)
+			lefthandSheet = assets->get<Texture>("blue_lh");
+			righthandSheet = assets->get<Texture>("blue_rh");
+			if (bodySpriteSheet == nullptr || decorationSheet == nullptr || lefthandSheet == nullptr || righthandSheet == nullptr)
 			{
 				success = false;
 			}
@@ -202,10 +212,14 @@ bool CharacterController::buildParts(const std::shared_ptr<AssetManager> &assets
 			{
 				_bluetextures = bodySpriteSheet;
 				_bluedecoration = decorationSheet;
+				_bluelh = lefthandSheet;
+				_bluerh = righthandSheet;
 			}
 			bodySpriteSheet = assets->get<Texture>("green_animation");
 			decorationSheet = assets->get<Texture>("green_decoration");
-			if (bodySpriteSheet == nullptr || decorationSheet == nullptr)
+			lefthandSheet = assets->get<Texture>("green_lh");
+			righthandSheet = assets->get<Texture>("green_rh");
+			if (bodySpriteSheet == nullptr || decorationSheet == nullptr || lefthandSheet == nullptr || righthandSheet == nullptr)
 			{
 				success = false;
 			}
@@ -213,10 +227,14 @@ bool CharacterController::buildParts(const std::shared_ptr<AssetManager> &assets
 			{
 				_greentextures = bodySpriteSheet;
 				_greendecoration = decorationSheet;
+				_greenlh = lefthandSheet;
+				_greenrh = righthandSheet;
 			}
 			bodySpriteSheet = assets->get<Texture>("orange_animation");
 			decorationSheet = assets->get<Texture>("orange_decoration");
-			if (bodySpriteSheet == nullptr || decorationSheet == nullptr)
+			lefthandSheet = assets->get<Texture>("orange_lh");
+			righthandSheet = assets->get<Texture>("orange_rh");
+			if (bodySpriteSheet == nullptr || decorationSheet == nullptr || lefthandSheet == nullptr || righthandSheet == nullptr)
 			{
 				success = false;
 			}
@@ -224,9 +242,13 @@ bool CharacterController::buildParts(const std::shared_ptr<AssetManager> &assets
 			{
 				_orangetextures = bodySpriteSheet;
 				_orangedecoration = decorationSheet;
+				_orangelh = lefthandSheet;
+				_orangerh = righthandSheet;
 			}
 			bodySpriteSheet = assets->get<Texture>("purple_animation");
 			decorationSheet = assets->get<Texture>("purple_decoration");
+			lefthandSheet = assets->get<Texture>("purple_lh");
+			righthandSheet = assets->get<Texture>("purple_rh");
 			if (bodySpriteSheet == nullptr)
 			{
 				success = false;
@@ -235,6 +257,8 @@ bool CharacterController::buildParts(const std::shared_ptr<AssetManager> &assets
 			{
 				_purpletextures = bodySpriteSheet;
 				_purpledecoration = decorationSheet;
+				_purplelh = lefthandSheet;
+				_purplerh = righthandSheet;
 			}
 		}
 		std::string name = getPartName(ii);
@@ -717,7 +741,8 @@ void CharacterController::linkPartsToWorld(const std::shared_ptr<cugl::physics2:
 		//     continue;
 		// }
 		std::shared_ptr<Texture> image = _textures[i];
-		std::shared_ptr<scene2::PolygonNode> sprite = scene2::PolygonNode::allocWithTexture(image);
+		// std::shared_ptr<scene2::PolygonNode> sprite = scene2::PolygonNode::allocWithTexture(image);
+		std::shared_ptr<scene2::PolygonNode> sprite;
 		std::shared_ptr<scene2::SpriteNode> bodySprite;
 
 		if (i == PART_BODY)
@@ -751,9 +776,61 @@ void CharacterController::linkPartsToWorld(const std::shared_ptr<cugl::physics2:
 			_scenenode->addChild(_bodyNode);
 		}
 		else if (i == PART_LH)
+		{
+			if (_color == "black")
+			{
+				sprite = scene2::PolygonNode::allocWithTexture(_blacklh);
+			}
+			else if (_color == "orange")
+			{
+				sprite = scene2::PolygonNode::allocWithTexture(_orangelh);
+			}
+			else if (_color == "pink")
+			{
+				sprite = scene2::PolygonNode::allocWithTexture(_pinklh);
+			}
+			else if (_color == "purple")
+			{
+				sprite = scene2::PolygonNode::allocWithTexture(_purplelh);
+			}
+			else if (_color == "green")
+			{
+				sprite = scene2::PolygonNode::allocWithTexture(_greenlh);
+			}
+			else if (_color == "blue")
+			{
+				sprite = scene2::PolygonNode::allocWithTexture(_bluelh);
+			}
 			_LHNode = sprite;
+		}
 		else if (i == PART_RH)
+		{
+			if (_color == "black")
+			{
+				sprite = scene2::PolygonNode::allocWithTexture(_blackrh);
+			}
+			else if (_color == "orange")
+			{
+				sprite = scene2::PolygonNode::allocWithTexture(_orangerh);
+			}
+			else if (_color == "pink")
+			{
+				sprite = scene2::PolygonNode::allocWithTexture(_pinkrh);
+			}
+			else if (_color == "purple")
+			{
+				sprite = scene2::PolygonNode::allocWithTexture(_purplerh);
+			}
+			else if (_color == "green")
+			{
+				sprite = scene2::PolygonNode::allocWithTexture(_greenrh);
+			}
+			else if (_color == "blue")
+			{
+				sprite = scene2::PolygonNode::allocWithTexture(_bluerh);
+			}
 			_RHNode = sprite;
+		}
 
 		_world->addObstacle(obj);
 		// obj->setDebugScene(_debugnode);
