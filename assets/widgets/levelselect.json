@@ -429,67 +429,9 @@
                         340.82
                     ],
                     "visible": true,
-                    "upnode": "down"
+                    "upnode": "up"
                 },
                 "children": {
-                    "down": {
-                        "type": "Node",
-                        "format": {
-                            "type": "Anchored"
-                        },
-                        "data": {
-                            "anchor": [
-                                0,
-                                1
-                            ],
-                            "size": [
-                                370.59,
-                                237.05
-                            ],
-                            "angle": 0,
-                            "position": [
-                                0,
-                                -9.87
-                            ],
-                            "visible": false
-                        },
-                        "children": {
-                            "button_third_down": {
-                                "type": "Image",
-                                "data": {
-                                    "texture": "button_third_down",
-                                    "anchor": [
-                                        0,
-                                        1
-                                    ],
-                                    "size": [
-                                        370.59,
-                                        237.05
-                                    ],
-                                    "angle": 0,
-                                    "position": [
-                                        0,
-                                        0
-                                    ],
-                                    "visible": true
-                                },
-                                "layout": {
-                                    "x_anchor": "left",
-                                    "y_anchor": "top",
-                                    "absolute": false,
-                                    "x_offset": 0,
-                                    "y_offset": 0
-                                }
-                            }
-                        },
-                        "layout": {
-                            "x_anchor": "left",
-                            "y_anchor": "top",
-                            "absolute": false,
-                            "x_offset": 0,
-                            "y_offset": 0
-                        }
-                    },
                     "up": {
                         "type": "Node",
                         "format": {
