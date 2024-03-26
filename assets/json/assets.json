@@ -989,31 +989,7 @@
                 }
             }
         },
-        "pause": {
-            "type": "Button",
-            "data": {
-                "upnode": "up",
-                "anchor": [
-                    0.0,
-                    0.0
-                ]
-            },
-            "children": {
-                "up": {
-                    "type": "Image",
-                    "data": {
-                        "texture": "left"
-                    }
-                }
-            },
-            "layout": {
-                "x_anchor": "left",
-                "y_anchor": "bottom",
-                "y_offset": 10,
-                "x_offset": 10,
-                "absolute": true
-            }
-        },
+
         "game": {
             "type": "Node",
             "format": {
