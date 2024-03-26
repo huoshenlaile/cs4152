@@ -87,7 +87,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	_uinode->addChild(_loadnode);
 
 	_pause = std::dynamic_pointer_cast<scene2::Button>(
-		_assets->get<scene2::SceneNode>("pause"));
+		_assets->get<scene2::SceneNode>("pausebutton"));
 	_pause->addListener([this](const std::string& name, bool down) {
 		if (down) {
 			_gamePaused = true;

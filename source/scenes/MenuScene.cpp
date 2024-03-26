@@ -27,8 +27,8 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     std::shared_ptr<scene2::SceneNode> scene = _assets->get<scene2::SceneNode>("menu");
     scene->setContentSize(dimen);
     scene->doLayout(); // Repositions the HUD
-    _startbutton = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("menu_start"));
-    _settingbutton = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("menu_setting"));
+    _startbutton = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("menu_menu_newgame"));
+    _settingbutton = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("menu_menu_setting"));
     
     _startbutton->addListener([this](const std::string& name, bool down) {
         if (down) {
