@@ -31,7 +31,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -88,7 +87,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -149,7 +147,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -198,7 +195,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -327,7 +323,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -355,7 +350,7 @@
                 {
                  "height":0,
                  "id":47,
-                 "name":"",
+                 "name":"bottle1",
                  "polygon":[
                         {
                          "x":0,
@@ -448,7 +443,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -573,7 +567,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -601,7 +594,7 @@
                 {
                  "height":0,
                  "id":53,
-                 "name":"",
+                 "name":"bottle2",
                  "polygon":[
                         {
                          "x":0,
@@ -750,7 +743,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {

@@ -2,218 +2,283 @@
 
 #define DURATION 7.0f
 
-bool CharacterController::init(const cugl::Vec2& pos, float scale) {
+bool CharacterController::init(const cugl::Vec2 &pos, float scale)
+{
 	_name = "TODO_PLACEHOLDER";
 	_node = nullptr;
 	_offset = pos;
 	_drawScale = scale;
-    
-    _color = "orange";
-    _actions = scene2::ActionManager::alloc();
-    const int span = 24;
-    std::vector<int> animate;
-    for (int ii = 1; ii < span; ii++)
-    {
-        animate.push_back(ii);
-    }
-    animate.push_back(0);
-    _animate = scene2::Animate::alloc(animate, DURATION);
+
+	_color = "black";
+	_actions = scene2::ActionManager::alloc();
+	const int span = 24;
+	std::vector<int> animate;
+	for (int ii = 1; ii < span; ii++)
+	{
+		animate.push_back(ii);
+	}
+	animate.push_back(0);
+	_animate = scene2::Animate::alloc(animate, DURATION);
+
+	const int blackspan = 75;
+	std::vector<int> blackanimate;
+	for (int ii = 1; ii < blackspan; ii++)
+	{
+		blackanimate.push_back(ii);
+	}
+	blackanimate.push_back(0);
+	_blackanimate = scene2::Animate::alloc(blackanimate, DURATION);
 
 	return true;
 }
 
-CharacterController::CharacterController(void) : _drawScale(0){
+CharacterController::CharacterController(void) : _drawScale(0)
+{
 }
 /**
-* Destroys this level, releasing all resources.
-*/
-CharacterController::~CharacterController(void) {
-    //nothing for now, adding dispose causes an error: resetting the map for the second time, the game would crash because the joint to remove did not exist
-    //This may need to be fixed in the future
-//    dispose();
+ * Destroys this level, releasing all resources.
+ */
+CharacterController::~CharacterController(void)
+{
+	// nothing for now, adding dispose causes an error: resetting the map for the second time, the game would crash because the joint to remove did not exist
+	// This may need to be fixed in the future
+	//    dispose();
 }
 
-void CharacterController::dispose() {
-    printf("removing joints");
-    for(auto it = _joints.begin(); it != _joints.end(); ++it) {
-        if (_world != nullptr) {
-            _world->removeJoint(*it);
-        }
-    (*it) = nullptr;
-    }
-    
-    for(auto it = _obstacles.begin(); it != _obstacles.end(); ++it) {
-        if (_world != nullptr) {
-            _world->removeObstacle((*it));
-        }
-    (*it) = nullptr;
-    }
-    _node->removeAllChildren();
+void CharacterController::dispose()
+{
+	printf("removing joints");
+	for (auto it = _joints.begin(); it != _joints.end(); ++it)
+	{
+		if (_world != nullptr)
+		{
+			_world->removeJoint(*it);
+		}
+		(*it) = nullptr;
+	}
+
+	for (auto it = _obstacles.begin(); it != _obstacles.end(); ++it)
+	{
+		if (_world != nullptr)
+		{
+			_world->removeObstacle((*it));
+		}
+		(*it) = nullptr;
+	}
+	_node->removeAllChildren();
 	_obstacles.clear();
-    _lineNodes.clear();
+	_lineNodes.clear();
 	_joints.clear();
 }
 
-std::shared_ptr<physics2::Obstacle> CharacterController::makePart(int part, int connect, const Vec2& pos) {
+std::shared_ptr<physics2::Obstacle> CharacterController::makePart(int part, int connect, const Vec2 &pos)
+{
 	std::shared_ptr<Texture> image = _textures[part];
 	Size size = image->getSize();
 	size.width /= _drawScale;
 	size.height /= _drawScale;
-	
+
 	Vec2 pos2 = pos;
-	if (connect != PART_NONE) {
+	if (connect != PART_NONE)
+	{
 		pos2 += _obstacles[connect]->getPosition();
 	}
-//    std::cout << pos2.x<< " hahah " << pos2.y << std::endl;
+	//    std::cout << pos2.x<< " hahah " << pos2.y << std::endl;
 
 	// std::shared_ptr<physics2::BoxObstacle> body = physics2::BoxObstacle::alloc(pos2, size);
 	// create body  polygon as octagon
 	// calculate index first
 	std::shared_ptr<physics2::Obstacle> body;
-	
-	if (part == PART_BODY){
+
+	if (part == PART_BODY)
+	{
 		body = physics2::BoxObstacle::alloc(pos2, size);
-	}else{
-	float w = size.width / 2.0f;
-	float h = size.height / 2.0f;
-	float oct[] = {	- w, - h * 0.414f,
-					- w * 0.414f, - h,
-					w * 0.414f, - h,
-					w, - h * 0.414f,
-					w, h * 0.414f,
-					w * 0.414f, h,
-					- w * 0.414f, h,
-					- w, h * 0.414f};
-	
+	}
+	else
+	{
+		float w = size.width / 2.0f;
+		float h = size.height / 2.0f;
+		float oct[] = {-w, -h * 0.414f,
+					   -w * 0.414f, -h,
+					   w * 0.414f, -h,
+					   w, -h * 0.414f,
+					   w, h * 0.414f,
+					   w * 0.414f, h,
+					   -w * 0.414f, h,
+					   -w, h * 0.414f};
 
-	cugl::Poly2 octpoly = cugl::Poly2(reinterpret_cast<Vec2*>(oct), 8);
-	EarclipTriangulator triangulator;
-	triangulator.set(octpoly.vertices);
-	triangulator.calculate();
-	octpoly.setIndices(triangulator.getTriangulation());
-	triangulator.clear();
+		cugl::Poly2 octpoly = cugl::Poly2(reinterpret_cast<Vec2 *>(oct), 8);
+		EarclipTriangulator triangulator;
+		triangulator.set(octpoly.vertices);
+		triangulator.calculate();
+		octpoly.setIndices(triangulator.getTriangulation());
+		triangulator.clear();
 
-	body = physics2::PolygonObstacle::allocWithAnchor(octpoly, Vec2(0.5,0.5));
-	body->setPosition(pos2);
+		body = physics2::PolygonObstacle::allocWithAnchor(octpoly, Vec2(0.5, 0.5));
+		body->setPosition(pos2);
 	}
 	body->setBodyType(b2_dynamicBody);
-	
+
 	// log all information
-	//CULog("part: %d", part);
-	//CULog("connect: %d", connect);
-	//CULog("pos: %f, %f", pos.x, pos.y);
-	//CULog("pos2: %f, %f", pos2.x, pos2.y);
-	//CULog("size: %f, %f", size.width, size.height);
+	// CULog("part: %d", part);
+	// CULog("connect: %d", connect);
+	// CULog("pos: %f, %f", pos.x, pos.y);
+	// CULog("pos2: %f, %f", pos2.x, pos2.y);
+	// CULog("size: %f, %f", size.width, size.height);
 	body->setName(getPartName(part));
-	if (part == PART_BODY) {
+	if (part == PART_BODY)
+	{
 		body->setDensity(BODY_DENSITY);
 		// CULog("makePart body centroid position: %f, %f", body->getCentroid().x, body->getCentroid().y);
-	} else if (part == PART_RH || part == PART_LH) {
+	}
+	else if (part == PART_RH || part == PART_LH)
+	{
 		body->setDensity(HAND_DENSITY);
-	} else {
+	}
+	else
+	{
 		body->setDensity(DEFAULT_DENSITY);
 	}
-    
+
 	// add extra friction to the PART_LH and PART_RH
 	// set always upward direction
-    if (part == PART_LH || part == PART_RH) {
-		
+	if (part == PART_LH || part == PART_RH)
+	{
+
 		body->setFriction(HAND_FRICTION);
 		body->setFixedRotation(true);
-	} else {
+	}
+	else
+	{
 		body->setFriction(OTHER_FRICTION);
 	}
 
 	// log friction information:
-   	CULog("makePart body part %d friction: %f", part, body->getFriction());
-	
-	
+	CULog("makePart body part %d friction: %f", part, body->getFriction());
+
 	// log parts and resitituion
-   	CULog("makePart body part %d restitution: %f", part, body->getRestitution());
+	CULog("makePart body part %d restitution: %f", part, body->getRestitution());
 	_obstacles.push_back(body);
 	return body;
 }
 
-bool CharacterController::buildParts(const std::shared_ptr<AssetManager>& assets) {
+bool CharacterController::buildParts(const std::shared_ptr<AssetManager> &assets)
+{
 	CUAssertLog(_obstacles.empty(), "Bodies are already initialized");
 
 	// Get the images from the asset manager
 	bool success = true;
-	for (int ii = 0; ii <= PART_LH; ii++) {
-        if (ii == PART_BODY)
-        {
-            std::shared_ptr<Texture> bodySpriteSheet = assets->get<Texture>("pink_animation");
-            if (bodySpriteSheet == nullptr)
-            {
-                success = false;
-            }
-            else
-            {
-                _pinktextures = bodySpriteSheet;
-            }
-            bodySpriteSheet = assets->get<Texture>("black_animation");
-            if (bodySpriteSheet == nullptr)
-            {
-                success = false;
-            }
-            else
-            {
-                _blacktextures = bodySpriteSheet;
-            }
-            bodySpriteSheet = assets->get<Texture>("blue_animation");
-            if (bodySpriteSheet == nullptr)
-            {
-                success = false;
-            }
-            else
-            {
-                _bluetextures = bodySpriteSheet;
-            }
-            bodySpriteSheet = assets->get<Texture>("green_animation");
-            if (bodySpriteSheet == nullptr)
-            {
-                success = false;
-            }
-            else
-            {
-                _greentextures = bodySpriteSheet;
-            }
-            bodySpriteSheet = assets->get<Texture>("orange_animation");
-            std::shared_ptr<Texture> decorationSheet = assets->get<Texture>("orange_decoration");
-            if (bodySpriteSheet == nullptr || decorationSheet == nullptr)
-            {
-                success = false;
-            }
-            else
-            {
-                _orangetextures = bodySpriteSheet;
-                _orangedecoration = decorationSheet;
-            }
-            bodySpriteSheet = assets->get<Texture>("purple_animation");
-            if (bodySpriteSheet == nullptr)
-            {
-                success = false;
-            }
-            else
-            {
-                _purpletextures = bodySpriteSheet;
-            }
-        }
+	for (int ii = 0; ii <= PART_LH; ii++)
+	{
+		if (ii == PART_BODY)
+		{
+			std::shared_ptr<Texture> bodySpriteSheet = assets->get<Texture>("pink_animation");
+			std::shared_ptr<Texture> decorationSheet = assets->get<Texture>("pink_decoration");
+			std::shared_ptr<Texture> lefthandSheet = assets->get<Texture>("pink_lh");
+			std::shared_ptr<Texture> righthandSheet = assets->get<Texture>("pink_rh");
+			if (bodySpriteSheet == nullptr || decorationSheet == nullptr || lefthandSheet == nullptr || righthandSheet == nullptr)
+			{
+				success = false;
+			}
+			else
+			{
+				_pinktextures = bodySpriteSheet;
+				_pinkdecoration = decorationSheet;
+				_pinklh = lefthandSheet;
+				_pinkrh = righthandSheet;
+			}
+			bodySpriteSheet = assets->get<Texture>("black_animation");
+			lefthandSheet = assets->get<Texture>("black_lh");
+			righthandSheet = assets->get<Texture>("black_rh");
+			if (bodySpriteSheet == nullptr || lefthandSheet == nullptr || righthandSheet == nullptr)
+			{
+				success = false;
+			}
+			else
+			{
+				_blacktextures = bodySpriteSheet;
+				_blacklh = lefthandSheet;
+				_blackrh = righthandSheet;
+			}
+			bodySpriteSheet = assets->get<Texture>("blue_animation");
+			decorationSheet = assets->get<Texture>("blue_decoration");
+			lefthandSheet = assets->get<Texture>("blue_lh");
+			righthandSheet = assets->get<Texture>("blue_rh");
+			if (bodySpriteSheet == nullptr || decorationSheet == nullptr || lefthandSheet == nullptr || righthandSheet == nullptr)
+			{
+				success = false;
+			}
+			else
+			{
+				_bluetextures = bodySpriteSheet;
+				_bluedecoration = decorationSheet;
+				_bluelh = lefthandSheet;
+				_bluerh = righthandSheet;
+			}
+			bodySpriteSheet = assets->get<Texture>("green_animation");
+			decorationSheet = assets->get<Texture>("green_decoration");
+			lefthandSheet = assets->get<Texture>("green_lh");
+			righthandSheet = assets->get<Texture>("green_rh");
+			if (bodySpriteSheet == nullptr || decorationSheet == nullptr || lefthandSheet == nullptr || righthandSheet == nullptr)
+			{
+				success = false;
+			}
+			else
+			{
+				_greentextures = bodySpriteSheet;
+				_greendecoration = decorationSheet;
+				_greenlh = lefthandSheet;
+				_greenrh = righthandSheet;
+			}
+			bodySpriteSheet = assets->get<Texture>("orange_animation");
+			decorationSheet = assets->get<Texture>("orange_decoration");
+			lefthandSheet = assets->get<Texture>("orange_lh");
+			righthandSheet = assets->get<Texture>("orange_rh");
+			if (bodySpriteSheet == nullptr || decorationSheet == nullptr || lefthandSheet == nullptr || righthandSheet == nullptr)
+			{
+				success = false;
+			}
+			else
+			{
+				_orangetextures = bodySpriteSheet;
+				_orangedecoration = decorationSheet;
+				_orangelh = lefthandSheet;
+				_orangerh = righthandSheet;
+			}
+			bodySpriteSheet = assets->get<Texture>("purple_animation");
+			decorationSheet = assets->get<Texture>("purple_decoration");
+			lefthandSheet = assets->get<Texture>("purple_lh");
+			righthandSheet = assets->get<Texture>("purple_rh");
+			if (bodySpriteSheet == nullptr)
+			{
+				success = false;
+			}
+			else
+			{
+				_purpletextures = bodySpriteSheet;
+				_purpledecoration = decorationSheet;
+				_purplelh = lefthandSheet;
+				_purplerh = righthandSheet;
+			}
+		}
 		std::string name = getPartName(ii);
 		std::shared_ptr<Texture> image = assets->get<Texture>(name);
-		if (image == nullptr) {
+		if (image == nullptr)
+		{
 			success = false;
 		}
-		else {
+		else
+		{
 			_textures.push_back(image);
 		}
 	}
-	if (!success) {
+	if (!success)
+	{
 		return false;
 	}
 
 	Vec2 pos = _offset;
-//    std::cout << _offset.x<< " aaa "<< _offset.y << std::endl;
+	//    std::cout << _offset.x<< " aaa "<< _offset.y << std::endl;
 	CULog("CharacterController buildParts _offset: %f, %f", _offset.x, _offset.y);
 	makePart(PART_BODY, PART_NONE, pos);
 	// makePart(PART_JR1, PART_BODY, Vec2(CJOINT_OFFSET, 0));
@@ -232,10 +297,8 @@ bool CharacterController::buildParts(const std::shared_ptr<AssetManager>& assets
 	// makePart(PART_LR6, PART_LR5, Vec2(-HALF_CJOINT_OFFSET, 0));
 	// makePart(PART_LH, PART_LR6, Vec2(0, 0));
 
-
 	makePart(PART_RH, PART_BODY, Vec2(4 * HALF_CJOINT_OFFSET, 0));
-	makePart(PART_LH, PART_BODY, Vec2(-4 * HALF_CJOINT_OFFSET , 0));
-
+	makePart(PART_LH, PART_BODY, Vec2(-4 * HALF_CJOINT_OFFSET, 0));
 
 	leftShoulderOffset = Vec2(-CJOINT_OFFSET, 0);
 	rightShoulderOffset = Vec2(CJOINT_OFFSET, 0);
@@ -260,14 +323,16 @@ bool CharacterController::buildParts(const std::shared_ptr<AssetManager>& assets
 	return true;
 }
 
-std::string CharacterController::getPartName(int part) {
-	switch (part) {
+std::string CharacterController::getPartName(int part)
+{
+	switch (part)
+	{
 	case PART_BODY:
 		return BODY_TEXTURE;
-    case PART_RH:
-        return R_HAND_TEXTURE;
-    case PART_LH:
-        return L_HAND_TEXTURE;
+	case PART_RH:
+		return R_HAND_TEXTURE;
+	case PART_LH:
+		return L_HAND_TEXTURE;
 	// case PART_JR1:
 	// case PART_JR2:
 	// case PART_JR3:
@@ -286,12 +351,13 @@ std::string CharacterController::getPartName(int part) {
 	}
 }
 
-bool CharacterController::createJoints() {
-//	std::shared_ptr<physics2::RevoluteJoint> revjoint;
-//	std::shared_ptr<physics2::MotorJoint> motjoint;
-//	std::shared_ptr<physics2::PrismaticJoint> prijoint;
-//	std::shared_ptr<physics2::DistanceJoint> distjoint;
-//	std::shared_ptr<physics2::WeldJoint> weldjoint;
+bool CharacterController::createJoints()
+{
+	//	std::shared_ptr<physics2::RevoluteJoint> revjoint;
+	//	std::shared_ptr<physics2::MotorJoint> motjoint;
+	//	std::shared_ptr<physics2::PrismaticJoint> prijoint;
+	//	std::shared_ptr<physics2::DistanceJoint> distjoint;
+	//	std::shared_ptr<physics2::WeldJoint> weldjoint;
 
 	// right arm, forearm, hand
 	// BODY->JR1 rev
@@ -429,7 +495,8 @@ bool CharacterController::createJoints() {
 	// revjoint->setLowerAngle(-M_PI / 2.0f);
 	// _joints.push_back(revjoint);
 
-	if (_motorEnabled) {
+	if (_motorEnabled)
+	{
 		/* new version of motor joint direct body <-> hands*/
 		rightHandJoint = physics2::MotorJoint::allocWithObstacles(_obstacles[PART_BODY], _obstacles[PART_RH]);
 		rightHandJoint->setMaxForce(MAX_FORCE);
@@ -476,14 +543,16 @@ bool CharacterController::createJoints() {
 		// _joints.push_back(rightForearmJoint);
 	}
 
-
 	return true;
 }
 
-std::vector<std::shared_ptr<cugl::physics2::Joint>> CharacterController::dummy_jointsmaker(std::vector<int> part_indices) {
+std::vector<std::shared_ptr<cugl::physics2::Joint>> CharacterController::dummy_jointsmaker(std::vector<int> part_indices)
+{
 	std::vector<std::shared_ptr<cugl::physics2::Joint>> dummy_joints;
-	for (int i = 0; i < part_indices.size(); i++) {
-		for (int j = i + 1; j < part_indices.size(); j++) {
+	for (int i = 0; i < part_indices.size(); i++)
+	{
+		for (int j = i + 1; j < part_indices.size(); j++)
+		{
 			std::shared_ptr<physics2::MotorJoint> dummy_joint = physics2::MotorJoint::allocWithObstacles(_obstacles[i], _obstacles[j]);
 			dummy_joint->setMaxForce(0);
 			dummy_joint->setMaxTorque(0);
@@ -493,64 +562,73 @@ std::vector<std::shared_ptr<cugl::physics2::Joint>> CharacterController::dummy_j
 	return dummy_joints;
 }
 
-
 void CharacterController::setSceneNode(const std::shared_ptr<cugl::scene2::SceneNode> &node)
 {
-    _node = node;
-    for (int ii = 0; ii <= PART_LH; ii++)
-    {
-        if (ii == PART_BODY)
-        {
-            std::shared_ptr<scene2::SpriteNode> bodySprite = scene2::SpriteNode::allocWithSheet(_blacktextures, 6, 4, 24);
-            bodySprite->setAnchor(Vec2::ANCHOR_CENTER);
-            _node->addChild(bodySprite);
-        }
-        else
-        {
-            std::shared_ptr<Texture> image = _textures[ii];
-            std::shared_ptr<scene2::PolygonNode> sprite = scene2::PolygonNode::allocWithTexture(image);
-            _node->addChild(sprite);
-        }
-    }
+	_node = node;
+	for (int ii = 0; ii <= PART_LH; ii++)
+	{
+		if (ii == PART_BODY)
+		{
+			std::shared_ptr<scene2::SpriteNode> bodySprite = scene2::SpriteNode::allocWithSheet(_blacktextures, 6, 4, 24);
+			bodySprite->setAnchor(Vec2::ANCHOR_CENTER);
+			_node->addChild(bodySprite);
+		}
+		else
+		{
+			std::shared_ptr<Texture> image = _textures[ii];
+			std::shared_ptr<scene2::PolygonNode> sprite = scene2::PolygonNode::allocWithTexture(image);
+			_node->addChild(sprite);
+		}
+	}
 }
 
-void CharacterController::setDrawScale(float scale) {
+void CharacterController::setDrawScale(float scale)
+{
 	_drawScale = scale;
 }
 
-//DEPRECATED
-void CharacterController::activate(const std::shared_ptr<cugl::physics2::net::NetWorld>& world) {
-	for (auto it = _obstacles.begin(); it != _obstacles.end(); ++it) {
+// DEPRECATED
+void CharacterController::activate(const std::shared_ptr<cugl::physics2::net::NetWorld> &world)
+{
+	for (auto it = _obstacles.begin(); it != _obstacles.end(); ++it)
+	{
 		world->addObstacle(*it);
 	}
-	for (auto it = _joints.begin(); it != _joints.end(); ++it) {
+	for (auto it = _joints.begin(); it != _joints.end(); ++it)
+	{
 		world->addJoint(*it);
 	}
 }
 
-//DEPRECATED
-void CharacterController::deactivate(const std::shared_ptr<cugl::physics2::net::NetWorld>& world) {
-//	for (auto it = _obstacles.begin(); it != _obstacles.end(); ++it) {
-//		world->removeObstacle(*it);
-//	}
-//	for (auto it = _joints.begin(); it != _joints.end(); ++it) {
-//		world->removeJoint(*it);
-//	}
+// DEPRECATED
+void CharacterController::deactivate(const std::shared_ptr<cugl::physics2::net::NetWorld> &world)
+{
+	//	for (auto it = _obstacles.begin(); it != _obstacles.end(); ++it) {
+	//		world->removeObstacle(*it);
+	//	}
+	//	for (auto it = _joints.begin(); it != _joints.end(); ++it) {
+	//		world->removeJoint(*it);
+	//	}
 }
 
-bool CharacterController::moveLeftHand(cugl::Vec2 offset) {
-	if (!_motorEnabled) return false;
+bool CharacterController::moveLeftHand(cugl::Vec2 offset)
+{
+	if (!_motorEnabled)
+		return false;
 	float a = _obstacles[PART_BODY]->getAngle();
 	leftHandOffset = leftHandOffset + Vec2(offset.x * cos(a) + offset.y * sin(a), -offset.x * sin(a) + offset.y * cos(a));
 
 	float length = leftHandOffset.length();
-	if (length > MAX_ARM_LENGTH) {
+	if (length > MAX_ARM_LENGTH)
+	{
 		leftHandOffset = leftHandOffset * (MAX_ARM_LENGTH / length);
 	}
-	if (length < MIN_ARM_LENGTH) {
+	if (length < MIN_ARM_LENGTH)
+	{
 		leftHandOffset = leftHandOffset * (MIN_ARM_LENGTH / length);
 	}
-	if (leftHandOffset.x > 0) {
+	if (leftHandOffset.x > 0)
+	{
 		leftHandOffset.x = 0;
 	}
 	leftHandJoint->setLinearOffset(leftShoulderOffset + leftHandOffset);
@@ -568,19 +646,24 @@ bool CharacterController::moveLeftHand(cugl::Vec2 offset) {
 	return true;
 }
 
-bool CharacterController::moveRightHand(cugl::Vec2 offset) {
-	if (!_motorEnabled) return false;
+bool CharacterController::moveRightHand(cugl::Vec2 offset)
+{
+	if (!_motorEnabled)
+		return false;
 	float a = _obstacles[PART_BODY]->getAngle();
 	rightHandOffset = rightHandOffset + Vec2(offset.x * cos(a) + offset.y * sin(a), -offset.x * sin(a) + offset.y * cos(a));
 
 	float length = rightHandOffset.length();
-	if (length > MAX_ARM_LENGTH) {
+	if (length > MAX_ARM_LENGTH)
+	{
 		rightHandOffset = rightHandOffset * (MAX_ARM_LENGTH / length);
 	}
-	if (length < MIN_ARM_LENGTH) {
+	if (length < MIN_ARM_LENGTH)
+	{
 		rightHandOffset = rightHandOffset * (MIN_ARM_LENGTH / length);
 	}
-	if (rightHandOffset.x < 0) {
+	if (rightHandOffset.x < 0)
+	{
 		rightHandOffset.x = 0;
 	}
 	rightHandJoint->setLinearOffset(rightShoulderOffset + rightHandOffset);
@@ -597,13 +680,15 @@ bool CharacterController::moveRightHand(cugl::Vec2 offset) {
 	return true;
 }
 
-Vec2 CharacterController::SolveAngleMiddleBisectorLine(Vec2 p) {
+Vec2 CharacterController::SolveAngleMiddleBisectorLine(Vec2 p)
+{
 	float a = atan2(p.y, p.x);
 	float hald_angle = a / 2;
 	return Vec2(cos(hald_angle), sin(hald_angle));
 }
 
-Vec2 CharacterController::armMiddleExp_R(Vec2 end) {
+Vec2 CharacterController::armMiddleExp_R(Vec2 end)
+{
 	Vec2 p1 = SolveAngleMiddleBisectorLine(end);
 	float x1 = p1.x;
 	float y1 = p1.y;
@@ -614,11 +699,13 @@ Vec2 CharacterController::armMiddleExp_R(Vec2 end) {
 	return Vec2(x, y);
 }
 
-void CharacterController::enableMotor() {
+void CharacterController::enableMotor()
+{
 	_motorEnabled = true;
 }
 
-void CharacterController::disableMotor() {
+void CharacterController::disableMotor()
+{
 	_motorEnabled = false;
 }
 
@@ -640,75 +727,134 @@ void CharacterController::disableMotor() {
  *
  * @param node  The scene graph node representing this Ragdoll, which has been added to the world node already.
  */
-void CharacterController::linkPartsToWorld(const std::shared_ptr<cugl::physics2::net::NetWorld>& _world, const std::shared_ptr<cugl::scene2::SceneNode>& _scenenode, float _scale) {
-    this->_world = _world;
+void CharacterController::linkPartsToWorld(const std::shared_ptr<cugl::physics2::net::NetWorld> &_world, const std::shared_ptr<cugl::scene2::SceneNode> &_scenenode, float _scale)
+{
+	this->_world = _world;
 	_node = _scenenode;
-    drawCharacterLines(_scale);
-    drawDecoration(_scale);
-	for (int i = 0; i < _obstacles.size(); i++) {
+	drawCharacterLines(_scale);
+	drawDecoration(_scale);
+	for (int i = 0; i < _obstacles.size(); i++)
+	{
 		auto obj = _obstacles[i];
-        // if ((i >= PART_JR1 && i <= PART_JR6) || (i >= PART_LR1 && i <= PART_LR6)) {
-        //     _world->addObstacle(obj);
-        //     continue;
-        // }
+		// if ((i >= PART_JR1 && i <= PART_JR6) || (i >= PART_LR1 && i <= PART_LR6)) {
+		//     _world->addObstacle(obj);
+		//     continue;
+		// }
 		std::shared_ptr<Texture> image = _textures[i];
-		std::shared_ptr<scene2::PolygonNode> sprite = scene2::PolygonNode::allocWithTexture(image);
-        std::shared_ptr<scene2::SpriteNode> bodySprite;
+		// std::shared_ptr<scene2::PolygonNode> sprite = scene2::PolygonNode::allocWithTexture(image);
+		std::shared_ptr<scene2::PolygonNode> sprite;
+		std::shared_ptr<scene2::SpriteNode> bodySprite;
 
-        if (i == PART_BODY)
-        {
-            if (_color == "black")
-            {
-                bodySprite = scene2::SpriteNode::allocWithSheet(_blacktextures, 5, 5, 24);
-            }
-            else if (_color == "orange")
-            {
-                bodySprite = scene2::SpriteNode::allocWithSheet(_orangetextures, 5, 5, 24);
-            }
-            else if (_color == "pink")
-            {
-                bodySprite = scene2::SpriteNode::allocWithSheet(_pinktextures, 5, 5, 24);
-            }
-            else if (_color == "purple")
-            {
-                bodySprite = scene2::SpriteNode::allocWithSheet(_purpletextures, 5, 5, 24);
-            }
-            else if (_color == "green")
-            {
-                bodySprite = scene2::SpriteNode::allocWithSheet(_greentextures, 5, 5, 24);
-            }
-            else if (_color == "blue")
-            {
-                bodySprite = scene2::SpriteNode::allocWithSheet(_bluetextures, 5, 5, 24);
-            }
-            bodySprite->setAnchor(Vec2::ANCHOR_CENTER);
-            _bodyNode = bodySprite;
-            _scenenode->addChild(_bodyNode);
-        }
-		else if (i == PART_LH) _LHNode = sprite;
-		else if (i == PART_RH) _RHNode = sprite;
+		if (i == PART_BODY)
+		{
+			if (_color == "black")
+			{
+				bodySprite = scene2::SpriteNode::allocWithSheet(_blacktextures, 9, 9, 75);
+			}
+			else if (_color == "orange")
+			{
+				bodySprite = scene2::SpriteNode::allocWithSheet(_orangetextures, 5, 5, 24);
+			}
+			else if (_color == "pink")
+			{
+				bodySprite = scene2::SpriteNode::allocWithSheet(_pinktextures, 5, 5, 24);
+			}
+			else if (_color == "purple")
+			{
+				bodySprite = scene2::SpriteNode::allocWithSheet(_purpletextures, 5, 5, 24);
+			}
+			else if (_color == "green")
+			{
+				bodySprite = scene2::SpriteNode::allocWithSheet(_greentextures, 5, 5, 24);
+			}
+			else if (_color == "blue")
+			{
+				bodySprite = scene2::SpriteNode::allocWithSheet(_bluetextures, 5, 5, 24);
+			}
+			bodySprite->setAnchor(Vec2::ANCHOR_CENTER);
+			_bodyNode = bodySprite;
+			_scenenode->addChild(_bodyNode);
+		}
+		else if (i == PART_LH)
+		{
+			if (_color == "black")
+			{
+				sprite = scene2::PolygonNode::allocWithTexture(_blacklh);
+			}
+			else if (_color == "orange")
+			{
+				sprite = scene2::PolygonNode::allocWithTexture(_orangelh);
+			}
+			else if (_color == "pink")
+			{
+				sprite = scene2::PolygonNode::allocWithTexture(_pinklh);
+			}
+			else if (_color == "purple")
+			{
+				sprite = scene2::PolygonNode::allocWithTexture(_purplelh);
+			}
+			else if (_color == "green")
+			{
+				sprite = scene2::PolygonNode::allocWithTexture(_greenlh);
+			}
+			else if (_color == "blue")
+			{
+				sprite = scene2::PolygonNode::allocWithTexture(_bluelh);
+			}
+			_LHNode = sprite;
+		}
+		else if (i == PART_RH)
+		{
+			if (_color == "black")
+			{
+				sprite = scene2::PolygonNode::allocWithTexture(_blackrh);
+			}
+			else if (_color == "orange")
+			{
+				sprite = scene2::PolygonNode::allocWithTexture(_orangerh);
+			}
+			else if (_color == "pink")
+			{
+				sprite = scene2::PolygonNode::allocWithTexture(_pinkrh);
+			}
+			else if (_color == "purple")
+			{
+				sprite = scene2::PolygonNode::allocWithTexture(_purplerh);
+			}
+			else if (_color == "green")
+			{
+				sprite = scene2::PolygonNode::allocWithTexture(_greenrh);
+			}
+			else if (_color == "blue")
+			{
+				sprite = scene2::PolygonNode::allocWithTexture(_bluerh);
+			}
+			_RHNode = sprite;
+		}
 
 		_world->addObstacle(obj);
-		//obj->setDebugScene(_debugnode);
-        if (i == PART_BODY)
-        {
-        }
-        else
-        {
-            _scenenode->addChild(sprite);
-        }
+		// obj->setDebugScene(_debugnode);
+		if (i == PART_BODY)
+		{
+		}
+		else
+		{
+			_scenenode->addChild(sprite);
+		}
 		// Dynamic objects need constant updating
-		if (obj->getBodyType() == b2_dynamicBody) {
-            scene2::SceneNode *weak;
-            if (i == PART_BODY)
-            {
-                weak = bodySprite.get();
-            }
-            else
-            {
-                weak = sprite.get();
-            }// No need for smart pointer in callback
-			obj->setListener([=](physics2::Obstacle* obs) {
+		if (obj->getBodyType() == b2_dynamicBody)
+		{
+			scene2::SceneNode *weak;
+			if (i == PART_BODY)
+			{
+				weak = bodySprite.get();
+			}
+			else
+			{
+				weak = sprite.get();
+			} // No need for smart pointer in callback
+			obj->setListener([=](physics2::Obstacle *obs)
+							 {
 				//float leftover = Application::get()->getFixedRemainder() / 1000000.f;
 				//Vec2 pos = obs->getPosition() + leftover * obs->getLinearVelocity();
 				//float angle = obs->getAngle() + leftover * obs->getAngularVelocity();
@@ -716,123 +862,171 @@ void CharacterController::linkPartsToWorld(const std::shared_ptr<cugl::physics2:
 				weak->setPosition(obs->getPosition() * _scale);
 				weak->setAngle(obs->getAngle());
                 drawCharacterLines(_scale);
-                drawDecoration(_scale);
-				});
+                drawDecoration(_scale); });
 		}
 	}
-	for (int i = 0; i < _joints.size(); i++) {
-        printf("adding joints again");
+	for (int i = 0; i < _joints.size(); i++)
+	{
+		printf("adding joints again");
 		auto joint = _joints[i];
 		_world->addJoint(joint);
 	}
 }
 
-
-
-void CharacterController::drawCharacterLines(float scale) {
-    if (_obstacles.size() >= PART_LH + 1) {
+void CharacterController::drawCharacterLines(float scale)
+{
+	if (_obstacles.size() >= PART_LH + 1)
+	{
 		float body_angle = _obstacles[PART_BODY]->getAngle();
 		Vec2 leftshoulder = _obstacles[PART_BODY]->getPosition() + Vec2(leftShoulderOffset.x * cos(body_angle) - leftShoulderOffset.y * sin(body_angle), leftShoulderOffset.x * sin(body_angle) + leftShoulderOffset.y * cos(body_angle));
 		Vec2 rightshoulder = _obstacles[PART_BODY]->getPosition() + Vec2(rightShoulderOffset.x * cos(body_angle) - rightShoulderOffset.y * sin(body_angle), rightShoulderOffset.x * sin(body_angle) + rightShoulderOffset.y * cos(body_angle));
-        
+
 		Vec2 lr1Pos = leftshoulder;
-        Vec2 lr3Pos = lr1Pos + Vec2(leftElbowOffset.x * cos(body_angle) - leftElbowOffset.y * sin(body_angle), leftElbowOffset.x * sin(body_angle) + leftElbowOffset.y * cos(body_angle));
-        Vec2 lhPos = _obstacles[PART_LH]->getPosition();
-        Vec2 jr1Pos = rightshoulder;
-        Vec2 jr3Pos = jr1Pos + Vec2(rightElbowOffset.x * cos(body_angle) - rightElbowOffset.y * sin(body_angle), rightElbowOffset.x * sin(body_angle) + rightElbowOffset.y * cos(body_angle));
-        Vec2 rhPos = _obstacles[PART_RH]->getPosition();
-//        CULog("lr1Pos is : %f %f \n", lr1Pos.x, lr1Pos.y);
-//        CULog("lr3Pos is : %f %f \n", lr3Pos.x, lr3Pos.y);
+		Vec2 lr3Pos = lr1Pos + Vec2(leftElbowOffset.x * cos(body_angle) - leftElbowOffset.y * sin(body_angle), leftElbowOffset.x * sin(body_angle) + leftElbowOffset.y * cos(body_angle));
+		Vec2 lhPos = _obstacles[PART_LH]->getPosition();
+		Vec2 jr1Pos = rightshoulder;
+		Vec2 jr3Pos = jr1Pos + Vec2(rightElbowOffset.x * cos(body_angle) - rightElbowOffset.y * sin(body_angle), rightElbowOffset.x * sin(body_angle) + rightElbowOffset.y * cos(body_angle));
+		Vec2 rhPos = _obstacles[PART_RH]->getPosition();
+		//        CULog("lr1Pos is : %f %f \n", lr1Pos.x, lr1Pos.y);
+		//        CULog("lr3Pos is : %f %f \n", lr3Pos.x, lr3Pos.y);
 
-        auto createLine = [&](const Vec2& start, const Vec2& end, size_t index) {
-            float length = (start - end).length();
-            float angle = atan2(end.y - start.y, end.x - start.x);
-            Rect lineRect(0, 0, length*1.1 * scale, 5.0f);
-            Vec2 center = (start + end) / 2.0f;
+		auto createLine = [&](const Vec2 &start, const Vec2 &end, size_t index)
+		{
+			float length = (start - end).length();
+			float angle = atan2(end.y - start.y, end.x - start.x);
+			Rect lineRect(0, 0, length * 1.1 * scale, 5.0f);
+			Vec2 center = (start + end) / 2.0f;
 
-            std::shared_ptr<scene2::PolygonNode> line;
-            if (index < _lineNodes.size()) {
-                line = _lineNodes[index];
-                line->setPolygon(Rect(0, 0, length*1.1 * scale, 15.0f ));
-            } else {
-                line = scene2::PolygonNode::allocWithPoly(lineRect);
-                _lineNodes.push_back(line);
-                _node->addChild(line);
-            }
+			std::shared_ptr<scene2::PolygonNode> line;
+			if (index < _lineNodes.size())
+			{
+				line = _lineNodes[index];
+				line->setPolygon(Rect(0, 0, length * 1.1 * scale, 15.0f));
+			}
+			else
+			{
+				line = scene2::PolygonNode::allocWithPoly(lineRect);
+				_lineNodes.push_back(line);
+				_node->addChild(line);
+			}
 
-            line->setPosition(center * scale);
-            line->setAngle(angle);
-            if (_color == "black")
-            {
-                line->setColor(Color4(1, 1, 1));
-            }
-            else if (_color == "orange")
-            {
-                line->setColor(Color4(230, 111, 72));
-            }
-            else if (_color == "pink")
-            {
-                line->setColor(Color4(225, 89, 125));
-            }
-            else if (_color == "purple")
-            {
-                line->setColor(Color4(154, 101, 214));
-            }
-            else if (_color == "green")
-            {
-                line->setColor(Color4(77, 168, 88));
-            }
-            else if (_color == "blue")
-            {
-                line->setColor(Color4(74, 144, 241));
-            }
-        };
+			line->setPosition(center * scale);
+			line->setAngle(angle);
+			if (_color == "black")
+			{
+				line->setColor(Color4(1, 1, 1));
+			}
+			else if (_color == "orange")
+			{
+				line->setColor(Color4(230, 111, 72));
+			}
+			else if (_color == "pink")
+			{
+				line->setColor(Color4(225, 89, 125));
+			}
+			else if (_color == "purple")
+			{
+				line->setColor(Color4(154, 101, 214));
+			}
+			else if (_color == "green")
+			{
+				line->setColor(Color4(77, 168, 88));
+			}
+			else if (_color == "blue")
+			{
+				line->setColor(Color4(74, 144, 241));
+			}
+		};
 
-        createLine(lr1Pos-0.2*(lr3Pos - lr1Pos), lr3Pos, 0);
-        createLine(lr3Pos, lhPos, 1);
-        createLine(jr1Pos - 0.2*(jr3Pos - jr1Pos), jr3Pos, 2);
-        createLine(jr3Pos, rhPos, 3);
-//        createLine(lr1Pos, lr3Pos, 0);
-//        createLine(lr4Pos, lhPos, 1);
-//        createLine(jr1Pos, jr3Pos, 2);
-//        createLine(jr4Pos, rhPos, 3);
-
-    }
+		createLine(lr1Pos - 0.2 * (lr3Pos - lr1Pos), lr3Pos, 0);
+		createLine(lr3Pos, lhPos, 1);
+		createLine(jr1Pos - 0.2 * (jr3Pos - jr1Pos), jr3Pos, 2);
+		createLine(jr3Pos, rhPos, 3);
+		//        createLine(lr1Pos, lr3Pos, 0);
+		//        createLine(lr4Pos, lhPos, 1);
+		//        createLine(jr1Pos, jr3Pos, 2);
+		//        createLine(jr4Pos, rhPos, 3);
+	}
 }
 
-void CharacterController::drawDecoration(float scale) {
-    if (_obstacles.size() >= PART_BODY + 1) {
-        Vec2 bodyPos = _obstacles[PART_BODY]->getPosition();
-        float bodyAngle = _obstacles[PART_BODY]->getAngle();
+void CharacterController::drawDecoration(float scale)
+{
+	if (_obstacles.size() >= PART_BODY + 1)
+	{
+		Vec2 bodyPos = _obstacles[PART_BODY]->getPosition();
+		float bodyAngle = _obstacles[PART_BODY]->getAngle();
 
-        if (_decorationNode == nullptr) {
-            std::shared_ptr<scene2::SpriteNode> decorationSprite;
-            if (_color == "orange") {
-                decorationSprite = scene2::SpriteNode::allocWithSheet(_orangedecoration, 5, 5, 24);
-                decorationSprite->setAnchor(Vec2::ANCHOR_CENTER);
-                _decorationNode = decorationSprite;
-                _node->addChild(_decorationNode);
-            }
-        }
-        if (_decorationNode != nullptr) {
-            _decorationNode->setPosition(bodyPos * scale);
-            _decorationNode->setAngle(bodyAngle);
-        }
-    }
+		if (_decorationNode == nullptr)
+		{
+			std::shared_ptr<scene2::SpriteNode> decorationSprite;
+			if (_color == "orange")
+			{
+				decorationSprite = scene2::SpriteNode::allocWithSheet(_orangedecoration, 5, 5, 24);
+				decorationSprite->setAnchor(Vec2::ANCHOR_CENTER);
+				_decorationNode = decorationSprite;
+				_node->addChild(_decorationNode);
+			}
+			else if (_color == "pink")
+			{
+				decorationSprite = scene2::SpriteNode::allocWithSheet(_pinkdecoration, 5, 5, 24);
+				decorationSprite->setAnchor(Vec2::ANCHOR_CENTER);
+				_decorationNode = decorationSprite;
+				_node->addChild(_decorationNode);
+			}
+			else if (_color == "purple")
+			{
+				decorationSprite = scene2::SpriteNode::allocWithSheet(_purpledecoration, 5, 5, 24);
+				decorationSprite->setAnchor(Vec2::ANCHOR_CENTER);
+				_decorationNode = decorationSprite;
+				_node->addChild(_decorationNode);
+			}
+			else if (_color == "green")
+			{
+				decorationSprite = scene2::SpriteNode::allocWithSheet(_greendecoration, 5, 5, 24);
+				decorationSprite->setAnchor(Vec2::ANCHOR_CENTER);
+				_decorationNode = decorationSprite;
+				_node->addChild(_decorationNode);
+			}
+			else if (_color == "blue")
+			{
+				decorationSprite = scene2::SpriteNode::allocWithSheet(_bluedecoration, 5, 5, 24);
+				decorationSprite->setAnchor(Vec2::ANCHOR_CENTER);
+				_decorationNode = decorationSprite;
+				_node->addChild(_decorationNode);
+			}
+		}
+		if (_decorationNode != nullptr)
+		{
+			_decorationNode->setPosition(bodyPos * scale);
+			_decorationNode->setAngle(bodyAngle);
+		}
+	}
 }
 
 void CharacterController::update(float dt)
 {
-    _actions->activate("start", _animate, _bodyNode);
-    _actions->update(dt);
+	if (_color != "black")
+	{
+		_actions->activate("start", _animate, _bodyNode);
+		_actions->update(dt);
 
-    if (_decorationNode != nullptr) {
-        _actions->activate("decoration", _animate, _decorationNode);
-    }
+		if (_decorationNode != nullptr)
+		{
+			_actions->activate("decoration", _animate, _decorationNode);
+		}
+	}
+	else
+	{
+		_actions->activate("start", _blackanimate, _bodyNode);
+		_actions->update(dt);
+	}
 }
 
 void CharacterController::setColor(std::string color)
 {
-    _color = color;
+	_color = color;
 }
 
+std::string CharacterController::getColor() {
+    return this -> _color;
+}

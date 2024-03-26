@@ -25,13 +25,13 @@ bool PauseScene::init(
 
   // Acquire the scene built by the asset loader and resize it the scene
   std::shared_ptr<scene2::SceneNode> scene =
-      _assets->get<scene2::SceneNode>("resume");
+      _assets->get<scene2::SceneNode>("pause");
   scene->setContentSize(dimen);
   scene->doLayout(); // Repositions the HUD
   _backout = std::dynamic_pointer_cast<scene2::Button>(
-      _assets->get<scene2::SceneNode>("resume_back"));
+      _assets->get<scene2::SceneNode>("pause_pausemenu_options_resume"));
   _reset = std::dynamic_pointer_cast<scene2::Button>(
-      _assets->get<scene2::SceneNode>("resume_reset"));
+      _assets->get<scene2::SceneNode>("pause_pausemenu_options_restart"));
 
   _backout->addListener([this](const std::string &name, bool down) {
     if (down) {

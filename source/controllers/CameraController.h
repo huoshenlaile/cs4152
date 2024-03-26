@@ -33,6 +33,9 @@ protected:
 	float _timer;
 	/** The maximum allowed zoom */
 	float _maxZoom;
+
+	bool _move;
+
 public:
 	/**
 	* Creates a new camera controller with the default values.
@@ -102,6 +105,9 @@ public:
 	std::shared_ptr<cugl::OrthographicCamera> getCamera() { return _camera; };
 
 	void process(int zoomIn, float speed);
+
+	bool getMove() { return _move; }
+	void setMove(bool flag) { _move = flag; }
 };
 
 #endif
