@@ -9,7 +9,7 @@ bool CharacterController::init(const cugl::Vec2 &pos, float scale)
 	_offset = pos;
 	_drawScale = scale;
 
-	_color = "pink";
+	_color = "black";
 	_actions = scene2::ActionManager::alloc();
 	const int span = 24;
 	std::vector<int> animate;
