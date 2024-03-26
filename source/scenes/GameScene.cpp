@@ -161,9 +161,12 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 		_characterControllerA->getRHPos());
 
 #pragma mark InteractionController
-	// TODO: fix this init after finishing characterControllers
-	_assets->load<JsonValue>(LEVEL_ONE_KEY_JSON, LEVEL_ONE_FILE);
-	_interactionController.init({}, _characterControllerA, nullptr, {}, {}, _level, _assets->get<JsonValue>(LEVEL_ONE_KEY_JSON));
+    _assets->load<JsonValue>(ALPHA_RELEASE_KEY_JSON, ALPHA_RELEASE_FILE);
+	_interactionController.init({}, _characterControllerA, nullptr, {}, {}, _level, _assets->get<JsonValue>(ALPHA_RELEASE_KEY_JSON));
+
+	//    _camera.init(charNode,_worldnode,1.0f,
+	//    std::dynamic_pointer_cast<OrthographicCamera>(getCamera()),
+	//    _uinode, 2.0f);
 	_active = false;
 	_gamePaused = false;
 	_complete = false;
@@ -371,15 +374,16 @@ void GameScene::preUpdate(float dt) {
 	//_interactionController.preUpdate(dt);
 	while (!_interactionController.messageQueue.empty()) {
 		InteractionController::PublisherMessage publication = _interactionController.messageQueue.front();
-		// std::cout <<"PUB: "<< publication.pub_id<< " " << publication.trigger << " " << publication.message << "\n";
+		 std::cout <<"PUB: "<< publication.pub_id<< " " << publication.trigger << " " << publication.message << "\n";
 		for (const InteractionController::SubscriberMessage& s : _interactionController.subscriptions[publication.pub_id][publication.message]) {
-			std::cout << s.pub_id << " " << s.listening_for << "\n";
-			if (s.actions.count("win") > 0) {
-				CULog("Winner!");
-				setComplete(true);
-			}
-			if (s.actions.count("fire") > 0) {
-				std::cout << "Firing bottle <" << s.actions.at("fire") << ">\n\n";
+            std::cout << s.pub_id << " " << s.listening_for << "\n";
+            if (s.actions.count("win")>0){
+                CULog("Winner!");
+                setComplete(true);
+            }
+			if (s.actions.count("fire")>0) {
+                std::cout << "Firing bottle <" << s.actions.at("fire") << ">\n\n";
+                // s.actions.at("fire") is the name of the paint bottle obstacle
 			}
 		}
 		_interactionController.messageQueue.pop();
