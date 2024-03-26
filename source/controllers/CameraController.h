@@ -33,6 +33,8 @@ protected:
 	float _timer;
 	/** The maximum allowed zoom */
 	float _maxZoom;
+    
+    Vec2 _UIPosition;
 
 	bool _move;
 
@@ -108,6 +110,7 @@ public:
 
 	bool getMove() { return _move; }
 	void setMove(bool flag) { _move = flag; }
+    Vec2 getUIPosition() { return _UIPosition; }
 };
 
 #endif

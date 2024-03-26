@@ -68,6 +68,8 @@ protected:
 	std::shared_ptr<cugl::scene2::SceneNode> _uinode;
 	/** Reference to the reset message label */
 	std::shared_ptr<cugl::scene2::Label> _loadnode;
+    /** the level complete scene */
+    std::shared_ptr<cugl::scene2::SceneNode> _levelComplete;
 
 	CameraController _camera;
 
