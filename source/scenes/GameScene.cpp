@@ -54,7 +54,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 		: dimen.height / rect.size.height;
 	Vec2 offset{ (dimen.width - SCENE_WIDTH) / 2.0f,
 				(dimen.height - SCENE_HEIGHT) / 2.0f };
-
+	//CULog("dimen: %f, %f", dimen.width, dimen.height);
 	// TODO: add children to the scene, initialize Controllers
 	// Create the scene graph
 	_worldnode = scene2::SceneNode::alloc();
@@ -124,7 +124,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	_level->setAssets(_assets);
 	_level->setRootNode(_worldnode);
 	_platformWorld = _level->getPhysicsWorld();
-    _platformWorld -> setGravity(gravity);
+	_platformWorld->setGravity(gravity);
 
 #pragma mark Character 1
 	_characterControllerA = CharacterController::alloc(_level->getCharacterPos(), _scale);
@@ -162,12 +162,8 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 
 #pragma mark InteractionController
 	// TODO: fix this init after finishing characterControllers
-    _assets->load<JsonValue>(LEVEL_ONE_KEY_JSON, LEVEL_ONE_FILE);
+	_assets->load<JsonValue>(LEVEL_ONE_KEY_JSON, LEVEL_ONE_FILE);
 	_interactionController.init({}, _characterControllerA, nullptr, {}, {}, _level, _assets->get<JsonValue>(LEVEL_ONE_KEY_JSON));
-
-	//    _camera.init(charNode,_worldnode,1.0f,
-	//    std::dynamic_pointer_cast<OrthographicCamera>(getCamera()),
-	//    _uinode, 2.0f);
 	_active = false;
 	_gamePaused = false;
 	_complete = false;
@@ -179,12 +175,12 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	//    _audioController->init(_assets);
 	//    _audioController->play("box2DtheWORSTphysicsEngineIEverUsed",
 	//    "PhantomLiberty");
-    
-    
-	_camera.setTarget(_characterControllerA->getBodySceneNode());
+
+	/*_camera.setTarget(_characterControllerA->getBodySceneNode());*/
 	_camera.init(_characterControllerA->getBodySceneNode(), _worldnode, 10.0f,
 		std::dynamic_pointer_cast<OrthographicCamera>(getCamera()),
-		_uinode, 1.0f);
+		_uinode, 5.0f);
+	CULog("Character Pos: %f, %f", _characterControllerA->getBodySceneNode()->getPositionX(), _characterControllerA->getBodySceneNode()->getPositionY());
 	_camera.setZoom(DEFAULT_ZOOM);
 
 	return true;
@@ -215,9 +211,6 @@ void GameScene::dispose() {
 	if (_active) {
 		// TODO: implemetation
 		removeAllChildren();
-		//        _input.dispose();
-//		_inputController->dispose();
-//		_inputController = nullptr;
 		_worldnode = nullptr;
 		_debugnode = nullptr;
 		_winnode = nullptr;
@@ -290,11 +283,11 @@ void GameScene::reset() {
 		_characterControllerA->getRightHandPosition(),
 		_characterControllerA->getLHPos(),
 		_characterControllerA->getRHPos());
-    
-    //reload interaction controller
-    _assets->unload<JsonValue>(LEVEL_ONE_KEY_JSON);
-    _assets->load<JsonValue>(LEVEL_ONE_KEY_JSON, LEVEL_ONE_FILE);
-    _interactionController.init({}, _characterControllerA, nullptr, {}, {}, _level, _assets->get<JsonValue>(LEVEL_ONE_KEY_JSON));
+
+	//reload interaction controller
+	_assets->unload<JsonValue>(LEVEL_ONE_KEY_JSON);
+	_assets->load<JsonValue>(LEVEL_ONE_KEY_JSON, LEVEL_ONE_FILE);
+	_interactionController.init({}, _characterControllerA, nullptr, {}, {}, _level, _assets->get<JsonValue>(LEVEL_ONE_KEY_JSON));
 
 	//reload the camera
 	_camera.setTarget(_characterControllerA->getBodySceneNode());
@@ -380,21 +373,21 @@ void GameScene::preUpdate(float dt) {
 		InteractionController::PublisherMessage publication = _interactionController.messageQueue.front();
 		// std::cout <<"PUB: "<< publication.pub_id<< " " << publication.trigger << " " << publication.message << "\n";
 		for (const InteractionController::SubscriberMessage& s : _interactionController.subscriptions[publication.pub_id][publication.message]) {
-            std::cout << s.pub_id << " " << s.listening_for << "\n";
-            if (s.actions.count("win")>0){
-                CULog("Winner!");
-                setComplete(true);
-            }
-			if (s.actions.count("fire")>0) {
-                std::cout << "Firing bottle <" << s.actions.at("fire") << ">\n\n";
+			std::cout << s.pub_id << " " << s.listening_for << "\n";
+			if (s.actions.count("win") > 0) {
+				CULog("Winner!");
+				setComplete(true);
+			}
+			if (s.actions.count("fire") > 0) {
+				std::cout << "Firing bottle <" << s.actions.at("fire") << ">\n\n";
 			}
 		}
 		_interactionController.messageQueue.pop();
 	}
 	// TODO: error handle for loading different levels when we have multiple
 	// levels
-	//    _camera.update(dt);
 	_camera.update(dt);
+	//CULog("Character Pos: %f, %f", _characterControllerA->getBodySceneNode()->getPositionX(), _characterControllerA->getBodySceneNode()->getPositionY());
 	//_camera.process(ZOOMIN, 0.01);
 	//_camera.process(ZOOMOUT, 0.01);
 
@@ -435,8 +428,7 @@ void GameScene::fixedUpdate(float dt) {
 	// _characterControllerA->getBodySceneNode()->getPositionX() <<
 	// _characterControllerA->getBodySceneNode()->getPositionY() << std::endl;
 	_platformWorld->update(dt);
-	_camera.update(dt);
-    _characterControllerA->update(dt);
+	_characterControllerA->update(dt);
 }
 
 void GameScene::update(float dt) {

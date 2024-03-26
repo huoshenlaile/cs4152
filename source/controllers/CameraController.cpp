@@ -9,11 +9,20 @@ bool CameraController::init(const std::shared_ptr<cugl::scene2::SceneNode> targe
 	_camera = camera;
 	_maxZoom = maxZoom;
 	_ui = ui;
+	_move = true;
 
 	return true;
 }
 
 void CameraController::update(float dt) {
+	if (_move) {
+		_camera->translate(30, 0);
+		_camera->update();
+		if (_camera->getPosition().x >= _root->getSize().width - _camera->getViewport().getMaxX() / (2 * _camera->getZoom())) {
+			_move = false;
+		}
+		return;
+	}
 	Vec2 cameraPos = Vec2(_camera->getPosition().x, _camera->getPosition().y);
 
 	Vec2 target;
@@ -25,6 +34,7 @@ void CameraController::update(float dt) {
 	(*dst).x = std::max(std::min(_root->getSize().width - _camera->getViewport().getMaxX() / (2 * _camera->getZoom()), (*dst).x), _camera->getViewport().getMaxX() / (2 * _camera->getZoom()));
 	(*dst).y = std::max(std::min(_root->getSize().height - _camera->getViewport().getMaxY() / (2 * _camera->getZoom()), (*dst).y), _camera->getViewport().getMaxY() / (2 * _camera->getZoom()));
 	_camera->translate((*dst).x - cameraPos.x, (*dst).y - cameraPos.y);
+
 	delete dst;
 
 	_camera->update();
@@ -79,4 +89,8 @@ void CameraController::process(int zoomIn, float speed) {
 	}
 	_camera->setZoom(truezoom);
 	_ui->setScale(1 / _camera->getZoom());
+}
+
+void CameraController::move(cugl::Vec2 start, cugl::Vec2 end) {
+	_camera->setPosition(cugl::Vec2(2000, 0));
 }
