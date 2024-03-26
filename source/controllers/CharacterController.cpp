@@ -618,7 +618,31 @@ bool CharacterController::moveLeftHand(cugl::Vec2 offset)
 	float a = _obstacles[PART_BODY]->getAngle();
 	leftHandOffset = leftHandOffset + Vec2(offset.x * cos(a) + offset.y * sin(a), -offset.x * sin(a) + offset.y * cos(a));
 
+	float Hypotenuse = sqrt(1.0f + HAND_K * HAND_K);
+
 	float length = leftHandOffset.length();
+	
+	if (leftHandOffset.x > 0)
+	{
+		if (leftHandOffset.y >= 0){
+			float k = leftHandOffset.y / leftHandOffset.x;
+			if (k < HAND_K){
+				// need correction of hand position
+
+				leftHandOffset.x = length / Hypotenuse;
+				leftHandOffset.y = length * HAND_K / Hypotenuse;
+			}
+		}else{
+			float k = - leftHandOffset.y / leftHandOffset.x;
+			if (k < HAND_K){
+				
+				leftHandOffset.x = length / Hypotenuse;
+				leftHandOffset.y = - length * HAND_K / Hypotenuse;
+			}
+		}
+	}
+
+	length = leftHandOffset.length();
 	if (length > MAX_ARM_LENGTH)
 	{
 		leftHandOffset = leftHandOffset * (MAX_ARM_LENGTH / length);
@@ -627,10 +651,7 @@ bool CharacterController::moveLeftHand(cugl::Vec2 offset)
 	{
 		leftHandOffset = leftHandOffset * (MIN_ARM_LENGTH / length);
 	}
-	if (leftHandOffset.x > 0)
-	{
-		leftHandOffset.x = 0;
-	}
+
 	leftHandJoint->setLinearOffset(leftShoulderOffset + leftHandOffset);
 	float a2 = -atan2(leftHandOffset.y, -leftHandOffset.x);
 	// _obstacles[PART_LH]->setAngle(a2);
@@ -653,7 +674,33 @@ bool CharacterController::moveRightHand(cugl::Vec2 offset)
 	float a = _obstacles[PART_BODY]->getAngle();
 	rightHandOffset = rightHandOffset + Vec2(offset.x * cos(a) + offset.y * sin(a), -offset.x * sin(a) + offset.y * cos(a));
 
+	float Hypotenuse = sqrt(1.0f + HAND_K * HAND_K);
+
 	float length = rightHandOffset.length();
+	
+	if (rightHandOffset.x < 0)
+	{
+		if (rightHandOffset.y >= 0){
+			float k = - rightHandOffset.y / rightHandOffset.x;
+			if (k < HAND_K){
+				// need correction of hand position
+
+				rightHandOffset.x = - length / Hypotenuse;
+				rightHandOffset.y = length * HAND_K / Hypotenuse;
+
+			}
+		}else{
+			float k = rightHandOffset.y / rightHandOffset.x;
+			if (k < HAND_K){
+
+				rightHandOffset.x = - length / Hypotenuse;
+				rightHandOffset.y = - length * HAND_K / Hypotenuse;
+				
+			}
+		}
+	}
+
+	length = rightHandOffset.length();
 	if (length > MAX_ARM_LENGTH)
 	{
 		rightHandOffset = rightHandOffset * (MAX_ARM_LENGTH / length);
@@ -662,10 +709,7 @@ bool CharacterController::moveRightHand(cugl::Vec2 offset)
 	{
 		rightHandOffset = rightHandOffset * (MIN_ARM_LENGTH / length);
 	}
-	if (rightHandOffset.x < 0)
-	{
-		rightHandOffset.x = 0;
-	}
+
 	rightHandJoint->setLinearOffset(rightShoulderOffset + rightHandOffset);
 	float a2 = atan2(rightHandOffset.y, rightHandOffset.x);
 	// _obstacles[PART_RH]->setAngle(a2);

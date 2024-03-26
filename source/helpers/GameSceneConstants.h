@@ -28,10 +28,10 @@
 /** input scaler - how effective can the finger input affect the character movement*/
 #define INPUT_SCALER 1.5f
 /** HOW LONG the arms can stretch*/
-#define MAX_ARM_LENGTH 6.8f
+#define MAX_ARM_LENGTH 7.2f
 #define MIN_ARM_LENGTH 0.0f
 /** THESE ABOVE are useful for CHARACTER TUNING!*/
-
+#define HAND_K 2.0f
 /** This is the size of the active portion of the screen */
 #define SCENE_WIDTH 1024
 #define SCENE_HEIGHT 576
