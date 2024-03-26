@@ -468,15 +468,7 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_ketchup_capon",
-                                 "subscriptions": [{
-                                     "sub_id": "bottle0",
-                                     "pub_id": "sensor1",
-                                     "listening_for": "contacted",
-                                     "actions": {
-                                         "fire" : "0"
-                                     }
-                                 }]
+                                 "texture":"alpharelease_ketchup_capon"
                                 }
                             }
                         }],
@@ -950,6 +942,34 @@
               "width":0,
               "x":6289.91060025543,
               "y":561.941251596424
+             }, 
+             {
+                  "height":0,
+                  "id":56,
+                  "name":"paint1",
+                  "polygons": [
+                      [{ "x":0,"y":0}, {"x":500,"y":0}, {"x":500,"y":500  },{"x":250,"y":600}, {"x":0,"y":500  } ],
+                      [{"x":0, "y":0}, {"x":600, "y":0}, {"x":600, "y":600}, { "x":0,"y":600}],
+                      [{"x":0, "y":0}, {"x":700, "y":0}, {"x":700, "y":700}, { "x":0,"y":700}]
+                  ],
+                  "textures":["splotch1", "splotch2", "splotch3"],
+                  "properties":[{
+                      "value":{
+                            "obstacle": {
+                             "subscriptions": [{
+                                 "sub_id": "bottle0",
+                                 "pub_id": "sensor1",
+                                 "listening_for": "contacted",
+                                 "actions": {
+                                     "fire" : "0"
+                                 }
+                             }]
+                             }
+                            }
+                         }],
+                  "type":"paint",
+                  "width":0,
+                  "locations": [{"x":180, "y":50}, {"x":180, "y":50}, {"x":180, "y":50}]
              }],
          "opacity":1,
          "type":"objectgroup",
