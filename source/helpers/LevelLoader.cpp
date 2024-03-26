@@ -114,7 +114,8 @@ bool LevelLoader::loadObject(const std::shared_ptr<JsonValue>& json) {
         _charPos = getObjectPos(json);
 //        std::cout << _charPos.x << " abcdefg "<< _charPos.y <<std::endl;
     } else if (type == PAINT_FIELD){
-        return true;
+        return loadPaint(json);
+        //return true;
     }
     return false;
 }
@@ -223,6 +224,52 @@ bool LevelLoader::loadSensor(const std::shared_ptr<JsonValue>& json){
     }
     return success;
 }
+
+bool LevelLoader::loadPaint(const std::shared_ptr<JsonValue>& json){
+    bool success = false;
+    auto sensor_json = json->get("properties")->get(0)->get("value");
+    if (sensor_json != nullptr) {
+        bool success = true;
+        
+        int polysize = (int)json->get(PAINT_POLYGONS)->children().size();
+        success = success && polysize > 0;
+        
+        std::vector<Poly2> polys;
+        for (auto i = 0; i < polysize; i++) {
+            std::cout << "PROCESSING POLYGON" << json->get(PAINT_POLYGONS)->get(i)->toString() << std::endl;
+            std::vector<Vec2> vertices;
+            for (auto it2 = json->get(PAINT_POLYGONS)->get(i)->children().begin(); it2 != json->get(PAINT_POLYGONS)->get(i)->children().end(); it2++) {
+                vertices.push_back({it2->get()->getFloat("x"), it2->get()->getFloat("y")});
+            }
+            Poly2 frame(vertices);
+            polys.push_back(frame);
+        }
+        
+        std::vector<Vec2> locations;
+        for(auto it = json->get("locations")->children().begin(); it != json->get("locations")->children().end(); it++) {
+            locations.push_back({it->get()->getFloat("x"), it->get()->getFloat("y")});
+        }
+        
+        std::vector<std::string> textures;
+        for(auto it = json->get("textures")->children().begin(); it != json->get("textures")->children().end(); it++) {
+            std::cout << "PARSING TEXTURE" << it->get()->toString() << std::endl;
+            textures.push_back(it->get()->asString());
+        }
+
+
+        // Get the object, which is automatically retained
+        std::shared_ptr<PaintModel> paintobj = PaintModel::alloc(polys, locations, textures);
+        
+        // Set the texture value
+        if (success) {
+            _paints.push_back(paintobj);
+        } else {
+            paintobj = nullptr;
+        }
+    }
+    return success;
+}
+
 
 
 /**

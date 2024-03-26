@@ -128,18 +128,9 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 
     _platformWorld->setGravity(gravity);
     
-    // TODO: MOVE THIS TO LEVEL LOADER
-    Rect rec3 (0, 0, 700, 700);
-    Rect rec2 ( 0, 0, 600, 600);
-    Rect rec1(0, 0, 500, 500);
-    
-    std::vector<Vec2> locations1{{180, 50}, {180, 50}, {180, 50} };
-    auto pm = PaintModel::alloc({rec1, rec2, rec3}, locations1, _assets, _worldnode, _scale);
-    _paintModels.push_back(pm);
-    
-    std::vector<Vec2> locations2{{200, 70}, {200, 70}, {200, 70} };
-    auto pm2 = PaintModel::alloc({rec1, rec2, rec3}, locations2, _assets, _worldnode, _scale);
-    _paintModels.push_back(pm2);
+    for (auto& pm : _level->getPaints()){
+        pm->setPolysInScene(_assets, _worldnode, _scale);
+    }
 
 
 #pragma mark Character 1
@@ -203,6 +194,18 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	//CULog("Character Pos: %f, %f", _characterControllerA->getBodySceneNode()->getPositionX(), _characterControllerA->getBodySceneNode()->getPositionY());
 	_camera.setZoom(DEFAULT_ZOOM);
     
+    // TODO: MOVE THIS TO LEVEL LOADER
+    /*Rect rec3 (0, 0, 700, 700);
+    Rect rec2 ( 0, 0, 600, 600);
+    Rect rec1(0, 0, 500, 500);
+    
+    std::vector<Vec2> locations1{{180, 50}, {180, 50}, {180, 50} };
+    auto pm = PaintModel::alloc({rec1, rec2, rec3}, locations1, {}, _assets, _worldnode, _scale);
+    _paintModels.push_back(pm);
+    
+    std::vector<Vec2> locations2{{200, 70}, {200, 70}, {200, 70} };
+    auto pm2 = PaintModel::alloc({rec1, rec2, rec3}, locations2, {}, _assets, _worldnode, _scale);
+    _paintModels.push_back(pm2);*/
 
 	return true;
 }
@@ -408,7 +411,7 @@ void GameScene::preUpdate(float dt) {
                 auto bottle = std::stoi(s.actions.at("fire"));
                 std::cout << "Firing bottle <" << bottle << ">\n\n";
                 //TODO: Remove after triggering, probably. I think we should keep it as a vector though, not map
-                _paintModels[bottle]->trigger();
+                _level->getPaints()[bottle]->trigger();
                 // s.actions.at("fire") is the name of the paint bottle obstacle
 			}
 		}
@@ -430,11 +433,10 @@ void GameScene::preUpdate(float dt) {
 	//    }
     
     processPaintCallbacks(dt);
-    //_interactionController.detectPolyContact(_paintModel.currentNode(), _scale);
 }
 
 void GameScene::processPaintCallbacks(float millis){
-    for(auto& pm : _paintModels){
+    for(auto& pm : _level->getPaints()){
         pm->update(_worldnode, millis);
         if(pm->active){
             _interactionController.detectPolyContact(pm->currentNode(), _scale);

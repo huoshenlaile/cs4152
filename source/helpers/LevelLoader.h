@@ -9,6 +9,7 @@
 #include "../models/WallModel.h"
 #include "../models/ExitModel.h"
 #include "../models/SensorModel.h"
+#include "../models/PaintGrowerModel.hpp"
 
 
 using namespace cugl;
@@ -42,6 +43,8 @@ protected:
     std::shared_ptr<ExitModel> _goalDoor;
     /** Reference to the sensors of the game*/
     std::vector<std::shared_ptr<SensorModel>> _sensors;
+    std::vector<std::shared_ptr<PaintModel>> _paints;
+
     /** The AssetManager for the game mode */
     std::shared_ptr<cugl::AssetManager> _assets;
     
@@ -133,6 +136,7 @@ public:
      * @return true if the sensor was successfully loaded
      */
     bool loadSensor(const std::shared_ptr<JsonValue>& json);
+    bool loadPaint(const std::shared_ptr<JsonValue>& json);
     
     /**
      * Creates a new game level with no source file.
@@ -297,6 +301,9 @@ public:
     
     std::shared_ptr<cugl::physics2::net::NetWorld> getPhysicsWorld(){
         return _world;
+    }
+    std::vector<std::shared_ptr<PaintModel>> getPaints(){
+        return _paints;
     }
 };
 #endif

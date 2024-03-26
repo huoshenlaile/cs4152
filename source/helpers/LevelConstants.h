@@ -45,6 +45,10 @@
 #define VERTICES_FIELD      "polygon"
 #define BOUNDARY_FIELD      "boundary"
 
+/** Paint specific fields*/
+#define PAINT_POLYGONS      "polygons"
+
+
 /** The source for our level file */
 #define LEVEL_ONE_FILE      "json/tutorial.json"
 /** The key for our loaded level */
