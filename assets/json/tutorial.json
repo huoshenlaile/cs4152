@@ -297,10 +297,7 @@
                                       "pub_id": "sensor1",
                                       "trigger": "contacted",
                                       "message": "contacted",
-                                      "body": {
-                                          "debounce" : "true",
-                                          "triggerOnce" : "true"
-                                      }
+                                      "body": {}
                                   }
                               ],
                               "subscriptions": [{
