@@ -133,6 +133,42 @@
         "purple_decoration": {
             "file": "textures/decoration/purple_decoration.png"
         },
+        "black_lh": {
+            "file": "textures/hand/black_lefthand.png"
+        },
+        "black_rh": {
+            "file": "textures/hand/black_righthand.png"
+        },
+        "pink_lh": {
+            "file": "textures/hand/pink_lefthand.png"
+        },
+        "pink_rh": {
+            "file": "textures/hand/pink_righthand.png"
+        },
+        "blue_lh": {
+            "file": "textures/hand/blue_lefthand.png"
+        },
+        "blue_rh": {
+            "file": "textures/hand/blue_righthand.png"
+        },
+        "green_lh": {
+            "file": "textures/hand/green_lefthand.png"
+        },
+        "green_rh": {
+            "file": "textures/hand/green_righthand.png"
+        },
+        "purple_lh": {
+            "file": "textures/hand/purple_lefthand.png"
+        },
+        "purple_rh": {
+            "file": "textures/hand/purple_righthand.png"
+        },
+        "orange_lh": {
+            "file": "textures/hand/orange_lefthand.png"
+        },
+        "orange_rh": {
+            "file": "textures/hand/orange_righthand.png"
+        },
         "background_select": {
             "file": "textures/background_select.png"
         },

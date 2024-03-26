@@ -58,6 +58,18 @@ protected:
 	std::shared_ptr<cugl::Texture> _greendecoration;
 	std::shared_ptr<cugl::Texture> _pinkdecoration;
 	std::shared_ptr<cugl::Texture> _purpledecoration;
+	std::shared_ptr<cugl::Texture> _blacklh;
+	std::shared_ptr<cugl::Texture> _blackrh;
+	std::shared_ptr<cugl::Texture> _pinklh;
+	std::shared_ptr<cugl::Texture> _pinkrh;
+	std::shared_ptr<cugl::Texture> _bluelh;
+	std::shared_ptr<cugl::Texture> _bluerh;
+	std::shared_ptr<cugl::Texture> _greenlh;
+	std::shared_ptr<cugl::Texture> _greenrh;
+	std::shared_ptr<cugl::Texture> _orangelh;
+	std::shared_ptr<cugl::Texture> _orangerh;
+	std::shared_ptr<cugl::Texture> _purplelh;
+	std::shared_ptr<cugl::Texture> _purplerh;
 	std::vector<std::shared_ptr<cugl::physics2::Obstacle>> _obstacles;
 	std::vector<std::shared_ptr<cugl::physics2::Joint>> _joints;
 	/** The physics world; part of the model (though listeners elsewhere) */
