@@ -874,6 +874,34 @@
                  "width":0,
                  "x":6289.91060025543,
                  "y":561.941251596424
+                }, 
+                {
+                 "height":0,
+                 "id":56,
+                 "name":"exit_sensor",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":0,
+                         "y":124.727159338946
+                        }, 
+                        {
+                         "x":324.290614281259,
+                         "y":127.84533832242
+                        }, 
+                        {
+                         "x":324.290614281259,
+                         "y":0
+                        }],
+                 "rotation":0,
+                 "type":"sensor",
+                 "visible":true,
+                 "width":0,
+                 "x":7234.17524165887,
+                 "y":1453.07140629872
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -882,7 +910,7 @@
          "y":0
         }],
  "nextlayerid":3,
- "nextobjectid":56,
+ "nextobjectid":57,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
