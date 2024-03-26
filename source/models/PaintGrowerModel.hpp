@@ -27,9 +27,14 @@ protected:
 public:
     Color4 color;
     int timer;
-    PaintModel(){}
-    ~PaintModel(){}
+    PaintModel(void);
 
+    static std::shared_ptr<PaintModel> alloc(const std::vector<cugl::Poly2>& paintFrames, const std::shared_ptr<AssetManager>& assets, const std::shared_ptr<cugl::scene2::SceneNode>& worldnode){
+        std::shared_ptr<PaintModel> result = std::make_shared<PaintModel>();
+        return (result->init(paintFrames, assets, worldnode) ? result : nullptr);
+
+    }
+    
     bool init(const std::vector<cugl::Poly2>& paintFrames, const std::shared_ptr<AssetManager>& assets, const std::shared_ptr<cugl::scene2::SceneNode>& worldnode);
     
     cugl::Poly2 currentFrame() const;

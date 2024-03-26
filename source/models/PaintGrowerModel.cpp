@@ -8,6 +8,9 @@
 #include "PaintGrowerModel.hpp"
 using namespace cugl;
 
+PaintModel::PaintModel(void) : timer(1000){
+}
+
 bool PaintModel::init(const std::vector<cugl::Poly2>& paintFrames, const std::shared_ptr<AssetManager>& assets, const std::shared_ptr<cugl::scene2::SceneNode>& worldnode){
     
     std::vector<Vec2> vertices;
@@ -64,8 +67,8 @@ bool PaintModel::init(const std::vector<cugl::Poly2>& paintFrames, const std::sh
             std::cout << "POLY POSITION" << sprite->getPositionX() << ", " << sprite->getPositionY() << std::endl;
         }
     }
-
     return true;
+
 }
 
 cugl::Poly2 PaintModel::currentFrame() const {

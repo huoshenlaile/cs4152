@@ -118,7 +118,8 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	_level->setRootNode(_worldnode);
 	_platformWorld = _level->getPhysicsWorld();
     
-    _paintModel.init({}, _assets, _worldnode);
+    auto pm = PaintModel::alloc({}, _assets, _worldnode);
+    _paintModels.push_back(pm);
     addPaintObstacles();
 
 
@@ -431,16 +432,20 @@ void GameScene::preUpdate(float dt) {
 	//    }
     
     processPaintCallbacks(dt);
-    _interactionController.detectPolyContact(_paintModel.currentNode(), _scale);
+    //_interactionController.detectPolyContact(_paintModel.currentNode(), _scale);
 }
 
 void GameScene::processPaintCallbacks(float millis){
-    if (_paintModel.timer <= 0) {
-        CULog("Update called");
-        _paintModel.update(_worldnode);
-        _paintModel.timer = 1000; // ten seconds
-    } else {
-        _paintModel.timer -= millis;
+    for(auto& pm : _paintModels){
+        if (pm->timer <= 0) {
+            CULog("Update called");
+            pm->update(_worldnode);
+            pm->timer = 1000; // ten seconds
+        } else {
+            pm->timer -= millis;
+        }
+        _interactionController.detectPolyContact(pm->currentNode(), _scale);
+
     }
     
 }

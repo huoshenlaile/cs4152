@@ -167,9 +167,9 @@ void InteractionController::detectPolyContact(const std::shared_ptr<scene2::Poly
     auto right_hand = _characterControllerA->getRightHandPosition() * scale;
     if(poly2->getBoundingBox().contains(right_hand)){
         std::cout << "OMG CHARACTER IS IN THE POLYGON!!!!!" << "hand: " << _characterControllerA->getRightHandPosition().x << ", " << _characterControllerA->getRightHandPosition().y << std::endl;
+    } else if(poly2->getBoundingBox().contains(_characterControllerA->getLeftHandPosition() * scale)) {
+        std::cout << "OMG CHARACTER IS IN THE POLYGON!!!!! left hand slay " << std::endl;
     }
-    
-    //b2Distance(_characterControllerA->getRightHandPosition()., _characterControllerA->getRightHandPosition().b2Vec2());
 }
 
 void InteractionController::beforeSolve(b2Contact* contact, const b2Manifold* oldManifold) {

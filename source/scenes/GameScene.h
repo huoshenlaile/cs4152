@@ -24,7 +24,7 @@ protected:
 	std::shared_ptr<cugl::physics2::net::NetWorld> _platformWorld;
     std::shared_ptr<cugl::scene2::Button> _pause;
     
-    PaintModel _paintModel;
+    std::vector<std::shared_ptr<PaintModel>> _paintModels;
 
 	// MODELS
 	// TODO: Do we need a vector of these?
