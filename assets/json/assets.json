@@ -181,9 +181,6 @@
         "button_third": {
             "file": "textures/button_third.png"
         },
-        "button_third_down": {
-            "file": "textures/button_third_down.png"
-        },
         "button_second": {
             "file": "textures/button_second.png"
         },
