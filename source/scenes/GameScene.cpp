@@ -96,14 +96,13 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 			//			_network->pushOutEvent(PauseEvent::allocPauseEvent(
 			//				Vec2(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 2), true));
 		}
-    });
+		});
 	_uinode->addChild(_pause);
 	addChild(_worldnode);
 	addChild(_uinode);
-    
 
 	_worldnode->setContentSize(Size(SCENE_WIDTH, SCENE_HEIGHT));
-    
+
 #pragma mark LevelLoader
 	// make the getter for loading the map
 	_level = assets->get<LevelLoader>(ALPHA_RELEASE_KEY);
@@ -115,21 +114,20 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	_level->setRootNode(_worldnode);
 	_platformWorld = _level->getPhysicsWorld();
 
-    _platformWorld->setGravity(gravity);
-    
-    // TODO: MOVE THIS TO LEVEL LOADER
-    Rect rec3 (0, 0, 700, 700);
-    Rect rec2 ( 0, 0, 600, 600);
-    Rect rec1(0, 0, 500, 500);
-    
-    std::vector<Vec2> locations1{{180, 50}, {180, 50}, {180, 50} };
-    auto pm = PaintModel::alloc({rec1, rec2, rec3}, locations1, _assets, _worldnode, _scale);
-    _paintModels.push_back(pm);
-    
-    std::vector<Vec2> locations2{{200, 70}, {200, 70}, {200, 70} };
-    auto pm2 = PaintModel::alloc({rec1, rec2, rec3}, locations2, _assets, _worldnode, _scale);
-    _paintModels.push_back(pm2);
+	_platformWorld->setGravity(gravity);
 
+	// TODO: MOVE THIS TO LEVEL LOADER
+	Rect rec3(0, 0, 700, 700);
+	Rect rec2(0, 0, 600, 600);
+	Rect rec1(0, 0, 500, 500);
+
+	std::vector<Vec2> locations1{ {180, 50}, {180, 50}, {180, 50} };
+	auto pm = PaintModel::alloc({ rec1, rec2, rec3 }, locations1, _assets, _worldnode, _scale);
+	_paintModels.push_back(pm);
+
+	std::vector<Vec2> locations2{ {200, 70}, {200, 70}, {200, 70} };
+	auto pm2 = PaintModel::alloc({ rec1, rec2, rec3 }, locations2, _assets, _worldnode, _scale);
+	_paintModels.push_back(pm2);
 
 #pragma mark Character 1
 	_characterControllerA = CharacterController::alloc(_level->getCharacterPos(), _scale);
@@ -152,7 +150,6 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	//    _characterControllerB->linkPartsToWorld(_platformWorld, charNodeB,
 	//    _scale);
 
-
 #pragma mark NetEvents
 	_network->attachEventType<GrabEvent>();
 	_network->attachEventType<PauseEvent>();
@@ -167,7 +164,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 		_characterControllerA->getRHPos());
 
 #pragma mark InteractionController
-    _assets->load<JsonValue>(ALPHA_RELEASE_KEY_JSON, ALPHA_RELEASE_FILE);
+	_assets->load<JsonValue>(ALPHA_RELEASE_KEY_JSON, ALPHA_RELEASE_FILE);
 	_interactionController.init({}, _characterControllerA, nullptr, {}, {}, _level, _assets->get<JsonValue>(ALPHA_RELEASE_KEY_JSON));
 
 	//    _camera.init(charNode,_worldnode,1.0f,
@@ -191,21 +188,17 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 		_uinode, 5.0f);
 	//CULog("Character Pos: %f, %f", _characterControllerA->getBodySceneNode()->getPositionX(), _characterControllerA->getBodySceneNode()->getPositionY());
 	_camera.setZoom(DEFAULT_ZOOM);
-    
-    
-    
-//    std::shared_ptr<scene2::SceneNode> levelComplete = _assets->get<scene2::SceneNode>("levelcomplete");
-//    Size tryDimen = Application::get()->getDisplaySize();
-//    levelComplete -> setContentSize(dimen);
-//    levelComplete -> doLayout(); // Repositions the HUD
-//    addChild(levelComplete);
+
+	//    std::shared_ptr<scene2::SceneNode> levelComplete = _assets->get<scene2::SceneNode>("levelcomplete");
+	//    Size tryDimen = Application::get()->getDisplaySize();
+	//    levelComplete -> setContentSize(dimen);
+	//    levelComplete -> doLayout(); // Repositions the HUD
+	//    addChild(levelComplete);
 
 	return true;
 }
 
-void GameScene::addPaintObstacles(){
-
-    
+void GameScene::addPaintObstacles() {
 }
 
 /**
@@ -308,8 +301,8 @@ void GameScene::reset() {
 
 	//reload interaction controller
 	_assets->unload<JsonValue>(ALPHA_RELEASE_KEY_JSON);
-    _assets->load<JsonValue>(ALPHA_RELEASE_KEY_JSON, ALPHA_RELEASE_FILE);
-    _interactionController.init({}, _characterControllerA, nullptr, {}, {}, _level, _assets->get<JsonValue>(ALPHA_RELEASE_KEY_JSON));
+	_assets->load<JsonValue>(ALPHA_RELEASE_KEY_JSON, ALPHA_RELEASE_FILE);
+	_interactionController.init({}, _characterControllerA, nullptr, {}, {}, _level, _assets->get<JsonValue>(ALPHA_RELEASE_KEY_JSON));
 	//reload the camera
 	_camera.init(_characterControllerA->getBodySceneNode(), _worldnode, 10.0f,
 		std::dynamic_pointer_cast<OrthographicCamera>(getCamera()),
@@ -319,7 +312,7 @@ void GameScene::reset() {
 	//_camera.setTarget(_characterControllerA->getBodySceneNode());
 
 	Application::get()->resetFixedRemainder();
-    activateWorldCollisions(_platformWorld);
+	activateWorldCollisions(_platformWorld);
 }
 
 /**
@@ -393,19 +386,19 @@ void GameScene::preUpdate(float dt) {
 	//_interactionController.preUpdate(dt);
 	while (!_interactionController.messageQueue.empty()) {
 		InteractionController::PublisherMessage publication = _interactionController.messageQueue.front();
-		 std::cout <<"PUB: "<< publication.pub_id<< " " << publication.trigger << " " << publication.message << "\n";
+		std::cout << "PUB: " << publication.pub_id << " " << publication.trigger << " " << publication.message << "\n";
 		for (const InteractionController::SubscriberMessage& s : _interactionController.subscriptions[publication.pub_id][publication.message]) {
-            std::cout << s.pub_id << " " << s.listening_for << "\n";
-            if (s.actions.count("win")>0){
-                CULog("Winner!");
-                setComplete(true);
-            }
-			if (s.actions.count("fire")>0) {
-                auto bottle = std::stoi(s.actions.at("fire"));
-                std::cout << "Firing bottle <" << bottle << ">\n\n";
-                //TODO: Remove after triggering, probably. I think we should keep it as a vector though, not map
-                _paintModels[bottle]->trigger();
-                // s.actions.at("fire") is the name of the paint bottle obstacle
+			std::cout << s.pub_id << " " << s.listening_for << "\n";
+			if (s.actions.count("win") > 0) {
+				CULog("Winner!");
+				setComplete(true);
+			}
+			if (s.actions.count("fire") > 0) {
+				auto bottle = std::stoi(s.actions.at("fire"));
+				std::cout << "Firing bottle <" << bottle << ">\n\n";
+				//TODO: Remove after triggering, probably. I think we should keep it as a vector though, not map
+				_paintModels[bottle]->trigger();
+				// s.actions.at("fire") is the name of the paint bottle obstacle
 			}
 		}
 		_interactionController.messageQueue.pop();
@@ -424,21 +417,21 @@ void GameScene::preUpdate(float dt) {
 	//        CULog("Grab Event COMING");
 	//        _network->pushOutEvent(GrabEvent::allocGrabEvent(Vec2(DEFAULT_WIDTH/2,DEFAULT_HEIGHT/2)));
 	//    }
-    
-    processPaintCallbacks(dt);
-    //_interactionController.detectPolyContact(_paintModel.currentNode(), _scale);
+
+	processPaintCallbacks(dt);
+	_camera.setTarget(_characterControllerA->getBodySceneNode());
+	//_interactionController.detectPolyContact(_paintModel.currentNode(), _scale);
 }
 
-void GameScene::processPaintCallbacks(float millis){
-    for(auto& pm : _paintModels){
-        pm->update(_worldnode, millis);
-        if(pm->active){
-            _interactionController.detectPolyContact(pm->currentNode(), _scale);
-        }
-    }
-    
-    
-//    _levelComplete -> setPosition(_camera.getUIPosition());
+void GameScene::processPaintCallbacks(float millis) {
+	for (auto& pm : _paintModels) {
+		pm->update(_worldnode, millis);
+		if (pm->active) {
+			_interactionController.detectPolyContact(pm->currentNode(), _scale);
+		}
+	}
+
+	//    _levelComplete -> setPosition(_camera.getUIPosition());
 }
 
 void GameScene::postUpdate(float dt) {
@@ -470,6 +463,7 @@ void GameScene::fixedUpdate(float dt) {
 	// _characterControllerA->getBodySceneNode()->getPositionY() << std::endl;
 	_platformWorld->update(dt);
 	_characterControllerA->update(dt);
+	//_camera.setTarget(_characterControllerA->getBodySceneNode());
 }
 
 void GameScene::update(float dt) {
