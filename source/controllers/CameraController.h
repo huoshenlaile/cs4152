@@ -7,6 +7,7 @@
 #include <thread>
 #include <chrono>
 #include "InputController.h"
+#include "../helpers/GameSceneConstants.h"
 
 using namespace cugl;
 
@@ -33,10 +34,11 @@ protected:
 	float _timer;
 	/** The maximum allowed zoom */
 	float _maxZoom;
-    
-    Vec2 _UIPosition;
+
+	Vec2 _UIPosition;
 
 	bool _move;
+	int _initialStay, _finalStay;
 
 public:
 	/**
@@ -110,7 +112,9 @@ public:
 
 	bool getMove() { return _move; }
 	void setMove(bool flag) { _move = flag; }
-    Vec2 getUIPosition() { return _UIPosition; }
+	Vec2 getUIPosition() { return _UIPosition; }
+	void setInitialStay(int stay) { _initialStay = stay; }
+	void setFinalStay(int stay) { _finalStay = stay; }
 };
 
 #endif

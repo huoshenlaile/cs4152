@@ -304,11 +304,7 @@ void GameScene::reset() {
 	_assets->load<JsonValue>(ALPHA_RELEASE_KEY_JSON, ALPHA_RELEASE_FILE);
 	_interactionController.init({}, _characterControllerA, nullptr, {}, {}, _level, _assets->get<JsonValue>(ALPHA_RELEASE_KEY_JSON));
 	//reload the camera
-	_camera.init(_characterControllerA->getBodySceneNode(), _worldnode, 10.0f,
-		std::dynamic_pointer_cast<OrthographicCamera>(getCamera()),
-		_uinode, 5.0f);
-	_camera.setMove(false);
-	_camera.setZoom(DEFAULT_ZOOM);
+	cameraReset();
 	//_camera.setTarget(_characterControllerA->getBodySceneNode());
 
 	Application::get()->resetFixedRemainder();
@@ -489,4 +485,14 @@ Size GameScene::computeActiveSize() const {
 		dimen *= SCENE_HEIGHT / dimen.height;
 	}
 	return dimen;
+}
+
+void GameScene::cameraReset() {
+	_camera.init(_characterControllerA->getBodySceneNode(), _worldnode, 10.0f,
+		std::dynamic_pointer_cast<OrthographicCamera>(getCamera()),
+		_uinode, 5.0f);
+	_camera.setMove(false);
+	_camera.setZoom(DEFAULT_ZOOM);
+	_camera.setInitialStay(INITIAL_STAY + 1);
+	_camera.setFinalStay(FINAL_STAY + 1);
 }
