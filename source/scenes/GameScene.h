@@ -44,16 +44,10 @@ protected:
 	std::shared_ptr<InputController> _inputController;
 
 	std::shared_ptr<cugl::physics2::net::NetWorld> _platformWorld;
-<<<<<<< HEAD
-	std::shared_ptr<cugl::scene2::Button> _pause;
-
-	std::vector<std::shared_ptr<PaintModel>> _paintModels;
-=======
     
     std::shared_ptr<cugl::scene2::Button> _pauseButton;
     
     std::vector<std::shared_ptr<PaintModel>> _paintModels;
->>>>>>> 2b7614b (build up LevelCompleteScene(back to menu function is buggy))
 
 	// MODELS
 	// TODO: Do we need a vector of these?
@@ -110,14 +104,6 @@ protected:
 
 public:
 	/** the state of this scene, referenced by DPApp*/
-<<<<<<< HEAD
-	enum SceneState {
-		INGAME,
-		PAUSE,
-		NETERROR,
-		QUIT
-	};
-=======
     enum SceneState {
         INGAME,
         PAUSE,
@@ -125,7 +111,6 @@ public:
         RESET,
         QUIT
     };
->>>>>>> 2b7614b (build up LevelCompleteScene(back to menu function is buggy))
 	SceneState state;
 #pragma mark -
 #pragma mark Constructors
