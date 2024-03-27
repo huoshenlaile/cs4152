@@ -651,6 +651,18 @@ bool CharacterController::moveLeftHand(cugl::Vec2 offset)
 		}
 	}
 
+	// if it is too close to right hand, set min distance
+	Vec2 leftHandTargetPos = leftShoulderOffset + leftHandOffset;
+	Vec2 rightHandTargetPos = rightShoulderOffset + rightHandOffset;
+	float distance = leftHandTargetPos.distance(rightHandTargetPos);
+	// CULog("moveLeftHand distance: %f", distance);
+	if (distance < MIN_HAND_DISTANCE)
+	{
+		Vec2 rightHandToLeftHand = leftHandTargetPos - rightHandTargetPos;
+		rightHandToLeftHand.normalize();
+		leftHandOffset = rightHandToLeftHand * MIN_HAND_DISTANCE + rightHandTargetPos - leftShoulderOffset;
+	}
+
 	length = leftHandOffset.length();
 	if (length > MAX_ARM_LENGTH)
 	{
@@ -687,6 +699,7 @@ bool CharacterController::moveRightHand(cugl::Vec2 offset)
 
 	float length = rightHandOffset.length();
 
+	// constraint the hand position
 	if (rightHandOffset.x < 0)
 	{
 		if (rightHandOffset.y >= 0)
@@ -694,8 +707,6 @@ bool CharacterController::moveRightHand(cugl::Vec2 offset)
 			float k = -rightHandOffset.y / rightHandOffset.x;
 			if (k < HAND_K)
 			{
-				// need correction of hand position
-
 				rightHandOffset.x = -length / Hypotenuse;
 				rightHandOffset.y = length * HAND_K / Hypotenuse;
 			}
@@ -711,6 +722,21 @@ bool CharacterController::moveRightHand(cugl::Vec2 offset)
 			}
 		}
 	}
+
+	// if it is too close to left hand, set min distance
+	Vec2 leftHandTargetPos = leftShoulderOffset + leftHandOffset;
+	Vec2 rightHandTargetPos = rightShoulderOffset + rightHandOffset;
+	float distance = leftHandTargetPos.distance(rightHandTargetPos);
+	if (distance < MIN_HAND_DISTANCE)
+	{
+		Vec2 leftHandToRightHand = rightHandTargetPos - leftHandTargetPos;
+		leftHandToRightHand.normalize();
+		rightHandOffset = leftHandToRightHand * MIN_HAND_DISTANCE + leftHandTargetPos - rightShoulderOffset;
+	}
+
+
+
+
 
 	length = rightHandOffset.length();
 	if (length > MAX_ARM_LENGTH)
