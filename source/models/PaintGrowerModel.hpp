@@ -23,6 +23,8 @@ protected:
   std::vector<std::shared_ptr<Texture>> _textures;
     std::vector<std::shared_ptr<scene2::PolygonNode>> _sprites;
   int _currentFrame;
+std::shared_ptr<cugl::scene2::SceneNode> _worldnode;
+
 
 public:
     Color4 color;

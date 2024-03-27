@@ -269,6 +269,9 @@ void GameScene::reset() {
 	// reload the level
 
 //	CULog("GAME RESET");
+    for(auto & pm : _paintModels){
+        pm->clear();
+    }
 	_assets->unload<LevelLoader>(ALPHA_RELEASE_KEY);
 	_assets->load<LevelLoader>(ALPHA_RELEASE_KEY, ALPHA_RELEASE_FILE);
 
@@ -279,7 +282,21 @@ void GameScene::reset() {
 
 	_platformWorld = nullptr;
 	_platformWorld = _level->getPhysicsWorld();
+    
+    //TODO: refactor out adding to scene so we don't need to reinstatiate everything - do this after LevelLoader refactor
+    _paintModels.clear();
+    Rect rec3(0, 0, 700, 700);
+    Rect rec2(0, 0, 600, 600);
+    Rect rec1(0, 0, 500, 500);
 
+    std::vector<Vec2> locations1{ {180, 50}, {180, 50}, {180, 50} };
+    auto pm = PaintModel::alloc({ rec1, rec2, rec3 }, locations1, _assets, _worldnode, _scale);
+    _paintModels.push_back(pm);
+
+    std::vector<Vec2> locations2{ {200, 70}, {200, 70}, {200, 70} };
+    auto pm2 = PaintModel::alloc({ rec1, rec2, rec3 }, locations2, _assets, _worldnode, _scale);
+    _paintModels.push_back(pm2);
+    
 	//reload the character
 //    _characterControllerA = nullptr;
 	_characterControllerA = CharacterController::alloc(_level->getCharacterPos(), _scale);
