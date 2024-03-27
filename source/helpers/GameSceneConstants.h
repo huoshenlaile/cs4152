@@ -10,7 +10,7 @@
 
 /** THESE BELOW are useful for CHARACTER TUNING!*/
 /** The default value of gravity (going down) */
-#define CHARACTER_GRAVITY -75.0f
+#define CHARACTER_GRAVITY -60.0f
 /** This is not used for now. */
 #define MAX_TORQUE 10000000.0f
 /** Character's max force */
@@ -32,6 +32,7 @@
 #define MIN_ARM_LENGTH 0.0f
 /** THESE ABOVE are useful for CHARACTER TUNING!*/
 #define HAND_K 2.0f
+#define MIN_HAND_DISTANCE 2.5f
 /** This is the size of the active portion of the screen */
 #define SCENE_WIDTH 1024
 #define SCENE_HEIGHT 576
