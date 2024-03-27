@@ -157,6 +157,15 @@ std::shared_ptr<physics2::Obstacle> CharacterController::makePart(int part, int 
 		body->setFriction(OTHER_FRICTION);
 	}
 
+	// add body with BODY_ANULAR_DAMPING
+	if (part == PART_BODY)
+	{
+		// log default damping
+		// CULog("makePart body part %d angular damping: %f", part, body->getAngularDamping());
+		body->setAngularDamping(BODY_ANGULAR_DAMPING);
+		CULog("makePart body part %d angular damping: %f", part, body->getAngularDamping());
+	}
+
 	// log friction information:
 	CULog("makePart body part %d friction: %f", part, body->getFriction());
 
