@@ -44,9 +44,16 @@ protected:
 	std::shared_ptr<InputController> _inputController;
 
 	std::shared_ptr<cugl::physics2::net::NetWorld> _platformWorld;
+<<<<<<< HEAD
 	std::shared_ptr<cugl::scene2::Button> _pause;
 
 	std::vector<std::shared_ptr<PaintModel>> _paintModels;
+=======
+    
+    std::shared_ptr<cugl::scene2::Button> _pauseButton;
+    
+    std::vector<std::shared_ptr<PaintModel>> _paintModels;
+>>>>>>> 2b7614b (build up LevelCompleteScene(back to menu function is buggy))
 
 	// MODELS
 	// TODO: Do we need a vector of these?
@@ -67,8 +74,10 @@ protected:
 	std::shared_ptr<cugl::scene2::SceneNode> _uinode;
 	/** Reference to the reset message label */
 	std::shared_ptr<cugl::scene2::Label> _loadnode;
-	/** the level complete scene */
-	std::shared_ptr<cugl::scene2::SceneNode> _levelComplete;
+    /** the level complete scene */
+    std::shared_ptr<cugl::scene2::SceneNode> _levelComplete;
+    std::shared_ptr<cugl::scene2::Button> _levelCompleteReset;
+    std::shared_ptr<cugl::scene2::Button> _levelCompleteMenu;
 
 	CameraController _camera;
 
@@ -101,12 +110,22 @@ protected:
 
 public:
 	/** the state of this scene, referenced by DPApp*/
+<<<<<<< HEAD
 	enum SceneState {
 		INGAME,
 		PAUSE,
 		NETERROR,
 		QUIT
 	};
+=======
+    enum SceneState {
+        INGAME,
+        PAUSE,
+        NETERROR,
+        RESET,
+        QUIT
+    };
+>>>>>>> 2b7614b (build up LevelCompleteScene(back to menu function is buggy))
 	SceneState state;
 #pragma mark -
 #pragma mark Constructors
@@ -237,11 +256,7 @@ public:
 	 *
 	 * @param value whether the level is completed.
 	 */
-	void setComplete(bool value) {
-		//_complete = value;
-		_winnode->setVisible(value);
-	}
-
+    void setComplete(bool value);
 #pragma mark Grab Esther
 	/**
 	 * This method takes a grabEvent and processes it.

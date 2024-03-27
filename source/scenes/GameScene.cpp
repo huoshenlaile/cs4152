@@ -74,22 +74,15 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	_loadnode->setForeground(STATIC_COLOR);
 	_loadnode->setVisible(false);
 
-	_winnode = scene2::Label::allocWithText("VICTORY!",
-		_assets->get<Font>(PRIMARY_FONT));
-	_winnode->setAnchor(Vec2::ANCHOR_CENTER);
-	_winnode->setPosition(computeActiveSize() / 2);
-	_winnode->setForeground(STATIC_COLOR);
-	_winnode->setVisible(false);
-
 	_uinode = scene2::SceneNode::alloc();
 	_uinode->setContentSize(dimen);
 	_uinode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
-	_uinode->addChild(_winnode);
 	_uinode->addChild(_loadnode);
 
-	_pause = std::dynamic_pointer_cast<scene2::Button>(
+	_pauseButton = std::dynamic_pointer_cast<scene2::Button>(
 		_assets->get<scene2::SceneNode>("pausebutton"));
-	_pause->addListener([this](const std::string& name, bool down) {
+    _pauseButton -> removeFromParent();
+	_pauseButton->addListener([this](const std::string& name, bool down) {
 		if (down) {
 			_gamePaused = true;
 			//			CULog("Pause button hit");
@@ -97,7 +90,39 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 			//				Vec2(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 2), true));
 		}
 		});
-	_uinode->addChild(_pause);
+	_uinode->addChild(_pauseButton);
+    
+
+    _levelComplete = _assets->get<scene2::SceneNode>("levelcomplete");
+    _levelComplete -> removeFromParent();
+    Size tryDimen = Application::get()->getDisplaySize();
+    _levelComplete -> doLayout(); // Repositions the HUD
+    _levelComplete -> setContentSize(dimen);
+    _levelComplete -> setVisible(false);
+    _levelCompleteReset = std::dynamic_pointer_cast<scene2::Button>(_levelComplete -> getChildByName("options") -> getChildByName("restart"));
+    _levelCompleteReset -> deactivate();
+    _levelCompleteReset->addListener([this](const std::string& name, bool down) {
+        if (down) {
+            std::cout << "Well, level complete reset!" << std::endl;
+            this -> state = RESET;
+        }
+    });
+    _levelCompleteMenu = std::dynamic_pointer_cast<scene2::Button>(_levelComplete -> getChildByName("options") -> getChildByName("menu"));
+    _levelCompleteMenu -> deactivate();
+    _levelCompleteMenu->addListener([this](const std::string& name, bool down) {
+        if (down) {
+            std::cout << "Well, level MENU!" << std::endl;
+            // TODO: there is something weird happening here.
+#pragma mark WAITING FOR SOLUTION
+//            _level -> unload();
+//            _level -> clearRootNode();
+//            this -> state = QUIT;
+        }
+    });
+    
+    _uinode -> addChild(_levelComplete);
+    
+    
 	addChild(_worldnode);
 	addChild(_uinode);
 
@@ -116,6 +141,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 
 	_platformWorld->setGravity(gravity);
 
+#pragma mark Paints (TODO)
 	// TODO: MOVE THIS TO LEVEL LOADER
 	Rect rec3(0, 0, 700, 700);
 	Rect rec2(0, 0, 600, 600);
@@ -190,13 +216,6 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	_camera.setZoom(DEFAULT_ZOOM);
     
     
-    
-    std::shared_ptr<scene2::SceneNode> levelComplete = _assets->get<scene2::SceneNode>("levelcomplete");
-    Size tryDimen = Application::get()->getDisplaySize();
-    levelComplete -> doLayout(); // Repositions the HUD
-    levelComplete -> setContentSize(dimen);
-    levelComplete -> setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
-    addChild(levelComplete);
 
 	return true;
 }
@@ -222,19 +241,32 @@ void GameScene::activateWorldCollisions(const std::shared_ptr<physics2::Obstacle
 		};
 }
 
+#pragma mark DISPOSE
 /**
  * Disposes of all (non-static) resources allocated to this mode.
  */
 void GameScene::dispose() {
 	if (_active) {
-		// TODO: implemetation
+        
+        // TODO: implement this -now the logic is very unclear and I just clean up everything
+        
 		removeAllChildren();
+        _characterControllerA->dispose();
 		_worldnode = nullptr;
 		_debugnode = nullptr;
 		_winnode = nullptr;
+        _level -> unload();
+        _level -> clearRootNode();
+        _level = nullptr;
+        _uinode = nullptr;
+        _levelComplete -> removeFromParent();
+        _levelComplete = nullptr;
+        _levelCompleteMenu = nullptr;
+        _levelCompleteReset = nullptr;
+        _pauseButton -> removeFromParent();
+        _pauseButton = nullptr;
 		_complete = false;
 		_debug = false;
-		_characterControllerA->dispose();
 		//_characterControllerB->dispose();
 		Scene2::dispose();
 	}
@@ -244,20 +276,22 @@ void GameScene::setActive(bool value) {
 	if (isActive() != value) {
 		Scene2::setActive(value);
 		if (value) {
-			_pause->activate();
+			_pauseButton->activate();
 			_gamePaused = false;
+            
+            _inputController = std::make_shared<InputController>();
+            _inputController->init(Rect(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT));
+            _inputController->fillHand(_characterControllerA->getLeftHandPosition(),
+                _characterControllerA->getRightHandPosition(),
+                _characterControllerA->getLHPos(),
+                _characterControllerA->getRHPos());
 		}
 		else {
-			_pause->deactivate();
-			_pause->setDown(false);
+			_pauseButton->deactivate();
+			_pauseButton->setDown(false);
 		}
 	}
-	_inputController = std::make_shared<InputController>();
-	_inputController->init(Rect(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT));
-	_inputController->fillHand(_characterControllerA->getLeftHandPosition(),
-		_characterControllerA->getRightHandPosition(),
-		_characterControllerA->getLHPos(),
-		_characterControllerA->getRHPos());
+
 }
 
 #pragma mark -
@@ -270,6 +304,7 @@ void GameScene::setActive(bool value) {
  */
 void GameScene::reset() {
 	// reload the level
+    state = INGAME;
 
 //	CULog("GAME RESET");
     for(auto & pm : _paintModels){
@@ -302,7 +337,14 @@ void GameScene::reset() {
 	auto charNode = scene2::SceneNode::alloc();
 	_worldnode->addChild(charNode);
 	_characterControllerA->linkPartsToWorld(_platformWorld, charNode, _scale);
+    
+    _levelCompleteReset -> deactivate();
+    _levelCompleteMenu -> deactivate();
+    _levelComplete -> setVisible(false);
 	setComplete(false);
+    _pauseButton -> activate();
+    _pauseButton -> setVisible(true);
+    
 
 	//reload the input
 	_inputController = std::make_shared<InputController>();
@@ -320,8 +362,10 @@ void GameScene::reset() {
 	cameraReset();
 	//_camera.setTarget(_characterControllerA->getBodySceneNode());
 
-	Application::get()->resetFixedRemainder();
 	activateWorldCollisions(_platformWorld);
+    
+    
+    Application::get()->resetFixedRemainder();
 }
 
 /**
@@ -478,6 +522,19 @@ void GameScene::fixedUpdate(float dt) {
 void GameScene::update(float dt) {
 	// deprecated
 }
+
+#pragma mark setComplete
+void GameScene::setComplete(bool value){
+    _complete = value;
+    if (value) {
+        _pauseButton -> setVisible(false);
+        _pauseButton -> deactivate();
+        _levelComplete -> setVisible(true);
+        _levelCompleteReset -> activate();
+        _levelCompleteMenu -> activate();
+    }
+}
+
 
 #pragma mark Helper Functions
 

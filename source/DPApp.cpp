@@ -126,16 +126,32 @@ void DPApp::preUpdate(float timestep) {
   } else if (_status == RESTORE) {
     updateRestoration(timestep);
   } else if (_status == GAME) {
+      
     if (_gameScene.isComplete()) {
-      _gameScene.reset();
-      _status = MENU;
-      _menuScene.setActive(true);
-      _gameScene.setComplete(false);
+        
+        if (_gameScene.state == GameScene::QUIT) {
+            
+            // TODO: Handle this!
+//            _gameScene.dispose();
+//            _gameScene.reset();
+//            _gameScene.setActive(false);
+//            _menuScene.setActive(true);
+//            _status = MENU;
+        } else if (_gameScene.state == GameScene::RESET) {
+            _status = GAME;
+            _gameScene.reset();
+            _gameScene.setActive(true);
+        }
+//      _gameScene.reset();
+//      _status = MENU;
+//      _menuScene.setActive(true);
+//      _gameScene.setComplete(false);
     } else if (_gameScene.isPaused()) {
       _status = PAUSE;
       _gameScene.setActive(false);
       _pauseScene.setActive(true);
     }
+      
     _gameScene.preUpdate(timestep);
   } else if (_status == PAUSE) {
 //    _pauseScene.update(timestep);
