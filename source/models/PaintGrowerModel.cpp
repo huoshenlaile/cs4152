@@ -36,7 +36,7 @@ bool PaintModel::init(const std::vector<cugl::Poly2>& paintFrames, const std::ve
 
     cugl::Poly2 paint3(vertices2);*/
     _worldnode = worldnode;
-
+    _locations = locations;
     _paintFrames = paintFrames;
     _currentFrame = 0;
     timer = 1000;
@@ -113,7 +113,5 @@ void PaintModel::clear() {
     for(auto& paint : _sprites){
         _worldnode->removeChild(paint);
     }
-    _sprites.clear();
-    _textures.clear();
 }
 

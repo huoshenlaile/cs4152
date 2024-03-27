@@ -284,19 +284,12 @@ void GameScene::reset() {
 	_platformWorld = _level->getPhysicsWorld();
     
     //TODO: refactor out adding to scene so we don't need to reinstatiate everything - do this after LevelLoader refactor
-    _paintModels.clear();
-    Rect rec3(0, 0, 700, 700);
-    Rect rec2(0, 0, 600, 600);
-    Rect rec1(0, 0, 500, 500);
-
-    std::vector<Vec2> locations1{ {180, 50}, {180, 50}, {180, 50} };
-    auto pm = PaintModel::alloc({ rec1, rec2, rec3 }, locations1, _assets, _worldnode, _scale);
-    _paintModels.push_back(pm);
-
-    std::vector<Vec2> locations2{ {200, 70}, {200, 70}, {200, 70} };
-    auto pm2 = PaintModel::alloc({ rec1, rec2, rec3 }, locations2, _assets, _worldnode, _scale);
-    _paintModels.push_back(pm2);
-    
+    std::vector<std::shared_ptr<PaintModel>> newPaints;
+    for (auto & pm : _paintModels){
+        auto re_pm = PaintModel::alloc(pm->getPaintFrames(), pm->getLocations(), _assets, _worldnode, _scale);
+        newPaints.push_back(re_pm);
+    }
+    _paintModels = newPaints;
 	//reload the character
 //    _characterControllerA = nullptr;
 	_characterControllerA = CharacterController::alloc(_level->getCharacterPos(), _scale);

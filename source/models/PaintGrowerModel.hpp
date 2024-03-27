@@ -20,6 +20,7 @@ private:
   CU_DISALLOW_COPY_AND_ASSIGN(PaintModel);
 protected:
   std::vector<cugl::Poly2> _paintFrames;
+    std::vector<Vec2> _locations;
   std::vector<std::shared_ptr<Texture>> _textures;
     std::vector<std::shared_ptr<scene2::PolygonNode>> _sprites;
   int _currentFrame;
@@ -43,6 +44,11 @@ public:
     cugl::Poly2 currentFrame() const;
     std::shared_ptr<Texture> currentTexture() const;
     std::shared_ptr<scene2::PolygonNode> currentNode() const;
+    
+    std::vector<cugl::Poly2> getPaintFrames() const { return _paintFrames; }
+    std::vector<std::shared_ptr<Texture>> getTextures() const { return _textures; }
+    std::vector<std::shared_ptr<scene2::PolygonNode>> getPolygons() const { return _sprites; }
+    std::vector<Vec2> getLocations() const { return _locations; }
     
     void trigger();
     void setup();
