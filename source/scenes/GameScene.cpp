@@ -188,12 +188,15 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 		_uinode, 5.0f);
 	//CULog("Character Pos: %f, %f", _characterControllerA->getBodySceneNode()->getPositionX(), _characterControllerA->getBodySceneNode()->getPositionY());
 	_camera.setZoom(DEFAULT_ZOOM);
-
-	//    std::shared_ptr<scene2::SceneNode> levelComplete = _assets->get<scene2::SceneNode>("levelcomplete");
-	//    Size tryDimen = Application::get()->getDisplaySize();
-	//    levelComplete -> setContentSize(dimen);
-	//    levelComplete -> doLayout(); // Repositions the HUD
-	//    addChild(levelComplete);
+    
+    
+    
+    std::shared_ptr<scene2::SceneNode> levelComplete = _assets->get<scene2::SceneNode>("levelcomplete");
+    Size tryDimen = Application::get()->getDisplaySize();
+    levelComplete -> doLayout(); // Repositions the HUD
+    levelComplete -> setContentSize(dimen);
+    levelComplete -> setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
+    addChild(levelComplete);
 
 	return true;
 }
@@ -496,6 +499,7 @@ Size GameScene::computeActiveSize() const {
 	}
 	return dimen;
 }
+
 
 void GameScene::cameraReset() {
 	_camera.init(_characterControllerA->getBodySceneNode(), _worldnode, 10.0f,

@@ -1,13 +1,13 @@
 {
     "textures": {
         "splotch1": {
-            "file": "textures/splotch1.png"
+            "file": "textures/pureOrange.png"
         },
         "splotch2": {
-            "file": "textures/splotch2.png"
+            "file": "textures/pureOrange.png"
         },
         "splotch3": {
-            "file": "textures/splotch3.png"
+            "file": "textures/pureOrange.png"
         },
         "alpharelease_background": {
             "file": "textures/alpharelease_background.png"
