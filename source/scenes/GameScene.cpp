@@ -114,9 +114,9 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
             std::cout << "Well, level MENU!" << std::endl;
             // TODO: there is something weird happening here.
 #pragma mark WAITING FOR SOLUTION
-//            _level -> unload();
-//            _level -> clearRootNode();
-//            this -> state = QUIT;
+            _level -> unload();
+            _level -> clearRootNode();
+            this -> state = QUIT;
         }
     });
     
