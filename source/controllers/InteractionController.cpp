@@ -19,7 +19,8 @@ bool InteractionController::init(std::vector<std::shared_ptr<PlatformModel>> pla
         auto objects = json->get("layers")->get(i)->get("objects");
         for (int j = 0; j < objects->size(); j++) {
             if (objects->get(j)->get("properties") != nullptr){
-                auto obs = objects->get(j)->get("properties")->get(0)->get("value")->get("obstacle");
+                std::shared_ptr<JsonValue> properties = objects -> get(j) -> get("properties");
+                auto obs = properties -> get(properties -> size() - 1) -> get("value") -> get("obstacle");
                 auto pubs = obs->get("publications");
                 auto subs = obs->get("subscriptions");
                 

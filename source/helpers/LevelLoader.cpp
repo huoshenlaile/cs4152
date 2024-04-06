@@ -76,7 +76,6 @@ bool LevelLoader::preload(const std::shared_ptr<cugl::JsonValue>& json) {
     // Initial geometry
     float w = json->get(WIDTH_FIELD)->asFloat();
     float h = json->get(HEIGHT_FIELD)->asFloat();
-//    float g = json->get("properties")->get(0)->getFloat("value", -49);
     _bounds.size.set(w, h);
     _gravity.set(0,-90.0f);
     /** Create the physics world */
@@ -139,7 +138,8 @@ void LevelLoader::setBackgroundScene(){
 */
 bool LevelLoader::loadGoalDoor(const std::shared_ptr<JsonValue>& json) {
     bool success = false;
-    auto goal = json->get("properties")->get(0)->get("value");
+    std::shared_ptr<JsonValue> properties = json -> get("properties");
+    auto goal = properties -> get(properties -> size() - 1) -> get("value");
     if (goal != nullptr) {
         success = true;
 
@@ -177,7 +177,8 @@ bool LevelLoader::loadGoalDoor(const std::shared_ptr<JsonValue>& json) {
 
 bool LevelLoader::loadSensor(const std::shared_ptr<JsonValue>& json){
     bool success = false;
-    auto sensor_json = json->get("properties")->get(0)->get("value");
+    std::shared_ptr<JsonValue> properties = json->get("properties");
+    auto sensor_json = properties->get(properties->size()-1)->get("value");
     if (sensor_json != nullptr) {
         bool success = true;
         
@@ -236,8 +237,10 @@ bool LevelLoader::loadSensor(const std::shared_ptr<JsonValue>& json){
 bool LevelLoader::loadWall(const std::shared_ptr<JsonValue>& json) {
 //    std::cout << "loading wall " << std::endl;
     bool success = true;
-
-    auto walljson = json->get("properties")->get(0)->get("value");
+    
+    std::shared_ptr<JsonValue> properties = json -> get("properties");
+    auto walljson = properties -> get(properties -> size() - 1) -> get("value");
+    
     int polysize = (int)json->get(VERTICES_FIELD)->children().size();
     success = success && polysize > 0;
 

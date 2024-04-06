@@ -57,6 +57,84 @@
                 }, 
                 {
                  "height":0,
+                 "id":55,
+                 "name":"",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":0,
+                         "y":-145.174841916086
+                        }, 
+                        {
+                         "x":512.205472139033,
+                         "y":-145.174841916086
+                        }, 
+                        {
+                         "x":512.205472139033,
+                         "y":0
+                        }],
+                 "properties":[
+                        {
+                         "name":"Abc",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"Grab",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"Hahaha",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"Properties",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"Zzz",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"propertier",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"properties",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":192,
+                                 "density":0,
+                                 "friction":0.2,
+                                 "restitution":0.1,
+                                 "rotation":false,
+                                 "texture":"alpharelease_frenchfries"
+                                }
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"wall",
+                 "visible":true,
+                 "width":0,
+                 "x":4872.56602685512,
+                 "y":528.516234370626
+                }, 
+                {
+                 "height":0,
                  "id":23,
                  "name":"",
                  "polygon":[
@@ -1030,7 +1108,7 @@
          "y":0
         }],
  "nextlayerid":3,
- "nextobjectid":54,
+ "nextobjectid":56,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
