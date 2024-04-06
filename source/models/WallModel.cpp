@@ -15,8 +15,6 @@
  */
 bool WallModel::init(const Poly2& poly, const Vec2 anchor) {
     PolygonObstacle::initWithAnchor(poly,anchor);
-    std::string name("wall");
-    setName(name);
     _wallTexture = "";
     return true;
 }

@@ -85,31 +85,21 @@ bool InteractionController::init(std::vector<std::shared_ptr<PlatformModel>> pla
 
 InteractionController::PlayersContact InteractionController::checkContactForPlayer(b2Body* body1, b2Body* body2){
     std::vector<std::shared_ptr<cugl::physics2::Obstacle>>  body_p1 = _characterControllerA->getObstacles();
-    //TODO: Need second player
-//    std::vector<std::shared_ptr<cugl::physics2::Obstacle>>  body_p2 = _characterControllerB->getObstacles();
+    //TODO: Need second player?
     std::unordered_set<intptr_t> p1_ptrs;
     std::unordered_set<intptr_t> p2_ptrs;
     
     std::transform(body_p1.begin(), body_p1.end(), std::inserter(p1_ptrs, p1_ptrs.end()), [](std::shared_ptr<cugl::physics2::Obstacle> &n) {
             return reinterpret_cast<intptr_t>(n.get());
         });
-//    std::transform(body_p2.begin(), body_p2.end(), std::inserter(p2_ptrs, p2_ptrs.end()), [](std::shared_ptr<cugl::physics2::Obstacle> &n) {
-//            return reinterpret_cast<intptr_t>(n.get());
-//        });
-        
+    
     PlayersContact output;
     if (p1_ptrs.find(body1->GetUserData().pointer) != p1_ptrs.end()){
         output.bodyOne = PLAYER_ONE;
     }
-//    else if (p2_ptrs.find(body1->GetUserData().pointer) != p2_ptrs.end()){
-//        output.bodyOne = PLAYER_TWO;
-//    }
     if (p1_ptrs.find(body2->GetUserData().pointer)!= p1_ptrs.end()){
         output.bodyTwo = PLAYER_ONE;
     }
-//    else if (p2_ptrs.find(body2->GetUserData().pointer)!= p2_ptrs.end()){
-//        output.bodyTwo = PLAYER_TWO;
-//    }
     return output;
 }
 
@@ -139,7 +129,7 @@ bool InteractionController::addSubscription(SubscriberMessage &message){
         subscriptions[message.pub_id][message.listening_for] = std::vector<SubscriberMessage>({message});
         
     }
-    std::cout << "SUBNEW " << subscriptions[message.pub_id][message.listening_for].back().pub_id << subscriptions[message.pub_id][message.listening_for].back().listening_for <<"\n";
+    std::cout << "adding Subscription:  " << subscriptions[message.pub_id][message.listening_for].back().pub_id << " (pub_id) and " << subscriptions[message.pub_id][message.listening_for].back().listening_for <<" (listening_for) \n";
     return true;
 }
 
@@ -149,18 +139,19 @@ bool InteractionController::addPublisher(PublisherMessage &message){
         publications[message.trigger] = std::unordered_map<std::string, PublisherMessage>();
     }
     publications[message.trigger][message.pub_id] = message;
-    std::cout << "PUBNEW " << publications[message.trigger][message.pub_id].pub_id << publications[message.trigger][message.pub_id].trigger <<"\n";
+    std::cout << "adding Publication:  " << publications[message.trigger][message.pub_id].pub_id << " (pub_id) and " << publications[message.trigger][message.pub_id].trigger << " (trigger) \n";
     return true;
 }
 
 
+#pragma mark Begin Contact
 void InteractionController::beginContact(b2Contact* contact) {
     b2Body* body1 = contact->GetFixtureA()->GetBody();
     b2Body* body2 = contact->GetFixtureB()->GetBody();
     
     // If we hit the button
     // TODO: generalize this to all buttons
-//    intptr_t button_ptr = 0; //reinterpret_cast<intptr_t>(_button.get());
+    // intptr_t button_ptr = 0; //reinterpret_cast<intptr_t>(_button.get());
 
     InteractionController::PlayersContact contact_info = checkContactForPlayer(body1, body2);
     if (contact_info.bodyOne!=NOT_PLAYER || contact_info.bodyTwo != NOT_PLAYER){
@@ -176,22 +167,31 @@ void InteractionController::beginContact(b2Contact* contact) {
             other_body = reinterpret_cast<cugl::physics2::Obstacle*>(body1->GetUserData().pointer);
         }
         std::string obj_name = other_body->getName();
-        if (publications["contacted"].count(obj_name)>0){
-            PublisherMessage pub = publications["contacted"][obj_name];
-            publishMessage(pub);
-            // do you even KNOW what you are doing with Object c(std::move(a))??? You are saying: Dear constructor, do whatever you want with 'a' in order to initialize 'c'; I don't care about a anymore. Feel free to have your way with 'a'.
-            // check: https://stackoverflow.com/questions/3106110/what-is-move-semantics
-            std::cout << "Published: " << pub.pub_id << ": " << pub.message << "\n";
+        // TODO: the following forloop will be executed AT EVERY COLLISION. Optimize that.
+        for (auto it = publications.begin(); it != publications.end(); ++it) {
+            std::string key = it -> first;
+            if (key == "released") { continue; }
+            std::cout << "key is: " << key << "object name is: " << obj_name << "\n";
+            if (publications[key].count(obj_name)>0){
+                // so, obj_name is the pub_id. "contacted" is the trigger.
+                PublisherMessage pub = publications[key][obj_name];
+                publishMessage(pub);
+                std::cout << "Published (begin contact) : " << pub.pub_id << ": " << pub.message << "\n";
+            }
         }
+//        if (publications["contacted"].count(obj_name)>0){
+//            // so, obj_name is the pub_id. "contacted" is the trigger.
+//            PublisherMessage pub = publications["contacted"][obj_name];
+//            publishMessage(pub);
+//            // do you even KNOW what you are doing with Object c(std::move(a))? You are saying: Dear constructor, do whatever you want with 'a' in order to initialize 'c'; I don't care about a anymore. Feel free to have your way with 'a'.
+//            // check: https://stackoverflow.com/questions/3106110/what-is-move-semantics
+//            std::cout << "Published: " << pub.pub_id << ": " << pub.message << "\n";
+//        }
     }
 }
 
 
-/**
- * Processes the end of a collision
- *
- * @param  contact  The two bodies that collided
- */
+#pragma mark End Contact
 void InteractionController::endContact(b2Contact* contact) {
     b2Body* body1 = contact->GetFixtureA()->GetBody();
     b2Body* body2 = contact->GetFixtureB()->GetBody();
@@ -213,7 +213,7 @@ void InteractionController::endContact(b2Contact* contact) {
         if (publications["released"].count(obj_name)>0){
             PublisherMessage pub = publications["released"][obj_name];
             publishMessage(pub);
-            std::cout << "Published: " << pub.pub_id << ": " << pub.message << "\n";
+            std::cout << "Published (end contact) : " << pub.pub_id << ": " << pub.message << "\n";
         }
     }
 

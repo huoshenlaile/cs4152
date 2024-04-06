@@ -89,6 +89,51 @@
                 "wangset",
                 "project"
             ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 5,
+            "members": [
+                {
+                    "name": "name",
+                    "type": "string",
+                    "value": "\"properties\""
+                },
+                {
+                    "name": "type",
+                    "type": "string",
+                    "value": "\"class\""
+                },
+                {
+                    "name": "value",
+                    "type": "string",
+                    "value": ""
+                }
+            ],
+            "name": "goaldoor",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "id": 6,
+            "name": "mmyenum",
+            "storageType": "string",
+            "type": "enum",
+            "values": [
+                "my value"
+            ],
+            "valuesAsFlags": false
         }
     ]
 }

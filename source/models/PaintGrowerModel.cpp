@@ -59,7 +59,7 @@ bool PaintModel::init(const std::vector<cugl::Poly2>& paintFrames, const std::ve
             _sprites.push_back(sprite);
             sprite->setPosition(locations[i] * scale);
             worldnode->addChild(sprite);
-            std::cout << "POLY POSITION" << sprite->getPositionX() << ", " << sprite->getPositionY() << std::endl;
+            std::cout << "Paint Polygon Position: " << sprite->getPositionX() << ", " << sprite->getPositionY() << std::endl;
         }
     }
     return true;

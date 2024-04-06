@@ -259,7 +259,9 @@ bool LevelLoader::loadWall(const std::shared_ptr<JsonValue>& json) {
     // Get the object, which is automatically retained
     std::shared_ptr<WallModel> wallobj = WallModel::alloc(wall);
     
-    wallobj->setName(WALLS_FIELD+json->getString("id"));
+//    wallobj->setName(WALLS_FIELD+json->getString("id"));
+    // NOTE: I am changing it so that the pub/sub model can recognize the name of the wall. This is for grabbing.
+    wallobj -> setName(json -> getString("name"));
 
     wallobj->setBodyType((b2BodyType)walljson->get("obstacle")->getInt(BODYTYPE_FIELD));
 

@@ -415,20 +415,23 @@ void GameScene::preUpdate(float dt) {
 		_characterControllerA->getLHPos(),
 		_characterControllerA->getRHPos());
 
-#pragma mark Interaction Controller
+#pragma mark Interaction Resolves Here
 	//_interactionController.preUpdate(dt);
 	while (!_interactionController.messageQueue.empty()) {
 		InteractionController::PublisherMessage publication = _interactionController.messageQueue.front();
-		std::cout << "PUB (from GameScene update): " << publication.pub_id << " " << publication.trigger << " " << publication.message << "\n";
-		for (const InteractionController::SubscriberMessage& s : _interactionController.subscriptions[publication.pub_id][publication.message]) {
-			std::cout << s.pub_id << " " << s.listening_for << "\n";
-			if (s.actions.count("win") > 0) {
-				CULog("Winner!");
+		std::cout << "This publication message is (from GameScene update): " << publication.pub_id << " " << publication.trigger << " " << publication.message << "\n";
+        // we extract an active publication message from the queue. This message is supposed to match with some subscriber.
+        // we query the corresponding subscriber, according to the pub_id and publication message.
+        // by using [], we will automatically skip this for loop if there is no such result.
+		for (const InteractionController::SubscriberMessage& subMessage : _interactionController.subscriptions[publication.pub_id][publication.message]) {
+			std::cout << "This subscribe message is (from GameScene update): " << subMessage.pub_id << " " << subMessage.listening_for << "\n";
+			if (subMessage.actions.count("win") > 0) {
+				CULog("Winner! - from preUpdate. Setting Complete.");
 				setComplete(true);
 			}
-			if (s.actions.count("fire") > 0) {
-				auto bottle = std::stoi(s.actions.at("fire"));
-				std::cout << "Firing bottle <" << bottle << ">\n\n";
+			if (subMessage.actions.count("fire") > 0) {
+				int bottle = std::stoi(subMessage.actions.at("fire"));
+				std::cout << "\nFiring bottle <" << bottle << ">\n\n";
 				//TODO: Remove after triggering, probably. I think we should keep it as a vector though, not map
 				_paintModels[bottle]->trigger();
 				// s.actions.at("fire") is the name of the paint bottle obstacle
