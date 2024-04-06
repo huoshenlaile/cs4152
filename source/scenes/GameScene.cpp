@@ -163,18 +163,18 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 
 	auto charNode = scene2::SceneNode::alloc();
 	_worldnode->addChild(charNode);
-	//_characterController->setSceneNode(charNode);
+//	_characterController->setSceneNode(charNode);
 	_characterControllerA->linkPartsToWorld(_platformWorld, charNode, _scale);
 
 #pragma mark Character 2
-	//    _characterControllerB = CharacterController::alloc({22,8}, 200);
-	//    _characterControllerB->buildParts(_assets);
-	//    _characterControllerB->createJoints();
-	//
-	//    auto charNodeB = scene2::SceneNode::alloc();
-	//    _worldnode->addChild(charNodeB);
-	//    _characterControllerB->linkPartsToWorld(_platformWorld, charNodeB,
-	//    _scale);
+//	    _characterControllerB = CharacterController::alloc({22,8}, 200);
+//	    _characterControllerB->buildParts(_assets);
+//	    _characterControllerB->createJoints();
+//	
+//	    auto charNodeB = scene2::SceneNode::alloc();
+//	    _worldnode->addChild(charNodeB);
+//	    _characterControllerB->linkPartsToWorld(_platformWorld, charNodeB,
+//	    _scale);
 
 #pragma mark NetEvents
 	_network->attachEventType<GrabEvent>();
@@ -193,9 +193,9 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	_assets->load<JsonValue>(ALPHA_RELEASE_KEY_JSON, ALPHA_RELEASE_FILE);
 	_interactionController.init({}, _characterControllerA, nullptr, {}, {}, _level, _assets->get<JsonValue>(ALPHA_RELEASE_KEY_JSON));
 
-	//    _camera.init(charNode,_worldnode,1.0f,
-	//    std::dynamic_pointer_cast<OrthographicCamera>(getCamera()),
-	//    _uinode, 2.0f);
+//	    _camera.init(charNode,_worldnode,1.0f,
+//	    std::dynamic_pointer_cast<OrthographicCamera>(getCamera()),
+//	    _uinode, 2.0f);
 	_active = false;
 	_gamePaused = false;
 	_complete = false;
@@ -203,16 +203,16 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	activateWorldCollisions(_platformWorld);
 
 #pragma mark AudioController
-	//    _audioController = std::make_shared<AudioController>();
-	//    _audioController->init(_assets);
-	//    _audioController->play("box2DtheWORSTphysicsEngineIEverUsed",
-	//    "PhantomLiberty");
+//	    _audioController = std::make_shared<AudioController>();
+//	    _audioController->init(_assets);
+//	    _audioController->play("box2DtheWORSTphysicsEngineIEverUsed",
+//	    "PhantomLiberty");
 
-	/*_camera.setTarget(_characterControllerA->getBodySceneNode());*/
+//  _camera.setTarget(_characterControllerA->getBodySceneNode());
 	_camera.init(_characterControllerA->getBodySceneNode(), _worldnode, 10.0f,
 		std::dynamic_pointer_cast<OrthographicCamera>(getCamera()),
 		_uinode, 5.0f);
-	//CULog("Character Pos: %f, %f", _characterControllerA->getBodySceneNode()->getPositionX(), _characterControllerA->getBodySceneNode()->getPositionY());
+//	CULog("Character Pos: %f, %f", _characterControllerA->getBodySceneNode()->getPositionX(), _characterControllerA->getBodySceneNode()->getPositionY());
 	_camera.setZoom(DEFAULT_ZOOM);
     
     
