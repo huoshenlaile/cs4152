@@ -83,17 +83,21 @@ bool InteractionController::init(std::vector<std::shared_ptr<PlatformModel>> pla
 }
 
 
-InteractionController::PlayersContact InteractionController::checkContactForPlayer(b2Body* body1, b2Body* body2){
-    std::vector<std::shared_ptr<cugl::physics2::Obstacle>>  body_p1 = _characterControllerA->getObstacles();
+InteractionController::PlayerCounter InteractionController::checkContactForPlayer(b2Body* body1, b2Body* body2){
+    std::vector<std::shared_ptr<cugl::physics2::Obstacle>>  characterObstacles = _characterControllerA->getObstacles();
     //TODO: Need second player?
     std::unordered_set<intptr_t> p1_ptrs;
     std::unordered_set<intptr_t> p2_ptrs;
     
-    std::transform(body_p1.begin(), body_p1.end(), std::inserter(p1_ptrs, p1_ptrs.end()), [](std::shared_ptr<cugl::physics2::Obstacle> &n) {
-            return reinterpret_cast<intptr_t>(n.get());
+    std::transform(characterObstacles.begin(), characterObstacles.end(), std::inserter(p1_ptrs, p1_ptrs.end()), [](std::shared_ptr<cugl::physics2::Obstacle> &n) {
+            intptr_t bodyPartIntPtr = reinterpret_cast<intptr_t>(n.get());
+            std::cout << "Part Int Ptr: " << bodyPartIntPtr << std::endl;
+            return bodyPartIntPtr;
         });
     
-    PlayersContact output;
+    std::cout << "body 1 user data: " << body1->GetUserData().pointer << std::endl;
+    std::cout << "body 2 user data: " << body2->GetUserData().pointer << std::endl;
+    PlayerCounter output;
     if (p1_ptrs.find(body1->GetUserData().pointer) != p1_ptrs.end()){
         output.bodyOne = PLAYER_ONE;
     }
@@ -153,7 +157,7 @@ void InteractionController::beginContact(b2Contact* contact) {
     // TODO: generalize this to all buttons
     // intptr_t button_ptr = 0; //reinterpret_cast<intptr_t>(_button.get());
 
-    InteractionController::PlayersContact contact_info = checkContactForPlayer(body1, body2);
+    InteractionController::PlayerCounter contact_info = checkContactForPlayer(body1, body2);
     if (contact_info.bodyOne!=NOT_PLAYER || contact_info.bodyTwo != NOT_PLAYER){
 //        std::cout << "Player touch\n";
 //        std::cout << body1->GetUserData().pointer << "\n";
@@ -171,7 +175,7 @@ void InteractionController::beginContact(b2Contact* contact) {
         for (auto it = publications.begin(); it != publications.end(); ++it) {
             std::string key = it -> first;
             if (key == "released") { continue; }
-            std::cout << "key is: " << key << "object name is: " << obj_name << "\n";
+//            std::cout << "key is: " << key << "object name is: " << obj_name << "\n";
             if (publications[key].count(obj_name)>0){
                 // so, obj_name is the pub_id. "contacted" is the trigger.
                 PublisherMessage pub = publications[key][obj_name];
@@ -196,7 +200,7 @@ void InteractionController::endContact(b2Contact* contact) {
     b2Body* body1 = contact->GetFixtureA()->GetBody();
     b2Body* body2 = contact->GetFixtureB()->GetBody();
 
-    InteractionController::PlayersContact contact_info = checkContactForPlayer(body1, body2);
+    InteractionController::PlayerCounter contact_info = checkContactForPlayer(body1, body2);
     if (contact_info.bodyOne!=NOT_PLAYER || contact_info.bodyTwo != NOT_PLAYER){
 //        std::cout << "Player touch\n";
 //        std::cout << body1->GetUserData().pointer << "\n";

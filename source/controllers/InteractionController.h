@@ -40,17 +40,17 @@ protected:
     std::shared_ptr<LevelLoader> _level;
 
     
-    struct PlayersContact {
+    struct PlayerCounter {
         int bodyOne = NOT_PLAYER;
         int bodyTwo = NOT_PLAYER;
     };
     
-    PlayersContact checkContactForPlayer(b2Body* body1, b2Body* body2);
+    PlayerCounter checkContactForPlayer(b2Body* body1, b2Body* body2);
     
 public:
     struct PublisherMessage {
         /**
-            the Publisher Message matches with the Subscriber Message via the pub id and the message (which is the listeningFor field in Subscriber Message). 
+            the Publisher Message matches with the Subscriber Message via the pub id and the message (which is the listeningFor field in Subscriber Message).
          */
           std::string pub_id;
           std::string trigger;

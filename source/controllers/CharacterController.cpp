@@ -556,6 +556,7 @@ bool CharacterController::createJoints()
 	return true;
 }
 
+/** This method is UNUSED right now. */
 std::vector<std::shared_ptr<cugl::physics2::Joint>> CharacterController::dummy_jointsmaker(std::vector<int> part_indices)
 {
 	std::vector<std::shared_ptr<cugl::physics2::Joint>> dummy_joints;

@@ -12,11 +12,11 @@
             "expandedObjectLayers": [
                 7
             ],
-            "scale": 2.5216,
+            "scale": 0.7748,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 1199.6351522842642,
-                "y": 639.8715101522844
+                "x": 1199.0191017036655,
+                "y": 639.5198760970572
             }
         },
         "/Users/porridge/Games/cs4152/assets/tileset/demo_elements.tsx": {
@@ -26,11 +26,11 @@
             "expandedObjectLayers": [
                 2
             ],
-            "scale": 0.3847,
+            "scale": 0.4599,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 4853.132310891604,
-                "y": 414.60878606706524
+                "x": 4798.869319417266,
+                "y": 1105.6751467710374
             }
         }
     },
@@ -40,9 +40,9 @@
         "/Users/porridge/Desktop/courses/CS3152/CS-3152-G6/Eudaemon/assets/levels/level1.json"
     ],
     "project": "Level1.tiled-project",
-    "property.type": "Publication",
+    "property.type": "object",
     "recentFiles": [
-        "alpharelease.json",
-        "/Users/porridge/Desktop/courses/CS3152/CS-3152-G6/Eudaemon/assets/levels/level1.json"
+        "/Users/porridge/Desktop/courses/CS3152/CS-3152-G6/Eudaemon/assets/levels/level1.json",
+        "alpharelease.json"
     ]
 }
