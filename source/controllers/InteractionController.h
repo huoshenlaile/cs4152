@@ -49,6 +49,9 @@ protected:
     
 public:
     struct PublisherMessage {
+        /**
+            the Publisher Message matches with the Subscriber Message via the pub id and the message (which is the listeningFor field in Subscriber Message). 
+         */
           std::string pub_id;
           std::string trigger;
           std::string message;

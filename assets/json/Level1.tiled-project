@@ -1,0 +1,94 @@
+{
+    "automappingRulesFile": "",
+    "commands": [
+    ],
+    "compatibilityVersion": 1100,
+    "extensionsPath": "extensions",
+    "folders": [
+        "."
+    ],
+    "properties": [
+    ],
+    "propertyTypes": [
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 1,
+            "members": [
+                {
+                    "name": "Body",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "Message",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "Pub_id",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "Trigger",
+                    "type": "string",
+                    "value": ""
+                }
+            ],
+            "name": "Publication",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 4,
+            "members": [
+                {
+                    "name": "Actions",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "Listening_for",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "Pub_id",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "Sub_id",
+                    "type": "string",
+                    "value": ""
+                }
+            ],
+            "name": "Subscription",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        }
+    ]
+}

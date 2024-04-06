@@ -20,10 +20,40 @@ bool InteractionController::init(std::vector<std::shared_ptr<PlatformModel>> pla
         for (int j = 0; j < objects->size(); j++) {
             if (objects->get(j)->get("properties") != nullptr){
                 std::shared_ptr<JsonValue> properties = objects -> get(j) -> get("properties");
-                auto obs = properties -> get(properties -> size() - 1) -> get("value") -> get("obstacle");
-                auto pubs = obs->get("publications");
-                auto subs = obs->get("subscriptions");
+                std::shared_ptr<JsonValue> obs, pubs, subs;
+                if (properties -> get(properties -> size() - 1) -> get("value") -> type() == cugl::JsonValue::Type::ObjectType) {
+                    obs = properties -> get(properties -> size() - 1) -> get("value") -> get("obstacle");
+                    pubs = obs->get("publications");
+                    subs = obs->get("subscriptions");
+                } else {
+                    obs = nullptr;
+                    pubs = nullptr;
+                    subs = nullptr;
+                }
+
                 
+#pragma mark REFACTOR ATTEMPT
+                // NOTE: here, I will implement my method of reading Pub messages directly from JSON, which is from Tiled.
+                // Note that I have deleted the 'publications' entry for sensor 1. Instead, I added a 'Publication' entry, which
+                // links to another object called sensor1_message. Hence, sensor 1 right now will NOT go through the
+                // if (pubs!=nullptr) statement.
+//                std::cout << (objects -> get(j) -> get("type") -> toString()) << std::endl;
+                // how WEIRD! get("type") returns ""sensor"" or ""wall"" (TWO layers), NOT "sensor" or "wall"!
+                if (objects -> get(j) -> get("type") -> toString() == "\"sensor\"") {
+                    for (auto jsonChild : properties -> children()) {
+                        if (jsonChild -> getString("name") == "Publication") {
+                            std::cout << "This is a Publication!" << std::endl;
+                            std::shared_ptr<JsonValue> publicationValues = jsonChild -> get("value");
+                            // we print out all messages. As you can see, they perfectly match all the strings we want to use.
+                            // the only step left is just to assign them to PublisherMessage and addPublisher().
+                            std::cout << std::endl << "Publication message: " << publicationValues -> getString("Message") << ", pub_id: " << publicationValues -> getString("Pub_id") << ", trigger: " << publicationValues -> getString("Trigger") << std::endl << std::endl;
+                            break; // to reduce time (I'm trying my best; although there are nested forloops, naturally
+                                    // we won't have that many iterations.
+                        }
+                    }
+                }
+                
+#pragma mark ORIGINAL (CURRENT) METHOD
                 if (pubs!=nullptr){
                     for (std::shared_ptr<JsonValue> p : pubs->children()){
                         std::unordered_map<std::string, std::string> body;
@@ -191,6 +221,7 @@ void InteractionController::endContact(b2Contact* contact) {
 
 
 void InteractionController::preUpdate(float dt) {
+    
    
 }
 

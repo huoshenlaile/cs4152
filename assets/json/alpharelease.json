@@ -110,8 +110,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":4872.56602685512,
-                 "y":528.516234370626
+                 "x":4898.90492062158,
+                 "y":352.923609260881
                 }, 
                 {
                  "height":0,
@@ -920,9 +920,15 @@
                         }],
                  "properties":[
                         {
-                         "name":"Publications",
-                         "type":"object",
-                         "value":54
+                         "name":"Publication",
+                         "propertytype":"Publication",
+                         "type":"class",
+                         "value":
+                            {
+                             "Message":"contacted",
+                             "Pub_id":"sensor1",
+                             "Trigger":"contacted"
+                            }
                         }, 
                         {
                          "name":"properties",
@@ -934,7 +940,7 @@
                                  "bodytype":0,
                                  "damping":0,
                                  "debugcolor":"yellow",
-                                 "debugopacity":192,
+                                 "debugopaciy":192,
                                  "density":0,
                                  "friction":0,
                                  "publications":[
@@ -957,8 +963,8 @@
                  "type":"sensor",
                  "visible":true,
                  "width":0,
-                 "x":5810.98339719029,
-                 "y":1123.88250319285
+                 "x":5820.98339719029,
+                 "y":1119.88250319285
                 }, 
                 {
                  "height":0,
@@ -1093,7 +1099,7 @@
          "y":0
         }],
  "nextlayerid":3,
- "nextobjectid":56,
+ "nextobjectid":59,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

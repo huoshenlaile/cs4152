@@ -357,7 +357,7 @@ void GameScene::reset() {
 	//reload interaction controller
 	_assets->unload<JsonValue>(ALPHA_RELEASE_KEY_JSON);
 	_assets->load<JsonValue>(ALPHA_RELEASE_KEY_JSON, ALPHA_RELEASE_FILE);
-	_interactionController.init({}, _characterControllerA, nullptr, {}, {}, _level, _assets->get<JsonValue>(ALPHA_RELEASE_KEY_JSON));
+	_zController.init({}, _characterControllerA, nullptr, {}, {}, _level, _assets->get<JsonValue>(ALPHA_RELEASE_KEY_JSON));
 	//reload the camera
 	cameraReset();
 	//_camera.setTarget(_characterControllerA->getBodySceneNode());
@@ -379,7 +379,6 @@ void GameScene::processGrabEvent(const std::shared_ptr<GrabEvent>& event) {
  * This method takes a pauseEvent and processes it.
  */
 void GameScene::processPauseEvent(const std::shared_ptr<PauseEvent>& event) {
-	std::cout << "GAME PAUSE PROCESS EVENT" << std::endl;
 	if (event->isPause()) {
 		_gamePaused = true;
 	}
@@ -388,7 +387,6 @@ void GameScene::processPauseEvent(const std::shared_ptr<PauseEvent>& event) {
 	}
 }
 
-#pragma mark Physics Handling
 
 void GameScene::preUpdate(float dt) {
 	if (_level == nullptr) {
@@ -399,10 +397,7 @@ void GameScene::preUpdate(float dt) {
 	auto character = _inputController->getCharacter();
 	for (auto i = character->_touchInfo.begin(); i != character->_touchInfo.end(); i++) {
 		i->worldPos = (Vec2)Scene2::screenToWorldCoords(i->position);
-		//CULog("Touch coord at: %f %f \n", i->position.x, i->position.y);
-		//CULog("World coord at: %f %f \n", i->worldPos.x, i->worldPos.y);
 	}
-	//_inputController->worldtouchPos = (Vec2)Scene2::screenToWorldCoords(_inputController->touchPos);
 
 	_inputController->fillHand(_characterControllerA->getLeftHandPosition(),
 		_characterControllerA->getRightHandPosition(),
@@ -410,23 +405,7 @@ void GameScene::preUpdate(float dt) {
 		_characterControllerA->getRHPos());
 	_inputController->process();
 
-	/*if (_inputController->didPress()) {
-		CULog("Here!!!");
-		CULog("World coord at: %f %f \n", _inputController->touchPos.x, _inputController->touchPos.y);
-		_inputController->worldtouchPos = (Vec2)Scene2::screenToWorldCoords(_inputController->touchPos);
-	}*/
-	//_inputController->process();
-	//Vec2 touchPos;
-	/*if (_inputController->didPress() || _inputController->isDown()) {
-		Vec3 worldCoords = Scene2::screenToWorldCoords(_inputController->getEvent().position);
-		CULog("Event coord at: %f %f \n", _inputController->getEvent().position.x, _inputController->getEvent().position.y);
-		touchPos = (Vec2)worldCoords;
-		_inputController->setTouchEventPos(touchPos);
-		_inputController->touchPos = Vec2(touchPos.x, touchPos.y);
-		CULog("World coord at: %f %f \n", touchPos.x, touchPos.y);
-		CULog("World coord at: %f %f \n", _inputController->getEvent().position.x, _inputController->getEvent().position.y);
-		CULog("World coord at: %f %f \n", _inputController->touchPos.x, _inputController->touchPos.y);
-	}*/
+
 	_characterControllerA->moveLeftHand(INPUT_SCALER *
 		_inputController->getLeftHandMovement());
 	_characterControllerA->moveRightHand(
@@ -436,10 +415,11 @@ void GameScene::preUpdate(float dt) {
 		_characterControllerA->getLHPos(),
 		_characterControllerA->getRHPos());
 
+#pragma mark Interaction Controller
 	//_interactionController.preUpdate(dt);
 	while (!_interactionController.messageQueue.empty()) {
 		InteractionController::PublisherMessage publication = _interactionController.messageQueue.front();
-		std::cout << "PUB: " << publication.pub_id << " " << publication.trigger << " " << publication.message << "\n";
+		std::cout << "PUB (from GameScene update): " << publication.pub_id << " " << publication.trigger << " " << publication.message << "\n";
 		for (const InteractionController::SubscriberMessage& s : _interactionController.subscriptions[publication.pub_id][publication.message]) {
 			std::cout << s.pub_id << " " << s.listening_for << "\n";
 			if (s.actions.count("win") > 0) {
@@ -456,24 +436,16 @@ void GameScene::preUpdate(float dt) {
 		}
 		_interactionController.messageQueue.pop();
 	}
-	// TODO: error handle for loading different levels when we have multiple
-	// levels
+    
+	// TODO: error handle for loading different levels when we have multiple levels
 	_camera.update(dt);
+    processPaintCallbacks(dt);
+    _camera.setTarget(_characterControllerA->getBodySceneNode());
+    
 	//CULog("Character Pos: %f, %f", _characterControllerA->getBodySceneNode()->getPositionX(), _characterControllerA->getBodySceneNode()->getPositionY());
 	//_camera.process(ZOOMIN, 0.01);
 	//_camera.process(ZOOMOUT, 0.01);
 
-	// TODO: if (indicator == true), allocate a crate event for the center of the
-	// screen(use DEFAULT_WIDTH/2 and DEFAULT_HEIGHT/2) and send it using the
-	// pushOutEvent() method in the network controller.
-	//    if (???????){
-	//        CULog("Grab Event COMING");
-	//        _network->pushOutEvent(GrabEvent::allocGrabEvent(Vec2(DEFAULT_WIDTH/2,DEFAULT_HEIGHT/2)));
-	//    }
-
-	processPaintCallbacks(dt);
-	_camera.setTarget(_characterControllerA->getBodySceneNode());
-	//_interactionController.detectPolyContact(_paintModel.currentNode(), _scale);
 }
 
 void GameScene::processPaintCallbacks(float millis) {
@@ -483,19 +455,15 @@ void GameScene::processPaintCallbacks(float millis) {
 			_interactionController.detectPolyContact(pm->currentNode(), _scale);
 		}
 	}
-
-	//    _levelComplete -> setPosition(_camera.getUIPosition());
 }
 
 void GameScene::postUpdate(float dt) {
-	// _platformWorld->setGravity(Vec2(0, -30.0f));
-	// CULog("_platformWorld gravity: %f, %f", _platformWorld->getGravity().x, _platformWorld->getGravity().y);
-	// _platformWorld->setGravity(Vec2(0, -98));
 }
 
 void GameScene::fixedUpdate(float dt) {
-	// TODO: check for available incoming events from the network controller and
-	// call processGrabEvent if it is a GrabEvent.
+    _platformWorld->update(dt);
+    _characterControllerA->update(dt);
+    
 
 //    processPauseEvent();
 //	if (_network->isInAvailable()) {
@@ -510,12 +478,8 @@ void GameScene::fixedUpdate(float dt) {
 //		}
 //	}
 
-	// TODO: check for available incoming events from the network controller and
-	// call processGrabEvent if it is a GrabEvent. std::cout << "position" <<
 	// _characterControllerA->getBodySceneNode()->getPositionX() <<
 	// _characterControllerA->getBodySceneNode()->getPositionY() << std::endl;
-	_platformWorld->update(dt);
-	_characterControllerA->update(dt);
 	//_camera.setTarget(_characterControllerA->getBodySceneNode());
 }
 
