@@ -357,7 +357,7 @@ void GameScene::reset() {
 	//reload interaction controller
 	_assets->unload<JsonValue>(ALPHA_RELEASE_KEY_JSON);
 	_assets->load<JsonValue>(ALPHA_RELEASE_KEY_JSON, ALPHA_RELEASE_FILE);
-	_zController.init({}, _characterControllerA, nullptr, {}, {}, _level, _assets->get<JsonValue>(ALPHA_RELEASE_KEY_JSON));
+	_interactionController.init({}, _characterControllerA, nullptr, {}, {}, _level, _assets->get<JsonValue>(ALPHA_RELEASE_KEY_JSON));
 	//reload the camera
 	cameraReset();
 	//_camera.setTarget(_characterControllerA->getBodySceneNode());
