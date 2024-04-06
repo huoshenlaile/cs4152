@@ -80,7 +80,7 @@ public:
     
     
     //TODO: Make this method protected, but public right now for testing
-    void publishMessage(PublisherMessage&& message);
+    void publishMessage(PublisherMessage& message);
 /** 
  * Creates a new subscription
  *
@@ -88,7 +88,7 @@ public:
  *
  * @return true if the publisher exists and the subscriber was added, false otherwise
  */
-    bool addSubscription(SubscriberMessage&& message);
+    bool addSubscription(SubscriberMessage& message);
     
 /**
  * Creates a new publication
@@ -97,7 +97,7 @@ public:
  *
  * @return true if the publisher was added, false otherwise
  */
-    bool addPublisher(PublisherMessage&& message);
+    bool addPublisher(PublisherMessage& message);
 
     
 #pragma mark Collision Handling

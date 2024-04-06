@@ -31,7 +31,7 @@ bool InteractionController::init(std::vector<std::shared_ptr<PlatformModel>> pla
                             body[b->key()] = b->asString();
                         }
                         PublisherMessage pub = {p->get("pub_id")->asString(), p->get("trigger")->asString(), p->get("message")->asString(), body};
-                        addPublisher(std::move(pub));
+                        addPublisher(pub);
                     }
                 }
                 if (subs!=nullptr){
@@ -41,7 +41,7 @@ bool InteractionController::init(std::vector<std::shared_ptr<PlatformModel>> pla
                             actions[a->key()] = a->asString();
                         }
                         SubscriberMessage sub = {s->get("pub_id")->asString(), s->get("listening_for")->asString(), actions};
-                        addSubscription(std::move(sub));
+                        addSubscription(sub);
                     }
                 }
             }
@@ -86,7 +86,8 @@ InteractionController::PlayersContact InteractionController::checkContactForPlay
 
 // WHY DO YOU use the RValue Reference as the parameter???
 // I don't get it! -- George
-void InteractionController::publishMessage(PublisherMessage &&message){
+// I have CHANGED it to LValue Ref. DO NOT USE RVALUE if you have a good reason. I don't see any here.
+void InteractionController::publishMessage(PublisherMessage &message){
     messageQueue.push(message);
     if (subscriptions.count(message.pub_id)==0){
         subscriptions[message.pub_id] = {};
@@ -96,7 +97,8 @@ void InteractionController::publishMessage(PublisherMessage &&message){
 
 // WHY DO YOU use the RValue Reference as the parameter???
 // I don't get it! -- George
-bool InteractionController::addSubscription(SubscriberMessage &&message){
+// I have CHANGED it to LValue Ref.
+bool InteractionController::addSubscription(SubscriberMessage &message){
     if (subscriptions.count(message.pub_id)==0){
         subscriptions[message.pub_id] = std::unordered_map<std::string, std::vector<SubscriberMessage>>();
     }
@@ -112,7 +114,7 @@ bool InteractionController::addSubscription(SubscriberMessage &&message){
 }
 
 
-bool InteractionController::addPublisher(PublisherMessage &&message){
+bool InteractionController::addPublisher(PublisherMessage &message){
     if (publications.count(message.trigger)==0){
         publications[message.trigger] = std::unordered_map<std::string, PublisherMessage>();
     }
@@ -146,7 +148,9 @@ void InteractionController::beginContact(b2Contact* contact) {
         std::string obj_name = other_body->getName();
         if (publications["contacted"].count(obj_name)>0){
             PublisherMessage pub = publications["contacted"][obj_name];
-            publishMessage(std::move(pub));
+            publishMessage(pub);
+            // do you even KNOW what you are doing with Object c(std::move(a))??? You are saying: Dear constructor, do whatever you want with 'a' in order to initialize 'c'; I don't care about a anymore. Feel free to have your way with 'a'.
+            // check: https://stackoverflow.com/questions/3106110/what-is-move-semantics
             std::cout << "Published: " << pub.pub_id << ": " << pub.message << "\n";
         }
     }
@@ -178,7 +182,7 @@ void InteractionController::endContact(b2Contact* contact) {
         std::string obj_name = other_body->getName();
         if (publications["released"].count(obj_name)>0){
             PublisherMessage pub = publications["released"][obj_name];
-            publishMessage(std::move(pub));
+            publishMessage(pub);
             std::cout << "Published: " << pub.pub_id << ": " << pub.message << "\n";
         }
     }
@@ -232,5 +236,5 @@ void InteractionController::beforeSolve(b2Contact* contact, const b2Manifold* ol
 //        }
 //    }
     // NOTE: From George:
-    // THEN WHAT? what did you even do with this? why do you leave this code here?
+    // THEN WHAT? why do you leave this code here?
 }
