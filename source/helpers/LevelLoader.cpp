@@ -54,7 +54,6 @@ Color4 LevelLoader::parseColor(std::string name) {
  * @return true if successfully loaded the asset from a file
  */
 bool LevelLoader::preload(const std::string& file) {
-//    std::cout << file;;
     std::shared_ptr<JsonReader> reader = JsonReader::allocWithAsset(file);
     return preload(reader->readJson());
 }
@@ -78,14 +77,12 @@ bool LevelLoader::preload(const std::shared_ptr<cugl::JsonValue>& json) {
     float w = json->get(WIDTH_FIELD)->asFloat();
     float h = json->get(HEIGHT_FIELD)->asFloat();
 //    float g = json->get("properties")->get(0)->getFloat("value", -49);
-//    CULog("WELL the level is preloaded");
     _bounds.size.set(w, h);
     _gravity.set(0,-90.0f);
     /** Create the physics world */
       _world = cugl::physics2::net::NetWorld::alloc(getBounds(),Vec2(0,-90.f));
     
-//
-//    cugl::scene2::TexturedNode();
+
     // Get each object in each layer, then decide what to do based off of what
     // type the object is.
     for (int i = 0; i < json->get("layers")->size(); i++) {

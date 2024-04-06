@@ -4,7 +4,7 @@
 
 bool CharacterController::init(const cugl::Vec2 &pos, float scale)
 {
-	_name = "TODO_PLACEHOLDER";
+	_name = "Dusty";
 	_node = nullptr;
 	_offset = pos;
 	_drawScale = scale;
@@ -39,6 +39,7 @@ bool CharacterController::init(const cugl::Vec2 &pos, float scale)
 CharacterController::CharacterController(void) : _drawScale(0)
 {
 }
+
 /**
  * Destroys this level, releasing all resources.
  */
@@ -87,8 +88,6 @@ std::shared_ptr<physics2::Obstacle> CharacterController::makePart(int part, int 
 	{
 		pos2 += _obstacles[connect]->getPosition();
 	}
-	//    std::cout << pos2.x<< " hahah " << pos2.y << std::endl;
-
 	// std::shared_ptr<physics2::BoxObstacle> body = physics2::BoxObstacle::alloc(pos2, size);
 	// create body  polygon as octagon
 	// calculate index first
@@ -160,8 +159,6 @@ std::shared_ptr<physics2::Obstacle> CharacterController::makePart(int part, int 
 	// add body with BODY_ANULAR_DAMPING
 	if (part == PART_BODY)
 	{
-		// log default damping
-		// CULog("makePart body part %d angular damping: %f", part, body->getAngularDamping());
 		body->setAngularDamping(BODY_ANGULAR_DAMPING);
 		CULog("makePart body part %d angular damping: %f", part, body->getAngularDamping());
 	}
