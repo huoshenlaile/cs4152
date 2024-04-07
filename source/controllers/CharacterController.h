@@ -174,8 +174,8 @@ public:
 	Vec2 getRHPos() { return _RHNode->getPosition(); }
 
 #pragma mark HAND CONTROLLER
-	bool moveRightHand(cugl::Vec2 offset);
-	bool moveLeftHand(cugl::Vec2 offset);
+	bool moveRightHand(cugl::Vec2 offset, bool inverse = false);
+	bool moveLeftHand(cugl::Vec2 offset, bool inverse = false);
 
 	Vec2 getLeftHandPosition()
 	{

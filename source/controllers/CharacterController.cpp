@@ -622,10 +622,14 @@ void CharacterController::deactivate(const std::shared_ptr<cugl::physics2::net::
 	//	}
 }
 
-bool CharacterController::moveLeftHand(cugl::Vec2 offset)
+bool CharacterController::moveLeftHand(cugl::Vec2 offset, bool inverse = false)
 {
 	if (!_motorEnabled)
 		return false;
+	if (inverse)
+	{
+		offset = -offset;
+	}
 	float a = _obstacles[PART_BODY]->getAngle();
 	leftHandOffset = leftHandOffset + Vec2(offset.x * cos(a) + offset.y * sin(a), -offset.x * sin(a) + offset.y * cos(a));
 
@@ -695,10 +699,14 @@ bool CharacterController::moveLeftHand(cugl::Vec2 offset)
 	return true;
 }
 
-bool CharacterController::moveRightHand(cugl::Vec2 offset)
+bool CharacterController::moveRightHand(cugl::Vec2 offset, bool inverse = false)
 {
 	if (!_motorEnabled)
 		return false;
+	if (inverse)
+	{
+		offset = -offset;
+	}
 	float a = _obstacles[PART_BODY]->getAngle();
 	rightHandOffset = rightHandOffset + Vec2(offset.x * cos(a) + offset.y * sin(a), -offset.x * sin(a) + offset.y * cos(a));
 
