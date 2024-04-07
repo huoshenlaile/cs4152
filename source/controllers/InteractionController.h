@@ -41,9 +41,12 @@ protected:
     std::shared_ptr<cugl::JsonValue> _levelJson;
     std::shared_ptr<cugl::physics2::net::NetWorld> _world;
     
-    /** The reason why this is NOT a smart pointer vector is because this vector
+    /**
+     This vector stores TWO obstacles to create joint in between.
+     The reason why this is NOT a smart pointer vector is because this vector
      will be emptied very frequently. For unknown reason, every time I empty it, it tries to
-     destroy the smart pointer, hence destroying the obstacle. I don't want that.*/
+     destroy the smart pointer, hence destroying the obstacle. I don't want that.
+     */
     std::vector<physics2::Obstacle*> _obstaclesForJoint;
 
     
@@ -146,6 +149,10 @@ public:
      */
     void preUpdate(float dt);
     
+    /**
+     * This function creates a revolute joint between two obstacles in the _obstaclesForJoint_ vector.
+     * It clears the vector everytime it creates a joint.
+     */
     void connectGrabJoint();
 };
 
