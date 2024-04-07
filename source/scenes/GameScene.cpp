@@ -404,43 +404,45 @@ void GameScene::preUpdate(float dt) {
 		_characterControllerA->getLHPos(),
 		_characterControllerA->getRHPos());
 	_inputController->process();
+    
+    
+#pragma mark Interaction Resolves Here
+    //_interactionController.preUpdate(dt);
+    while (!_interactionController.messageQueue.empty()) {
+        InteractionController::PublisherMessage publication = _interactionController.messageQueue.front();
+        std::cout << "This publication message is (from GameScene update): " << publication.pub_id << " " << publication.trigger << " " << publication.message << "\n";
+        // we extract an active publication message from the queue. This message is supposed to match with some subscriber.
+        // we query the corresponding subscriber, according to the pub_id and publication message.
+        // by using [], we will automatically skip this for loop if there is no such result.
+        for (const InteractionController::SubscriberMessage& subMessage : _interactionController.subscriptions[publication.pub_id][publication.message]) {
+            std::cout << "This subscribe message is (from GameScene update): " << subMessage.pub_id << " " << subMessage.listening_for << "\n";
+            if (subMessage.actions.count("win") > 0) {
+                CULog("Winner! - from preUpdate. Setting Complete.");
+                setComplete(true);
+            }
+            if (subMessage.actions.count("fire") > 0) {
+                int bottle = std::stoi(subMessage.actions.at("fire"));
+                std::cout << "\nFiring bottle <" << bottle << ">\n\n";
+                //TODO: Remove after triggering, probably. I think we should keep it as a vector though, not map
+                _paintModels[bottle]->trigger();
+                // s.actions.at("fire") is the name of the paint bottle obstacle
+            }
+        }
+        _interactionController.messageQueue.pop();
+    }
+    // Initialize Grabbing Joints
+    _interactionController.connectGrabJoint();
 
 
 	_characterControllerA->moveLeftHand(INPUT_SCALER *
-		_inputController->getLeftHandMovement());
+		_inputController->getLeftHandMovement(), _interactionController.leftHandReverse);
 	_characterControllerA->moveRightHand(
-		INPUT_SCALER * _inputController->getrightHandMovement());
+		INPUT_SCALER * _inputController->getrightHandMovement(), _interactionController.rightHandReverse);
 	_inputController->fillHand(_characterControllerA->getLeftHandPosition(),
 		_characterControllerA->getRightHandPosition(),
 		_characterControllerA->getLHPos(),
 		_characterControllerA->getRHPos());
-
-#pragma mark Interaction Resolves Here
-	//_interactionController.preUpdate(dt);
-	while (!_interactionController.messageQueue.empty()) {
-		InteractionController::PublisherMessage publication = _interactionController.messageQueue.front();
-		std::cout << "This publication message is (from GameScene update): " << publication.pub_id << " " << publication.trigger << " " << publication.message << "\n";
-        // we extract an active publication message from the queue. This message is supposed to match with some subscriber.
-        // we query the corresponding subscriber, according to the pub_id and publication message.
-        // by using [], we will automatically skip this for loop if there is no such result.
-		for (const InteractionController::SubscriberMessage& subMessage : _interactionController.subscriptions[publication.pub_id][publication.message]) {
-			std::cout << "This subscribe message is (from GameScene update): " << subMessage.pub_id << " " << subMessage.listening_for << "\n";
-			if (subMessage.actions.count("win") > 0) {
-				CULog("Winner! - from preUpdate. Setting Complete.");
-				setComplete(true);
-			}
-			if (subMessage.actions.count("fire") > 0) {
-				int bottle = std::stoi(subMessage.actions.at("fire"));
-				std::cout << "\nFiring bottle <" << bottle << ">\n\n";
-				//TODO: Remove after triggering, probably. I think we should keep it as a vector though, not map
-				_paintModels[bottle]->trigger();
-				// s.actions.at("fire") is the name of the paint bottle obstacle
-			}
-		}
-		_interactionController.messageQueue.pop();
-	}
-    // Initialize Grabbing Joints
-    _interactionController.connectGrabJoint();
+    
     
 	// TODO: error handle for loading different levels when we have multiple levels
 	_camera.update(dt);

@@ -49,18 +49,29 @@ protected:
      * destroy the smart pointer, hence destroying the obstacle. I don't want that.
      */
     std::vector<physics2::Obstacle*> _obstaclesForJoint;
-
+    /**
+     * This int indicates whether it's CURRENTLY the left hand grabbing or the right hand.
+     * '1' means it's left hand; '0' means it's right hand; '-1' means default value.
+     * It should always be set back to -1 after using the value.
+     * This value can only be used together with the _obstaclesForJoint above.
+     */
+//    int _isLeftHandForJoint = -1;
     
     struct PlayerCounter {
         int bodyOne = NOT_PLAYER;
         int bodyTwo = NOT_PLAYER;
         bool bodyOneIsHand = false;
         bool bodyTwoIsHand = false;
+//        bool handIsLeft = false;
+//        bool handIsRight = false;
     };
     
     PlayerCounter checkContactForPlayer(b2Body* body1, b2Body* body2);
     
 public:
+    bool leftHandReverse = false;
+    bool rightHandReverse = false;
+    
     struct PublisherMessage {
         /**
             the Publisher Message matches with the Subscriber Message via the pub id and the message (which is the listeningFor field in Subscriber Message).
@@ -151,7 +162,10 @@ public:
     void preUpdate(float dt);
     
     /**
-     * This function creates a revolute joint between two obstacles in the _obstaclesForJoint_ vector.
+     * This function creates a revolute joint between two obstacles in the _obstaclesForJoint_ vector,
+     * one of which - by definition - MUST be player's hand, and the other one MUST be an obstacle.
+     * (Otherwise, undefinited behavior.)
+     * It also turns on the reverse calculation for the corresponding hand.
      * It clears the vector everytime it creates a joint.
      */
     void connectGrabJoint();

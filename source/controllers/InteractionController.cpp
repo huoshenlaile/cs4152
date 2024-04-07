@@ -17,6 +17,8 @@ bool InteractionController::init(std::vector<std::shared_ptr<PlatformModel>> pla
     _levelJson = json;
     _world = _level -> getWorld();
     _obstaclesForJoint = {};
+    leftHandReverse = false;
+    rightHandReverse = false;
     for (int i = 0; i < json->get("layers")->size(); i++) {
         // Get the objects per layer
         auto objects = json->get("layers")->get(i)->get("objects");
@@ -96,7 +98,6 @@ InteractionController::PlayerCounter InteractionController::checkContactForPlaye
             intptr_t bodyPartIntPtr = reinterpret_cast<intptr_t>(n.get());
             return bodyPartIntPtr;
         });
-    
     PlayerCounter output;
     if (p1_ptrs.find(body1->GetUserData().pointer) != p1_ptrs.end()){
         output.bodyOne = PLAYER_ONE;
@@ -105,6 +106,8 @@ InteractionController::PlayerCounter InteractionController::checkContactForPlaye
         output.bodyTwo = PLAYER_ONE;
     }
     
+    
+    // check for hands
     std::vector<std::shared_ptr<cugl::physics2::Obstacle>> handObstacles = _characterControllerA -> getHandObstacles();
     p1_ptrs.clear();
     p2_ptrs.clear();
@@ -113,11 +116,23 @@ InteractionController::PlayerCounter InteractionController::checkContactForPlaye
             return bodyPartIntPtr;
         });
     if (p1_ptrs.find(body1->GetUserData().pointer) != p1_ptrs.end()){
-        std::cout << "Yes, body 1 is player's hand!" << std::endl;
+//        if (reinterpret_cast<intptr_t>(handObstacles[0].get()) == body1->GetUserData().pointer) {
+//            // it is left hand
+//            output.handIsLeft = true;
+//        } else {
+//            // it is right hand
+//            output.handIsRight = true;
+//        }
         output.bodyOneIsHand = true;
     }
     if (p1_ptrs.find(body2->GetUserData().pointer)!= p1_ptrs.end()){
-        std::cout << "Yes, body 2 is player's hand!" << std::endl;
+//        if (reinterpret_cast<intptr_t>(handObstacles[0].get()) == body2->GetUserData().pointer) {
+//            // it is left hand
+//            output.handIsLeft = true;
+//        } else {
+//            // it is right hand
+//            output.handIsRight = true;
+//        }
         output.bodyTwoIsHand = true;
     }
     
@@ -169,10 +184,6 @@ bool InteractionController::addPublisher(PublisherMessage &message){
 void InteractionController::beginContact(b2Contact* contact) {
     b2Body* body1 = contact->GetFixtureA()->GetBody();
     b2Body* body2 = contact->GetFixtureB()->GetBody();
-    
-    // If we hit the button
-    // TODO: generalize this to all buttons
-    // intptr_t button_ptr = 0; //reinterpret_cast<intptr_t>(_button.get());
 
     InteractionController::PlayerCounter contact_info = checkContactForPlayer(body1, body2);
     
@@ -182,11 +193,35 @@ void InteractionController::beginContact(b2Contact* contact) {
         auto obstacleB = reinterpret_cast<physics2::Obstacle*>(body2->GetUserData().pointer);
         // now we push it into the vector to create joints later. NOTE: we should care about which obstacle is the hand and push it first.
         if (contact_info.bodyOneIsHand) {
-            _obstaclesForJoint.push_back(obstacleA);
-            _obstaclesForJoint.push_back(obstacleB);
+            std::string platformName = obstacleB -> getName();
+            if (publications["contacted"].count(platformName) < 0 || publications["contacted"][platformName].message != "grabbed") {
+                
+            } else {
+                // obstacle A is the hand, B is the platform
+                _obstaclesForJoint.push_back(obstacleA);
+                _obstaclesForJoint.push_back(obstacleB);
+//                if (contact_info.handIsLeft) {
+//                    // it is left hand
+//                    _isLeftHandForJoint = 1;
+//                } else {
+//                    _isLeftHandForJoint = 0;
+//                }
+            }
         } else {
-            _obstaclesForJoint.push_back(obstacleB);
-            _obstaclesForJoint.push_back(obstacleA);
+            std::string platformName = obstacleA -> getName();
+            if (publications["contacted"].count(platformName) < 0 || publications["contacted"][platformName].message != "grabbed") {
+                
+            } else {
+                // obstacle B is the hand, A is the platform
+                _obstaclesForJoint.push_back(obstacleB);
+                _obstaclesForJoint.push_back(obstacleA);
+//                if (contact_info.handIsLeft) {
+//                    // it is left hand
+//                    _isLeftHandForJoint = 1;
+//                } else {
+//                    _isLeftHandForJoint = 0;
+//                }
+            }
         }
 //        std::shared_ptr<physics2::RevoluteJoint> joint = physics2::RevoluteJoint::allocWithObstacles(obsA, obsB);
 //        _world -> addJoint(joint);
@@ -209,7 +244,7 @@ void InteractionController::beginContact(b2Contact* contact) {
             publishMessage(pub);
             // do you even KNOW what you are doing with Object c(std::move(a))? You are saying: Dear constructor, do whatever you want with 'a' in order to initialize 'c'; I don't care about a anymore. Feel free to have your way with 'a'.
             // check: https://stackoverflow.com/questions/3106110/what-is-move-semantics
-            std::cout << "Published: " << pub.pub_id << ": " << pub.message << "\n";
+            std::cout << "Published (begin contact): " << pub.pub_id << ": " << pub.message << "\n";
         }
     }
 }
@@ -299,11 +334,34 @@ void InteractionController::connectGrabJoint() {
     if (!_obstaclesForJoint.empty()) {
         std::shared_ptr<physics2::Obstacle> obs1(_obstaclesForJoint.at(0));
         std::shared_ptr<physics2::Obstacle> obs2(_obstaclesForJoint.at(1));
-        Vec2 difference = obs1 -> getPosition() - obs2 -> getPosition();
+        Vec2 difference = obs2 -> getPosition() - obs1 -> getPosition();
         std::shared_ptr<physics2::RevoluteJoint> joint = physics2::RevoluteJoint::allocWithObstacles(obs1, obs2);
+        // Anchor A is the anchor for the Hand. 
         joint -> setLocalAnchorA(difference);
         joint -> setLocalAnchorB(0, 0);
         _world -> addJoint(joint);
+        
+        float LHDistance = obs1 -> getPosition().distance(_characterControllerA -> getLeftHandPosition());
+        float RHDistance = obs1 -> getPosition().distance(_characterControllerA -> getRightHandPosition());
+        if (LHDistance < RHDistance) {
+            std::cout << "Now reversing left hand" << std::endl;
+            this -> leftHandReverse = true;
+        } else {
+            std::cout << "Now reversing right hand" << std::endl;
+            this -> rightHandReverse = true;
+        }
+        
+//        if (_isLeftHandForJoint == 1) {
+//            std::cout << "Now reversing left hand" << std::endl;
+//            this -> leftHandReverse = true;
+//            _isLeftHandForJoint = -1;
+//        } else if (_isLeftHandForJoint == 0){
+//            std::cout << "Now reversing right hand" << std::endl;
+//            this -> rightHandReverse = true;
+//            _isLeftHandForJoint = -1;
+//        }
+        
+
         _obstaclesForJoint.clear();
     }
 }
