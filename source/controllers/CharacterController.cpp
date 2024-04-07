@@ -622,7 +622,7 @@ void CharacterController::deactivate(const std::shared_ptr<cugl::physics2::net::
 	//	}
 }
 
-bool CharacterController::moveLeftHand(cugl::Vec2 offset, bool inverse = false)
+bool CharacterController::moveLeftHand(cugl::Vec2 offset, bool inverse)
 {
 	if (!_motorEnabled)
 		return false;
@@ -699,7 +699,7 @@ bool CharacterController::moveLeftHand(cugl::Vec2 offset, bool inverse = false)
 	return true;
 }
 
-bool CharacterController::moveRightHand(cugl::Vec2 offset, bool inverse = false)
+bool CharacterController::moveRightHand(cugl::Vec2 offset, bool inverse)
 {
 	if (!_motorEnabled)
 		return false;

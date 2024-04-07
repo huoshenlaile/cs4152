@@ -42,10 +42,11 @@ protected:
     std::shared_ptr<cugl::physics2::net::NetWorld> _world;
     
     /**
-     This vector stores TWO obstacles to create joint in between.
-     The reason why this is NOT a smart pointer vector is because this vector
-     will be emptied very frequently. For unknown reason, every time I empty it, it tries to
-     destroy the smart pointer, hence destroying the obstacle. I don't want that.
+     * This vector stores TWO obstacles to create joint in between.
+     * The FIRST element is always the hand. The second element is always the obstacle.
+     * The reason why this is NOT a smart pointer vector is because this vector
+     * will be emptied very frequently. For unknown reason, every time I empty it, it tries to
+     * destroy the smart pointer, hence destroying the obstacle. I don't want that.
      */
     std::vector<physics2::Obstacle*> _obstaclesForJoint;
 

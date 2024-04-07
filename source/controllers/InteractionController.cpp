@@ -180,8 +180,14 @@ void InteractionController::beginContact(b2Contact* contact) {
         // one of the collision body is player's hand. We now grab it!
         auto obstacleA = reinterpret_cast<physics2::Obstacle*>(body1->GetUserData().pointer);
         auto obstacleB = reinterpret_cast<physics2::Obstacle*>(body2->GetUserData().pointer);
-        _obstaclesForJoint.push_back(obstacleA);
-        _obstaclesForJoint.push_back(obstacleB);
+        // now we push it into the vector to create joints later. NOTE: we should care about which obstacle is the hand and push it first.
+        if (contact_info.bodyOneIsHand) {
+            _obstaclesForJoint.push_back(obstacleA);
+            _obstaclesForJoint.push_back(obstacleB);
+        } else {
+            _obstaclesForJoint.push_back(obstacleB);
+            _obstaclesForJoint.push_back(obstacleA);
+        }
 //        std::shared_ptr<physics2::RevoluteJoint> joint = physics2::RevoluteJoint::allocWithObstacles(obsA, obsB);
 //        _world -> addJoint(joint);
         // above two lines will not work because world is LOCKED right now!
@@ -293,7 +299,10 @@ void InteractionController::connectGrabJoint() {
     if (!_obstaclesForJoint.empty()) {
         std::shared_ptr<physics2::Obstacle> obs1(_obstaclesForJoint.at(0));
         std::shared_ptr<physics2::Obstacle> obs2(_obstaclesForJoint.at(1));
+        Vec2 difference = obs1 -> getPosition() - obs2 -> getPosition();
         std::shared_ptr<physics2::RevoluteJoint> joint = physics2::RevoluteJoint::allocWithObstacles(obs1, obs2);
+        joint -> setLocalAnchorA(difference);
+        joint -> setLocalAnchorB(0, 0);
         _world -> addJoint(joint);
         _obstaclesForJoint.clear();
     }
