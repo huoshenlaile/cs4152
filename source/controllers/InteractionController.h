@@ -38,11 +38,20 @@ protected:
     std::vector<std::shared_ptr<ButtonModel>> _buttons;
     std::vector<std::shared_ptr<WallModel>> _walls;
     std::shared_ptr<LevelLoader> _level;
+    std::shared_ptr<cugl::JsonValue> _levelJson;
+    std::shared_ptr<cugl::physics2::net::NetWorld> _world;
+    
+    /** The reason why this is NOT a smart pointer vector is because this vector
+     will be emptied very frequently. For unknown reason, every time I empty it, it tries to
+     destroy the smart pointer, hence destroying the obstacle. I don't want that.*/
+    std::vector<physics2::Obstacle*> _obstaclesForJoint;
 
     
     struct PlayerCounter {
         int bodyOne = NOT_PLAYER;
         int bodyTwo = NOT_PLAYER;
+        bool bodyOneIsHand = false;
+        bool bodyTwoIsHand = false;
     };
     
     PlayerCounter checkContactForPlayer(b2Body* body1, b2Body* body2);
@@ -136,6 +145,8 @@ public:
      * @param  dt  timestep
      */
     void preUpdate(float dt);
+    
+    void connectGrabJoint();
 };
 
 #endif /* InteractionController_h */

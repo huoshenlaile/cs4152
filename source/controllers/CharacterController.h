@@ -191,6 +191,12 @@ public:
 	}
 	const std::vector<std::shared_ptr<cugl::physics2::Obstacle>> getObstacles() const { return _obstacles; }
 	const std::vector<std::shared_ptr<cugl::physics2::Joint>> getJoints() const { return _joints; }
+    std::vector<std::shared_ptr<cugl::physics2::Obstacle>> getHandObstacles() const {
+        std::vector<std::shared_ptr<cugl::physics2::Obstacle>> hands;
+        hands.push_back(_obstacles[PART_LH]);
+        hands.push_back(_obstacles[PART_RH]);
+        return hands;
+    }
 
 	/**
 	 * Sets the scene graph node representing this Ragdoll.

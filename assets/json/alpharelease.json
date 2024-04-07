@@ -85,7 +85,7 @@
                             {
                              "Message":"grabbed",
                              "Pub_id":"grab_wall1",
-                             "Trigger":"grabbed"
+                             "Trigger":"contacted"
                             }
                         }, 
                         {
@@ -109,7 +109,7 @@
                                             },
                                          "message":"grabbed",
                                          "pub_id":"grab_wall1",
-                                         "trigger":"grabbed"
+                                         "trigger":"contacted"
                                         }],
                                  "restitution":0.1,
                                  "rotation":false,

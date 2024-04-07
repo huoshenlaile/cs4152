@@ -14,6 +14,9 @@ bool InteractionController::init(std::vector<std::shared_ptr<PlatformModel>> pla
     _buttons = buttons;
     _walls = walls;
     _level = level;
+    _levelJson = json;
+    _world = _level -> getWorld();
+    _obstaclesForJoint = {};
     for (int i = 0; i < json->get("layers")->size(); i++) {
         // Get the objects per layer
         auto objects = json->get("layers")->get(i)->get("objects");
@@ -91,12 +94,9 @@ InteractionController::PlayerCounter InteractionController::checkContactForPlaye
     
     std::transform(characterObstacles.begin(), characterObstacles.end(), std::inserter(p1_ptrs, p1_ptrs.end()), [](std::shared_ptr<cugl::physics2::Obstacle> &n) {
             intptr_t bodyPartIntPtr = reinterpret_cast<intptr_t>(n.get());
-            std::cout << "Part Int Ptr: " << bodyPartIntPtr << std::endl;
             return bodyPartIntPtr;
         });
     
-    std::cout << "body 1 user data: " << body1->GetUserData().pointer << std::endl;
-    std::cout << "body 2 user data: " << body2->GetUserData().pointer << std::endl;
     PlayerCounter output;
     if (p1_ptrs.find(body1->GetUserData().pointer) != p1_ptrs.end()){
         output.bodyOne = PLAYER_ONE;
@@ -104,6 +104,23 @@ InteractionController::PlayerCounter InteractionController::checkContactForPlaye
     if (p1_ptrs.find(body2->GetUserData().pointer)!= p1_ptrs.end()){
         output.bodyTwo = PLAYER_ONE;
     }
+    
+    std::vector<std::shared_ptr<cugl::physics2::Obstacle>> handObstacles = _characterControllerA -> getHandObstacles();
+    p1_ptrs.clear();
+    p2_ptrs.clear();
+    std::transform(handObstacles.begin(), handObstacles.end(), std::inserter(p1_ptrs, p1_ptrs.end()), [](std::shared_ptr<cugl::physics2::Obstacle> &n) {
+            intptr_t bodyPartIntPtr = reinterpret_cast<intptr_t>(n.get());
+            return bodyPartIntPtr;
+        });
+    if (p1_ptrs.find(body1->GetUserData().pointer) != p1_ptrs.end()){
+        std::cout << "Yes, body 1 is player's hand!" << std::endl;
+        output.bodyOneIsHand = true;
+    }
+    if (p1_ptrs.find(body2->GetUserData().pointer)!= p1_ptrs.end()){
+        std::cout << "Yes, body 2 is player's hand!" << std::endl;
+        output.bodyTwoIsHand = true;
+    }
+    
     return output;
 }
 
@@ -158,11 +175,19 @@ void InteractionController::beginContact(b2Contact* contact) {
     // intptr_t button_ptr = 0; //reinterpret_cast<intptr_t>(_button.get());
 
     InteractionController::PlayerCounter contact_info = checkContactForPlayer(body1, body2);
+    
+    if ((contact_info.bodyOneIsHand || contact_info.bodyTwoIsHand) && !(contact_info.bodyOneIsHand && contact_info.bodyTwoIsHand)) {
+        // one of the collision body is player's hand. We now grab it!
+        auto obstacleA = reinterpret_cast<physics2::Obstacle*>(body1->GetUserData().pointer);
+        auto obstacleB = reinterpret_cast<physics2::Obstacle*>(body2->GetUserData().pointer);
+        _obstaclesForJoint.push_back(obstacleA);
+        _obstaclesForJoint.push_back(obstacleB);
+//        std::shared_ptr<physics2::RevoluteJoint> joint = physics2::RevoluteJoint::allocWithObstacles(obsA, obsB);
+//        _world -> addJoint(joint);
+        // above two lines will not work because world is LOCKED right now!
+    }
+
     if (contact_info.bodyOne!=NOT_PLAYER || contact_info.bodyTwo != NOT_PLAYER){
-//        std::cout << "Player touch\n";
-//        std::cout << body1->GetUserData().pointer << "\n";
-//        std::cout << body2->GetUserData().pointer << "\n";
-//        std::cout << goal_ptr << "\n";
         cugl::physics2::Obstacle* other_body;
         if (contact_info.bodyOne!=NOT_PLAYER){
             other_body = reinterpret_cast<cugl::physics2::Obstacle*>(body2->GetUserData().pointer);
@@ -171,26 +196,15 @@ void InteractionController::beginContact(b2Contact* contact) {
             other_body = reinterpret_cast<cugl::physics2::Obstacle*>(body1->GetUserData().pointer);
         }
         std::string obj_name = other_body->getName();
-        // TODO: the following forloop will be executed AT EVERY COLLISION. Optimize that.
-        for (auto it = publications.begin(); it != publications.end(); ++it) {
-            std::string key = it -> first;
-            if (key == "released") { continue; }
-//            std::cout << "key is: " << key << "object name is: " << obj_name << "\n";
-            if (publications[key].count(obj_name)>0){
-                // so, obj_name is the pub_id. "contacted" is the trigger.
-                PublisherMessage pub = publications[key][obj_name];
-                publishMessage(pub);
-                std::cout << "Published (begin contact) : " << pub.pub_id << ": " << pub.message << "\n";
-            }
+
+        if (publications["contacted"].count(obj_name)>0){
+            // so, obj_name is the pub_id. "contacted" is the trigger.
+            PublisherMessage pub = publications["contacted"][obj_name];
+            publishMessage(pub);
+            // do you even KNOW what you are doing with Object c(std::move(a))? You are saying: Dear constructor, do whatever you want with 'a' in order to initialize 'c'; I don't care about a anymore. Feel free to have your way with 'a'.
+            // check: https://stackoverflow.com/questions/3106110/what-is-move-semantics
+            std::cout << "Published: " << pub.pub_id << ": " << pub.message << "\n";
         }
-//        if (publications["contacted"].count(obj_name)>0){
-//            // so, obj_name is the pub_id. "contacted" is the trigger.
-//            PublisherMessage pub = publications["contacted"][obj_name];
-//            publishMessage(pub);
-//            // do you even KNOW what you are doing with Object c(std::move(a))? You are saying: Dear constructor, do whatever you want with 'a' in order to initialize 'c'; I don't care about a anymore. Feel free to have your way with 'a'.
-//            // check: https://stackoverflow.com/questions/3106110/what-is-move-semantics
-//            std::cout << "Published: " << pub.pub_id << ": " << pub.message << "\n";
-//        }
     }
 }
 
@@ -272,4 +286,15 @@ void InteractionController::beforeSolve(b2Contact* contact, const b2Manifold* ol
 //    }
     // NOTE: From George:
     // THEN WHAT? why do you leave this code here?
+}
+
+
+void InteractionController::connectGrabJoint() {
+    if (!_obstaclesForJoint.empty()) {
+        std::shared_ptr<physics2::Obstacle> obs1(_obstaclesForJoint.at(0));
+        std::shared_ptr<physics2::Obstacle> obs2(_obstaclesForJoint.at(1));
+        std::shared_ptr<physics2::RevoluteJoint> joint = physics2::RevoluteJoint::allocWithObstacles(obs1, obs2);
+        _world -> addJoint(joint);
+        _obstaclesForJoint.clear();
+    }
 }

@@ -95,7 +95,6 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 
     _levelComplete = _assets->get<scene2::SceneNode>("levelcomplete");
     _levelComplete -> removeFromParent();
-    Size tryDimen = Application::get()->getDisplaySize();
     _levelComplete -> doLayout(); // Repositions the HUD
     _levelComplete -> setContentSize(dimen);
     _levelComplete -> setVisible(false);
@@ -239,6 +238,7 @@ void GameScene::activateWorldCollisions(const std::shared_ptr<physics2::Obstacle
 	world->onEndContact = [this](b2Contact* contact) {
 		_interactionController.endContact(contact);
 		};
+    
 }
 
 #pragma mark DISPOSE
@@ -439,16 +439,16 @@ void GameScene::preUpdate(float dt) {
 		}
 		_interactionController.messageQueue.pop();
 	}
+    // Initialize Grabbing Joints
+    _interactionController.connectGrabJoint();
     
 	// TODO: error handle for loading different levels when we have multiple levels
 	_camera.update(dt);
     processPaintCallbacks(dt);
     _camera.setTarget(_characterControllerA->getBodySceneNode());
-    
 	//CULog("Character Pos: %f, %f", _characterControllerA->getBodySceneNode()->getPositionX(), _characterControllerA->getBodySceneNode()->getPositionY());
 	//_camera.process(ZOOMIN, 0.01);
 	//_camera.process(ZOOMOUT, 0.01);
-
 }
 
 void GameScene::processPaintCallbacks(float millis) {

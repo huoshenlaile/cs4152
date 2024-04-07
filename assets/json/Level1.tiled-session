@@ -26,11 +26,11 @@
             "expandedObjectLayers": [
                 2
             ],
-            "scale": 0.4599,
+            "scale": 0.496,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 4798.869319417266,
-                "y": 1105.6751467710374
+                "x": 5235.887096774193,
+                "y": 646.1693548387096
             }
         }
     },
@@ -42,7 +42,7 @@
     "project": "Level1.tiled-project",
     "property.type": "object",
     "recentFiles": [
-        "/Users/porridge/Desktop/courses/CS3152/CS-3152-G6/Eudaemon/assets/levels/level1.json",
-        "alpharelease.json"
+        "alpharelease.json",
+        "/Users/porridge/Desktop/courses/CS3152/CS-3152-G6/Eudaemon/assets/levels/level1.json"
     ]
 }
