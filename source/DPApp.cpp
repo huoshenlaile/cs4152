@@ -39,7 +39,16 @@ void DPApp::onStartup() {
   // Que up the other assets
   AudioEngine::start(24);
   _assets->loadDirectoryAsync("json/assets.json", nullptr);
-  _assets->loadAsync<LevelLoader>(ALPHA_RELEASE_KEY, ALPHA_RELEASE_FILE, nullptr);
+  _assets->loadAsync<LevelLoader>(ALPHA_RELEASE_KEY, ALPHA_RELEASE_FILE,
+                                  [](const std::string key, bool success) {
+                                      if (success) {
+                                          // Handle successful loading
+                                          std::cout << "Successfully loaded resource with key: " << key << std::endl;
+                                      } else {
+                                          // Handle failure
+                                          std::cout << "Failed to load resource with key: " << key << std::endl;
+                                      }
+                                  });
 
   cugl::net::NetworkLayer::start(net::NetworkLayer::Log::INFO);
   setDeterministic(true);
@@ -332,7 +341,6 @@ void DPApp::updateLoad(float timestep) {
 //    _hostScene.init(_assets, _network);
 //    _clientScene.init(_assets, _network);
 //    _gameScene.init(_assets);
-//    _levelSelectScene.init(_assets, _network);
     break;
   }
 }

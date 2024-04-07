@@ -129,16 +129,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 
 #pragma mark LevelLoader
 	// make the getter for loading the map
-	_level = assets->get<LevelLoader>(ALPHA_RELEASE_KEY);
-	if (_level == nullptr) {
-		CULog("Fail loading levels");
-		return false;
-	}
-	_level->setAssets(_assets);
-	_level->setRootNode(_worldnode);
-	_platformWorld = _level->getPhysicsWorld();
-
-	_platformWorld->setGravity(gravity);
+    constructLevel();
 
 #pragma mark Paints (TODO)
 	// TODO: MOVE THIS TO LEVEL LOADER
@@ -154,43 +145,35 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	auto pm2 = PaintModel::alloc({ rec1, rec2, rec3 }, locations2, _assets, _worldnode, _scale);
 	_paintModels.push_back(pm2);
 
-#pragma mark Character 1
-	_characterControllerA = CharacterController::alloc(_level->getCharacterPos(), _scale);
-	CULog("7538fe43 _scale = %f", _scale);
-	_characterControllerA->buildParts(_assets);
-	_characterControllerA->createJoints();
-
-	auto charNode = scene2::SceneNode::alloc();
-	_worldnode->addChild(charNode);
-//	_characterController->setSceneNode(charNode);
-	_characterControllerA->linkPartsToWorld(_platformWorld, charNode, _scale);
-
-#pragma mark Character 2
-//	    _characterControllerB = CharacterController::alloc({22,8}, 200);
-//	    _characterControllerB->buildParts(_assets);
-//	    _characterControllerB->createJoints();
-//	
-//	    auto charNodeB = scene2::SceneNode::alloc();
-//	    _worldnode->addChild(charNodeB);
-//	    _characterControllerB->linkPartsToWorld(_platformWorld, charNodeB,
-//	    _scale);
 
 #pragma mark NetEvents
 	_network->attachEventType<GrabEvent>();
 	_network->attachEventType<PauseEvent>();
+    
+#pragma mark PlatformWorld
+    _platformWorld = _level->getPhysicsWorld();
+    _platformWorld->setGravity(gravity);
+    activateWorldCollisions(_platformWorld);
 
-#pragma mark InputControllers
-	// TODO: setup the inputController (PlatformInput, from Harry)
-	_inputController = std::make_shared<InputController>();
-	_inputController->init(rect);
-	_inputController->fillHand(_characterControllerA->getLeftHandPosition(),
-		_characterControllerA->getRightHandPosition(),
-		_characterControllerA->getLHPos(),
-		_characterControllerA->getRHPos());
+#pragma mark Character 1
+    constructCharacterA();
+
+#pragma mark Character 2
+//        _characterControllerB = CharacterController::alloc({22,8}, 200);
+//        _characterControllerB->buildParts(_assets);
+//        _characterControllerB->createJoints();
+//
+//        auto charNodeB = scene2::SceneNode::alloc();
+//        _worldnode->addChild(charNodeB);
+//        _characterControllerB->linkPartsToWorld(_platformWorld, charNodeB,
+//        _scale);
 
 #pragma mark InteractionController
-	_assets->load<JsonValue>(ALPHA_RELEASE_KEY_JSON, ALPHA_RELEASE_FILE);
-	_interactionController.init({}, _characterControllerA, nullptr, {}, {}, _level, _assets->get<JsonValue>(ALPHA_RELEASE_KEY_JSON));
+    _interactionController.init({}, _characterControllerA, nullptr, {}, {}, _level, _level -> getLevelJSON());
+    
+#pragma mark InputControllers
+    // TODO: setup the inputController (PlatformInput, from Harry)
+    constructInputController(rect);
 
 //	    _camera.init(charNode,_worldnode,1.0f,
 //	    std::dynamic_pointer_cast<OrthographicCamera>(getCamera()),
@@ -199,7 +182,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	_gamePaused = false;
 	_complete = false;
 	setDebug(false);
-	activateWorldCollisions(_platformWorld);
+
 
 #pragma mark AudioController
 //	    _audioController = std::make_shared<AudioController>();
@@ -220,6 +203,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 }
 
 void GameScene::addPaintObstacles() {
+    // TODO: what?
 }
 
 /**
@@ -294,8 +278,8 @@ void GameScene::setActive(bool value) {
 
 }
 
-#pragma mark -
-#pragma mark Level Layout
+
+#pragma mark RESET
 
 /**
  * Resets the status of the game so that we can play again.
@@ -314,9 +298,7 @@ void GameScene::reset() {
 	_assets->load<LevelLoader>(ALPHA_RELEASE_KEY, ALPHA_RELEASE_FILE);
 
 	_level = nullptr;
-	_level = _assets->get<LevelLoader>(ALPHA_RELEASE_KEY);
-	_level->setAssets(_assets);
-	_level->setRootNode(_worldnode);
+    constructLevel();
 
 	_platformWorld = nullptr;
 	_platformWorld = _level->getPhysicsWorld();
@@ -328,15 +310,8 @@ void GameScene::reset() {
         newPaints.push_back(re_pm);
     }
     _paintModels = newPaints;
-	//reload the character
-//    _characterControllerA = nullptr;
-	_characterControllerA = CharacterController::alloc(_level->getCharacterPos(), _scale);
-	CULog("7538fe43 _scale = %f", _scale);
-	_characterControllerA->buildParts(_assets);
-	_characterControllerA->createJoints();
-	auto charNode = scene2::SceneNode::alloc();
-	_worldnode->addChild(charNode);
-	_characterControllerA->linkPartsToWorld(_platformWorld, charNode, _scale);
+
+    constructCharacterA();
     
     _levelCompleteReset -> deactivate();
     _levelCompleteMenu -> deactivate();
@@ -345,18 +320,10 @@ void GameScene::reset() {
     _pauseButton -> activate();
     _pauseButton -> setVisible(true);
     
-
 	//reload the input
-	_inputController = std::make_shared<InputController>();
-	_inputController->init(Rect(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT));
-	_inputController->fillHand(_characterControllerA->getLeftHandPosition(),
-		_characterControllerA->getRightHandPosition(),
-		_characterControllerA->getLHPos(),
-		_characterControllerA->getRHPos());
+    constructInputController(Rect(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT));
 
 	//reload interaction controller
-	_assets->unload<JsonValue>(ALPHA_RELEASE_KEY_JSON);
-	_assets->load<JsonValue>(ALPHA_RELEASE_KEY_JSON, ALPHA_RELEASE_FILE);
 	_interactionController.init({}, _characterControllerA, nullptr, {}, {}, _level, _assets->get<JsonValue>(ALPHA_RELEASE_KEY_JSON));
 	//reload the camera
 	cameraReset();
@@ -387,7 +354,7 @@ void GameScene::processPauseEvent(const std::shared_ptr<PauseEvent>& event) {
 	}
 }
 
-
+#pragma mark UPDATE METHODS
 void GameScene::preUpdate(float dt) {
 	if (_level == nullptr) {
 		return;
@@ -504,8 +471,32 @@ void GameScene::setComplete(bool value){
     }
 }
 
-
 #pragma mark Helper Functions
+void GameScene::constructLevel() {
+    _level = _assets->get<LevelLoader>(ALPHA_RELEASE_KEY);
+    _level->setAssets(_assets);
+    _level->setRootNode(_worldnode);
+}
+
+void GameScene::constructInputController(const cugl::Rect &rect) {
+    _inputController = std::make_shared<InputController>();
+    _inputController->init(rect);
+    _inputController->fillHand(_characterControllerA->getLeftHandPosition(),
+                               _characterControllerA->getRightHandPosition(),
+                               _characterControllerA->getLHPos(),
+                               _characterControllerA->getRHPos());
+}
+
+void GameScene::constructCharacterA() {
+    _characterControllerA = CharacterController::alloc(_level->getCharacterPos(), _scale);
+    _characterControllerA->buildParts(_assets);
+    _characterControllerA->createJoints();
+    
+    auto charNode = scene2::SceneNode::alloc();
+    _worldnode->addChild(charNode);
+    //    _characterController->setSceneNode(charNode);
+    _characterControllerA->linkPartsToWorld(_platformWorld, charNode, _scale);
+}
 
 /**
  * Returns the active screen size of this scene.
@@ -514,25 +505,25 @@ void GameScene::setComplete(bool value){
  * ratios
  */
 Size GameScene::computeActiveSize() const {
-	Size dimen = Application::get()->getDisplaySize();
-	float ratio1 = dimen.width / dimen.height;
-	float ratio2 = ((float)SCENE_WIDTH) / ((float)SCENE_HEIGHT);
-	if (ratio1 < ratio2) {
-		dimen *= SCENE_WIDTH / dimen.width;
-	}
-	else {
-		dimen *= SCENE_HEIGHT / dimen.height;
-	}
-	return dimen;
+    Size dimen = Application::get()->getDisplaySize();
+    float ratio1 = dimen.width / dimen.height;
+    float ratio2 = ((float)SCENE_WIDTH) / ((float)SCENE_HEIGHT);
+    if (ratio1 < ratio2) {
+        dimen *= SCENE_WIDTH / dimen.width;
+    }
+    else {
+        dimen *= SCENE_HEIGHT / dimen.height;
+    }
+    return dimen;
 }
 
 
 void GameScene::cameraReset() {
-	_camera.init(_characterControllerA->getBodySceneNode(), _worldnode, 10.0f,
-		std::dynamic_pointer_cast<OrthographicCamera>(getCamera()),
-		_uinode, 5.0f);
-	_camera.setMove(false);
-	_camera.setZoom(DEFAULT_ZOOM);
-	_camera.setInitialStay(INITIAL_STAY + 1);
-	_camera.setFinalStay(FINAL_STAY + 1);
+    _camera.init(_characterControllerA->getBodySceneNode(), _worldnode, 10.0f,
+        std::dynamic_pointer_cast<OrthographicCamera>(getCamera()),
+        _uinode, 5.0f);
+    _camera.setMove(false);
+    _camera.setZoom(DEFAULT_ZOOM);
+    _camera.setInitialStay(INITIAL_STAY + 1);
+    _camera.setFinalStay(FINAL_STAY + 1);
 }

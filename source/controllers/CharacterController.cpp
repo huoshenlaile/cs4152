@@ -52,7 +52,7 @@ CharacterController::~CharacterController(void)
 
 void CharacterController::dispose()
 {
-	printf("removing joints");
+	printf("Character Controller: removing joints");
 	for (auto it = _joints.begin(); it != _joints.end(); ++it)
 	{
 		if (_world != nullptr)

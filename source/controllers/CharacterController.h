@@ -170,25 +170,26 @@ public:
 
 	std::shared_ptr<scene2::PolygonNode> getBodySceneNode() { return _bodyNode; };
 
+    /** 
+     * NOTE:
+     * This function returns the position of a SceneNode (in scene2) instead of the Obstacle (in world).
+     * Use it carefully.
+     */
 	Vec2 getLHPos() { return _LHNode->getPosition(); }
+    /**
+     * NOTE:
+     * This function returns the position of a SceneNode (in scene2) instead of the Obstacle (in world).
+     * Use it carefully.
+     */
 	Vec2 getRHPos() { return _RHNode->getPosition(); }
 
 #pragma mark HAND CONTROLLER
 	bool moveRightHand(cugl::Vec2 offset, bool inverse = false);
 	bool moveLeftHand(cugl::Vec2 offset, bool inverse = false);
 
-	Vec2 getLeftHandPosition()
-	{
-		auto p = _obstacles[PART_LH]->getPosition();
-		// CULog("Left Hand Position: %f, %f", p.x, p.y);
-		return p;
-	}
-	Vec2 getRightHandPosition()
-	{
-		auto p = _obstacles[PART_RH]->getPosition();
-		// CULog("Right Hand Position: %f, %f", p.x, p.y);
-		return p;
-	}
+	Vec2 getLeftHandPosition()  { return _obstacles[PART_LH]->getPosition(); }
+	Vec2 getRightHandPosition() { return _obstacles[PART_RH]->getPosition(); }
+    
 	const std::vector<std::shared_ptr<cugl::physics2::Obstacle>> getObstacles() const { return _obstacles; }
 	const std::vector<std::shared_ptr<cugl::physics2::Joint>> getJoints() const { return _joints; }
     std::vector<std::shared_ptr<cugl::physics2::Obstacle>> getHandObstacles() const {

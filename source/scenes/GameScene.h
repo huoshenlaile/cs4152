@@ -171,8 +171,10 @@ public:
 	bool init(const std::shared_ptr<cugl::AssetManager>& assets,
 		const cugl::Rect rect,
 		const std::shared_ptr<NetEventController> network, bool isHost);
-
-	/**
+    
+    void constructLevel();
+    
+    /**
 	 * Initializes the controller contents, and starts the game
 	 *
 	 * The constructor does not allocate any objects or memory.  This allows
@@ -305,7 +307,8 @@ public:
 	 */
 	void update(float timestep) override;
 
-	/**
+    
+    /**
 	 * Resets the status of the game so that we can play again.
 	 */
 	void reset();
@@ -313,6 +316,9 @@ public:
 	void addPaintObstacles();
 
 	void cameraReset();
+    
+    void constructCharacterA();
+    void constructInputController(const cugl::Rect &rect);
 };
 
 #endif

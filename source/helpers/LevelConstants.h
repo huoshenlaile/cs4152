@@ -58,8 +58,6 @@
 /** The key for our loaded level */
 #define ALPHA_RELEASE_KEY       "alpharelease"
 
-#define ALPHA_RELEASE_KEY_JSON       "alpharelease_json"
-
 
 #define ALPHA_RELEASE_BACKGROUND "alpharelease_background"
 

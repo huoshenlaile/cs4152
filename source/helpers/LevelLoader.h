@@ -44,6 +44,8 @@ protected:
     std::vector<std::shared_ptr<SensorModel>> _sensors;
     /** The AssetManager for the game mode */
     std::shared_ptr<cugl::AssetManager> _assets;
+    /** The JSON for this level, loaded by _assets (to be read and used by other classes)*/
+    std::shared_ptr<JsonValue> _levelJSON;
     
 public:
     /**
@@ -297,6 +299,10 @@ public:
     
     std::shared_ptr<cugl::physics2::net::NetWorld> getPhysicsWorld(){
         return _world;
+    }
+    
+    std::shared_ptr<JsonValue> getLevelJSON() {
+        return _levelJSON;
     }
 };
 #endif

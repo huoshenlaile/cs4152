@@ -73,13 +73,17 @@ bool LevelLoader::preload(const std::shared_ptr<cugl::JsonValue>& json) {
         return false;
     }
     
+    // newly added by George - level loader should own the corresponding level JSON
+    // to be read by other classes
+    _levelJSON = json;
+    
     // Initial geometry
     float w = json->get(WIDTH_FIELD)->asFloat();
     float h = json->get(HEIGHT_FIELD)->asFloat();
     _bounds.size.set(w, h);
     _gravity.set(0,-90.0f);
     /** Create the physics world */
-      _world = cugl::physics2::net::NetWorld::alloc(getBounds(),Vec2(0,-90.f));
+    _world = cugl::physics2::net::NetWorld::alloc(getBounds(),Vec2(0,-90.f));
     
 
     // Get each object in each layer, then decide what to do based off of what

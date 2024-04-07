@@ -19,6 +19,8 @@ bool InteractionController::init(std::vector<std::shared_ptr<PlatformModel>> pla
     _obstaclesForJoint = {};
     leftHandReverse = false;
     rightHandReverse = false;
+    publications = {};
+    subscriptions = {};
     for (int i = 0; i < json->get("layers")->size(); i++) {
         // Get the objects per layer
         auto objects = json->get("layers")->get(i)->get("objects");
@@ -188,13 +190,20 @@ void InteractionController::beginContact(b2Contact* contact) {
     InteractionController::PlayerCounter contact_info = checkContactForPlayer(body1, body2);
     
     if ((contact_info.bodyOneIsHand || contact_info.bodyTwoIsHand) && !(contact_info.bodyOneIsHand && contact_info.bodyTwoIsHand)) {
+        // Please do not remove the comments in this if block. I'm using it to 
+        // reserve some implementational thoughts on grabbing.
+        
         // one of the collision body is player's hand. We now grab it!
         auto obstacleA = reinterpret_cast<physics2::Obstacle*>(body1->GetUserData().pointer);
         auto obstacleB = reinterpret_cast<physics2::Obstacle*>(body2->GetUserData().pointer);
-        // now we push it into the vector to create joints later. NOTE: we should care about which obstacle is the hand and push it first.
+        // now we push it into the vector to create joints later.
+        // NOTE: we should care about which obstacle is the hand and push it first.
         if (contact_info.bodyOneIsHand) {
             std::string platformName = obstacleB -> getName();
-            if (publications["contacted"].count(platformName) < 0 || publications["contacted"][platformName].message != "grabbed") {
+            // NOTE: Below, you MUST check platformname != "" before
+            // you go publications["whatever"][platformName].message ... . Because
+            // Otherwise it will CREATE this entry!
+            if (publications["contacted"].count(platformName) < 0 || platformName == "" ||  publications["contacted"][platformName].message != "grabbed") {
                 
             } else {
                 // obstacle A is the hand, B is the platform
@@ -209,7 +218,7 @@ void InteractionController::beginContact(b2Contact* contact) {
             }
         } else {
             std::string platformName = obstacleA -> getName();
-            if (publications["contacted"].count(platformName) < 0 || publications["contacted"][platformName].message != "grabbed") {
+            if (publications["contacted"].count(platformName) < 0 || platformName == "" || publications["contacted"][platformName].message != "grabbed") {
                 
             } else {
                 // obstacle B is the hand, A is the platform
@@ -238,7 +247,7 @@ void InteractionController::beginContact(b2Contact* contact) {
         }
         std::string obj_name = other_body->getName();
 
-        if (publications["contacted"].count(obj_name)>0){
+        if (publications["contacted"].count(obj_name) > 0){
             // so, obj_name is the pub_id. "contacted" is the trigger.
             PublisherMessage pub = publications["contacted"][obj_name];
             publishMessage(pub);
@@ -257,10 +266,6 @@ void InteractionController::endContact(b2Contact* contact) {
 
     InteractionController::PlayerCounter contact_info = checkContactForPlayer(body1, body2);
     if (contact_info.bodyOne!=NOT_PLAYER || contact_info.bodyTwo != NOT_PLAYER){
-//        std::cout << "Player touch\n";
-//        std::cout << body1->GetUserData().pointer << "\n";
-//        std::cout << body2->GetUserData().pointer << "\n";
-//        std::cout << goal_ptr << "\n";
         cugl::physics2::Obstacle* other_body;
         if (contact_info.bodyOne!=NOT_PLAYER){
             other_body = reinterpret_cast<cugl::physics2::Obstacle*>(body2->GetUserData().pointer);
@@ -286,7 +291,6 @@ void InteractionController::preUpdate(float dt) {
 
 
 void InteractionController::detectPolyContact(const std::shared_ptr<scene2::PolygonNode>& poly2, float scale){
-    //if(b2Distance(_characterControllerA->getRightHandPosition(), poly2))
     
     // convert poly2 vertices
     b2DistanceProxy pol2;
@@ -308,25 +312,6 @@ void InteractionController::detectPolyContact(const std::shared_ptr<scene2::Poly
 
 
 void InteractionController::beforeSolve(b2Contact* contact, const b2Manifold* oldManifold) {
-//    float speed = 0;
-//    // Use Ian Parberry's method to compute a speed threshold
-//    b2Body* body1 = contact->GetFixtureA()->GetBody();
-//    b2Body* body2 = contact->GetFixtureB()->GetBody();
-//    b2WorldManifold worldManifold;
-//    contact->GetWorldManifold(&worldManifold);
-//    b2PointState state1[2], state2[2];
-//    b2GetPointStates(state1, state2, oldManifold, contact->GetManifold());
-//    for (int ii = 0; ii < 2; ii++) {
-//        if (state2[ii] == b2_addState) {
-//            b2Vec2 wp = worldManifold.points[0];
-//            b2Vec2 v1 = body1->GetLinearVelocityFromWorldPoint(wp);
-//            b2Vec2 v2 = body2->GetLinearVelocityFromWorldPoint(wp);
-//            b2Vec2 dv = v1 - v2;
-//            speed = b2Dot(dv, worldManifold.normal);
-//        }
-//    }
-    // NOTE: From George:
-    // THEN WHAT? why do you leave this code here?
 }
 
 

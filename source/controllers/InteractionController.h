@@ -50,6 +50,7 @@ protected:
      */
     std::vector<physics2::Obstacle*> _obstaclesForJoint;
     /**
+     * This field is not used for now.
      * This int indicates whether it's CURRENTLY the left hand grabbing or the right hand.
      * '1' means it's left hand; '0' means it's right hand; '-1' means default value.
      * It should always be set back to -1 after using the value.
@@ -89,13 +90,21 @@ public:
     };
     
     std::queue<PublisherMessage> messageQueue;
-    //subscriptions[pub_id][listening_for]
+    
+    /**
+     * *subscritions[pub_id][listening_for]* is the Publisher Message bound to the pub_id (usually the name of another obstacle)
+     * and the listening_for (the event name, usually 'contacted')
+     */
     std::unordered_map<std::string, std::unordered_map<std::string, std::vector<SubscriberMessage>>> subscriptions;
     
-    //publications[trigger][pub_id]
+    /**
+     * *publications[trigger][pub_id]* is the Publisher Message bound to this trigger (usually 'contacted')
+     * and this pub_id (usually the name of the obstacle)
+     */
     std::unordered_map<std::string, std::unordered_map<std::string, PublisherMessage>> publications;
 
-    /** the TENTATIVE initializer for this (feel free to change), according to our arch spec
+    /** 
+     * the TENTATIVE initializer for this (feel free to change), according to our arch spec
      */
     bool init(std::vector<std::shared_ptr<PlatformModel>> platforms,                
               std::shared_ptr<CharacterController> characterA,
