@@ -197,6 +197,7 @@ void InteractionController::beginContact(b2Contact* contact) {
         // one of the collision body is player's hand. We now grab it!
         auto obstacleA = reinterpret_cast<physics2::Obstacle*>(body1->GetUserData().pointer);
         auto obstacleB = reinterpret_cast<physics2::Obstacle*>(body2->GetUserData().pointer);
+        
         // now we push it into the vector to create joints later.
         // NOTE: we should care about which obstacle is the hand and push it first.
         if (contact_info.bodyOneIsHand) {
@@ -208,8 +209,8 @@ void InteractionController::beginContact(b2Contact* contact) {
                 
             } else {
                 // obstacle A is the hand, B is the platform
-                _obstaclesForJoint.push_back(obstacleA);
-                _obstaclesForJoint.push_back(obstacleB);
+                _obstaclesForJoint.push_back(_obstacleMap[obstacleA]);
+                _obstaclesForJoint.push_back(_obstacleMap[obstacleB]);
 //                if (contact_info.handIsLeft) {
 //                    // it is left hand
 //                    _isLeftHandForJoint = 1;
@@ -223,8 +224,8 @@ void InteractionController::beginContact(b2Contact* contact) {
                 
             } else {
                 // obstacle B is the hand, A is the platform
-                _obstaclesForJoint.push_back(obstacleB);
-                _obstaclesForJoint.push_back(obstacleA);
+                _obstaclesForJoint.push_back(_obstacleMap[obstacleB]);
+                _obstaclesForJoint.push_back(_obstacleMap[obstacleA]);
 //                if (contact_info.handIsLeft) {
 //                    // it is left hand
 //                    _isLeftHandForJoint = 1;
@@ -317,16 +318,21 @@ void InteractionController::beforeSolve(b2Contact* contact, const b2Manifold* ol
 
 
 void InteractionController::connectGrabJoint() {
+    if (!_allJoints.empty()) {
+        for(std::shared_ptr<physics2::Joint> jnt : _allJoints) {
+            
+        }
+    }
     if (!_obstaclesForJoint.empty()) {
-        std::shared_ptr<physics2::Obstacle> obs1(_obstaclesForJoint.at(0));
-        std::shared_ptr<physics2::Obstacle> obs2(_obstaclesForJoint.at(1));
+        std::shared_ptr<physics2::Obstacle> obs1 = _obstaclesForJoint.at(0);
+        std::shared_ptr<physics2::Obstacle> obs2 = _obstaclesForJoint.at(1);
         Vec2 difference = obs2 -> getPosition() - obs1 -> getPosition();
-        _joint = physics2::RevoluteJoint::allocWithObstacles(obs1, obs2);
+        _joint = physics2::RevoluteJoint::allocWithObstacles(_obstaclesForJoint.at(0), _obstaclesForJoint.at(1));
         // Anchor A is the anchor for the Hand.
         _joint -> setLocalAnchorA(difference);
         _joint -> setLocalAnchorB(0, 0);
-        _joint -> markDirty(true);
         _allJoints.push_back(_joint);
+        
         _world -> addJoint(_joint);
         
         float LHDistance = obs1 -> getPosition().distance(_characterControllerA -> getLeftHandPosition());

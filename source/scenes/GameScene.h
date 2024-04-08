@@ -45,6 +45,8 @@ protected:
 
 	std::shared_ptr<cugl::physics2::net::NetWorld> _platformWorld;
     
+    std::unordered_map<physics2::Obstacle*, std::shared_ptr<physics2::Obstacle>> _obstacleMap;
+    
     std::shared_ptr<cugl::scene2::Button> _pauseButton;
     
     std::vector<std::shared_ptr<PaintModel>> _paintModels;

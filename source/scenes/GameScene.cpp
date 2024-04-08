@@ -118,6 +118,15 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 		_uinode, 5.0f);
 //	CULog("Character Pos: %f, %f", _characterControllerA->getBodySceneNode()->getPositionX(), _characterControllerA->getBodySceneNode()->getPositionY());
 	_camera.setZoom(DEFAULT_ZOOM);
+    
+    
+    // try constructing obstacle map
+    for(auto obs : _characterControllerA -> getObstacles()) {
+        _interactionController -> _obstacleMap[obs.get()] = obs;
+    }
+    for(auto obs : _level -> getWalls()) {
+        _interactionController -> _obstacleMap[obs.get()] = obs;
+    }
 
 	return true;
 }
@@ -242,6 +251,13 @@ void GameScene::reset() {
     cameraReset();
     //_camera.setTarget(_characterControllerA->getBodySceneNode());
     Application::get()->resetFixedRemainder();
+    
+    for(auto obs : _characterControllerA -> getObstacles()) {
+        _interactionController -> _obstacleMap[obs.get()] = obs;
+    }
+    for(auto obs : _level -> getWalls()) {
+        _interactionController -> _obstacleMap[obs.get()] = obs;
+    }
 }
 
 /**

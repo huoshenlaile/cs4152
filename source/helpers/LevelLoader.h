@@ -303,5 +303,9 @@ public:
     std::shared_ptr<JsonValue> getLevelJSON() {
         return _levelJSON;
     }
+    
+    std::vector<std::shared_ptr<WallModel>> getWalls() {
+        return _walls;
+    }
 };
 #endif

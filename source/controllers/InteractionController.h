@@ -52,7 +52,7 @@ protected:
      * will be emptied very frequently. For unknown reason, every time I empty it, it tries to
      * destroy the smart pointer, hence destroying the obstacle. I don't want that.
      */
-    std::vector<physics2::Obstacle*> _obstaclesForJoint;
+    std::vector<std::shared_ptr<physics2::Obstacle>> _obstaclesForJoint;
     /**
      * This field is not used for now.
      * This int indicates whether it's CURRENTLY the left hand grabbing or the right hand.
@@ -76,6 +76,7 @@ protected:
 public:
     bool leftHandReverse = false;
     bool rightHandReverse = false;
+    std::unordered_map<physics2::Obstacle*, std::shared_ptr<physics2::Obstacle>> _obstacleMap;
     
     struct PublisherMessage {
         /**

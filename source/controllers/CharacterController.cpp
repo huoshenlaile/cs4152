@@ -168,6 +168,8 @@ std::shared_ptr<physics2::Obstacle> CharacterController::makePart(int part, int 
 
 	// log parts and resitituion
 	CULog("makePart body part %d restitution: %f", part, body->getRestitution());
+    
+#pragma mark OBSTACLE ADD
 	_obstacles.push_back(body);
 	return body;
 }

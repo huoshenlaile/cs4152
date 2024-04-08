@@ -326,20 +326,20 @@ void LevelLoader::unload() {
         }
         _goalDoor = nullptr;
     }
-    for(auto it = _walls.begin(); it != _walls.end(); ++it) {
-        if (_world != nullptr) {
-            _world->removeObstacle((*it));
-        }
-    (*it) = nullptr;
-    }
-    _walls.clear();
-    for(auto it = _sensors.begin(); it != _sensors.end(); ++it) {
-        if (_world != nullptr) {
-            _world->removeObstacle((*it));
-        }
-    (*it) = nullptr;
-    }
-    _sensors.clear();
+//    for(auto it = _walls.begin(); it != _walls.end(); ++it) {
+//        if (_world != nullptr) {
+//            _world->removeObstacle((*it));
+//        }
+//    (*it) = nullptr;
+//    }
+//    _walls.clear();
+//    for(auto it = _sensors.begin(); it != _sensors.end(); ++it) {
+//        if (_world != nullptr) {
+//            _world->removeObstacle((*it));
+//        }
+//    (*it) = nullptr;
+//    }
+//    _sensors.clear();
     if (_world != nullptr) {
         _world->clear();
         _world = nullptr;
@@ -466,6 +466,8 @@ void LevelLoader::setRootNode(const std::shared_ptr<scene2::SceneNode>& node){
  * @param node   The scene graph node to attach it to
  */
 void LevelLoader::addObstacle(const std::shared_ptr<cugl::physics2::Obstacle>& obj, const std::shared_ptr<cugl::scene2::SceneNode>& node) {
+#pragma mark OBSTACLE ADD
+    
     _world->addObstacle(obj);
 //    obj->setDebugScene(_debugnode);
     
@@ -481,9 +483,9 @@ void LevelLoader::addObstacle(const std::shared_ptr<cugl::physics2::Obstacle>& o
             weak->setAngle(obs->getAngle());
         });
     }
-    if (obj->getName() == "sensor1"){
-        std::cout << "x: " << obj->getCentroid().x << " y:" << obj->getCentroid().y << "\n";
-        std::cout << "X: " << obj->getX() << " Y: " << obj->getY() << "\n";
-    }
+//    if (obj->getName() == "sensor1"){
+//        std::cout << "x: " << obj->getCentroid().x << " y:" << obj->getCentroid().y << "\n";
+//        std::cout << "X: " << obj->getX() << " Y: " << obj->getY() << "\n";
+//    }
 //    std::cout<<"success"<<std::endl;
 }
