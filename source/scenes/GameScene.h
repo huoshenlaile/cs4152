@@ -33,7 +33,7 @@ protected:
 	/** Controller for abstracting out input across multiple platforms */
 	//    InputController _input;
 	/** Controller for handling all kinds of interactions*/
-	InteractionController _interactionController;
+	std::shared_ptr<InteractionController> _interactionController;
 	/** Network Controller*/
 	std::shared_ptr<NetEventController> _network;
 	/** Character Controller*/
@@ -71,7 +71,7 @@ protected:
     /** the level complete scene */
     std::shared_ptr<cugl::scene2::SceneNode> _levelComplete;
     std::shared_ptr<cugl::scene2::Button> _levelCompleteReset;
-    std::shared_ptr<cugl::scene2::Button> _levelCompleteMenu;
+    std::shared_ptr<cugl::scene2::Button> _levelCompleteMenuButton;
 
 	CameraController _camera;
 
@@ -103,6 +103,7 @@ protected:
 	cugl::Size computeActiveSize() const;
 
 public:
+    std::vector<std::shared_ptr<cugl::physics2::Joint>> Alljoints;
 	/** the state of this scene, referenced by DPApp*/
     enum SceneState {
         INGAME,
@@ -173,6 +174,8 @@ public:
 		const std::shared_ptr<NetEventController> network, bool isHost);
     
     void constructLevel();
+    
+    void constructSceneNodes(const Size &dimen);
     
     /**
 	 * Initializes the controller contents, and starts the game

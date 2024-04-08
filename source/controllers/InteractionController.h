@@ -39,7 +39,11 @@ protected:
     std::vector<std::shared_ptr<WallModel>> _walls;
     std::shared_ptr<LevelLoader> _level;
     std::shared_ptr<cugl::JsonValue> _levelJson;
+    std::shared_ptr<physics2::RevoluteJoint> _joint;
     std::shared_ptr<cugl::physics2::net::NetWorld> _world;
+    std::vector<std::shared_ptr<cugl::physics2::Joint>> _allJoints;
+//    std::shared_ptr<physics2::Obstacle> obs1;
+//    std::shared_ptr<physics2::Obstacle> obs2;
     
     /**
      * This vector stores TWO obstacles to create joint in between.
@@ -112,6 +116,7 @@ public:
               std::vector<std::shared_ptr<ButtonModel>> buttons,
               std::vector<std::shared_ptr<WallModel>> walls,
               std::shared_ptr<LevelLoader> level,
+              std::shared_ptr<cugl::physics2::net::NetWorld> &_world,
               const std::shared_ptr<cugl::JsonValue>& json);
     
     

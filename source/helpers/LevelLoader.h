@@ -295,11 +295,10 @@ public:
      */
     void addObstacle(const std::shared_ptr<cugl::physics2::Obstacle>& obj,
                      const std::shared_ptr<cugl::scene2::SceneNode>& node);
-    
-    
-    std::shared_ptr<cugl::physics2::net::NetWorld> getPhysicsWorld(){
-        return _world;
-    }
+
+//    std::shared_ptr<cugl::physics2::net::NetWorld> getPhysicsWorld(){
+//        return _world;
+//    }
     
     std::shared_ptr<JsonValue> getLevelJSON() {
         return _levelJSON;

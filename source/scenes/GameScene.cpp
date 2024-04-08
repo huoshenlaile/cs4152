@@ -49,83 +49,16 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	_isHost = isHost;
 	_network = network;
 	_assets = assets;
-
+    _active = false;
+    _gamePaused = false;
+    _complete = false;
 	_scale = dimen.width == SCENE_WIDTH ? dimen.width / rect.size.width
 		: dimen.height / rect.size.height;
-	Vec2 offset{ (dimen.width - SCENE_WIDTH) / 2.0f,
-				(dimen.height - SCENE_HEIGHT) / 2.0f };
-
+    
+#pragma mark Scene Nodes
 	//CULog("dimen: %f, %f", dimen.width, dimen.height);
-	// TODO: add children to the scene, initialize Controllers
 	// Create the scene graph
-	_worldnode = scene2::SceneNode::alloc();
-	_worldnode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
-	_worldnode->setPosition(offset);
-
-	_debugnode = scene2::SceneNode::alloc();
-	_debugnode->setScale(_scale); // Debug node draws in PHYSICS coordinates
-	_debugnode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
-	_debugnode->setPosition(offset);
-
-	_loadnode = scene2::Label::allocWithText(RESET_MESSAGE,
-		_assets->get<Font>(PRIMARY_FONT));
-	_loadnode->setAnchor(Vec2::ANCHOR_CENTER);
-	_loadnode->setPosition(computeActiveSize() / 2);
-	_loadnode->setForeground(STATIC_COLOR);
-	_loadnode->setVisible(false);
-
-	_uinode = scene2::SceneNode::alloc();
-	_uinode->setContentSize(dimen);
-	_uinode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
-	_uinode->addChild(_loadnode);
-
-	_pauseButton = std::dynamic_pointer_cast<scene2::Button>(
-		_assets->get<scene2::SceneNode>("pausebutton"));
-    _pauseButton -> removeFromParent();
-	_pauseButton->addListener([this](const std::string& name, bool down) {
-		if (down) {
-			_gamePaused = true;
-			//			CULog("Pause button hit");
-			//			_network->pushOutEvent(PauseEvent::allocPauseEvent(
-			//				Vec2(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 2), true));
-		}
-		});
-	_uinode->addChild(_pauseButton);
-    
-
-    _levelComplete = _assets->get<scene2::SceneNode>("levelcomplete");
-    _levelComplete -> removeFromParent();
-    _levelComplete -> doLayout(); // Repositions the HUD
-    _levelComplete -> setContentSize(dimen);
-    _levelComplete -> setVisible(false);
-    _levelCompleteReset = std::dynamic_pointer_cast<scene2::Button>(_levelComplete -> getChildByName("options") -> getChildByName("restart"));
-    _levelCompleteReset -> deactivate();
-    _levelCompleteReset->addListener([this](const std::string& name, bool down) {
-        if (down) {
-            std::cout << "Well, level complete reset!" << std::endl;
-            this -> state = RESET;
-        }
-    });
-    _levelCompleteMenu = std::dynamic_pointer_cast<scene2::Button>(_levelComplete -> getChildByName("options") -> getChildByName("menu"));
-    _levelCompleteMenu -> deactivate();
-    _levelCompleteMenu->addListener([this](const std::string& name, bool down) {
-        if (down) {
-            std::cout << "Well, level MENU!" << std::endl;
-            // TODO: there is something weird happening here.
-#pragma mark WAITING FOR SOLUTION
-            _level -> unload();
-            _level -> clearRootNode();
-            this -> state = QUIT;
-        }
-    });
-    
-    _uinode -> addChild(_levelComplete);
-    
-    
-	addChild(_worldnode);
-	addChild(_uinode);
-
-	_worldnode->setContentSize(Size(SCENE_WIDTH, SCENE_HEIGHT));
+    constructSceneNodes(dimen);
 
 #pragma mark LevelLoader
 	// make the getter for loading the map
@@ -151,25 +84,18 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 	_network->attachEventType<PauseEvent>();
     
 #pragma mark PlatformWorld
-    _platformWorld = _level->getPhysicsWorld();
-    _platformWorld->setGravity(gravity);
+    _platformWorld = _level->getWorld();
+//    _platformWorld->setGravity(gravity);
     activateWorldCollisions(_platformWorld);
 
 #pragma mark Character 1
     constructCharacterA();
 
-#pragma mark Character 2
-//        _characterControllerB = CharacterController::alloc({22,8}, 200);
-//        _characterControllerB->buildParts(_assets);
-//        _characterControllerB->createJoints();
-//
-//        auto charNodeB = scene2::SceneNode::alloc();
-//        _worldnode->addChild(charNodeB);
-//        _characterControllerB->linkPartsToWorld(_platformWorld, charNodeB,
-//        _scale);
+// characterControllerB = ...
 
 #pragma mark InteractionController
-    _interactionController.init({}, _characterControllerA, nullptr, {}, {}, _level, _level -> getLevelJSON());
+    _interactionController = std::make_shared<InteractionController>();
+    _interactionController -> init({}, _characterControllerA, nullptr, {}, {}, _level, _platformWorld, _level -> getLevelJSON());
     
 #pragma mark InputControllers
     // TODO: setup the inputController (PlatformInput, from Harry)
@@ -178,10 +104,6 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 //	    _camera.init(charNode,_worldnode,1.0f,
 //	    std::dynamic_pointer_cast<OrthographicCamera>(getCamera()),
 //	    _uinode, 2.0f);
-	_active = false;
-	_gamePaused = false;
-	_complete = false;
-	setDebug(false);
 
 
 #pragma mark AudioController
@@ -196,8 +118,6 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 		_uinode, 5.0f);
 //	CULog("Character Pos: %f, %f", _characterControllerA->getBodySceneNode()->getPositionX(), _characterControllerA->getBodySceneNode()->getPositionY());
 	_camera.setZoom(DEFAULT_ZOOM);
-    
-    
 
 	return true;
 }
@@ -214,46 +134,15 @@ void GameScene::addPaintObstacles() {
 void GameScene::activateWorldCollisions(const std::shared_ptr<physics2::ObstacleWorld>& world) {
 	world->activateCollisionCallbacks(true);
 	world->onBeginContact = [this](b2Contact* contact) {
-		_interactionController.beginContact(contact);
+		_interactionController -> beginContact(contact);
 		};
 	world->beforeSolve = [this](b2Contact* contact, const b2Manifold* oldManifold) {
-		_interactionController.beforeSolve(contact, oldManifold);
+		_interactionController -> beforeSolve(contact, oldManifold);
 		};
 	world->onEndContact = [this](b2Contact* contact) {
-		_interactionController.endContact(contact);
+		_interactionController -> endContact(contact);
 		};
     
-}
-
-#pragma mark DISPOSE
-/**
- * Disposes of all (non-static) resources allocated to this mode.
- */
-void GameScene::dispose() {
-	if (_active) {
-        
-        // TODO: implement this -now the logic is very unclear and I just clean up everything
-        
-		removeAllChildren();
-        _characterControllerA->dispose();
-		_worldnode = nullptr;
-		_debugnode = nullptr;
-		_winnode = nullptr;
-        _level -> unload();
-        _level -> clearRootNode();
-        _level = nullptr;
-        _uinode = nullptr;
-        _levelComplete -> removeFromParent();
-        _levelComplete = nullptr;
-        _levelCompleteMenu = nullptr;
-        _levelCompleteReset = nullptr;
-        _pauseButton -> removeFromParent();
-        _pauseButton = nullptr;
-		_complete = false;
-		_debug = false;
-		//_characterControllerB->dispose();
-		Scene2::dispose();
-	}
 }
 
 void GameScene::setActive(bool value) {
@@ -279,6 +168,37 @@ void GameScene::setActive(bool value) {
 }
 
 
+#pragma mark DISPOSE
+/**
+ * Disposes of all (non-static) resources allocated to this mode.
+ */
+void GameScene::dispose() {
+    if (_active) {
+        
+        // TODO: implement this -now the logic is very unclear and I just clean up everything
+        
+        removeAllChildren();
+        _characterControllerA->dispose();
+        _worldnode = nullptr;
+        _debugnode = nullptr;
+        _winnode = nullptr;
+        _level -> unload();
+        _level -> clearRootNode();
+        _level = nullptr;
+        _uinode = nullptr;
+        _levelComplete -> removeFromParent();
+        _levelComplete = nullptr;
+        _levelCompleteMenuButton = nullptr;
+        _levelCompleteReset = nullptr;
+        _pauseButton -> removeFromParent();
+        _pauseButton = nullptr;
+        _complete = false;
+        _debug = false;
+        //_characterControllerB->dispose();
+        Scene2::dispose();
+    }
+}
+
 #pragma mark RESET
 
 /**
@@ -287,21 +207,28 @@ void GameScene::setActive(bool value) {
  * This method disposes of the world and creates a new one.
  */
 void GameScene::reset() {
-	// reload the level
     state = INGAME;
 
-//	CULog("GAME RESET");
+    // unload and remove everything
     for(auto & pm : _paintModels){
         pm->clear();
     }
-	_assets->unload<LevelLoader>(ALPHA_RELEASE_KEY);
-	_assets->load<LevelLoader>(ALPHA_RELEASE_KEY, ALPHA_RELEASE_FILE);
-
-	_level = nullptr;
+    _level -> unload();
+    _assets -> unload<LevelLoader>(ALPHA_RELEASE_KEY);
+    _uinode -> removeAllChildren();
+    _worldnode -> removeAllChildren();
+    _debugnode -> removeAllChildren();
+    setComplete(false);
+    
+    // load back and reconstruct everything
+	_assets -> load<LevelLoader>(ALPHA_RELEASE_KEY, ALPHA_RELEASE_FILE);
+    constructSceneNodes(computeActiveSize());
     constructLevel();
-
-	_platformWorld = nullptr;
-	_platformWorld = _level->getPhysicsWorld();
+    _platformWorld = _level->getWorld();
+    activateWorldCollisions(_platformWorld);
+    constructCharacterA();
+    _interactionController = std::make_shared<InteractionController>();
+    _interactionController -> init({}, _characterControllerA, nullptr, {}, {}, _level, _platformWorld, _level -> getLevelJSON());
     
     //TODO: refactor out adding to scene so we don't need to reinstatiate everything - do this after LevelLoader refactor
     std::vector<std::shared_ptr<PaintModel>> newPaints;
@@ -310,28 +237,10 @@ void GameScene::reset() {
         newPaints.push_back(re_pm);
     }
     _paintModels = newPaints;
-
-    constructCharacterA();
     
-    _levelCompleteReset -> deactivate();
-    _levelCompleteMenu -> deactivate();
-    _levelComplete -> setVisible(false);
-	setComplete(false);
-    _pauseButton -> activate();
-    _pauseButton -> setVisible(true);
-    
-	//reload the input
-    constructInputController(Rect(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT));
-
-	//reload interaction controller
-	_interactionController.init({}, _characterControllerA, nullptr, {}, {}, _level, _assets->get<JsonValue>(ALPHA_RELEASE_KEY_JSON));
-	//reload the camera
-	cameraReset();
-	//_camera.setTarget(_characterControllerA->getBodySceneNode());
-
-	activateWorldCollisions(_platformWorld);
-    
-    
+    //reload the camera
+    cameraReset();
+    //_camera.setTarget(_characterControllerA->getBodySceneNode());
     Application::get()->resetFixedRemainder();
 }
 
@@ -360,7 +269,11 @@ void GameScene::preUpdate(float dt) {
 		return;
 	}
 	// _input.update();
+    // Initialize Grabbing Joints
+    _interactionController -> connectGrabJoint();
 	_inputController->update(dt);
+    _platformWorld->update(dt);
+    _characterControllerA->update(dt);
 	auto character = _inputController->getCharacter();
 	for (auto i = character->_touchInfo.begin(); i != character->_touchInfo.end(); i++) {
 		i->worldPos = (Vec2)Scene2::screenToWorldCoords(i->position);
@@ -374,14 +287,14 @@ void GameScene::preUpdate(float dt) {
     
     
 #pragma mark Interaction Resolves Here
-    //_interactionController.preUpdate(dt);
-    while (!_interactionController.messageQueue.empty()) {
-        InteractionController::PublisherMessage publication = _interactionController.messageQueue.front();
+    //_interactionController -> preUpdate(dt);
+    while (!_interactionController -> messageQueue.empty()) {
+        InteractionController::PublisherMessage publication = _interactionController -> messageQueue.front();
         std::cout << "This publication message is (from GameScene update): " << publication.pub_id << " " << publication.trigger << " " << publication.message << "\n";
         // we extract an active publication message from the queue. This message is supposed to match with some subscriber.
         // we query the corresponding subscriber, according to the pub_id and publication message.
         // by using [], we will automatically skip this for loop if there is no such result.
-        for (const InteractionController::SubscriberMessage& subMessage : _interactionController.subscriptions[publication.pub_id][publication.message]) {
+        for (const InteractionController::SubscriberMessage& subMessage : _interactionController -> subscriptions[publication.pub_id][publication.message]) {
             std::cout << "This subscribe message is (from GameScene update): " << subMessage.pub_id << " " << subMessage.listening_for << "\n";
             if (subMessage.actions.count("win") > 0) {
                 CULog("Winner! - from preUpdate. Setting Complete.");
@@ -395,16 +308,14 @@ void GameScene::preUpdate(float dt) {
                 // s.actions.at("fire") is the name of the paint bottle obstacle
             }
         }
-        _interactionController.messageQueue.pop();
+        _interactionController -> messageQueue.pop();
     }
-    // Initialize Grabbing Joints
-    _interactionController.connectGrabJoint();
 
 
 	_characterControllerA->moveLeftHand(INPUT_SCALER *
-		_inputController->getLeftHandMovement(), _interactionController.leftHandReverse);
+		_inputController->getLeftHandMovement(), _interactionController -> leftHandReverse);
 	_characterControllerA->moveRightHand(
-		INPUT_SCALER * _inputController->getrightHandMovement(), _interactionController.rightHandReverse);
+		INPUT_SCALER * _inputController->getrightHandMovement(), _interactionController -> rightHandReverse);
 	_inputController->fillHand(_characterControllerA->getLeftHandPosition(),
 		_characterControllerA->getRightHandPosition(),
 		_characterControllerA->getLHPos(),
@@ -424,7 +335,7 @@ void GameScene::processPaintCallbacks(float millis) {
 	for (auto& pm : _paintModels) {
 		pm->update(_worldnode, millis);
 		if (pm->active) {
-			_interactionController.detectPolyContact(pm->currentNode(), _scale);
+			_interactionController -> detectPolyContact(pm->currentNode(), _scale);
 		}
 	}
 }
@@ -433,10 +344,6 @@ void GameScene::postUpdate(float dt) {
 }
 
 void GameScene::fixedUpdate(float dt) {
-    _platformWorld->update(dt);
-    _characterControllerA->update(dt);
-    
-
 //    processPauseEvent();
 //	if (_network->isInAvailable()) {
 //		auto e = _network->popInEvent();
@@ -467,24 +374,88 @@ void GameScene::setComplete(bool value){
         _pauseButton -> deactivate();
         _levelComplete -> setVisible(true);
         _levelCompleteReset -> activate();
-        _levelCompleteMenu -> activate();
+        _levelCompleteMenuButton -> activate();
     }
 }
 
 #pragma mark Helper Functions
+void GameScene::constructSceneNodes(const Size &dimen) {
+    Vec2 offset{ (dimen.width - SCENE_WIDTH) / 2.0f,
+        (dimen.height - SCENE_HEIGHT) / 2.0f };
+    _worldnode = scene2::SceneNode::alloc();
+    _worldnode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
+    _worldnode->setPosition(offset);
+    
+    _debugnode = scene2::SceneNode::alloc();
+    _debugnode->setScale(_scale); // Debug node draws in PHYSICS coordinates
+    _debugnode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
+    _debugnode->setPosition(offset);
+    
+    _loadnode = scene2::Label::allocWithText(RESET_MESSAGE,
+                                             _assets->get<Font>(PRIMARY_FONT));
+    _loadnode->setAnchor(Vec2::ANCHOR_CENTER);
+    _loadnode->setPosition(computeActiveSize() / 2);
+    _loadnode->setForeground(STATIC_COLOR);
+    _loadnode->setVisible(false);
+    
+    _uinode = scene2::SceneNode::alloc();
+    _uinode->setContentSize(dimen);
+    _uinode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
+    _uinode->addChild(_loadnode);
+    
+    _pauseButton = std::dynamic_pointer_cast<scene2::Button>(
+                                                             _assets->get<scene2::SceneNode>("pausebutton"));
+    _pauseButton -> removeFromParent();
+    _pauseButton->addListener([this](const std::string& name, bool down) {
+        if (down) {
+            _gamePaused = true;
+            //            CULog("Pause button hit");
+            //            _network->pushOutEvent(PauseEvent::allocPauseEvent(
+            //                Vec2(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 2), true));
+        }
+    });
+    _uinode->addChild(_pauseButton);
+    
+    
+    _levelComplete = _assets->get<scene2::SceneNode>("levelcomplete");
+    _levelComplete -> removeFromParent();
+    _levelComplete -> doLayout(); // Repositions the HUD
+    _levelComplete -> setContentSize(dimen);
+    _levelComplete -> setVisible(false);
+    
+    _levelCompleteReset = std::dynamic_pointer_cast<scene2::Button>(_levelComplete -> getChildByName("options") -> getChildByName("restart"));
+    _levelCompleteReset -> deactivate();
+    _levelCompleteReset->addListener([this](const std::string& name, bool down) {
+        if (down) {
+            std::cout << "Well, level complete reset!" << std::endl;
+            this -> state = RESET;
+        }
+    });
+    
+    _levelCompleteMenuButton = std::dynamic_pointer_cast<scene2::Button>(_levelComplete -> getChildByName("options") -> getChildByName("menu"));
+    _levelCompleteMenuButton -> deactivate();
+    _levelCompleteMenuButton->addListener([this](const std::string& name, bool down) {
+        if (down) {
+            std::cout << "Well, level MENU!" << std::endl;
+            // TODO: there is something weird happening here.
+#pragma mark WAITING FOR SOLUTION
+            _level -> unload();
+            _level -> clearRootNode();
+            this -> state = QUIT;
+        }
+    });
+    
+    _uinode -> addChild(_levelComplete);
+    addChild(_worldnode);
+    addChild(_uinode);
+    setDebug(false);
+    _worldnode->setContentSize(Size(SCENE_WIDTH, SCENE_HEIGHT));
+}
+
 void GameScene::constructLevel() {
     _level = _assets->get<LevelLoader>(ALPHA_RELEASE_KEY);
     _level->setAssets(_assets);
     _level->setRootNode(_worldnode);
-}
-
-void GameScene::constructInputController(const cugl::Rect &rect) {
-    _inputController = std::make_shared<InputController>();
-    _inputController->init(rect);
-    _inputController->fillHand(_characterControllerA->getLeftHandPosition(),
-                               _characterControllerA->getRightHandPosition(),
-                               _characterControllerA->getLHPos(),
-                               _characterControllerA->getRHPos());
 }
 
 void GameScene::constructCharacterA() {
@@ -496,6 +467,15 @@ void GameScene::constructCharacterA() {
     _worldnode->addChild(charNode);
     //    _characterController->setSceneNode(charNode);
     _characterControllerA->linkPartsToWorld(_platformWorld, charNode, _scale);
+}
+
+void GameScene::constructInputController(const cugl::Rect &rect) {
+    _inputController = std::make_shared<InputController>();
+    _inputController->init(rect);
+    _inputController->fillHand(_characterControllerA->getLeftHandPosition(),
+                               _characterControllerA->getRightHandPosition(),
+                               _characterControllerA->getLHPos(),
+                               _characterControllerA->getRHPos());
 }
 
 /**

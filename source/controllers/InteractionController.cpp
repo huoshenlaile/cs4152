@@ -6,6 +6,7 @@ bool InteractionController::init(std::vector<std::shared_ptr<PlatformModel>> pla
     std::shared_ptr<CharacterController> characterB,
     std::vector<std::shared_ptr<ButtonModel>> buttons, std::vector<std::shared_ptr<WallModel>> walls,
     std::shared_ptr<LevelLoader> level,
+    std::shared_ptr<cugl::physics2::net::NetWorld> &world,
     const std::shared_ptr<cugl::JsonValue>& json) {
     
     _platforms = platforms;
@@ -15,7 +16,7 @@ bool InteractionController::init(std::vector<std::shared_ptr<PlatformModel>> pla
     _walls = walls;
     _level = level;
     _levelJson = json;
-    _world = _level -> getWorld();
+    this -> _world = world;
     _obstaclesForJoint = {};
     leftHandReverse = false;
     rightHandReverse = false;
@@ -320,11 +321,13 @@ void InteractionController::connectGrabJoint() {
         std::shared_ptr<physics2::Obstacle> obs1(_obstaclesForJoint.at(0));
         std::shared_ptr<physics2::Obstacle> obs2(_obstaclesForJoint.at(1));
         Vec2 difference = obs2 -> getPosition() - obs1 -> getPosition();
-        std::shared_ptr<physics2::RevoluteJoint> joint = physics2::RevoluteJoint::allocWithObstacles(obs1, obs2);
-        // Anchor A is the anchor for the Hand. 
-        joint -> setLocalAnchorA(difference);
-        joint -> setLocalAnchorB(0, 0);
-        _world -> addJoint(joint);
+        _joint = physics2::RevoluteJoint::allocWithObstacles(obs1, obs2);
+        // Anchor A is the anchor for the Hand.
+        _joint -> setLocalAnchorA(difference);
+        _joint -> setLocalAnchorB(0, 0);
+        _joint -> markDirty(true);
+        _allJoints.push_back(_joint);
+        _world -> addJoint(_joint);
         
         float LHDistance = obs1 -> getPosition().distance(_characterControllerA -> getLeftHandPosition());
         float RHDistance = obs1 -> getPosition().distance(_characterControllerA -> getRightHandPosition());
@@ -345,7 +348,6 @@ void InteractionController::connectGrabJoint() {
 //            this -> rightHandReverse = true;
 //            _isLeftHandForJoint = -1;
 //        }
-        
 
         _obstaclesForJoint.clear();
     }
