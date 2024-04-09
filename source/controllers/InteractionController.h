@@ -14,7 +14,6 @@
 #include "NetworkController.h"
 #include "../helpers/LevelLoader.h" //Need to include in dependency graph
 #include "../models/WallModel.h"
-#include "../models/PlatformModel.h"
 #include "../models/ButtonModel.h"
 #include "../models/ExitModel.h"
 #include "CharacterController.h"
@@ -34,7 +33,6 @@ protected:
     std::shared_ptr<CharacterController> _characterControllerA;
     std::shared_ptr<CharacterController> _characterControllerB;
     
-    std::vector<std::shared_ptr<PlatformModel>> _platforms;
     std::vector<std::shared_ptr<ButtonModel>> _buttons;
     std::vector<std::shared_ptr<WallModel>> _walls;
     std::shared_ptr<LevelLoader> _level;
@@ -111,8 +109,7 @@ public:
     /** 
      * the TENTATIVE initializer for this (feel free to change), according to our arch spec
      */
-    bool init(std::vector<std::shared_ptr<PlatformModel>> platforms,                
-              std::shared_ptr<CharacterController> characterA,
+    bool init(std::shared_ptr<CharacterController> characterA,
               std::shared_ptr<CharacterController> characterB,
               std::vector<std::shared_ptr<ButtonModel>> buttons,
               std::vector<std::shared_ptr<WallModel>> walls,

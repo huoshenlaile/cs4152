@@ -85,7 +85,8 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     
 #pragma mark PlatformWorld
     _platformWorld = _level->getWorld();
-//    _platformWorld->setGravity(gravity);
+    _platformWorld -> setGravity(gravity);
+    this -> _gravity = gravity;
     activateWorldCollisions(_platformWorld);
 
 #pragma mark Character 1
@@ -95,7 +96,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 
 #pragma mark InteractionController
     _interactionController = std::make_shared<InteractionController>();
-    _interactionController -> init({}, _characterControllerA, nullptr, {}, {}, _level, _platformWorld, _level -> getLevelJSON());
+    _interactionController -> init(_characterControllerA, nullptr, {}, {}, _level, _platformWorld, _level -> getLevelJSON());
     
 #pragma mark InputControllers
     // TODO: setup the inputController (PlatformInput, from Harry)
@@ -154,6 +155,7 @@ void GameScene::activateWorldCollisions(const std::shared_ptr<physics2::Obstacle
     
 }
 
+#pragma mark SetActive
 void GameScene::setActive(bool value) {
 	if (isActive() != value) {
 		Scene2::setActive(value);
@@ -187,24 +189,24 @@ void GameScene::dispose() {
         // TODO: implement this -now the logic is very unclear and I just clean up everything
         
         removeAllChildren();
-        _characterControllerA->dispose();
-        _worldnode = nullptr;
-        _debugnode = nullptr;
-        _winnode = nullptr;
         _level -> unload();
-        _level -> clearRootNode();
-        _level = nullptr;
-        _uinode = nullptr;
-        _levelComplete -> removeFromParent();
-        _levelComplete = nullptr;
-        _levelCompleteMenuButton = nullptr;
-        _levelCompleteReset = nullptr;
-        _pauseButton -> removeFromParent();
-        _pauseButton = nullptr;
-        _complete = false;
-        _debug = false;
+        _assets -> unload<LevelLoader>(ALPHA_RELEASE_KEY);
+        _uinode -> removeAllChildren();
+        _worldnode -> removeAllChildren();
+        _debugnode -> removeAllChildren();
+        setComplete(false);
+//        _worldnode = nullptr;
+//        _debugnode = nullptr;
+//        _winnode = nullptr;
+//        _uinode = nullptr;
+//        _levelComplete = nullptr;
+//        _levelCompleteMenuButton = nullptr;
+//        _levelCompleteReset = nullptr;
+//        _pauseButton = nullptr;
+//        _complete = false;
+//        _debug = false;
         //_characterControllerB->dispose();
-        Scene2::dispose();
+//        Scene2::dispose();
     }
 }
 
@@ -234,10 +236,11 @@ void GameScene::reset() {
     constructSceneNodes(computeActiveSize());
     constructLevel();
     _platformWorld = _level->getWorld();
+    _platformWorld -> setGravity(_gravity);
     activateWorldCollisions(_platformWorld);
     constructCharacterA();
     _interactionController = std::make_shared<InteractionController>();
-    _interactionController -> init({}, _characterControllerA, nullptr, {}, {}, _level, _platformWorld, _level -> getLevelJSON());
+    _interactionController -> init(_characterControllerA, nullptr, {}, {}, _level, _platformWorld, _level -> getLevelJSON());
     
     //TODO: refactor out adding to scene so we don't need to reinstatiate everything - do this after LevelLoader refactor
     std::vector<std::shared_ptr<PaintModel>> newPaints;

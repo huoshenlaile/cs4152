@@ -12,7 +12,6 @@
 #include "../controllers/InteractionController.h"
 #include "../controllers/CharacterController.h"
 #include "../controllers/AudioController.h"
-#include "../models/PlatformModel.h"
 #include "../models/ButtonModel.h"
 #include "../models/WallModel.h"
 #include "../helpers/LevelLoader.h"
@@ -45,15 +44,12 @@ protected:
 
 	std::shared_ptr<cugl::physics2::net::NetWorld> _platformWorld;
     
-    std::unordered_map<physics2::Obstacle*, std::shared_ptr<physics2::Obstacle>> _obstacleMap;
-    
     std::shared_ptr<cugl::scene2::Button> _pauseButton;
     
     std::vector<std::shared_ptr<PaintModel>> _paintModels;
 
 	// MODELS
 	// TODO: Do we need a vector of these?
-	PlatformModel _platform;
 	WallModel _wall;
 	std::shared_ptr<ButtonModel> _button;
 
@@ -74,6 +70,7 @@ protected:
     std::shared_ptr<cugl::scene2::SceneNode> _levelComplete;
     std::shared_ptr<cugl::scene2::Button> _levelCompleteReset;
     std::shared_ptr<cugl::scene2::Button> _levelCompleteMenuButton;
+    cugl::Vec2 _gravity;
 
 	CameraController _camera;
 

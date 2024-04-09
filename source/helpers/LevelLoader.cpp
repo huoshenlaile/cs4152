@@ -320,12 +320,12 @@ LevelLoader::~LevelLoader(void) {
 * references to other assets, then these should be disconnected earlier.
 */
 void LevelLoader::unload() {
-    if (_goalDoor != nullptr) {
-        if (_world != nullptr) {
-            _world->removeObstacle(_goalDoor);
-        }
-        _goalDoor = nullptr;
-    }
+//    if (_goalDoor != nullptr) {
+//        if (_world != nullptr) {
+//            _world->removeObstacle(_goalDoor);
+//        }
+//        _goalDoor = nullptr;
+//    }
 //    for(auto it = _walls.begin(); it != _walls.end(); ++it) {
 //        if (_world != nullptr) {
 //            _world->removeObstacle((*it));

@@ -3,7 +3,6 @@
 
 #include <cugl/cugl.h>
 #include <vector>
-#include "../models/CharacterModel.h"
 #include "../helpers/GameSceneConstants.h"
 
 /*

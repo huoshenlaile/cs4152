@@ -140,8 +140,9 @@ void DPApp::preUpdate(float timestep) {
         
         if (_gameScene.state == GameScene::QUIT) {
             
-            // TODO: Handle this!
-//            _gameScene.dispose();
+            // TODO: Implement QUIT MENU
+            // This code below will give an error
+            _gameScene.dispose();
 //            _gameScene.reset();
             _gameScene.setActive(false);
             _menuScene.setActive(true);
@@ -159,25 +160,30 @@ void DPApp::preUpdate(float timestep) {
       _status = PAUSE;
       _gameScene.setActive(false);
       _pauseScene.setActive(true);
+    } else {
+        _gameScene.preUpdate(timestep);
     }
       
-    _gameScene.preUpdate(timestep);
+
   } else if (_status == PAUSE) {
 //    _pauseScene.update(timestep);
     switch (_pauseScene.state) {
-    case PauseScene::BACK:
-          _pauseScene.setActive(false);
-          _gameScene.setActive(true);
-          _status = GAME;
+        case PauseScene::BACK:
+              _pauseScene.setActive(false);
+              _gameScene.setActive(true);
+              _status = GAME;
+              break;
+        case PauseScene::RESET:
+            _pauseScene.setActive(false);
+            _gameScene.reset();
+            _gameScene.setActive(true);
+            _status = GAME;
+            break;
+        case PauseScene::MENU:
+            // TODO: ?
+            break;
+        default:
           break;
-    case PauseScene::RESET:
-        _pauseScene.setActive(false);
-        _gameScene.reset();
-        _gameScene.setActive(true);
-        _status = GAME;
-        break;
-    default:
-      break;
     }
   }
 }
@@ -259,71 +265,6 @@ void DPApp::updatePause(float timestep) {
   }
 }
 
-void DPApp::updateHost(float timestep) {
-//  _hostScene.update(timestep);
-//  switch (_hostScene.state) {
-//  case HostScene::BACK:
-//    _status = MENU;
-//    _hostScene.setActive(false);
-//    _menuScene.setActive(true);
-//    break;
-//  case HostScene::HANDSHAKE:
-//    if (!_loaded) {
-//      _gameScene.init(_assets, _network, true);
-//      _loaded = true;
-//    }
-//
-//    _network->markReady();
-//    break;
-//  case HostScene::STARTGAME:
-//    _hostScene.setActive(false);
-//    _gameScene.setActive(true);
-//    _status = GAME;
-//    break;
-//  case HostScene::NETERROR:
-//    _hostScene.setActive(false);
-//    _menuScene.setActive(true);
-//    _gameScene.dispose();
-//    _status = MENU;
-//    break;
-//  case HostScene::INSCENE:
-//    // Do nothing
-//    break;
-//  }
-}
-
-void DPApp::updateClient(float timestep) {
-//  _clientScene.update(timestep);
-//  switch (_clientScene.state) {
-//  case ClientScene::BACK:
-//    _status = MENU;
-//    _clientScene.setActive(false);
-//    _menuScene.setActive(true);
-//    break;
-//  case ClientScene::HANDSHAKE:
-//    if (!_loaded) {
-//      _gameScene.init(_assets, _network, false);
-//      _loaded = true;
-//    }
-//    _network->markReady();
-//    break;
-//  case ClientScene::STARTGAME:
-//    _clientScene.setActive(false);
-//    _gameScene.setActive(true);
-//    _status = GAME;
-//    break;
-//  case ClientScene::NETERROR:
-//    _network->disconnect();
-//    _clientScene.setActive(false);
-//    _menuScene.setActive(true);
-//    _gameScene.dispose();
-//    _status = MENU;
-//    break;
-//  default:
-//    break;
-//  }
-}
-
 void DPApp::updateLoad(float timestep) {
   switch (_loadScene.state) {
   case LoadScene::LOADING:
@@ -394,6 +335,72 @@ void DPApp::updateLevelSelect(float timestep) {
 
 void DPApp::updateRestoration(float timestep) {
   _restorationScene.update(timestep);
+}
+
+
+void DPApp::updateHost(float timestep) {
+//  _hostScene.update(timestep);
+//  switch (_hostScene.state) {
+//  case HostScene::BACK:
+//    _status = MENU;
+//    _hostScene.setActive(false);
+//    _menuScene.setActive(true);
+//    break;
+//  case HostScene::HANDSHAKE:
+//    if (!_loaded) {
+//      _gameScene.init(_assets, _network, true);
+//      _loaded = true;
+//    }
+//
+//    _network->markReady();
+//    break;
+//  case HostScene::STARTGAME:
+//    _hostScene.setActive(false);
+//    _gameScene.setActive(true);
+//    _status = GAME;
+//    break;
+//  case HostScene::NETERROR:
+//    _hostScene.setActive(false);
+//    _menuScene.setActive(true);
+//    _gameScene.dispose();
+//    _status = MENU;
+//    break;
+//  case HostScene::INSCENE:
+//    // Do nothing
+//    break;
+//  }
+}
+
+void DPApp::updateClient(float timestep) {
+//  _clientScene.update(timestep);
+//  switch (_clientScene.state) {
+//  case ClientScene::BACK:
+//    _status = MENU;
+//    _clientScene.setActive(false);
+//    _menuScene.setActive(true);
+//    break;
+//  case ClientScene::HANDSHAKE:
+//    if (!_loaded) {
+//      _gameScene.init(_assets, _network, false);
+//      _loaded = true;
+//    }
+//    _network->markReady();
+//    break;
+//  case ClientScene::STARTGAME:
+//    _clientScene.setActive(false);
+//    _gameScene.setActive(true);
+//    _status = GAME;
+//    break;
+//  case ClientScene::NETERROR:
+//    _network->disconnect();
+//    _clientScene.setActive(false);
+//    _menuScene.setActive(true);
+//    _gameScene.dispose();
+//    _status = MENU;
+//    break;
+//  default:
+//    break;
+//  }
 }
 
 #pragma mark DRAW

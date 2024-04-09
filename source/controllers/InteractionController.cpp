@@ -1,7 +1,7 @@
 #include "InteractionController.h"
 
 // TODO: are the platforms/buttons/walls going to be const? if so, make these pass by const & to avoid copying the vecotr
-bool InteractionController::init(std::vector<std::shared_ptr<PlatformModel>> platforms,
+bool InteractionController::init(
     std::shared_ptr<CharacterController> characterA,
     std::shared_ptr<CharacterController> characterB,
     std::vector<std::shared_ptr<ButtonModel>> buttons, std::vector<std::shared_ptr<WallModel>> walls,
@@ -9,7 +9,6 @@ bool InteractionController::init(std::vector<std::shared_ptr<PlatformModel>> pla
     std::shared_ptr<cugl::physics2::net::NetWorld> &world,
     const std::shared_ptr<cugl::JsonValue>& json) {
     
-    _platforms = platforms;
     _characterControllerA = characterA;
     _characterControllerB = characterB;
     _buttons = buttons;
