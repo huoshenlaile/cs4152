@@ -1,3 +1,6 @@
+#ifdef NEVER_DEFINED
+
+
 #ifndef __CLIENT_SCENE_H__
 #define __CLIENT_SCENE_H__
 
@@ -116,5 +119,8 @@ private:
      */
     void configureStartButton();
 };
+
+#endif
+
 
 #endif

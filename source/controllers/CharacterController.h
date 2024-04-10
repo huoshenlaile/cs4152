@@ -131,7 +131,9 @@ public:
 
 	bool init(const cugl::Vec2 &pos, float scale);
 	void update(float timestep);
+    
 	void setColor(std::string color);
+    std::string getColor();
 
 #pragma mark Static Constructors
 
