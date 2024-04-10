@@ -114,7 +114,7 @@ bool LevelLoader::loadObject(const std::shared_ptr<JsonValue>& json) {
         _charPos = getObjectPos(json);
 //        std::cout << _charPos.x << " abcdefg "<< _charPos.y <<std::endl;
     } else if (type == PAINT_FIELD){
-        return true;
+        return loadPaint(json);
     }
     return false;
 }
@@ -226,6 +226,33 @@ bool LevelLoader::loadSensor(const std::shared_ptr<JsonValue>& json){
     return success;
 }
 
+bool LevelLoader::loadPaint(const std::shared_ptr<JsonValue>& json){
+    bool success = false;
+    std::shared_ptr<JsonValue> properties = json->get("properties");
+    auto paint_json = properties->get(properties->size()-1)->get("value");
+
+    if(paint_json != nullptr){
+        bool success = true;
+        int polysize = (int)json->get(VERTICES_FIELD)->children().size();
+        success = success && polysize > 0;
+        
+        std::vector<float> vertices = getVertices(json);
+        success = success && 2*polysize == vertices.size();
+        
+        Vec2* verts = reinterpret_cast<Vec2*>(&vertices[0]);
+        Poly2 paint(verts,(int)vertices.size()/2);
+        EarclipTriangulator triangulator;
+        triangulator.set(paint.vertices);
+        triangulator.calculate();
+        paint.setIndices(triangulator.getTriangulation());
+        triangulator.clear();
+
+
+    }
+
+    
+    return success;
+}
 
 /**
 * Loads a single wall object

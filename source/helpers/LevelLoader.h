@@ -137,6 +137,19 @@ public:
     bool loadSensor(const std::shared_ptr<JsonValue>& json);
     
     /**
+     * Loads paint nodes
+     *
+     * The paint will  be stored in _paints field and retained.
+     *
+     * @param  reader   a JSON reader with cursor ready to read the exit
+     *
+     * @retain the paint
+     * @return true if the paint was successfully loaded
+     */
+    bool loadPaint(const std::shared_ptr<JsonValue>& json);
+
+    
+    /**
      * Creates a new game level with no source file.
      *
      * The source file can be set at any time via the setFile() method. This method

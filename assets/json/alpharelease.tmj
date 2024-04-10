@@ -778,6 +778,50 @@
                  "width":10097.8918918919,
                  "x":823.769212198022,
                  "y":-617.762469486472
+                }, 
+                {
+                 "height":0,
+                 "id":55,
+                 "name":"paint1",
+                 "polygon":[
+                        {
+                         "x":-123.753867308354,
+                         "y":-120.316259883121
+                        }, 
+                        {
+                         "x":261.258164317635,
+                         "y":-27.5008594018564
+                        }, 
+                        {
+                         "x":182.193193537299,
+                         "y":206.256445513922
+                        }, 
+                        {
+                         "x":-55.0017188037118,
+                         "y":237.194912341011
+                        }],
+                 "properties":[
+                        {
+                         "name":" color",
+                         "type":"string",
+                         "value":"orange"
+                        }, 
+                        {
+                         "name":"instant",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"paint_id",
+                         "type":"int",
+                         "value":0
+                        }],
+                 "rotation":0,
+                 "type":"paint",
+                 "visible":true,
+                 "width":0,
+                 "x":5936.74802337573,
+                 "y":721.897559298728
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -786,7 +830,7 @@
          "y":0
         }],
  "nextlayerid":3,
- "nextobjectid":55,
+ "nextobjectid":56,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
