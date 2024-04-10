@@ -354,7 +354,7 @@ void GameScene::processPaintCallbacks(float millis) {
 	for (auto& pm : _level->getPaints()) {
 		pm->update(_worldnode, millis);
 		if (pm->active) {
-			_interactionController -> detectPolyContact(pm->currentNode(), _scale);
+			_interactionController -> detectPolyContact(pm, _scale);
 		}
 	}
 }
