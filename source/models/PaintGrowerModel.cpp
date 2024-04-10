@@ -17,7 +17,7 @@ bool PaintModel::init(cugl::Poly2 paintFrames, Vec2 locations){
     _currentFrame = 0;
     timer = 1000;
     active = true;
-    color = Color4::RED;
+    //color = Color4::RED;
     
     std::vector<std::string> splotches{"splotch3"};
     //std::vector<Vec2> locations{{180, 50}, {180, 50}, {180, 50} };
@@ -54,7 +54,9 @@ void PaintModel::trigger(){
     if(!active){
         active = true;
         timer = 1000;
-        currentNode()->setVisible(true);
+        if(currentNode()){
+            currentNode()->setVisible(true);
+        }
     }
 }
 

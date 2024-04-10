@@ -252,8 +252,8 @@ bool LevelLoader::loadPaint(const std::shared_ptr<JsonValue>& json){
             std::cout << "PROP: " << prop->get("name")->asString() << std::endl;
             if(prop->get("name")->asString() == "color"){
                 paintobj->setColor(prop->get("value")->asString());
-            } else if(prop->get("name")->asString() == "instant"){
-                
+            } else if(prop->get("name")->asString() == "instant" && prop->get("value")->asBool() == true){
+                paintobj->trigger();
             } else if(prop->get("name")->toString() == "paint_id"){
                 paintobj->paint_id = prop->get("value")->asInt();
             }
