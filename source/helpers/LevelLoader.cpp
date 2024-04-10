@@ -247,12 +247,19 @@ bool LevelLoader::loadPaint(const std::shared_ptr<JsonValue>& json){
         paint.setIndices(triangulator.getTriangulation());
         triangulator.clear();
         
-        std::cout << "=====" << paint.size() << std::endl;
-        
-        
         std::shared_ptr<PaintModel> paintobj = PaintModel::alloc(paint, getObjectPos(json));
+        for(auto &prop : properties->children()){
+            std::cout << "PROP: " << prop->get("name")->asString() << std::endl;
+            if(prop->get("name")->asString() == "color"){
+                paintobj->setColor(prop->get("value")->asString());
+            } else if(prop->get("name")->asString() == "instant"){
+                
+            } else if(prop->get("name")->toString() == "paint_id"){
+                paintobj->paint_id = prop->get("value")->asInt();
+            }
+            
+        }
         _paints.push_back(paintobj);
-
     }
 
     
@@ -465,7 +472,6 @@ void LevelLoader::setRootNode(const std::shared_ptr<scene2::SceneNode>& node){
         sprite->setScale(_scale);
         
         sprite->setPosition(paint->getLocations()*_scale);
-        std::cout << "ADDING A PAINT at " << sprite->getPositionX() << ", " << sprite->getPositionY() << std::endl;
         sprite->setVisible(true);
         paint->setNode(sprite);
         //addObstacle(paint,sprite); // Put this at the very back

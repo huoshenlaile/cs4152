@@ -323,5 +323,9 @@ public:
     std::vector<std::shared_ptr<WallModel>> getWalls() {
         return _walls;
     }
+    
+    std::vector<std::shared_ptr<PaintModel>> getPaints() {
+        return _paints;
+    }
 };
 #endif

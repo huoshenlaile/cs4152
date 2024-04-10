@@ -802,7 +802,7 @@
                         }],
                  "properties":[
                         {
-                         "name":" color",
+                         "name":"color",
                          "type":"string",
                          "value":"orange"
                         }, 

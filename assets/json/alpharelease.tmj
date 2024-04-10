@@ -1,4 +1,12 @@
 { "compressionlevel":-1,
+ "editorsettings":
+    {
+     "export":
+        {
+         "format":"json",
+         "target":"alpharelease.json"
+        }
+    },
  "height":70,
  "infinite":false,
  "layers":[
@@ -802,7 +810,7 @@
                         }],
                  "properties":[
                         {
-                         "name":" color",
+                         "name":"color",
                          "type":"string",
                          "value":"orange"
                         }, 
