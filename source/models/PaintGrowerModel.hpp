@@ -19,12 +19,12 @@ class PaintModel {
 private:
   CU_DISALLOW_COPY_AND_ASSIGN(PaintModel);
 protected:
-  std::vector<cugl::Poly2> _paintFrames;
-    std::vector<Vec2> _locations;
-  std::vector<std::shared_ptr<Texture>> _textures;
-    std::vector<std::shared_ptr<scene2::PolygonNode>> _sprites;
-  int _currentFrame;
-std::shared_ptr<cugl::scene2::SceneNode> _worldnode;
+    cugl::Poly2 _paintFrames;
+    Vec2 _locations;
+    std::string _textures;
+    std::shared_ptr<scene2::PolygonNode> _sprites;
+    int _currentFrame;
+    std::shared_ptr<cugl::scene2::SceneNode> _worldnode;
 
 
 public:
@@ -33,22 +33,25 @@ public:
     bool active;
     PaintModel(void);
 
-    static std::shared_ptr<PaintModel> alloc(const std::vector<cugl::Poly2>& paintFrames, const std::vector<Vec2>& locations, const std::shared_ptr<AssetManager>& assets, const std::shared_ptr<cugl::scene2::SceneNode>& worldnode, float scale){
+    static std::shared_ptr<PaintModel> alloc(cugl::Poly2 paintFrames, Vec2 locations){
         std::shared_ptr<PaintModel> result = std::make_shared<PaintModel>();
-        return (result->init(paintFrames, locations, assets, worldnode, scale) ? result : nullptr);
+        return (result->init(paintFrames, locations) ? result : nullptr);
 
     }
     
-    bool init(const std::vector<cugl::Poly2>& paintFrames, const std::vector<Vec2>& locations, const std::shared_ptr<AssetManager>& assets, const std::shared_ptr<cugl::scene2::SceneNode>& worldnode, float scale);
+    bool init(cugl::Poly2 paintFrames, Vec2 locations);
     
     cugl::Poly2 currentFrame() const;
-    std::shared_ptr<Texture> currentTexture() const;
+    std::string currentTexture() const;
     std::shared_ptr<scene2::PolygonNode> currentNode() const;
     
-    std::vector<cugl::Poly2> getPaintFrames() const { return _paintFrames; }
-    std::vector<std::shared_ptr<Texture>> getTextures() const { return _textures; }
-    std::vector<std::shared_ptr<scene2::PolygonNode>> getPolygons() const { return _sprites; }
-    std::vector<Vec2> getLocations() const { return _locations; }
+    cugl::Poly2 getPaintFrames() const { return _paintFrames; }
+    
+    std::string getTextures() const { return _textures; }
+    std::shared_ptr<scene2::PolygonNode> getPolygons() const { return _sprites; }
+    
+    void setNode(std::shared_ptr<scene2::PolygonNode> node) { _sprites = node; }
+    Vec2 getLocations() const { return _locations; }
     
     void trigger();
     void setup();

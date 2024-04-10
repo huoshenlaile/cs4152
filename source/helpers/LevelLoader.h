@@ -9,6 +9,7 @@
 #include "../models/WallModel.h"
 #include "../models/ExitModel.h"
 #include "../models/SensorModel.h"
+#include "../models/PaintGrowerModel.hpp"
 
 
 using namespace cugl;
@@ -42,6 +43,8 @@ protected:
     std::shared_ptr<ExitModel> _goalDoor;
     /** Reference to the sensors of the game*/
     std::vector<std::shared_ptr<SensorModel>> _sensors;
+    
+    std::vector<std::shared_ptr<PaintModel>> _paints;
     /** The AssetManager for the game mode */
     std::shared_ptr<cugl::AssetManager> _assets;
     /** The JSON for this level, loaded by _assets (to be read and used by other classes)*/

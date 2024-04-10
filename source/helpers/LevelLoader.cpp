@@ -238,7 +238,7 @@ bool LevelLoader::loadPaint(const std::shared_ptr<JsonValue>& json){
         
         std::vector<float> vertices = getVertices(json);
         success = success && 2*polysize == vertices.size();
-        
+
         Vec2* verts = reinterpret_cast<Vec2*>(&vertices[0]);
         Poly2 paint(verts,(int)vertices.size()/2);
         EarclipTriangulator triangulator;
@@ -246,7 +246,12 @@ bool LevelLoader::loadPaint(const std::shared_ptr<JsonValue>& json){
         triangulator.calculate();
         paint.setIndices(triangulator.getTriangulation());
         triangulator.clear();
-
+        
+        std::cout << "=====" << paint.size() << std::endl;
+        
+        
+        std::shared_ptr<PaintModel> paintobj = PaintModel::alloc(paint, getObjectPos(json));
+        _paints.push_back(paintobj);
 
     }
 
@@ -454,6 +459,20 @@ void LevelLoader::setRootNode(const std::shared_ptr<scene2::SceneNode>& node){
         auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(sensor->getTextureKey()));
         addObstacle(sensor,sprite); // Put this at the very back
     }
+    for(auto it = _paints.begin(); it != _paints.end(); ++it) {
+        std::shared_ptr<PaintModel> paint = *it;
+        std::shared_ptr<scene2::PolygonNode> sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(paint->getTextures()), paint->getPaintFrames());
+        sprite->setScale(_scale);
+        
+        sprite->setPosition(paint->getLocations()*_scale);
+        std::cout << "ADDING A PAINT at " << sprite->getPositionX() << ", " << sprite->getPositionY() << std::endl;
+        sprite->setVisible(true);
+        paint->setNode(sprite);
+        //addObstacle(paint,sprite); // Put this at the very back
+        _worldnode->addChild(sprite);
+    }
+
+
     for(auto it = _walls.begin(); it != _walls.end(); ++it) {
         std::shared_ptr<WallModel> wall = *it;
         auto txt = _assets->get<Texture>(wall->getTextureKey());
@@ -500,6 +519,7 @@ void LevelLoader::addObstacle(const std::shared_ptr<cugl::physics2::Obstacle>& o
     
     // Position the scene graph node (enough for static objects)
     node->setPosition(obj->getPosition()*_scale);
+    std::cout << "ADDING THING AT " << node->getPositionX() << ", " << node->getPositionY() << std::endl;
     _worldnode->addChild(node);
     
     // Dynamic objects need constant updating
