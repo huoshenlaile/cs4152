@@ -442,7 +442,7 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     _levelComplete -> setContentSize(dimen);
     _levelComplete -> setVisible(false);
     
-    _levelCompleteReset = std::dynamic_pointer_cast<scene2::Button>(_levelComplete -> getChildByName("options") -> getChildByName("restart"));
+    _levelCompleteReset = std::dynamic_pointer_cast<scene2::Button>(_levelComplete -> getChildByName("completemenu") -> getChildByName("options") -> getChildByName("restart"));
     _levelCompleteReset -> deactivate();
     _levelCompleteReset->addListener([this](const std::string& name, bool down) {
         if (down) {
@@ -451,7 +451,7 @@ void GameScene::constructSceneNodes(const Size &dimen) {
         }
     });
     
-    _levelCompleteMenuButton = std::dynamic_pointer_cast<scene2::Button>(_levelComplete -> getChildByName("options") -> getChildByName("menu"));
+    _levelCompleteMenuButton = std::dynamic_pointer_cast<scene2::Button>(_levelComplete -> getChildByName("completemenu") -> getChildByName("options") -> getChildByName("menu"));
     _levelCompleteMenuButton -> deactivate();
     _levelCompleteMenuButton->addListener([this](const std::string& name, bool down) {
         if (down) {

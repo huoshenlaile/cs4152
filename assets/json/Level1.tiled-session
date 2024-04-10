@@ -26,23 +26,22 @@
             "expandedObjectLayers": [
                 2
             ],
-            "scale": 0.2829,
+            "scale": 0.2371,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 4326.617179215271,
-                "y": 1005.6557087310006
+                "x": 4350.485027414593,
+                "y": 967.9460143399408
             }
         }
     },
-    "last.objectTypesPath": "/Users/porridge/Games/cs4152/assets/propertytypes.json",
+    "last.objectTypesPath": "/Users/porridge/Games/cs4152/assets/json/PubSubCustomTypes.json",
     "openFiles": [
-        "alpharelease.json",
-        "/Users/porridge/Desktop/courses/CS3152/CS-3152-G6/Eudaemon/assets/levels/level1.json"
+        "alpharelease.json"
     ],
     "project": "Level1.tiled-project",
     "property.type": "object",
     "recentFiles": [
-        "/Users/porridge/Desktop/courses/CS3152/CS-3152-G6/Eudaemon/assets/levels/level1.json",
-        "alpharelease.json"
+        "alpharelease.json",
+        "/Users/porridge/Desktop/courses/CS3152/CS-3152-G6/Eudaemon/assets/levels/level1.json"
     ]
 }
