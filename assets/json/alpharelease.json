@@ -78,11 +78,6 @@
                         }],
                  "properties":[
                         {
-                         "name":"Grab",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
                          "name":"Publication",
                          "propertytype":"Publication",
                          "type":"class",
@@ -941,6 +936,7 @@
                          "type":"class",
                          "value":
                             {
+                             "Body":"",
                              "Message":"contacted",
                              "Pub_id":"sensor1",
                              "Trigger":"contacted"
@@ -1115,7 +1111,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":69,
+ "nextobjectid":76,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

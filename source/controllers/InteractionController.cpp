@@ -121,7 +121,7 @@ InteractionController::PlayerCounter InteractionController::checkContactForPlaye
 //        if (reinterpret_cast<intptr_t>(handObstacles[0].get()) == body1->GetUserData().pointer) {
 //            // it is left hand
 //            output.handIsLeft = true;
-//        } else {
+//        } else {
 //            // it is right hand
 //            output.handIsRight = true;
 //        }
