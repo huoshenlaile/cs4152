@@ -278,8 +278,8 @@ void GameScene::preUpdate(float dt) {
 	}
 	// _input.update();
     // Initialize Grabbing Joints
-    _interactionController -> connectGrabJoint();
 	_inputController->update(dt);
+    _interactionController -> connectGrabJoint();
     _interactionController -> updateHandsHeldInfo(_inputController -> isLHAssigned(), _inputController -> isRHAssigned());
     _interactionController -> ungrabIfNecessary();
     _interactionController -> grabCDIfNecessary(dt);

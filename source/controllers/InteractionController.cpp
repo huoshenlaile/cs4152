@@ -182,12 +182,14 @@ void InteractionController::beginContact(b2Contact* contact) {
                 if (contact_info.handIsLeft) {
                     // it is left hand
                     if (_leftHandIsHeld && _LHGrabCD <= 0) {
+                        CULog("from beginContact: now grabbing LH");
                         _obstaclesForJoint.push_back(_obstacleMap[obstacleA]);
                         _obstaclesForJoint.push_back(_obstacleMap[obstacleB]);
                         _leftHandIsGrabbed = true;
                     }
                 } else {
                     if (_rightHandIsHeld && _RHGrabCD <= 0) {
+                        CULog("from beginContact: now grabbing RH");
                         _obstaclesForJoint.push_back(_obstacleMap[obstacleA]);
                         _obstaclesForJoint.push_back(_obstacleMap[obstacleB]);
                         _rightHandIsGrabbed = true;
@@ -205,12 +207,14 @@ void InteractionController::beginContact(b2Contact* contact) {
                 if (contact_info.handIsLeft) {
                     // it is left hand
                     if (_leftHandIsHeld && _LHGrabCD <= 0) {
+                        CULog("from beginContact: now grabbing LH");
                         _obstaclesForJoint.push_back(_obstacleMap[obstacleB]);
                         _obstaclesForJoint.push_back(_obstacleMap[obstacleA]);
                         _leftHandIsGrabbed = true;
                     }
                 } else {
                     if (_rightHandIsHeld && _RHGrabCD <= 0) {
+                        CULog("from beginContact: now grabbing RH");
                         _obstaclesForJoint.push_back(_obstacleMap[obstacleB]);
                         _obstaclesForJoint.push_back(_obstacleMap[obstacleA]);
                         _rightHandIsGrabbed = true;

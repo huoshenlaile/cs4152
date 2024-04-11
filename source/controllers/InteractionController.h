@@ -59,8 +59,8 @@ protected:
     bool _rightHandIsGrabbed = false;
     bool _leftHandIsHeld = false;
     bool _rightHandIsHeld = false;
-    float _LHGrabCD = GRAB_CD;
-    float _RHGrabCD = GRAB_CD;
+    float _LHGrabCD = 0.0f;
+    float _RHGrabCD = 0.0f;
     
     struct PlayerCounter {
         int bodyOne = NOT_PLAYER;
