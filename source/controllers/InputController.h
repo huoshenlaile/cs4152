@@ -269,6 +269,14 @@ public:
     Character* getCharacter() {
         return &_character;
     }
+    
+    bool isLHAssigned() {
+        return this -> _character.leftHand.assigned;
+    }
+    
+    bool isRHAssigned() {
+        return this -> _character.rightHand.assigned;
+    }
 };
 
 #endif /* __PF_INPUT_H__ */

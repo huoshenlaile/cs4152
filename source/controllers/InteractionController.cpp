@@ -3,7 +3,8 @@
 bool InteractionController::init(
     std::shared_ptr<CharacterController> characterA,
     std::shared_ptr<CharacterController> characterB,
-    std::vector<std::shared_ptr<ButtonModel>> buttons, std::vector<std::shared_ptr<WallModel>> walls,
+    std::vector<std::shared_ptr<ButtonModel>> buttons, 
+    std::vector<std::shared_ptr<WallModel>> walls,
     std::shared_ptr<LevelLoader> level,
     std::shared_ptr<cugl::physics2::net::NetWorld> &world,
     const std::shared_ptr<cugl::JsonValue>& json) {
@@ -173,37 +174,50 @@ void InteractionController::beginContact(b2Contact* contact) {
             // you go publications["whatever"][platformName].message ... . Because
             // Otherwise it will CREATE this entry!
             if (publications["contacted"].count(platformName) < 0 || platformName == "" ||  publications["contacted"][platformName].message != "grabbed") {
-                
+                // this platform cannot be grabbed.
             } else {
                 // obstacle A is the hand, B is the platform
-                _obstaclesForJoint.push_back(_obstacleMap[obstacleA]);
-                _obstaclesForJoint.push_back(_obstacleMap[obstacleB]);
-//                if (contact_info.handIsLeft) {
-//                    // it is left hand
-//                    _isLeftHandForJoint = 1;
-//                } else {
-//                    _isLeftHandForJoint = 0;
-//                }
+//                _obstaclesForJoint.push_back(_obstacleMap[obstacleA]);
+//                _obstaclesForJoint.push_back(_obstacleMap[obstacleB]);
+                if (contact_info.handIsLeft) {
+                    // it is left hand
+                    if (_leftHandIsHeld && _LHGrabCD <= 0) {
+                        _obstaclesForJoint.push_back(_obstacleMap[obstacleA]);
+                        _obstaclesForJoint.push_back(_obstacleMap[obstacleB]);
+                        _leftHandIsGrabbed = true;
+                    }
+                } else {
+                    if (_rightHandIsHeld && _RHGrabCD <= 0) {
+                        _obstaclesForJoint.push_back(_obstacleMap[obstacleA]);
+                        _obstaclesForJoint.push_back(_obstacleMap[obstacleB]);
+                        _rightHandIsGrabbed = true;
+                    }
+                }
             }
         } else {
             std::string platformName = obstacleA -> getName();
             if (publications["contacted"].count(platformName) < 0 || platformName == "" || publications["contacted"][platformName].message != "grabbed") {
-                
+                // this platform cannot be grabbed.
             } else {
                 // obstacle B is the hand, A is the platform
-                _obstaclesForJoint.push_back(_obstacleMap[obstacleB]);
-                _obstaclesForJoint.push_back(_obstacleMap[obstacleA]);
-//                if (contact_info.handIsLeft) {
-//                    // it is left hand
-//                    _isLeftHandForJoint = 1;
-//                } else {
-//                    _isLeftHandForJoint = 0;
-//                }
+//                _obstaclesForJoint.push_back(_obstacleMap[obstacleB]);
+//                _obstaclesForJoint.push_back(_obstacleMap[obstacleA]);
+                if (contact_info.handIsLeft) {
+                    // it is left hand
+                    if (_leftHandIsHeld && _LHGrabCD <= 0) {
+                        _obstaclesForJoint.push_back(_obstacleMap[obstacleB]);
+                        _obstaclesForJoint.push_back(_obstacleMap[obstacleA]);
+                        _leftHandIsGrabbed = true;
+                    }
+                } else {
+                    if (_rightHandIsHeld && _RHGrabCD <= 0) {
+                        _obstaclesForJoint.push_back(_obstacleMap[obstacleB]);
+                        _obstaclesForJoint.push_back(_obstacleMap[obstacleA]);
+                        _rightHandIsGrabbed = true;
+                    }
+                }
             }
         }
-//        std::shared_ptr<physics2::RevoluteJoint> joint = physics2::RevoluteJoint::allocWithObstacles(obsA, obsB);
-//        _world -> addJoint(joint);
-        // above two lines will not work because world is LOCKED right now!
     }
 
     if (contact_info.bodyOne!=NOT_PLAYER || contact_info.bodyTwo != NOT_PLAYER){
@@ -285,11 +299,6 @@ void InteractionController::beforeSolve(b2Contact* contact, const b2Manifold* ol
 
 
 void InteractionController::connectGrabJoint() {
-    if (!_allJoints.empty()) {
-        for(std::shared_ptr<physics2::Joint> jnt : _allJoints) {
-            
-        }
-    }
     if (!_obstaclesForJoint.empty()) {
         std::shared_ptr<physics2::Obstacle> obs1 = _obstaclesForJoint.at(0);
         std::shared_ptr<physics2::Obstacle> obs2 = _obstaclesForJoint.at(1);
@@ -298,30 +307,50 @@ void InteractionController::connectGrabJoint() {
         // Anchor A is the anchor for the Hand.
         _joint -> setLocalAnchorA(difference);
         _joint -> setLocalAnchorB(0, 0);
-        _allJoints.push_back(_joint);
-        
         _world -> addJoint(_joint);
         
+        // why are we not judging if it is a lh joint or rh joint according to
+        // _leftHandIsGrabbed and _rHIG? Because those might be already true!
         float LHDistance = obs1 -> getPosition().distance(_characterControllerA -> getLeftHandPosition());
         float RHDistance = obs1 -> getPosition().distance(_characterControllerA -> getRightHandPosition());
         if (LHDistance < RHDistance) {
             std::cout << "Now reversing left hand" << std::endl;
             this -> leftHandReverse = true;
+            _leftHandJoint = _joint;
         } else {
             std::cout << "Now reversing right hand" << std::endl;
             this -> rightHandReverse = true;
+            _rightHandJoint = _joint;
         }
-        
-//        if (_isLeftHandForJoint == 1) {
-//            std::cout << "Now reversing left hand" << std::endl;
-//            this -> leftHandReverse = true;
-//            _isLeftHandForJoint = -1;
-//        } else if (_isLeftHandForJoint == 0){
-//            std::cout << "Now reversing right hand" << std::endl;
-//            this -> rightHandReverse = true;
-//            _isLeftHandForJoint = -1;
-//        }
 
         _obstaclesForJoint.clear();
+    }
+}
+
+void InteractionController::ungrabIfNecessary() {
+    if (_leftHandIsGrabbed && !_leftHandIsHeld) {
+        std::cout << "Removing LH Joint - from ungrab" << std::endl;
+        _world -> removeJoint(_leftHandJoint);
+        _leftHandJoint = nullptr;
+        _leftHandIsGrabbed = false;
+        leftHandReverse = false;
+        _LHGrabCD = GRAB_CD;
+    }
+    if (_rightHandIsGrabbed && !_rightHandIsHeld) {
+        std::cout << "Removing RH Joint - from ungrab" << std::endl;
+        _world -> removeJoint(_rightHandJoint);
+        _rightHandJoint = nullptr;
+        _rightHandIsGrabbed = false;
+        rightHandReverse = false;
+        _RHGrabCD = GRAB_CD;
+    }
+}
+
+void InteractionController::grabCDIfNecessary(float dt) {
+    if (!_leftHandIsGrabbed && _LHGrabCD >= 0) {
+        _LHGrabCD -= dt;
+    }
+    if (!_rightHandIsGrabbed && _RHGrabCD >= 0) {
+        _RHGrabCD -= dt;
     }
 }

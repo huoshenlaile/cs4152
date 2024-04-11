@@ -280,6 +280,9 @@ void GameScene::preUpdate(float dt) {
     // Initialize Grabbing Joints
     _interactionController -> connectGrabJoint();
 	_inputController->update(dt);
+    _interactionController -> updateHandsHeldInfo(_inputController -> isLHAssigned(), _inputController -> isRHAssigned());
+    _interactionController -> ungrabIfNecessary();
+    _interactionController -> grabCDIfNecessary(dt);
     _platformWorld->update(dt);
     _characterControllerA->update(dt);
 	auto character = _inputController->getCharacter();
