@@ -24,6 +24,7 @@
 #include "scenes/PauseScene.h"
 #include "scenes/RestorationScene.h"
 #include "scenes/SettingScene.h"
+#include "scenes/LevelLoadScene.h"
 
 //#include "scenes/ClientScene.h"
 //#include "scenes/HostScene.h"
@@ -71,7 +72,7 @@ protected:
 	MenuScene _menuScene;
 	LevelSelectScene _levelSelectScene;
 	RestorationScene _restorationScene;
-
+	LevelLoadScene _levelLoadScene;
 	GameStatus _status;
 	bool loaded = false;
 
