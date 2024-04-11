@@ -113,6 +113,8 @@ bool LevelLoader::loadObject(const std::shared_ptr<JsonValue>& json) {
     }else if (type == CHARACTER_POS){
         _charPos = getObjectPos(json);
 //        std::cout << _charPos.x << " abcdefg "<< _charPos.y <<std::endl;
+    } else if (type == MOVING_PLATFORM_FIELD) {
+        return loadMovingPlatform(json);
     } else if (type == PAINT_FIELD){
         return true;
     }
@@ -291,6 +293,52 @@ bool LevelLoader::loadWall(const std::shared_ptr<JsonValue>& json) {
     }
 
     vertices.clear();
+    return success;
+}
+
+
+bool LevelLoader::loadMovingPlatform(const std::shared_ptr<JsonValue> &json) {
+    bool success = true;
+    
+    std::shared_ptr<JsonValue> properties = json -> get("properties");
+    auto walljson = properties -> get(properties -> size() - 1) -> get("value");
+    int polysize = (int)json->get(VERTICES_FIELD)->children().size();
+    success = success && polysize > 0;
+    std::vector<float> vertices = getVertices(json);
+    success = success && 2*polysize == vertices.size();
+
+    Vec2* verts = reinterpret_cast<Vec2*>(&vertices[0]);
+    Poly2 wall(verts,(int)vertices.size()/2);
+    EarclipTriangulator triangulator;
+    triangulator.set(wall.vertices);
+    triangulator.calculate();
+    wall.setIndices(triangulator.getTriangulation());
+    triangulator.clear();
+    
+    // Get the object, which is automatically retained
+    std::shared_ptr<WallModel> wallobj = WallModel::alloc(wall);
+
+    wallobj -> setName(json -> getString("name"));
+    wallobj->setBodyType((b2BodyType)walljson->get("obstacle")->getInt(BODYTYPE_FIELD));
+    wallobj->setDensity(walljson->get("obstacle")->getDouble(DENSITY_FIELD));
+    wallobj->setFriction(walljson->get("obstacle")->getDouble(FRICTION_FIELD));
+    wallobj->setRestitution(walljson->get("obstacle")->getDouble(RESTITUTION_FIELD));
+    wallobj->setPosition(getObjectPos(json));
+    wallobj->setAnchor(0.5f, 0.5f);
+    wallobj->setAngle((360.0f - json->getFloat("rotation")) * M_PI / 180.0f);
+    // Set the texture value
+    success = success && walljson->get("obstacle")->get(TEXTURE_FIELD)->isString();
+    wallobj->setTextureKey(walljson->get("obstacle")->getString(TEXTURE_FIELD));
+    wallobj->setDebugColor(parseColor(walljson->get("obstacle")->getString(DEBUG_COLOR_FIELD)));
+    
+    if (success) {
+        _walls.push_back(wallobj);
+    } else {
+        wallobj = nullptr;
+    }
+
+    vertices.clear();
+    
     return success;
 }
 

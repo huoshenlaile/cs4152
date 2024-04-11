@@ -52,9 +52,8 @@ protected:
      * destroy the smart pointer, hence destroying the obstacle. I don't want that.
      */
     std::vector<std::shared_ptr<physics2::Obstacle>> _obstaclesForJoint;
-    /**
-     * This bool indicates whether it's CURRENTLY the left hand grabbing.
-     */
+    
+    // These fields below are used to control the flow for grab/ungrab.
     bool _leftHandIsGrabbed = false;
     bool _rightHandIsGrabbed = false;
     bool _leftHandIsHeld = false;

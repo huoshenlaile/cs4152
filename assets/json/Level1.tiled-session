@@ -38,7 +38,7 @@
     "openFiles": [
     ],
     "project": "Level1.tiled-project",
-    "property.type": "Publication",
+    "property.type": "float",
     "recentFiles": [
         "alpharelease.json",
         "/Users/porridge/Desktop/courses/CS3152/CS-3152-G6/Eudaemon/assets/levels/level1.json"

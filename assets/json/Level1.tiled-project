@@ -130,6 +130,46 @@
         {
             "color": "#ffa0a0a4",
             "drawFill": true,
+            "id": 18,
+            "members": [
+                {
+                    "name": "dx",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "dy",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "speed",
+                    "type": "float",
+                    "value": 1
+                },
+                {
+                    "name": "wait_time",
+                    "type": "float",
+                    "value": 1
+                }
+            ],
+            "name": "DirectMove",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
             "id": 14,
             "members": [
                 {

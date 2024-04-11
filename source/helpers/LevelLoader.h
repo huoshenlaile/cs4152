@@ -9,6 +9,7 @@
 #include "../models/WallModel.h"
 #include "../models/ExitModel.h"
 #include "../models/SensorModel.h"
+#include "../models/MovingPlatformModel.h"
 
 
 using namespace cugl;
@@ -38,6 +39,8 @@ protected:
     std::shared_ptr<cugl::physics2::net::NetWorld> _world;
     /** Reference to all the walls */
     std::vector<std::shared_ptr<WallModel>> _walls;
+    /** Reference to all moving platforms*/
+    std::vector<std::shared_ptr<MovingPlatformModel>> _movingPlatforms;
     /** Reference to the end destination of the game*/
     std::shared_ptr<ExitModel> _goalDoor;
     /** Reference to the sensors of the game*/
@@ -183,6 +186,11 @@ public:
      * @return true if the wall was successfully loaded
      */
     bool loadWall(const std::shared_ptr<JsonValue>& json);
+    
+    /**
+     * Loads a moving platform object.
+     */
+    bool loadMovingPlatform(const std::shared_ptr<JsonValue>& json);
 
     /**
      * Sets the loaded assets for this game level

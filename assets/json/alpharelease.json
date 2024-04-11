@@ -78,6 +78,54 @@
                         }],
                  "properties":[
                         {
+                         "name":"DM1",
+                         "propertytype":"DirectMove",
+                         "type":"class",
+                         "value":
+                            {
+                             "dx":5,
+                             "dy":0,
+                             "speed":1,
+                             "wait_time":1
+                            }
+                        }, 
+                        {
+                         "name":"DM2",
+                         "propertytype":"DirectMove",
+                         "type":"class",
+                         "value":
+                            {
+                             "dx":0,
+                             "dy":5,
+                             "speed":1,
+                             "wait_time":1
+                            }
+                        }, 
+                        {
+                         "name":"DM3",
+                         "propertytype":"DirectMove",
+                         "type":"class",
+                         "value":
+                            {
+                             "dx":-5,
+                             "dy":0,
+                             "speed":1,
+                             "wait_time":1
+                            }
+                        }, 
+                        {
+                         "name":"DM4",
+                         "propertytype":"DirectMove",
+                         "type":"class",
+                         "value":
+                            {
+                             "dx":0,
+                             "dy":-5,
+                             "speed":1,
+                             "wait_time":1
+                            }
+                        }, 
+                        {
                          "name":"Publication",
                          "propertytype":"Publication",
                          "type":"class",

@@ -13,6 +13,7 @@
 #define WALLS_FIELD         "wall"
 #define SENSOR_FIELD        "sensor"
 #define PAINT_FIELD        "paint"
+#define MOVING_PLATFORM_FIELD "moving"
 
 
 #define CHARACTER_POS       "character"

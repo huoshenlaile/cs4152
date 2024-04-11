@@ -114,9 +114,6 @@ InteractionController::PlayerCounter InteractionController::checkContactForPlaye
 }
 
 
-// WHY DO YOU use the RValue Reference as the parameter???
-// I don't get it! -- George
-// I have CHANGED it to LValue Ref. DO NOT USE RVALUE if you have a good reason. I don't see any here.
 void InteractionController::publishMessage(PublisherMessage &message){
     messageQueue.push(message);
     if (subscriptions.count(message.pub_id)==0){
@@ -177,8 +174,6 @@ void InteractionController::beginContact(b2Contact* contact) {
                 // this platform cannot be grabbed.
             } else {
                 // obstacle A is the hand, B is the platform
-//                _obstaclesForJoint.push_back(_obstacleMap[obstacleA]);
-//                _obstaclesForJoint.push_back(_obstacleMap[obstacleB]);
                 if (contact_info.handIsLeft) {
                     // it is left hand
                     if (_leftHandIsHeld && _LHGrabCD <= 0) {
@@ -202,8 +197,6 @@ void InteractionController::beginContact(b2Contact* contact) {
                 // this platform cannot be grabbed.
             } else {
                 // obstacle B is the hand, A is the platform
-//                _obstaclesForJoint.push_back(_obstacleMap[obstacleB]);
-//                _obstaclesForJoint.push_back(_obstacleMap[obstacleA]);
                 if (contact_info.handIsLeft) {
                     // it is left hand
                     if (_leftHandIsHeld && _LHGrabCD <= 0) {
