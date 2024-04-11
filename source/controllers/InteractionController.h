@@ -17,6 +17,7 @@
 #include "../models/ButtonModel.h"
 #include "../models/ExitModel.h"
 #include "CharacterController.h"
+#include "InputController.h"
 
 
 using namespace cugl::physics2::net;
@@ -24,6 +25,7 @@ using namespace cugl::physics2::net;
 #define PLAYER_ONE 1
 #define PLAYER_TWO 2
 #define NOT_PLAYER 0
+#define GRAB_CD 5.0f
 
 class InteractionController {
 protected:
@@ -32,16 +34,15 @@ protected:
     // TODO: Interaction Controller SHOULD have access to models. Models should be passed in as parameters in initializers.
     std::shared_ptr<CharacterController> _characterControllerA;
     std::shared_ptr<CharacterController> _characterControllerB;
-    
     std::vector<std::shared_ptr<ButtonModel>> _buttons;
     std::vector<std::shared_ptr<WallModel>> _walls;
     std::shared_ptr<LevelLoader> _level;
     std::shared_ptr<cugl::JsonValue> _levelJson;
     std::shared_ptr<physics2::RevoluteJoint> _joint;
     std::shared_ptr<cugl::physics2::net::NetWorld> _world;
-    std::vector<std::shared_ptr<cugl::physics2::Joint>> _allJoints;
-//    std::shared_ptr<physics2::Obstacle> obs1;
-//    std::shared_ptr<physics2::Obstacle> obs2;
+    std::shared_ptr<cugl::physics2::Joint> _leftHandJoint = nullptr;
+    std::shared_ptr<cugl::physics2::Joint> _rightHandJoint = nullptr;
+
     
     /**
      * This vector stores TWO obstacles to create joint in between.
@@ -52,21 +53,22 @@ protected:
      */
     std::vector<std::shared_ptr<physics2::Obstacle>> _obstaclesForJoint;
     /**
-     * This field is not used for now.
-     * This int indicates whether it's CURRENTLY the left hand grabbing or the right hand.
-     * '1' means it's left hand; '0' means it's right hand; '-1' means default value.
-     * It should always be set back to -1 after using the value.
-     * This value can only be used together with the _obstaclesForJoint above.
+     * This bool indicates whether it's CURRENTLY the left hand grabbing.
      */
-//    int _isLeftHandForJoint = -1;
+    bool _leftHandIsGrabbed = false;
+    bool _rightHandIsGrabbed = false;
+    bool _leftHandIsHeld = false;
+    bool _rightHandIsHeld = false;
+    float _LHGrabCD = 0.0f;
+    float _RHGrabCD = 0.0f;
     
     struct PlayerCounter {
         int bodyOne = NOT_PLAYER;
         int bodyTwo = NOT_PLAYER;
         bool bodyOneIsHand = false;
         bool bodyTwoIsHand = false;
-//        bool handIsLeft = false;
-//        bool handIsRight = false;
+        bool handIsLeft = false;
+        bool handIsRight = false;
     };
     
     PlayerCounter checkContactForPlayer(b2Body* body1, b2Body* body2);
@@ -78,12 +80,13 @@ public:
     
     struct PublisherMessage {
         /**
-            the Publisher Message matches with the Subscriber Message via the pub id and the message (which is the listeningFor field in Subscriber Message).
+         * the Publisher Message matches with the Subscriber Message via the pub id and the message (which is
+         * the listeningFor field in Subscriber Message).
          */
           std::string pub_id;
           std::string trigger;
           std::string message;
-          std::unordered_map<std::string, std::string> body;
+//          std::unordered_map<std::string, std::string> body;
     };
     
     struct SubscriberMessage {
@@ -181,6 +184,19 @@ public:
      * It clears the vector everytime it creates a joint.
      */
     void connectGrabJoint();
+    
+    void updateHandsHeldInfo(bool lh, bool rh) {
+        _leftHandIsHeld = lh;
+        _rightHandIsHeld = rh;
+    }
+    
+    /**
+     * This method removes the joint if the player is not holding the
+     * corresponding hand to control the grabbing hand.
+     */
+    void ungrabIfNecessary();
+    
+    void grabCDIfNecessary(float dt);
 };
 
 #endif /* InteractionController_h */

@@ -13,6 +13,36 @@
         {
             "color": "#ffa0a0a4",
             "drawFill": true,
+            "id": 17,
+            "members": [
+                {
+                    "name": "fire",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "win",
+                    "type": "bool",
+                    "value": false
+                }
+            ],
+            "name": "Actions",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
             "id": 9,
             "members": [
                 {
@@ -38,6 +68,93 @@
                 "wangcolor",
                 "wangset",
                 "project"
+            ]
+        },
+        {
+            "id": 10,
+            "name": "bodytype",
+            "storageType": "int",
+            "type": "enum",
+            "values": [
+                "static",
+                "kinematic",
+                "dynamic"
+            ],
+            "valuesAsFlags": false
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 11,
+            "members": [
+                {
+                    "name": "obstacle",
+                    "propertyType": "Obstacle",
+                    "type": "class",
+                    "value": {
+                        "bodytype": {
+                        },
+                        "damping": 0,
+                        "debugcolor": {
+                        },
+                        "debugopacity": 192,
+                        "density": 0,
+                        "friction": 0,
+                        "restitution": 0,
+                        "rotation": false,
+                        "texture": "crate01"
+                    }
+                }
+            ],
+            "name": "CrateProperties",
+            "type": "class",
+            "useAs": [
+                "property"
+            ]
+        },
+        {
+            "id": 12,
+            "name": "debugcolor",
+            "storageType": "string",
+            "type": "enum",
+            "values": [
+                "yellow",
+                "red",
+                "blur",
+                "green",
+                "black",
+                "gray"
+            ],
+            "valuesAsFlags": false
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 14,
+            "members": [
+                {
+                    "name": "obstacle",
+                    "propertyType": "Obstacle",
+                    "type": "class",
+                    "value": {
+                        "bodytype": {
+                        },
+                        "damping": 0,
+                        "debugcolor": {
+                        },
+                        "debugopacity": 192,
+                        "density": 0,
+                        "friction": 0,
+                        "restitution": 0,
+                        "rotation": false,
+                        "texture": "exit"
+                    }
+                }
+            ],
+            "name": "ExitProperties",
+            "type": "class",
+            "useAs": [
+                "property"
             ]
         },
         {
@@ -88,12 +205,71 @@
         {
             "color": "#ffa0a0a4",
             "drawFill": true,
+            "id": 13,
+            "members": [
+                {
+                    "name": "bodytype",
+                    "propertyType": "bodytype",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "damping",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "debugcolor",
+                    "propertyType": "debugcolor",
+                    "type": "string",
+                    "value": "yellow"
+                },
+                {
+                    "name": "debugopacity",
+                    "type": "float",
+                    "value": 192
+                },
+                {
+                    "name": "density",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "friction",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "restitution",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "rotation",
+                    "type": "bool",
+                    "value": false
+                },
+                {
+                    "name": "texture",
+                    "type": "string",
+                    "value": ""
+                }
+            ],
+            "name": "Obstacle",
+            "type": "class",
+            "useAs": [
+                "property"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
             "id": 1,
             "members": [
                 {
                     "name": "Body",
                     "type": "string",
-                    "value": ""
+                    "value": "(unused_now)"
                 },
                 {
                     "name": "Message",
@@ -128,12 +304,80 @@
         {
             "color": "#ffa0a0a4",
             "drawFill": true,
+            "id": 15,
+            "members": [
+                {
+                    "name": "burn",
+                    "type": "string",
+                    "value": "burn"
+                },
+                {
+                    "name": "flames",
+                    "type": "string",
+                    "value": "flames"
+                },
+                {
+                    "name": "flames-left",
+                    "type": "string",
+                    "value": "flames-left"
+                },
+                {
+                    "name": "flames-right",
+                    "type": "string",
+                    "value": "flames-right"
+                },
+                {
+                    "name": "left-sound",
+                    "type": "string",
+                    "value": "left-burn"
+                },
+                {
+                    "name": "obstacle",
+                    "propertyType": "Obstacle",
+                    "type": "class",
+                    "value": {
+                        "bodytype": {
+                        },
+                        "damping": 0,
+                        "debugcolor": {
+                        },
+                        "debugopacity": 192,
+                        "density": 1,
+                        "friction": 0.1,
+                        "restitution": 0.4,
+                        "rotation": false,
+                        "texture": "rocket"
+                    }
+                },
+                {
+                    "name": "right-sound",
+                    "type": "string",
+                    "value": "right-burn"
+                },
+                {
+                    "name": "thrust",
+                    "type": "float",
+                    "value": 30
+                }
+            ],
+            "name": "RocketProperties",
+            "type": "class",
+            "useAs": [
+                "property"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
             "id": 4,
             "members": [
                 {
                     "name": "Actions",
-                    "type": "string",
-                    "value": ""
+                    "propertyType": "Actions",
+                    "type": "class",
+                    "value": {
+                        "fire": "-1"
+                    }
                 },
                 {
                     "name": "Listening_for",
@@ -163,6 +407,36 @@
                 "wangcolor",
                 "wangset",
                 "project"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 16,
+            "members": [
+                {
+                    "name": "obstacle",
+                    "propertyType": "Obstacle",
+                    "type": "class",
+                    "value": {
+                        "bodytype": {
+                        },
+                        "damping": 0,
+                        "debugcolor": {
+                        },
+                        "debugopacity": 192,
+                        "density": 0,
+                        "friction": 0,
+                        "restitution": 0,
+                        "rotation": false,
+                        "texture": "earth"
+                    }
+                }
+            ],
+            "name": "WallProperties",
+            "type": "class",
+            "useAs": [
+                "property"
             ]
         }
     ]

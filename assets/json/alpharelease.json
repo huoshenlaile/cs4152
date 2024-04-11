@@ -1,12 +1,4 @@
 { "compressionlevel":-1,
- "editorsettings":
-    {
-     "export":
-        {
-         "format":"json",
-         "target":"alpharelease.json"
-        }
-    },
  "height":70,
  "infinite":false,
  "layers":[
@@ -192,13 +184,13 @@
                  "ellipse":true,
                  "height":153.102642632413,
                  "id":28,
-                 "name":"",
+                 "name":"Dusty",
                  "rotation":0,
                  "type":"character",
                  "visible":true,
                  "width":153.102642632413,
-                 "x":4101.0388961867,
-                 "y":250.067649399434
+                 "x":3899.55098546134,
+                 "y":460.855002158268
                 }, 
                 {
                  "height":0,
@@ -295,6 +287,18 @@
                  "width":0,
                  "x":4967.83416726233,
                  "y":1138.72715637091
+                }, 
+                {
+                 "gid":28,
+                 "height":500,
+                 "id":46,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":193,
+                 "x":6524.18804858659,
+                 "y":1181.64920092113
                 }, 
                 {
                  "height":0,
@@ -519,6 +523,22 @@
                         }],
                  "properties":[
                         {
+                         "name":"Subscription",
+                         "propertytype":"Subscription",
+                         "type":"class",
+                         "value":
+                            {
+                             "Actions":
+                                {
+                                 "fire":"0",
+                                 "win":false
+                                },
+                             "Listening_for":"contacted",
+                             "Pub_id":"sensor1",
+                             "Sub_id":"bottle1"
+                            }
+                        }, 
+                        {
                          "name":"properties",
                          "type":"class",
                          "value":
@@ -533,6 +553,16 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
+                                 "subscriptions":[
+                                        {
+                                         "actions":
+                                            {
+                                             "fire":"0"
+                                            },
+                                         "listening_for":"contacted",
+                                         "pub_id":"sensor1",
+                                         "sub_id":"bottle1"
+                                        }],
                                  "texture":"alpharelease_ketchup_capon"
                                 }
                             }
@@ -543,6 +573,30 @@
                  "width":0,
                  "x":6339.6336680423,
                  "y":1592.67198227444
+                }, 
+                {
+                 "gid":25,
+                 "height":476,
+                 "id":48,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":232,
+                 "x":6874.78964029349,
+                 "y":1187.24134581738
+                }, 
+                {
+                 "gid":27,
+                 "height":443,
+                 "id":50,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":193,
+                 "x":7246.82297716841,
+                 "y":1181.80332447006
                 }, 
                 {
                  "height":0,
@@ -657,6 +711,16 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
+                                 "subscriptions":[
+                                        {
+                                         "actions":
+                                            {
+                                             "fire":"1"
+                                            },
+                                         "listening_for":"contacted",
+                                         "pub_id":"sensor2",
+                                         "sub_id":"bottle2"
+                                        }],
                                  "texture":"alpharelease_mayo_capon"
                                 }
                             }
@@ -667,6 +731,18 @@
                  "width":0,
                  "x":7390.52220149962,
                  "y":2032.28478135333
+                }, 
+                {
+                 "gid":26,
+                 "height":463,
+                 "id":52,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":250,
+                 "x":7595.0084462319,
+                 "y":1159.56580785443
                 }, 
                 {
                  "height":0,
@@ -819,6 +895,22 @@
                         }],
                  "properties":[
                         {
+                         "name":"Subscription",
+                         "propertytype":"Subscription",
+                         "type":"class",
+                         "value":
+                            {
+                             "Actions":
+                                {
+                                 "fire":"1",
+                                 "win":false
+                                },
+                             "Listening_for":"contacted",
+                             "Pub_id":"sensor2",
+                             "Sub_id":"bottle2"
+                            }
+                        }, 
+                        {
                          "name":"properties",
                          "type":"class",
                          "value":
@@ -845,37 +937,29 @@
                  "y":284.946182089009
                 }, 
                 {
-                 "gid":23,
-                 "height":2269.18918918919,
-                 "id":54,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":10097.8918918919,
-                 "x":823.769212198022,
-                 "y":-617.762469486472
-                }, 
-                {
                  "height":0,
-                 "id":55,
-                 "name":"paint1",
+                 "id":54,
+                 "name":"sensor1",
                  "polygon":[
                         {
-                         "x":-430.136846031759,
-                         "y":-554.35881307461
+                         "x":-259.800908036668,
+                         "y":-120.731413009052
                         }, 
                         {
-                         "x":320.832632402741,
-                         "y":-350.905114721005
+                         "x":-295.556211735243,
+                         "y":-348.506299307737
                         }, 
                         {
-                         "x":182.193193537299,
-                         "y":206.256445513922
+                         "x":-220.662865471925,
+                         "y":-343.018507807325
                         }, 
                         {
-                         "x":-284.788952846266,
-                         "y":118.045976170798
+                         "x":-148.509619729141,
+                         "y":-340.27461205712
+                        }, 
+                        {
+                         "x":-157.074484829251,
+                         "y":-119.827294102853
                         }],
                  "properties":[
                         {
@@ -884,108 +968,211 @@
                          "type":"class",
                          "value":
                             {
-                             "Body":"",
+                             "Body":"(unused_now)",
                              "Message":"contacted",
                              "Pub_id":"sensor1",
                              "Trigger":"contacted"
                             }
                         }, 
                         {
-                         "name":"instant",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"paint_id",
-                         "type":"int",
-                         "value":0
+                         "name":"properties",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"yellow",
+                                 "debugopaciy":192,
+                                 "density":0,
+                                 "friction":0,
+                                 "publications":[
+                                        {
+                                         "body":
+                                            {
+
+                                            },
+                                         "message":"contacted",
+                                         "pub_id":"sensor1",
+                                         "trigger":"contacted"
+                                        }],
+                                 "restitution":0,
+                                 "rotation":false,
+                                 "texture":"button_ingame"
+                                }
+                            }
                         }],
                  "rotation":0,
-                 "type":"paint",
+                 "type":"sensor",
                  "visible":true,
                  "width":0,
-                 "x":5936.74802337573,
-                 "y":721.897559298728
+                 "x":5645.08890570199,
+                 "y":1103.53736797144
+                }, 
+                {
+                 "height":0,
+                 "id":55,
+                 "name":"sensor2",
+                 "polygon":[
+                        {
+                         "x":-63.0968668775919,
+                         "y":239.834578135941
+                        }, 
+                        {
+                         "x":-71.6830507015286,
+                         "y":500.007181785993
+                        }, 
+                        {
+                         "x":-271.254594044785,
+                         "y":572.012665709333
+                        }, 
+                        {
+                         "x":-348.501345137038,
+                         "y":203.702419052113
+                        }],
+                 "properties":[
+                        {
+                         "name":"Publication",
+                         "propertytype":"Publication",
+                         "type":"class",
+                         "value":
+                            {
+                             "Message":"contacted",
+                             "Pub_id":"sensor2",
+                             "Trigger":"contacted"
+                            }
+                        }, 
+                        {
+                         "name":"properties",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":192,
+                                 "density":0,
+                                 "friction":0,
+                                 "publications":[
+                                        {
+                                         "body":
+                                            {
+
+                                            },
+                                         "message":"contacted",
+                                         "pub_id":"sensor2",
+                                         "trigger":"contacted"
+                                        }],
+                                 "restitution":0,
+                                 "rotation":false,
+                                 "texture":"button_ingame"
+                                }
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"sensor",
+                 "visible":true,
+                 "width":0,
+                 "x":6210.28397518125,
+                 "y":584.392187110656
                 }, 
                 {
                  "height":0,
                  "id":56,
-                 "name":"paint2",
+                 "name":"exit_sensor",
                  "polygon":[
                         {
-                         "x":0,
+                         "x":324.290614281259,
                          "y":0
                         }, 
                         {
-                         "x":72.5388601036275,
-                         "y":-10.3626943005181
+                         "x":324.290614281259,
+                         "y":127.84533832242
                         }, 
                         {
-                         "x":110.535405872194,
-                         "y":58.7219343696028
+                         "x":0,
+                         "y":124.727159338946
                         }, 
                         {
-                         "x":241.796200345424,
-                         "y":62.1761658031088
-                        }, 
-                        {
-                         "x":245.25043177893,
-                         "y":248.704663212435
-                        }, 
-                        {
-                         "x":151.986183074267,
-                         "y":328.151986183074
-                        }, 
-                        {
-                         "x":183.074265975821,
-                         "y":390.328151986183
-                        }, 
-                        {
-                         "x":75.9930915371333,
-                         "y":400.690846286701
-                        }, 
-                        {
-                         "x":-110.535405872193,
-                         "y":435.233160621762
-                        }, 
-                        {
-                         "x":-189.982728842832,
-                         "y":317.789291882556
-                        }, 
-                        {
-                         "x":-183.07426597582,
-                         "y":183.07426597582
-                        }, 
-                        {
-                         "x":-13.8169257340242,
-                         "y":162.348877374784
-                        }, 
-                        {
-                         "x":-13.8169257340242,
-                         "y":65.6303972366148
+                         "x":0,
+                         "y":0
                         }],
                  "properties":[
                         {
-                         "name":"color",
-                         "type":"string",
-                         "value":"purple"
+                         "name":"Publication",
+                         "propertytype":"Publication",
+                         "type":"class",
+                         "value":
+                            {
+                             "Message":"contacted",
+                             "Pub_id":"exit_sensor",
+                             "Trigger":"contacted"
+                            }
                         }, 
                         {
-                         "name":"instant",
-                         "type":"bool",
-                         "value":true
+                         "name":"Subscription",
+                         "propertytype":"Subscription",
+                         "type":"class",
+                         "value":
+                            {
+                             "Actions":
+                                {
+                                 "fire":"-1",
+                                 "win":true
+                                },
+                             "Listening_for":"contacted",
+                             "Pub_id":"exit_sensor",
+                             "Sub_id":"exit_sensor"
+                            }
                         }, 
                         {
-                         "name":"paint_id",
-                         "type":"string",
-                         "value":"1"
+                         "name":"properties",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":192,
+                                 "density":0,
+                                 "friction":0,
+                                 "publications":[
+                                        {
+                                         "body":
+                                            {
+
+                                            },
+                                         "message":"contacted",
+                                         "pub_id":"exit_sensor",
+                                         "trigger":"contacted"
+                                        }],
+                                 "restitution":0,
+                                 "rotation":false,
+                                 "subscriptions":[
+                                        {
+                                         "actions":
+                                            {
+                                             "win":"exit"
+                                            },
+                                         "listening_for":"contacted",
+                                         "pub_id":"exit_sensor",
+                                         "sub_id":"exit_sensor"
+                                        }],
+                                 "texture":"button_ingame"
+                                }
+                            }
                         }],
                  "rotation":0,
-                 "type":"paint",
+                 "type":"sensor",
                  "visible":true,
                  "width":0,
-                 "x":6411.05354058722,
-                 "y":621.761658031088
+                 "x":7234.17524165887,
+                 "y":1453.07140629872
                 }],
          "opacity":1,
          "type":"objectgroup",

@@ -1,10 +1,10 @@
 #include "InteractionController.h"
 
-// TODO: are the platforms/buttons/walls going to be const? if so, make these pass by const & to avoid copying the vecotr
 bool InteractionController::init(
     std::shared_ptr<CharacterController> characterA,
     std::shared_ptr<CharacterController> characterB,
-    std::vector<std::shared_ptr<ButtonModel>> buttons, std::vector<std::shared_ptr<WallModel>> walls,
+    std::vector<std::shared_ptr<ButtonModel>> buttons, 
+    std::vector<std::shared_ptr<WallModel>> walls,
     std::shared_ptr<LevelLoader> level,
     std::shared_ptr<cugl::physics2::net::NetWorld> &world,
     const std::shared_ptr<cugl::JsonValue>& json) {
@@ -26,58 +26,30 @@ bool InteractionController::init(
         auto objects = json->get("layers")->get(i)->get("objects");
         for (int j = 0; j < objects->size(); j++) {
             if (objects->get(j)->get("properties") != nullptr){
-                std::shared_ptr<JsonValue> properties = objects -> get(j) -> get("properties");
-                std::shared_ptr<JsonValue> obs, pubs, subs;
-                if (properties -> get(properties -> size() - 1) -> get("value") -> type() == cugl::JsonValue::Type::ObjectType) {
-                    obs = properties -> get(properties -> size() - 1) -> get("value") -> get("obstacle");
-                    pubs = obs->get("publications");
-                    subs = obs->get("subscriptions");
-                } else {
-                    obs = nullptr;
-                    pubs = nullptr;
-                    subs = nullptr;
-                }
-
-                
-#pragma mark REFACTOR ATTEMPT
-                // NOTE: here, I will implement my method of reading Pub messages directly from JSON, which is from Tiled.
-                // Note that I have deleted the 'publications' entry for sensor 1. Instead, I added a 'Publication' entry, which
-                // links to another object called sensor1_message. Hence, sensor 1 right now will NOT go through the
-                // if (pubs!=nullptr) statement.
+#pragma mark Refactored Pub/Sub Init
 //                std::cout << (objects -> get(j) -> get("type") -> toString()) << std::endl;
                 // how WEIRD! get("type") returns ""sensor"" or ""wall"" (TWO layers), NOT "sensor" or "wall"!
-                if (objects -> get(j) -> get("type") -> toString() == "\"sensor\"") {
-                    for (auto jsonChild : properties -> children()) {
-                        if (jsonChild -> getString("name") == "Publication") {
-                            std::cout << "This is a Publication!" << std::endl;
-                            std::shared_ptr<JsonValue> publicationValues = jsonChild -> get("value");
-                            // we print out all messages. As you can see, they perfectly match all the strings we want to use.
-                            // the only step left is just to assign them to PublisherMessage and addPublisher().
-                            std::cout << std::endl << "Publication message: " << publicationValues -> getString("Message") << ", pub_id: " << publicationValues -> getString("Pub_id") << ", trigger: " << publicationValues -> getString("Trigger") << std::endl << std::endl;
-                            break; // to reduce time (I'm trying my best; although there are nested forloops, naturally
-                                    // we won't have that many iterations.
-                        }
-                    }
-                }
-                
-#pragma mark ORIGINAL (CURRENT) METHOD
-                if (pubs!=nullptr){
-                    for (std::shared_ptr<JsonValue> p : pubs->children()){
-                        std::unordered_map<std::string, std::string> body;
-                        for (std::shared_ptr<JsonValue> b : p->get("body")->children()){
-                            body[b->key()] = b->asString();
-                        }
-                        PublisherMessage pub = {p->get("pub_id")->asString(), p->get("trigger")->asString(), p->get("message")->asString(), body};
+                std::shared_ptr<JsonValue> properties = objects -> get(j) -> get("properties");
+                for (auto jsonChild : properties -> children()) {
+                    if (jsonChild -> getString("name") == "Publication") {
+                        std::shared_ptr<JsonValue> p = jsonChild -> get("value");
+                        std::cout << "\nThis is a Publication! \nPublication message: " << p -> getString("Message") << ", pub_id: " << p -> getString("Pub_id") << ", trigger: " << p -> getString("Trigger") << std::endl << std::endl;
+                        PublisherMessage pub = {p->getString("Pub_id"),
+                                                p->getString("Trigger"),
+                                                p->getString("Message")};
                         addPublisher(pub);
                     }
-                }
-                if (subs!=nullptr){
-                    for (std::shared_ptr<JsonValue> s : subs->children()){
+                    if (jsonChild -> getString("name") == "Subscription") {
+                        std::shared_ptr<JsonValue> s = jsonChild -> get("value");
+                        std::cout << "\n This is a Subscription! \nSubcription message: " << s -> getString("Listening_for") << ", pub_id: " << s -> getString("Pub_id") << ", sub_id: " << s -> getString("Sub_id") << std::endl;
                         std::unordered_map<std::string, std::string> actions;
-                        for (std::shared_ptr<JsonValue> a : s->get("actions")->children()){
+                        for (std::shared_ptr<JsonValue> a : s->get("Actions")->children()){
                             actions[a->key()] = a->asString();
+                            std::cout << "Actions: " << a->key() << ": " << a->asString() << std::endl;
                         }
-                        SubscriberMessage sub = {s->get("pub_id")->asString(), s->get("listening_for")->asString(), actions};
+                        SubscriberMessage sub = {s->getString("Pub_id"), 
+                                                s->getString("Listening_for"),
+                                                actions};
                         addSubscription(sub);
                     }
                 }
@@ -118,23 +90,23 @@ InteractionController::PlayerCounter InteractionController::checkContactForPlaye
             return bodyPartIntPtr;
         });
     if (p1_ptrs.find(body1->GetUserData().pointer) != p1_ptrs.end()){
-//        if (reinterpret_cast<intptr_t>(handObstacles[0].get()) == body1->GetUserData().pointer) {
-//            // it is left hand
-//            output.handIsLeft = true;
-//        } else {
-//            // it is right hand
-//            output.handIsRight = true;
-//        }
+        if (reinterpret_cast<intptr_t>(handObstacles[0].get()) == body1->GetUserData().pointer) {
+            // it is left hand
+            output.handIsLeft = true;
+        } else {
+            // it is right hand
+            output.handIsRight = true;
+        }
         output.bodyOneIsHand = true;
     }
     if (p1_ptrs.find(body2->GetUserData().pointer)!= p1_ptrs.end()){
-//        if (reinterpret_cast<intptr_t>(handObstacles[0].get()) == body2->GetUserData().pointer) {
-//            // it is left hand
-//            output.handIsLeft = true;
-//        } else {
-//            // it is right hand
-//            output.handIsRight = true;
-//        }
+        if (reinterpret_cast<intptr_t>(handObstacles[0].get()) == body2->GetUserData().pointer) {
+            // it is left hand
+            output.handIsLeft = true;
+        } else {
+            // it is right hand
+            output.handIsRight = true;
+        }
         output.bodyTwoIsHand = true;
     }
     
@@ -153,9 +125,7 @@ void InteractionController::publishMessage(PublisherMessage &message){
 }
 
 
-// WHY DO YOU use the RValue Reference as the parameter???
-// I don't get it! -- George
-// I have CHANGED it to LValue Ref.
+
 bool InteractionController::addSubscription(SubscriberMessage &message){
     if (subscriptions.count(message.pub_id)==0){
         subscriptions[message.pub_id] = std::unordered_map<std::string, std::vector<SubscriberMessage>>();
@@ -167,7 +137,7 @@ bool InteractionController::addSubscription(SubscriberMessage &message){
         subscriptions[message.pub_id][message.listening_for] = std::vector<SubscriberMessage>({message});
         
     }
-    std::cout << "adding Subscription:  " << subscriptions[message.pub_id][message.listening_for].back().pub_id << " (pub_id) and " << subscriptions[message.pub_id][message.listening_for].back().listening_for <<" (listening_for) \n";
+    std::cout << "adding Sub (from addSupscription):  " << subscriptions[message.pub_id][message.listening_for].back().pub_id << " (pub_id) and " << subscriptions[message.pub_id][message.listening_for].back().listening_for <<" (listening_for) \n";
     return true;
 }
 
@@ -177,7 +147,7 @@ bool InteractionController::addPublisher(PublisherMessage &message){
         publications[message.trigger] = std::unordered_map<std::string, PublisherMessage>();
     }
     publications[message.trigger][message.pub_id] = message;
-    std::cout << "adding Publication:  " << publications[message.trigger][message.pub_id].pub_id << " (pub_id) and " << publications[message.trigger][message.pub_id].trigger << " (trigger) \n";
+    std::cout << "addign Pub (from addPublisher):  " << publications[message.trigger][message.pub_id].pub_id << " (pub_id) and " << publications[message.trigger][message.pub_id].trigger << " (trigger) \n";
     return true;
 }
 
@@ -192,7 +162,6 @@ void InteractionController::beginContact(b2Contact* contact) {
     if ((contact_info.bodyOneIsHand || contact_info.bodyTwoIsHand) && !(contact_info.bodyOneIsHand && contact_info.bodyTwoIsHand)) {
         // Please do not remove the comments in this if block. I'm using it to 
         // reserve some implementational thoughts on grabbing.
-        
         // one of the collision body is player's hand. We now grab it!
         auto obstacleA = reinterpret_cast<physics2::Obstacle*>(body1->GetUserData().pointer);
         auto obstacleB = reinterpret_cast<physics2::Obstacle*>(body2->GetUserData().pointer);
@@ -205,37 +174,54 @@ void InteractionController::beginContact(b2Contact* contact) {
             // you go publications["whatever"][platformName].message ... . Because
             // Otherwise it will CREATE this entry!
             if (publications["contacted"].count(platformName) < 0 || platformName == "" ||  publications["contacted"][platformName].message != "grabbed") {
-                
+                // this platform cannot be grabbed.
             } else {
                 // obstacle A is the hand, B is the platform
-                _obstaclesForJoint.push_back(_obstacleMap[obstacleA]);
-                _obstaclesForJoint.push_back(_obstacleMap[obstacleB]);
-//                if (contact_info.handIsLeft) {
-//                    // it is left hand
-//                    _isLeftHandForJoint = 1;
-//                } else {
-//                    _isLeftHandForJoint = 0;
-//                }
+//                _obstaclesForJoint.push_back(_obstacleMap[obstacleA]);
+//                _obstaclesForJoint.push_back(_obstacleMap[obstacleB]);
+                if (contact_info.handIsLeft) {
+                    // it is left hand
+                    if (_leftHandIsHeld && _LHGrabCD <= 0) {
+                        CULog("from beginContact: now grabbing LH");
+                        _obstaclesForJoint.push_back(_obstacleMap[obstacleA]);
+                        _obstaclesForJoint.push_back(_obstacleMap[obstacleB]);
+                        _leftHandIsGrabbed = true;
+                    }
+                } else {
+                    if (_rightHandIsHeld && _RHGrabCD <= 0) {
+                        CULog("from beginContact: now grabbing RH");
+                        _obstaclesForJoint.push_back(_obstacleMap[obstacleA]);
+                        _obstaclesForJoint.push_back(_obstacleMap[obstacleB]);
+                        _rightHandIsGrabbed = true;
+                    }
+                }
             }
         } else {
             std::string platformName = obstacleA -> getName();
             if (publications["contacted"].count(platformName) < 0 || platformName == "" || publications["contacted"][platformName].message != "grabbed") {
-                
+                // this platform cannot be grabbed.
             } else {
                 // obstacle B is the hand, A is the platform
-                _obstaclesForJoint.push_back(_obstacleMap[obstacleB]);
-                _obstaclesForJoint.push_back(_obstacleMap[obstacleA]);
-//                if (contact_info.handIsLeft) {
-//                    // it is left hand
-//                    _isLeftHandForJoint = 1;
-//                } else {
-//                    _isLeftHandForJoint = 0;
-//                }
+//                _obstaclesForJoint.push_back(_obstacleMap[obstacleB]);
+//                _obstaclesForJoint.push_back(_obstacleMap[obstacleA]);
+                if (contact_info.handIsLeft) {
+                    // it is left hand
+                    if (_leftHandIsHeld && _LHGrabCD <= 0) {
+                        CULog("from beginContact: now grabbing LH");
+                        _obstaclesForJoint.push_back(_obstacleMap[obstacleB]);
+                        _obstaclesForJoint.push_back(_obstacleMap[obstacleA]);
+                        _leftHandIsGrabbed = true;
+                    }
+                } else {
+                    if (_rightHandIsHeld && _RHGrabCD <= 0) {
+                        CULog("from beginContact: now grabbing RH");
+                        _obstaclesForJoint.push_back(_obstacleMap[obstacleB]);
+                        _obstaclesForJoint.push_back(_obstacleMap[obstacleA]);
+                        _rightHandIsGrabbed = true;
+                    }
+                }
             }
         }
-//        std::shared_ptr<physics2::RevoluteJoint> joint = physics2::RevoluteJoint::allocWithObstacles(obsA, obsB);
-//        _world -> addJoint(joint);
-        // above two lines will not work because world is LOCKED right now!
     }
 
     if (contact_info.bodyOne!=NOT_PLAYER || contact_info.bodyTwo != NOT_PLAYER){
@@ -317,11 +303,6 @@ void InteractionController::beforeSolve(b2Contact* contact, const b2Manifold* ol
 
 
 void InteractionController::connectGrabJoint() {
-    if (!_allJoints.empty()) {
-        for(std::shared_ptr<physics2::Joint> jnt : _allJoints) {
-            
-        }
-    }
     if (!_obstaclesForJoint.empty()) {
         std::shared_ptr<physics2::Obstacle> obs1 = _obstaclesForJoint.at(0);
         std::shared_ptr<physics2::Obstacle> obs2 = _obstaclesForJoint.at(1);
@@ -330,30 +311,50 @@ void InteractionController::connectGrabJoint() {
         // Anchor A is the anchor for the Hand.
         _joint -> setLocalAnchorA(difference);
         _joint -> setLocalAnchorB(0, 0);
-        _allJoints.push_back(_joint);
-        
         _world -> addJoint(_joint);
         
+        // why are we not judging if it is a lh joint or rh joint according to
+        // _leftHandIsGrabbed and _rHIG? Because those might be already true!
         float LHDistance = obs1 -> getPosition().distance(_characterControllerA -> getLeftHandPosition());
         float RHDistance = obs1 -> getPosition().distance(_characterControllerA -> getRightHandPosition());
         if (LHDistance < RHDistance) {
             std::cout << "Now reversing left hand" << std::endl;
             this -> leftHandReverse = true;
+            _leftHandJoint = _joint;
         } else {
             std::cout << "Now reversing right hand" << std::endl;
             this -> rightHandReverse = true;
+            _rightHandJoint = _joint;
         }
-        
-//        if (_isLeftHandForJoint == 1) {
-//            std::cout << "Now reversing left hand" << std::endl;
-//            this -> leftHandReverse = true;
-//            _isLeftHandForJoint = -1;
-//        } else if (_isLeftHandForJoint == 0){
-//            std::cout << "Now reversing right hand" << std::endl;
-//            this -> rightHandReverse = true;
-//            _isLeftHandForJoint = -1;
-//        }
 
         _obstaclesForJoint.clear();
+    }
+}
+
+void InteractionController::ungrabIfNecessary() {
+    if (_leftHandIsGrabbed && !_leftHandIsHeld) {
+        std::cout << "Removing LH Joint - from ungrab" << std::endl;
+        _world -> removeJoint(_leftHandJoint);
+        _leftHandJoint = nullptr;
+        _leftHandIsGrabbed = false;
+        leftHandReverse = false;
+        _LHGrabCD = GRAB_CD;
+    }
+    if (_rightHandIsGrabbed && !_rightHandIsHeld) {
+        std::cout << "Removing RH Joint - from ungrab" << std::endl;
+        _world -> removeJoint(_rightHandJoint);
+        _rightHandJoint = nullptr;
+        _rightHandIsGrabbed = false;
+        rightHandReverse = false;
+        _RHGrabCD = GRAB_CD;
+    }
+}
+
+void InteractionController::grabCDIfNecessary(float dt) {
+    if (!_leftHandIsGrabbed && _LHGrabCD >= 0) {
+        _LHGrabCD -= dt;
+    }
+    if (!_rightHandIsGrabbed && _RHGrabCD >= 0) {
+        _RHGrabCD -= dt;
     }
 }

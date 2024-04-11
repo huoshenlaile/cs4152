@@ -99,12 +99,8 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     _interactionController -> init(_characterControllerA, nullptr, {}, {}, _level, _platformWorld, _level -> getLevelJSON());
     
 #pragma mark InputControllers
-    // TODO: setup the inputController (PlatformInput, from Harry)
-    constructInputController(rect);
 
-//	    _camera.init(charNode,_worldnode,1.0f,
-//	    std::dynamic_pointer_cast<OrthographicCamera>(getCamera()),
-//	    _uinode, 2.0f);
+    constructInputController(rect);
 
 
 #pragma mark AudioController
@@ -114,10 +110,10 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
 //	    "PhantomLiberty");
 
 //  _camera.setTarget(_characterControllerA->getBodySceneNode());
-	_camera.init(_characterControllerA->getBodySceneNode(), _worldnode, 10.0f,
-		std::dynamic_pointer_cast<OrthographicCamera>(getCamera()),
-		_uinode, 5.0f);
 //	CULog("Character Pos: %f, %f", _characterControllerA->getBodySceneNode()->getPositionX(), _characterControllerA->getBodySceneNode()->getPositionY());
+    _camera.init(_characterControllerA->getBodySceneNode(), _worldnode, 10.0f,
+        std::dynamic_pointer_cast<OrthographicCamera>(getCamera()),
+        _uinode, 5.0f);
 	_camera.setZoom(DEFAULT_ZOOM);
     
     
@@ -229,7 +225,6 @@ void GameScene::reset() {
     _uinode -> removeAllChildren();
     _worldnode -> removeAllChildren();
     _debugnode -> removeAllChildren();
-    setComplete(false);
     
     // load back and reconstruct everything
 	_assets -> load<LevelLoader>(ALPHA_RELEASE_KEY, ALPHA_RELEASE_FILE);
@@ -249,7 +244,6 @@ void GameScene::reset() {
         newPaints.push_back(re_pm);
     }
     _paintModels = newPaints;
-    
     //reload the camera
     cameraReset();
     //_camera.setTarget(_characterControllerA->getBodySceneNode());
@@ -261,18 +255,13 @@ void GameScene::reset() {
     for(auto obs : _level -> getWalls()) {
         _interactionController -> _obstacleMap[obs.get()] = obs;
     }
+        CULog("Character Pos: %f, %f", _characterControllerA->getBodySceneNode()->getPositionX(), _characterControllerA->getBodySceneNode()->getPositionY());
 }
 
-/**
- * This method takes a grabEvent and processes it.
- */
+
 void GameScene::processGrabEvent(const std::shared_ptr<GrabEvent>& event) {
-	// TODO: Waiting for Other Module
 }
 
-/**
- * This method takes a pauseEvent and processes it.
- */
 void GameScene::processPauseEvent(const std::shared_ptr<PauseEvent>& event) {
 	if (event->isPause()) {
 		_gamePaused = true;
@@ -289,8 +278,11 @@ void GameScene::preUpdate(float dt) {
 	}
 	// _input.update();
     // Initialize Grabbing Joints
-    _interactionController -> connectGrabJoint();
 	_inputController->update(dt);
+    _interactionController -> connectGrabJoint();
+    _interactionController -> updateHandsHeldInfo(_inputController -> isLHAssigned(), _inputController -> isRHAssigned());
+    _interactionController -> ungrabIfNecessary();
+    _interactionController -> grabCDIfNecessary(dt);
     _platformWorld->update(dt);
     _characterControllerA->update(dt);
 	auto character = _inputController->getCharacter();
@@ -314,17 +306,21 @@ void GameScene::preUpdate(float dt) {
         // we query the corresponding subscriber, according to the pub_id and publication message.
         // by using [], we will automatically skip this for loop if there is no such result.
         for (const InteractionController::SubscriberMessage& subMessage : _interactionController -> subscriptions[publication.pub_id][publication.message]) {
-            std::cout << "This subscribe message is (from GameScene update): " << subMessage.pub_id << " " << subMessage.listening_for << "\n";
+            std::cout << "This subscribe message is (from GameScene preUpdate): " << subMessage.pub_id << " " << subMessage.listening_for << "\n";
             if (subMessage.actions.count("win") > 0) {
-                CULog("Winner! - from preUpdate. Setting Complete.");
-                setComplete(true);
+                if (subMessage.actions.at("win") == "true") {
+                    CULog("Winner! - from preUpdate. Setting Complete.");
+                    setComplete(true);
+                }
             }
             if (subMessage.actions.count("fire") > 0) {
-                int bottle = std::stoi(subMessage.actions.at("fire"));
-                std::cout << "\nFiring bottle <" << bottle << ">\n\n";
-                //TODO: Remove after triggering, probably. I think we should keep it as a vector though, not map
-                _paintModels[bottle]->trigger();
-                // s.actions.at("fire") is the name of the paint bottle obstacle
+                if (std::stoi(subMessage.actions.at("fire")) >= 0) {
+                    int bottle = std::stoi(subMessage.actions.at("fire"));
+                    std::cout << "\nFiring bottle (from GameScene preUpdate) <" << bottle << ">\n\n";
+                    //TODO: Remove after triggering, probably. I think we should keep it as a vector though, not map
+                    _paintModels[bottle]->trigger();
+                    // s.actions.at("fire") is the name of the paint bottle obstacle
+                }
             }
         }
         _interactionController -> messageQueue.pop();
@@ -428,7 +424,6 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     _pauseButton->addListener([this](const std::string& name, bool down) {
         if (down) {
             _gamePaused = true;
-            //            CULog("Pause button hit");
             //            _network->pushOutEvent(PauseEvent::allocPauseEvent(
             //                Vec2(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 2), true));
         }
@@ -438,7 +433,7 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     
     _levelComplete = _assets->get<scene2::SceneNode>("levelcomplete");
     _levelComplete -> removeFromParent();
-    _levelComplete -> doLayout(); // Repositions the HUD
+    _levelComplete -> doLayout();
     _levelComplete -> setContentSize(dimen);
     _levelComplete -> setVisible(false);
     
