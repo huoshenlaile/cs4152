@@ -528,11 +528,7 @@
                          "type":"class",
                          "value":
                             {
-                             "Actions":
-                                {
-                                 "fire":"0",
-                                 "win":false
-                                },
+                             "Actions":"",
                              "Listening_for":"contacted",
                              "Pub_id":"sensor1",
                              "Sub_id":"bottle1"
@@ -900,11 +896,7 @@
                          "type":"class",
                          "value":
                             {
-                             "Actions":
-                                {
-                                 "fire":"1",
-                                 "win":false
-                                },
+                             "Actions":"",
                              "Listening_for":"contacted",
                              "Pub_id":"sensor2",
                              "Sub_id":"bottle2"
@@ -1118,11 +1110,7 @@
                          "type":"class",
                          "value":
                             {
-                             "Actions":
-                                {
-                                 "fire":"-1",
-                                 "win":true
-                                },
+                             "Actions":"",
                              "Listening_for":"contacted",
                              "Pub_id":"exit_sensor",
                              "Sub_id":"exit_sensor"
@@ -1173,6 +1161,134 @@
                  "width":0,
                  "x":7234.17524165887,
                  "y":1453.07140629872
+                }, 
+                {
+                 "height":0,
+                 "id":76,
+                 "name":"paint1",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":176.662017666202,
+                         "y":0
+                        }, 
+                        {
+                         "x":167.364016736402,
+                         "y":102.278010227801
+                        }, 
+                        {
+                         "x":381.218038121804,
+                         "y":116.225011622501
+                        }, 
+                        {
+                         "x":348.675034867504,
+                         "y":362.622036262204
+                        }, 
+                        {
+                         "x":357.973035797304,
+                         "y":464.900046490005
+                        }, 
+                        {
+                         "x":46.4900046490011,
+                         "y":613.668061366806
+                        }, 
+                        {
+                         "x":-130.172013017201,
+                         "y":441.655044165504
+                        }, 
+                        {
+                         "x":-97.6290097629008,
+                         "y":306.834030683403
+                        }, 
+                        {
+                         "x":-172.013017201301,
+                         "y":223.152022315202
+                        }, 
+                        {
+                         "x":-158.066015806601,
+                         "y":88.3310088331008
+                        }, 
+                        {
+                         "x":-148.768014876801,
+                         "y":13.9470013947001
+                        }],
+                 "properties":[
+                        {
+                         "name":"color",
+                         "type":"string",
+                         "value":"orange"
+                        }, 
+                        {
+                         "name":"instant",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"paint_id",
+                         "type":"int",
+                         "value":0
+                        }],
+                 "rotation":0,
+                 "type":"paint",
+                 "visible":true,
+                 "width":0,
+                 "x":5853.09158530916,
+                 "y":441.655044165504
+                }, 
+                {
+                 "height":0,
+                 "id":77,
+                 "name":"paint2",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":195.258019525802,
+                         "y":88.3310088331009
+                        }, 
+                        {
+                         "x":176.662017666202,
+                         "y":278.940027894003
+                        }, 
+                        {
+                         "x":18.5960018596006,
+                         "y":348.675034867504
+                        }, 
+                        {
+                         "x":-139.470013947001,
+                         "y":353.324035332404
+                        }, 
+                        {
+                         "x":-139.470013947001,
+                         "y":32.5430032543004
+                        }],
+                 "properties":[
+                        {
+                         "name":"color",
+                         "type":"string",
+                         "value":"purple"
+                        }, 
+                        {
+                         "name":"instant",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"paint_id",
+                         "type":"int",
+                         "value":1
+                        }],
+                 "rotation":0,
+                 "type":"paint",
+                 "visible":true,
+                 "width":0,
+                 "x":6485.35564853556,
+                 "y":632.264063226406
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1181,7 +1297,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":76,
+ "nextobjectid":78,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

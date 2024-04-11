@@ -318,7 +318,7 @@ void GameScene::preUpdate(float dt) {
                     int bottle = std::stoi(subMessage.actions.at("fire"));
                     std::cout << "\nFiring bottle (from GameScene preUpdate) <" << bottle << ">\n\n";
                     //TODO: Remove after triggering, probably. I think we should keep it as a vector though, not map
-                    _paintModels[bottle]->trigger();
+                    _level->getPaints()[bottle]->trigger();
                     // s.actions.at("fire") is the name of the paint bottle obstacle
                 }
             }
