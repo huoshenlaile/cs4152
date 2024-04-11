@@ -523,6 +523,22 @@
                         }],
                  "properties":[
                         {
+                         "name":"Subscription",
+                         "propertytype":"Subscription",
+                         "type":"class",
+                         "value":
+                            {
+                             "Actions":
+                                {
+                                 "fire":"0",
+                                 "win":false
+                                },
+                             "Listening_for":"contacted",
+                             "Pub_id":"sensor1",
+                             "Sub_id":"bottle1"
+                            }
+                        }, 
+                        {
                          "name":"properties",
                          "type":"class",
                          "value":
@@ -879,6 +895,22 @@
                         }],
                  "properties":[
                         {
+                         "name":"Subscription",
+                         "propertytype":"Subscription",
+                         "type":"class",
+                         "value":
+                            {
+                             "Actions":
+                                {
+                                 "fire":"1",
+                                 "win":false
+                                },
+                             "Listening_for":"contacted",
+                             "Pub_id":"sensor2",
+                             "Sub_id":"bottle2"
+                            }
+                        }, 
+                        {
                          "name":"properties",
                          "type":"class",
                          "value":
@@ -936,7 +968,7 @@
                          "type":"class",
                          "value":
                             {
-                             "Body":"",
+                             "Body":"(unused_now)",
                              "Message":"contacted",
                              "Pub_id":"sensor1",
                              "Trigger":"contacted"
@@ -1001,6 +1033,17 @@
                         }],
                  "properties":[
                         {
+                         "name":"Publication",
+                         "propertytype":"Publication",
+                         "type":"class",
+                         "value":
+                            {
+                             "Message":"contacted",
+                             "Pub_id":"sensor2",
+                             "Trigger":"contacted"
+                            }
+                        }, 
+                        {
                          "name":"properties",
                          "type":"class",
                          "value":
@@ -1058,6 +1101,33 @@
                          "y":0
                         }],
                  "properties":[
+                        {
+                         "name":"Publication",
+                         "propertytype":"Publication",
+                         "type":"class",
+                         "value":
+                            {
+                             "Message":"contacted",
+                             "Pub_id":"exit_sensor",
+                             "Trigger":"contacted"
+                            }
+                        }, 
+                        {
+                         "name":"Subscription",
+                         "propertytype":"Subscription",
+                         "type":"class",
+                         "value":
+                            {
+                             "Actions":
+                                {
+                                 "fire":"-1",
+                                 "win":true
+                                },
+                             "Listening_for":"contacted",
+                             "Pub_id":"exit_sensor",
+                             "Sub_id":"exit_sensor"
+                            }
+                        }, 
                         {
                          "name":"properties",
                          "type":"class",

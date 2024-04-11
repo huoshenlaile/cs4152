@@ -40,6 +40,8 @@ protected:
     std::shared_ptr<physics2::RevoluteJoint> _joint;
     std::shared_ptr<cugl::physics2::net::NetWorld> _world;
     std::vector<std::shared_ptr<cugl::physics2::Joint>> _allJoints;
+    std::shared_ptr<cugl::physics2::Joint> _leftHandJoint;
+    std::shared_ptr<cugl::physics2::Joint> _rightHandJoint;
 //    std::shared_ptr<physics2::Obstacle> obs1;
 //    std::shared_ptr<physics2::Obstacle> obs2;
     
@@ -65,8 +67,8 @@ protected:
         int bodyTwo = NOT_PLAYER;
         bool bodyOneIsHand = false;
         bool bodyTwoIsHand = false;
-//        bool handIsLeft = false;
-//        bool handIsRight = false;
+        bool handIsLeft = false;
+        bool handIsRight = false;
     };
     
     PlayerCounter checkContactForPlayer(b2Body* body1, b2Body* body2);
@@ -78,12 +80,13 @@ public:
     
     struct PublisherMessage {
         /**
-            the Publisher Message matches with the Subscriber Message via the pub id and the message (which is the listeningFor field in Subscriber Message).
+         * the Publisher Message matches with the Subscriber Message via the pub id and the message (which is
+         * the listeningFor field in Subscriber Message).
          */
           std::string pub_id;
           std::string trigger;
           std::string message;
-          std::unordered_map<std::string, std::string> body;
+//          std::unordered_map<std::string, std::string> body;
     };
     
     struct SubscriberMessage {

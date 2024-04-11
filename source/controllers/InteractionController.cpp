@@ -1,6 +1,5 @@
 #include "InteractionController.h"
 
-// TODO: are the platforms/buttons/walls going to be const? if so, make these pass by const & to avoid copying the vecotr
 bool InteractionController::init(
     std::shared_ptr<CharacterController> characterA,
     std::shared_ptr<CharacterController> characterB,
@@ -26,58 +25,30 @@ bool InteractionController::init(
         auto objects = json->get("layers")->get(i)->get("objects");
         for (int j = 0; j < objects->size(); j++) {
             if (objects->get(j)->get("properties") != nullptr){
-                std::shared_ptr<JsonValue> properties = objects -> get(j) -> get("properties");
-                std::shared_ptr<JsonValue> obs, pubs, subs;
-                if (properties -> get(properties -> size() - 1) -> get("value") -> type() == cugl::JsonValue::Type::ObjectType) {
-                    obs = properties -> get(properties -> size() - 1) -> get("value") -> get("obstacle");
-                    pubs = obs->get("publications");
-                    subs = obs->get("subscriptions");
-                } else {
-                    obs = nullptr;
-                    pubs = nullptr;
-                    subs = nullptr;
-                }
-
-                
-#pragma mark REFACTOR ATTEMPT
-                // NOTE: here, I will implement my method of reading Pub messages directly from JSON, which is from Tiled.
-                // Note that I have deleted the 'publications' entry for sensor 1. Instead, I added a 'Publication' entry, which
-                // links to another object called sensor1_message. Hence, sensor 1 right now will NOT go through the
-                // if (pubs!=nullptr) statement.
+#pragma mark Refactored Pub/Sub Init
 //                std::cout << (objects -> get(j) -> get("type") -> toString()) << std::endl;
                 // how WEIRD! get("type") returns ""sensor"" or ""wall"" (TWO layers), NOT "sensor" or "wall"!
-                if (objects -> get(j) -> get("type") -> toString() == "\"sensor\"") {
-                    for (auto jsonChild : properties -> children()) {
-                        if (jsonChild -> getString("name") == "Publication") {
-                            std::cout << "This is a Publication!" << std::endl;
-                            std::shared_ptr<JsonValue> publicationValues = jsonChild -> get("value");
-                            // we print out all messages. As you can see, they perfectly match all the strings we want to use.
-                            // the only step left is just to assign them to PublisherMessage and addPublisher().
-                            std::cout << std::endl << "Publication message: " << publicationValues -> getString("Message") << ", pub_id: " << publicationValues -> getString("Pub_id") << ", trigger: " << publicationValues -> getString("Trigger") << std::endl << std::endl;
-                            break; // to reduce time (I'm trying my best; although there are nested forloops, naturally
-                                    // we won't have that many iterations.
-                        }
-                    }
-                }
-                
-#pragma mark ORIGINAL (CURRENT) METHOD
-                if (pubs!=nullptr){
-                    for (std::shared_ptr<JsonValue> p : pubs->children()){
-                        std::unordered_map<std::string, std::string> body;
-                        for (std::shared_ptr<JsonValue> b : p->get("body")->children()){
-                            body[b->key()] = b->asString();
-                        }
-                        PublisherMessage pub = {p->get("pub_id")->asString(), p->get("trigger")->asString(), p->get("message")->asString(), body};
+                std::shared_ptr<JsonValue> properties = objects -> get(j) -> get("properties");
+                for (auto jsonChild : properties -> children()) {
+                    if (jsonChild -> getString("name") == "Publication") {
+                        std::shared_ptr<JsonValue> p = jsonChild -> get("value");
+                        std::cout << "\nThis is a Publication! \nPublication message: " << p -> getString("Message") << ", pub_id: " << p -> getString("Pub_id") << ", trigger: " << p -> getString("Trigger") << std::endl << std::endl;
+                        PublisherMessage pub = {p->getString("Pub_id"),
+                                                p->getString("Trigger"),
+                                                p->getString("Message")};
                         addPublisher(pub);
                     }
-                }
-                if (subs!=nullptr){
-                    for (std::shared_ptr<JsonValue> s : subs->children()){
+                    if (jsonChild -> getString("name") == "Subscription") {
+                        std::shared_ptr<JsonValue> s = jsonChild -> get("value");
+                        std::cout << "\n This is a Subscription! \nSubcription message: " << s -> getString("Listening_for") << ", pub_id: " << s -> getString("Pub_id") << ", sub_id: " << s -> getString("Sub_id") << std::endl;
                         std::unordered_map<std::string, std::string> actions;
-                        for (std::shared_ptr<JsonValue> a : s->get("actions")->children()){
+                        for (std::shared_ptr<JsonValue> a : s->get("Actions")->children()){
                             actions[a->key()] = a->asString();
+                            std::cout << "Actions: " << a->key() << ": " << a->asString() << std::endl;
                         }
-                        SubscriberMessage sub = {s->get("pub_id")->asString(), s->get("listening_for")->asString(), actions};
+                        SubscriberMessage sub = {s->getString("Pub_id"), 
+                                                s->getString("Listening_for"),
+                                                actions};
                         addSubscription(sub);
                     }
                 }
@@ -118,23 +89,23 @@ InteractionController::PlayerCounter InteractionController::checkContactForPlaye
             return bodyPartIntPtr;
         });
     if (p1_ptrs.find(body1->GetUserData().pointer) != p1_ptrs.end()){
-//        if (reinterpret_cast<intptr_t>(handObstacles[0].get()) == body1->GetUserData().pointer) {
-//            // it is left hand
-//            output.handIsLeft = true;
-//        } else {
-//            // it is right hand
-//            output.handIsRight = true;
-//        }
+        if (reinterpret_cast<intptr_t>(handObstacles[0].get()) == body1->GetUserData().pointer) {
+            // it is left hand
+            output.handIsLeft = true;
+        } else {
+            // it is right hand
+            output.handIsRight = true;
+        }
         output.bodyOneIsHand = true;
     }
     if (p1_ptrs.find(body2->GetUserData().pointer)!= p1_ptrs.end()){
-//        if (reinterpret_cast<intptr_t>(handObstacles[0].get()) == body2->GetUserData().pointer) {
-//            // it is left hand
-//            output.handIsLeft = true;
-//        } else {
-//            // it is right hand
-//            output.handIsRight = true;
-//        }
+        if (reinterpret_cast<intptr_t>(handObstacles[0].get()) == body2->GetUserData().pointer) {
+            // it is left hand
+            output.handIsLeft = true;
+        } else {
+            // it is right hand
+            output.handIsRight = true;
+        }
         output.bodyTwoIsHand = true;
     }
     
@@ -153,9 +124,7 @@ void InteractionController::publishMessage(PublisherMessage &message){
 }
 
 
-// WHY DO YOU use the RValue Reference as the parameter???
-// I don't get it! -- George
-// I have CHANGED it to LValue Ref.
+
 bool InteractionController::addSubscription(SubscriberMessage &message){
     if (subscriptions.count(message.pub_id)==0){
         subscriptions[message.pub_id] = std::unordered_map<std::string, std::vector<SubscriberMessage>>();
@@ -167,7 +136,7 @@ bool InteractionController::addSubscription(SubscriberMessage &message){
         subscriptions[message.pub_id][message.listening_for] = std::vector<SubscriberMessage>({message});
         
     }
-    std::cout << "adding Subscription:  " << subscriptions[message.pub_id][message.listening_for].back().pub_id << " (pub_id) and " << subscriptions[message.pub_id][message.listening_for].back().listening_for <<" (listening_for) \n";
+    std::cout << "adding Sub (from addSupscription):  " << subscriptions[message.pub_id][message.listening_for].back().pub_id << " (pub_id) and " << subscriptions[message.pub_id][message.listening_for].back().listening_for <<" (listening_for) \n";
     return true;
 }
 
@@ -177,7 +146,7 @@ bool InteractionController::addPublisher(PublisherMessage &message){
         publications[message.trigger] = std::unordered_map<std::string, PublisherMessage>();
     }
     publications[message.trigger][message.pub_id] = message;
-    std::cout << "adding Publication:  " << publications[message.trigger][message.pub_id].pub_id << " (pub_id) and " << publications[message.trigger][message.pub_id].trigger << " (trigger) \n";
+    std::cout << "addign Pub (from addPublisher):  " << publications[message.trigger][message.pub_id].pub_id << " (pub_id) and " << publications[message.trigger][message.pub_id].trigger << " (trigger) \n";
     return true;
 }
 
@@ -192,7 +161,6 @@ void InteractionController::beginContact(b2Contact* contact) {
     if ((contact_info.bodyOneIsHand || contact_info.bodyTwoIsHand) && !(contact_info.bodyOneIsHand && contact_info.bodyTwoIsHand)) {
         // Please do not remove the comments in this if block. I'm using it to 
         // reserve some implementational thoughts on grabbing.
-        
         // one of the collision body is player's hand. We now grab it!
         auto obstacleA = reinterpret_cast<physics2::Obstacle*>(body1->GetUserData().pointer);
         auto obstacleB = reinterpret_cast<physics2::Obstacle*>(body2->GetUserData().pointer);

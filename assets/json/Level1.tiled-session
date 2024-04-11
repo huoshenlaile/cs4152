@@ -1,5 +1,5 @@
 {
-    "activeFile": "alpharelease.json",
+    "activeFile": "",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -26,20 +26,19 @@
             "expandedObjectLayers": [
                 2
             ],
-            "scale": 0.2371,
+            "scale": 0.2744,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 4350.485027414593,
-                "y": 967.9460143399408
+                "x": 5513.848396501458,
+                "y": 1317.4198250728864
             }
         }
     },
-    "last.objectTypesPath": "/Users/porridge/Games/cs4152/assets/json/PubSubCustomTypes.json",
+    "last.objectTypesPath": "/Users/porridge/Games/cs4152/assets/tileset/propertytypes.json",
     "openFiles": [
-        "alpharelease.json"
     ],
     "project": "Level1.tiled-project",
-    "property.type": "object",
+    "property.type": "Publication",
     "recentFiles": [
         "alpharelease.json",
         "/Users/porridge/Desktop/courses/CS3152/CS-3152-G6/Eudaemon/assets/levels/level1.json"

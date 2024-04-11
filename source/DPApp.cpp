@@ -148,14 +148,12 @@ void DPApp::preUpdate(float timestep) {
             _menuScene.setActive(true);
             _status = MENU;
         } else if (_gameScene.state == GameScene::RESET) {
-            _status = GAME;
+            std::cout << "resetting - from preUpdate DPApp" << std::endl;
+            _gameScene.setActive(false);
             _gameScene.reset();
             _gameScene.setActive(true);
+            _status = GAME;
         }
-//      _gameScene.reset();
-//      _status = MENU;
-//      _menuScene.setActive(true);
-//      _gameScene.setComplete(false);
     } else if (_gameScene.isPaused()) {
       _status = PAUSE;
       _gameScene.setActive(false);
@@ -174,6 +172,7 @@ void DPApp::preUpdate(float timestep) {
               _status = GAME;
               break;
         case PauseScene::RESET:
+            std::cout << "resetting - from Update Pause DPApp" << std::endl;
             _pauseScene.setActive(false);
             _gameScene.reset();
             _gameScene.setActive(true);
