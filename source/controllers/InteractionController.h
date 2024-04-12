@@ -168,7 +168,7 @@ public:
      */
     void beforeSolve(b2Contact* contact, const b2Manifold* oldManifold);
     
-    void detectPolyContact(const std::shared_ptr<scene2::PolygonNode>& poly2, float scale);
+    void detectPolyContact(const std::shared_ptr<PaintModel>& poly2, float scale);
     
     /**
      * Handles message subscription processing

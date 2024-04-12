@@ -277,7 +277,7 @@ void InteractionController::preUpdate(float dt) {
 }
 
 
-void InteractionController::detectPolyContact(const std::shared_ptr<scene2::PolygonNode>& poly2, float scale){
+void InteractionController::detectPolyContact(const std::shared_ptr<PaintModel>& pm, float scale){
     
     // convert poly2 vertices
     b2DistanceProxy pol2;
@@ -289,11 +289,11 @@ void InteractionController::detectPolyContact(const std::shared_ptr<scene2::Poly
 //    pol2.Set(vertices.data(), poly2.vertices.size(), 0);
     
     auto right_hand = _characterControllerA->getRightHandPosition() * scale;
-    if(poly2->getBoundingBox().contains(right_hand)){
+    if(pm->getPolygons()->getBoundingBox().contains(right_hand)){
         // TODO: Change this to color of the paint, should be easy
-        _characterControllerA->setColor("orange");
-    } else if(poly2->getBoundingBox().contains(_characterControllerA->getLeftHandPosition() * scale)) {
-        _characterControllerA->setColor("orange");
+        _characterControllerA->setColor(pm->color);
+    } else if(pm->getPolygons()->getBoundingBox().contains(_characterControllerA->getLeftHandPosition() * scale)) {
+        _characterControllerA->setColor(pm->color);
     }
 }
 

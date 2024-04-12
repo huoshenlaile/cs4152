@@ -9,6 +9,7 @@
 #include "../models/WallModel.h"
 #include "../models/ExitModel.h"
 #include "../models/SensorModel.h"
+#include "../models/PaintGrowerModel.hpp"
 
 
 using namespace cugl;
@@ -42,6 +43,8 @@ protected:
     std::shared_ptr<ExitModel> _goalDoor;
     /** Reference to the sensors of the game*/
     std::vector<std::shared_ptr<SensorModel>> _sensors;
+    
+    std::vector<std::shared_ptr<PaintModel>> _paints;
     /** The AssetManager for the game mode */
     std::shared_ptr<cugl::AssetManager> _assets;
     /** The JSON for this level, loaded by _assets (to be read and used by other classes)*/
@@ -135,6 +138,19 @@ public:
      * @return true if the sensor was successfully loaded
      */
     bool loadSensor(const std::shared_ptr<JsonValue>& json);
+    
+    /**
+     * Loads paint nodes
+     *
+     * The paint will  be stored in _paints field and retained.
+     *
+     * @param  reader   a JSON reader with cursor ready to read the exit
+     *
+     * @retain the paint
+     * @return true if the paint was successfully loaded
+     */
+    bool loadPaint(const std::shared_ptr<JsonValue>& json);
+
     
     /**
      * Creates a new game level with no source file.
@@ -306,6 +322,10 @@ public:
     
     std::vector<std::shared_ptr<WallModel>> getWalls() {
         return _walls;
+    }
+    
+    std::vector<std::shared_ptr<PaintModel>> getPaints() {
+        return _paints;
     }
 };
 #endif
