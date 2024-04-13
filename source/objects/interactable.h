@@ -43,7 +43,7 @@ public:
     std::shared_ptr<cugl::physics2::Obstacle> _obstacle;
     std::map<std::string, std::function<PublishedMessage(ActionParams)>> actions;
 
-    physics2::Obstacle* getObstacleRawPtr() {
+    cugl::physics2::Obstacle* getObstacleRawPtr() {
         return _obstacle.get();
     }
 

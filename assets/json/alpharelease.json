@@ -528,7 +528,10 @@
                          "type":"class",
                          "value":
                             {
-                             "Actions":"",
+                             "Actions":
+                                {
+
+                                },
                              "Listening_for":"contacted",
                              "Pub_id":"sensor1",
                              "Sub_id":"bottle1"
@@ -896,7 +899,10 @@
                          "type":"class",
                          "value":
                             {
-                             "Actions":"",
+                             "Actions":
+                                {
+
+                                },
                              "Listening_for":"contacted",
                              "Pub_id":"sensor2",
                              "Sub_id":"bottle2"
@@ -1110,7 +1116,10 @@
                          "type":"class",
                          "value":
                             {
-                             "Actions":"",
+                             "Actions":
+                                {
+                                 "win":true
+                                },
                              "Listening_for":"contacted",
                              "Pub_id":"exit_sensor",
                              "Sub_id":"exit_sensor"

@@ -2,7 +2,7 @@
 #define __LEVEL_LOAD_SCENE_H__
 
 #include <cugl/cugl.h>
-#include "helpers/LevelLoader2.h"
+#include "LevelLoader2.h"
 class LevelLoadScene : public cugl::Scene2 {
 protected:
     /** The asset manager for loading. */

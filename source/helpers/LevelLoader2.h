@@ -6,10 +6,10 @@
 #include <cugl/assets/CUAsset.h>
 #include <cugl/cugl.h>
 #include <cugl/io/CUJsonReader.h>
-#include "helpers/LevelConstants.h"
+#include "LevelConstants.h"
 // include interactables
-#include "objects/interactable.h"
-#include "controllers/CharacterController.h"
+#include "../objects/interactable.h"
+#include "../controllers/CharacterController.h"
 using namespace cugl;
 
 class LevelLoader2 : public Asset {
@@ -25,9 +25,9 @@ protected:
 
     std::shared_ptr<scene2::SceneNode> _worldnode;
     // game scene UI and complete should be managed by game scene it self, 
-    // level loader only cares abou what is inside the level
-    // std::shared_ptr<scene2::SceneNode> _uinode;
-    // std::shared_ptr<scene2::SceneNode> _levelCompletenode;
+    // level loader only cares about what is inside the level
+     std::shared_ptr<scene2::SceneNode> _uinode;
+     std::shared_ptr<scene2::SceneNode> _levelCompletenode;
 
     std::shared_ptr<cugl::physics2::net::NetWorld> _world;
     std::shared_ptr<CharacterController> _character;
@@ -71,7 +71,7 @@ public:
     // static sallocator
     static std::shared_ptr<LevelLoader2> alloc() {
         std::shared_ptr<LevelLoader2> result = std::make_shared<LevelLoader2>();
-        return (result->init() ? result : nullptr);
+        return (result->init("") ? result : nullptr);
     }
 
     static std::shared_ptr<LevelLoader2> alloc(std::string file) {

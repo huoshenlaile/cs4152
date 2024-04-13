@@ -1,12 +1,12 @@
 //
-//  PaintGrowerModel.hpp
+//  PaintGrowerModel.h
 //  DustyPaints
 //
 //  Created by Emily on 3/24/24.
 //
 
-#ifndef PaintGrowerModel_hpp
-#define PaintGrowerModel_hpp
+#ifndef PaintGrowerModel_h
+#define PaintGrowerModel_h
 
 #include <stdio.h>
 #include <vector>

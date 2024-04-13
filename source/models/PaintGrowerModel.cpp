@@ -5,7 +5,7 @@
 //  Created by Emily on 3/24/24.
 //
 
-#include "PaintGrowerModel.hpp"
+#include "PaintGrowerModel.h"
 using namespace cugl;
 
 PaintModel::PaintModel(void) : timer(1000), active(false){

@@ -9,7 +9,7 @@
 #include "../models/WallModel.h"
 #include "../models/ExitModel.h"
 #include "../models/SensorModel.h"
-#include "../models/PaintGrowerModel.hpp"
+#include "../models/PaintGrowerModel.h"
 
 
 using namespace cugl;

@@ -1,4 +1,4 @@
-#include "Levelloader2.h"
+#include "LevelLoader2.h"
 
 bool LevelLoader2::preload(const std::shared_ptr<cugl::JsonValue>& json) {
     if (json == nullptr) {
@@ -24,13 +24,14 @@ bool LevelLoader2::preload(const std::shared_ptr<cugl::JsonValue>& json) {
 
 bool LevelLoader2::constructRenderScene(std::shared_ptr<cugl::AssetManager>& _assets){
     Size dimen = computeActiveSize();
-    _scale = dimen.width == SCENE_WIDTH ? dimen.width / rect.size.width : dimen.height / rect.size.height;
+//    _scale = dimen.width == SCENE_WIDTH ? dimen.width / rect.size.width : dimen.height / rect.size.height;
     Vec2 offset{ (dimen.width - SCENE_WIDTH) / 2.0f, (dimen.height - SCENE_HEIGHT) / 2.0f };
 
     // ============== construct scene ==============
     _worldnode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
     _worldnode->setPosition(offset);
-
+    
+    return true;
 }
 
 Size LevelLoader2::computeActiveSize() const {
@@ -44,4 +45,8 @@ Size LevelLoader2::computeActiveSize() const {
         dimen *= SCENE_HEIGHT / dimen.height;
     }
     return dimen;
+}
+
+void LevelLoader2::unload() {
+    // TODO: 
 }

@@ -37,8 +37,6 @@ public:
     /** the state of this scene, referenced by DPApp*/
     enum SceneState {
         INSCENE,
-//        NETERROR,
-//        HANDSHAKE,
         STARTGAME,
         BACK
     };
@@ -71,11 +69,11 @@ public:
     std::string selectedLevelFile = "json/alpharelease.json";
     std::string selectedLevelKey = "alpharelease";
 
-    string getSelectedLevelFile() {
+    std::string getSelectedLevelFile() {
         return selectedLevelFile;
     }
 
-    string getSelectedLevelKey() {
+    std::string getSelectedLevelKey() {
         return selectedLevelKey;
     }
 

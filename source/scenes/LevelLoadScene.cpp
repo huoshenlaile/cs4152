@@ -1,6 +1,8 @@
 #include "LevelLoadScene.h"
 
 
+#define SCENE_SIZE  1024
+
 bool LevelLoadScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     
     // Initialize the scene to a locked width
@@ -33,8 +35,10 @@ bool LevelLoadScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     return true;
 }
 
-
-
+bool LevelLoadScene::loadFileAsync(const std::string &file, const std::string &key) {
+    // TODO: 
+    return true;
+}
 
 void LevelLoadScene::dispose() {
     _assets = nullptr;

@@ -22,7 +22,7 @@
 
 // INCLUDE THIS AT LAST to avoid repeat naming (will trigger bewildering bugs)
 #include "../helpers/GameSceneConstants.h"
-#include "../models/PaintGrowerModel.hpp"
+#include "../models/PaintGrowerModel.h"
 
 class GameScene : public cugl::Scene2 {
 protected:

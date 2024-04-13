@@ -144,9 +144,7 @@ void DPApp::preUpdate(float timestep) {
   } else if (_status == GAME) {
       
     if (_gameScene.isComplete()) {
-        
         if (_gameScene.state == GameScene::QUIT) {
-            
             // TODO: Implement QUIT MENU
             // This code below will give an error
             _gameScene.dispose();
@@ -315,9 +313,7 @@ void DPApp::updateLevelSelect(float timestep) {
       _levelSelectScene.setActive(false);
       // _gameScene.init(_assets, _network, true);
       // _gameScene.setActive(true);
-      std::string levelFile = _levelSelectScene.getSelectedLevelFile();
-      std::string levelKey = _levelSelectScene.getSelectedLevelKey();
-      _levelLoadScene.loadFileAsync(levelFile, levelKey);
+      _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
       _status = LEVELLOAD;
       break;
     case LevelSelectScene::INSCENE:

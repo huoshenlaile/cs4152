@@ -114,16 +114,12 @@ InteractionController::PlayerCounter InteractionController::checkContactForPlaye
 }
 
 
-// WHY DO YOU use the RValue Reference as the parameter???
-// I don't get it! -- George
-// I have CHANGED it to LValue Ref. DO NOT USE RVALUE if you have a good reason. I don't see any here.
 void InteractionController::publishMessage(PublisherMessage &message){
     messageQueue.push(message);
     if (subscriptions.count(message.pub_id)==0){
         subscriptions[message.pub_id] = {};
     }
 }
-
 
 
 bool InteractionController::addSubscription(SubscriberMessage &message){
