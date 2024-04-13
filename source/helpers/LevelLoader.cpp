@@ -103,12 +103,14 @@ bool LevelLoader::preload(const std::shared_ptr<cugl::JsonValue>& json) {
 
 bool LevelLoader::loadObject(const std::shared_ptr<JsonValue>& json) {
     auto type = json->get("type")->asString();
+    std::cout << type << "\n";
+    std::cout << json->toString() << "\n";
     if (type == WALLS_FIELD) {
         return loadWall(json);
     }else if (type == GOALDOOR_FIELD) {
+                std::cout << "Loading GOAL";
         return loadGoalDoor(json);
     }else if (type == SENSOR_FIELD){
-//        std::cout << "Loading sensor";
         return loadSensor(json);
     }else if (type == CHARACTER_POS){
         _charPos = getObjectPos(json);
@@ -156,6 +158,9 @@ bool LevelLoader::loadGoalDoor(const std::shared_ptr<JsonValue>& json) {
         // Get the object, which is automatically retained
         _goalDoor = ExitModel::alloc(goalPos,(Size)goalSize);
         _goalDoor->setName(json->getString("name"));
+        std::vector<std::string> colors = goal->get("obstacle")->get("color_requirements")->asStringArray();
+        std::set<std::string> color_reqs(colors.begin(), colors.end());
+        _goalDoor->setColorReqs(color_reqs);
 
         _goalDoor->setDensity(goal->get("obstacle")->getDouble(DENSITY_FIELD));
         _goalDoor->setFriction(goal->get("obstacle")->getDouble(FRICTION_FIELD));
@@ -168,7 +173,7 @@ bool LevelLoader::loadGoalDoor(const std::shared_ptr<JsonValue>& json) {
         success = success && goal->get("obstacle")->get(TEXTURE_FIELD)->isString();
         _goalDoor->setTextureKey(goal->get("obstacle")->get(TEXTURE_FIELD)->asString());
         _goalDoor->setDebugColor(parseColor(goal->get("obstacle")->getString(DEBUG_COLOR_FIELD)));
-
+        std::cout << "Goal door creation: " << success;
         if (success) {
 //            _world->addObstacle(_goalDoor);
         }

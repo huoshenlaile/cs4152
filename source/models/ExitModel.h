@@ -23,6 +23,13 @@ private:
 protected:
     /** The texture filmstrip for the exit door */
     std::string _exitTexture;
+    
+    /** The colors required to exit */
+    std::set<std::string> _colorReqs;
+    
+    /** The colors that have been collected*/
+    std::set<std::string> _colorsCollected;
+    
 
 
 #pragma mark -
@@ -109,6 +116,55 @@ public:
      * @param  strip    the texture (key) for this exit
      */
     void setTextureKey(std::string strip) { _exitTexture = strip; }
+
+    /**
+     * Returns the color requirements for this exit
+     *
+     * @return the set of required colors
+     */
+    const std::set<std::string> getColorReqs() const { return _colorReqs; }
+
+    /**
+     * Sets the color requirements for this exit
+     *
+     * @param colors   set of required colors
+     */
+    void setColorReqs(std::set<std::string> colors) { _colorReqs = colors; }
+    
+    /**
+     * Returns the colors collected for this exit
+     *
+     * @return the set of collected colors
+     */
+    const std::set<std::string> getColorsCollected() const { return _colorsCollected; }
+    
+    /**
+     * Adds a new collected color to the exit
+     *
+     * @param color  a color that was collected
+     */
+    void addColor(std::string color) { _colorsCollected.insert(color); }
+    
+    /**
+     * Sets the colors collected for this exit
+     *
+     * @param colors   set of collected colors
+     */
+    void setColorsCollected(std::set<std::string> colors) { _colorsCollected = colors; }
+    
+    /**
+     * Returns the remaining colors needed
+     *
+     * @param remaining_colors  set of remaining colors
+     */
+    const std::set<std::string> getRemainingColors() const {
+        std::set<std::string> result;
+        std::set_difference(_colorReqs.begin(),_colorReqs.end(), _colorsCollected.begin(), _colorsCollected.end(),
+            std::inserter(result, result.end()));
+        return result;
+    }
+
+
 
 #pragma mark -
 #pragma mark Initializers

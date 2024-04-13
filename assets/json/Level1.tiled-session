@@ -1,9 +1,15 @@
 {
-    "activeFile": "",
+    "activeFile": "alpharelease.json",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
+        "/Users/kiduszegeye/Desktop/Cornell/CS 5152/TiledDemo/assets/tileset/demo_elements.tsx": {
+            "scaleInDock": 1
+        },
+        "/Users/kiduszegeye/Desktop/Cornell/CS 5152/cs4152/assets/tileset/demo_elements.tsx": {
+            "scaleInDock": 1
+        },
         "/Users/porridge/Desktop/courses/CS3152/CS-3152-G6/Eudaemon/assets/EudaemonTileset.json": {
             "dynamicWrapping": true,
             "scaleInDock": 1
@@ -26,21 +32,31 @@
             "expandedObjectLayers": [
                 2
             ],
-            "scale": 0.2744,
+            "scale": 0.1237,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 5513.848396501458,
-                "y": 1317.4198250728864
+                "x": 5893.290218270009,
+                "y": 1794.6645109135006
+            }
+        },
+        "tutorialLevel.tmx": {
+            "scale": 0.3012393162393162,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1171.8257908923251,
+                "y": 541.0980280890907
             }
         }
     },
     "last.objectTypesPath": "/Users/porridge/Games/cs4152/assets/tileset/propertytypes.json",
     "openFiles": [
+        "alpharelease.json"
     ],
     "project": "Level1.tiled-project",
     "property.type": "Publication",
     "recentFiles": [
         "alpharelease.json",
+        "tutorialLevel.tmx",
         "/Users/porridge/Desktop/courses/CS3152/CS-3152-G6/Eudaemon/assets/levels/level1.json"
     ]
 }

@@ -25,6 +25,8 @@ bool ExitModel::init(const Vec2 pos, const Size size) {
 	setName(name);
 	setSensor(true);
 	_exitTexture = "";
+    _colorReqs = std::set<std::string>();
+    _colorsCollected = std::set<std::string>();
 	return true;
 }
 

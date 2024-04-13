@@ -309,8 +309,17 @@ void GameScene::preUpdate(float dt) {
             std::cout << "This subscribe message is (from GameScene preUpdate): " << subMessage.pub_id << " " << subMessage.listening_for << "\n";
             if (subMessage.actions.count("win") > 0) {
                 if (subMessage.actions.at("win") == "true") {
-                    CULog("Winner! - from preUpdate. Setting Complete.");
-                    setComplete(true);
+                    // Check if the colors have all been collected, required colors can be found in the exit properties
+                    std::shared_ptr<ExitModel> exit = _level->getExit();
+                    std::string color = _characterControllerA->getColor();
+                    if (exit->getColorsCollected().count(color) == 0){
+                        exit->addColor(color);
+                        std::cout << "Found color " << color << "\n";
+                    }
+                    if (exit->getRemainingColors().size()==0){
+                        CULog("Winner! - from preUpdate. Setting Complete.");
+                        setComplete(true);
+                    }
                 }
             }
             if (subMessage.actions.count("fire") > 0) {
