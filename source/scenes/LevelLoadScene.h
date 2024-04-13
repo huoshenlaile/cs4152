@@ -2,11 +2,13 @@
 #define __LEVEL_LOAD_SCENE_H__
 
 #include <cugl/cugl.h>
-
+#include "helpers/LevelLoader2.h"
 class LevelLoadScene : public cugl::Scene2 {
 protected:
     /** The asset manager for loading. */
     std::shared_ptr<cugl::AssetManager> _assets;
+
+    bool _constructWorld();
 
 public:
     void dispose() override;
@@ -17,14 +19,15 @@ public:
 
     bool init(const std::shared_ptr<cugl::AssetManager>& assets);
 
-    bool loadFile(const std::string& file);
+    bool loadFileAsync(const std::string& file, const std::string& key);
 
-    enum LevelLoadState {
+
+    enum LevelLoadSceneState {
         LOADING,
         DONE
     };
 
-    LevelLoadState _state;
+    LevelLoadSceneState _state;
     
 };
 

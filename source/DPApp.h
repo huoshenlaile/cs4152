@@ -30,7 +30,7 @@
 //#include "scenes/HostScene.h"
 
 #include "helpers/LevelConstants.h"
-#include "helpers/LevelLoader.h"
+#include "helpers/LevelLoader2.h"
 using namespace cugl::physics2::net;
 
 /**
@@ -43,6 +43,7 @@ class DPApp : public cugl::Application {
 		//    HOST,
 		//    CLIENT,
 		LEVELSELECT,
+		LEVELLOAD,
 		GAME,
 		SETTING,
 		RESTORE,
@@ -55,6 +56,7 @@ protected:
 	/** The global asset manager */
 	std::shared_ptr<cugl::AssetManager> _assets;
 
+	std::shared_ptr<cugl::AssetManager> _assets2; // the assets dedicated for game scene, currently is still the global asset manager
 	std::shared_ptr<NetEventController> _network;
 
 	std::shared_ptr<InputController> _input;
@@ -121,6 +123,8 @@ public:
 	void updateLoad(float timestep);
 
 	void updateLevelSelect(float timestep);
+
+	void updateLevelLoad(float timestep);
 
 	void updateSetting(float timestep);
 

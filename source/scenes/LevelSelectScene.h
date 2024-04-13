@@ -66,6 +66,19 @@ public:
      */
     void dispose() override;
     
+
+    // string of selected level name, initialized to "" (empty string)
+    std::string selectedLevelFile = "json/alpharelease.json";
+    std::string selectedLevelKey = "alpharelease";
+
+    string getSelectedLevelFile() {
+        return selectedLevelFile;
+    }
+
+    string getSelectedLevelKey() {
+        return selectedLevelKey;
+    }
+
     /**
      * Initializes the controller contents, and starts the game
      *

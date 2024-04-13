@@ -30,7 +30,7 @@ void DPApp::onStartup() {
   _assets->attach<scene2::SceneNode>(Scene2Loader::alloc()->getHook());
   _assets->attach<JsonValue>(JsonLoader::alloc()->getHook());
   _assets->attach<WidgetValue>(WidgetLoader::alloc()->getHook());
-  _assets->attach<LevelLoader>(GenericLoader<LevelLoader>::alloc()->getHook());
+  _assets->attach<LevelLoader2>(GenericLoader<LevelLoader2>::alloc()->getHook());
 
   _loadScene.init(_assets);
   _status = LOAD;
@@ -39,16 +39,21 @@ void DPApp::onStartup() {
   // Que up the other assets
   AudioEngine::start(24);
   _assets->loadDirectoryAsync("json/assets.json", nullptr);
-  _assets->loadAsync<LevelLoader>(ALPHA_RELEASE_KEY, ALPHA_RELEASE_FILE,
-                                  [](const std::string key, bool success) {
-                                      if (success) {
-                                          // Handle successful loading
-                                          std::cout << "Successfully loaded resource with key: " << key << std::endl;
-                                      } else {
-                                          // Handle failure
-                                          std::cout << "Failed to load resource with key: " << key << std::endl;
-                                      }
-                                  });
+
+  _assets2 = _assets; // the assets dedicated for game scene, currently is still the global asset manager
+
+
+  _levelLoadScene.init(_assets2);
+  // _assets->loadAsync<LevelLoader>(ALPHA_RELEASE_KEY, ALPHA_RELEASE_FILE,
+  //                                 [](const std::string key, bool success) {
+  //                                     if (success) {
+  //                                         // Handle successful loading
+  //                                         std::cout << "Successfully loaded resource with key: " << key << std::endl;
+  //                                     } else {
+  //                                         // Handle failure
+  //                                         std::cout << "Failed to load resource with key: " << key << std::endl;
+  //                                     }
+  //                                 });
 
   cugl::net::NetworkLayer::start(net::NetworkLayer::Log::INFO);
   setDeterministic(true);
@@ -132,6 +137,8 @@ void DPApp::preUpdate(float timestep) {
     updateSetting(timestep);
   } else if (_status == LEVELSELECT) {
     updateLevelSelect(timestep);
+  } else if (_status == LEVELLOAD) {
+    updateLevelLoad(timestep);
   } else if (_status == RESTORE) {
     updateRestoration(timestep);
   } else if (_status == GAME) {
@@ -306,15 +313,23 @@ void DPApp::updateLevelSelect(float timestep) {
       break;
     case LevelSelectScene::STARTGAME:
       _levelSelectScene.setActive(false);
-      _gameScene.init(_assets, _network, true);
-      _gameScene.setActive(true);
-      _status = GAME;
+      // _gameScene.init(_assets, _network, true);
+      // _gameScene.setActive(true);
+      std::string levelFile = _levelSelectScene.getSelectedLevelFile();
+      std::string levelKey = _levelSelectScene.getSelectedLevelKey();
+      _levelLoadScene.loadFileAsync(levelFile, levelKey);
+      _status = LEVELLOAD;
       break;
     case LevelSelectScene::INSCENE:
       // Do nothing
       break;
     }
 }
+
+void DPApp::updateLevelLoad(float timestep){
+
+}
+
 
 void DPApp::updateRestoration(float timestep) {
   _restorationScene.update(timestep);
