@@ -240,7 +240,7 @@ void InteractionController::beginContact(b2Contact* contact) {
             publishMessage(pub);
             // do you even KNOW what you are doing with Object c(std::move(a))? You are saying: Dear constructor, do whatever you want with 'a' in order to initialize 'c'; I don't care about a anymore. Feel free to have your way with 'a'.
             // check: https://stackoverflow.com/questions/3106110/what-is-move-semantics
-            std::cout << "Published (begin contact): " << pub.pub_id << ": " << pub.message << "\n";
+          //  std::cout << "Published (begin contact): " << pub.pub_id << ": " << pub.message << "\n";
         }
     }
 }

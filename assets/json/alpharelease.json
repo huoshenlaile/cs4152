@@ -1072,7 +1072,7 @@
                  "y":584.392187110656
                 }, 
                 {
-                 "height":0,
+                 "height":127,
                  "id":56,
                  "name":"exit_sensor",
                  "polygon":[
@@ -1110,7 +1110,7 @@
                          "type":"class",
                          "value":
                             {
-                             "Actions":"",
+                             "Actions":{"win":true},
                              "Listening_for":"contacted",
                              "Pub_id":"exit_sensor",
                              "Sub_id":"exit_sensor"
@@ -1123,6 +1123,7 @@
                             {
                              "obstacle":
                                 {
+                                 "color_requirements": [],
                                  "bodytype":0,
                                  "damping":0,
                                  "debugcolor":"yellow",
@@ -1145,7 +1146,7 @@
                                         {
                                          "actions":
                                             {
-                                             "win":"exit"
+                                             "win":"true"
                                             },
                                          "listening_for":"contacted",
                                          "pub_id":"exit_sensor",
@@ -1156,9 +1157,9 @@
                             }
                         }],
                  "rotation":0,
-                 "type":"sensor",
+                 "type":"exit",
                  "visible":true,
-                 "width":0,
+                 "width":324,
                  "x":7234.17524165887,
                  "y":1453.07140629872
                 }, 
