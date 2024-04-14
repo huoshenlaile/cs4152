@@ -116,6 +116,8 @@ protected:
 	std::shared_ptr<scene2::PolygonNode> _LHNode;
 	std::shared_ptr<scene2::PolygonNode> _RHNode;
 
+	// character self defined functions
+	std::map<std::string, std::function<PublishedMessage(ActionParams)>> funcs;
 public:
 	CharacterController(void);
 	virtual ~CharacterController(void);
@@ -198,6 +200,9 @@ public:
         return hands;
     }
 
+	std::shared_ptr<cugl::physics2::Obstacle> getLHObstacle() { return _obstacles[PART_LH]; }
+	std::shared_ptr<cugl::physics2::Obstacle> getRHObstacle() { return _obstacles[PART_RH]; }
+	std::shared_ptr<cugl::physics2::Obstacle> getBodyObstacle() { return _obstacles[PART_BODY]; }
 	/**
 	 * Sets the scene graph node representing this Ragdoll.
 	 *
@@ -225,6 +230,10 @@ public:
 	std::shared_ptr<scene2::SpriteNode> getTextureForPart(int partId, const std::string &color);
 
 	std::shared_ptr<scene2::PolygonNode> getTextureForHand(int partId, const std::string &color);
+
+#pragma mark -
+
+	const std::map<std::string, std::function<PublishedMessage(ActionParams)>>& getActions() { return funcs; }
 };
 
 #endif /* CharacterController_h */

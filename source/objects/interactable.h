@@ -81,7 +81,11 @@ protected:
     Vec2 getObjectPos(const std::shared_ptr<JsonValue>& json);
 public:
 
-    cugl::physics2::Obstacle* getObstacleRawPtr() {
+    virtual std::shared_ptr<cugl::physics2::Obstacle> getObstacle() {
+        return _selfObstacle;
+    }
+
+    virtual cugl::physics2::Obstacle* getObstacleRawPtr() {
         return _selfObstacle.get();
     }
 
@@ -104,7 +108,7 @@ public:
     bool hasOnPostSolve() { return OnPostSolveEnabled; }
 
     std::string getName() { return _name; }
-    std::map<std::string, std::function<PublishedMessage(ActionParams)>> getActions() { return actions; }
+    const std::map<std::string, std::function<PublishedMessage(ActionParams)>>& getActions() { return actions; }
 
     virtual bool bindAssets(const std::shared_ptr<cugl::AssetManager>& assets);
     virtual bool linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleWorld> &physicsWorld, const std::shared_ptr<cugl::scene2::SceneNode> &sceneNode, float scale);

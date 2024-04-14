@@ -1105,7 +1105,7 @@
                          "value":
                             {
                              "Enabled":true,
-                             "Head":"Level Complete",
+                             "Head":"LevelComplete",
                              "Trigger":"TOUCH: character body"
                             }
                         }, 
@@ -1217,7 +1217,7 @@
                             {
                              "Body":"orange",
                              "Enabled":true,
-                             "Head":"Change character color",
+                             "Head":"character color",
                              "Trigger":"TOUCH: character body"
                             }
                         }, 
@@ -1311,7 +1311,7 @@
                             {
                              "Body":"red",
                              "Enabled":true,
-                             "Head":"Change character color",
+                             "Head":"character color",
                              "Trigger":"TOUCH: character body"
                             }
                         }, 

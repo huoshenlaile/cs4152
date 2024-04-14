@@ -39,15 +39,37 @@ protected:
     std::shared_ptr<cugl::physics2::ObstacleWorld> _world;
     std::shared_ptr<cugl::scene2::SceneNode> _worldnode;
     
-    physics2::Obstacle* characterLH;
-    physics2::Obstacle* characterRH;
-    physics2::Obstacle* characterBODY;
+    physics2::Obstacle* characterLHRawPtr;
+    physics2::Obstacle* characterRHRawPtr;
+    physics2::Obstacle* characterBODYRawPtr;
+    std::shared_ptr<cugl::physics2::Obstacle> characterLH;
+    std::shared_ptr<cugl::physics2::Obstacle> characterRH;
+    std::shared_ptr<cugl::physics2::Obstacle> characterBODY;
+
+    // map from raw obstacle pointer to interactable
+    std::unordered_map<cugl::physics2::Obstacle*, std::shared_ptr<Interactable>> _obstacleToInteractable;
+
 
     // message queue
     std::queue<PublishedMessage> _messageQueue;
 
     bool _levelComplete = false;
-
+    void runMessageQueue();
+    bool isCharacterObs(cugl::physics2::Obstacle* obs) {
+        return obs == characterLHRawPtr || obs == characterRHRawPtr || obs == characterBODYRawPtr;
+    }
+    std::shared_ptr<cugl::physics2::Obstacle> characterRawPtrToObstacle(physics2::Obstacle* rawPtr) {
+        if (rawPtr == characterLHRawPtr) {
+            return characterLH;
+        }
+        else if (rawPtr == characterRHRawPtr) {
+            return characterRH;
+        }
+        else if (rawPtr == characterBODYRawPtr) {
+            return characterBODY;
+        }
+        return nullptr;
+    }
 public:
     InteractionController2() {}
     ~InteractionController2() {
