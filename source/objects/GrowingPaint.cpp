@@ -12,8 +12,13 @@ bool GrowingPaint::init(const std::shared_ptr<cugl::JsonValue>& json, Vec2 scale
             auto p = properties->get(i)->get("value");
             pub_message_head = p->getString("Head");
             color = p->getString("Body");
+        }else if(properties->get(i)->getString("name") == "AnimationAsset"){
+            auto p = properties->get(i)->get("value")->asString();
+            _textureName = p;
+
         }
     }
+        
     activated = true;
     _selfObstacle->setSensor(true);
     OnBeginContactEnabled = true;
@@ -21,6 +26,7 @@ bool GrowingPaint::init(const std::shared_ptr<cugl::JsonValue>& json, Vec2 scale
     is_out = false;
     
     _actions = scene2::ActionManager::alloc();
+    //TODO: May change per animation, if it does then parameterize in tiled
     _animate = scene2::Animate::alloc(0, 7, 1.0f, 1);
     
     return true;
@@ -34,7 +40,7 @@ bool GrowingPaint::linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleWor
     _selfTexture->setPosition(_selfObstacle->getPosition() * scale);
     // add message
     
-    _animation = scene2::SpriteNode::allocWithSheet(_assets->get<Texture>("red_paint"), 3, 3, 8);
+    _animation = scene2::SpriteNode::allocWithSheet(_assets->get<Texture>(_textureName), 3, 3, 8);
     _animation->setScale(2.5f);
     _animation->setPosition(_selfObstacle->getPosition() * scale);
 
@@ -59,6 +65,8 @@ PublishedMessage GrowingPaint::onBeginContact(std::shared_ptr<cugl::physics2::Ob
             if (other->getName() == "body192"){
                 auto a = PublishedMessage();
                 a.Head = pub_message_head;
+                a.Body = color;
+                std::cout << "=======Published a message being like: " << a.Head << " " << a.Body << std::endl;
                 return a;
             }
         }

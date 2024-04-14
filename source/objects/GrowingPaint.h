@@ -12,8 +12,10 @@ protected:
     bool is_out = false;
     
     std::shared_ptr<scene2::SpriteNode> _animation;
+    std::string _textureName;
     std::shared_ptr<cugl::scene2::ActionManager> _actions;
     std::shared_ptr<cugl::scene2::Animate> _animate;
+    
 public:
     GrowingPaint(void) : Interactable() {}
     ~GrowingPaint() {

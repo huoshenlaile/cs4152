@@ -1210,6 +1210,11 @@
                         }],
                  "properties":[
                         {
+                         "name":"AnimationAsset",
+                         "type":"string",
+                         "value":"red_paint"
+                        }, 
+                        {
                          "name":"Pub1",
                          "propertytype":"PubMessage",
                          "type":"class",
@@ -1304,12 +1309,17 @@
                         }],
                  "properties":[
                         {
+                         "name":"AnimationAsset",
+                         "type":"string",
+                         "value":"red_paint"
+                        }, 
+                        {
                          "name":"Pub1",
                          "propertytype":"PubMessage",
                          "type":"class",
                          "value":
                             {
-                             "Body":"red",
+                             "Body":"purple",
                              "Enabled":true,
                              "Head":"character color",
                              "Trigger":"TOUCH: character body"
