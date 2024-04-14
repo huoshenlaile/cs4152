@@ -13,17 +13,23 @@ class LevelSelectScene : public cugl::Scene2 {
 protected:
     /** The asset manager for this scene. */
     std::shared_ptr<cugl::AssetManager> _assets;
-    /** The network connection (as made by this scene) */
-//    std::shared_ptr<NetEventController> _network;
 
-    /** The menu button for starting a game */
-    std::shared_ptr<cugl::scene2::Button> _startgame;
-    /** The back button for the menu scene */
+
+
+
+    std::shared_ptr<cugl::scene2::Button> _level1;
+    std::shared_ptr<cugl::scene2::Button> _level2;
+    std::shared_ptr<cugl::scene2::Button> _level3;
+    std::shared_ptr<cugl::scene2::Button> _level4;
+    std::shared_ptr<cugl::scene2::Button> _level5;
+
+
+
+
+
     std::shared_ptr<cugl::scene2::Button> _backout;
-    /** The game id label (for updating) */
-//    std::shared_ptr<cugl::scene2::Label> _gameid;
-    /** The players label (for updating) */
-//    std::shared_ptr<cugl::scene2::Label> _player;
+
+
     
     /** The network configuration */
 //    cugl::net::NetcodeConfig _config;

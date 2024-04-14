@@ -67,15 +67,14 @@ bool Interactable::linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleWor
     _selfTexture->setPosition(_selfObstacle->getPosition() * scale);
     _selfTexture->setVisible(true);
     _scene->addChild(_selfTexture);
-    // if (_selfObstacle->getBodyType() == b2_dynamicBody){
-    //     scene2::SceneNode* weak = _selfTexture.get();
-    //     _selfObstacle->setListener([=](physics2::Obstacle* obs){
-    //         weak->setPosition(obs->getPosition() * scale);
-    //         weak->setAngle(obs->getAngle());
-    //     });
-    // }
-    CULog("linked to world of [%s] texture", _name.c_str());
-    CULog("texture position: %f %f", _selfTexture->getPosition().x, _selfTexture->getPosition().y);
+    if (_selfObstacle->getBodyType() == b2_dynamicBody){
+        scene2::SceneNode* weak = _selfTexture.get();
+        _selfObstacle->setListener([=](physics2::Obstacle* obs){
+            weak->setPosition(obs->getPosition() * scale);
+            weak->setAngle(obs->getAngle());
+        });
+    }
+
     return true;
 }
 

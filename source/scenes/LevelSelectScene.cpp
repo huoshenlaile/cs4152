@@ -64,30 +64,58 @@ bool LevelSelectScene::init(const std::shared_ptr<cugl::AssetManager> &assets) {
         scene->setContentSize(dimen);
         scene->doLayout(); // Repositions the HUD
 
-        _startgame = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_third"));
+        _level1 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_first"));
+        _level2 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_second"));
+        _level3 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_third"));
+        _level4 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_fourth"));
+        _level5 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_fifth"));
+
         _backout = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_menu"));
-    //    _gameid = std::dynamic_pointer_cast<scene2::Label>(_assets->get<scene2::SceneNode>("host_center_game_field_text"));
-    //    _player = std::dynamic_pointer_cast<scene2::Label>(_assets->get<scene2::SceneNode>("host_center_players_field_text"));
-        
+  
         // Program the buttons
         _backout->addListener([this](const std::string& name, bool down) {
             if (down) {
                 this -> state = BACK;
             }
         });
-
-        _startgame->addListener([this](const std::string& name, bool down) {
+        _level1->addListener([this](const std::string& name, bool down) {
             if (down) {
+                CULog("Level 1 selected");
+                // startGame();
+            }
+        });
+
+        _level2->addListener([this](const std::string& name, bool down) {
+            if (down) {
+                CULog("Level 2 selected");
+                // startGame();
+            }
+        });
+
+        _level3->addListener([this](const std::string& name, bool down) {
+            if (down) {
+                CULog("Level 3 selected");
+                selectedLevelFile = "json/alpharelease.json";
+                selectedLevelKey = "alpharelease";
                 startGame();
             }
         });
         
-        // Create the server configuration
-    //    auto json = _assets->get<JsonValue>("server");
-    //    _config.set(json);
-    //    _sendCount = 0;
-    //    _receiveCount = 0;
-    //    _totalPing = 0;
+        _level4->addListener([this](const std::string& name, bool down) {
+            if (down) {
+                CULog("Level 4 selected");
+                // startGame();
+            }
+        });
+
+        _level5->addListener([this](const std::string& name, bool down) {
+            if (down) {
+                CULog("Level 5 selected");
+                // startGame();
+            }
+        });
+
+
         addChild(scene);
         setActive(false);
         return true;
@@ -121,19 +149,27 @@ void LevelSelectScene::setActive(bool value) {
     if (isActive() != value) {
         Scene2::setActive(value);
         if (value) {
+            _level1->activate();
+            _level2->activate();
+            _level3->activate();
+            _level4->activate();
+            _level5->activate();
             _backout->activate();
-            _startgame->activate();
-//            updateText(_startgame, "Start Game");
-//            _network->disconnect();
-//            _network->connectAsHost();
+
             state = INSCENE;
         } else {
-//            _gameid->setText("");
-            _startgame->deactivate();
-//            updateText(_startgame, "INACTIVE");
+            _level1->deactivate();
+            _level2->deactivate();
+            _level3->deactivate();
+            _level4->deactivate();
+            _level5->deactivate();
             _backout->deactivate();
-            // If any were pressed, reset them
-            _startgame->setDown(false);
+
+            _level1->setDown(false);
+            _level2->setDown(false);
+            _level3->setDown(false);
+            _level4->setDown(false);
+            _level5->setDown(false);
             _backout->setDown(false);
         }
     }
