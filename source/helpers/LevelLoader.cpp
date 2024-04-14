@@ -253,6 +253,7 @@ bool LevelLoader::loadPaint(const std::shared_ptr<JsonValue>& json){
             if(prop->get("name")->asString() == "color"){
                 paintobj->setColor(prop->get("value")->asString());
             } else if(prop->get("name")->asString() == "instant" && prop->get("value")->asBool() == true){
+                std::cout<< "paint is instant" << std::endl;
                 paintobj->trigger();
             } else if(prop->get("name")->toString() == "paint_id"){
                 paintobj->paint_id = prop->get("value")->asInt();
@@ -470,9 +471,10 @@ void LevelLoader::setRootNode(const std::shared_ptr<scene2::SceneNode>& node){
         std::shared_ptr<PaintModel> paint = *it;
         std::shared_ptr<scene2::PolygonNode> sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(paint->getTextures()), paint->getPaintFrames());
         sprite->setScale(_scale);
-        
         sprite->setPosition(paint->getLocations()*_scale);
-        sprite->setVisible(true);
+        if(!paint->active){
+            sprite->setVisible(false);
+        }
         paint->setNode(sprite);
         //addObstacle(paint,sprite); // Put this at the very back
         _worldnode->addChild(sprite);

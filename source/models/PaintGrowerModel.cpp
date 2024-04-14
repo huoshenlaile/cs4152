@@ -16,7 +16,7 @@ bool PaintModel::init(cugl::Poly2 paintFrames, Vec2 locations){
     _paintFrames = paintFrames;
     _currentFrame = 0;
     timer = 1000;
-    active = true;
+    active = false;
     //color = Color4::RED;
     
     std::vector<std::string> splotches{"splotch3"};

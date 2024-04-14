@@ -528,7 +528,9 @@
                          "type":"class",
                          "value":
                             {
-                             "Actions":"",
+                             "Actions":{
+                                 "fire":"0"
+                                },
                              "Listening_for":"contacted",
                              "Pub_id":"sensor1",
                              "Sub_id":"bottle1"
@@ -1224,12 +1226,24 @@
                         {
                          "name":"instant",
                          "type":"bool",
-                         "value":true
-                        }, 
+                         "value":false
+                        },
                         {
                          "name":"paint_id",
                          "type":"int",
                          "value":0
+                        }, 
+                        {
+                         "name":"subscriptions",
+                         "propertytype":"Subscription",
+                         "type":"class",
+                         "value":
+                            {
+                             "Actions":"fire",
+                             "Listening_for":"fire",
+                             "Pub_id":"sensor1",
+                             "Sub_id":"paint1"
+                            }
                         }],
                  "rotation":0,
                  "type":"paint",
