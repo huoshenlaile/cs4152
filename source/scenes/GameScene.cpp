@@ -15,10 +15,9 @@ using namespace cugl::physics2::net;
  * This constructor does not allocate any objects or start the controller.
  * This allows us to use a controller without a heap pointer.
  */
-GameScene::GameScene()
-	: cugl::Scene2(), _complete(false) {}
+GameScene::GameScene() : cugl::Scene2(), _complete(false) {}
 
-bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets, std::string levelName) {
+bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, std::string levelName) {
     Size dimen = computeActiveSize();
     if (assets == nullptr) {
         return false;
@@ -36,16 +35,14 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets, std::str
     _complete = false;
     _scale = dimen.width == SCENE_WIDTH ? dimen.width / rect.size.width : dimen.height / rect.size.height;
 
-
-
 #pragma mark fetch from level loader
     _level = _assets->get<LevelLoader2>(levelName);
     _platformWorld = _level->getWorld();
-    
+
     _worldnode = _level->getWorldNode();
     addChild(_worldnode);
     _character = _level->getCharacter();
-    
+
 #pragma mark Construct UI elements
     constructSceneNodes(dimen);
 
@@ -56,10 +53,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets, std::str
 #pragma mark Construct Input Controller
     _inputController = std::make_shared<InputController>();
     _inputController->init(rect);
-    _inputController->fillHand(_character->getLeftHandPosition(),
-                               _character->getRightHandPosition(),
-                               _character->getLHPos(),
-                               _character->getRHPos());
+    _inputController->fillHand(_character->getLeftHandPosition(), _character->getRightHandPosition(), _character->getLHPos(), _character->getRHPos());
 
 #pragma mark Construct Camera Controller
     _camera.init(_character->getBodySceneNode(), _worldnode, 10.0f, std::dynamic_pointer_cast<OrthographicCamera>(getCamera()), _uinode, 5.0f);
@@ -85,18 +79,15 @@ void GameScene::dispose(){
 }
 
 void GameScene::setActive(bool value) {
-    if (isActive() != value){
+    if (isActive() != value) {
         Scene2::setActive(value);
         if (value) {
             _worldnode->setVisible(true);
             _pauseButton->activate();
             _gamePaused = false;
 
-            _inputController->fillHand(_character->getLeftHandPosition(),
-                                       _character->getRightHandPosition(),
-                                       _character->getLHPos(),
-                                       _character->getRHPos());
-        }else{
+            _inputController->fillHand(_character->getLeftHandPosition(), _character->getRightHandPosition(), _character->getLHPos(), _character->getRHPos());
+        } else {
             _pauseButton->deactivate();
             _pauseButton->setDown(false);
         }
@@ -108,6 +99,7 @@ void GameScene::reset(){
     GameScene::dispose();
 }
 
+#pragma mark preUpdate
 void GameScene::preUpdate(float dt){
     if (_level == nullptr) return;
 
@@ -119,8 +111,8 @@ void GameScene::preUpdate(float dt){
     }
     _inputController->process();
 
-    _character->moveLeftHand(INPUT_SCALER * _inputController->getLeftHandMovement());
-    _character->moveRightHand(INPUT_SCALER * _inputController->getrightHandMovement());
+    _character->moveLeftHand(INPUT_SCALER * _inputController->getLeftHandMovement(), _interactionController -> leftHandReverse);
+    _character->moveRightHand(INPUT_SCALER * _inputController->getrightHandMovement(), _interactionController -> rightHandReverse);
     _inputController->fillHand(_character->getLeftHandPosition(),
                                 _character->getRightHandPosition(),
                                 _character->getLHPos(),
@@ -130,17 +122,29 @@ void GameScene::preUpdate(float dt){
     _camera.update(dt);
 
     // update interaction controller
+    _interactionController -> updateHandsHeldInfo(_inputController -> isLHAssigned(), _inputController -> isRHAssigned());
     _interactionController->preUpdate(dt);
+
+    if (!isCharacterInMap()) {
+        // CULog("Character out!");
+        reset();
+    }
+
+    _interactionController -> ungrabIfNecessary();
+    _interactionController -> grabCDIfNecessary(dt);
 }
 
-void GameScene::fixedUpdate(float dt){
-    if (_level == nullptr) return;
+void GameScene::fixedUpdate(float dt) {
+    if (_level == nullptr)
+        return;
     _platformWorld->update(dt);
 }
 
-void GameScene::postUpdate(float dt){
-    if (_level == nullptr) return;
+void GameScene::postUpdate(float dt) {
+    if (_level == nullptr)
+        return;
     _interactionController->postUpdate(dt);
+    _interactionController -> connectGrabJoint();
     if (_interactionController->isLevelComplete()) {
         _complete = true;
         _levelComplete->setVisible(true);
@@ -148,7 +152,7 @@ void GameScene::postUpdate(float dt){
 }
 
 
-// ================================= private helper functions =================================
+#pragma mark Helper Functions
 void GameScene::constructSceneNodes(const Size &dimen){
     Vec2 offset{ (dimen.width - SCENE_WIDTH) / 2.0f,(dimen.height - SCENE_HEIGHT) / 2.0f };
     // _worldnode = scene2::SceneNode::alloc();
@@ -161,8 +165,8 @@ void GameScene::constructSceneNodes(const Size &dimen){
 
     // pause button
     _pauseButton = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("pausebutton"));
-    _pauseButton -> removeFromParent();
-    _pauseButton->addListener([this](const std::string& name, bool down) {
+    _pauseButton->removeFromParent();
+    _pauseButton->addListener([this](const std::string &name, bool down) {
         if (down) {
             _gamePaused = true;
         }
@@ -171,16 +175,15 @@ void GameScene::constructSceneNodes(const Size &dimen){
 
     // level complete scene
     _levelComplete = _assets->get<scene2::SceneNode>("levelcomplete");
-    _levelComplete -> removeFromParent();
-    _levelComplete -> doLayout();
-    _levelComplete -> setContentSize(dimen);
-    _levelComplete -> setVisible(false);
-    _uinode -> addChild(_levelComplete);
+    _levelComplete->removeFromParent();
+    _levelComplete->doLayout();
+    _levelComplete->setContentSize(dimen);
+    _levelComplete->setVisible(false);
+    _uinode->addChild(_levelComplete);
 
     //deleted level complete related UI
     addChild(_uinode);
 }
-
 
 Size GameScene::computeActiveSize() const {
     Size dimen = Application::get()->getDisplaySize();
@@ -188,9 +191,14 @@ Size GameScene::computeActiveSize() const {
     float ratio2 = ((float)SCENE_WIDTH) / ((float)SCENE_HEIGHT);
     if (ratio1 < ratio2) {
         dimen *= SCENE_WIDTH / dimen.width;
-    }
-    else {
+    } else {
         dimen *= SCENE_HEIGHT / dimen.height;
     }
     return dimen;
+}
+
+bool GameScene::isCharacterInMap() {
+    Vec2 pos = _character->getBodySceneNode()->getWorldPosition();
+    // CULog("current body pos: %f, %f", pos.x, pos.y);
+    return pos.x >= 0 && pos.x <= _worldnode->getSize().width && pos.y >= 0 && pos.y <= _worldnode->getSize().height;
 }

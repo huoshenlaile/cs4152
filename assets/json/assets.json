@@ -229,6 +229,9 @@
         },
         "button_pause": {
             "file": "textures/button_pause.png"
+        },
+        "red_paint": {
+            "file": "textures/red_paint_141x144.png"
         }
     },
     "jsons": {

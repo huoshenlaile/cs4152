@@ -36,7 +36,12 @@ bool Interactable::init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect
     _selfObstacle->setAnchor(0.5f, 0.5f);
     _selfObstacle->setAngle((360.0f - json->getFloat("rotation")) * M_PI / 180.0f);
 
-    
+    for (auto prop : properties -> children()) {
+        if (prop -> getString("name") == "Grab") {
+            std::cout << "Yeah!" << std::endl;
+            this -> canBeGrabbed = prop -> getBool("value");
+        }
+    }
 
     _texture_name = physicalProperties->get("obstacle")->getString(TEXTURE_FIELD);
     return success;
@@ -84,19 +89,19 @@ PublishedMessage Interactable::timeUpdate(float timestep){
     return PublishedMessage();
 }
 
-PublishedMessage Interactable::onBeginContact(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact, std::shared_ptr<Interactable> otherInteractable, bool isCharacter){
+PublishedMessage Interactable::onBeginContact(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact, std::shared_ptr<Interactable> otherInteractable, bool isCharacter, std::shared_ptr<CharacterController> character){
     return PublishedMessage();
 }
 
-PublishedMessage Interactable::onEndContact(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact, std::shared_ptr<Interactable> otherInteractable, bool isCharacter){
+PublishedMessage Interactable::onEndContact(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact, std::shared_ptr<Interactable> otherInteractable, bool isCharacter, std::shared_ptr<CharacterController> character){
     return PublishedMessage();
 }
 
-PublishedMessage Interactable::onPreSolve(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact, const b2Manifold* oldManifold, std::shared_ptr<Interactable> otherInteractable, bool isCharacter){
+PublishedMessage Interactable::onPreSolve(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact, const b2Manifold* oldManifold, std::shared_ptr<Interactable> otherInteractable, bool isCharacter, std::shared_ptr<CharacterController> character){
     return PublishedMessage();
 }
 
-PublishedMessage Interactable::onPostSolve(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact, const b2ContactImpulse* impulse, std::shared_ptr<Interactable> otherInteractable, bool isCharacter){
+PublishedMessage Interactable::onPostSolve(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact, const b2ContactImpulse* impulse, std::shared_ptr<Interactable> otherInteractable, bool isCharacter, std::shared_ptr<CharacterController> character){
     return PublishedMessage();
 }
 

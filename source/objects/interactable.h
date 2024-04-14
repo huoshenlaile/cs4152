@@ -14,28 +14,8 @@
 #include <sstream>
 #include "../helpers/GameSceneConstants.h"
 #include "../helpers/LevelConstants.h"
-// TODO placeholder for unified arguments struct
-struct ActionParams {
-    bool enable;
-    int int1;
-    int int2;
-    float float1;
-    float float2;
-    int id;
-    std::string Head;
-    std::string Body;
-};
-
-struct PublishedMessage {
-    bool enable;
-    int int1;
-    int int2;
-    float float1;
-    float float2;
-    int id;
-    std::string Head;
-    std::string Body;
-};
+#include "../controllers/CharacterController.h"
+#include "message.h"
 
 using namespace cugl;
 
@@ -46,6 +26,7 @@ protected:
     bool OnEndContactEnabled = false;
     bool OnPreSolveEnabled = false;
     bool OnPostSolveEnabled = false;
+    bool canBeGrabbed = false;
 
     Rect _bounds;
     Vec2 _scale = Vec2(32, 32);
@@ -83,10 +64,10 @@ public:
 
     // various way of modifying the object or publish message
     virtual PublishedMessage timeUpdate(float timestep);
-    virtual PublishedMessage onBeginContact(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact = nullptr, std::shared_ptr<Interactable> otherInteractable = nullptr, bool isCharacter = false);
-    virtual PublishedMessage onEndContact(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact = nullptr, std::shared_ptr<Interactable> otherInteractable = nullptr, bool isCharacter = false);
-    virtual PublishedMessage onPreSolve(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact = nullptr, const b2Manifold* oldManifold = nullptr, std::shared_ptr<Interactable> otherInteractable = nullptr, bool isCharacter = false);
-    virtual PublishedMessage onPostSolve(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact = nullptr, const b2ContactImpulse* impulse = nullptr, std::shared_ptr<Interactable> otherInteractable = nullptr, bool isCharacter = false);
+    virtual PublishedMessage onBeginContact(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact = nullptr, std::shared_ptr<Interactable> otherInteractable = nullptr, bool isCharacter = false, std::shared_ptr<CharacterController> character = nullptr);
+    virtual PublishedMessage onEndContact(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact = nullptr, std::shared_ptr<Interactable> otherInteractable = nullptr, bool isCharacter = false, std::shared_ptr<CharacterController> character = nullptr);
+    virtual PublishedMessage onPreSolve(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact = nullptr, const b2Manifold* oldManifold = nullptr, std::shared_ptr<Interactable> otherInteractable = nullptr, bool isCharacter = false, std::shared_ptr<CharacterController> character = nullptr);
+    virtual PublishedMessage onPostSolve(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact = nullptr, const b2ContactImpulse* impulse = nullptr, std::shared_ptr<Interactable> otherInteractable = nullptr, bool isCharacter = false, std::shared_ptr<CharacterController> character = nullptr);
 
     bool hasTimeUpdate() { return timeUpdateEnabled; }
     bool hasOnBeginContact() { return OnBeginContactEnabled; }
@@ -132,6 +113,10 @@ public:
     params.Body = message.Body;
     return params;
 }
+    
+    bool isGrabbable() {
+        return this->canBeGrabbed;
+    }
 
 };
 

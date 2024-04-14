@@ -31,6 +31,7 @@
                  "properties":[
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -45,6 +46,20 @@
                                  "restitution":0.1,
                                  "rotation":false,
                                  "texture":"alpharelease_frenchfries"
+                                }
+                            }
+                        }, 
+                        {
+                         "name":"testPub1",
+                         "propertytype":"Publication",
+                         "type":"class",
+                         "value":
+                            {
+                             "condition1":
+                                {
+                                 "Body":"114514",
+                                 "Enabled":true,
+                                 "Head":"1919891"
                                 }
                             }
                         }],
@@ -78,11 +93,6 @@
                         }],
                  "properties":[
                         {
-                         "name":"Grab",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
                          "name":"Publication",
                          "propertytype":"Publication",
                          "type":"class",
@@ -95,6 +105,7 @@
                         }, 
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -161,6 +172,7 @@
                  "properties":[
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -221,6 +233,7 @@
                  "properties":[
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -269,6 +282,7 @@
                  "properties":[
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -409,6 +423,7 @@
                  "properties":[
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -528,22 +543,8 @@
                         }],
                  "properties":[
                         {
-                         "name":"Subscription",
-                         "propertytype":"Subscription",
-                         "type":"class",
-                         "value":
-                            {
-                             "Actions":
-                                {
-
-                                },
-                             "Listening_for":"contacted",
-                             "Pub_id":"sensor1",
-                             "Sub_id":"bottle1"
-                            }
-                        }, 
-                        {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -702,6 +703,7 @@
                  "properties":[
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -915,6 +917,7 @@
                         }, 
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -978,6 +981,7 @@
                         }, 
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -1047,6 +1051,7 @@
                         }, 
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -1116,6 +1121,7 @@
                         }, 
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -1215,11 +1221,6 @@
                         }],
                  "properties":[
                         {
-                         "name":"AnimationAsset",
-                         "type":"string",
-                         "value":"red_paint"
-                        }, 
-                        {
                          "name":"Pub1",
                          "propertytype":"PubMessage",
                          "type":"class",
@@ -1259,6 +1260,7 @@
                         }, 
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -1314,17 +1316,12 @@
                         }],
                  "properties":[
                         {
-                         "name":"AnimationAsset",
-                         "type":"string",
-                         "value":"red_paint"
-                        }, 
-                        {
                          "name":"Pub1",
                          "propertytype":"PubMessage",
                          "type":"class",
                          "value":
                             {
-                             "Body":"purple",
+                             "Body":"red",
                              "Enabled":true,
                              "Head":"character color",
                              "Trigger":"TOUCH: character body"
@@ -1358,6 +1355,7 @@
                         }, 
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
