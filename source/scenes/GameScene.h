@@ -15,6 +15,7 @@
 #include "../models/ButtonModel.h"
 #include "../models/WallModel.h"
 #include "../helpers/LevelLoader.h"
+#include "../helpers/LevelLoader2.h"
 #include "../helpers/LevelConstants.h"
 #include "../controllers/CameraController.h"
 #include "../controllers/PauseEvent.h"
@@ -295,16 +296,7 @@ public:
 	virtual void postUpdate(float timestep);
 	virtual void fixedUpdate(float dt);
 
-	/**
-	 * I DON'T THINK WE ARE USING THIS METHOD.
-	 *
-	 * The method called to update the game mode.
-	 *
-	 * This method contains any gameplay code that is not an OpenGL call.
-	 *
-	 * @param timestep  The amount of time (in seconds) since the last frame
-	 */
-	void update(float timestep) override;
+
 
     
     /**

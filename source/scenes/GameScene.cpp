@@ -65,19 +65,6 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets,
     constructLevel();
 
 #pragma mark Paints (TODO)
-	// TODO: MOVE THIS TO LEVEL LOADER
-	/*Rect rec3(0, 0, 700, 700);
-	Rect rec2(0, 0, 600, 600);
-	Rect rec1(0, 0, 500, 500);
-
-	Vec2 locations1 {180, 50} ;
-	auto pm = PaintModel::alloc(rec3, locations1, _assets, _worldnode, _scale);
-	_paintModels.push_back(pm);
-
-	Vec2 locations2{ 200, 70 };
-	auto pm2 = PaintModel::alloc(rec1, locations2, _assets, _worldnode, _scale);
-	_paintModels.push_back(pm2);*/
-
 
 #pragma mark NetEvents
 	_network->attachEventType<GrabEvent>();
