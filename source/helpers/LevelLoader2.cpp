@@ -64,19 +64,27 @@ bool LevelLoader2::construct(std::shared_ptr<cugl::AssetManager>& _assets){
     _worldnode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
     _worldnode->setPosition(offset);
     _worldnode->setContentSize(Size(SCENE_WIDTH, SCENE_HEIGHT));
+    
     // DONT KNOW WHY... ALL COPIED FROM THE old LEVELLOADER
     float xScale = (_world->getBounds().getMaxX() * _scale.x) / _worldnode->getContentSize().width;
     float yScale = (_world->getBounds().getMaxY() * _scale.y) / _worldnode->getContentSize().height;
     _worldnode->setContentSize(_worldnode->getContentSize().width * xScale, _worldnode->getContentSize().height * yScale);
     _scale.set(_worldnode->getContentSize().width / _bounds.size.width, _worldnode->getContentSize().height / _bounds.size.height);
-
+    
     // create scene node for character and platform, bind them to world node
     _charNode = cugl::scene2::SceneNode::alloc();
     _platformNode = cugl::scene2::SceneNode::alloc();
     _platformNode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
     _platformNode->setPosition(Vec2::ZERO);
-    _worldnode->addChild(_platformNode);
-    _worldnode->addChild(_charNode);
+    _platformNode->setVisible(true);
+    
+
+    // set background
+    auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(_background_name));
+    sprite->setAbsolute(true);
+    sprite->setPosition(-10.0f, 0.0f);
+    sprite->setContentSize(sprite->getContentSize().width*4, sprite->getContentSize().height*4);
+    
 
     CULog("level loader construction scale: %f %f", _scale.x, _scale.y);
     // create character
@@ -91,12 +99,11 @@ bool LevelLoader2::construct(std::shared_ptr<cugl::AssetManager>& _assets){
         inter->linkToWorld(_world, _platformNode, _scale.x);
     }
 
-    // set background
-    auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(_background_name));
-    sprite->setAbsolute(true);
-    sprite->setPosition(-10.0f, 0.0f);
-    sprite->setContentSize(sprite->getContentSize().width*4, sprite->getContentSize().height*4);
     _worldnode->addChild(sprite);
+    _worldnode->addChild(_platformNode);
+    _worldnode->addChild(_charNode);
+
+    
 
     return true;
 }
