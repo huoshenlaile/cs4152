@@ -30,11 +30,6 @@
                         }],
                  "properties":[
                         {
-                         "name":"Grab",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
                          "name":"properties",
                          "type":"class",
                          "value":
@@ -972,6 +967,7 @@
                  "properties":[
                         {
                          "name":"Pub1",
+                         "propertytype":"PubMessage",
                          "type":"class",
                          "value":
                             {
@@ -1040,6 +1036,7 @@
                  "properties":[
                         {
                          "name":"Pub2",
+                         "propertytype":"PubMessage",
                          "type":"class",
                          "value":
                             {
@@ -1108,6 +1105,7 @@
                  "properties":[
                         {
                          "name":"Pub1",
+                         "propertytype":"PubMessage",
                          "type":"class",
                          "value":
                             {
@@ -1217,22 +1215,13 @@
                         }],
                  "properties":[
                         {
-                         "name":"Color",
+                         "name":"AnimationAsset",
                          "type":"string",
-                         "value":"orange"
-                        }, 
-                        {
-                         "name":"Instant",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"Paint_id",
-                         "type":"int",
-                         "value":0
+                         "value":"red_paint"
                         }, 
                         {
                          "name":"Pub1",
+                         "propertytype":"PubMessage",
                          "type":"class",
                          "value":
                             {
@@ -1244,6 +1233,7 @@
                         }, 
                         {
                          "name":"Sub1",
+                         "propertytype":"SubMessage",
                          "type":"class",
                          "value":
                             {
@@ -1251,6 +1241,21 @@
                              "Enabled":true,
                              "Head":"paint1 out"
                             }
+                        }, 
+                        {
+                         "name":"color",
+                         "type":"string",
+                         "value":"orange"
+                        }, 
+                        {
+                         "name":"instant",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"paint_id",
+                         "type":"int",
+                         "value":0
                         }, 
                         {
                          "name":"properties",
@@ -1309,11 +1314,17 @@
                         }],
                  "properties":[
                         {
+                         "name":"AnimationAsset",
+                         "type":"string",
+                         "value":"red_paint"
+                        }, 
+                        {
                          "name":"Pub1",
+                         "propertytype":"PubMessage",
                          "type":"class",
                          "value":
                             {
-                             "Body":"red",
+                             "Body":"purple",
                              "Enabled":true,
                              "Head":"character color",
                              "Trigger":"TOUCH: character body"
@@ -1321,6 +1332,7 @@
                         }, 
                         {
                          "name":"Sub1",
+                         "propertytype":"SubMessage",
                          "type":"class",
                          "value":
                             {

@@ -13,6 +13,7 @@
 #include "../controllers/CharacterController.h"
 
 using namespace cugl;
+#define GRAB_CD 5.0f
 
 class InteractionController2 {
 
@@ -45,6 +46,24 @@ protected:
     std::shared_ptr<cugl::physics2::Obstacle> characterLH;
     std::shared_ptr<cugl::physics2::Obstacle> characterRH;
     std::shared_ptr<cugl::physics2::Obstacle> characterBODY;
+    
+    /**
+     * This vector stores TWO obstacles to create joint in between.
+     * The FIRST element is always the hand. The second element is always the obstacle.
+     * The reason why this is NOT a smart pointer vector is because this vector
+     * will be emptied very frequently. For unknown reason, every time I empty it, it tries to
+     * destroy the smart pointer, hence destroying the obstacle. I don't want that.
+     */
+    std::vector<std::shared_ptr<physics2::Obstacle>> _obstaclesForJoint;
+    std::shared_ptr<physics2::RevoluteJoint> _joint;
+    std::shared_ptr<cugl::physics2::Joint> _leftHandJoint = nullptr;
+    std::shared_ptr<cugl::physics2::Joint> _rightHandJoint = nullptr;
+    bool _leftHandIsGrabbed = false;
+    bool _rightHandIsGrabbed = false;
+    bool _leftHandIsHeld = false;
+    bool _rightHandIsHeld = false;
+    float _LHGrabCD = 0.0f;
+    float _RHGrabCD = 0.0f;
 
     // map from raw obstacle pointer to interactable
     std::unordered_map<cugl::physics2::Obstacle*, std::shared_ptr<Interactable>> _obstacleToInteractable;
@@ -71,6 +90,8 @@ protected:
         return nullptr;
     }
 public:
+    bool leftHandReverse = false;
+    bool rightHandReverse = false;
     InteractionController2() {}
     ~InteractionController2() {
         // set all pointers to nullptr
@@ -104,6 +125,28 @@ public:
         std::shared_ptr<InteractionController2> result = std::make_shared<InteractionController2>();
         return (result->init(level) ? result : nullptr);
     }
+    
+    /**
+     * This function creates a revolute joint between two obstacles in the _obstaclesForJoint_ vector,
+     * one of which - by definition - MUST be player's hand, and the other one MUST be an obstacle.
+     * (Otherwise, undefinited behavior.)
+     * It also turns on the reverse calculation for the corresponding hand.
+     * It clears the vector everytime it creates a joint.
+     */
+    void connectGrabJoint();
+    
+    void updateHandsHeldInfo(bool lh, bool rh) {
+        _leftHandIsHeld = lh;
+        _rightHandIsHeld = rh;
+    }
+    
+    /**
+     * This method removes the joint if the player is not holding the
+     * corresponding hand to control the grabbing hand.
+     */
+    void ungrabIfNecessary();
+    
+    void grabCDIfNecessary(float dt);
 
 };
 

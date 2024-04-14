@@ -1,5 +1,5 @@
 {
-    "activeFile": "",
+    "activeFile": "alpharelease.json",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -26,16 +26,17 @@
             "expandedObjectLayers": [
                 2
             ],
-            "scale": 0.2216,
+            "scale": 0.2948,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 5891.245487364621,
-                "y": 1049.1877256317691
+                "x": 5759.837177747626,
+                "y": 741.1804613297151
             }
         }
     },
-    "last.objectTypesPath": "/Users/porridge/Games/cs4152/assets/propertytypes.json",
+    "last.objectTypesPath": "/Users/porridge/Games/cs4152/assets/json/PubSubCustomTypes.json",
     "openFiles": [
+        "alpharelease.json"
     ],
     "project": "Level1.tiled-project",
     "property.type": "bool",

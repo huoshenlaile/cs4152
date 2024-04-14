@@ -35,7 +35,7 @@ bool InteractionController2::init(std::shared_ptr<LevelLoader2> level) {
         }
     }
     // link raw pointer to interactable
-    for (auto interactable : _interactables) {
+    for (auto interactable : _interactables){
         _obstacleToInteractable[interactable->getObstacleRawPtr()] = interactable;
     }
 
@@ -74,6 +74,51 @@ void InteractionController2::beginContact(b2Contact *contact) {
         return;
     } else if (isCharacterObs(obs1rawPtr) || isCharacterObs(obs2rawPtr)) {
         // TODO: port logic to deal with grab
+        if (obs1rawPtr == characterLHRawPtr || obs1rawPtr == characterRHRawPtr) {
+            // obstacle 1 is the hand, 2 is the platform
+            auto i2 = _obstacleToInteractable.find(obs2rawPtr);
+            if ((i2 == _obstacleToInteractable.end()) || (! i2->second->isGrabbable())) {
+                // not grabbable
+            } else {
+                if (obs1rawPtr == characterLHRawPtr) {
+                    // it is left hand
+                    if (_leftHandIsHeld && _LHGrabCD <= 0) {
+                        CULog("from beginContact: now grabbing LH");
+                        _obstaclesForJoint.push_back(characterLH);
+                        _obstaclesForJoint.push_back(_obstacleToInteractable[obs2rawPtr] -> getObstacle());
+                        _leftHandIsGrabbed = true;
+                    }
+                } else {
+                    if (_rightHandIsHeld && _RHGrabCD <= 0) {
+                        CULog("from beginContact: now grabbing RH");
+                        _obstaclesForJoint.push_back(_obstacleToInteractable[obs2rawPtr] -> getObstacle());
+                        _obstaclesForJoint.push_back(characterRH);
+                        _rightHandIsGrabbed = true;
+                    }
+                }
+            }
+        } else if (obs2rawPtr == characterRHRawPtr || obs2rawPtr == characterLHRawPtr) {
+            if (_obstacleToInteractable.count(obs1rawPtr) <= 0 || !_obstacleToInteractable[obs1rawPtr] -> isGrabbable()) {
+                // not grabbable
+            } else {
+                if (obs2rawPtr == characterLHRawPtr) {
+                    // it is left hand
+                    if (_leftHandIsHeld && _LHGrabCD <= 0) {
+                        CULog("from beginContact: now grabbing LH");
+                        _obstaclesForJoint.push_back(_obstacleToInteractable[obs1rawPtr] -> getObstacle());
+                        _obstaclesForJoint.push_back(characterLH);
+                        _leftHandIsGrabbed = true;
+                    }
+                } else {
+                   if (_rightHandIsHeld && _RHGrabCD <= 0) {
+                        CULog("from beginContact: now grabbing RH");
+                        _obstaclesForJoint.push_back(characterRH);
+                        _obstaclesForJoint.push_back(_obstacleToInteractable[obs1rawPtr] -> getObstacle());
+                        _rightHandIsGrabbed = true;
+                    }
+                }
+            }
+        }
         
 
         // logic to deal with interactable
@@ -281,4 +326,60 @@ void InteractionController2::activateController() {
     _world->beforeSolve = [this](b2Contact *contact, const b2Manifold *oldManifold) { beforeSolve(contact, oldManifold); };
     _world->afterSolve = [this](b2Contact *contact, const b2ContactImpulse *impulse) { afterSolve(contact, impulse); };
     _world->activateCollisionCallbacks(true);
+}
+
+void InteractionController2::connectGrabJoint() {
+    if (!_obstaclesForJoint.empty()) {
+        std::shared_ptr<physics2::Obstacle> obs1 = _obstaclesForJoint.at(0);
+        std::shared_ptr<physics2::Obstacle> obs2 = _obstaclesForJoint.at(1);
+        Vec2 difference = obs2 -> getPosition() - obs1 -> getPosition();
+        _joint = physics2::RevoluteJoint::allocWithObstacles(_obstaclesForJoint.at(0), _obstaclesForJoint.at(1));
+        // Anchor A is the anchor for the Hand.
+        _joint -> setLocalAnchorA(difference);
+        _joint -> setLocalAnchorB(0, 0);
+        _world -> addJoint(_joint);
+        
+        // why are we not judging if it is a lh joint or rh joint according to
+        // _leftHandIsGrabbed and _rHIG? Because those might be already true!
+        float LHDistance = obs1 -> getPosition().distance(_character -> getLeftHandPosition());
+        float RHDistance = obs1 -> getPosition().distance(_character -> getRightHandPosition());
+        if (LHDistance < RHDistance) {
+            std::cout << "Now reversing left hand" << std::endl;
+            this -> leftHandReverse = true;
+            _leftHandJoint = _joint;
+        } else {
+            std::cout << "Now reversing right hand" << std::endl;
+            this -> rightHandReverse = true;
+            _rightHandJoint = _joint;
+        }
+        _obstaclesForJoint.clear();
+    }
+}
+
+void InteractionController2::ungrabIfNecessary() {
+    if (_leftHandIsGrabbed && !_leftHandIsHeld) {
+        std::cout << "Removing LH Joint - from ungrab" << std::endl;
+        _world -> removeJoint(_leftHandJoint);
+        _leftHandJoint = nullptr;
+        _leftHandIsGrabbed = false;
+        leftHandReverse = false;
+        _LHGrabCD = GRAB_CD;
+    }
+    if (_rightHandIsGrabbed && !_rightHandIsHeld) {
+        std::cout << "Removing RH Joint - from ungrab" << std::endl;
+        _world -> removeJoint(_rightHandJoint);
+        _rightHandJoint = nullptr;
+        _rightHandIsGrabbed = false;
+        rightHandReverse = false;
+        _RHGrabCD = GRAB_CD;
+    }
+}
+
+void InteractionController2::grabCDIfNecessary(float dt) {
+    if (!_leftHandIsGrabbed && _LHGrabCD >= 0) {
+        _LHGrabCD -= dt;
+    }
+    if (!_rightHandIsGrabbed && _RHGrabCD >= 0) {
+        _RHGrabCD -= dt;
+    }
 }

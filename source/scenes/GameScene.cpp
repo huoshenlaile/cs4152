@@ -90,9 +90,9 @@ void GameScene::reset() {
     CULog("reset!");
 }
 
-void GameScene::preUpdate(float dt) {
-    if (_level == nullptr)
-        return;
+#pragma mark preUpdate
+void GameScene::preUpdate(float dt){
+    if (_level == nullptr) return;
 
     // process input
     _inputController->update(dt);
@@ -102,20 +102,27 @@ void GameScene::preUpdate(float dt) {
     }
     _inputController->process();
 
-    _character->moveLeftHand(INPUT_SCALER * _inputController->getLeftHandMovement());
-    _character->moveRightHand(INPUT_SCALER * _inputController->getrightHandMovement());
-    _inputController->fillHand(_character->getLeftHandPosition(), _character->getRightHandPosition(), _character->getLHPos(), _character->getRHPos());
+    _character->moveLeftHand(INPUT_SCALER * _inputController->getLeftHandMovement(), _interactionController -> leftHandReverse);
+    _character->moveRightHand(INPUT_SCALER * _inputController->getrightHandMovement(), _interactionController -> rightHandReverse);
+    _inputController->fillHand(_character->getLeftHandPosition(),
+                                _character->getRightHandPosition(),
+                                _character->getLHPos(),
+                                _character->getRHPos());
 
     // update camera
     _camera.update(dt);
 
     // update interaction controller
+    _interactionController -> updateHandsHeldInfo(_inputController -> isLHAssigned(), _inputController -> isRHAssigned());
     _interactionController->preUpdate(dt);
 
     if (!isCharacterInMap()) {
         // CULog("Character out!");
         reset();
     }
+
+    _interactionController -> ungrabIfNecessary();
+    _interactionController -> grabCDIfNecessary(dt);
 }
 
 void GameScene::fixedUpdate(float dt) {
@@ -128,6 +135,7 @@ void GameScene::postUpdate(float dt) {
     if (_level == nullptr)
         return;
     _interactionController->postUpdate(dt);
+    _interactionController -> connectGrabJoint();
     if (_interactionController->isLevelComplete()) {
         _complete = true;
         _levelComplete->setVisible(true);
@@ -136,9 +144,10 @@ void GameScene::postUpdate(float dt) {
     }
 }
 
-// ================================= private helper functions =================================
-void GameScene::constructSceneNodes(const Size &dimen) {
-    Vec2 offset{(dimen.width - SCENE_WIDTH) / 2.0f, (dimen.height - SCENE_HEIGHT) / 2.0f};
+
+#pragma mark Helper Functions
+void GameScene::constructSceneNodes(const Size &dimen){
+    Vec2 offset{ (dimen.width - SCENE_WIDTH) / 2.0f,(dimen.height - SCENE_HEIGHT) / 2.0f };
     // _worldnode = scene2::SceneNode::alloc();
     _worldnode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
     _worldnode->setPosition(offset);

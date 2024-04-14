@@ -267,24 +267,18 @@
             "id": 1,
             "members": [
                 {
-                    "name": "Body",
-                    "type": "string",
-                    "value": ""
+                    "name": "condition1",
+                    "propertyType": "PubMessage",
+                    "type": "class",
+                    "value": {
+                    }
                 },
                 {
-                    "name": "Message",
-                    "type": "string",
-                    "value": ""
-                },
-                {
-                    "name": "Pub_id",
-                    "type": "string",
-                    "value": ""
-                },
-                {
-                    "name": "Trigger",
-                    "type": "string",
-                    "value": ""
+                    "name": "condition2",
+                    "propertyType": "PubMessage",
+                    "type": "class",
+                    "value": {
+                    }
                 }
             ],
             "name": "Publication",
@@ -372,24 +366,18 @@
             "id": 4,
             "members": [
                 {
-                    "name": "Actions",
-                    "type": "string",
-                    "value": ""
+                    "name": "condition1",
+                    "propertyType": "SubMessage",
+                    "type": "class",
+                    "value": {
+                    }
                 },
                 {
-                    "name": "Listening_for",
-                    "type": "string",
-                    "value": ""
-                },
-                {
-                    "name": "Pub_id",
-                    "type": "string",
-                    "value": ""
-                },
-                {
-                    "name": "Sub_id",
-                    "type": "string",
-                    "value": ""
+                    "name": "condition2",
+                    "propertyType": "SubMessage",
+                    "type": "class",
+                    "value": {
+                    }
                 }
             ],
             "name": "Subscription",
@@ -434,6 +422,96 @@
             "type": "class",
             "useAs": [
                 "property"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 19,
+            "members": [
+                {
+                    "name": "Body",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "Enabled",
+                    "type": "bool",
+                    "value": false
+                },
+                {
+                    "name": "Head",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "Id",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "Trigger",
+                    "type": "string",
+                    "value": ""
+                }
+            ],
+            "name": "PubMessage",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 20,
+            "members": [
+                {
+                    "name": "Action",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "Body",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "Enabled",
+                    "type": "bool",
+                    "value": false
+                },
+                {
+                    "name": "Head",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "Id",
+                    "type": "string",
+                    "value": ""
+                }
+            ],
+            "name": "SubMessage",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
             ]
         }
     ]
