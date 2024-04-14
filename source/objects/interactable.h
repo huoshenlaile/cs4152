@@ -37,19 +37,6 @@ struct PublishedMessage {
     std::string Body;
 };
 
-ActionParams ConvertToActionParams(const PublishedMessage& message) {
-    ActionParams params;
-    params.enable = message.enable;
-    params.int1 = message.int1;
-    params.int2 = message.int2;
-    params.float1 = message.float1;
-    params.float2 = message.float2;
-    params.id = message.id;
-    params.Head = message.Head;
-    params.Body = message.Body;
-    return params;
-}
-
 using namespace cugl;
 
 class Interactable {
@@ -131,6 +118,20 @@ public:
         std::shared_ptr<Interactable> result = std::make_shared<Interactable>();
         return (result->init(json, scale, bounds) ? result : nullptr);
     }
+
+    // static converter
+    static ActionParams ConvertToActionParams(const PublishedMessage& message) {
+    ActionParams params;
+    params.enable = message.enable;
+    params.int1 = message.int1;
+    params.int2 = message.int2;
+    params.float1 = message.float1;
+    params.float2 = message.float2;
+    params.id = message.id;
+    params.Head = message.Head;
+    params.Body = message.Body;
+    return params;
+}
 
 };
 

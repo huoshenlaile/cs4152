@@ -169,7 +169,6 @@ void DPApp::preUpdate(float timestep) {
       
 
   } else if (_status == PAUSE) {
-//    _pauseScene.update(timestep);
     switch (_pauseScene.state) {
         case PauseScene::BACK:
               _pauseScene.setActive(false);
@@ -323,7 +322,17 @@ void DPApp::updateLevelSelect(float timestep) {
 }
 
 void DPApp::updateLevelLoad(float timestep){
-
+  switch (_levelLoadScene._state) {
+    case LevelLoadScene::LOADING:
+      _levelLoadScene.update(timestep);
+      break;
+    case LevelLoadScene::DONE:
+      _gameScene.init(_assets2, _levelSelectScene.getSelectedLevelKey());
+      _gameScene.setActive(true);
+      _gameScene.setComplete(false);
+      _status = GAME;
+      break;
+  }
 }
 
 

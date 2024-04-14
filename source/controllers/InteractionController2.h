@@ -93,7 +93,7 @@ public:
     void preUpdate(float timestep);
     void postUpdate(float timestep);
 
-    void isLevelComplete() { return _levelComplete; }
+    bool isLevelComplete() { return _levelComplete; }
 
     // 4 callback functions to add to the world
     void beginContact(b2Contact* contact);

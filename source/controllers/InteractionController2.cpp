@@ -219,8 +219,9 @@ void InteractionController2::afterSolve(b2Contact* contact, const b2ContactImpul
 
 void InteractionController2::runMessageQueue(){
     // for each message in the queue, process it, call it's subscribers
-    while (!_messageQueue.empty){
-        PublishedMessage message = _messageQueue.pop();
+    while (!_messageQueue.empty()){
+        PublishedMessage message = _messageQueue.front();
+        _messageQueue.pop();
         std::string head = message.Head;
         // message to interactable
         auto headToInteractableIt = _HeadToInteractable.find(head);
@@ -229,8 +230,8 @@ void InteractionController2::runMessageQueue(){
                 auto actions = interactable->getActions();
                 auto actionIt = actions.find(head); 
                 if (actionIt != actions.end()) { 
-                    ActionParams params = ConvertToActionParams(message);
-                    PublishedMessage new_message = actionIt->second(params); 
+                    ActionParams params = Interactable::ConvertToActionParams(message);
+                    PublishedMessage new_message = actionIt->second(params);
                     if (new_message.Head != ""){
                         _messageQueue.push(new_message);
                     }
@@ -241,7 +242,7 @@ void InteractionController2::runMessageQueue(){
         auto characterActions = _character->getActions();
         auto characterActionIt = characterActions.find(head);
         if (characterActionIt != characterActions.end()){
-            ActionParams params = ConvertToActionParams(message);
+            ActionParams params = Interactable::ConvertToActionParams(message);
             PublishedMessage new_message = characterActionIt->second(params);
             if (new_message.Head != ""){
                 _messageQueue.push(new_message);

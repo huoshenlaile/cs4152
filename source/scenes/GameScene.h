@@ -9,61 +9,38 @@
 #include <iostream>
 #include <sstream>
 #include "../controllers/InputController.h"
-#include "../controllers/InteractionController.h"
-#include "../controllers/CharacterController.h"
+#include "../controllers/InteractionController2.h"
 #include "../controllers/AudioController.h"
-#include "../models/ButtonModel.h"
-#include "../models/WallModel.h"
-#include "../helpers/LevelLoader.h"
+
 #include "../helpers/LevelLoader2.h"
 #include "../helpers/LevelConstants.h"
 #include "../controllers/CameraController.h"
-#include "../controllers/PauseEvent.h"
 #include "../controllers/InputController.h"
 
 // INCLUDE THIS AT LAST to avoid repeat naming (will trigger bewildering bugs)
 #include "../helpers/GameSceneConstants.h"
-#include "../models/PaintGrowerModel.h"
+
 
 class GameScene : public cugl::Scene2 {
 protected:
 	std::shared_ptr<cugl::AssetManager> _assets;
+	std::string _levelName;
 
-	// CONTROLLERS
-	/** Controller for abstracting out input across multiple platforms */
-	//    InputController _input;
-	/** Controller for handling all kinds of interactions*/
-	std::shared_ptr<InteractionController> _interactionController;
-	/** Network Controller*/
-	std::shared_ptr<NetEventController> _network;
-	/** Character Controller*/
-	std::shared_ptr<CharacterController> _characterControllerA;
-	//	std::shared_ptr<CharacterController> _characterControllerB;
-		/** Audio Controller*/
+	std::shared_ptr<InteractionController2> _interactionController;
+	std::shared_ptr<CharacterController> _character;
 	std::shared_ptr<AudioController> _audioController;
 	std::shared_ptr<InputController> _inputController;
 
-	std::shared_ptr<cugl::physics2::net::NetWorld> _platformWorld;
+	std::shared_ptr<cugl::physics2::ObstacleWorld> _platformWorld;
     
     std::shared_ptr<cugl::scene2::Button> _pauseButton;
 
-	// MODELS
-    std::vector<std::shared_ptr<PaintModel>> _paintModels;
-	std::shared_ptr<ButtonModel> _button;
-
-	// VIEW
-	/** Reference to the goalDoor (for collision detection) */
-	std::shared_ptr<cugl::physics2::BoxObstacle> _goalDoor;
 	/** Reference to the physics root of the scene graph */
-	std::shared_ptr<cugl::scene2::SceneNode> _worldnode;
-	/** Reference to the debug root of the scene graph */
-	std::shared_ptr<cugl::scene2::SceneNode> _debugnode;
-	/** Reference to the win message label */
-	std::shared_ptr<cugl::scene2::Label> _winnode;
-	/** Reference to the ui layer */
-	std::shared_ptr<cugl::scene2::SceneNode> _uinode;
-	/** Reference to the reset message label */
-	std::shared_ptr<cugl::scene2::Label> _loadnode;
+	std::shared_ptr<cugl::scene2::SceneNode> _worldnode; // the root node
+	std::shared_ptr<cugl::scene2::SceneNode> _platformNode; // the platform canvas (from level loader2)
+	std::shared_ptr<cugl::scene2::Label> _winnode; // the win message ( TODO: NOT USED NOW???)
+	std::shared_ptr<cugl::scene2::SceneNode> _uinode; // the UI canvas
+
     /** the level complete scene */
     std::shared_ptr<cugl::scene2::SceneNode> _levelComplete;
     std::shared_ptr<cugl::scene2::Button> _levelCompleteReset;
@@ -72,17 +49,13 @@ protected:
 
 	CameraController _camera;
 
-	std::shared_ptr<LevelLoader> _level;
+	std::shared_ptr<LevelLoader2> _level;
 	/** The scale between the physics world and the screen (MUST BE UNIFORM) */
 	float _scale;
 
-	/** Host is by default the left cannon */
-	bool _isHost;
 
 	/** Whether we have completed this "game" */
 	bool _complete;
-	/** Whether or not debug mode is active */
-	bool _debug;
 
 	bool _gamePaused;
 	/** Relates input id to arm */
@@ -98,6 +71,8 @@ protected:
 	 * ratios
 	 */
 	cugl::Size computeActiveSize() const;
+	// construct UI elements only, game canvas will be loaded from level loader2
+    void constructSceneNodes(const Size &dimen);
 
 public:
     std::vector<std::shared_ptr<cugl::physics2::Joint>> Alljoints;
@@ -112,204 +87,46 @@ public:
 	SceneState state;
 #pragma mark -
 #pragma mark Constructors
-	/**
-	 * Creates a new game world with the default values.
-	 *
-	 * This constructor does not allocate any objects or start the controller.
-	 * This allows us to use a controller without a heap pointer.
-	 */
-	GameScene();
 
-	/**
-	 * Disposes of all (non-static) resources allocated to this mode.
-	 *
-	 * This method is different from dispose() in that it ALSO shuts off any
-	 * static resources, like the input controller.
-	 */
+	GameScene();
 	~GameScene() { dispose(); }
 
-	/**
-	 * Disposes of all (non-static) resources allocated to this mode.
-	 */
 	void dispose() override;
 
-	/**
-	 * Initializes the controller contents, and starts the game
-	 *
-	 * The constructor does not allocate any objects or memory.  This allows
-	 * us to have a non-pointer reference to this controller, reducing our
-	 * memory allocation.  Instead, allocation happens in this method.
-	 *
-	 * The game world is scaled so that the screen coordinates do not agree
-	 * with the Box2d coordinates.  This initializer uses the default scale.
-	 *
-	 * @param assets    The (loaded) assets for this game mode
-	 *
-	 * @return true if the controller is initialized properly, false otherwise.
-	 */
-	bool init(const std::shared_ptr<cugl::AssetManager>& assets,
-		const std::shared_ptr<NetEventController> network, bool isHost);
 
-	/**
-	 * Initializes the controller contents, and starts the game
-	 *
-	 * The constructor does not allocate any objects or memory.  This allows
-	 * us to have a non-pointer reference to this controller, reducing our
-	 * memory allocation.  Instead, allocation happens in this method.
-	 *
-	 * The game world is scaled so that the screen coordinates do not agree
-	 * with the Box2d coordinates.  The bounds are in terms of the Box2d
-	 * world, not the screen.
-	 *
-	 * @param assets    The (loaded) assets for this game mode
-	 * @param rect      The game bounds in Box2d coordinates
-	 *
-	 * @return  true if the controller is initialized properly, false otherwise.
-	 */
-	bool init(const std::shared_ptr<cugl::AssetManager>& assets,
-		const cugl::Rect rect,
-		const std::shared_ptr<NetEventController> network, bool isHost);
+	bool init(const std::shared_ptr<cugl::AssetManager>& assets, std::string levelName);
     
-    void constructLevel();
+
     
-    void constructSceneNodes(const Size &dimen);
-    
-    /**
-	 * Initializes the controller contents, and starts the game
-	 *
-	 * The constructor does not allocate any objects or memory.  This allows
-	 * us to have a non-pointer reference to this controller, reducing our
-	 * memory allocation.  Instead, allocation happens in this method.
-	 *
-	 * The game world is scaled so that the screen coordinates do not agree
-	 * with the Box2d coordinates.  The bounds are in terms of the Box2d
-	 * world, not the screen.
-	 *
-	 * @param assets    The (loaded) assets for this game mode
-	 * @param rect      The game bounds in Box2d coordinates
-	 * @param gravity   The gravitational force on this Box2d world
-	 *
-	 * @return  true if the controller is initialized properly, false otherwise.
-	 */
-	bool init(const std::shared_ptr<cugl::AssetManager>& assets,
-		const cugl::Rect rect, const cugl::Vec2 gravity,
-		const std::shared_ptr<NetEventController> network, bool isHost);
 
 #pragma mark -
 #pragma mark State Access
-	/**
-	 * Returns true if the gameplay controller is currently active
-	 *
-	 * @return true if the gameplay controller is currently active
-	 */
+
 	bool isActive() const { return _active; }
 	virtual void setActive(bool value) override;
 
 	bool isPaused() const { return _gamePaused; }
-	/**
-	 * Returns true if debug mode is active.
-	 *
-	 * If true, all objects will display their physics bodies.
-	 *
-	 * @return true if debug mode is active.
-	 */
-	bool isDebug() const { return _debug; }
 
-	/**
-	 * Sets whether debug mode is active.
-	 *
-	 * If true, all objects will display their physics bodies.
-	 *
-	 * @param value whether debug mode is active.
-	 */
-	void setDebug(bool value) {
-		_debug = value;
-		_debugnode->setVisible(value);
-	}
-
-	/**
-	 * Returns true if the level is completed.
-	 *
-	 * If true, the level will advance after a countdown
-	 *
-	 * @return true if the level is completed.
-	 */
+	
 	bool isComplete() const { return _complete; }
 
-	/**
-	 * Sets whether the level is completed.
-	 *
-	 * If true, the level will advance after a countdown
-	 *
-	 * @param value whether the level is completed.
-	 */
-    void setComplete(bool value);
-#pragma mark Grab Esther
-	/**
-	 * This method takes a grabEvent and processes it.
-	 */
-	void processGrabEvent(const std::shared_ptr<GrabEvent>& event);
-#pragma mark Grab Esther
+	
+    void setComplete(bool value) { _complete = value; }
 
-#pragma mark Pause Esther
-	/**
-	 * This method takes a grabEvent and processes it.
-	 */
-	void processPauseEvent(const std::shared_ptr<PauseEvent>& event);
-#pragma mark Pause Esther
 
-	void processPaintCallbacks(float millis);
-
-	/**
-	 * Handles any modifications necessary before collision resolution
-	 *
-	 * This method is called just before Box2D resolves a collision.  We use
-	 * this method to implement sound on contact, using the algorithms outlined
-	 * in Ian Parberry's "Introduction to Game Physics with Box2D".
-	 *
-	 * @param  contact  The two bodies that collided
-	 * @param  contact  The collision manifold before contact
-	 */
-	void beforeSolve(b2Contact* contact, const b2Manifold* oldManifold);
-
-	/**
-	 * Processes the start of a collision
-	 *
-	 * This method is called when we first get a collision between two objects.
-	 * We use this method to test if it is the "right" kind of collision.  In
-	 * particular, we use it to test if we make it to the win door.
-	 *
-	 * @param  contact  The two bodies that collided
-	 */
-	void beginContact(b2Contact* contact);
-
-	/**
-	 * Activates world collision callbacks on the given physics world and sets the onBeginContact and beforeSolve callbacks
-	 *
-	 * @param world the physics world to activate world collision callbacks on
-	 */
-	void activateWorldCollisions(const std::shared_ptr<physics2::ObstacleWorld>& world);
 #pragma mark -
-#pragma mark Gameplay Handling
 
-	virtual void preUpdate(float timestep);
-	virtual void postUpdate(float timestep);
+	virtual void preUpdate(float dt);
+	virtual void postUpdate(float dt);
 	virtual void fixedUpdate(float dt);
 
 
-
-    
     /**
 	 * Resets the status of the game so that we can play again.
 	 */
 	void reset();
 
-	void addPaintObstacles();
 
-	void cameraReset();
-    
-    void constructCharacterA();
-    void constructInputController(const cugl::Rect &rect);
 };
 
 #endif
