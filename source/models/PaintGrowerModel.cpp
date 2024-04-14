@@ -12,6 +12,9 @@ PaintModel::PaintModel(void) : timer(1000), active(false){
 }
 
 bool PaintModel::init(cugl::Poly2 paintFrames, Vec2 locations){
+    _actions = scene2::ActionManager::alloc();
+    _animate = scene2::Animate::alloc(0, 8, 1.0f, 0);
+
     _locations = locations;
     _paintFrames = paintFrames;
     _currentFrame = 0;
@@ -65,21 +68,14 @@ void PaintModel::setup() {}
 void PaintModel::update(const std::shared_ptr<cugl::scene2::SceneNode>& worldnode, float millis) {
     //std::cout << "PaintMODEL UPDATE CALLED" << std::endl;
     if(active){
+        _actions->activate("other", _animate, _texture);
+        _actions->update(millis);
+
         if(_currentFrame == _paintFrames.size() - 1){ // DONE
             active = false;
             return;
         }
-        
-        if(timer <= 0){
-            CULog("UPDATE!");
-            /*currentNode()->setVisible(false);
-            _currentFrame = (_currentFrame + 1) % _paintFrames.size();
-            currentNode()->setVisible(true);*/
-            timer = 1000;
-        } else {
-            timer -= millis;
-        }
-        
+                
     }
 }
 void PaintModel::draw() {}

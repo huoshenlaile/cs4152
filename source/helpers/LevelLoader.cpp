@@ -469,6 +469,8 @@ void LevelLoader::setRootNode(const std::shared_ptr<scene2::SceneNode>& node){
     }
     for(auto it = _paints.begin(); it != _paints.end(); ++it) {
         std::shared_ptr<PaintModel> paint = *it;
+        
+        
         std::shared_ptr<scene2::PolygonNode> sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(paint->getTextures()), paint->getPaintFrames());
         sprite->setScale(_scale);
         sprite->setPosition(paint->getLocations()*_scale);
@@ -476,8 +478,13 @@ void LevelLoader::setRootNode(const std::shared_ptr<scene2::SceneNode>& node){
             sprite->setVisible(false);
         }
         paint->setNode(sprite);
-        //addObstacle(paint,sprite); // Put this at the very back
         _worldnode->addChild(sprite);
+        
+        std::shared_ptr<scene2::SpriteNode> sheet = scene2::SpriteNode::allocWithSheet(_assets->get<Texture>("red_paint"), 3, 3, 9);
+        sheet->setScale(2.5f);
+        sheet->setPosition(paint->getLocations()*_scale);
+        paint->setSpriteNode(sheet);
+        _worldnode->addChild(sheet);
     }
 
 

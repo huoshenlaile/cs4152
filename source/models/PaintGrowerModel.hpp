@@ -25,7 +25,10 @@ protected:
     std::shared_ptr<scene2::PolygonNode> _sprites;
     int _currentFrame;
     std::shared_ptr<cugl::scene2::SceneNode> _worldnode;
-
+    
+    std::shared_ptr<cugl::scene2::ActionManager> _actions;
+    std::shared_ptr<cugl::scene2::Animate> _animate;
+    std::shared_ptr<scene2::SpriteNode> _texture;
 
 public:
     std::string color;
@@ -52,6 +55,9 @@ public:
     std::shared_ptr<scene2::PolygonNode> getPolygons() const { return _sprites; }
     
     void setNode(std::shared_ptr<scene2::PolygonNode> node) { _sprites = node; }
+    
+    void setSpriteNode(const std::shared_ptr<scene2::SpriteNode>& node) { _texture = node; }
+
     void setColor(const std::string& c) { color = c; }
     Vec2 getLocations() const { return _locations; }
     
