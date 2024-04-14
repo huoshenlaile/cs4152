@@ -1,8 +1,8 @@
 #ifndef __LEVEL_LOAD_SCENE_H__
 #define __LEVEL_LOAD_SCENE_H__
 
+#include "../helpers/LevelLoader2.h"
 #include <cugl/cugl.h>
-#include "LevelLoader2.h"
 class LevelLoadScene : public cugl::Scene2 {
 protected:
     /** The asset manager for loading. */
@@ -18,20 +18,15 @@ public:
 
     ~LevelLoadScene() { dispose(); }
 
-    bool init(const std::shared_ptr<cugl::AssetManager>& assets);
+    bool init(const std::shared_ptr<cugl::AssetManager> &assets);
 
-    bool loadFileAsync(const std::string& file, const std::string& key);
+    bool loadFileAsync(const std::string &file, const std::string &key);
 
     void update(float timestep) override;
 
-    enum LevelLoadSceneState {
-        LOADING,
-        CONSTRUCT,
-        DONE
-    };
+    enum LevelLoadSceneState { LOADING, CONSTRUCT, DONE };
 
     LevelLoadSceneState _state;
-    
 };
 
 #endif
