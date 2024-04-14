@@ -9,6 +9,9 @@
         "splotch3": {
             "file": "textures/pureOrange.png"
         },
+        "lv1_palette": {
+            "file": "textures/lv1_palette.png"
+        },
         "alpharelease_background": {
             "file": "textures/alpharelease_background.png"
         },

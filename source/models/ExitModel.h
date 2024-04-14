@@ -30,6 +30,16 @@ protected:
     /** The colors that have been collected*/
     std::set<std::string> _colorsCollected;
     
+    /** Time before a color is taken */
+    float _ttcolor=5.0f;
+    
+public:
+    /** Amount of contact time */
+    float contact_time=0.0f;
+    
+    /** Is in contact? */
+    bool is_contacting = false;
+    
 
 
 #pragma mark -
@@ -163,6 +173,13 @@ public:
             std::inserter(result, result.end()));
         return result;
     }
+    
+    /**
+     * Checks if the exit can take the color
+     *
+     * @return true if the exit can take the color at this time
+     */
+    const bool contactedLongEnough(){ return contact_time >= _ttcolor;}
 
 
 

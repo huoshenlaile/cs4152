@@ -299,6 +299,8 @@ void GameScene::preUpdate(float dt) {
     
 #pragma mark Interaction Resolves Here
     //_interactionController -> preUpdate(dt);
+    std::shared_ptr<ExitModel> exit = _level->getExit();
+    std::string color = _characterControllerA->getColor();
     while (!_interactionController -> messageQueue.empty()) {
         InteractionController::PublisherMessage publication = _interactionController -> messageQueue.front();
        // std::cout << "This publication message is (from GameScene update): " << publication.pub_id << " " << publication.trigger << " " << publication.message << "\n";
@@ -307,19 +309,20 @@ void GameScene::preUpdate(float dt) {
         // by using [], we will automatically skip this for loop if there is no such result.
         for (const InteractionController::SubscriberMessage& subMessage : _interactionController -> subscriptions[publication.pub_id][publication.message]) {
            // std::cout << "This subscribe message is (from GameScene preUpdate): " << subMessage.pub_id << " " << subMessage.listening_for << "\n";
-            if (subMessage.actions.count("win") > 0) {
-                if (subMessage.actions.at("win") == "true") {
-                    // Check if the colors have all been collected, required colors can be found in the exit properties
+            if (subMessage.actions.count("enter-exit") > 0) {
+                if (subMessage.actions.at("enter-exit") == "true") {
+                    std::cout << "Entered exit";
                     std::shared_ptr<ExitModel> exit = _level->getExit();
-                    std::string color = _characterControllerA->getColor();
-                    if (exit->getColorsCollected().count(color) == 0){
-                        exit->addColor(color);
-                        std::cout << "Found color " << color << "\n";
+                    if(exit->contact_time>=0){
+                        exit->is_contacting = true;
                     }
-                    if (exit->getRemainingColors().size()==0){
-                        CULog("Winner! - from preUpdate. Setting Complete.");
-                        setComplete(true);
-                    }
+                }
+            }
+            if (subMessage.actions.count("leave-exit") > 0){
+                if (subMessage.actions.at("leave-exit") == "true") {
+                    std::cout << "Removed hand from exit";
+                    exit->is_contacting = false;
+                    exit->contact_time = -1.0f; // Delay < 0 will be used for debouncing (no flickering progress bar)
                 }
             }
             if (subMessage.actions.count("fire") > 0) {
@@ -331,10 +334,27 @@ void GameScene::preUpdate(float dt) {
                     // s.actions.at("fire") is the name of the paint bottle obstacle
                 }
             }
+            
         }
         _interactionController -> messageQueue.pop();
     }
-
+    
+    if (exit->contact_time < 0 || (exit->is_contacting && !exit->contactedLongEnough())){
+        exit->contact_time += dt;
+        std::cout << "Contact time: " << exit->contact_time << "\n";
+    }
+    else if (exit->is_contacting && exit->contactedLongEnough()){
+        std::string color = _characterControllerA->getColor();
+        if (exit->getColorsCollected().count(color) == 0){
+            exit->addColor(color);
+            std::cout << "Found color " << color << "\n";
+            _characterControllerA->setColor("black");
+        }
+        if (exit->getRemainingColors().size()==0){
+            CULog("Winner! - from preUpdate. Setting Complete.");
+            setComplete(true);
+        }
+    }
 
 	_characterControllerA->moveLeftHand(INPUT_SCALER *
 		_inputController->getLeftHandMovement(), _interactionController -> leftHandReverse);

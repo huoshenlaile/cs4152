@@ -31,7 +31,7 @@ bool InteractionController::init(
                 // how WEIRD! get("type") returns ""sensor"" or ""wall"" (TWO layers), NOT "sensor" or "wall"!
                 std::shared_ptr<JsonValue> properties = objects -> get(j) -> get("properties");
                 for (auto jsonChild : properties -> children()) {
-                    if (jsonChild -> getString("name") == "Publication") {
+                    if (jsonChild -> getString("propertytype") == "Publication") {
                         std::shared_ptr<JsonValue> p = jsonChild -> get("value");
                         std::cout << "\nThis is a Publication! \nPublication message: " << p -> getString("Message") << ", pub_id: " << p -> getString("Pub_id") << ", trigger: " << p -> getString("Trigger") << std::endl << std::endl;
                         PublisherMessage pub = {p->getString("Pub_id"),
@@ -39,7 +39,7 @@ bool InteractionController::init(
                                                 p->getString("Message")};
                         addPublisher(pub);
                     }
-                    if (jsonChild -> getString("name") == "Subscription") {
+                    if (jsonChild -> getString("propertytype") == "Subscription") {
                         std::shared_ptr<JsonValue> s = jsonChild -> get("value");
                         std::cout << "\n This is a Subscription! \nSubcription message: " << s -> getString("Listening_for") << ", pub_id: " << s -> getString("Pub_id") << ", sub_id: " << s -> getString("Sub_id") << std::endl;
                         std::unordered_map<std::string, std::string> actions;
@@ -242,6 +242,14 @@ void InteractionController::beginContact(b2Contact* contact) {
             // check: https://stackoverflow.com/questions/3106110/what-is-move-semantics
           //  std::cout << "Published (begin contact): " << pub.pub_id << ": " << pub.message << "\n";
         }
+        if ((contact_info.bodyOne!=NOT_PLAYER && !contact_info.bodyOneIsHand) || (contact_info.bodyTwo!=NOT_PLAYER && !contact_info.bodyTwoIsHand)){ // If the body contacts, not the hands
+            if (publications["body-contacted"].count(obj_name) > 0){
+                PublisherMessage pub = publications["body-contacted"][obj_name];
+                publishMessage(pub);
+                
+              //  std::cout << "Published (begin contact): " << pub.pub_id << ": " << pub.message << "\n";
+            }
+        }
     }
 }
 
@@ -261,8 +269,8 @@ void InteractionController::endContact(b2Contact* contact) {
             other_body = reinterpret_cast<cugl::physics2::Obstacle*>(body1->GetUserData().pointer);
         }
         std::string obj_name = other_body->getName();
-        if (publications["released"].count(obj_name)>0){
-            PublisherMessage pub = publications["released"][obj_name];
+        if (publications["body-released"].count(obj_name)>0){
+            PublisherMessage pub = publications["body-released"][obj_name];
             publishMessage(pub);
             std::cout << "Published (end contact) : " << pub.pub_id << ": " << pub.message << "\n";
         }

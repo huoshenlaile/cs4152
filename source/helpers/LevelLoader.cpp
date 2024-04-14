@@ -158,6 +158,7 @@ bool LevelLoader::loadGoalDoor(const std::shared_ptr<JsonValue>& json) {
         // Get the object, which is automatically retained
         _goalDoor = ExitModel::alloc(goalPos,(Size)goalSize);
         _goalDoor->setName(json->getString("name"));
+        std::cout << goal->toString();
         std::vector<std::string> colors = goal->get("obstacle")->get("color_requirements")->asStringArray();
         std::set<std::string> color_reqs(colors.begin(), colors.end());
         _goalDoor->setColorReqs(color_reqs);
