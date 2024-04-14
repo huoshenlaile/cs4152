@@ -10,7 +10,10 @@ protected:
     std::string pub_message_head;
     std::string color;
     bool is_out = false;
-
+    
+    std::shared_ptr<scene2::SpriteNode> _animation;
+    std::shared_ptr<cugl::scene2::ActionManager> _actions;
+    std::shared_ptr<cugl::scene2::Animate> _animate;
 public:
     GrowingPaint(void) : Interactable() {}
     ~GrowingPaint() {
@@ -19,7 +22,9 @@ public:
     }
 
     virtual bool init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect bounds);
-
+    
+    virtual PublishedMessage timeUpdate(float) override;
+    
     virtual bool linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleWorld> &physicsWorld, const std::shared_ptr<cugl::scene2::SceneNode> &sceneNode, float scale) override;
 
     virtual PublishedMessage onBeginContact(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact = nullptr, std::shared_ptr<Interactable> otherInteractable = nullptr, bool isCharacter = false) override;

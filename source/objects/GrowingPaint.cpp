@@ -17,7 +17,11 @@ bool GrowingPaint::init(const std::shared_ptr<cugl::JsonValue>& json, Vec2 scale
     activated = true;
     _selfObstacle->setSensor(true);
     OnBeginContactEnabled = true;
+    timeUpdateEnabled = true;
     is_out = false;
+    
+    _actions = scene2::ActionManager::alloc();
+    _animate = scene2::Animate::alloc(0, 7, 1.0f, 1);
     
     return true;
 }
@@ -29,11 +33,19 @@ bool GrowingPaint::linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleWor
     _world->addObstacle(_selfObstacle);
     _selfTexture->setPosition(_selfObstacle->getPosition() * scale);
     // add message
+    
+    _animation = scene2::SpriteNode::allocWithSheet(_assets->get<Texture>("red_paint"), 3, 3, 8);
+    _animation->setScale(2.5f);
+    _animation->setPosition(_selfObstacle->getPosition() * scale);
+
     actions[sub_message_head] = ([=](ActionParams params){
         if (is_out){
             return PublishedMessage();
         }
         _scene->addChild(_selfTexture);
+        _scene->addChild(_animation);
+        _actions->activate("other", _animate, _animation);
+
         is_out = true;
         return PublishedMessage();
     });
@@ -50,6 +62,13 @@ PublishedMessage GrowingPaint::onBeginContact(std::shared_ptr<cugl::physics2::Ob
                 return a;
             }
         }
+    }
+    return PublishedMessage();
+}
+
+PublishedMessage GrowingPaint::timeUpdate(float timestep){
+    if(is_out){
+        _actions->update(timestep);
     }
     return PublishedMessage();
 }
