@@ -21,6 +21,7 @@ public:
 
     bool loadFileAsync(const std::string& file, const std::string& key);
 
+    void update(float timestep);
 
     enum LevelLoadSceneState {
         LOADING,

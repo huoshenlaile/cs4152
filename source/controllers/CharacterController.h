@@ -4,7 +4,7 @@
 #include <cugl/cugl.h>
 #include <vector>
 #include "../helpers/GameSceneConstants.h"
-
+#include "../objects/interactable.h"
 /*
 
  O--o--oo--o--o()o--o--oo--o--O

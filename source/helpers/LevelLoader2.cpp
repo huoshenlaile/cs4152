@@ -28,22 +28,21 @@ bool LevelLoader2::preload(const std::shared_ptr<cugl::JsonValue>& json) {
         }
     }
 
+    // TODO: get the background name from the json file
+    // _background_name = ???
     return true;
 }
 
 bool LevelLoader2::loadObject(const std::shared_ptr<JsonValue>& json){
     auto type = json->get("type")->asString();
     if (type == WALLS_FIELD){
-        auto wall = Interactable::alloc(json, _scale);
+        auto wall = Interactable::alloc(json, _scale, _bounds);
         _interactables.push_back(wall);
-    }else if (type == GOALDOOR_FIELD){
-        auto door = Exitdoot::alloc(json, _scale);
-        _interactables.push_back(std::static_pointer_cast<Interactable>(door));
     }else if (type == SENSOR_FIELD){
-        auto sensor = Sensor::alloc(json, _scale);
+        auto sensor = Sensor::alloc(json, _scale, _bounds);
         _interactables.push_back(std::static_pointer_cast<Interactable>(sensor));
     }else if (type == PAINT_FIELD){
-        auto paint = GrowingPaint::alloc(json, _scale);
+        auto paint = GrowingPaint::alloc(json, _scale, _bounds);
         _interactables.push_back(std::static_pointer_cast<Interactable>(paint));
     } else if (type == CHARACTER_POS){
         _charPos = getObjectPos(json);
@@ -78,16 +77,24 @@ bool LevelLoader2::construct(std::shared_ptr<cugl::AssetManager>& _assets){
     _worldnode->addChild(_charNode);
 
     // create character
-    _character = CharacterController::alloc(_charPos, _scale);
+    _character = CharacterController::alloc(_charPos, _scale.x);
     _character->buildParts(_assets);
     _character->createJoints();
-    _character->linkPartsToWorld(_world, _charNode, _scale);
+    _character->linkPartsToWorld(_world, _charNode, _scale.x);
 
     // add interactables to world
     for (auto inter : _interactables){
         inter->bindAssets(_assets);
-        inter->linkToWorld(_world, _platformNode, _scale);
+        inter->linkToWorld(_world, _platformNode, _scale.x);
     }
+
+    // set background
+    auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(_background_name));
+    sprite->setAbsolute(true);
+    sprite->setPosition(-10.0f, 0.0f);
+    sprite->setContentSize(sprite->getContentSize().width*4, sprite->getContentSize().height*4);
+    _worldnode->addChild(sprite);
+
     return true;
 }
 

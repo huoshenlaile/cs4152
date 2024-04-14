@@ -961,21 +961,14 @@
                         }],
                  "properties":[
                         {
-                         "name":"Publication",
-                         "propertytype":"Publication",
+                         "name":"Pub1",
+                         "propertytype":"PubMessage",
                          "type":"class",
                          "value":
                             {
-                             "Body":"(unused_now)",
-                             "Message":"contacted",
-                             "Pub_id":"sensor1",
-                             "Trigger":"contacted",
-                             "condition1":
-                                {
-                                 "Enabled":true,
-                                 "Head":"paint1 out",
-                                 "Trigger":"TOUCH: character body"
-                                }
+                             "Enabled":true,
+                             "Head":"paint1 out",
+                             "Trigger":"TOUCH: character body"
                             }
                         }, 
                         {
@@ -1003,7 +996,7 @@
                                         }],
                                  "restitution":0,
                                  "rotation":false,
-                                 "texture":"button_ingame"
+                                 "texture":""
                                 }
                             }
                         }],
@@ -1037,20 +1030,14 @@
                         }],
                  "properties":[
                         {
-                         "name":"Publication",
-                         "propertytype":"Publication",
+                         "name":"Pub2",
+                         "propertytype":"PubMessage",
                          "type":"class",
                          "value":
                             {
-                             "Message":"contacted",
-                             "Pub_id":"sensor2",
-                             "Trigger":"contacted",
-                             "condition1":
-                                {
-                                 "Enabled":true,
-                                 "Head":"paint2 out",
-                                 "Trigger":"TOUCH: character body"
-                                }
+                             "Enabled":true,
+                             "Head":"paint2 out",
+                             "Trigger":"TOUCH: character body"
                             }
                         }, 
                         {
@@ -1078,7 +1065,7 @@
                                         }],
                                  "restitution":0,
                                  "rotation":false,
-                                 "texture":"button_ingame"
+                                 "texture":""
                                 }
                             }
                         }],
@@ -1112,29 +1099,14 @@
                         }],
                  "properties":[
                         {
-                         "name":"Publication",
-                         "propertytype":"Publication",
+                         "name":"Pub1",
+                         "propertytype":"PubMessage",
                          "type":"class",
                          "value":
                             {
-                             "Message":"contacted",
-                             "Pub_id":"exit_sensor",
-                             "Trigger":"contacted"
-                            }
-                        }, 
-                        {
-                         "name":"Subscription",
-                         "propertytype":"Subscription",
-                         "type":"class",
-                         "value":
-                            {
-                             "Actions":
-                                {
-                                 "win":true
-                                },
-                             "Listening_for":"contacted",
-                             "Pub_id":"exit_sensor",
-                             "Sub_id":"exit_sensor"
+                             "Enabled":true,
+                             "Head":"Level Complete",
+                             "Trigger":"TOUCH: character body"
                             }
                         }, 
                         {
@@ -1238,16 +1210,26 @@
                         }],
                  "properties":[
                         {
-                         "name":"Subscription",
-                         "propertytype":"Subscription",
+                         "name":"Pub1",
+                         "propertytype":"PubMessage",
                          "type":"class",
                          "value":
                             {
-                             "cnodition2":
-                                {
-                                 "Enabled":true,
-                                 "Head":"paint1 out"
-                                }
+                             "Body":"orange",
+                             "Enabled":true,
+                             "Head":"Change character color",
+                             "Trigger":"TOUCH: character body"
+                            }
+                        }, 
+                        {
+                         "name":"Sub1",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"show",
+                             "Enabled":true,
+                             "Head":"paint1 out"
                             }
                         }, 
                         {
@@ -1264,6 +1246,25 @@
                          "name":"paint_id",
                          "type":"int",
                          "value":0
+                        }, 
+                        {
+                         "name":"properties",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":192,
+                                 "density":0,
+                                 "friction":0.2,
+                                 "restitution":0.1,
+                                 "rotation":false,
+                                 "texture":"splotch3"
+                                }
+                            }
                         }],
                  "rotation":0,
                  "type":"paint",
@@ -1303,16 +1304,26 @@
                         }],
                  "properties":[
                         {
-                         "name":"Subscription",
-                         "propertytype":"Subscription",
+                         "name":"Pub1",
+                         "propertytype":"PubMessage",
                          "type":"class",
                          "value":
                             {
-                             "cnodition2":
-                                {
-                                 "Enabled":true,
-                                 "Head":"paint2 out"
-                                }
+                             "Body":"red",
+                             "Enabled":true,
+                             "Head":"Change character color",
+                             "Trigger":"TOUCH: character body"
+                            }
+                        }, 
+                        {
+                         "name":"Sub1",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"show",
+                             "Enabled":true,
+                             "Head":"paint2 out"
                             }
                         }, 
                         {
@@ -1329,6 +1340,25 @@
                          "name":"paint_id",
                          "type":"int",
                          "value":1
+                        }, 
+                        {
+                         "name":"properties",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":192,
+                                 "density":0,
+                                 "friction":0.2,
+                                 "restitution":0.1,
+                                 "rotation":false,
+                                 "texture":"splotch3"
+                                }
+                            }
                         }],
                  "rotation":0,
                  "type":"paint",

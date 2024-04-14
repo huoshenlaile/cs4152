@@ -36,12 +36,13 @@ protected:
     std::shared_ptr<cugl::physics2::net::NetWorld> _world;
     std::shared_ptr<CharacterController> _character;
 
+    std::string _background_name = ALPHA_RELEASE_BACKGROUND;
     // a vector of interactables shared pointer
     std::vector<std::shared_ptr<Interactable>> _interactables;
 
     cugl::Size computeActiveSize() const;
     bool loadObject(const std::shared_ptr<cugl::JsonValue>& json);
-    Vec2 getObjectPos(const std::shared_ptr<JsonValue>& json)
+    Vec2 getObjectPos(const std::shared_ptr<JsonValue>& json);
 public:
     // status of load
     enum LevelLoadState {
@@ -72,7 +73,7 @@ public:
     // construction of the level
     bool construct(std::shared_ptr<cugl::AssetManager>& _assets);
 
-    
+
     // constructor and destructor
     LevelLoader2(void) : Asset(), _root(nullptr), _world(nullptr), _worldnode(nullptr), _scale(32, 32), _state(LOADING) {}
     virtual ~LevelLoader2(void) { unload(); }

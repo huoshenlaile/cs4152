@@ -12,15 +12,18 @@
 #include <string>
 #include <iostream>
 #include <sstream>
-
+#include "../helpers/GameSceneConstants.h"
+#include "../helpers/LevelConstants.h"
 // TODO placeholder for unified arguments struct
 struct ActionParams {
+    bool enable;
     int int1;
     int int2;
     float float1;
     float float2;
-    std::string str1;
-    std::string str2;
+    int id;
+    std::string Head;
+    std::string Body;
 };
 
 struct PublishedMessage {
@@ -29,8 +32,9 @@ struct PublishedMessage {
     int int2;
     float float1;
     float float2;
-    bool success;
-    std::string message;
+    int id;
+    std::string Head;
+    std::string Body;
 };
 
 using namespace cugl;
@@ -42,6 +46,10 @@ protected:
     bool OnEndContactEnabled = false;
     bool OnPreSolveEnabled = false;
     bool OnPostSolveEnabled = false;
+
+    Rect _bounds;
+    Vec2 _scale = Vec2(32, 32);
+
     std::string _name;
 
     std::string _texture_name;
@@ -51,11 +59,13 @@ protected:
     std::shared_ptr<cugl::scene2::SceneNode> _scene;
 
     std::shared_ptr<cugl::scene2::SceneNode> _selfTexture;
-    std::shared_ptr<cugl::physics2::Obstacle> _selfObstacle;
+    std::shared_ptr<cugl::physics2::PolygonObstacle> _selfObstacle;
 
     std::shared_ptr<cugl::AssetManager> _assets;
     std::map<std::string, std::function<PublishedMessage(ActionParams)>> actions;
 
+    std::vector<float> getVertices(const std::shared_ptr<JsonValue>& json);
+    Vec2 getObjectPos(const std::shared_ptr<JsonValue>& json);
 public:
 
     cugl::physics2::Obstacle* getObstacleRawPtr() {
@@ -83,19 +93,26 @@ public:
     std::string getName() { return _name; }
     std::map<std::string, std::function<PublishedMessage(ActionParams)>> getActions() { return actions; }
 
-    bool bindAssets(const std::shared_ptr<cugl::AssetManager>& assets);
-    bool linkToWorld(const std::shared_ptr<cugl::physics2::net::NetWorld> &physicsWorld, const std::shared_ptr<cugl::scene2::SceneNode> &sceneNode, float scale);
+    virtual bool bindAssets(const std::shared_ptr<cugl::AssetManager>& assets);
+    virtual bool linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleWorld> &physicsWorld, const std::shared_ptr<cugl::scene2::SceneNode> &sceneNode, float scale);
 
     // initialize the interactable object
-    Interactable();
-    virtual ~Interactable();
+    Interactable(void) {}
+    virtual ~Interactable() {
+        // set everything to nullptr
+        _world = nullptr;
+        _scene = nullptr;
+        _selfTexture = nullptr;
+        _selfObstacle = nullptr;
+        _assets = nullptr;
+    }
 
-    bool init(const std::shared_ptr<JsonValue>& json, Vec2 scale = Vec2(32,32));
+    virtual bool init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect bounds);
 
     // static allocator
-    static std::shared_ptr<Interactable> alloc(const std::shared_ptr<JsonValue>& json, Vec2 scale = Vec2(32,32)) {
+    static std::shared_ptr<Interactable> alloc(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect bounds) {
         std::shared_ptr<Interactable> result = std::make_shared<Interactable>();
-        return (result->init(json, scale) ? result : nullptr);
+        return (result->init(json, scale, bounds) ? result : nullptr);
     }
 
 };
