@@ -18,10 +18,12 @@ bool Sensor::init(const std::shared_ptr<cugl::JsonValue>& json, Vec2 scale, Rect
 }
 
 PublishedMessage Sensor::onBeginContact(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact, std::shared_ptr<Interactable> otherInteractable, bool isCharacter){
+    CULog("Sensor of [%s] tested", message_head.c_str());
     if (isCharacter){
         // if the sensor is activated
         if (activated){
             if (other->getName() == "body192"){
+                CULog("Sensor of [%s] activated", message_head.c_str());
                 auto a = PublishedMessage();
                 a.Head = message_head;
                 return a;

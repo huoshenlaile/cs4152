@@ -95,7 +95,7 @@ bool LevelLoader2::construct(std::shared_ptr<cugl::AssetManager>& _assets){
 
     // add interactables to world
     for (auto inter : _interactables){
-        inter->bindAssets(_assets);
+        inter->bindAssets(_assets, _scale);
         inter->linkToWorld(_world, _platformNode, _scale.x);
     }
 

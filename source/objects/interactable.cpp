@@ -42,13 +42,15 @@ bool Interactable::init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect
     return success;
 }
 
-bool Interactable::bindAssets(const std::shared_ptr<cugl::AssetManager>& assets){
+bool Interactable::bindAssets(const std::shared_ptr<cugl::AssetManager>& assets, Vec2 scale2d){
     _assets = assets;
     if (_texture_name == ""){
         return true;
     }
     _selfTexture = scene2::PolygonNode::allocWithTexture(assets->get<Texture>(_texture_name));
-
+    _selfTexture->setContentSize(_selfObstacle->getWidth() * scale2d.x * 1.01, _selfObstacle->getHeight() * scale2d.y * 1.01);
+    _selfTexture->setAnchor(0.5f, 0.5f);
+    _selfTexture->setAngle(_selfObstacle->getAngle());
     return true;
 }
 

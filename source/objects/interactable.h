@@ -97,7 +97,7 @@ public:
     std::string getName() { return _name; }
     const std::map<std::string, std::function<PublishedMessage(ActionParams)>>& getActions() { return actions; }
 
-    virtual bool bindAssets(const std::shared_ptr<cugl::AssetManager>& assets);
+    virtual bool bindAssets(const std::shared_ptr<cugl::AssetManager>& assets, Vec2 scale2d);
     virtual bool linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleWorld> &physicsWorld, const std::shared_ptr<cugl::scene2::SceneNode> &sceneNode, float scale);
 
     // initialize the interactable object
