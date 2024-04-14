@@ -6,45 +6,13 @@
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="7" type="exit">
   <properties>
-   <property name="properties" type="class" propertytype="ExitProperties">
-    <properties>
-     <property name="obstacle" type="class" propertytype="Obstacle">
-      <properties>
-       <property name="bodytype" type="int" propertytype="bodytype" value="0"/>
-       <property name="damping" type="float" value="0"/>
-       <property name="debugcolor" propertytype="debugcolor" value="yellow"/>
-       <property name="debugopacity" type="float" value="192"/>
-       <property name="density" type="float" value="0"/>
-       <property name="friction" type="float" value="0"/>
-       <property name="restitution" type="float" value="0"/>
-       <property name="rotation" type="bool" value="false"/>
-       <property name="texture" value="goal"/>
-      </properties>
-     </property>
-    </properties>
-   </property>
+   <property name="properties" type="class"/>
   </properties>
-  <image width="96" height="96" source="goaldoor.png"/>
+  <image width="447" height="138" source="lv1_palette.png"/>
  </tile>
  <tile id="9" type="wall">
   <properties>
-   <property name="properties" type="class" propertytype="WallProperties">
-    <properties>
-     <property name="obstacle" type="class" propertytype="Obstacle">
-      <properties>
-       <property name="bodytype" type="int" propertytype="bodytype" value="1"/>
-       <property name="damping" type="float" value="0"/>
-       <property name="debugcolor" propertytype="debugcolor" value=""/>
-       <property name="debugopacity" type="float" value="192"/>
-       <property name="density" type="float" value="0"/>
-       <property name="friction" type="float" value="0"/>
-       <property name="restitution" type="float" value="0"/>
-       <property name="rotation" type="bool" value="false"/>
-       <property name="texture" value="earth"/>
-      </properties>
-     </property>
-    </properties>
-   </property>
+   <property name="properties" type="class"/>
   </properties>
   <image width="214" height="100" source="../textures/popleft.png"/>
   <objectgroup draworder="index" id="2">

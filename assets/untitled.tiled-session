@@ -1,0 +1,21 @@
+{
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "tileset/demo_elements.tsx": {
+            "dynamicWrapping": true,
+            "scaleInEditor": 0.06
+        }
+    },
+    "last.imagePath": "/Users/kiduszegeye/Desktop/Cornell/CS 5152/cs4152/assets/tileset",
+    "last.objectTypesPath": "/Users/kiduszegeye/Desktop/Cornell/CS 5152/cs4152/assets/tileset/propertytypes.json",
+    "openFiles": [
+    ],
+    "project": "untitled.tiled-project",
+    "property.type": "WallProperties",
+    "recentFiles": [
+        "tileset/demo_elements.tsx"
+    ]
+}

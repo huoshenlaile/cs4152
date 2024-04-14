@@ -1,9 +1,12 @@
 {
-    "activeFile": "",
+    "activeFile": "alpharelease.json",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
+        "/Users/kiduszegeye/Desktop/Cornell/CS 5152/cs4152/assets/tileset/demo_elements.tsx": {
+            "scaleInDock": 1
+        },
         "/Users/porridge/Desktop/courses/CS3152/CS-3152-G6/Eudaemon/assets/EudaemonTileset.json": {
             "dynamicWrapping": true,
             "scaleInDock": 1
@@ -29,13 +32,14 @@
             "scale": 0.1596,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 3652.8822055137844,
-                "y": 726.8170426065162
+                "x": 7587.7192982456145,
+                "y": 2105.2631578947367
             }
         }
     },
     "last.objectTypesPath": "/Users/porridge/Games/cs4152/assets/tileset/propertytypes.json",
     "openFiles": [
+        "alpharelease.json"
     ],
     "project": "Level1.tiled-project",
     "property.type": "Publication",
