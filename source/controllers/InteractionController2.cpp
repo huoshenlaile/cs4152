@@ -74,6 +74,7 @@ void InteractionController2::beginContact(b2Contact *contact) {
         return;
     } else if (isCharacterObs(obs1rawPtr) || isCharacterObs(obs2rawPtr)) {
         // TODO: port logic to deal with grab
+        
 
         // logic to deal with interactable
         // 1: determine which is the interactable and which is the character

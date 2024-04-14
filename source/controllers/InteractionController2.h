@@ -89,7 +89,6 @@ public:
 
     bool init(std::shared_ptr<LevelLoader2> level);
     void activateController();
-
     void preUpdate(float timestep);
     void postUpdate(float timestep);
 

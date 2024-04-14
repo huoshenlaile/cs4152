@@ -269,7 +269,7 @@
                 {
                     "name": "Body",
                     "type": "string",
-                    "value": "(unused_now)"
+                    "value": ""
                 },
                 {
                     "name": "Message",
@@ -373,11 +373,8 @@
             "members": [
                 {
                     "name": "Actions",
-                    "propertyType": "Actions",
-                    "type": "class",
-                    "value": {
-                        "fire": "-1"
-                    }
+                    "type": "string",
+                    "value": ""
                 },
                 {
                     "name": "Listening_for",
