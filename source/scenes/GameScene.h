@@ -37,7 +37,6 @@ protected:
 
 	/** Reference to the physics root of the scene graph */
 	std::shared_ptr<cugl::scene2::SceneNode> _worldnode; // the root node
-	std::shared_ptr<cugl::scene2::SceneNode> _platformNode; // the platform canvas (from level loader2)
 	std::shared_ptr<cugl::scene2::Label> _winnode; // the win message ( TODO: NOT USED NOW???)
 	std::shared_ptr<cugl::scene2::SceneNode> _uinode; // the UI canvas
 

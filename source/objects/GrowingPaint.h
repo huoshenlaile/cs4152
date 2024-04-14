@@ -14,8 +14,6 @@ protected:
 public:
     GrowingPaint(void) : Interactable() {}
     ~GrowingPaint() {
-        // Call the parent class destructor
-        Interactable::~Interactable();
     }
 
     virtual bool init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect bounds);

@@ -69,9 +69,19 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets, std::str
 }
 
 void GameScene::dispose(){
-    if (_active){
-        // TODO: dispose all the controllers, and free other memory
-    }
+    _assets = nullptr;
+    _interactionController = nullptr;
+    _character = nullptr;
+    _audioController = nullptr;
+    _inputController = nullptr;
+    _platformWorld = nullptr;
+    _pauseButton = nullptr;
+    _worldnode->removeAllChildren();
+    _worldnode = nullptr;
+    _levelComplete->removeAllChildren();
+    _levelComplete = nullptr;
+    _level = nullptr;
+    this->removeAllChildren();
 }
 
 void GameScene::setActive(bool value) {
@@ -94,8 +104,8 @@ void GameScene::setActive(bool value) {
 }
 
 void GameScene::reset(){
-    // TODO: port the reset here (probably not necessary)
-    // CORREECT WAY: dispost all things, reload the level loader.
+    _assets->unload<LevelLoader2>(_levelName);
+    GameScene::dispose();
 }
 
 void GameScene::preUpdate(float dt){
@@ -134,8 +144,6 @@ void GameScene::postUpdate(float dt){
     if (_interactionController->isLevelComplete()) {
         _complete = true;
         _levelComplete->setVisible(true);
-        _levelCompleteReset->activate();
-        _levelCompleteMenuButton->activate();
     }
 }
 
@@ -169,27 +177,7 @@ void GameScene::constructSceneNodes(const Size &dimen){
     _levelComplete -> setVisible(false);
     _uinode -> addChild(_levelComplete);
 
-    // level complete scene buttons
-    _levelCompleteReset = std::dynamic_pointer_cast<scene2::Button>(_levelComplete -> getChildByName("completemenu") -> getChildByName("options") -> getChildByName("restart"));
-    _levelCompleteReset -> deactivate();
-    _levelCompleteReset->addListener([this](const std::string& name, bool down) {
-        if (down) {
-            this -> state = RESET;
-        }
-    });
-
-    // TODO: add this button to the level complete scene
-    _levelCompleteMenuButton = std::dynamic_pointer_cast<scene2::Button>(_levelComplete -> getChildByName("completemenu") -> getChildByName("options") -> getChildByName("menu"));
-    _levelCompleteMenuButton -> deactivate();
-    _levelCompleteMenuButton->addListener([this](const std::string& name, bool down) {
-        if (down) {
-            // TODO: there is something weird happening here.
-            // _level -> unload();
-            this -> state = QUIT;
-        }
-    });
-
-    
+    //deleted level complete related UI
     addChild(_uinode);
 }
 

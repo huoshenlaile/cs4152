@@ -103,14 +103,20 @@ bool LevelLoader2::construct(std::shared_ptr<cugl::AssetManager>& _assets){
     _worldnode->addChild(_platformNode);
     _worldnode->addChild(_charNode);
 
-    
-
     return true;
 }
 
-
 void LevelLoader2::unload() {
-    // TODO: 
+    _json = nullptr;
+    _root = nullptr;
+    _worldnode = nullptr;
+    _charNode = nullptr;
+    _platformNode = nullptr;
+    _uinode = nullptr;
+    _levelCompletenode = nullptr;
+    _world = nullptr;
+    _character = nullptr;
+    _interactables.clear();
 }
 
 

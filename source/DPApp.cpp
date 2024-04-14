@@ -179,8 +179,8 @@ void DPApp::preUpdate(float timestep) {
             std::cout << "resetting - from Update Pause DPApp" << std::endl;
             _pauseScene.setActive(false);
             _gameScene.reset();
-            _gameScene.setActive(true);
-            _status = GAME;
+            _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
+            _status = LEVELLOAD;
             break;
         case PauseScene::MENU:
             // TODO: ?
