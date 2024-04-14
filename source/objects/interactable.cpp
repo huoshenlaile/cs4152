@@ -84,19 +84,19 @@ PublishedMessage Interactable::timeUpdate(float timestep){
     return PublishedMessage();
 }
 
-PublishedMessage Interactable::onBeginContact(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact, std::shared_ptr<Interactable> otherInteractable, bool isCharacter){
+PublishedMessage Interactable::onBeginContact(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact, std::shared_ptr<Interactable> otherInteractable, bool isCharacter, std::shared_ptr<CharacterController> character){
     return PublishedMessage();
 }
 
-PublishedMessage Interactable::onEndContact(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact, std::shared_ptr<Interactable> otherInteractable, bool isCharacter){
+PublishedMessage Interactable::onEndContact(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact, std::shared_ptr<Interactable> otherInteractable, bool isCharacter, std::shared_ptr<CharacterController> character){
     return PublishedMessage();
 }
 
-PublishedMessage Interactable::onPreSolve(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact, const b2Manifold* oldManifold, std::shared_ptr<Interactable> otherInteractable, bool isCharacter){
+PublishedMessage Interactable::onPreSolve(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact, const b2Manifold* oldManifold, std::shared_ptr<Interactable> otherInteractable, bool isCharacter, std::shared_ptr<CharacterController> character){
     return PublishedMessage();
 }
 
-PublishedMessage Interactable::onPostSolve(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact, const b2ContactImpulse* impulse, std::shared_ptr<Interactable> otherInteractable, bool isCharacter){
+PublishedMessage Interactable::onPostSolve(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact, const b2ContactImpulse* impulse, std::shared_ptr<Interactable> otherInteractable, bool isCharacter, std::shared_ptr<CharacterController> character){
     return PublishedMessage();
 }
 
