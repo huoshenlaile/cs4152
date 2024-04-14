@@ -87,7 +87,7 @@ void GameScene::setActive(bool value) {
 void GameScene::reset() {
     // TODO: port the reset here (probably not necessary)
     // CORREECT WAY: dispost all things, reload the level loader.
-    // CULog("reset!");
+    CULog("reset!");
 }
 
 void GameScene::preUpdate(float dt) {

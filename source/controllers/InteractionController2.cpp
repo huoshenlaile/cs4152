@@ -93,13 +93,8 @@ void InteractionController2::beginContact(b2Contact *contact) {
         if (beginContactIt != _BeginContactInteractable.end()) {
             std::shared_ptr<Interactable> interactable = beginContactIt->second;
             // 3: call the onBeginContact function
-<<<<<<< HEAD
-            PublishedMessage message = interactable->onBeginContact(characterPart, contact, nullptr, true);
-            if (message.Head != "") {
-=======
             PublishedMessage message = interactable->onBeginContact(characterPart, contact, nullptr, true, _character);
             if (message.Head != ""){
->>>>>>> 164ece90834565331ee9426d03ad65601e3defb1
                 _messageQueue.push(message);
             }
         }
@@ -115,15 +110,9 @@ void InteractionController2::beginContact(b2Contact *contact) {
             // check if the second is also registered in the interactable list
             if (i2 != _obstacleToInteractable.end()) {
                 std::shared_ptr<Interactable> interactable2 = i2->second;
-<<<<<<< HEAD
-                message = interactable1->onBeginContact(interactable2->getObstacle(), contact, interactable2, false);
-            } else {
-                message = interactable1->onBeginContact(nullptr, contact, nullptr, false);
-=======
                 message = interactable1->onBeginContact(interactable2->getObstacle(), contact, interactable2, false, _character);
             }else{
                 message = interactable1->onBeginContact(nullptr, contact, nullptr, false, _character);
->>>>>>> 164ece90834565331ee9426d03ad65601e3defb1
             }
             if (message.Head != "") {
                 _messageQueue.push(message);
@@ -139,15 +128,9 @@ void InteractionController2::beginContact(b2Contact *contact) {
             // check if the second is also registered in the interactable list
             if (i1 != _obstacleToInteractable.end()) {
                 std::shared_ptr<Interactable> interactable1 = i1->second;
-<<<<<<< HEAD
-                message = interactable2->onBeginContact(interactable1->getObstacle(), contact, interactable1, false);
-            } else {
-                message = interactable2->onBeginContact(nullptr, contact, nullptr, false);
-=======
                 message = interactable2->onBeginContact(interactable1->getObstacle(), contact, interactable1, false, _character);
             }else{
                 message = interactable2->onBeginContact(nullptr, contact, nullptr, false, _character);
->>>>>>> 164ece90834565331ee9426d03ad65601e3defb1
             }
             if (message.Head != "") {
                 _messageQueue.push(message);
@@ -186,13 +169,8 @@ void InteractionController2::endContact(b2Contact *contact) {
         if (endContactIt != _EndContactInteractable.end()) {
             std::shared_ptr<Interactable> interactable = endContactIt->second;
             // 3: call the onEndContact function
-<<<<<<< HEAD
-            PublishedMessage message = interactable->onEndContact(characterPart, contact, nullptr, true);
-            if (message.Head != "") {
-=======
             PublishedMessage message = interactable->onEndContact(characterPart, contact, nullptr, true, _character);
             if (message.Head != ""){
->>>>>>> 164ece90834565331ee9426d03ad65601e3defb1
                 _messageQueue.push(message);
             }
         }
@@ -208,15 +186,9 @@ void InteractionController2::endContact(b2Contact *contact) {
             // check if the second is also registered in the interactable list
             if (i2 != _obstacleToInteractable.end()) {
                 std::shared_ptr<Interactable> interactable2 = i2->second;
-<<<<<<< HEAD
-                message = interactable1->onEndContact(interactable2->getObstacle(), contact, interactable2, false);
-            } else {
-                message = interactable1->onEndContact(nullptr, contact, nullptr, false);
-=======
                 message = interactable1->onEndContact(interactable2->getObstacle(), contact, interactable2, false, _character);
             }else{
                 message = interactable1->onEndContact(nullptr, contact, nullptr, false, _character);
->>>>>>> 164ece90834565331ee9426d03ad65601e3defb1
             }
             if (message.Head != "") {
                 _messageQueue.push(message);
@@ -232,15 +204,9 @@ void InteractionController2::endContact(b2Contact *contact) {
             // check if the second is also registered in the interactable list
             if (i1 != _obstacleToInteractable.end()) {
                 std::shared_ptr<Interactable> interactable1 = i1->second;
-<<<<<<< HEAD
-                message = interactable2->onEndContact(interactable1->getObstacle(), contact, interactable1, false);
-            } else {
-                message = interactable2->onEndContact(nullptr, contact, nullptr, false);
-=======
                 message = interactable2->onEndContact(interactable1->getObstacle(), contact, interactable1, false, _character);
             }else{
                 message = interactable2->onEndContact(nullptr, contact, nullptr, false, _character);
->>>>>>> 164ece90834565331ee9426d03ad65601e3defb1
             }
             if (message.Head != "") {
                 _messageQueue.push(message);
