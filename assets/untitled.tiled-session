@@ -4,6 +4,14 @@
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
+        "json/alpharelease.json": {
+            "scale": 0.3239,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 4799.320778017906,
+                "y": 1122.259956776783
+            }
+        },
         "tileset/demo_elements.tsx": {
             "dynamicWrapping": true,
             "scaleInEditor": 0.06
@@ -16,6 +24,7 @@
     "project": "untitled.tiled-project",
     "property.type": "WallProperties",
     "recentFiles": [
+        "json/alpharelease.json",
         "tileset/demo_elements.tsx"
     ]
 }

@@ -31,6 +31,7 @@
                  "properties":[
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -45,6 +46,20 @@
                                  "restitution":0.1,
                                  "rotation":false,
                                  "texture":"alpharelease_frenchfries"
+                                }
+                            }
+                        }, 
+                        {
+                         "name":"testPub1",
+                         "propertytype":"Publication",
+                         "type":"class",
+                         "value":
+                            {
+                             "condition1":
+                                {
+                                 "Body":"114514",
+                                 "Enabled":true,
+                                 "Head":"1919891"
                                 }
                             }
                         }],
@@ -78,12 +93,8 @@
                         }],
                  "properties":[
                         {
-                         "name":"Grab",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
                          "name":"Publication",
+                         "propertytype":"Publication",
                          "type":"class",
                          "value":
                             {
@@ -94,6 +105,7 @@
                         }, 
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -160,6 +172,7 @@
                  "properties":[
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -220,6 +233,7 @@
                  "properties":[
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -268,6 +282,7 @@
                  "properties":[
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -408,6 +423,7 @@
                  "properties":[
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -527,21 +543,8 @@
                         }],
                  "properties":[
                         {
-                         "name":"Subscription",
-                         "type":"class",
-                         "value":
-                            {
-                             "Actions":
-                                {
-
-                                },
-                             "Listening_for":"contacted",
-                             "Pub_id":"sensor1",
-                             "Sub_id":"bottle1"
-                            }
-                        }, 
-                        {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -599,6 +602,141 @@
                  "width":193,
                  "x":7246.82297716841,
                  "y":1181.80332447006
+                }, 
+                {
+                 "height":0,
+                 "id":51,
+                 "name":"",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":-122.790151230696,
+                         "y":-184.185226846043
+                        }, 
+                        {
+                         "x":-81.8601008204634,
+                         "y":-369.832241206736
+                        }, 
+                        {
+                         "x":-99.4015509962786,
+                         "y":-377.141178779992
+                        }, 
+                        {
+                         "x":-92.0926134230216,
+                         "y":-502.854905039989
+                        }, 
+                        {
+                         "x":-29.235750293024,
+                         "y":-520.396355215803
+                        }, 
+                        {
+                         "x":20.4650252051143,
+                         "y":-520.396355215803
+                        }, 
+                        {
+                         "x":83.3218883351139,
+                         "y":-507.240267583943
+                        }, 
+                        {
+                         "x":95.0161884523227,
+                         "y":-380.064753809294
+                        }, 
+                        {
+                         "x":67.2422256739514,
+                         "y":-365.446878662783
+                        }, 
+                        {
+                         "x":133.022663833252,
+                         "y":-105.248701054881
+                        }, 
+                        {
+                         "x":200.264889507204,
+                         "y":112.557638628137
+                        }, 
+                        {
+                         "x":219.268127197669,
+                         "y":201.726677021856
+                        }, 
+                        {
+                         "x":219.268127197669,
+                         "y":280.663202813017
+                        }, 
+                        {
+                         "x":169.567351699531,
+                         "y":397.606203985108
+                        }, 
+                        {
+                         "x":108.172276084182,
+                         "y":498.469542496036
+                        }, 
+                        {
+                         "x":8.7707250879055,
+                         "y":510.163842613245
+                        }, 
+                        {
+                         "x":-100.863338510929,
+                         "y":505.778480069291
+                        }, 
+                        {
+                         "x":-176.876289272788,
+                         "y":410.762291616968
+                        }, 
+                        {
+                         "x":-222.191702226973,
+                         "y":287.972140386273
+                        }, 
+                        {
+                         "x":-232.424214829531,
+                         "y":251.427452519994
+                        }, 
+                        {
+                         "x":-230.96242731488,
+                         "y":198.803101992554
+                        }, 
+                        {
+                         "x":-118.404788686742,
+                         "y":-184.185226846043
+                        }],
+                 "properties":[
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":192,
+                                 "density":0,
+                                 "friction":0.2,
+                                 "restitution":0.1,
+                                 "rotation":false,
+                                 "subscriptions":[
+                                        {
+                                         "actions":
+                                            {
+                                             "fire":"1"
+                                            },
+                                         "listening_for":"contacted",
+                                         "pub_id":"sensor2",
+                                         "sub_id":"bottle2"
+                                        }],
+                                 "texture":"alpharelease_mayo_capon"
+                                }
+                            }
+                        }],
+                 "rotation":180,
+                 "type":"wall",
+                 "visible":true,
+                 "width":0,
+                 "x":7390.52220149962,
+                 "y":2032.28478135333
                 }, 
                 {
                  "gid":26,
@@ -764,6 +902,7 @@
                  "properties":[
                         {
                          "name":"Subscription",
+                         "propertytype":"Subscription",
                          "type":"class",
                          "value":
                             {
@@ -778,6 +917,7 @@
                         }, 
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -841,6 +981,7 @@
                         }, 
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -910,6 +1051,7 @@
                         }, 
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -950,16 +1092,16 @@
                  "name":"exit_sensor",
                  "polygon":[
                         {
-                         "x":944.852516102809,
+                         "x":324.290614281259,
                          "y":0
                         }, 
                         {
-                         "x":944.852516102809,
-                         "y":372.48993423284
+                         "x":324.290614281259,
+                         "y":127.84533832242
                         }, 
                         {
                          "x":0,
-                         "y":363.404813885697
+                         "y":124.727159338946
                         }, 
                         {
                          "x":0,
@@ -979,6 +1121,7 @@
                         }, 
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -1017,11 +1160,11 @@
                             }
                         }],
                  "rotation":0,
-                 "type":"exit",
+                 "type":"sensor",
                  "visible":true,
                  "width":0,
-                 "x":6922.35060442516,
-                 "y":1181.38261346142
+                 "x":7234.17524165887,
+                 "y":1453.07140629872
                 }, 
                 {
                  "height":0,
@@ -1078,11 +1221,6 @@
                         }],
                  "properties":[
                         {
-                         "name":"AnimationAsset",
-                         "type":"string",
-                         "value":"red_paint"
-                        }, 
-                        {
                          "name":"Pub1",
                          "propertytype":"PubMessage",
                          "type":"class",
@@ -1122,6 +1260,7 @@
                         }, 
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -1177,17 +1316,12 @@
                         }],
                  "properties":[
                         {
-                         "name":"AnimationAsset",
-                         "type":"string",
-                         "value":"red_paint"
-                        }, 
-                        {
                          "name":"Pub1",
                          "propertytype":"PubMessage",
                          "type":"class",
                          "value":
                             {
-                             "Body":"purple",
+                             "Body":"red",
                              "Enabled":true,
                              "Head":"character color",
                              "Trigger":"TOUCH: character body"
@@ -1221,6 +1355,7 @@
                         }, 
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -1244,91 +1379,6 @@
                  "width":0,
                  "x":6473.23443641435,
                  "y":641.354972317315
-                }, 
-                {
-                 "gid":8,
-                 "height":138,
-                 "id":79,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":447,
-                 "x":8012.21717335543,
-                 "y":1030.94724341788
-                }, 
-                {
-                 "height":0,
-                 "id":82,
-                 "name":"exit-platform",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":420.112484550513,
-                         "y":9.77005778024425
-                        }, 
-                        {
-                         "x":635.053755715893,
-                         "y":87.9305200222002
-                        }, 
-                        {
-                         "x":625.283697935645,
-                         "y":146.550866703667
-                        }, 
-                        {
-                         "x":464.077744561612,
-                         "y":224.711328945623
-                        }, 
-                        {
-                         "x":39.080231120977,
-                         "y":239.36641561599
-                        }, 
-                        {
-                         "x":-224.711328945624,
-                         "y":195.401155604889
-                        }, 
-                        {
-                         "x":-297.986762297458,
-                         "y":146.550866703667
-                        }, 
-                        {
-                         "x":-293.101733407334,
-                         "y":102.585606692567
-                        }, 
-                        {
-                         "x":-151.43589559379,
-                         "y":19.540115560489
-                        }],
-                 "properties":[
-                        {
-                         "name":"properties",
-                         "propertytype":"WallProperties",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":0,
-                                 "debugopacity":192,
-                                 "density":0,
-                                 "friction":0,
-                                 "restitution":0,
-                                 "rotation":false,
-                                 "texture":"lv1_palette"
-                                }
-                            }
-                        }],
-                 "rotation":0,
-                 "type":"wall",
-                 "visible":true,
-                 "width":0,
-                 "x":7221.03972493842,
-                 "y":1382.94914770967
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1337,7 +1387,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":83,
+ "nextobjectid":78,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

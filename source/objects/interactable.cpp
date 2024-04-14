@@ -36,7 +36,12 @@ bool Interactable::init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect
     _selfObstacle->setAnchor(0.5f, 0.5f);
     _selfObstacle->setAngle((360.0f - json->getFloat("rotation")) * M_PI / 180.0f);
 
-    
+    for (auto prop : properties -> children()) {
+        if (prop -> getString("name") == "Grab") {
+            std::cout << "Yeah!" << std::endl;
+            this -> canBeGrabbed = prop -> getBool("value");
+        }
+    }
 
     _texture_name = physicalProperties->get("obstacle")->getString(TEXTURE_FIELD);
     return success;

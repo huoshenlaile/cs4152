@@ -32,6 +32,12 @@ bool CharacterController::init(const cugl::Vec2 &pos, float scale)
 	}
 	blackanimate.push_back(0);
 	_blackanimate = scene2::Animate::alloc(blackanimate, DURATION);
+    
+    funcs["character color"] = ([=](ActionParams params){
+        std::cout << "CHARACTER TO COLOR ITSELF CALLBACK RECIEVED ============= " << params.Body << std::endl;
+        setColor(params.Body);
+        return PublishedMessage();
+    });
 
 	return true;
 }

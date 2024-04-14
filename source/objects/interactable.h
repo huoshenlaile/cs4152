@@ -26,6 +26,7 @@ protected:
     bool OnEndContactEnabled = false;
     bool OnPreSolveEnabled = false;
     bool OnPostSolveEnabled = false;
+    bool canBeGrabbed = false;
 
     Rect _bounds;
     Vec2 _scale = Vec2(32, 32);
@@ -112,6 +113,10 @@ public:
     params.Body = message.Body;
     return params;
 }
+    
+    bool isGrabbable() {
+        return this->canBeGrabbed;
+    }
 
 };
 
