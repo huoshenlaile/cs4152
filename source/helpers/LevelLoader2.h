@@ -30,8 +30,9 @@ protected:
 
     // game scene UI and complete should be managed by game scene it self, 
     // level loader only cares about what is inside the level
-     std::shared_ptr<scene2::SceneNode> _uinode;
-     std::shared_ptr<scene2::SceneNode> _levelCompletenode;
+    std::shared_ptr<scene2::SceneNode> _uinode;
+    std::shared_ptr<scene2::SceneNode> _levelCompletenode;
+    std::shared_ptr<cugl::scene2::PolygonNode> _backgroundNode;
 
     std::shared_ptr<cugl::physics2::net::NetWorld> _world;
     std::shared_ptr<CharacterController> _character;
@@ -49,6 +50,10 @@ public:
         LOADING,
         DONE
     };
+    
+    std::string goodBg;
+    std::string badBg;
+    std::string defaultBg;
 
     LevelLoadState _state;
 
@@ -69,7 +74,7 @@ public:
         std::shared_ptr<JsonReader> reader = JsonReader::allocWithAsset(file);
         return preload(reader->readJson());
     }
-
+    
     // construction of the level
     bool construct(std::shared_ptr<cugl::AssetManager>& _assets);
 
