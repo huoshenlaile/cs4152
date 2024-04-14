@@ -53,6 +53,14 @@ bool InteractionController2::init(std::shared_ptr<LevelLoader2> level){
         _messageQueue.pop();
     }
     _levelComplete = false;
+
+    // CULog the size of 5 methods.
+    CULog("Size of _timeUpdateInteractables: %lu", _timeUpdateInteractables.size());
+    CULog("Size of _BeginContactInteractable: %lu", _BeginContactInteractable.size());
+    CULog("Size of _EndContactInteractable: %lu", _EndContactInteractable.size());
+    CULog("Size of _PreSolveInteractable: %lu", _PreSolveInteractable.size());
+    CULog("Size of _PostSolveInteractable: %lu", _PostSolveInteractable.size());
+
     return true;
 }
 
@@ -287,4 +295,5 @@ void InteractionController2::activateController(){
     _world->afterSolve = [this](b2Contact* contact, const b2ContactImpulse* impulse){
         afterSolve(contact, impulse);
     };
+    _world->activateCollisionCallbacks(true);
 }
