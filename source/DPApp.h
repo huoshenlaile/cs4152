@@ -40,8 +40,6 @@ class DPApp : public cugl::Application {
 	enum GameStatus {
 		LOAD,
 		MENU,
-		//    HOST,
-		//    CLIENT,
 		LEVELSELECT,
 		LEVELLOAD,
 		GAME,
