@@ -18,11 +18,11 @@ public:
         Interactable::~Interactable();
     }
 
-    virtual bool init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect bounds);
+    virtual bool init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect bounds) override;
 
     virtual bool linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleWorld> &physicsWorld, const std::shared_ptr<cugl::scene2::SceneNode> &sceneNode, float scale) override;
 
-    virtual PublishedMessage onBeginContact(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact = nullptr, std::shared_ptr<Interactable> otherInteractable = nullptr, bool isCharacter = false) override;
+    virtual PublishedMessage onBeginContact(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact = nullptr, std::shared_ptr<Interactable> otherInteractable = nullptr, bool isCharacter = false, std::shared_ptr<CharacterController> character = nullptr) override;
     
     static std::shared_ptr<GrowingPaint> alloc(const std::shared_ptr<cugl::JsonValue>& json, Vec2 scale, Rect bounds) {
         std::shared_ptr<GrowingPaint> result = std::make_shared<GrowingPaint>();
