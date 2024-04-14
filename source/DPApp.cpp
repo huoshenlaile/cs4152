@@ -180,6 +180,12 @@ void DPApp::preUpdate(float timestep) {
             break;
         case PauseScene::MENU:
             // TODO: ?
+            std::cout << "menu select screen" << std::endl;
+            _gameScene.dispose();
+            _gameScene.setActive(false);
+            _pauseScene.setActive(false);
+            _menuScene.setActive(true);
+            _status = MENU;
             break;
         default:
           break;

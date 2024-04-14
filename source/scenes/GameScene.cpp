@@ -180,16 +180,16 @@ void GameScene::setActive(bool value) {
  * Disposes of all (non-static) resources allocated to this mode.
  */
 void GameScene::dispose() {
-    if (_active) {
+//    if (_active) {
         
         // TODO: implement this -now the logic is very unclear and I just clean up everything
         
-        removeAllChildren();
+//        removeAllChildren();
         _level -> unload();
-        _assets -> unload<LevelLoader>(ALPHA_RELEASE_KEY);
-        _uinode -> removeAllChildren();
-        _worldnode -> removeAllChildren();
-        _debugnode -> removeAllChildren();
+//        _assets -> unload<LevelLoader>(ALPHA_RELEASE_KEY);
+//        _uinode -> removeAllChildren();
+//        _worldnode -> removeAllChildren();
+//        _debugnode -> removeAllChildren();
         setComplete(false);
 //        _worldnode = nullptr;
 //        _debugnode = nullptr;
@@ -203,7 +203,7 @@ void GameScene::dispose() {
 //        _debug = false;
         //_characterControllerB->dispose();
 //        Scene2::dispose();
-    }
+//    }
 }
 
 #pragma mark RESET

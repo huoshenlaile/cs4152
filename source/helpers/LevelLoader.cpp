@@ -359,26 +359,34 @@ LevelLoader::~LevelLoader(void) {
 * references to other assets, then these should be disconnected earlier.
 */
 void LevelLoader::unload() {
-//    if (_goalDoor != nullptr) {
-//        if (_world != nullptr) {
-//            _world->removeObstacle(_goalDoor);
-//        }
-//        _goalDoor = nullptr;
-//    }
+    std::cout << "loader being called" << std::endl;
+    if (_goalDoor != nullptr) {
+        if (_world != nullptr) {
+            _world->removeObstacle(_goalDoor);
+        }
+        _goalDoor = nullptr;
+    }
+    for (int i = 0; i < _walls.size(); i++){
+        if(_world != nullptr){
+            _world->removeObstacle(_walls[i]);
+        }
+        std::cout << "wall pointer has this much count: " << _walls[i].use_count() << std::endl;
+        _walls[i] = nullptr;
+    }
 //    for(auto it = _walls.begin(); it != _walls.end(); ++it) {
 //        if (_world != nullptr) {
 //            _world->removeObstacle((*it));
 //        }
 //    (*it) = nullptr;
 //    }
-//    _walls.clear();
-//    for(auto it = _sensors.begin(); it != _sensors.end(); ++it) {
-//        if (_world != nullptr) {
-//            _world->removeObstacle((*it));
-//        }
-//    (*it) = nullptr;
-//    }
-//    _sensors.clear();
+    _walls.clear();
+    for(auto it = _sensors.begin(); it != _sensors.end(); ++it) {
+        if (_world != nullptr) {
+            _world->removeObstacle((*it));
+        }
+    (*it) = nullptr;
+    }
+    _sensors.clear();
     if (_world != nullptr) {
         _world->clear();
         _world = nullptr;
