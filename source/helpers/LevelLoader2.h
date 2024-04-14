@@ -9,6 +9,7 @@
 #include "LevelConstants.h"
 // include interactables
 #include "../objects/interactable.h"
+#include "../objects/objectImport.h"
 #include "../controllers/CharacterController.h"
 using namespace cugl;
 
@@ -20,10 +21,13 @@ protected:
     std::shared_ptr<scene2::SceneNode> _root;
     Rect _bounds;
     Vec2 _gravity;
-    Vec2 _scale;
+    Vec2 _scale = Vec2(32, 32);
     Vec2 _charPos;
 
     std::shared_ptr<scene2::SceneNode> _worldnode;
+    std::shared_ptr<scene2::SceneNode> _charNode; //character node
+    std::shared_ptr<scene2::SceneNode> _platformNode; // platform node
+
     // game scene UI and complete should be managed by game scene it self, 
     // level loader only cares about what is inside the level
      std::shared_ptr<scene2::SceneNode> _uinode;
@@ -36,6 +40,8 @@ protected:
     std::vector<std::shared_ptr<Interactable>> _interactables;
 
     cugl::Size computeActiveSize() const;
+    bool loadObject(const std::shared_ptr<cugl::JsonValue>& json);
+    Vec2 getObjectPos(const std::shared_ptr<JsonValue>& json)
 public:
     // status of load
     enum LevelLoadState {
@@ -63,7 +69,10 @@ public:
         return preload(reader->readJson());
     }
 
+    // construction of the level
+    bool construct(std::shared_ptr<cugl::AssetManager>& _assets);
 
+    
     // constructor and destructor
     LevelLoader2(void) : Asset(), _root(nullptr), _world(nullptr), _worldnode(nullptr), _scale(32, 32), _state(LOADING) {}
     virtual ~LevelLoader2(void) { unload(); }
@@ -80,8 +89,7 @@ public:
     }
 
 
-    // construction of the level
-    bool constructRenderScene(std::shared_ptr<cugl::AssetManager>& _assets);
+
 
 
 };

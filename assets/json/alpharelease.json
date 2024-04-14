@@ -969,7 +969,13 @@
                              "Body":"(unused_now)",
                              "Message":"contacted",
                              "Pub_id":"sensor1",
-                             "Trigger":"contacted"
+                             "Trigger":"contacted",
+                             "condition1":
+                                {
+                                 "Enabled":true,
+                                 "Head":"paint1 out",
+                                 "Trigger":"TOUCH: character body"
+                                }
                             }
                         }, 
                         {
@@ -1038,7 +1044,13 @@
                             {
                              "Message":"contacted",
                              "Pub_id":"sensor2",
-                             "Trigger":"contacted"
+                             "Trigger":"contacted",
+                             "condition1":
+                                {
+                                 "Enabled":true,
+                                 "Head":"paint2 out",
+                                 "Trigger":"TOUCH: character body"
+                                }
                             }
                         }, 
                         {
@@ -1226,6 +1238,19 @@
                         }],
                  "properties":[
                         {
+                         "name":"Subscription",
+                         "propertytype":"Subscription",
+                         "type":"class",
+                         "value":
+                            {
+                             "cnodition2":
+                                {
+                                 "Enabled":true,
+                                 "Head":"paint1 out"
+                                }
+                            }
+                        }, 
+                        {
                          "name":"color",
                          "type":"string",
                          "value":"orange"
@@ -1278,6 +1303,19 @@
                         }],
                  "properties":[
                         {
+                         "name":"Subscription",
+                         "propertytype":"Subscription",
+                         "type":"class",
+                         "value":
+                            {
+                             "cnodition2":
+                                {
+                                 "Enabled":true,
+                                 "Head":"paint2 out"
+                                }
+                            }
+                        }, 
+                        {
                          "name":"color",
                          "type":"string",
                          "value":"purple"
@@ -1296,8 +1334,8 @@
                  "type":"paint",
                  "visible":true,
                  "width":0,
-                 "x":6485.35564853556,
-                 "y":632.264063226406
+                 "x":6473.23443641435,
+                 "y":641.354972317315
                 }],
          "opacity":1,
          "type":"objectgroup",
