@@ -37,21 +37,26 @@ bool LevelLoadScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
 
 bool LevelLoadScene::loadFileAsync(const std::string &file, const std::string &key) {
     // TODO: 
-    _assets->loadAsync<LevelLoader2>(key, file, [=](const std::string key2, bool success2){
+    _file = file;
+    _key = key;
+    _assets->loadAsync<LevelLoader2>(key, file, [&](const std::string key2, bool success2){
         if (!success2) {
             CULog("Failed to load level loader");
             return;
         }
         CULog("Loaded level loader");
-        _assets->get<LevelLoader2>(key2)->construct(_assets);
-        _state = DONE;
+        _state = CONSTRUCT;
     }
     );
     return true;
 }
 
 void LevelLoadScene::update(float timestep) {
-    
+    if (_state == CONSTRUCT){
+        auto ll = _assets->get<LevelLoader2>(_key);
+        ll->construct(_assets);
+        _state = DONE;
+    }
     
 }
 

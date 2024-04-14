@@ -324,6 +324,7 @@ void DPApp::updateLevelSelect(float timestep) {
 void DPApp::updateLevelLoad(float timestep){
   switch (_levelLoadScene._state) {
     case LevelLoadScene::LOADING:
+    case LevelLoadScene::CONSTRUCT:
       _levelLoadScene.update(timestep);
       break;
     case LevelLoadScene::DONE:
@@ -381,6 +382,9 @@ void DPApp::draw() {
     break;
   case PAUSE:
     _pauseScene.render(_batch);
+    break;
+  case LEVELLOAD:
+    _levelLoadScene.render(_batch);
     break;
   }
 }

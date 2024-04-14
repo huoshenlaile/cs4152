@@ -7,7 +7,8 @@ class LevelLoadScene : public cugl::Scene2 {
 protected:
     /** The asset manager for loading. */
     std::shared_ptr<cugl::AssetManager> _assets;
-
+    std::string _file;
+    std::string _key;
     bool _constructWorld();
 
 public:
@@ -21,10 +22,11 @@ public:
 
     bool loadFileAsync(const std::string& file, const std::string& key);
 
-    void update(float timestep);
+    void update(float timestep) override;
 
     enum LevelLoadSceneState {
         LOADING,
+        CONSTRUCT,
         DONE
     };
 

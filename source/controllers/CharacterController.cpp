@@ -79,6 +79,7 @@ void CharacterController::dispose()
 std::shared_ptr<physics2::Obstacle> CharacterController::makePart(int part, int connect, const Vec2 &pos)
 {
 	std::shared_ptr<Texture> image = _textures[part];
+	CULog("makePart texture name: %s", image->getName().c_str());
 	Size size = image->getSize();
 	size.width /= _drawScale;
 	size.height /= _drawScale;
@@ -110,6 +111,7 @@ std::shared_ptr<physics2::Obstacle> CharacterController::makePart(int part, int 
 					   -w * 0.414f, h,
 					   -w, h * 0.414f};
 
+		CULog("w: %f, h: %f", w, h);
 		cugl::Poly2 octpoly = cugl::Poly2(reinterpret_cast<Vec2 *>(oct), 8);
 		EarclipTriangulator triangulator;
 		triangulator.set(octpoly.vertices);
@@ -274,10 +276,12 @@ bool CharacterController::buildParts(const std::shared_ptr<AssetManager> &assets
 			}
 		}
 		std::string name = getPartName(ii);
+		CULog("get character texture: %s", name.c_str());
 		std::shared_ptr<Texture> image = assets->get<Texture>(name);
 		if (image == nullptr)
 		{
 			success = false;
+			CULog("get character texture failed: %s", name.c_str());
 		}
 		else
 		{

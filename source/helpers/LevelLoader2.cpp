@@ -47,7 +47,9 @@ bool LevelLoader2::loadObject(const std::shared_ptr<JsonValue>& json){
     } else if (type == CHARACTER_POS){
         _charPos = getObjectPos(json);
     } else {
-        CUAssertLog(false, "Object type not recognized");
+        // log type not recognized
+        // CUAssertLog(false, "Object type not recognized");
+        CULog("unknown type: %s", type.c_str());
         return false;
     }
     return true;
@@ -61,7 +63,7 @@ bool LevelLoader2::construct(std::shared_ptr<cugl::AssetManager>& _assets){
     // ============== construct scene ==============
     _worldnode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
     _worldnode->setPosition(offset);
-    
+    _worldnode->setContentSize(Size(SCENE_WIDTH, SCENE_HEIGHT));
     // DONT KNOW WHY... ALL COPIED FROM THE old LEVELLOADER
     float xScale = (_world->getBounds().getMaxX() * _scale.x) / _worldnode->getContentSize().width;
     float yScale = (_world->getBounds().getMaxY() * _scale.y) / _worldnode->getContentSize().height;
@@ -76,6 +78,7 @@ bool LevelLoader2::construct(std::shared_ptr<cugl::AssetManager>& _assets){
     _worldnode->addChild(_platformNode);
     _worldnode->addChild(_charNode);
 
+    CULog("level loader construction scale: %f %f", _scale.x, _scale.y);
     // create character
     _character = CharacterController::alloc(_charPos, _scale.x);
     _character->buildParts(_assets);

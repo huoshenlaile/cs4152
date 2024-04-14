@@ -36,15 +36,18 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager>& assets, std::str
     _complete = false;
     _scale = dimen.width == SCENE_WIDTH ? dimen.width / rect.size.width : dimen.height / rect.size.height;
 
-#pragma mark Construct UI elements
-    constructSceneNodes(dimen);
+
 
 #pragma mark fetch from level loader
     _level = _assets->get<LevelLoader2>(levelName);
     _platformWorld = _level->getWorld();
-    _platformNode = _level->getWorldNode();
-    _worldnode->addChild(_platformNode);
+    
+    _worldnode = _level->getWorldNode();
+    addChild(_worldnode);
     _character = _level->getCharacter();
+    
+#pragma mark Construct UI elements
+    constructSceneNodes(dimen);
 
 #pragma mark Construct Interaction Controller
     _interactionController = InteractionController2::alloc(_level);
@@ -75,6 +78,7 @@ void GameScene::setActive(bool value) {
     if (isActive() != value){
         Scene2::setActive(value);
         if (value) {
+            _worldnode->setVisible(true);
             _pauseButton->activate();
             _gamePaused = false;
 
@@ -139,7 +143,7 @@ void GameScene::postUpdate(float dt){
 // ================================= private helper functions =================================
 void GameScene::constructSceneNodes(const Size &dimen){
     Vec2 offset{ (dimen.width - SCENE_WIDTH) / 2.0f,(dimen.height - SCENE_HEIGHT) / 2.0f };
-    _worldnode = scene2::SceneNode::alloc();
+    // _worldnode = scene2::SceneNode::alloc();
     _worldnode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
     _worldnode->setPosition(offset);
 
@@ -185,9 +189,8 @@ void GameScene::constructSceneNodes(const Size &dimen){
         }
     });
 
-    addChild(_worldnode);
+    
     addChild(_uinode);
-    _worldnode->setContentSize(Size(SCENE_WIDTH, SCENE_HEIGHT));
 }
 
 
