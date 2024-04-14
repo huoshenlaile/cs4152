@@ -17,7 +17,7 @@ bool Sensor::init(const std::shared_ptr<cugl::JsonValue>& json, Vec2 scale, Rect
     return true;
 }
 
-PublishedMessage Sensor::onBeginContact(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact, std::shared_ptr<Interactable> otherInteractable, bool isCharacter){
+PublishedMessage Sensor::onBeginContact(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact, std::shared_ptr<Interactable> otherInteractable, bool isCharacter, std::shared_ptr<CharacterController> character){
     CULog("Sensor of [%s] tested", message_head.c_str());
     if (isCharacter){
         // if the sensor is activated
