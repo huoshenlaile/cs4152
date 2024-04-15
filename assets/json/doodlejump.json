@@ -440,7 +440,7 @@
                 {
                  "height":0,
                  "id":27,
-                 "name":"",
+                 "name":"gravitywall",
                  "polygon":[
                         {
                          "x":0,
@@ -543,7 +543,7 @@
                             }
                         }],
                  "rotation":0,
-                 "type":"wall",
+                 "type":"gravitywall",
                  "visible":true,
                  "width":0,
                  "x":3766.94084817208,
