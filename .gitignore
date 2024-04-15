@@ -36,3 +36,5 @@
 **/.DS_Store
 **/.vscode/*
 **/.vs/*
+
+assets/*.tiled-session
