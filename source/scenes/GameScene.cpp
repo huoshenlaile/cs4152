@@ -60,7 +60,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, std::str
     _camera.setZoom(DEFAULT_ZOOM);
     
     
-    _level -> changeBackground(0);
+//    _level -> changeBackground(0);
 
     return true;
 }
@@ -151,8 +151,8 @@ void GameScene::postUpdate(float dt) {
     if (_interactionController->isLevelComplete()) {
         _complete = true;
         _levelComplete->setVisible(true);
-        _levelCompleteReset -> activate();
-        _levelCompleteMenuButton -> activate();
+//        _levelCompleteReset -> activate();
+//        _levelCompleteMenuButton -> activate();
     }
 }
 
@@ -186,26 +186,26 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     
     // TODO: Trying on level complete (MAY CRASH)
     // level complete scene buttons
-    _levelCompleteReset = std::dynamic_pointer_cast<scene2::Button>(_levelComplete->getChildByName("completemenu")->getChildByName("options")->getChildByName("restart"));
-    _levelCompleteReset->deactivate();
-    _levelCompleteReset->addListener([this](const std::string &name, bool down) {
-        if (down) {
-            std::cout << "Well, level complete reset!" << std::endl;
-            this->state = RESET;
-        }
-    });
-
-    // TODO: add this button to the level complete scene
-    _levelCompleteMenuButton = std::dynamic_pointer_cast<scene2::Button>(_levelComplete->getChildByName("completemenu")->getChildByName("options")->getChildByName("menu"));
-    _levelCompleteMenuButton->deactivate();
-    _levelCompleteMenuButton->addListener([this](const std::string &name, bool down) {
-        if (down) {
-            // TODO: there is something weird happening here.
-            // _level -> unload();
-            std::cout << "Well, level complete main menu!" << std::endl;
-            this->state = QUIT;
-        }
-    });
+//    _levelCompleteReset = std::dynamic_pointer_cast<scene2::Button>(_levelComplete->getChildByName("completemenu")->getChildByName("options")->getChildByName("restart"));
+//    _levelCompleteReset->deactivate();
+//    _levelCompleteReset->addListener([this](const std::string &name, bool down) {
+//        if (down) {
+//            std::cout << "Well, level complete reset!" << std::endl;
+//            this->state = RESET;
+//        }
+//    });
+//
+//    // TODO: add this button to the level complete scene
+//    _levelCompleteMenuButton = std::dynamic_pointer_cast<scene2::Button>(_levelComplete->getChildByName("completemenu")->getChildByName("options")->getChildByName("menu"));
+//    _levelCompleteMenuButton->deactivate();
+//    _levelCompleteMenuButton->addListener([this](const std::string &name, bool down) {
+//        if (down) {
+//            // TODO: there is something weird happening here.
+//            // _level -> unload();
+//            std::cout << "Well, level complete main menu!" << std::endl;
+//            this->state = QUIT;
+//        }
+//    });
 
     _uinode->addChild(_levelComplete);
     // deleted level complete related UI
