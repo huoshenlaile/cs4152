@@ -72,7 +72,7 @@ void GameScene::dispose() {
     _pauseButton = nullptr;
     _worldnode->removeAllChildren();
     _worldnode = nullptr;
-    _levelComplete->removeAllChildren();
+//    _levelComplete->removeAllChildren();
     _levelComplete = nullptr;
     _level = nullptr;
     this->removeAllChildren();
@@ -179,13 +179,17 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     _levelComplete->setContentSize(dimen);
     _levelComplete->setVisible(false);
     
+    for (auto i : _levelComplete -> getChildren()) {
+        std::cout << "child name: " << i -> getName() << std::endl;
+    }
     // TODO: Trying on level complete (MAY CRASH)
     // level complete scene buttons
-    _levelCompleteReset = std::dynamic_pointer_cast<scene2::Button>(_levelComplete->getChildByName("completemenu")->getChildByName("options")->getChildByName("restart"));
+    auto completemenu = _levelComplete->getChildByName("completemenu");
+    _levelCompleteReset = std::dynamic_pointer_cast<scene2::Button>(completemenu->getChildByName("options")->getChildByName("restart"));
     _levelCompleteReset->deactivate();
     _levelCompleteReset->addListener([this](const std::string &name, bool down) {
         if (down) {
-            std::cout << "Well, level complete reset!" << std::endl;
+            std::cout << "level complete reset!" << std::endl;
             this->state = RESET;
         }
     });
@@ -195,9 +199,7 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     _levelCompleteMenuButton->deactivate();
     _levelCompleteMenuButton->addListener([this](const std::string &name, bool down) {
         if (down) {
-            // TODO: there is something weird happening here.
-            // _level -> unload();
-            std::cout << "Well, level complete main menu!" << std::endl;
+            std::cout << "level complete main menu!" << std::endl;
             this->state = QUIT;
         }
     });
