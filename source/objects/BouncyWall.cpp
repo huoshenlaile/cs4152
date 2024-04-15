@@ -9,14 +9,16 @@ bool BouncyWall::init(const std::shared_ptr<cugl::JsonValue>& json, Vec2 scale, 
 }
 
 PublishedMessage BouncyWall::onBeginContact(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact, std::shared_ptr<Interactable> otherInteractable, bool isCharacter, std::shared_ptr<CharacterController> character){
-    double speed = 100;
+    float speed = 100;
+    //if the character body collides with the bouncy wall
+    std::cout << (other != character->getLHObstacle() && other != character->getLHObstacle());
     if (isCharacter){
         // if the sensor is activated
         if (activated){
             double magnitude = std::sqrt(character->getBodyObstacle()->getLinearVelocity().x * character->getBodyObstacle()->getLinearVelocity().x + character->getBodyObstacle()->getLinearVelocity().y * character->getBodyObstacle()->getLinearVelocity().y);
-            std::cout << "contacted bouncy platform with body" << std::endl;
+//            std::cout << "contacted bouncy platform with body" << std::endl;
             if (magnitude == 0 ){
-                character->getBodyObstacle()->setLinearVelocity({0.0,100.0});
+                character->getBodyObstacle()->setLinearVelocity({0.0, speed});
             } else {
                 float x_vel = -character->getBodyObstacle()->getLinearVelocity().x / magnitude * speed;
                 float y_vel = -character->getBodyObstacle()->getLinearVelocity().y / magnitude * speed;
