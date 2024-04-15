@@ -248,5 +248,40 @@
             "wangset",
             "project"
         ]
+    },
+    {
+        "color": "#ffa0a0a4",
+        "drawFill": true,
+        "id": 23,
+        "members": [
+            {
+                "name": "Bad_bg",
+                "type": "string",
+                "value": ""
+            },
+            {
+                "name": "Default_bg",
+                "type": "string",
+                "value": ""
+            },
+            {
+                "name": "Good_bg",
+                "type": "string",
+                "value": ""
+            }
+        ],
+        "name": "METADATA",
+        "type": "class",
+        "useAs": [
+            "property",
+            "map",
+            "layer",
+            "object",
+            "tile",
+            "tileset",
+            "wangcolor",
+            "wangset",
+            "project"
+        ]
     }
 ]

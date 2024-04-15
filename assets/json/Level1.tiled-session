@@ -29,12 +29,12 @@
             "scale": 0.3103,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 4608.443441830486,
-                "y": 1123.1066709635834
+                "x": 267.4830808894618,
+                "y": 336.770866902997
             }
         }
     },
-    "last.objectTypesPath": "/Users/porridge/Games/cs4152/assets/json/PubSubCustomTypes.json",
+    "last.objectTypesPath": "/Users/porridge/Games/cs4152/assets/json/ALLCustomTypes.json",
     "openFiles": [
         "alpharelease.json"
     ],
