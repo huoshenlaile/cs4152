@@ -305,10 +305,10 @@ void InteractionController2::runMessageQueue() {
         if (head == "LevelComplete") {
             _levelComplete = true;
         }
-        if (head == "ExitContact") {
+        if (head == "ShowButton") {
             _showPaintButton = true;
         }
-        if (head == "ExitRelease") {
+        if (head == "HideButton") {
             _showPaintButton = false;
         }
     }

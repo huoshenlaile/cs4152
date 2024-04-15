@@ -6,7 +6,10 @@
 
 class Exit : public Interactable {
 protected:
-    std::string message_head;
+    std::string message_head_gameend;
+    std::string message_head_contact;
+    std::string message_head_release;
+
     
     /** The colors required to exit */
     std::set<std::string> _colorReqs;
