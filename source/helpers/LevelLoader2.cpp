@@ -44,7 +44,11 @@ bool LevelLoader2::loadObject(const std::shared_ptr<JsonValue>& json){
     }else if (type == PAINT_FIELD){
         auto paint = GrowingPaint::alloc(json, _scale, _bounds);
         _interactables.push_back(std::static_pointer_cast<Interactable>(paint));
-    } else if (type == CHARACTER_POS){
+    }else if (type == MWALLS_FIELD){
+        auto mwall = MovingWall::alloc(json, _scale, _bounds);
+        _interactables.push_back(std::static_pointer_cast<Interactable>(mwall));
+        CULog("HIIIEEEEE: %f", 0.1f);
+    }else if (type == CHARACTER_POS){
         _charPos = getObjectPos(json);
     } else {
         // log type not recognized
