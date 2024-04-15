@@ -76,11 +76,11 @@ public:
     std::string selectedLevelKey = "alpharelease";
 
     std::string getSelectedLevelFile() {
-        return selectedLevelFile;
+        return this->selectedLevelFile;
     }
 
     std::string getSelectedLevelKey() {
-        return selectedLevelKey;
+        return this->selectedLevelKey;
     }
 
     /**
