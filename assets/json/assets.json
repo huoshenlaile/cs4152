@@ -21,6 +21,9 @@
         "lv1_background_3": {
             "file": "textures/lv1_background_3.png"
         },
+        "lv3_background_1": {
+            "file": "textures/lv3_background_1.png"
+        },
         "alpharelease_frenchfries": {
             "file": "textures/alpharelease_frenchfries.png"
         },

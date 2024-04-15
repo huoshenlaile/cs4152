@@ -1,0 +1,29 @@
+{
+    "activeFile": "tubelevel.json",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "/Users/pomelobranco/Cornell/CS_4152/GroupProject/cs4152/assets/tileset/demo_elements.tsx": {
+            "scaleInDock": 1
+        },
+        "tubelevel.json": {
+            "scale": 0.0457763671875,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 4795.050666666666,
+                "y": 1125.0346666666665
+            }
+        }
+    },
+    "last.objectTypesPath": "/Users/pomelobranco/Cornell/CS_4152/GroupProject/cs4152/assets/json/ALLCustomTypes.json",
+    "openFiles": [
+        "tubelevel.json"
+    ],
+    "project": "tubelevel.tiled-project",
+    "property.type": "METADATA",
+    "recentFiles": [
+        "tubelevel.json"
+    ]
+}

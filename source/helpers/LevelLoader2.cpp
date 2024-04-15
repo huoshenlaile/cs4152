@@ -102,6 +102,7 @@ bool LevelLoader2::construct(std::shared_ptr<cugl::AssetManager>& _assets){
     defaultBgTexture = _assets->get<Texture>(defaultBg);
     goodBgTexture = _assets->get<Texture>(goodBg);
     badBgTexture = _assets->get<Texture>(badBg);
+    std::cout << defaultBg << std::endl;
     _defaultBgNode =  scene2::PolygonNode::allocWithTexture(defaultBgTexture);
     _defaultBgNode -> setTexture(defaultBgTexture);
     _defaultBgNode->setAbsolute(true);
