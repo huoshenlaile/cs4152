@@ -27,11 +27,15 @@ bool Interactable::init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect
     triangulator.clear();
     
     _selfTexture = scene2::PolygonNode::allocWithPoly(shape);
-    _selfTexture->setColor(Color4::BLACK);
-
+    if (json->getString("type") == "sensor" || json->getString("type") == "exit"){
+        _selfTexture->setColor(Color4(0,0,0,0));
+    }
+    else{
+        _selfTexture->setColor(Color4::BLACK);
+    }
     _selfObstacle = cugl::physics2::PolygonObstacle::allocWithAnchor(shape, Vec2(0.5f,0.5f));
     _selfObstacle->setName(json->getString("name"));
-    std::cout << json->getString("name") << "\n";
+    std::cout << json->getString("type") << "\n";
     _selfObstacle->setBodyType((b2BodyType)physicalProperties->get("obstacle")->getInt(BODYTYPE_FIELD));
     _selfObstacle->setDensity(physicalProperties->get("obstacle")->getDouble(DENSITY_FIELD));
     _selfObstacle->setFriction(physicalProperties->get("obstacle")->getDouble(FRICTION_FIELD));
@@ -69,6 +73,7 @@ bool Interactable::bindAssets(const std::shared_ptr<cugl::AssetManager>& assets,
 bool Interactable::linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleWorld> &physicsWorld, const std::shared_ptr<cugl::scene2::SceneNode>& sceneNode, float scale){
     _world = physicsWorld;
     _scene = sceneNode;
+    std::cout << _selfObstacle->getName()<<"\n";
     
     _world->addObstacle(_selfObstacle);
 

@@ -26,8 +26,8 @@
             "scale": 0.222,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 3777.0270270270275,
-                "y": 1101.3513513513512
+                "x": 4799.54954954955,
+                "y": 1094.5945945945948
             }
         },
         "json/doodlejump.json": {
@@ -39,11 +39,11 @@
             }
         },
         "json/falldown.json": {
-            "scale": 0.0657,
+            "scale": 0.08,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 3021.3089802130903,
-                "y": 1476.4079147640796
+                "x": 2081.25,
+                "y": 3387.5
             }
         },
         "tileset/demo_elements.tsx": {
@@ -63,8 +63,8 @@
     "project": "untitled.tiled-project",
     "property.type": "Physics",
     "recentFiles": [
-        "json/alpharelease.json",
         "json/falldown.json",
+        "json/alpharelease.json",
         "json/alpharelease copy 2.json",
         "tileset/demo_elements.tsx"
     ],
