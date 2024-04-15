@@ -9,6 +9,23 @@
         "splotch3": {
             "file": "textures/pureOrange.png"
         },
+        "spikes": {
+            "file": "textures/spikes.png",
+            "wrapS": "repeat",
+            "wrapT": "repeat"
+        },
+        "staticplatform_comet": {
+            "file": "textures/staticplatform_comet.png"
+        },
+        "bouncingplatform_slime": {
+            "file": "textures/bouncingplatform_slime.png"
+        },
+        "heavygravityplatform_blackhole": {
+            "file": "textures/heavygravityplatform_blackhole.png"
+        },
+        "nogravityplatform_blackhole": {
+            "file": "textures/nogravityplatform_blackhole.png"
+        },
         "alpharelease_background": {
             "file": "textures/alpharelease_background.png"
         },
