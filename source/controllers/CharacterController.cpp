@@ -1108,11 +1108,13 @@ void CharacterController::drawDecoration(float scale)
 		if (_decorationNode != nullptr)
 		{
             if(_colorchange == true){
-                auto newSprite = getTextureForDecoration(_color);
-                _node->removeChild(_decorationNode);
-                _decorationNode = newSprite;
-                _node->addChild(_decorationNode);
-                _colordecchange = true;
+                if (_color != "black") {
+                    auto newSprite = getTextureForDecoration(_color);
+                    _node->removeChild(_decorationNode);
+                    _decorationNode = newSprite;
+                    _node->addChild(_decorationNode);
+                    _colordecchange = true;
+                }
             }
 			_decorationNode->setPosition(bodyPos * scale);
 			_decorationNode->setAngle(bodyAngle);
@@ -1279,7 +1281,7 @@ std::shared_ptr<scene2::SpriteNode> CharacterController::getTextureForDecoration
         else if (color == "blue")
         {
             textureNode = scene2::SpriteNode::allocWithSheet(_bluedecoration, 5, 5, 24);
-        }
+        } 
     
 
     if (textureNode)

@@ -4,48 +4,10 @@
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
-        "/Users/porridge/Desktop/courses/CS3152/CS-3152-G6/Eudaemon/assets/EudaemonTileset.json": {
-            "dynamicWrapping": true,
-            "scaleInDock": 1
-        },
-        "/Users/porridge/Desktop/courses/CS3152/CS-3152-G6/Eudaemon/assets/levels/level1.json": {
-            "expandedObjectLayers": [
-                7
-            ],
-            "scale": 0.7748,
-            "selectedLayer": 3,
-            "viewCenter": {
-                "x": 721.4765100671141,
-                "y": 465.2813629323696
-            }
-        },
-        "/Users/porridge/Games/cs4152/assets/tileset/demo_elements.tsx": {
-            "scaleInDock": 1
-        },
-        "alpharelease.json": {
-            "expandedObjectLayers": [
-                2
-            ],
-            "scale": 0.3342,
-            "selectedLayer": 0,
-            "viewCenter": {
-<<<<<<< HEAD
-                "x": 3653.5008976660683,
-                "y": 878.2166367444645
-=======
-                "x": 3061.041292639138,
-                "y": 896.169958108917
->>>>>>> 6343f88 (hardcode gravity reverse platform)
-            }
-        }
     },
-    "last.objectTypesPath": "/Users/porridge/Games/cs4152/assets/json/ALLCustomTypes.json",
     "openFiles": [
     ],
-    "project": "Level1.tiled-project",
-    "property.type": "color",
+    "project": "",
     "recentFiles": [
-        "alpharelease.json",
-        "/Users/porridge/Desktop/courses/CS3152/CS-3152-G6/Eudaemon/assets/levels/level1.json"
     ]
 }

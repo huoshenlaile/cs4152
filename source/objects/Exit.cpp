@@ -70,7 +70,6 @@ PublishedMessage Exit::onEndContact(std::shared_ptr<cugl::physics2::Obstacle> ot
 PublishedMessage Exit::timeUpdate(float timestep){
     if (this->contact_time < 0 || (this->is_contacting && !this->contactedLongEnough())){
             this->contact_time += timestep;
-            std::cout << this->contact_time;
             std::cout << "Contact time: " << this->contact_time << "\n";
         }
     else if (this->is_contacting && this->contactedLongEnough()){
