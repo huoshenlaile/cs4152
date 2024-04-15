@@ -229,8 +229,8 @@ public:
 	void drawDecoration(float scale);
 
 	std::shared_ptr<scene2::SpriteNode> getTextureForPart(int partId, const std::string &color);
-    std::shared_ptr<scene2::SpriteNode> getTextureForDecoration(const std::string &color);
-	std::shared_ptr<scene2::PolygonNode> getTextureForHand(int partId, const std::string &color);
+    std::shared_ptr<cugl::Texture> getTextureForDecoration(const std::string &color);
+	std::shared_ptr<cugl::Texture> getTextureForHand(int partId, const std::string &color);
 
 #pragma mark -
 
