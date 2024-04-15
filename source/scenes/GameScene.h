@@ -109,6 +109,7 @@ public:
      */
     void reset();
     bool isCharacterInMap();
+    void setCamera(std::string selectedLevelKey);
 };
 
 #endif
