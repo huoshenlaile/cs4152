@@ -15,6 +15,11 @@
                 "value": 0
             },
             {
+                "name": "color-requirements",
+                "type": "string",
+                "value": ""
+            },
+            {
                 "name": "debugcolor",
                 "type": "string",
                 "value": ""
