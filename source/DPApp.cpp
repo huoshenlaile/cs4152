@@ -146,17 +146,21 @@ void DPApp::preUpdate(float timestep) {
     if (_gameScene.isComplete()) {
         if (_gameScene.state == GameScene::QUIT) {
             // TODO: Implement QUIT MENU
-            // This code below will give an error
-            _gameScene.dispose();
-//            _gameScene.reset();
-            _gameScene.setActive(false);
-            _menuScene.setActive(true);
-            _status = MENU;
-        } else if (_gameScene.state == GameScene::RESET) {
-            _gameScene.setActive(false);
+//            _gameScene.dispose();
+//            _gameScene.setActive(false);
+//            _menuScene.setActive(true);
+//            _status = MENU;
             _gameScene.reset();
-            _gameScene.setActive(true);
-            _status = GAME;
+            _status = LEVELSELECT;
+            _levelSelectScene.setActive(true);
+        } else if (_gameScene.state == GameScene::RESET) {
+//            _gameScene.setActive(false);
+//            _gameScene.reset();
+//            _gameScene.setActive(true);
+//            _status = GAME;
+            _gameScene.reset();
+            _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
+            _status = LEVELLOAD;
         }
     } else if (_gameScene.isPaused()) {
       _status = PAUSE;

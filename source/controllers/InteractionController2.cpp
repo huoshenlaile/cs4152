@@ -82,14 +82,14 @@ void InteractionController2::beginContact(b2Contact *contact) {
             } else {
                 if (obs1rawPtr == characterLHRawPtr) {
                     // it is left hand
-                    if (_leftHandIsHeld && _LHGrabCD <= 0) {
+                    if (_leftHandIsHeld && _LHGrabCD <= 0 && !_leftHandIsGrabbed) {
                         CULog("from beginContact: now grabbing LH");
                         _obstaclesForJoint.push_back(characterLH);
                         _obstaclesForJoint.push_back(_obstacleToInteractable[obs2rawPtr] -> getObstacle());
                         _leftHandIsGrabbed = true;
                     }
                 } else {
-                    if (_rightHandIsHeld && _RHGrabCD <= 0) {
+                    if (_rightHandIsHeld && _RHGrabCD <= 0 && !_rightHandIsGrabbed) {
                         CULog("from beginContact: now grabbing RH");
                         _obstaclesForJoint.push_back(_obstacleToInteractable[obs2rawPtr] -> getObstacle());
                         _obstaclesForJoint.push_back(characterRH);
@@ -103,14 +103,14 @@ void InteractionController2::beginContact(b2Contact *contact) {
             } else {
                 if (obs2rawPtr == characterLHRawPtr) {
                     // it is left hand
-                    if (_leftHandIsHeld && _LHGrabCD <= 0) {
+                    if (_leftHandIsHeld && _LHGrabCD <= 0 && !_leftHandIsGrabbed) {
                         CULog("from beginContact: now grabbing LH");
                         _obstaclesForJoint.push_back(_obstacleToInteractable[obs1rawPtr] -> getObstacle());
                         _obstaclesForJoint.push_back(characterLH);
                         _leftHandIsGrabbed = true;
                     }
                 } else {
-                   if (_rightHandIsHeld && _RHGrabCD <= 0) {
+                   if (_rightHandIsHeld && _RHGrabCD <= 0 && _rightHandIsGrabbed) {
                         CULog("from beginContact: now grabbing RH");
                         _obstaclesForJoint.push_back(characterRH);
                         _obstaclesForJoint.push_back(_obstacleToInteractable[obs1rawPtr] -> getObstacle());

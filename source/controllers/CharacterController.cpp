@@ -9,7 +9,7 @@ bool CharacterController::init(const cugl::Vec2 &pos, float scale)
 	_offset = pos;
 	_drawScale = scale;
 
-	_color = "black";
+	_color = "orange";
 	_colorchange = false;
     _colorlhchange = false;
     _colorrhchange = false;
