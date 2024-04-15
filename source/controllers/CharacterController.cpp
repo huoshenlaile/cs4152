@@ -860,24 +860,12 @@ void CharacterController::linkPartsToWorld(const std::shared_ptr<cugl::physics2:
 		}
 		_world->addObstacle(obj);
 		// obj->setDebugScene(_debugnode);
-<<<<<<< HEAD
 		
+#pragma mark ChangeColor Action
 		if (obj->getBodyType() == b2_dynamicBody)
 		{
             obj->setListener([=](physics2::Obstacle *obs) mutable {
-=======
-		if (i == PART_BODY)
-		{
-		}
-		else
-		{
-			_scenenode->addChild(sprite);
-		}
-		if (obj->getBodyType() == b2_dynamicBody)
-		{
-			obj->setListener([=](physics2::Obstacle *obs) mutable
-            {
->>>>>>> b40af02 (simplify code)
+                
                 if (_colorchange) {
                     // Remove the old sprite and add the new sprite based on the part
                     if (i == PART_BODY) {
@@ -887,27 +875,13 @@ void CharacterController::linkPartsToWorld(const std::shared_ptr<cugl::physics2:
                         _scenenode->addChild(_bodyNode);
                         _colorbodychange = true;
                     } else if (i == PART_LH) {
-<<<<<<< HEAD
                         _LHNode->setTexture(getTextureForHand(i, _color));
                         _colorlhchange = true;
                     } else if (i == PART_RH) {
                         _RHNode->setTexture(getTextureForHand(i, _color));
-=======
-                        auto newHandSprite = getTextureForHand(i, _color);
-                        _scenenode->removeChild(_LHNode);
-                        _LHNode = newHandSprite;
-                        _scenenode->addChild(_LHNode);
-                        _colorlhchange = true;
-                    } else if (i == PART_RH) {
-                        auto newHandSprite = getTextureForHand(i, _color);
-                        _scenenode->removeChild(_RHNode);
-                        _RHNode = newHandSprite;
-                        _scenenode->addChild(_RHNode);
->>>>>>> b40af02 (simplify code)
                         _colorrhchange = true;
                     }
                 }
-                
                 if (i == PART_BODY) {
                     _bodyNode->setPosition(obs->getPosition() * _scale);
                     _bodyNode->setAngle(obs->getAngle());
@@ -920,6 +894,7 @@ void CharacterController::linkPartsToWorld(const std::shared_ptr<cugl::physics2:
                 }
                 drawCharacterLines(_scale);
                 drawDecoration(_scale);
+                
             });
 		}
 	}

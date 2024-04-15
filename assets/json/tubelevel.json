@@ -261,7 +261,7 @@
                  "visible":true,
                  "width":0,
                  "x":398.662807656646,
-                 "y":8225.07418938757
+                 "y":8244.96808859181
                 }, 
                 {
                  "ellipse":true,
@@ -416,16 +416,16 @@
                  "name":"exit",
                  "polygon":[
                         {
-                         "x":324.290614281259,
+                         "x":1062.54564783831,
                          "y":0
                         }, 
                         {
-                         "x":324.290614281259,
-                         "y":127.84533832242
+                         "x":1062.54564783831,
+                         "y":463.415808121077
                         }, 
                         {
                          "x":0,
-                         "y":124.727159338946
+                         "y":452.112983532757
                         }, 
                         {
                          "x":0,
@@ -434,6 +434,7 @@
                  "properties":[
                         {
                          "name":"Pub1",
+                         "propertytype":"PubMessage",
                          "type":"class",
                          "value":
                             {
@@ -451,6 +452,7 @@
                              "obstacle":
                                 {
                                  "bodytype":0,
+                                 "color-requirements":"pink",
                                  "damping":0,
                                  "debugcolor":"yellow",
                                  "debugopacity":0,
@@ -458,8 +460,7 @@
                                  "friction":0,
                                  "restitution":0,
                                  "rotation":false,
-                                 "texture":"",
-                                 "color-requirements":"pink"
+                                 "texture":""
                                 }
                             }
                         }],
@@ -467,7 +468,7 @@
                  "type":"exit",
                  "visible":true,
                  "width":0,
-                 "x":5616.8547816289,
+                 "x":4878.59974807185,
                  "y":8486.69706605012
                 }, 
                 {

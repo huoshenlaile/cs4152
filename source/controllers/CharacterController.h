@@ -204,24 +204,7 @@ public:
 	std::shared_ptr<cugl::physics2::Obstacle> getLHObstacle() { return _obstacles[PART_LH]; }
 	std::shared_ptr<cugl::physics2::Obstacle> getRHObstacle() { return _obstacles[PART_RH]; }
 	std::shared_ptr<cugl::physics2::Obstacle> getBodyObstacle() { return _obstacles[PART_BODY]; }
-	/**
-	 * Sets the scene graph node representing this Ragdoll.
-	 *
-	 * Note that this method also handles creating the nodes for the body parts
-	 * of this Ragdoll. Since the obstacles are decoupled from the scene graph,
-	 * initialization (which creates the obstacles) occurs prior to the call to
-	 * this method. Therefore, to be drawn to the screen, the nodes of the attached
-	 * bodies must be added here.
-	 *
-	 * The bubbler also uses the world node when adding bubbles to the scene, so
-	 * the input node must be added to the world BEFORE this method is called.
-	 *
-	 * By storing a reference to the scene graph node, the model can update
-	 * the node to be in sync with the physics info. It does this via the
-	 * {@link Obstacle#update(float)} method.
-	 *
-	 * @param node  The scene graph node representing this Ragdoll, which has been added to the world node already.
-	 */
+
 	void linkPartsToWorld(const std::shared_ptr<cugl::physics2::net::NetWorld> &_world, const std::shared_ptr<cugl::scene2::SceneNode> &_scenenode, float _scale);
 
 	void drawCharacterLines(float scale);
@@ -231,8 +214,6 @@ public:
 	std::shared_ptr<scene2::SpriteNode> getTextureForPart(int partId, const std::string &color);
     std::shared_ptr<cugl::Texture> getTextureForDecoration(const std::string &color);
 	std::shared_ptr<cugl::Texture> getTextureForHand(int partId, const std::string &color);
-
-#pragma mark -
 
 	const std::map<std::string, std::function<PublishedMessage(ActionParams)>>& getActions() { return funcs; }
 };

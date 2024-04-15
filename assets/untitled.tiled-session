@@ -1,69 +1,62 @@
 {
+    "activeFile": "",
     "expandedProjectPaths": [
-        "tileset",
-        ".",
-        "json"
     ],
+    "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
-        "json/alpharelease copy 2.json": {
-            "scale": 0.0408,
+        "json/alpharelease copy.json": {
+            "scale": 0.2,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 5330.882352941177,
-                "y": 4718.137254901961
+                "x": 6995,
+                "y": 1552.5
             }
         },
         "json/alpharelease.json": {
-            "expandedObjectLayers": [
-                2
-            ],
-            "scale": 0.222,
+            "scale": 0.2549,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 4801.801801801802,
-                "y": 1121.6216216216217
+                "x": 7057.66967438211,
+                "y": 1198.5092193016867
+            }
+        },
+        "json/bouncyjump.tmj": {
+            "scale": 0.15,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 853.3333333333335,
+                "y": 6403.333333333334
             }
         },
         "json/doodlejump.json": {
-            "scale": 0.0909,
+            "scale": 0.15,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 3916.391639163917,
-                "y": 4328.9328932893295
+                "x": 4800,
+                "y": -230
             }
         },
-        "json/falldown.json": {
-            "scale": 0.08,
+        "json/tubelevel.json": {
+            "scale": 0.11,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 2250,
-                "y": 3843.75
+                "x": 3072.727272727273,
+                "y": 12468.18181818182
             }
         },
         "tileset/demo_elements.tsx": {
-            "dynamicWrapping": true,
-            "scaleInDock": 1,
-            "scaleInEditor": 0.06
+            "scaleInDock": 1
         }
     },
-    "last.imagePath": "/Users/kiduszegeye/Desktop/Cornell/CS 5152/cs4152/assets/tileset",
-    "last.objectTypesPath": "/Users/kiduszegeye/Desktop/Cornell/CS 5152/cs4152/assets/json/ALLCustomTypes.json",
-    "map.height": 50,
-    "map.width": 20,
+    "last.objectTypesPath": "/Users/porridge/Games/cs4152/assets/json/PubSubCustomTypes.json",
     "openFiles": [
-        "json/alpharelease.json",
-        "json/falldown.json",
-        "json/doodlejump.json"
     ],
     "project": "untitled.tiled-project",
-    "property.type": "Physics",
     "recentFiles": [
         "json/alpharelease.json",
-        "json/falldown.json",
+        "json/tubelevel.json",
+        "json/bouncyjump.tmj",
         "json/doodlejump.json",
-        "json/alpharelease copy 2.json",
-        "tileset/demo_elements.tsx"
-    ],
-    "resizeMap.removeObjects": true
-    }
+        "json/alpharelease copy.json"
+    ]
 }

@@ -92,15 +92,16 @@ PublishedMessage Exit::timeUpdate(float timestep){
         }
         if (this->getColorsCollected().size() >= this->getColorReqs().size()){
             CULog("Game over! - Setting Complete.");
+            auto a = PublishedMessage();
+            a.Head = message_head_gameend;
             if (this->getRemainingColors().size()==0){
                 CULog("Good ending!");
+                a.Body = "Good";
             }
             else{
                 CULog("Bad ending!");
+                a.Body = "Bad";
             }
-
-            auto a = PublishedMessage();
-            a.Head = message_head_gameend;
             return a;
         }
     }

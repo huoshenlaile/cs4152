@@ -46,7 +46,6 @@ bool Interactable::init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect
 
     for (auto prop : properties -> children()) {
         if (prop -> getString("name") == "Grab") {
-            std::cout << "Yeah!" << std::endl;
             this -> canBeGrabbed = prop -> getBool("value");
         }
     }
