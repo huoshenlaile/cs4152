@@ -55,12 +55,9 @@ PublishedMessage Exit::onEndContact(std::shared_ptr<cugl::physics2::Obstacle> ot
         if (activated){
             if (other->getName() == "body192"){
                 CULog("on_release [%s]", message_head.c_str());
-                if (this->_colorsCollected.count(character->getColor()) != 0){
-                    is_contacting=false;
-                    this->contact_time = -2.0f;
-                    _character = character; // Gonna leave this here for now
-                }
-                
+                this->is_contacting=false;
+                this->contact_time = -2.0f;
+                _character = character; // Gonna leave this here for now                
             }
         }
     }
@@ -74,13 +71,20 @@ PublishedMessage Exit::timeUpdate(float timestep){
         }
     else if (this->is_contacting && this->contactedLongEnough()){
         std::string color = _character->getColor();
-        if (this->getColorsCollected().count(color) == 0){
+        if (color != "black" && this->getColorsCollected().count(color) == 0){
             this->addColor(color);
             std::cout << "Found color " << color << "\n";
             _character->setColor("black");
         }
-        if (this->getRemainingColors().size()==0){
-            CULog("Winner! - Setting Complete.");
+        if (this->getColorsCollected().size() == this->getColorReqs().size()){
+            CULog("Game over! - Setting Complete.");
+            if (this->getRemainingColors().size()==0){
+                CULog("Good ending!");
+            }
+            else{
+                CULog("Bad ending!");
+            }
+
             auto a = PublishedMessage();
             a.Head = message_head;
             return a;
