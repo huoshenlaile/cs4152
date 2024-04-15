@@ -66,18 +66,12 @@ bool LevelLoader2::loadObject(const std::shared_ptr<JsonValue>& json){
         _interactables.push_back(std::static_pointer_cast<Interactable>(mwall));
     } else if (type == GRAVITYWALL_FIELD) {
         auto gravitywall = GravityReversePlatform::alloc(json, _scale, _bounds);
-        if (gravitywall -> hasOnBeginContact()) { std::cout << "gravity has begin" << std::endl;}
-        gravitywall -> setOnBeginContact();
-        _interactables.push_back(gravitywall);
-        for (auto i : _interactables) {
-            std::cout << "checking: " << i -> getName() << std::endl;
-            std::cout << i -> hasOnBeginContact() << std::endl;
-        }
+        _interactables.push_back(std::static_pointer_cast<Interactable>(gravitywall));
     } else if (type == CHARACTER_POS){
         _charPos = getObjectPos(json);
     } else if (type == BOUNCY_WALL_FIELD) {
          auto mwall = BouncyWall::alloc(json, _scale, _bounds);
-        _interactables.push_back(std::static_pointer_cast<BouncyWall>(mwall));
+        _interactables.push_back(std::static_pointer_cast<Interactable>(mwall));
     } else {
         // log type not recognized
         // CUAssertLog(false, "Object type not recognized");
@@ -135,6 +129,7 @@ bool LevelLoader2::construct(std::shared_ptr<cugl::AssetManager>& _assets){
     for (auto inter : _interactables){
         inter->bindAssets(_assets, _scale);
         inter->linkToWorld(_world, _platformNode, _scale.x);
+        inter->setup();
     }
 
     _worldnode->addChild(_defaultBgNode);

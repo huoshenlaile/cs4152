@@ -17,10 +17,8 @@ using namespace cugl;
 
 class GravityReversePlatform : public Interactable {
 protected:
-    bool OnBeginContactEnabled = true;
 
     std::string _name;
-    bool activated = true;
 public:
     
     GravityReversePlatform(void): Interactable() {}
@@ -32,8 +30,6 @@ public:
         return (result->init(json, scale, bounds) ? result : nullptr);
     }
 
-    bool hasOnBeginContact() { return true; }
-    void setOnBeginContact() { this -> OnBeginContactEnabled = true; }
     
     virtual bool init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect bounds) override;
 
