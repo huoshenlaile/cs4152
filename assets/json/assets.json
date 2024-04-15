@@ -244,6 +244,18 @@
         },
         "red_paint": {
             "file": "textures/red_paint_141x144.png"
+        },
+        "tube_curved_l": {
+            "file": "textures/tube/tube_curved_left.png"
+        },
+        "tube_curved_r": {
+            "file": "textures/tube/tube_curved_right.png"
+        },
+        "tube_str_l": {
+            "file": "textures/tube/tube_straight_left.png"
+        },
+        "tube_str_r": {
+            "file": "textures/tube/tube_straight_right.png"
         }
     },
     "jsons": {
