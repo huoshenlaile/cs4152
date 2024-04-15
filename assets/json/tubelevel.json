@@ -33,6 +33,7 @@
                                    "properties": [
                                           {
                                                  "name": "properties",
+                                                 "propertytype": "Physics",
                                                  "type": "class",
                                                  "value": {
                                                         "obstacle": {
@@ -111,6 +112,7 @@
                                           },
                                           {
                                                  "name": "properties",
+                                                 "propertytype": "Physics",
                                                  "type": "class",
                                                  "value": {
                                                         "obstacle": {
@@ -120,14 +122,6 @@
                                                                "debugopacity": 192,
                                                                "density": 0,
                                                                "friction": 0.2,
-                                                               "publications": [
-                                                                      {
-                                                                             "body": {},
-                                                                             "message": "grabbed",
-                                                                             "pub_id": "grab_wall1",
-                                                                             "trigger": "contacted"
-                                                                      }
-                                                               ],
                                                                "restitution": 0.1,
                                                                "rotation": false,
                                                                "texture": "alpharelease_frenchfries"
@@ -175,6 +169,7 @@
                                    "properties": [
                                           {
                                                  "name": "properties",
+                                                 "propertytype": "Physics",
                                                  "type": "class",
                                                  "value": {
                                                         "obstacle": {
@@ -235,6 +230,7 @@
                                    "properties": [
                                           {
                                                  "name": "properties",
+                                                 "propertytype": "Physics",
                                                  "type": "class",
                                                  "value": {
                                                         "obstacle": {
@@ -293,6 +289,7 @@
                                           },
                                           {
                                                  "name": "properties",
+                                                 "propertytype": "Physics",
                                                  "type": "class",
                                                  "value": {
                                                         "obstacle": {
@@ -339,23 +336,24 @@
                                           }
                                    ],
                                    "properties": [
-                                          {
-                                                 "name": "properties",
-                                                 "type": "class",
-                                                 "value": {
-                                                        "obstacle": {
-                                                               "bodytype": 0,
-                                                               "damping": 0,
-                                                               "debugcolor": "yellow",
-                                                               "debugopacity": 192,
-                                                               "density": 0,
-                                                               "friction": 0.2,
-                                                               "restitution": 0.1,
-                                                               "rotation": false,
-                                                               "texture": "alpharelease_frenchfries"
-                                                        }
-                                                 }
-                                          }
+                                       {
+                                              "name": "properties",
+                                              "propertytype": "Physics",
+                                              "type": "class",
+                                              "value": {
+                                                     "obstacle": {
+                                                            "bodytype": 0,
+                                                            "damping": 0,
+                                                            "debugcolor": "yellow",
+                                                            "debugopacity": 192,
+                                                            "density": 0,
+                                                            "friction": 0.2,
+                                                            "restitution": 0.1,
+                                                            "rotation": false,
+                                                            "texture": "alpharelease_frenchfries"
+                                                     }
+                                              }
+                                       }
                                    ],
                                    "rotation": 0,
                                    "type": "wall",
@@ -479,23 +477,24 @@
                                           }
                                    ],
                                    "properties": [
-                                          {
-                                                 "name": "properties",
-                                                 "type": "class",
-                                                 "value": {
-                                                        "obstacle": {
-                                                               "bodytype": 0,
-                                                               "damping": 0,
-                                                               "debugcolor": "yellow",
-                                                               "debugopacity": 192,
-                                                               "density": 0,
-                                                               "friction": 0.2,
-                                                               "restitution": 0.1,
-                                                               "rotation": false,
-                                                               "texture": "alpharelease_soy_capon"
-                                                        }
-                                                 }
-                                          }
+                                       {
+                                              "name": "properties",
+                                              "propertytype": "Physics",
+                                              "type": "class",
+                                              "value": {
+                                                     "obstacle": {
+                                                            "bodytype": 0,
+                                                            "damping": 0,
+                                                            "debugcolor": "yellow",
+                                                            "debugopacity": 192,
+                                                            "density": 0,
+                                                            "friction": 0.2,
+                                                            "restitution": 0.1,
+                                                            "rotation": false,
+                                                            "texture": "alpharelease_frenchfries"
+                                                     }
+                                              }
+                                       }
                                    ],
                                    "rotation": 90,
                                    "type": "wall",
@@ -612,6 +611,7 @@
                                           {
                                                  "name": "properties",
                                                  "type": "class",
+                                                 "propertytype": "Physics",
                                                  "value": {
                                                         "obstacle": {
                                                                "bodytype": 0,
@@ -622,16 +622,6 @@
                                                                "friction": 0.2,
                                                                "restitution": 0.1,
                                                                "rotation": false,
-                                                               "subscriptions": [
-                                                                      {
-                                                                             "actions": {
-                                                                                    "fire": "0"
-                                                                             },
-                                                                             "listening_for": "contacted",
-                                                                             "pub_id": "sensor1",
-                                                                             "sub_id": "bottle1"
-                                                                      }
-                                                               ],
                                                                "texture": "alpharelease_ketchup_capon"
                                                         }
                                                  }
@@ -769,6 +759,7 @@
                                    "properties": [
                                           {
                                                  "name": "properties",
+                                                 "propertytype": "Physics",
                                                  "type": "class",
                                                  "value": {
                                                         "obstacle": {
@@ -977,6 +968,7 @@
                                           },
                                           {
                                                  "name": "properties",
+                                                 "propertytype": "Physics",
                                                  "type": "class",
                                                  "value": {
                                                         "obstacle": {
@@ -1038,6 +1030,7 @@
                                           },
                                           {
                                                  "name": "properties",
+                                                 "propertytype": "Physics",
                                                  "type": "class",
                                                  "value": {
                                                         "obstacle": {
@@ -1103,6 +1096,7 @@
                                           },
                                           {
                                                  "name": "properties",
+                                                 "propertytype": "Physics",
                                                  "type": "class",
                                                  "value": {
                                                         "obstacle": {
@@ -1168,6 +1162,7 @@
                                           },
                                           {
                                                  "name": "properties",
+                                                 "propertytype": "Physics",
                                                  "type": "class",
                                                  "value": {
                                                         "obstacle": {
@@ -1592,15 +1587,24 @@
                                           }
                                    ],
                                    "properties": [
-                                          {
-                                                 "name": "properties",
-                                                 "type": "class",
-                                                 "value": {
-                                                        "obstacle": {
-                                                               "texture": ""
-                                                        }
-                                                 }
-                                          }
+                                       {
+                                              "name": "properties",
+                                              "propertytype": "Physics",
+                                              "type": "class",
+                                              "value": {
+                                                     "obstacle": {
+                                                            "bodytype": 0,
+                                                            "damping": 0,
+                                                            "debugcolor": "yellow",
+                                                            "debugopacity": 192,
+                                                            "density": 0,
+                                                            "friction": 0.2,
+                                                            "restitution": 0.1,
+                                                            "rotation": false,
+                                                            "texture": "alpharelease_frenchfries"
+                                                     }
+                                              }
+                                       }
                                    ],
                                    "rotation": 0,
                                    "type": "wall",
@@ -1672,15 +1676,24 @@
                                           }
                                    ],
                                    "properties": [
-                                          {
-                                                 "name": "properties",
-                                                 "type": "class",
-                                                 "value": {
-                                                        "obstacle": {
-                                                               "texture": ""
-                                                        }
-                                                 }
-                                          }
+                                       {
+                                              "name": "properties",
+                                              "propertytype": "Physics",
+                                              "type": "class",
+                                              "value": {
+                                                     "obstacle": {
+                                                            "bodytype": 0,
+                                                            "damping": 0,
+                                                            "debugcolor": "yellow",
+                                                            "debugopacity": 192,
+                                                            "density": 0,
+                                                            "friction": 0.2,
+                                                            "restitution": 0.1,
+                                                            "rotation": false,
+                                                            "texture": "alpharelease_frenchfries"
+                                                     }
+                                              }
+                                       }
                                    ],
                                    "rotation": 0,
                                    "type": "wall",
@@ -1728,15 +1741,24 @@
                                           }
                                    ],
                                    "properties": [
-                                          {
-                                                 "name": "properties",
-                                                 "type": "class",
-                                                 "value": {
-                                                        "obstacle": {
-                                                               "texture": ""
-                                                        }
-                                                 }
-                                          }
+                                       {
+                                              "name": "properties",
+                                              "propertytype": "Physics",
+                                              "type": "class",
+                                              "value": {
+                                                     "obstacle": {
+                                                            "bodytype": 0,
+                                                            "damping": 0,
+                                                            "debugcolor": "yellow",
+                                                            "debugopacity": 192,
+                                                            "density": 0,
+                                                            "friction": 0.2,
+                                                            "restitution": 0.1,
+                                                            "rotation": false,
+                                                            "texture": "alpharelease_frenchfries"
+                                                     }
+                                              }
+                                       }
                                    ],
                                    "rotation": 0,
                                    "type": "wall",
@@ -2352,15 +2374,24 @@
                                           }
                                    ],
                                    "properties": [
-                                          {
-                                                 "name": "properties",
-                                                 "type": "class",
-                                                 "value": {
-                                                        "obstacle": {
-                                                               "texture": ""
-                                                        }
-                                                 }
-                                          }
+                                       {
+                                              "name": "properties",
+                                              "propertytype": "Physics",
+                                              "type": "class",
+                                              "value": {
+                                                     "obstacle": {
+                                                            "bodytype": 0,
+                                                            "damping": 0,
+                                                            "debugcolor": "yellow",
+                                                            "debugopacity": 192,
+                                                            "density": 0,
+                                                            "friction": 0.2,
+                                                            "restitution": 0.1,
+                                                            "rotation": false,
+                                                            "texture": "alpharelease_frenchfries"
+                                                     }
+                                              }
+                                       }
                                    ],
                                    "rotation": 0,
                                    "type": "wall",
@@ -3653,16 +3684,24 @@
                                           }
                                    ],
                                    "properties": [
-                                          {
-                                                 "name": "properties",
-                                                 "propertytype": "Physics",
-                                                 "type": "class",
-                                                 "value": {
-                                                        "obstacle": {
-                                                               "texture": ""
-                                                        }
-                                                 }
-                                          }
+                                       {
+                                              "name": "properties",
+                                              "propertytype": "Physics",
+                                              "type": "class",
+                                              "value": {
+                                                     "obstacle": {
+                                                            "bodytype": 0,
+                                                            "damping": 0,
+                                                            "debugcolor": "yellow",
+                                                            "debugopacity": 192,
+                                                            "density": 0,
+                                                            "friction": 0.2,
+                                                            "restitution": 0.1,
+                                                            "rotation": false,
+                                                            "texture": "alpharelease_frenchfries"
+                                                     }
+                                              }
+                                       }
                                    ],
                                    "rotation": 0,
                                    "type": "wall",
