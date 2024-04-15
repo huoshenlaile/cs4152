@@ -13,11 +13,15 @@ bool InteractionController2::init(std::shared_ptr<LevelLoader2> level) {
 
     // query all the interactables
     for (auto interactable : _interactables) {
+        if (interactable -> getName() == "gravitywall") {
+            std::cout << "There is a gravity here!" << std::endl;
+            _BeginContactInteractable[interactable->getObstacleRawPtr()] = interactable;
+        }
         if (interactable->hasTimeUpdate()) {
             _timeUpdateInteractables.push_back(interactable);
         }
         if (interactable->hasOnBeginContact()) {
-            std::cout << interactable -> getName() << std::endl;
+            std::cout << "these: " << interactable -> getName() << std::endl;
             _BeginContactInteractable[interactable->getObstacleRawPtr()] = interactable;
         }
         if (interactable->hasOnEndContact()) {

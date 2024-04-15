@@ -67,7 +67,12 @@ bool LevelLoader2::loadObject(const std::shared_ptr<JsonValue>& json){
     } else if (type == GRAVITYWALL_FIELD) {
         auto gravitywall = GravityReversePlatform::alloc(json, _scale, _bounds);
         if (gravitywall -> hasOnBeginContact()) { std::cout << "gravity has begin" << std::endl;}
-        _interactables.push_back(std::static_pointer_cast<Interactable>(gravitywall));
+        gravitywall -> setOnBeginContact();
+        _interactables.push_back(gravitywall);
+        for (auto i : _interactables) {
+            std::cout << "checking: " << i -> getName() << std::endl;
+            std::cout << i -> hasOnBeginContact() << std::endl;
+        }
         CULog("Gravity Wall is here");
     } else if (type == CHARACTER_POS){
         _charPos = getObjectPos(json);

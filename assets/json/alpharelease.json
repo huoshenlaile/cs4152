@@ -59,7 +59,7 @@
                 {
                  "height":0,
                  "id":82,
-                 "name":"gwall",
+                 "name":"gravitywall",
                  "polygon":[
                         {
                          "x":0,
@@ -1440,11 +1440,7 @@
          "y":0
         }],
  "nextlayerid":4,
-<<<<<<< HEAD
  "nextobjectid":84,
-=======
- "nextobjectid":83,
->>>>>>> e7902b9 (implementing gravity reverse platform)
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
