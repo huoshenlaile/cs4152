@@ -55,13 +55,10 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, std::str
     _inputController->init(rect);
     _inputController->fillHand(_character->getLeftHandPosition(), _character->getRightHandPosition(), _character->getLHPos(), _character->getRHPos());
 
-#pragma mark Construct Camera Controller
-    _camera.init(_character->getBodySceneNode(), _worldnode, 10.0f, std::dynamic_pointer_cast<OrthographicCamera>(getCamera()), _uinode, 5.0f);
-    _camera.setZoom(DEFAULT_ZOOM);
-    
-    
-//    _level -> changeBackground(0);
-
+#pragma mark Construct Camera Controller 
+    setCamera(levelName);
+    _camera.init(_character->getBodySceneNode(), _worldnode, 10.0f, std::dynamic_pointer_cast<OrthographicCamera>(getCamera()), _uinode, 5.0f, _camera.getMode());
+    _camera.setZoom(_camera.getDefaultZoom());
     return true;
 }
 
@@ -88,7 +85,6 @@ void GameScene::setActive(bool value) {
             _worldnode->setVisible(true);
             _pauseButton->activate();
             _gamePaused = false;
-
             _inputController->fillHand(_character->getLeftHandPosition(), _character->getRightHandPosition(), _character->getLHPos(), _character->getRHPos());
         } else {
             _pauseButton->deactivate();
@@ -114,7 +110,6 @@ void GameScene::preUpdate(float dt) {
     }
     if (_camera.getDisplayed()) {
         _inputController->process();
-
         _character->moveLeftHand(INPUT_SCALER * _inputController->getLeftHandMovement(), _interactionController->leftHandReverse);
         _character->moveRightHand(INPUT_SCALER * _inputController->getrightHandMovement(), _interactionController->rightHandReverse);
         _inputController->fillHand(_character->getLeftHandPosition(), _character->getRightHandPosition(), _character->getLHPos(), _character->getRHPos());
@@ -231,4 +226,12 @@ bool GameScene::isCharacterInMap() {
     Vec2 pos = _character->getBodySceneNode()->getWorldPosition();
     // CULog("current body pos: %f, %f", pos.x, pos.y);
     return pos.x >= 0 && pos.x <= _worldnode->getSize().width && pos.y >= 0 && pos.y <= _worldnode->getSize().height;
+}
+
+void GameScene::setCamera(std::string selectedLevelKey) { 
+    if (selectedLevelKey == "alpharelease") {
+        //CULog("%s", selectedLevelKey);
+        _camera.setMode(true);
+        _camera.setDefaultZoom(DEFAULT_ZOOM);     
+    }
 }
