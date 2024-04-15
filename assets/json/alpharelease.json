@@ -31,6 +31,7 @@
                  "properties":[
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -90,6 +91,7 @@
                         }, 
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -154,6 +156,7 @@
                         }, 
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -220,6 +223,7 @@
                  "properties":[
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -280,6 +284,7 @@
                  "properties":[
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -328,6 +333,7 @@
                  "properties":[
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -468,6 +474,7 @@
                  "properties":[
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -603,6 +610,7 @@
                         }, 
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -761,6 +769,7 @@
                  "properties":[
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -974,6 +983,7 @@
                         }, 
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -1037,6 +1047,7 @@
                         }, 
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -1106,6 +1117,7 @@
                         }, 
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -1175,6 +1187,7 @@
                         }, 
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -1417,6 +1430,7 @@
                         }, 
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
