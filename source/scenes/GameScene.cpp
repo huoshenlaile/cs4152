@@ -59,6 +59,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, std::str
     setCamera(levelName);
     _camera.init(_character->getBodySceneNode(), _worldnode, 10.0f, std::dynamic_pointer_cast<OrthographicCamera>(getCamera()), _uinode, 5.0f, _camera.getMode());
     _camera.setZoom(_camera.getDefaultZoom());
+
     return true;
 }
 
@@ -230,8 +231,10 @@ bool GameScene::isCharacterInMap() {
 
 void GameScene::setCamera(std::string selectedLevelKey) { 
     if (selectedLevelKey == "alpharelease") {
-        //CULog("%s", selectedLevelKey);
         _camera.setMode(true);
         _camera.setDefaultZoom(DEFAULT_ZOOM);     
+    } else if (selectedLevelKey == "tube") {
+        _camera.setMode(false);
+        _camera.setDefaultZoom(DEFAULT_ZOOM);
     }
 }

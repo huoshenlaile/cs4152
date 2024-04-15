@@ -26,11 +26,16 @@ void CameraController::update(float dt) {
     } else if (_move) {
         if (_horizontal) {
             _camera->translate(30, 0);
-        } else
-            _camera->translate(0,30);
-        _camera->update();
-        if (_camera->getPosition().x >= _root->getSize().width - _camera->getViewport().getMaxX() / (2 * _camera->getZoom())) {
-            _move = false;
+            _camera->update();
+            if (_camera->getPosition().x >= _root->getSize().width - _camera->getViewport().getMaxX() / (2 * _camera->getZoom())) {
+                _move = false;
+            }
+        } else {
+            _camera->translate(0, 30);
+            _camera->update();
+            if (_camera->getPosition().y >= _root->getSize().height - _camera->getViewport().getMaxY() / (2 * _camera->getZoom())) {
+                _move = false;
+            }
         }
     } else {
         if (_finalStay <= FINAL_STAY) {
@@ -66,7 +71,7 @@ void CameraController::setZoom(float zoom) {
     if (zoom > _maxZoom)
         return;
     _camera->setZoom(zoom);
-    CULog("Current zoom is: %f", _camera->getZoom());
+    CULog("current zoom is: %f", _camera->getZoom());
     // If this causes the camera to go out of bounds, revert the change
     /*if (_root->getSize().width < _camera->getViewport().getMaxX() / _camera->getZoom() || _root->getSize().height < _camera->getViewport().getMaxY() / _camera->getZoom()) {
             _camera->setZoom(originalZoom);
