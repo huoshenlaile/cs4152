@@ -78,26 +78,31 @@
                         }],
                  "properties":[
                         {
+                         "name":"Grab",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"Movements",
                          "type":"class",
                          "value":
                             {
                              "path":[
                                     {
-                                        "x":50,
-                                        "y":0
-                                    },
+                                     "x":50,
+                                     "y":0
+                                    }, 
                                     {
-                                        "x":-50,
-                                        "y":0
-                                    },
+                                     "x":-50,
+                                     "y":0
+                                    }, 
                                     {
-                                        "x":50,
-                                        "y":0
-                                    },
+                                     "x":50,
+                                     "y":0
+                                    }, 
                                     {
-                                        "x":-50,
-                                        "y":0
+                                     "x":-50,
+                                     "y":0
                                     }],
                              "speed":10
                             }
