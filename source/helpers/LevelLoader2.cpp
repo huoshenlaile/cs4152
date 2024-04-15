@@ -97,11 +97,14 @@ bool LevelLoader2::construct(std::shared_ptr<cugl::AssetManager>& _assets){
     
 
     // set background
-    std::cout << "bg: " << defaultBg << std::endl;
-    _backgroundNode =  scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(defaultBg));
-    _backgroundNode->setAbsolute(true);
-    _backgroundNode->setPosition(-0.0f, 0.0f);
-    _backgroundNode->setContentSize(_backgroundNode->getContentSize().width*4, _backgroundNode->getContentSize().height*4);
+    defaultBgTexture = _assets->get<Texture>(defaultBg);
+    goodBgTexture = _assets->get<Texture>(goodBg);
+    badBgTexture = _assets->get<Texture>(badBg);
+    _defaultBgNode =  scene2::PolygonNode::allocWithTexture(defaultBgTexture);
+    _defaultBgNode -> setTexture(defaultBgTexture);
+    _defaultBgNode->setAbsolute(true);
+    _defaultBgNode->setPosition(-10.0f, 0.0f);
+    _defaultBgNode->setContentSize(_defaultBgNode->getContentSize().width*4, _defaultBgNode->getContentSize().height*4);
     
 
     CULog("level loader construction scale: %f %f", _scale.x, _scale.y);
@@ -117,7 +120,7 @@ bool LevelLoader2::construct(std::shared_ptr<cugl::AssetManager>& _assets){
         inter->linkToWorld(_world, _platformNode, _scale.x);
     }
 
-    _worldnode->addChild(_backgroundNode);
+    _worldnode->addChild(_defaultBgNode);
     _worldnode->addChild(_platformNode);
     _worldnode->addChild(_charNode);
 
