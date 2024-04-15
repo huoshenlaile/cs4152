@@ -2,8 +2,8 @@
     "activeFile": "json/alpharelease.json",
     "expandedProjectPaths": [
         "json",
-        "tileset",
-        "."
+        ".",
+        "tileset"
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
@@ -11,8 +11,16 @@
             "scale": 0.1473,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 4796.33401221996,
-                "y": 1123.5573659198915
+                "x": 5882.552613713511,
+                "y": 1276.3068567549221
+            }
+        },
+        "json/doodlejump.json": {
+            "scale": 0.2641,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 3913.290420295343,
+                "y": 980.6891329042028
             }
         },
         "tileset/demo_elements.tsx": {

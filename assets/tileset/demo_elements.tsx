@@ -6,13 +6,13 @@
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="7" type="exit">
   <properties>
-   <property name="properties" type="class"/>
+   <property name="properties" value=""/>
   </properties>
   <image width="447" height="138" source="lv1_palette.png"/>
  </tile>
  <tile id="9" type="wall">
   <properties>
-   <property name="properties" type="class"/>
+   <property name="properties" value=""/>
   </properties>
   <image width="214" height="100" source="../textures/popleft.png"/>
   <objectgroup draworder="index" id="2">
@@ -59,7 +59,7 @@
   <image width="193" height="500" source="../textures/alpharelease_ketchup_capoff.png"/>
  </tile>
  <tile id="29">
-  <image width="337" height="1724" source="../textures/tube_curved_blue.png"/>
+  <image width="175" height="52" source="../textures/staticplatform_comet.png"/>
  </tile>
  <tile id="30">
   <image width="337" height="1724" source="../textures/tube_curved_pink.png"/>
@@ -68,6 +68,25 @@
   <image width="211" height="1662" source="../textures/tube_straight_green.png"/>
  </tile>
  <tile id="32">
-  <image width="1278" height="4483" source="../textures/lv3_background_1.png"/>
+  <image width="175" height="52" source="../textures/movingplatform_comet.png"/>
+ </tile>
+ <tile id="33">
+  <image width="180" height="99" source="../textures/heavygravityplatform_blackhole.png"/>
+ </tile>
+ <tile id="34">
+  <image width="447" height="138" source="../textures/goal_ufo.png"/>
+ </tile>
+ <tile id="35">
+  <image width="337" height="1724" source="../textures/tube_curved_blue.png"/>
+ </tile>
+ <tile id="36">
+  <image width="103" height="50" source="../textures/spikes.png"/>
+ </tile>
+ <tile id="37">
+  <image width="180" height="99" source="../textures/nogravityplatform_blackhole.png"/>
+ </tile>
+ <tile id="38">
+  <image width="180" height="117" source="../textures/bouncingplatform_slime.png"/>
+
  </tile>
 </tileset>
