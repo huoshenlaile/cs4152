@@ -3,3 +3,4 @@
 #include "Exit.h"
 #include "GrowingPaint.h"
 #include "MovingWall.h"
+#include "GravityReversePlatform.h"

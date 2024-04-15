@@ -17,6 +17,7 @@ bool InteractionController2::init(std::shared_ptr<LevelLoader2> level) {
             _timeUpdateInteractables.push_back(interactable);
         }
         if (interactable->hasOnBeginContact()) {
+            std::cout << interactable -> getName() << std::endl;
             _BeginContactInteractable[interactable->getObstacleRawPtr()] = interactable;
         }
         if (interactable->hasOnEndContact()) {
@@ -73,7 +74,7 @@ void InteractionController2::beginContact(b2Contact *contact) {
     if (isCharacterObs(obs1rawPtr) && isCharacterObs(obs2rawPtr)) {
         return;
     } else if (isCharacterObs(obs1rawPtr) || isCharacterObs(obs2rawPtr)) {
-        // TODO: port logic to deal with grab
+        // This is the grab code
         if (obs1rawPtr == characterLHRawPtr || obs1rawPtr == characterRHRawPtr) {
             // obstacle 1 is the hand, 2 is the platform
             auto i2 = _obstacleToInteractable.find(obs2rawPtr);

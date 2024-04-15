@@ -14,7 +14,8 @@
 #define MWALLS_FIELD        "movingwall"
 #define SENSOR_FIELD        "sensor"
 #define EXIT_FIELD          "exit"
-#define PAINT_FIELD         "paint"
+#define PAINT_FIELD        "paint"
+#define GRAVITYWALL_FIELD   "gravitywall"
 
 
 #define CHARACTER_POS       "character"

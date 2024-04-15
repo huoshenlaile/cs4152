@@ -51,7 +51,7 @@ bool LevelLoader2::loadObject(const std::shared_ptr<JsonValue>& json){
         auto wall = Interactable::alloc(json, _scale, _bounds);
         std::cout << "finished " << json->get("name")->asString() << std::endl;
         _interactables.push_back(wall);
-    }else if (type == SENSOR_FIELD){
+    } else if (type == SENSOR_FIELD){
         auto sensor = Sensor::alloc(json, _scale, _bounds);
         _interactables.push_back(std::static_pointer_cast<Interactable>(sensor));
     }else if (type == EXIT_FIELD){
@@ -60,11 +60,16 @@ bool LevelLoader2::loadObject(const std::shared_ptr<JsonValue>& json){
     }else if (type == PAINT_FIELD){
         auto paint = GrowingPaint::alloc(json, _scale, _bounds);
         _interactables.push_back(std::static_pointer_cast<Interactable>(paint));
-    }else if (type == MWALLS_FIELD){
+    } else if (type == MWALLS_FIELD){
         auto mwall = MovingWall::alloc(json, _scale, _bounds);
         _interactables.push_back(std::static_pointer_cast<Interactable>(mwall));
         CULog("HIIIEEEEE: %f", 0.1f);
-    }else if (type == CHARACTER_POS){
+    } else if (type == GRAVITYWALL_FIELD) {
+        auto gravitywall = GravityReversePlatform::alloc(json, _scale, _bounds);
+        if (gravitywall -> hasOnBeginContact()) { std::cout << "gravity has begin" << std::endl;}
+        _interactables.push_back(std::static_pointer_cast<Interactable>(gravitywall));
+        CULog("Gravity Wall is here");
+    } else if (type == CHARACTER_POS){
         _charPos = getObjectPos(json);
     } else {
         // log type not recognized
