@@ -11,6 +11,7 @@
 #define GOALDOOR_FIELD      "exit"
 #define CRATES_FIELD        "crate"
 #define WALLS_FIELD         "wall"
+#define MWALLS_FIELD        "movingwall"
 #define SENSOR_FIELD        "sensor"
 #define EXIT_FIELD          "exit"
 #define PAINT_FIELD         "paint"

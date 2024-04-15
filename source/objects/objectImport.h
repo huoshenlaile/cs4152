@@ -2,3 +2,4 @@
 #include "Sensor.h"
 #include "Exit.h"
 #include "GrowingPaint.h"
+#include "MovingWall.h"

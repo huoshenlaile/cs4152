@@ -37,6 +37,7 @@ bool LevelLoadScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
 
 bool LevelLoadScene::loadFileAsync(const std::string &file, const std::string &key) {
     // TODO: 
+    _state = LOADING;
     _file = file;
     _key = key;
     _assets->loadAsync<LevelLoader2>(key, file, [&](const std::string key2, bool success2){

@@ -193,6 +193,41 @@
             ]
         },
         {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 23,
+            "members": [
+                {
+                    "name": "Bad_bg",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "Default_bg",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "Good_bg",
+                    "type": "string",
+                    "value": ""
+                }
+            ],
+            "name": "METADATA",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
             "id": 6,
             "name": "mmyenum",
             "storageType": "string",
@@ -201,6 +236,71 @@
                 "my value"
             ],
             "valuesAsFlags": false
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 21,
+            "members": [
+                {
+                    "name": "bodytype",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "damping",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "debugcolor",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "debugopacity",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "density",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "friction",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "restitution",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "rotation",
+                    "type": "bool",
+                    "value": false
+                },
+                {
+                    "name": "texture",
+                    "type": "string",
+                    "value": ""
+                }
+            ],
+            "name": "obstacle",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
         },
         {
             "color": "#ffa0a0a4",
@@ -264,6 +364,33 @@
         {
             "color": "#ffa0a0a4",
             "drawFill": true,
+            "id": 22,
+            "members": [
+                {
+                    "name": "obstacle",
+                    "propertyType": "obstacle",
+                    "type": "class",
+                    "value": {
+                    }
+                }
+            ],
+            "name": "Physics",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
             "id": 1,
             "members": [
                 {
@@ -282,6 +409,51 @@
                 }
             ],
             "name": "Publication",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 19,
+            "members": [
+                {
+                    "name": "Body",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "Enabled",
+                    "type": "bool",
+                    "value": false
+                },
+                {
+                    "name": "Head",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "Id",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "Trigger",
+                    "type": "string",
+                    "value": ""
+                }
+            ],
+            "name": "PubMessage",
             "type": "class",
             "useAs": [
                 "property",
@@ -363,6 +535,51 @@
         {
             "color": "#ffa0a0a4",
             "drawFill": true,
+            "id": 20,
+            "members": [
+                {
+                    "name": "Action",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "Body",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "Enabled",
+                    "type": "bool",
+                    "value": false
+                },
+                {
+                    "name": "Head",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "Id",
+                    "type": "string",
+                    "value": ""
+                }
+            ],
+            "name": "SubMessage",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
             "id": 4,
             "members": [
                 {
@@ -422,96 +639,6 @@
             "type": "class",
             "useAs": [
                 "property"
-            ]
-        },
-        {
-            "color": "#ffa0a0a4",
-            "drawFill": true,
-            "id": 19,
-            "members": [
-                {
-                    "name": "Body",
-                    "type": "string",
-                    "value": ""
-                },
-                {
-                    "name": "Enabled",
-                    "type": "bool",
-                    "value": false
-                },
-                {
-                    "name": "Head",
-                    "type": "string",
-                    "value": ""
-                },
-                {
-                    "name": "Id",
-                    "type": "string",
-                    "value": ""
-                },
-                {
-                    "name": "Trigger",
-                    "type": "string",
-                    "value": ""
-                }
-            ],
-            "name": "PubMessage",
-            "type": "class",
-            "useAs": [
-                "property",
-                "map",
-                "layer",
-                "object",
-                "tile",
-                "tileset",
-                "wangcolor",
-                "wangset",
-                "project"
-            ]
-        },
-        {
-            "color": "#ffa0a0a4",
-            "drawFill": true,
-            "id": 20,
-            "members": [
-                {
-                    "name": "Action",
-                    "type": "string",
-                    "value": ""
-                },
-                {
-                    "name": "Body",
-                    "type": "string",
-                    "value": ""
-                },
-                {
-                    "name": "Enabled",
-                    "type": "bool",
-                    "value": false
-                },
-                {
-                    "name": "Head",
-                    "type": "string",
-                    "value": ""
-                },
-                {
-                    "name": "Id",
-                    "type": "string",
-                    "value": ""
-                }
-            ],
-            "name": "SubMessage",
-            "type": "class",
-            "useAs": [
-                "property",
-                "map",
-                "layer",
-                "object",
-                "tile",
-                "tileset",
-                "wangcolor",
-                "wangset",
-                "project"
             ]
         }
     ]

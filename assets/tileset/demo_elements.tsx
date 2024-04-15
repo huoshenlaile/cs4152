@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="ragdoll_elements" tilewidth="2581" tileheight="1080" tilecount="15" columns="0" objectalignment="bottomleft">
+<tileset version="1.10" tiledversion="1.10.2" name="ragdoll_elements" tilewidth="2581" tileheight="1724" tilecount="18" columns="0" objectalignment="bottomleft">
  <editorsettings>
   <export target="ragdoll_elements..tsx" format="tsx"/>
  </editorsettings>
@@ -57,5 +57,14 @@
  </tile>
  <tile id="28">
   <image width="193" height="500" source="../textures/alpharelease_ketchup_capoff.png"/>
+ </tile>
+ <tile id="29">
+  <image width="337" height="1724" source="../textures/tube_curved_blue.png"/>
+ </tile>
+ <tile id="30">
+  <image width="337" height="1724" source="../textures/tube_curved_pink.png"/>
+ </tile>
+ <tile id="31">
+  <image width="211" height="1662" source="../textures/tube_straight_green.png"/>
  </tile>
 </tileset>

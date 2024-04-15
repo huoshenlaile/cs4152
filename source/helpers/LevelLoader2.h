@@ -23,6 +23,7 @@ protected:
     Vec2 _gravity;
     Vec2 _scale = Vec2(32, 32);
     Vec2 _charPos;
+    
 
     std::shared_ptr<scene2::SceneNode> _worldnode;
     std::shared_ptr<scene2::SceneNode> _charNode; //character node
@@ -30,8 +31,12 @@ protected:
 
     // game scene UI and complete should be managed by game scene it self, 
     // level loader only cares about what is inside the level
-     std::shared_ptr<scene2::SceneNode> _uinode;
-     std::shared_ptr<scene2::SceneNode> _levelCompletenode;
+    std::shared_ptr<scene2::SceneNode> _uinode;
+    std::shared_ptr<scene2::SceneNode> _levelCompletenode;
+    std::shared_ptr<cugl::scene2::PolygonNode> _defaultBgNode;
+    std::shared_ptr<Texture> defaultBgTexture;
+    std::shared_ptr<Texture> goodBgTexture;
+    std::shared_ptr<Texture> badBgTexture;
 
     std::shared_ptr<cugl::physics2::net::NetWorld> _world;
     std::shared_ptr<CharacterController> _character;
@@ -49,6 +54,10 @@ public:
         LOADING,
         DONE
     };
+    
+    std::string goodBg;
+    std::string badBg;
+    std::string defaultBg;
 
     LevelLoadState _state;
 
@@ -69,7 +78,7 @@ public:
         std::shared_ptr<JsonReader> reader = JsonReader::allocWithAsset(file);
         return preload(reader->readJson());
     }
-
+    
     // construction of the level
     bool construct(std::shared_ptr<cugl::AssetManager>& _assets);
 
@@ -88,10 +97,21 @@ public:
         std::shared_ptr<LevelLoader2> result = std::make_shared<LevelLoader2>();
         return (result->init(file) ? result : nullptr);
     }
-
-
-
-
+    
+    void changeBackground(int defaultGoodorBad) {
+        if (defaultGoodorBad == -1) {
+            _defaultBgNode -> setTexture(defaultBgTexture);
+        } else if (defaultGoodorBad == 0) {
+            _defaultBgNode -> setTexture(goodBgTexture);
+        } else if (defaultGoodorBad == 1) {
+            _defaultBgNode -> setTexture(badBgTexture);
+        }
+        _defaultBgNode->setAbsolute(true);
+        _defaultBgNode->setPosition(-10.0f, 0.0f);
+        _defaultBgNode->setContentSize(_defaultBgNode->getContentSize().width, _defaultBgNode->getContentSize().height);
+        
+        return;
+    }
 
 };
 
