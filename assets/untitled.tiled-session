@@ -1,28 +1,33 @@
 {
-    "activeFile": "",
+    "activeFile": "json/alpharelease.json",
     "expandedProjectPaths": [
+        "json",
+        "tileset",
+        "."
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
         "json/alpharelease.json": {
-            "scale": 0.3239,
+            "scale": 0.1473,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 4799.320778017906,
-                "y": 1122.259956776783
+                "x": 4796.33401221996,
+                "y": 1123.5573659198915
             }
         },
         "tileset/demo_elements.tsx": {
             "dynamicWrapping": true,
+            "scaleInDock": 1,
             "scaleInEditor": 0.06
         }
     },
     "last.imagePath": "/Users/kiduszegeye/Desktop/Cornell/CS 5152/cs4152/assets/tileset",
-    "last.objectTypesPath": "/Users/kiduszegeye/Desktop/Cornell/CS 5152/cs4152/assets/tileset/propertytypes.json",
+    "last.objectTypesPath": "/Users/kiduszegeye/Desktop/Cornell/CS 5152/cs4152/assets/json/ALLCustomTypes.json",
     "openFiles": [
+        "json/alpharelease.json"
     ],
     "project": "untitled.tiled-project",
-    "property.type": "Obstacle",
+    "property.type": "obstacle",
     "recentFiles": [
         "json/alpharelease.json",
         "tileset/demo_elements.tsx"
