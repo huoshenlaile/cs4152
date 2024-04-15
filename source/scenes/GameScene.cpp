@@ -241,6 +241,6 @@ void GameScene::setCamera(std::string selectedLevelKey) {
     }
     else if (selectedLevelKey == "falldown") {
         _camera.setMode(false);
-        _camera.setDefaultZoom(0.2);
+        _camera.setDefaultZoom(DEFAULT_ZOOM);
     }
 }

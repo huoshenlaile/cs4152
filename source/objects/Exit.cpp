@@ -47,7 +47,7 @@ PublishedMessage Exit::onBeginContact(std::shared_ptr<cugl::physics2::Obstacle> 
                 
                 CULog("on_contact [%s]", message_head_gameend.c_str());
                 if (this->_colorsCollected.count(character->getColor()) == 0){
-                    is_contacting=true;
+                    this->is_contacting=true;
                     _character = character;
                     auto a = PublishedMessage();
                     a.Head = message_head_contact;
@@ -69,7 +69,6 @@ PublishedMessage Exit::onEndContact(std::shared_ptr<cugl::physics2::Obstacle> ot
                 CULog("on_release [%s]", message_head_gameend.c_str());
                 this->is_contacting=false;
                 this->contact_time = -2.0f;
-                _character = character; // Gonna leave this here for now 
                 auto a = PublishedMessage();
                 a.Head = message_head_release;
                 return a;
@@ -91,7 +90,7 @@ PublishedMessage Exit::timeUpdate(float timestep){
             std::cout << "Found color " << color << "\n";
             _character->setColor("black");
         }
-        if (this->getColorsCollected().size() == this->getColorReqs().size()){
+        if (this->getColorsCollected().size() >= this->getColorReqs().size()){
             CULog("Game over! - Setting Complete.");
             if (this->getRemainingColors().size()==0){
                 CULog("Good ending!");

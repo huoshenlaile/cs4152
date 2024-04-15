@@ -63,8 +63,8 @@
     "project": "untitled.tiled-project",
     "property.type": "Physics",
     "recentFiles": [
-        "json/falldown.json",
         "json/alpharelease.json",
+        "json/falldown.json",
         "json/alpharelease copy 2.json",
         "tileset/demo_elements.tsx"
     ],
