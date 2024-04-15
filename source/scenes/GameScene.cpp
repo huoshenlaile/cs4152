@@ -127,7 +127,7 @@ void GameScene::preUpdate(float dt) {
 
     if (!isCharacterInMap()) {
         // CULog("Character out!");
-        reset();
+        state = RESET;
     }
 
     _interactionController->ungrabIfNecessary();
