@@ -8,6 +8,7 @@ bool Sensor::init(const std::shared_ptr<cugl::JsonValue>& json, Vec2 scale, Rect
         if (properties->get(i)->getString("propertytype") == "PubMessage"){
             auto pub = properties->get(i)->get("value");
             message_head = pub->getString("Head");
+            pub_message_body = pub->getString("Body");
             break;
         }
     }
@@ -26,6 +27,7 @@ PublishedMessage Sensor::onBeginContact(std::shared_ptr<cugl::physics2::Obstacle
                 CULog("Sensor of [%s] activated", message_head.c_str());
                 auto a = PublishedMessage();
                 a.Head = message_head;
+                a.Body = pub_message_body;
                 return a;
             }
         }
