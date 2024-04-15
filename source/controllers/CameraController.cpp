@@ -66,7 +66,7 @@ void CameraController::setZoom(float zoom) {
     if (zoom > _maxZoom)
         return;
     _camera->setZoom(zoom);
-    CULog("current zoom is: %f", _camera->getZoom());
+    CULog("Current zoom is: %f", _camera->getZoom());
     // If this causes the camera to go out of bounds, revert the change
     /*if (_root->getSize().width < _camera->getViewport().getMaxX() / _camera->getZoom() || _root->getSize().height < _camera->getViewport().getMaxY() / _camera->getZoom()) {
             _camera->setZoom(originalZoom);

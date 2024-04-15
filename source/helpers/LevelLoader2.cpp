@@ -25,6 +25,18 @@ bool LevelLoader2::preload(const std::shared_ptr<cugl::JsonValue>& json) {
         for (int j = 0; j < objects->size(); j++) {
             // For each object, determine what it is and load it
             loadObject(objects->get(j));
+            
+            // load background name
+            if (objects -> get(j) -> getString("name") == "METADATA") {
+                auto props = objects -> get(j) -> get("properties");
+                for (auto prop : props -> children()) {
+                    if (prop -> getString("propertytype") == "METADATA") {
+                        goodBg = prop -> get("value") -> getString("Good_bg");
+                        badBg = prop -> get("value") -> getString("Bad_bg");
+                        defaultBg = prop -> get("value") -> getString("Default_bg");
+                    }
+                }
+            }
         }
     }
 
@@ -37,6 +49,8 @@ bool LevelLoader2::loadObject(const std::shared_ptr<JsonValue>& json){
     auto type = json->get("type")->asString();
     if (type == WALLS_FIELD){
         auto wall = Interactable::alloc(json, _scale, _bounds);
+        std::cout << "finished " << json->get("name")->asString() << std::endl;
+
         _interactables.push_back(wall);
     }else if (type == SENSOR_FIELD){
         auto sensor = Sensor::alloc(json, _scale, _bounds);
@@ -58,6 +72,7 @@ bool LevelLoader2::loadObject(const std::shared_ptr<JsonValue>& json){
     }
     return true;
 }
+
 
 bool LevelLoader2::construct(std::shared_ptr<cugl::AssetManager>& _assets){
     Size dimen = computeActiveSize();
@@ -84,10 +99,15 @@ bool LevelLoader2::construct(std::shared_ptr<cugl::AssetManager>& _assets){
     
 
     // set background
-    auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(_background_name));
-    sprite->setAbsolute(true);
-    sprite->setPosition(-10.0f, 0.0f);
-    sprite->setContentSize(sprite->getContentSize().width*4, sprite->getContentSize().height*4);
+    defaultBgTexture = _assets->get<Texture>(defaultBg);
+    goodBgTexture = _assets->get<Texture>(goodBg);
+    badBgTexture = _assets->get<Texture>(badBg);
+    std::cout << defaultBg << std::endl;
+    _defaultBgNode =  scene2::PolygonNode::allocWithTexture(defaultBgTexture);
+    _defaultBgNode -> setTexture(defaultBgTexture);
+    _defaultBgNode->setAbsolute(true);
+    _defaultBgNode->setPosition(-10.0f, 0.0f);
+    _defaultBgNode->setContentSize(_defaultBgNode->getContentSize().width*4, _defaultBgNode->getContentSize().height*4);
     
 
     CULog("level loader construction scale: %f %f", _scale.x, _scale.y);
@@ -103,7 +123,7 @@ bool LevelLoader2::construct(std::shared_ptr<cugl::AssetManager>& _assets){
         inter->linkToWorld(_world, _platformNode, _scale.x);
     }
 
-    _worldnode->addChild(sprite);
+    _worldnode->addChild(_defaultBgNode);
     _worldnode->addChild(_platformNode);
     _worldnode->addChild(_charNode);
 

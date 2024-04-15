@@ -31,6 +31,7 @@
                  "properties":[
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -54,6 +55,66 @@
                  "width":0,
                  "x":3718.01464159056,
                  "y":822.878013283513
+                }, 
+                {
+                 "height":0,
+                 "id":81,
+                 "name":"METADATA",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":0,
+                         "y":-145.174841916086
+                        }, 
+                        {
+                         "x":512.205472139033,
+                         "y":-145.174841916086
+                        }, 
+                        {
+                         "x":512.205472139033,
+                         "y":0
+                        }],
+                 "properties":[
+                        {
+                         "name":"METADATA",
+                         "propertytype":"METADATA",
+                         "type":"class",
+                         "value":
+                            {
+                             "Bad_bg":"lv1_background_2",
+                             "Default_bg":"lv1_background_1",
+                             "Good_bg":"lv1_background_3"
+                            }
+                        }, 
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":192,
+                                 "density":0,
+                                 "friction":0.2,
+                                 "restitution":0.1,
+                                 "rotation":false,
+                                 "texture":"alpharelease_frenchfries"
+                                }
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":24.0013378211593,
+                 "y":366.115263837837
                 }, 
                 {
                  "height":0,
@@ -95,6 +156,7 @@
                         }, 
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -161,6 +223,7 @@
                  "properties":[
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -221,6 +284,7 @@
                  "properties":[
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -269,6 +333,7 @@
                  "properties":[
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -409,6 +474,7 @@
                  "properties":[
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -544,6 +610,7 @@
                         }, 
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -702,6 +769,7 @@
                  "properties":[
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -915,6 +983,7 @@
                         }, 
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -978,6 +1047,7 @@
                         }, 
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -1047,6 +1117,7 @@
                         }, 
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -1116,6 +1187,7 @@
                         }, 
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -1358,6 +1430,7 @@
                         }, 
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -1381,6 +1454,17 @@
                  "width":0,
                  "x":6473.23443641435,
                  "y":641.354972317315
+                }, 
+                {
+                 "height":2.81769512538744,
+                 "id":79,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":5.63539025077483,
+                 "x":431.107354184277,
+                 "y":-163.426317272471
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1389,7 +1473,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":78,
+ "nextobjectid":82,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

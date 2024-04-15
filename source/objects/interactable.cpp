@@ -25,6 +25,9 @@ bool Interactable::init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect
     triangulator.calculate();
     shape.setIndices(triangulator.getTriangulation());
     triangulator.clear();
+    
+    _selfTexture = scene2::PolygonNode::allocWithPoly(shape);
+    _selfTexture->setColor(Color4::BLACK);
 
     _selfObstacle = cugl::physics2::PolygonObstacle::allocWithAnchor(shape, Vec2(0.5f,0.5f));
     _selfObstacle->setName(json->getString("name"));
@@ -50,6 +53,9 @@ bool Interactable::init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect
 bool Interactable::bindAssets(const std::shared_ptr<cugl::AssetManager>& assets, Vec2 scale2d){
     _assets = assets;
     if (_texture_name == ""){
+        _selfTexture->setContentSize(_selfObstacle->getWidth() * scale2d.x * 1.01, _selfObstacle->getHeight() * scale2d.y * 1.01);
+        _selfTexture->setAnchor(0.5f, 0.5f);
+        _selfTexture->setAngle(_selfObstacle->getAngle());
         return true;
     }
     _selfTexture = scene2::PolygonNode::allocWithTexture(assets->get<Texture>(_texture_name));
@@ -65,7 +71,7 @@ bool Interactable::linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleWor
     
     _world->addObstacle(_selfObstacle);
 
-    if ((_texture_name == "") || (_selfTexture == nullptr)){
+    if (/*(_texture_name == "") ||*/ (_selfTexture == nullptr)){
         return false;
     }
 
