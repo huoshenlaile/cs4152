@@ -130,17 +130,10 @@ std::shared_ptr<physics2::Obstacle> CharacterController::makePart(int part, int 
 	}
 	body->setBodyType(b2_dynamicBody);
 
-	// log all information
-	// CULog("part: %d", part);
-	// CULog("connect: %d", connect);
-	// CULog("pos: %f, %f", pos.x, pos.y);
-	// CULog("pos2: %f, %f", pos2.x, pos2.y);
-	// CULog("size: %f, %f", size.width, size.height);
 	body->setName(getPartName(part));
 	if (part == PART_BODY)
 	{
 		body->setDensity(BODY_DENSITY);
-		// CULog("makePart body centroid position: %f, %f", body->getCentroid().x, body->getCentroid().y);
 	}
 	else if (part == PART_RH || part == PART_LH)
 	{
@@ -585,6 +578,7 @@ std::vector<std::shared_ptr<cugl::physics2::Joint>> CharacterController::dummy_j
 	return dummy_joints;
 }
 
+/** This method is UNUSED right now. */
 void CharacterController::setSceneNode(const std::shared_ptr<cugl::scene2::SceneNode> &node)
 {
 	_node = node;
@@ -610,7 +604,7 @@ void CharacterController::setDrawScale(float scale)
 	_drawScale = scale;
 }
 
-// DEPRECATED
+/** This method is UNUSED right now. */
 void CharacterController::activate(const std::shared_ptr<cugl::physics2::net::NetWorld> &world)
 {
 	for (auto it = _obstacles.begin(); it != _obstacles.end(); ++it)
@@ -623,7 +617,7 @@ void CharacterController::activate(const std::shared_ptr<cugl::physics2::net::Ne
 	}
 }
 
-// DEPRECATED
+/** This method is UNUSED right now. */
 void CharacterController::deactivate(const std::shared_ptr<cugl::physics2::net::NetWorld> &world)
 {
 	//	for (auto it = _obstacles.begin(); it != _obstacles.end(); ++it) {
@@ -818,24 +812,6 @@ void CharacterController::disableMotor()
 	_motorEnabled = false;
 }
 
-/**
- * Sets the scene graph node representing this Ragdoll.
- *
- * Note that this method also handles creating the nodes for the body parts
- * of this Ragdoll. Since the obstacles are decoupled from the scene graph,
- * initialization (which creates the obstacles) occurs prior to the call to
- * this method. Therefore, to be drawn to the screen, the nodes of the attached
- * bodies must be added here.
- *
- * The bubbler also uses the world node when adding bubbles to the scene, so
- * the input node must be added to the world BEFORE this method is called.
- *
- * By storing a reference to the scene graph node, the model can update
- * the node to be in sync with the physics info. It does this via the
- * {@link Obstacle#update(float)} method.
- *
- * @param node  The scene graph node representing this Ragdoll, which has been added to the world node already.
- */
 void CharacterController::linkPartsToWorld(const std::shared_ptr<cugl::physics2::net::NetWorld> &_world, const std::shared_ptr<cugl::scene2::SceneNode> &_scenenode, float _scale)
 {
 	this->_world = _world;
@@ -884,10 +860,24 @@ void CharacterController::linkPartsToWorld(const std::shared_ptr<cugl::physics2:
 		}
 		_world->addObstacle(obj);
 		// obj->setDebugScene(_debugnode);
+<<<<<<< HEAD
 		
 		if (obj->getBodyType() == b2_dynamicBody)
 		{
             obj->setListener([=](physics2::Obstacle *obs) mutable {
+=======
+		if (i == PART_BODY)
+		{
+		}
+		else
+		{
+			_scenenode->addChild(sprite);
+		}
+		if (obj->getBodyType() == b2_dynamicBody)
+		{
+			obj->setListener([=](physics2::Obstacle *obs) mutable
+            {
+>>>>>>> b40af02 (simplify code)
                 if (_colorchange) {
                     // Remove the old sprite and add the new sprite based on the part
                     if (i == PART_BODY) {
@@ -897,10 +887,23 @@ void CharacterController::linkPartsToWorld(const std::shared_ptr<cugl::physics2:
                         _scenenode->addChild(_bodyNode);
                         _colorbodychange = true;
                     } else if (i == PART_LH) {
+<<<<<<< HEAD
                         _LHNode->setTexture(getTextureForHand(i, _color));
                         _colorlhchange = true;
                     } else if (i == PART_RH) {
                         _RHNode->setTexture(getTextureForHand(i, _color));
+=======
+                        auto newHandSprite = getTextureForHand(i, _color);
+                        _scenenode->removeChild(_LHNode);
+                        _LHNode = newHandSprite;
+                        _scenenode->addChild(_LHNode);
+                        _colorlhchange = true;
+                    } else if (i == PART_RH) {
+                        auto newHandSprite = getTextureForHand(i, _color);
+                        _scenenode->removeChild(_RHNode);
+                        _RHNode = newHandSprite;
+                        _scenenode->addChild(_RHNode);
+>>>>>>> b40af02 (simplify code)
                         _colorrhchange = true;
                     }
                 }

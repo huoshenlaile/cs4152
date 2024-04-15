@@ -3,10 +3,10 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "json/falldown.json",
+    "activeFile": "json/doodlejump.json",
     "expandedProjectPaths": [
-        "json",
         "tileset",
+        "json",
         "."
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -26,24 +26,24 @@
             "scale": 0.222,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 4799.54954954955,
-                "y": 1094.5945945945948
+                "x": 4797.2972972972975,
+                "y": 1096.8468468468468
             }
         },
         "json/doodlejump.json": {
-            "scale": 0.2641,
+            "scale": 0.0798,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 3913.290420295343,
-                "y": 980.6891329042028
+                "x": 4110.275689223058,
+                "y": 2650.375939849624
             }
         },
         "json/falldown.json": {
             "scale": 0.08,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 2081.25,
-                "y": 3387.5
+                "x": 2250,
+                "y": 3843.75
             }
         },
         "tileset/demo_elements.tsx": {
@@ -58,13 +58,18 @@
     "map.width": 20,
     "openFiles": [
         "json/alpharelease.json",
-        "json/falldown.json"
+        "json/falldown.json",
+        "json/doodlejump.json"
     ],
     "project": "untitled.tiled-project",
     "property.type": "Physics",
     "recentFiles": [
         "json/alpharelease.json",
         "json/falldown.json",
+<<<<<<< HEAD
+=======
+        "json/doodlejump.json",
+>>>>>>> b40af02 (simplify code)
         "json/alpharelease copy 2.json",
         "tileset/demo_elements.tsx"
     ],

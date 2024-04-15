@@ -39,6 +39,7 @@
                  "properties":[
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -95,6 +96,7 @@
                  "properties":[
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -102,10 +104,7 @@
                                 {
                                  "bodytype":0,
                                  "damping":0,
-                                 "debugcolor":
-                                    {
-
-                                    },
+                                 "debugcolor":"",
                                  "debugopacity":192,
                                  "density":0,
                                  "friction":0,
@@ -154,6 +153,7 @@
                  "properties":[
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -161,13 +161,10 @@
                                 {
                                  "bodytype":0,
                                  "damping":0,
-                                 "debugcolor":
-                                    {
-
-                                    },
+                                 "debugcolor":"",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0,
+                                 "friction":0.2,
                                  "restitution":0,
                                  "rotation":false,
                                  "texture":"spikes"
@@ -213,6 +210,7 @@
                  "properties":[
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -345,6 +343,7 @@
                  "properties":[
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -352,10 +351,7 @@
                                 {
                                  "bodytype":0,
                                  "damping":0,
-                                 "debugcolor":
-                                    {
-
-                                    },
+                                 "debugcolor":"",
                                  "debugopacity":192,
                                  "density":0,
                                  "friction":0.2,
@@ -456,7 +452,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -568,7 +563,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -680,6 +674,7 @@
                  "properties":[
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -687,10 +682,7 @@
                                 {
                                  "bodytype":0,
                                  "damping":0,
-                                 "debugcolor":
-                                    {
-
-                                    },
+                                 "debugcolor":"",
                                  "debugopacity":192,
                                  "density":0,
                                  "friction":0.2,
@@ -791,6 +783,7 @@
                  "properties":[
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -899,6 +892,7 @@
                  "properties":[
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -1007,7 +1001,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -1116,7 +1109,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -1225,7 +1217,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -1334,7 +1325,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -1443,7 +1433,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -1552,7 +1541,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -1661,7 +1649,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -1770,7 +1757,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -1805,20 +1791,21 @@
                          "y":0
                         }, 
                         {
-                         "x":452.821115318639,
+                         "x":1034.12048328813,
                          "y":0
                         }, 
                         {
-                         "x":451.131484291331,
+                         "x":1030.2618247684,
                          "y":126.722327048127
                         }, 
                         {
-                         "x":-1.68963102730837,
+                         "x":-3.85865851973185,
                          "y":130.101589102744
                         }],
                  "properties":[
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -1826,10 +1813,7 @@
                                 {
                                  "bodytype":0,
                                  "damping":0,
-                                 "debugcolor":
-                                    {
-
-                                    },
+                                 "debugcolor":"",
                                  "debugopacity":192,
                                  "density":0,
                                  "friction":0.2,
@@ -1843,7 +1827,7 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":4603.81457904662,
+                 "x":4605.98360653904,
                  "y":545.769805103078
                 }, 
                 {
@@ -1856,16 +1840,16 @@
                          "y":0
                         }, 
                         {
-                         "x":844.377129875048,
-                         "y":-3.78644452858765
+                         "x":1308.15418413417,
+                         "y":-5.81237645727484
                         }, 
                         {
-                         "x":840.59068534646,
-                         "y":526.315789473684
+                         "x":1302.28802187347,
+                         "y":807.920327561204
                         }, 
                         {
-                         "x":-11.3593335857627,
-                         "y":518.742900416509
+                         "x":-17.5984867820736,
+                         "y":796.295574646655
                         }],
                  "properties":[
                         {
@@ -1893,8 +1877,8 @@
                  "type":"exit",
                  "visible":true,
                  "width":0,
-                 "x":4397.21887990011,
-                 "y":503.440980259743
+                 "x":4403.45803309642,
+                 "y":221.836442172223
                 }],
          "opacity":1,
          "type":"objectgroup",

@@ -58,55 +58,6 @@
                 }, 
                 {
                  "height":0,
-                 "id":82,
-                 "name":"gravitywall",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":0,
-                         "y":-145.174841916086
-                        }, 
-                        {
-                         "x":512.205472139033,
-                         "y":-145.174841916086
-                        }, 
-                        {
-                         "x":512.205472139033,
-                         "y":0
-                        }],
-                 "properties":[
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":192,
-                                 "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
-                                 "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
-                                }
-                            }
-                        }],
-                 "rotation":0,
-                 "type":"gravitywall",
-                 "visible":true,
-                 "width":0,
-                 "x":3062.71841178805,
-                 "y":894.691298741323
-                }, 
-                {
-                 "height":0,
                  "id":81,
                  "name":"METADATA",
                  "polygon":[
@@ -164,80 +115,6 @@
                  "width":0,
                  "x":24.0013378211593,
                  "y":366.115263837837
-                }, 
-                {
-                 "height":0,
-                 "id":66,
-                 "name":"grab_wall1",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":0,
-                         "y":-145.174841916086
-                        }, 
-                        {
-                         "x":512.205472139033,
-                         "y":-145.174841916086
-                        }, 
-                        {
-                         "x":512.205472139033,
-                         "y":0
-                        }],
-                 "properties":[
-                        {
-                         "name":"Grab",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"Publication",
-                         "type":"class",
-                         "value":
-                            {
-                             "Message":"grabbed",
-                             "Pub_id":"grab_wall1",
-                             "Trigger":"contacted"
-                            }
-                        }, 
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":192,
-                                 "density":0,
-                                 "friction":0.2,
-                                 "publications":[
-                                        {
-                                         "body":
-                                            {
-
-                                            },
-                                         "message":"grabbed",
-                                         "pub_id":"grab_wall1",
-                                         "trigger":"contacted"
-                                        }],
-                                 "restitution":0.1,
-                                 "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
-                                }
-                            }
-                        }],
-                 "rotation":0,
-                 "type":"wall",
-                 "visible":true,
-                 "width":0,
-                 "x":3719.05402489952,
-                 "y":343.014643661204
                 }, 
                 {
                  "height":0,

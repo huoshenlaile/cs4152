@@ -20,9 +20,11 @@ PublishedMessage BouncyWall::onBeginContact(std::shared_ptr<cugl::physics2::Obst
             if (magnitude == 0 ){
                 character->getBodyObstacle()->setLinearVelocity({0.0, speed});
             } else {
-                float x_vel = -character->getBodyObstacle()->getLinearVelocity().x / magnitude * speed;
-                float y_vel = -character->getBodyObstacle()->getLinearVelocity().y / magnitude * speed;
-                character->getBodyObstacle()->setLinearVelocity(x_vel, y_vel);
+//                float x_vel = -character->getBodyObstacle()->getLinearVelocity().x / magnitude * speed;
+//                float y_vel = -character->getBodyObstacle()->getLinearVelocity().y / magnitude * speed;
+//                character->getBodyObstacle()->setLinearVelocity(x_vel, y_vel);
+                character -> getBodyObstacle() -> setLinearVelocity(0, 0);
+                character -> getBodyObstacle() -> setLinearVelocity(0, speed);
             }
         }
     }
