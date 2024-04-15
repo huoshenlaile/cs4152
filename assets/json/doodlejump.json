@@ -63,7 +63,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -120,7 +119,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -180,7 +178,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -240,7 +237,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -409,7 +405,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -521,7 +516,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -633,7 +627,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -742,7 +735,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -791,7 +783,6 @@
                  "properties":[
                         {
                          "name":"properties",
-                         "propertytype":"WallProperties",
                          "type":"class",
                          "value":
                             {
@@ -818,6 +809,56 @@
                  "width":0,
                  "x":3608.37880986303,
                  "y":756.222319847695
+                }, 
+                {
+                 "height":0,
+                 "id":36,
+                 "name":"exit",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":844.377129875048,
+                         "y":-3.78644452858765
+                        }, 
+                        {
+                         "x":840.59068534646,
+                         "y":526.315789473684
+                        }, 
+                        {
+                         "x":-11.3593335857627,
+                         "y":518.742900416509
+                        }],
+                 "properties":[
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "color-requirements":"",
+                                 "damping":0,
+                                 "debugcolor":"0",
+                                 "debugopacity":0,
+                                 "density":0,
+                                 "friction":0,
+                                 "restitution":0,
+                                 "rotation":false,
+                                 "texture":""
+                                }
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"exit",
+                 "visible":true,
+                 "width":0,
+                 "x":3430.51874290042,
+                 "y":378.644452858766
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -826,7 +867,7 @@
          "y":0
         }],
  "nextlayerid":3,
- "nextobjectid":36,
+ "nextobjectid":37,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
