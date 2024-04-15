@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="ragdoll_elements" tilewidth="2581" tileheight="1724" tilecount="18" columns="0" objectalignment="bottomleft">
+<tileset version="1.10" tiledversion="1.10.2" name="ragdoll_elements" tilewidth="2581" tileheight="4483" tilecount="19" columns="0" objectalignment="bottomleft">
  <editorsettings>
   <export target="ragdoll_elements..tsx" format="tsx"/>
  </editorsettings>
@@ -66,5 +66,8 @@
  </tile>
  <tile id="31">
   <image width="211" height="1662" source="../textures/tube_straight_green.png"/>
+ </tile>
+ <tile id="32">
+  <image width="1278" height="4483" source="../textures/lv3_background_1.png"/>
  </tile>
 </tileset>
