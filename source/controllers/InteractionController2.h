@@ -73,7 +73,7 @@ protected:
     std::queue<PublishedMessage> _messageQueue;
 
     bool _levelComplete = false;
-    bool _showPaintButton = false;
+    float _paintPercent = 0.0f;
 
     void runMessageQueue();
     bool isCharacterObs(cugl::physics2::Obstacle* obs) {
@@ -116,7 +116,7 @@ public:
     void postUpdate(float timestep);
 
     bool isLevelComplete() { return _levelComplete; }
-    bool showPaintButton() { return _showPaintButton; }
+    float paintPercent() { return _paintPercent > 1.0f ? 1.0f : _paintPercent; }
 
 
     // 4 callback functions to add to the world

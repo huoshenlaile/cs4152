@@ -184,6 +184,13 @@ public:
      * Use it carefully.
      */
 	Vec2 getRHPos() { return _RHNode->getPosition(); }
+    
+    /**
+     * NOTE:
+     * This function returns the position of a SceneNode (in scene2) instead of the Obstacle (in world).
+     * Use it carefully.
+     */
+    Vec2 getBodyPos() { return _bodyNode->getPosition(); }
 
 #pragma mark HAND CONTROLLER
 	bool moveRightHand(cugl::Vec2 offset, bool inverse = false);

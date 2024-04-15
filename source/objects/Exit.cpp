@@ -2,6 +2,7 @@
 bool Exit::init(const std::shared_ptr<cugl::JsonValue>& json, Vec2 scale, Rect bounds){
     // call super.init
     Interactable::init(json, scale, bounds);
+    _selfTexture->setColor(Color4(0,0,0,0));
     std::shared_ptr<JsonValue> properties = json -> get("properties");
     // find the Publication property
     for (int i = 0; i < properties->size(); i++){
@@ -51,6 +52,7 @@ PublishedMessage Exit::onBeginContact(std::shared_ptr<cugl::physics2::Obstacle> 
                     _character = character;
                     auto a = PublishedMessage();
                     a.Head = message_head_contact;
+                    a.enable = true;
                     return a;
                 }
                 
@@ -71,6 +73,8 @@ PublishedMessage Exit::onEndContact(std::shared_ptr<cugl::physics2::Obstacle> ot
                 this->contact_time = -2.0f;
                 auto a = PublishedMessage();
                 a.Head = message_head_release;
+                a.enable = true;
+                a.float1 = this->contact_time / this->_ttcolor;
                 return a;
             }
         }
@@ -81,9 +85,10 @@ PublishedMessage Exit::onEndContact(std::shared_ptr<cugl::physics2::Obstacle> ot
 PublishedMessage Exit::timeUpdate(float timestep){
     if (this->contact_time < 0 || (this->is_contacting && !this->contactedLongEnough())){
             this->contact_time += timestep;
-            std::cout << "Contact time: " << this->contact_time << "\n";
+           // std::cout << "Contact time: " << this->contact_time << "\n";
         }
     else if (this->is_contacting && this->contactedLongEnough()){
+        this->contact_time = this->_ttcolor;
         std::string color = _character->getColor();
         if (color != "black" && this->getColorsCollected().count(color) == 0){
             this->addColor(color);
@@ -102,8 +107,16 @@ PublishedMessage Exit::timeUpdate(float timestep){
                 CULog("Bad ending!");
                 a.Body = "Bad";
             }
+            a.enable = true;
+
             return a;
         }
+        
     }
-    return PublishedMessage();
+    auto b = PublishedMessage();
+    b.Head = "ExitTimeTick";
+    b.enable = true;
+    b.float1 = this->contact_time / this->_ttcolor;
+
+    return b;
 }

@@ -85,6 +85,9 @@
         "button_ingame": {
             "file": "textures/button_interact.png"
         },
+        "paintmeter": {
+            "file": "textures/paintmeter.png"
+        },
         "frame": {
             "file": "textures/frame.png"
         },

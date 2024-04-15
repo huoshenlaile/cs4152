@@ -18,7 +18,7 @@ protected:
     std::set<std::string> _colorsCollected;
     
     /** Time before a color is taken */
-    float _ttcolor=2.0f;
+    float _ttcolor=5.0f;
     
     /** Character ref */
     std::shared_ptr<CharacterController> _character;

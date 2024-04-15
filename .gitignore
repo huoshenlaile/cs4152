@@ -37,4 +37,4 @@
 **/.vscode/*
 **/.vs/*
 
-assets/*.tiled-session
+*/*.tiled-session

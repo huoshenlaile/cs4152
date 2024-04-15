@@ -1,62 +1,44 @@
 {
-    "activeFile": "",
-    "expandedProjectPaths": [
-    ],
-    "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
-        "json/alpharelease copy.json": {
-            "scale": 0.2,
+        "json/alpharelease copy 2.json": {
+            "scale": 0.0408,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 6995,
-                "y": 1552.5
+                "x": 5330.882352941177,
+                "y": 4718.137254901961
             }
         },
         "json/alpharelease.json": {
-            "scale": 0.2549,
+            "expandedObjectLayers": [
+                2
+            ],
+            "scale": 0.222,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 7057.66967438211,
-                "y": 1198.5092193016867
-            }
-        },
-        "json/bouncyjump.tmj": {
-            "scale": 0.15,
-            "selectedLayer": 0,
-            "viewCenter": {
-                "x": 853.3333333333335,
-                "y": 6403.333333333334
+                "x": 4801.801801801802,
+                "y": 1121.6216216216217
             }
         },
         "json/doodlejump.json": {
-            "scale": 0.15,
+            "scale": 0.2641,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 4800,
-                "y": -230
+                "x": 3913.290420295343,
+                "y": 980.6891329042028
             }
         },
-        "json/tubelevel.json": {
-            "scale": 0.11,
+        "json/falldown.json": {
+            "scale": 0.08,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 3072.727272727273,
-                "y": 12468.18181818182
+                "x": -7150,
+                "y": 3637.5
             }
         },
         "tileset/demo_elements.tsx": {
-            "scaleInDock": 1
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 0.06
         }
-    },
-    "last.objectTypesPath": "/Users/porridge/Games/cs4152/assets/json/PubSubCustomTypes.json",
-    "openFiles": [
-    ],
-    "project": "untitled.tiled-project",
-    "recentFiles": [
-        "json/alpharelease.json",
-        "json/tubelevel.json",
-        "json/bouncyjump.tmj",
-        "json/doodlejump.json",
-        "json/alpharelease copy.json"
-    ]
+    }
 }

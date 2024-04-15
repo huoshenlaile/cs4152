@@ -843,7 +843,7 @@
                          "value":
                             {
                              "Enabled":true,
-                             "Head":"ShowButton",
+                             "Head":"ShowPaintMeter",
                              "Trigger":"CONTACT: character body"
                             }
                         }, 
@@ -854,7 +854,7 @@
                          "value":
                             {
                              "Enabled":true,
-                             "Head":"HideButton",
+                             "Head":"HidePaintMeter",
                              "Trigger":"RELEASED: character body"
                             }
                         }, 

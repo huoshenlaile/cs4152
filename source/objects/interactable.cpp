@@ -27,12 +27,6 @@ bool Interactable::init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect
     triangulator.clear();
     
     _selfTexture = scene2::PolygonNode::allocWithPoly(shape);
-    if (json->getString("type") == "sensor" || json->getString("type") == "exit"){
-        _selfTexture->setColor(Color4(0,0,0,0));
-    }
-    else{
-        _selfTexture->setColor(Color4::BLACK);
-    }
     _selfObstacle = cugl::physics2::PolygonObstacle::allocWithAnchor(shape, Vec2(0.5f,0.5f));
     _selfObstacle->setName(json->getString("name"));
     _selfObstacle->setBodyType((b2BodyType)physicalProperties->get("obstacle")->getInt(BODYTYPE_FIELD));

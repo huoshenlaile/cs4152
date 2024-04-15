@@ -272,6 +272,8 @@ void InteractionController2::runMessageQueue() {
         PublishedMessage message = _messageQueue.front();
         _messageQueue.pop();
         std::string head = message.Head;
+        float float1 = message.float1;
+
         // message to interactable
         auto headToInteractableIt = _HeadToInteractable.find(head);
         if (headToInteractableIt != _HeadToInteractable.end()) {
@@ -290,6 +292,7 @@ void InteractionController2::runMessageQueue() {
         // message to character
         auto characterActions = _character->getActions();
         auto characterActionIt = characterActions.find(head);
+        
         if (characterActionIt != characterActions.end()) {
             ActionParams params = Interactable::ConvertToActionParams(message);
             PublishedMessage new_message = characterActionIt->second(params);
@@ -301,11 +304,14 @@ void InteractionController2::runMessageQueue() {
         if (head == "LevelComplete") {
             _levelComplete = true;
         }
-        if (head == "ShowButton") {
-            _showPaintButton = true;
+        if (head == "ShowPaintMeter") {
+            _paintPercent = float1;
         }
-        if (head == "HideButton") {
-            _showPaintButton = false;
+        if (head == "HidePaintMeter") {
+            _paintPercent = float1;
+        }
+        if (head == "ExitTimeTick") {
+            _paintPercent = float1;
         }
     }
 }
