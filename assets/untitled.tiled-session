@@ -22,7 +22,7 @@
     "openFiles": [
     ],
     "project": "untitled.tiled-project",
-    "property.type": "WallProperties",
+    "property.type": "Obstacle",
     "recentFiles": [
         "json/alpharelease.json",
         "tileset/demo_elements.tsx"

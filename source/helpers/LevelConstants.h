@@ -12,7 +12,8 @@
 #define CRATES_FIELD        "crate"
 #define WALLS_FIELD         "wall"
 #define SENSOR_FIELD        "sensor"
-#define PAINT_FIELD        "paint"
+#define EXIT_FIELD          "exit"
+#define PAINT_FIELD         "paint"
 
 
 #define CHARACTER_POS       "character"

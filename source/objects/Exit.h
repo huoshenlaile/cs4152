@@ -16,6 +16,9 @@ protected:
     
     /** Time before a color is taken */
     float _ttcolor=5.0f;
+    
+    /** Character ref */
+    std::shared_ptr<CharacterController> _character;
 
 public:
     
@@ -56,7 +59,11 @@ public:
     virtual bool init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect bounds) override;
 
     virtual PublishedMessage onBeginContact(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact = nullptr, std::shared_ptr<Interactable> otherInteractable = nullptr, bool isCharacter = false, std::shared_ptr<CharacterController> character = nullptr) override;
+    
+    virtual PublishedMessage timeUpdate(float timestep) override;
 
+    virtual PublishedMessage onEndContact(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact = nullptr, std::shared_ptr<Interactable> otherInteractable = nullptr, bool isCharacter = false, std::shared_ptr<CharacterController> character = nullptr) override;
+    
     static std::shared_ptr<Exit> alloc(const std::shared_ptr<cugl::JsonValue>& json, Vec2 scale, Rect bounds) {
         std::shared_ptr<Exit> result = std::make_shared<Exit>();
         return (result->init(json, scale, bounds) ? result : nullptr);
