@@ -31,6 +31,7 @@ bool Interactable::init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect
 
     _selfObstacle = cugl::physics2::PolygonObstacle::allocWithAnchor(shape, Vec2(0.5f,0.5f));
     _selfObstacle->setName(json->getString("name"));
+    std::cout << json->getString("name") << "\n";
     _selfObstacle->setBodyType((b2BodyType)physicalProperties->get("obstacle")->getInt(BODYTYPE_FIELD));
     _selfObstacle->setDensity(physicalProperties->get("obstacle")->getDouble(DENSITY_FIELD));
     _selfObstacle->setFriction(physicalProperties->get("obstacle")->getDouble(FRICTION_FIELD));
