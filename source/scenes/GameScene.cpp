@@ -140,6 +140,7 @@ void GameScene::fixedUpdate(float dt) {
     if (_level == nullptr)
         return;
     _platformWorld->update(dt);
+    _character->update(dt);
 }
 
 void GameScene::postUpdate(float dt) {
