@@ -12,6 +12,15 @@
         "alpharelease_background": {
             "file": "textures/alpharelease_background.png"
         },
+        "lv1_background_1": {
+            "file": "textures/lv1_background_1.png"
+        },
+        "lv1_background_2": {
+            "file": "textures/lv1_background_2.png"
+        },
+        "lv1_background_3": {
+            "file": "textures/lv1_background_3.png"
+        },
         "alpharelease_frenchfries": {
             "file": "textures/alpharelease_frenchfries.png"
         },

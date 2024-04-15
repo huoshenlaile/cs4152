@@ -58,6 +58,9 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, std::str
 #pragma mark Construct Camera Controller
     _camera.init(_character->getBodySceneNode(), _worldnode, 10.0f, std::dynamic_pointer_cast<OrthographicCamera>(getCamera()), _uinode, 5.0f);
     _camera.setZoom(DEFAULT_ZOOM);
+    
+    
+    _level -> changeBackground(0);
 
     return true;
 }
@@ -103,7 +106,6 @@ void GameScene::reset() {
 void GameScene::preUpdate(float dt) {
     if (_level == nullptr)
         return;
-
     // process input
     _inputController->update(dt);
     auto character = _inputController->getCharacter();
@@ -129,9 +131,9 @@ void GameScene::preUpdate(float dt) {
         // CULog("Character out!");
         state = RESET;
     }
-
-    _interactionController->ungrabIfNecessary();
-    _interactionController->grabCDIfNecessary(dt);
+    _interactionController -> connectGrabJoint();
+    _interactionController -> ungrabIfNecessary();
+    _interactionController -> grabCDIfNecessary(dt);
 }
 
 void GameScene::fixedUpdate(float dt) {
@@ -144,7 +146,7 @@ void GameScene::postUpdate(float dt) {
     if (_level == nullptr)
         return;
     _interactionController->postUpdate(dt);
-    _interactionController->connectGrabJoint();
+
     if (_interactionController->isLevelComplete()) {
         _complete = true;
         _levelComplete->setVisible(true);
@@ -189,6 +191,7 @@ Size GameScene::computeActiveSize() const {
     float ratio1 = dimen.width / dimen.height;
     float ratio2 = ((float)SCENE_WIDTH) / ((float)SCENE_HEIGHT);
     if (ratio1 < ratio2) {
+        
         dimen *= SCENE_WIDTH / dimen.width;
     } else {
         dimen *= SCENE_HEIGHT / dimen.height;

@@ -78,6 +78,11 @@
                         }],
                  "properties":[
                         {
+                         "name":"Grab",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"Movements",
                          "type":"class",
                          "value":
