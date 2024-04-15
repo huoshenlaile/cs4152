@@ -12,8 +12,9 @@
 #define CRATES_FIELD        "crate"
 #define WALLS_FIELD         "wall"
 #define MWALLS_FIELD        "movingwall"
+#define BOUNCY_WALL_FIELD        "bouncywall"
 #define SENSOR_FIELD        "sensor"
-#define PAINT_FIELD        "paint"
+#define PAINT_FIELD         "paint"
 
 
 #define CHARACTER_POS       "character"

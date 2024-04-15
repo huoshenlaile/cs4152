@@ -3,3 +3,4 @@
 // #include "Exitdoor.h"
 #include "GrowingPaint.h"
 #include "MovingWall.h"
+#include "BouncyWall.h"

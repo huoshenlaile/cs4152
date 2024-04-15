@@ -75,7 +75,7 @@ void GameScene::dispose() {
     _pauseButton = nullptr;
     _worldnode->removeAllChildren();
     _worldnode = nullptr;
-    _levelComplete->removeAllChildren();
+//    _levelComplete->removeAllChildren();
     _levelComplete = nullptr;
     _level = nullptr;
     this->removeAllChildren();

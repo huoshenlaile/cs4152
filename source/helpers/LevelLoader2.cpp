@@ -64,6 +64,9 @@ bool LevelLoader2::loadObject(const std::shared_ptr<JsonValue>& json){
         CULog("HIIIEEEEE: %f", 0.1f);
     }else if (type == CHARACTER_POS){
         _charPos = getObjectPos(json);
+    } else if (type == BOUNCY_WALL_FIELD) {
+         auto mwall = BouncyWall::alloc(json, _scale, _bounds);
+        _interactables.push_back(std::static_pointer_cast<BouncyWall>(mwall));
     } else {
         // log type not recognized
         // CUAssertLog(false, "Object type not recognized");
