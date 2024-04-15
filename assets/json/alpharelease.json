@@ -415,8 +415,8 @@
                  "type":"",
                  "visible":true,
                  "width":193,
-                 "x":6524.18804858659,
-                 "y":1181.64920092113
+                 "x":7485.72651012505,
+                 "y":666.264585536515
                 }, 
                 {
                  "height":0,
@@ -689,8 +689,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":6339.6336680423,
-                 "y":1592.67198227444
+                 "x":6421.10006315432,
+                 "y":1742.0270399798
                 }, 
                 {
                  "gid":25,
@@ -701,8 +701,8 @@
                  "type":"",
                  "visible":true,
                  "width":232,
-                 "x":6874.78964029349,
-                 "y":1187.24134581738
+                 "x":7836.32810183195,
+                 "y":671.856730432765
                 }, 
                 {
                  "gid":27,
@@ -713,8 +713,8 @@
                  "type":"",
                  "visible":true,
                  "width":193,
-                 "x":7246.82297716841,
-                 "y":1181.80332447006
+                 "x":8208.36143870687,
+                 "y":666.418709085445
                 }, 
                 {
                  "gid":26,
@@ -725,8 +725,8 @@
                  "type":"",
                  "visible":true,
                  "width":250,
-                 "x":7595.0084462319,
-                 "y":1159.56580785443
+                 "x":8556.54690777036,
+                 "y":644.181192469815
                 }, 
                 {
                  "height":0,
@@ -916,8 +916,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":6898.3673747384,
-                 "y":284.946182089009
+                 "x":6963.66651006612,
+                 "y":244.561903240051
                 }, 
                 {
                  "height":0,
@@ -1094,6 +1094,28 @@
                              "Enabled":true,
                              "Head":"LevelComplete",
                              "Trigger":"TOUCH: character body"
+                            }
+                        }, 
+                        {
+                         "name":"PubContacting",
+                         "propertytype":"PubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Enabled":true,
+                             "Head":"ShowButton",
+                             "Trigger":"CONTACT: character body"
+                            }
+                        }, 
+                        {
+                         "name":"PubReleasing",
+                         "propertytype":"PubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Enabled":true,
+                             "Head":"HideButton",
+                             "Trigger":"RELEASED: character body"
                             }
                         }, 
                         {
@@ -1344,8 +1366,8 @@
                  "type":"paint",
                  "visible":true,
                  "width":0,
-                 "x":6473.23443641435,
-                 "y":641.354972317315
+                 "x":6538.53357174207,
+                 "y":600.970693468357
                 }, 
                 {
                  "gid":8,
@@ -1356,8 +1378,8 @@
                  "type":"",
                  "visible":true,
                  "width":447,
-                 "x":8012.21717335543,
-                 "y":1030.94724341788
+                 "x":8973.75563489389,
+                 "y":515.562628033265
                 }, 
                 {
                  "height":0,

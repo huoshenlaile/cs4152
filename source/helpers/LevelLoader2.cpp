@@ -47,6 +47,7 @@ bool LevelLoader2::preload(const std::shared_ptr<cugl::JsonValue>& json) {
 
 bool LevelLoader2::loadObject(const std::shared_ptr<JsonValue>& json){
     auto type = json->get("type")->asString();
+    std::cout << "===== PARSING " << json->get("name")->asString() << "======"<< std::endl;
     if (type == WALLS_FIELD){
         auto wall = Interactable::alloc(json, _scale, _bounds);
         std::cout << "finished " << json->get("name")->asString() << std::endl;
@@ -63,7 +64,6 @@ bool LevelLoader2::loadObject(const std::shared_ptr<JsonValue>& json){
     } else if (type == MWALLS_FIELD){
         auto mwall = MovingWall::alloc(json, _scale, _bounds);
         _interactables.push_back(std::static_pointer_cast<Interactable>(mwall));
-        CULog("HIIIEEEEE: %f", 0.1f);
     } else if (type == GRAVITYWALL_FIELD) {
         auto gravitywall = GravityReversePlatform::alloc(json, _scale, _bounds);
         if (gravitywall -> hasOnBeginContact()) { std::cout << "gravity has begin" << std::endl;}
@@ -73,7 +73,6 @@ bool LevelLoader2::loadObject(const std::shared_ptr<JsonValue>& json){
             std::cout << "checking: " << i -> getName() << std::endl;
             std::cout << i -> hasOnBeginContact() << std::endl;
         }
-        CULog("Gravity Wall is here");
     } else if (type == CHARACTER_POS){
         _charPos = getObjectPos(json);
     } else if (type == BOUNCY_WALL_FIELD) {

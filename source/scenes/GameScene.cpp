@@ -172,6 +172,7 @@ void GameScene::constructSceneNodes(const Size &dimen) {
         }
     });
     _uinode->addChild(_pauseButton);
+    
 
     // level complete scene
     _levelComplete = _assets->get<scene2::SceneNode>("levelcomplete");
