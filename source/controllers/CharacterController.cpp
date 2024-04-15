@@ -9,7 +9,7 @@ bool CharacterController::init(const cugl::Vec2 &pos, float scale)
 	_offset = pos;
 	_drawScale = scale;
 
-	_color = "orange";
+	_color = "black";
 	_colorchange = false;
     _colorlhchange = false;
     _colorrhchange = false;
@@ -1064,44 +1064,58 @@ void CharacterController::drawDecoration(float scale)
 		if (_decorationNode == nullptr)
 		{
 			std::shared_ptr<scene2::SpriteNode> decorationSprite;
-			if (_color == "orange")
-			{
-				decorationSprite = scene2::SpriteNode::allocWithSheet(_orangedecoration, 5, 5, 24);
-				decorationSprite->setAnchor(Vec2::ANCHOR_CENTER);
-				_decorationNode = decorationSprite;
-				_node->addChild(_decorationNode);
-			}
-			else if (_color == "pink")
-			{
-				decorationSprite = scene2::SpriteNode::allocWithSheet(_pinkdecoration, 5, 5, 24);
-				decorationSprite->setAnchor(Vec2::ANCHOR_CENTER);
-				_decorationNode = decorationSprite;
-				_node->addChild(_decorationNode);
-			}
-			else if (_color == "purple")
-			{
-				decorationSprite = scene2::SpriteNode::allocWithSheet(_purpledecoration, 5, 5, 24);
-				decorationSprite->setAnchor(Vec2::ANCHOR_CENTER);
-				_decorationNode = decorationSprite;
-				_node->addChild(_decorationNode);
-			}
-			else if (_color == "green")
-			{
-				decorationSprite = scene2::SpriteNode::allocWithSheet(_greendecoration, 5, 5, 24);
-				decorationSprite->setAnchor(Vec2::ANCHOR_CENTER);
-				_decorationNode = decorationSprite;
-				_node->addChild(_decorationNode);
-			}
-			else if (_color == "blue")
-			{
-				decorationSprite = scene2::SpriteNode::allocWithSheet(_bluedecoration, 5, 5, 24);
-				decorationSprite->setAnchor(Vec2::ANCHOR_CENTER);
-				_decorationNode = decorationSprite;
-				_node->addChild(_decorationNode);
-			}
+            if(_color !="black"){
+                decorationSprite = getTextureForDecoration(_color);
+                _decorationNode = decorationSprite;
+                _node->addChild(_decorationNode);
+            }
+//			if (_color == "orange")
+//			{
+//				decorationSprite = scene2::SpriteNode::allocWithSheet(_orangedecoration, 5, 5, 24);
+//				decorationSprite->setAnchor(Vec2::ANCHOR_CENTER);
+//				_decorationNode = decorationSprite;
+//				_node->addChild(_decorationNode);
+//			}
+//			else if (_color == "pink")
+//			{
+//				decorationSprite = scene2::SpriteNode::allocWithSheet(_pinkdecoration, 5, 5, 24);
+//				decorationSprite->setAnchor(Vec2::ANCHOR_CENTER);
+//				_decorationNode = decorationSprite;
+//				_node->addChild(_decorationNode);
+//			}
+//			else if (_color == "purple")
+//			{
+//				decorationSprite = scene2::SpriteNode::allocWithSheet(_purpledecoration, 5, 5, 24);
+//				decorationSprite->setAnchor(Vec2::ANCHOR_CENTER);
+//				_decorationNode = decorationSprite;
+//				_node->addChild(_decorationNode);
+//			}
+//			else if (_color == "green")
+//			{
+//				decorationSprite = scene2::SpriteNode::allocWithSheet(_greendecoration, 5, 5, 24);
+//				decorationSprite->setAnchor(Vec2::ANCHOR_CENTER);
+//				_decorationNode = decorationSprite;
+//				_node->addChild(_decorationNode);
+//			}
+//			else if (_color == "blue")
+//			{
+//				decorationSprite = scene2::SpriteNode::allocWithSheet(_bluedecoration, 5, 5, 24);
+//				decorationSprite->setAnchor(Vec2::ANCHOR_CENTER);
+//				_decorationNode = decorationSprite;
+//				_node->addChild(_decorationNode);
+//			}
 		}
 		if (_decorationNode != nullptr)
 		{
+            if(_colorchange == true){
+                if (_color != "black") {
+                    auto newSprite = getTextureForDecoration(_color);
+                    _node->removeChild(_decorationNode);
+                    _decorationNode = newSprite;
+                    _node->addChild(_decorationNode);
+                    _colordecchange = true;
+                }
+            }
 			_decorationNode->setPosition(bodyPos * scale);
 			_decorationNode->setAngle(bodyAngle);
 		}
@@ -1122,7 +1136,7 @@ void CharacterController::update(float dt)
 	}
     _actions->update(dt);
     
-    if(_colorlhchange == true && _colorrhchange == true && _colorbodychange == true){
+    if(_colorlhchange == true && _colorrhchange == true && _colorbodychange == true && _colordecchange == true){
         _colorchange = false;
     }
 
@@ -1242,4 +1256,38 @@ std::shared_ptr<scene2::PolygonNode> CharacterController::getTextureForHand(int 
 	}
 
 	return textureNode;
+}
+
+std::shared_ptr<scene2::SpriteNode> CharacterController::getTextureForDecoration(const std::string &color)
+{
+    std::shared_ptr<scene2::SpriteNode> textureNode;
+
+        if (color == "orange")
+        {
+            textureNode = scene2::SpriteNode::allocWithSheet(_orangedecoration, 5, 5, 24);
+        }
+        else if (color == "pink")
+        {
+            textureNode = scene2::SpriteNode::allocWithSheet(_pinkdecoration, 5, 5, 24);
+        }
+        else if (color == "purple")
+        {
+            textureNode = scene2::SpriteNode::allocWithSheet(_purpledecoration, 5, 5, 24);
+        }
+        else if (color == "green")
+        {
+            textureNode = scene2::SpriteNode::allocWithSheet(_greendecoration, 5, 5, 24);
+        }
+        else if (color == "blue")
+        {
+            textureNode = scene2::SpriteNode::allocWithSheet(_bluedecoration, 5, 5, 24);
+        } 
+    
+
+    if (textureNode)
+    {
+        textureNode->setAnchor(Vec2::ANCHOR_CENTER);
+    }
+
+    return textureNode;
 }

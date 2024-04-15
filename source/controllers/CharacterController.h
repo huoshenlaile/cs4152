@@ -80,6 +80,7 @@ protected:
 	std::string _color;
 	bool _colorchange;
     bool _colorbodychange;
+    bool _colordecchange;
     bool _colorlhchange;
     bool _colorrhchange;
 	cugl::Vec2 _offset;
@@ -228,7 +229,7 @@ public:
 	void drawDecoration(float scale);
 
 	std::shared_ptr<scene2::SpriteNode> getTextureForPart(int partId, const std::string &color);
-
+    std::shared_ptr<scene2::SpriteNode> getTextureForDecoration(const std::string &color);
 	std::shared_ptr<scene2::PolygonNode> getTextureForHand(int partId, const std::string &color);
 
 #pragma mark -
