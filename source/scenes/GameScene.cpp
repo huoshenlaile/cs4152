@@ -62,10 +62,20 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, std::str
     return true;
 }
 
-void GameScene::dispose() {
-    if (_active) {
-        // TODO: dispose all the controllers, and free other memory
-    }
+void GameScene::dispose(){
+    _assets = nullptr;
+    _interactionController = nullptr;
+    _character = nullptr;
+    _audioController = nullptr;
+    _inputController = nullptr;
+    _platformWorld = nullptr;
+    _pauseButton = nullptr;
+    _worldnode->removeAllChildren();
+    _worldnode = nullptr;
+    _levelComplete->removeAllChildren();
+    _levelComplete = nullptr;
+    _level = nullptr;
+    this->removeAllChildren();
 }
 
 void GameScene::setActive(bool value) {
@@ -84,15 +94,14 @@ void GameScene::setActive(bool value) {
     }
 }
 
-void GameScene::reset() {
-    // TODO: port the reset here (probably not necessary)
-    // CORREECT WAY: dispost all things, reload the level loader.
-    CULog("reset!");
+void GameScene::reset(){
+    _assets->unload<LevelLoader2>(_levelName);
+    GameScene::dispose();
 }
 
-void GameScene::preUpdate(float dt) {
-    if (_level == nullptr)
-        return;
+#pragma mark preUpdate
+void GameScene::preUpdate(float dt){
+    if (_level == nullptr) return;
 
     // process input
     _inputController->update(dt);
@@ -102,20 +111,27 @@ void GameScene::preUpdate(float dt) {
     }
     _inputController->process();
 
-    _character->moveLeftHand(INPUT_SCALER * _inputController->getLeftHandMovement());
-    _character->moveRightHand(INPUT_SCALER * _inputController->getrightHandMovement());
-    _inputController->fillHand(_character->getLeftHandPosition(), _character->getRightHandPosition(), _character->getLHPos(), _character->getRHPos());
+    _character->moveLeftHand(INPUT_SCALER * _inputController->getLeftHandMovement(), _interactionController -> leftHandReverse);
+    _character->moveRightHand(INPUT_SCALER * _inputController->getrightHandMovement(), _interactionController -> rightHandReverse);
+    _inputController->fillHand(_character->getLeftHandPosition(),
+                                _character->getRightHandPosition(),
+                                _character->getLHPos(),
+                                _character->getRHPos());
 
     // update camera
     _camera.update(dt);
 
     // update interaction controller
+    _interactionController -> updateHandsHeldInfo(_inputController -> isLHAssigned(), _inputController -> isRHAssigned());
     _interactionController->preUpdate(dt);
 
     if (!isCharacterInMap()) {
         // CULog("Character out!");
-        reset();
+        state = RESET;
     }
+
+    _interactionController -> ungrabIfNecessary();
+    _interactionController -> grabCDIfNecessary(dt);
 }
 
 void GameScene::fixedUpdate(float dt) {
@@ -128,17 +144,17 @@ void GameScene::postUpdate(float dt) {
     if (_level == nullptr)
         return;
     _interactionController->postUpdate(dt);
+    _interactionController -> connectGrabJoint();
     if (_interactionController->isLevelComplete()) {
         _complete = true;
         _levelComplete->setVisible(true);
-        _levelCompleteReset->activate();
-        _levelCompleteMenuButton->activate();
     }
 }
 
-// ================================= private helper functions =================================
-void GameScene::constructSceneNodes(const Size &dimen) {
-    Vec2 offset{(dimen.width - SCENE_WIDTH) / 2.0f, (dimen.height - SCENE_HEIGHT) / 2.0f};
+
+#pragma mark Helper Functions
+void GameScene::constructSceneNodes(const Size &dimen){
+    Vec2 offset{ (dimen.width - SCENE_WIDTH) / 2.0f,(dimen.height - SCENE_HEIGHT) / 2.0f };
     // _worldnode = scene2::SceneNode::alloc();
     _worldnode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
     _worldnode->setPosition(offset);
@@ -165,26 +181,7 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     _levelComplete->setVisible(false);
     _uinode->addChild(_levelComplete);
 
-    // level complete scene buttons
-    _levelCompleteReset = std::dynamic_pointer_cast<scene2::Button>(_levelComplete->getChildByName("completemenu")->getChildByName("options")->getChildByName("restart"));
-    _levelCompleteReset->deactivate();
-    _levelCompleteReset->addListener([this](const std::string &name, bool down) {
-        if (down) {
-            this->state = RESET;
-        }
-    });
-
-    // TODO: add this button to the level complete scene
-    _levelCompleteMenuButton = std::dynamic_pointer_cast<scene2::Button>(_levelComplete->getChildByName("completemenu")->getChildByName("options")->getChildByName("menu"));
-    _levelCompleteMenuButton->deactivate();
-    _levelCompleteMenuButton->addListener([this](const std::string &name, bool down) {
-        if (down) {
-            // TODO: there is something weird happening here.
-            // _level -> unload();
-            this->state = QUIT;
-        }
-    });
-
+    //deleted level complete related UI
     addChild(_uinode);
 }
 
