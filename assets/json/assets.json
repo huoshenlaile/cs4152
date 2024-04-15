@@ -9,6 +9,11 @@
         "splotch3": {
             "file": "textures/pureOrange.png"
         },
+        "spikes": {
+            "file": "textures/spikes.png",
+            "wrapS": "repeat",
+            "wrapT": "repeat"
+        },
         "alpharelease_background": {
             "file": "textures/alpharelease_background.png"
         },

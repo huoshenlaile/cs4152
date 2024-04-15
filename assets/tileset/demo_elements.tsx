@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="ragdoll_elements" tilewidth="2581" tileheight="1080" tilecount="15" columns="0" objectalignment="bottomleft">
+<tileset version="1.10" tiledversion="1.10.2" name="ragdoll_elements" tilewidth="2581" tileheight="1080" tilecount="22" columns="0" objectalignment="bottomleft">
  <editorsettings>
   <export target="ragdoll_elements..tsx" format="tsx"/>
  </editorsettings>
@@ -89,5 +89,26 @@
  </tile>
  <tile id="28">
   <image width="193" height="500" source="../textures/alpharelease_ketchup_capoff.png"/>
+ </tile>
+ <tile id="29">
+  <image width="175" height="52" source="../textures/staticplatform_comet.png"/>
+ </tile>
+ <tile id="30">
+  <image width="103" height="50" source="../textures/spikes.png"/>
+ </tile>
+ <tile id="31">
+  <image width="180" height="99" source="../textures/nogravityplatform_blackhole.png"/>
+ </tile>
+ <tile id="32">
+  <image width="175" height="52" source="../textures/movingplatform_comet.png"/>
+ </tile>
+ <tile id="33">
+  <image width="180" height="99" source="../textures/heavygravityplatform_blackhole.png"/>
+ </tile>
+ <tile id="34">
+  <image width="447" height="138" source="../textures/goal_ufo.png"/>
+ </tile>
+ <tile id="35">
+  <image width="180" height="117" source="../textures/bouncingplatform_slime.png"/>
  </tile>
 </tileset>
