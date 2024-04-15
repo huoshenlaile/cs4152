@@ -3,7 +3,7 @@
 using namespace cugl;
 
 bool CameraController::init(const std::shared_ptr<cugl::scene2::SceneNode> target, const std::shared_ptr<cugl::scene2::SceneNode> root, float lerp, std::shared_ptr<cugl::OrthographicCamera> camera,
-                            std::shared_ptr<scene2::SceneNode> ui, float maxZoom) {
+                            std::shared_ptr<scene2::SceneNode> ui, float maxZoom, bool horizontal) {
     _target = target;
     _root = root;
     _lerp = lerp;
@@ -14,6 +14,7 @@ bool CameraController::init(const std::shared_ptr<cugl::scene2::SceneNode> targe
     _initialStay = 0;
     _finalStay = 0;
     _displayed = false;
+    _horizontal = horizontal;
     return true;
 }
 
@@ -23,7 +24,10 @@ void CameraController::update(float dt) {
         _camera->update();
         return;
     } else if (_move) {
-        _camera->translate(30, 0);
+        if (_horizontal) {
+            _camera->translate(30, 0);
+        } else
+            _camera->translate(0,30);
         _camera->update();
         if (_camera->getPosition().x >= _root->getSize().width - _camera->getViewport().getMaxX() / (2 * _camera->getZoom())) {
             _move = false;
