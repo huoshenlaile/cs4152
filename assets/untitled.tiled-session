@@ -6,45 +6,48 @@
         "."
     ],
     "fileStates": {
-        "json/alpharelease copy 2.json": {
-            "scale": 0.0408,
+        "json/alpharelease copy.json": {
+            "scale": 0.2,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 5330.882352941177,
-                "y": 4718.137254901961
+                "x": 6995,
+                "y": 1552.5
             }
         },
         "json/alpharelease.json": {
-            "expandedObjectLayers": [
-                2
-            ],
-            "scale": 0.222,
+            "scale": 0.25,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 4801.801801801802,
-                "y": 1121.6216216216217
+                "x": 5600,
+                "y": 966
+            }
+        },
+        "json/bouncyjump.tmj": {
+            "scale": 0.15,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 853.3333333333335,
+                "y": 6403.333333333334
             }
         },
         "json/doodlejump.json": {
-            "scale": 0.2641,
+            "scale": 0.15,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 3913.290420295343,
-                "y": 980.6891329042028
+                "x": 4800,
+                "y": -230
             }
         },
-        "json/falldown.json": {
-            "scale": 0.08,
+        "json/tubelevel.json": {
+            "scale": 0.11,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": -7150,
-                "y": 3637.5
+                "x": 3072.727272727273,
+                "y": 12468.18181818182
             }
         },
         "tileset/demo_elements.tsx": {
-            "dynamicWrapping": true,
-            "scaleInDock": 1,
-            "scaleInEditor": 0.06
+            "scaleInDock": 1
         }
     },
     "openFiles": [
