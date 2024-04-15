@@ -44,7 +44,11 @@ bool LevelLoader2::loadObject(const std::shared_ptr<JsonValue>& json){
     }else if (type == PAINT_FIELD){
         auto paint = GrowingPaint::alloc(json, _scale, _bounds);
         _interactables.push_back(std::static_pointer_cast<Interactable>(paint));
-    } else if (type == CHARACTER_POS){
+    }else if (type == MWALLS_FIELD){
+        auto mwall = MovingWall::alloc(json, _scale, _bounds);
+        _interactables.push_back(std::static_pointer_cast<Interactable>(mwall));
+        CULog("HIIIEEEEE: %f", 0.1f);
+    }else if (type == CHARACTER_POS){
         _charPos = getObjectPos(json);
     } else {
         // log type not recognized
@@ -103,14 +107,20 @@ bool LevelLoader2::construct(std::shared_ptr<cugl::AssetManager>& _assets){
     _worldnode->addChild(_platformNode);
     _worldnode->addChild(_charNode);
 
-    
-
     return true;
 }
 
-
 void LevelLoader2::unload() {
-    // TODO: 
+    _json = nullptr;
+    _root = nullptr;
+    _worldnode = nullptr;
+    _charNode = nullptr;
+    _platformNode = nullptr;
+    _uinode = nullptr;
+    _levelCompletenode = nullptr;
+    _world = nullptr;
+    _character = nullptr;
+    _interactables.clear();
 }
 
 

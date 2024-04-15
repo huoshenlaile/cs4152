@@ -89,10 +89,6 @@ public:
         return (result->init(file) ? result : nullptr);
     }
 
-
-
-
-
 };
 
 #endif

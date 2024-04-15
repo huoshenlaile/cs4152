@@ -153,7 +153,6 @@ void DPApp::preUpdate(float timestep) {
             _menuScene.setActive(true);
             _status = MENU;
         } else if (_gameScene.state == GameScene::RESET) {
-            std::cout << "resetting - from preUpdate DPApp" << std::endl;
             _gameScene.setActive(false);
             _gameScene.reset();
             _gameScene.setActive(true);
@@ -163,7 +162,13 @@ void DPApp::preUpdate(float timestep) {
       _status = PAUSE;
       _gameScene.setActive(false);
       _pauseScene.setActive(true);
-    } else {
+    } else if (_gameScene.state == GameScene::RESET){
+        _gameScene.setActive(false);
+        _gameScene.reset();
+        _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
+        _status = LEVELLOAD;
+    }
+    else {
         _gameScene.preUpdate(timestep);
     }
       
@@ -176,14 +181,16 @@ void DPApp::preUpdate(float timestep) {
               _status = GAME;
               break;
         case PauseScene::RESET:
-            std::cout << "resetting - from Update Pause DPApp" << std::endl;
             _pauseScene.setActive(false);
             _gameScene.reset();
-            _gameScene.setActive(true);
-            _status = GAME;
+            _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
+            _status = LEVELLOAD;
             break;
         case PauseScene::MENU:
-            // TODO: ?
+            _pauseScene.setActive(false);
+            _gameScene.reset();
+            _status = LEVELSELECT;
+            _levelSelectScene.setActive(true);
             break;
         default:
           break;
@@ -255,11 +262,15 @@ void DPApp::updatePause(float timestep) {
         _gameScene.setActive(true);
         break;
       case PauseScene::RESET:
-        printf("RESETTING");
         _status = GAME;
         _pauseScene.setActive(false);
         _gameScene.reset();
         _gameScene.setActive(true);
+        break;
+      case PauseScene::MENU:
+        _status = LEVELSELECT;
+        _pauseScene.setActive(false);
+        _gameScene.reset();
         break;
       default:
         break;
