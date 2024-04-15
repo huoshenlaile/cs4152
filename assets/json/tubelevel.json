@@ -338,7 +338,7 @@
                 {
                  "height":0,
                  "id":54,
-                 "name":"sensor1",
+                 "name":"sensor4",
                  "polygon":[
                         {
                          "x":-867.019047018305,
@@ -407,13 +407,13 @@
                  "type":"sensor",
                  "visible":true,
                  "width":0,
-                 "x":2266.53764042467,
-                 "y":13871.0856525161
+                 "x":2261.41993315752,
+                 "y":13901.7918961189
                 }, 
                 {
                  "height":0,
                  "id":56,
-                 "name":"exit_sensor",
+                 "name":"exit",
                  "polygon":[
                         {
                          "x":324.290614281259,
@@ -453,47 +453,28 @@
                                  "bodytype":0,
                                  "damping":0,
                                  "debugcolor":"yellow",
-                                 "debugopacity":192,
+                                 "debugopacity":0,
                                  "density":0,
                                  "friction":0,
-                                 "publications":[
-                                        {
-                                         "body":
-                                            {
-
-                                            },
-                                         "message":"contacted",
-                                         "pub_id":"exit_sensor",
-                                         "trigger":"contacted"
-                                        }],
                                  "restitution":0,
                                  "rotation":false,
-                                 "subscriptions":[
-                                        {
-                                         "actions":
-                                            {
-                                             "win":"exit"
-                                            },
-                                         "listening_for":"contacted",
-                                         "pub_id":"exit_sensor",
-                                         "sub_id":"exit_sensor"
-                                        }],
-                                 "texture":"button_ingame"
+                                 "texture":"",
+                                 "color-requirements":"pink"
                                 }
                             }
                         }],
                  "rotation":0,
-                 "type":"sensor",
+                 "type":"exit",
                  "visible":true,
                  "width":0,
-                 "x":5569.90642482139,
-                 "y":8267.60473428173
+                 "x":5616.8547816289,
+                 "y":8486.69706605012
                 }, 
                 {
                  "gid":30,
                  "height":4867.93326241791,
                  "id":89,
-                 "name":"",
+                 "name":"useless3",
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -902,7 +883,7 @@
                  "gid":31,
                  "height":1724,
                  "id":93,
-                 "name":"",
+                 "name":"useless1",
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -914,7 +895,7 @@
                  "gid":32,
                  "height":1662,
                  "id":94,
-                 "name":"",
+                 "name":"useless2",
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -2998,7 +2979,7 @@
                 {
                  "height":0,
                  "id":103,
-                 "name":"sensor1",
+                 "name":"sensor2",
                  "polygon":[
                         {
                          "x":-1138.99852346273,
@@ -3064,7 +3045,7 @@
                 {
                  "height":0,
                  "id":105,
-                 "name":"sensor1",
+                 "name":"sensor3",
                  "polygon":[
                         {
                          "x":-839.958609859221,
@@ -3185,8 +3166,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":4950.24875621891,
-                 "y":8536.73596304193
+                 "x":4958.07348235349,
+                 "y":8763.65302094491
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -3208,5 +3189,5 @@
  "tilewidth":32,
  "type":"map",
  "version":"1.10",
- "width":180
+ "width":200
 }
