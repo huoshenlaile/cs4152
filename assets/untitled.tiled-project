@@ -1,0 +1,304 @@
+{
+    "automappingRulesFile": "",
+    "commands": [
+    ],
+    "compatibilityVersion": 1100,
+    "extensionsPath": "extensions",
+    "folders": [
+        "."
+    ],
+    "properties": [
+    ],
+    "propertyTypes": [
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 26,
+            "members": [
+                {
+                    "name": "Bad_bg",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "Default_bg",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "Good_bg",
+                    "type": "string",
+                    "value": ""
+                }
+            ],
+            "name": "METADATA",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 20,
+            "members": [
+                {
+                    "name": "bodytype",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "color-requirements",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "damping",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "debugcolor",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "debugopacity",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "density",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "friction",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "restitution",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "rotation",
+                    "type": "bool",
+                    "value": false
+                },
+                {
+                    "name": "texture",
+                    "type": "string",
+                    "value": ""
+                }
+            ],
+            "name": "obstacle",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 21,
+            "members": [
+                {
+                    "name": "obstacle",
+                    "propertyType": "obstacle",
+                    "type": "class",
+                    "value": {
+                    }
+                }
+            ],
+            "name": "Physics",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 22,
+            "members": [
+                {
+                    "name": "condition1",
+                    "propertyType": "PubMessage",
+                    "type": "class",
+                    "value": {
+                    }
+                },
+                {
+                    "name": "condition2",
+                    "propertyType": "PubMessage",
+                    "type": "class",
+                    "value": {
+                    }
+                }
+            ],
+            "name": "Publication",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 23,
+            "members": [
+                {
+                    "name": "Body",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "Enabled",
+                    "type": "bool",
+                    "value": false
+                },
+                {
+                    "name": "Head",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "Id",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "Trigger",
+                    "type": "string",
+                    "value": ""
+                }
+            ],
+            "name": "PubMessage",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 24,
+            "members": [
+                {
+                    "name": "Action",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "Body",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "Enabled",
+                    "type": "bool",
+                    "value": false
+                },
+                {
+                    "name": "Head",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "Id",
+                    "type": "string",
+                    "value": ""
+                }
+            ],
+            "name": "SubMessage",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 25,
+            "members": [
+                {
+                    "name": "condition1",
+                    "propertyType": "SubMessage",
+                    "type": "class",
+                    "value": {
+                    }
+                },
+                {
+                    "name": "condition2",
+                    "propertyType": "SubMessage",
+                    "type": "class",
+                    "value": {
+                    }
+                }
+            ],
+            "name": "Subscription",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        }
+    ]
+}

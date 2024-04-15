@@ -8,7 +8,7 @@
   <properties>
    <property name="properties" type="class"/>
   </properties>
-  <image width="96" height="96" source="goaldoor.png"/>
+  <image width="447" height="138" source="lv1_palette.png"/>
  </tile>
  <tile id="9" type="wall">
   <properties>

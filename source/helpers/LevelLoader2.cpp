@@ -50,10 +50,12 @@ bool LevelLoader2::loadObject(const std::shared_ptr<JsonValue>& json){
     if (type == WALLS_FIELD){
         auto wall = Interactable::alloc(json, _scale, _bounds);
         std::cout << "finished " << json->get("name")->asString() << std::endl;
-
         _interactables.push_back(wall);
     }else if (type == SENSOR_FIELD){
         auto sensor = Sensor::alloc(json, _scale, _bounds);
+        _interactables.push_back(std::static_pointer_cast<Interactable>(sensor));
+    }else if (type == EXIT_FIELD){
+        auto sensor = Exit::alloc(json, _scale, _bounds);
         _interactables.push_back(std::static_pointer_cast<Interactable>(sensor));
     }else if (type == PAINT_FIELD){
         auto paint = GrowingPaint::alloc(json, _scale, _bounds);

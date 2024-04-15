@@ -12,6 +12,9 @@
         "alpharelease_background": {
             "file": "textures/alpharelease_background.png"
         },
+        "lv1_palette": {
+            "file": "textures/lv1_palette.png"
+        },
         "lv1_background_1": {
             "file": "textures/lv1_background_1.png"
         },
