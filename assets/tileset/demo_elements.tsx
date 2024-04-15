@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="ragdoll_elements" tilewidth="2581" tileheight="1724" tilecount="18" columns="0" objectalignment="bottomleft">
+<tileset version="1.10" tiledversion="1.10.2" name="ragdoll_elements" tilewidth="2581" tileheight="1724" tilecount="25" columns="0" objectalignment="bottomleft">
  <editorsettings>
   <export target="ragdoll_elements..tsx" format="tsx"/>
  </editorsettings>
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="7" type="exit">
   <properties>
-   <property name="properties" type="class"/>
+   <property name="properties" value=""/>
   </properties>
   <image width="96" height="96" source="goaldoor.png"/>
  </tile>
  <tile id="9" type="wall">
   <properties>
-   <property name="properties" type="class"/>
+   <property name="properties" value=""/>
   </properties>
   <image width="214" height="100" source="../textures/popleft.png"/>
   <objectgroup draworder="index" id="2">
@@ -62,10 +62,10 @@
   <image width="175" height="52" source="../textures/staticplatform_comet.png"/>
  </tile>
  <tile id="30">
-  <image width="103" height="50" source="../textures/spikes.png"/>
+  <image width="337" height="1724" source="../textures/tube_curved_pink.png"/>
  </tile>
  <tile id="31">
-  <image width="180" height="99" source="../textures/nogravityplatform_blackhole.png"/>
+  <image width="211" height="1662" source="../textures/tube_straight_green.png"/>
  </tile>
  <tile id="32">
   <image width="175" height="52" source="../textures/movingplatform_comet.png"/>
@@ -77,13 +77,15 @@
   <image width="447" height="138" source="../textures/goal_ufo.png"/>
  </tile>
  <tile id="35">
-  <image width="180" height="117" source="../textures/bouncingplatform_slime.png"/>
   <image width="337" height="1724" source="../textures/tube_curved_blue.png"/>
  </tile>
- <tile id="30">
-  <image width="337" height="1724" source="../textures/tube_curved_pink.png"/>
+ <tile id="36">
+  <image width="103" height="50" source="../textures/spikes.png"/>
  </tile>
- <tile id="31">
-  <image width="211" height="1662" source="../textures/tube_straight_green.png"/>
+ <tile id="37">
+  <image width="180" height="99" source="../textures/nogravityplatform_blackhole.png"/>
+ </tile>
+ <tile id="38">
+  <image width="180" height="117" source="../textures/bouncingplatform_slime.png"/>
  </tile>
 </tileset>
