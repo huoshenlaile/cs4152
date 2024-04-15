@@ -1,18 +1,33 @@
 {
-    "activeFile": "json/alpharelease.json",
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "json/falldown.json",
     "expandedProjectPaths": [
         "json",
-        ".",
-        "tileset"
+        "tileset",
+        "."
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
-        "json/alpharelease.json": {
-            "scale": 0.1473,
+        "json/alpharelease copy 2.json": {
+            "scale": 0.0408,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 5882.552613713511,
-                "y": 1276.3068567549221
+                "x": 5330.882352941177,
+                "y": 4718.137254901961
+            }
+        },
+        "json/alpharelease.json": {
+            "expandedObjectLayers": [
+                2
+            ],
+            "scale": 0.222,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 3777.0270270270275,
+                "y": 1101.3513513513512
             }
         },
         "json/doodlejump.json": {
@@ -23,6 +38,14 @@
                 "y": 980.6891329042028
             }
         },
+        "json/falldown.json": {
+            "scale": 0.0657,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 3021.3089802130903,
+                "y": 1476.4079147640796
+            }
+        },
         "tileset/demo_elements.tsx": {
             "dynamicWrapping": true,
             "scaleInDock": 1,
@@ -31,13 +54,19 @@
     },
     "last.imagePath": "/Users/kiduszegeye/Desktop/Cornell/CS 5152/cs4152/assets/tileset",
     "last.objectTypesPath": "/Users/kiduszegeye/Desktop/Cornell/CS 5152/cs4152/assets/json/ALLCustomTypes.json",
+    "map.height": 50,
+    "map.width": 20,
     "openFiles": [
-        "json/alpharelease.json"
+        "json/alpharelease.json",
+        "json/falldown.json"
     ],
     "project": "untitled.tiled-project",
     "property.type": "Physics",
     "recentFiles": [
         "json/alpharelease.json",
+        "json/falldown.json",
+        "json/alpharelease copy 2.json",
         "tileset/demo_elements.tsx"
-    ]
+    ],
+    "resizeMap.removeObjects": true
 }

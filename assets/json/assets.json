@@ -265,6 +265,9 @@
         "red_paint": {
             "file": "textures/red_paint_141x144.png"
         },
+        "purple_paint": {
+            "file": "textures/purple_paint_141x144.png"
+        },
         "tube_curved_l": {
             "file": "textures/tube/tube_curved_left.png"
         },
