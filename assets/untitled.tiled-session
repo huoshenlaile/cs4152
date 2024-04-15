@@ -2,17 +2,17 @@
     "activeFile": "json/alpharelease.json",
     "expandedProjectPaths": [
         "json",
-        "tileset",
-        "."
+        ".",
+        "tileset"
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
         "json/alpharelease.json": {
-            "scale": 0.1473,
+            "scale": 0.1251,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 4796.33401221996,
-                "y": 1123.5573659198915
+                "x": 5479.616306954436,
+                "y": 2030.3756994404475
             }
         },
         "tileset/demo_elements.tsx": {
