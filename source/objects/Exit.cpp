@@ -11,6 +11,15 @@ bool Exit::init(const std::shared_ptr<cugl::JsonValue>& json, Vec2 scale, Rect b
             break;
         }
     }
+    auto t =properties->get(properties->size()-1)->getString("propertytype");
+    if (properties->get(properties->size()-1)->getString("propertytype") == "Physics"){
+        std::stringstream reqs(properties->get(properties->size()-1)->get("value")->get("obstacle")->get("color-requirements")->asString());
+        while(reqs.good()){
+            std::string substr;
+            std::getline(reqs, substr, ',');
+            _colorReqs.insert(substr);
+        }
+    }
     activated = true;
     _selfObstacle->setSensor(true);
     OnBeginContactEnabled = true;

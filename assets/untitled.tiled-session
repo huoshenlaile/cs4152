@@ -27,7 +27,7 @@
         "json/alpharelease.json"
     ],
     "project": "untitled.tiled-project",
-    "property.type": "obstacle",
+    "property.type": "Physics",
     "recentFiles": [
         "json/alpharelease.json",
         "tileset/demo_elements.tsx"
