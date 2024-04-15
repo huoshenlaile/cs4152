@@ -172,7 +172,6 @@ void GameScene::constructSceneNodes(const Size &dimen) {
         }
     });
     _uinode->addChild(_pauseButton);
-    
 
     // level complete scene
     _levelComplete = _assets->get<scene2::SceneNode>("levelcomplete");
@@ -235,7 +234,7 @@ void GameScene::setCamera(std::string selectedLevelKey) {
         _camera.setDefaultZoom(DEFAULT_ZOOM);
     } else if (selectedLevelKey == "tube") {
         _camera.setMode(false);
-        _camera.setDefaultZoom(0.2);
+        _camera.setDefaultZoom(0.19);
     } else if (selectedLevelKey == "doodlejump") {
         _camera.setMode(true);
         _camera.setDefaultZoom(0.2);
