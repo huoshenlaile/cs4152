@@ -87,9 +87,9 @@ public:
         // set everything to nullptr
         _world = nullptr;
         _scene = nullptr;
+        _assets = nullptr;
         _selfTexture = nullptr;
         _selfObstacle = nullptr;
-        _assets = nullptr;
     }
 
     virtual bool init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect bounds);

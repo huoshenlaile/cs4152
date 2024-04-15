@@ -1,15 +1,9 @@
 {
-    "Map/SizeTest": {
-        "height": 4300,
-        "width": 2
-    },
-    "activeFile": "json/doodlejump.json",
     "expandedProjectPaths": [
         "tileset",
-        "json",
-        "."
+        ".",
+        "json"
     ],
-    "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
         "json/alpharelease copy 2.json": {
             "scale": 0.0408,
@@ -26,16 +20,16 @@
             "scale": 0.222,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 4797.2972972972975,
-                "y": 1096.8468468468468
+                "x": 4801.801801801802,
+                "y": 1121.6216216216217
             }
         },
         "json/doodlejump.json": {
-            "scale": 0.0798,
+            "scale": 0.0909,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 4110.275689223058,
-                "y": 2650.375939849624
+                "x": 3916.391639163917,
+                "y": 4328.9328932893295
             }
         },
         "json/falldown.json": {
@@ -66,12 +60,10 @@
     "recentFiles": [
         "json/alpharelease.json",
         "json/falldown.json",
-<<<<<<< HEAD
-=======
         "json/doodlejump.json",
->>>>>>> b40af02 (simplify code)
         "json/alpharelease copy 2.json",
         "tileset/demo_elements.tsx"
     ],
     "resizeMap.removeObjects": true
+    }
 }
