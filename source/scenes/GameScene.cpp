@@ -150,10 +150,10 @@ void GameScene::postUpdate(float dt) {
         _levelCompleteReset->activate();
         _levelCompleteMenuButton->activate();
     }
-    if (_interactionController->paintPercent() > 0.01f) {
+    if (_interactionController->paintPercent() > 0.01f && _interactionController->paintPercent() < 1.0f) {
         _paintMeter->setVisible(true);
         _paintMeter->setFrame((int)(_interactionController->paintPercent()*8));
-        _paintMeter->setPosition(_uinode->worldToNodeCoords(_character->getBodyPos())+Vec2(200,150));
+        _paintMeter->setPosition(_uinode->worldToNodeCoords(_character->getBodyPos())+Vec2(0,50));
     }
     else{
         _paintMeter->setVisible(false);
@@ -185,12 +185,12 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     _paintMeter = scene2::SpriteNode::allocWithSheet(_assets->get<Texture>("paintmeter"), 3, 3);
     _paintMeter->removeFromParent();
     _paintMeter->doLayout();
-    _paintMeter->setContentSize(dimen);
     _paintMeter->setVisible(false);
-    _paintMeter->setFrame(0);
-    _paintMeter->setScissor(Scissor::alloc(Size(_paintMeter->getContentWidth()/4.4,_paintMeter->getContentHeight()/4.8)));
     _paintMeter->setScale(.5);
+    _paintMeter->setFrame(0);
+    std::cout << _paintMeter->getWidth() << ", " << _paintMeter->getHeight() << "\n";
 
+    _paintMeter->setScissor(Scissor::alloc(_paintMeter->getSize()*2));
 
     // level complete scene
     

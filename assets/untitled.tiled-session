@@ -1,4 +1,10 @@
 {
+    "activeFile": "json/falldown.json",
+    "expandedProjectPaths": [
+        "json",
+        "tileset",
+        "."
+    ],
     "fileStates": {
         "json/alpharelease copy 2.json": {
             "scale": 0.0408,
@@ -40,5 +46,16 @@
             "scaleInDock": 1,
             "scaleInEditor": 0.06
         }
-    }
+    },
+    "openFiles": [
+        "json/alpharelease.json",
+        "json/falldown.json"
+    ],
+    "project": "untitled.tiled-project",
+    "recentFiles": [
+        "json/alpharelease.json",
+        "json/falldown.json",
+        "json/alpharelease copy 2.json",
+        "tileset/demo_elements.tsx"
+    ]
 }
