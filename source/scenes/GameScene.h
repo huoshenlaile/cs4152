@@ -104,6 +104,8 @@ public:
 #pragma mark -
 
     virtual void preUpdate(float dt);
+    void finishLevel();
+    
     virtual void postUpdate(float dt);
     virtual void fixedUpdate(float dt);
 

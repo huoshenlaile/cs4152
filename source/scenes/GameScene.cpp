@@ -145,10 +145,7 @@ void GameScene::postUpdate(float dt) {
     _interactionController->postUpdate(dt);
 
     if (_interactionController->isLevelComplete()) {
-        _complete = true;
-        _levelComplete->setVisible(true);
-        _levelCompleteReset->activate();
-        _levelCompleteMenuButton->activate();
+        finishLevel();
     }
     if (_interactionController->paintPercent() > 0.01f && _interactionController->paintPercent() < 1.0f) {
         _paintMeter->setVisible(true);
@@ -264,4 +261,20 @@ void GameScene::setCamera(std::string selectedLevelKey) {
         _camera.setMode(false);
         _camera.setDefaultZoom(DEFAULT_ZOOM);
     }
+}
+
+#pragma mark Level Complete
+/**
+ * Steps to complete a level:
+ * 1. change background
+ * 2. zoom out camera
+ * 3. pan to the last strip frame
+ * 4. wait for a sec
+ * 5. display complete scene (now we just skip here)
+ */
+void GameScene::finishLevel() {
+    _complete = true;
+    _levelComplete->setVisible(true);
+    _levelCompleteReset->activate();
+    _levelCompleteMenuButton->activate();
 }

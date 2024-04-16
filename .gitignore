@@ -38,3 +38,4 @@
 **/.vs/*
 
 */*.tiled-session
+*.tiled-session
