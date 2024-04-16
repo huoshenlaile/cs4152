@@ -104,7 +104,9 @@ void GameScene::preUpdate(float dt) {
     if (_level == nullptr)
         return;
     // process input
-    _inputController->update(dt);
+    if (_camera.getDisplayed()) {
+        _inputController->update(dt);
+    }
     auto character = _inputController->getCharacter();
     for (auto i = character->_touchInfo.begin(); i != character->_touchInfo.end(); i++) {
         i->worldPos = (Vec2)Scene2::screenToWorldCoords(i->position);
@@ -149,10 +151,9 @@ void GameScene::postUpdate(float dt) {
     }
     if (_interactionController->paintPercent() > 0.01f && _interactionController->paintPercent() < 1.0f) {
         _paintMeter->setVisible(true);
-        _paintMeter->setFrame((int)(_interactionController->paintPercent()*8));
-        _paintMeter->setPosition(_uinode->worldToNodeCoords(_character->getBodyPos())+Vec2(0,50));
-    }
-    else{
+        _paintMeter->setFrame((int)(_interactionController->paintPercent() * 8));
+        _paintMeter->setPosition(_uinode->worldToNodeCoords(_character->getBodyPos()) + Vec2(0, 50));
+    } else {
         _paintMeter->setVisible(false);
     }
 }
@@ -177,7 +178,7 @@ void GameScene::constructSceneNodes(const Size &dimen) {
         }
     });
     _uinode->addChild(_pauseButton);
-    
+
     // paint meter
     _paintMeter = scene2::SpriteNode::allocWithSheet(_assets->get<Texture>("paintmeter"), 3, 3);
     _paintMeter->removeFromParent();
@@ -187,10 +188,10 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     _paintMeter->setFrame(0);
     std::cout << _paintMeter->getWidth() << ", " << _paintMeter->getHeight() << "\n";
 
-    _paintMeter->setScissor(Scissor::alloc(_paintMeter->getSize()*2));
+    _paintMeter->setScissor(Scissor::alloc(_paintMeter->getSize() * 2));
 
     // level complete scene
-    
+
     _levelComplete = _assets->get<scene2::SceneNode>("levelcomplete");
     _levelComplete->removeFromParent();
     _levelComplete->doLayout();
@@ -252,12 +253,11 @@ void GameScene::setCamera(std::string selectedLevelKey) {
         _camera.setDefaultZoom(DEFAULT_ZOOM);
     } else if (selectedLevelKey == "tube") {
         _camera.setMode(false);
-        _camera.setDefaultZoom(0.19);
+        _camera.setDefaultZoom(0.2);
     } else if (selectedLevelKey == "doodlejump") {
         _camera.setMode(true);
         _camera.setDefaultZoom(0.2);
-    }
-    else if (selectedLevelKey == "falldown") {
+    } else if (selectedLevelKey == "falldown") {
         _camera.setMode(false);
         _camera.setDefaultZoom(DEFAULT_ZOOM);
     }

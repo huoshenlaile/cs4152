@@ -8,28 +8,30 @@ class InputController {
 public:
     cugl::Vec2 touchPos;
     cugl::Vec2 worldtouchPos;
+
 private:
     /** Whether or not this input is active */
     bool _active;
     // KEYBOARD EMULATION
     /** Whether the jump key is down */
-    bool  _keyJump;
+    bool _keyJump;
     /** Whether the fire key is down */
-    bool  _keyFire;
+    bool _keyFire;
     /** Whether the reset key is down */
-    bool  _keyReset;
+    bool _keyReset;
     /** Whether the debug key is down */
-    bool  _keyDebug;
+    bool _keyDebug;
     /** Whether the exit key is down */
-    bool  _keyExit;
+    bool _keyExit;
     /** Whether the left arrow key is down */
-    bool  _keyLeft;
+    bool _keyLeft;
     /** Whether the right arrow key is down */
-    bool  _keyRight;
+    bool _keyRight;
+    bool _started;
     cugl::Vec2 _rightHandCur;
     cugl::Vec2 _rightHandPrev;
-    cugl::Vec2 _leftHandCur = { -1.0f, -1.0f };
-    cugl::Vec2 _leftHandPrev = { -1.0f, -1.0f };
+    cugl::Vec2 _leftHandCur = {-1.0f, -1.0f};
+    cugl::Vec2 _leftHandPrev = {-1.0f, -1.0f};
 
 protected:
     // INPUT RESULTS
@@ -87,7 +89,7 @@ protected:
     /**
      * Populates the initial values of the TouchInstances
      */
-    void clearTouchInstance(TouchInstance& touchInstance);
+    void clearTouchInstance(TouchInstance &touchInstance);
 
     /**
      * Returns the scene location of a touch
@@ -210,14 +212,15 @@ public:
      *
      * When the player first touches a finger onto the screen, both 'leftHand' and 'rightHand' OF _character are unassigned.
      *
-     * Then, we compare the positions of these hands with player's finger, and assign the nearest hand to player's finger. When the player puts the other finger on, the leftover hand (be it right or left) is assigned. That is to say: **leftHand and rightHand should match with character's two hands, but are not matched with player's two fingers.*
+     * Then, we compare the positions of these hands with player's finger, and assign the nearest hand to player's finger. When the player puts the other finger on, the leftover hand (be it right or
+     * left) is assigned. That is to say: **leftHand and rightHand should match with character's two hands, but are not matched with player's two fingers.*
      *
      * ***Similar things happen when the player removes fingers. The corresponding hand gets unassigned.
      *
      * @param event The associated event
      * @param focus    Whether the listener currently has focus
      */
-    void touchBeganCB(const cugl::TouchEvent& event, bool focus);
+    void touchBeganCB(const cugl::TouchEvent &event, bool focus);
 
     /**
      * Callback for the end of a touch event
@@ -225,7 +228,7 @@ public:
      * @param event The associated event
      * @param focus    Whether the listener currently has focus
      */
-    void touchEndedCB(const cugl::TouchEvent& event, bool focus);
+    void touchEndedCB(const cugl::TouchEvent &event, bool focus);
 
     /**
      * Callback for a mouse release event.
@@ -234,7 +237,7 @@ public:
      * @param previous The previous position of the touch
      * @param focus    Whether the listener currently has focus
      */
-    void touchesMovedCB(const cugl::TouchEvent& event, const cugl::Vec2& previous, bool focus);
+    void touchesMovedCB(const cugl::TouchEvent &event, const cugl::Vec2 &previous, bool focus);
 
     void update();
 
@@ -252,31 +255,19 @@ public:
 
     cugl::Vec2 getrightHandMovement();
 
-    bool didPress() const {
-        return !_prevDown && _currDown;
-    }
+    bool didPress() const { return !_prevDown && _currDown; }
 
-    bool didRelease() const {
-        return !_currDown && _prevDown;
-    }
+    bool didRelease() const { return !_currDown && _prevDown; }
 
-    bool isDown() const {
-        return _currDown;
-    }
+    bool isDown() const { return _currDown; }
 
     void process();
 
-    Character* getCharacter() {
-        return &_character;
-    }
-    
-    bool isLHAssigned() {
-        return this -> _character.leftHand.assigned;
-    }
-    
-    bool isRHAssigned() {
-        return this -> _character.rightHand.assigned;
-    }
+    Character *getCharacter() { return &_character; }
+
+    bool isLHAssigned() { return this->_character.leftHand.assigned; }
+
+    bool isRHAssigned() { return this->_character.rightHand.assigned; }
 };
 
 #endif /* __PF_INPUT_H__ */
