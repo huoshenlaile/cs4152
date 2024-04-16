@@ -31,12 +31,12 @@
                         1
                     ],
                     "size": [
-                        1729,
+                        1280,
                         720
                     ],
                     "angle": 0,
                     "position": [
-                        -17,
+                        0,
                         0
                     ],
                     "visible": true
@@ -45,26 +45,26 @@
                     "x_anchor": "left",
                     "y_anchor": "top",
                     "absolute": false,
-                    "x_offset": -0.01,
+                    "x_offset": 0,
                     "y_offset": 0
                 }
             },
-            "dusty": {
+            "title_logo": {
                 "type": "Image",
                 "data": {
-                    "texture": "dusty",
+                    "texture": "title_logo",
                     "anchor": [
                         0,
                         1
                     ],
                     "size": [
-                        179,
-                        115
+                        696,
+                        566.67
                     ],
                     "angle": 0,
                     "position": [
-                        669,
-                        325
+                        23,
+                        76.33
                     ],
                     "visible": true
                 },
@@ -72,8 +72,8 @@
                     "x_anchor": "left",
                     "y_anchor": "top",
                     "absolute": false,
-                    "x_offset": 0.52,
-                    "y_offset": -0.39
+                    "x_offset": 0.02,
+                    "y_offset": -0.11
                 }
             },
             "menu": {

@@ -232,8 +232,8 @@
         "titlebackground": {
             "file": "textures/titlebackground.png"
         },
-        "dusty": {
-            "file": "textures/dusty.png"
+        "title_logo": {
+            "file": "textures/title_logo.png"
         },
         "button_newgame": {
             "file": "textures/button_newgame.png"
