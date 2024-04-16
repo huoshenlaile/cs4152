@@ -80,6 +80,7 @@
                         {
                          "name":"METADATA",
                          "type":"class",
+                         "propertytype":"METADATA",
                          "value":
                             {
                              "Bad_bg":"lv1_background_2",

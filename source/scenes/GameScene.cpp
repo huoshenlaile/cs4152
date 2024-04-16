@@ -57,7 +57,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, std::str
 
 #pragma mark Construct Camera Controller
     setCamera(levelName);
-    _camera.init(_character->getBodySceneNode(), _worldnode, 10.0f, std::dynamic_pointer_cast<OrthographicCamera>(getCamera()), _uinode, 5.0f, _camera.getMode());
+    _camera.init(_character->getTrackSceneNode(), _worldnode, 10.0f, std::dynamic_pointer_cast<OrthographicCamera>(getCamera()), _uinode, 5.0f, _camera.getMode());
     _camera.setZoom(_camera.getDefaultZoom());
 
     return true;
@@ -150,10 +150,10 @@ void GameScene::postUpdate(float dt) {
         _levelCompleteReset->activate();
         _levelCompleteMenuButton->activate();
     }
-    if (_interactionController->paintPercent() > 0.01f) {
+    if (_interactionController->paintPercent() > 0.01f && _interactionController->paintPercent() < 1.0f) {
         _paintMeter->setVisible(true);
         _paintMeter->setFrame((int)(_interactionController->paintPercent()*8));
-        _paintMeter->setPosition(_uinode->worldToNodeCoords(_character->getBodyPos())+Vec2(200,150));
+        _paintMeter->setPosition(_uinode->worldToNodeCoords(_character->getBodyPos())+Vec2(0,50));
     }
     else{
         _paintMeter->setVisible(false);
@@ -185,12 +185,12 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     _paintMeter = scene2::SpriteNode::allocWithSheet(_assets->get<Texture>("paintmeter"), 3, 3);
     _paintMeter->removeFromParent();
     _paintMeter->doLayout();
-    _paintMeter->setContentSize(dimen);
     _paintMeter->setVisible(false);
-    _paintMeter->setFrame(0);
-    _paintMeter->setScissor(Scissor::alloc(Size(_paintMeter->getContentWidth()/4.4,_paintMeter->getContentHeight()/4.8)));
     _paintMeter->setScale(.5);
+    _paintMeter->setFrame(0);
+    std::cout << _paintMeter->getWidth() << ", " << _paintMeter->getHeight() << "\n";
 
+    _paintMeter->setScissor(Scissor::alloc(_paintMeter->getSize()*2));
 
     // level complete scene
     
@@ -244,7 +244,7 @@ Size GameScene::computeActiveSize() const {
 }
 
 bool GameScene::isCharacterInMap() {
-    Vec2 pos = _character->getBodySceneNode()->getWorldPosition();
+    Vec2 pos = _character->getTrackSceneNode()->getWorldPosition();
     // CULog("current body pos: %f, %f", pos.x, pos.y);
     return pos.x >= 0 && pos.x <= _worldnode->getSize().width && pos.y >= 0 && pos.y <= _worldnode->getSize().height;
 }
