@@ -753,15 +753,14 @@ void CharacterController::linkPartsToWorld(const std::shared_ptr<cugl::physics2:
                     if (i == PART_BODY) {
                         auto bodySprite = getTextureForPart(i, _color);
                         //                        _scenenode->removeChild(_bodyNode);
-                        //                        _bodyNode = newBodySprite;
+                        //                        _bodyNode = bodySprite;
                         //                        _scenenode->addChild(_bodyNode);
                         _bodyNode->setTexture(bodySprite);
-                        _bodyNode->setFrame(0);
-                        if (_color == "black") {
-                            _bodyNode->setRowColSize(9, 9, 75);
-                        } else {
-                            _bodyNode->setRowColSize(5, 5, 24);
-                        }
+                        //                        if (_color == "black") {
+                        //                            _bodyNode -> setRowColSize(9, 9, 75);
+                        //                        } else {
+                        //                            _bodyNode -> setRowColSize(5, 5, 24);
+                        //                        }
                         _colorbodychange = true;
                     } else if (i == PART_LH) {
                         _LHNode->setTexture(getTextureForHand(i, _color));

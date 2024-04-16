@@ -30,7 +30,8 @@
                         }],
                  "properties":[
                         {
-                          "name":"properties", "propertytype":"Physics",
+                         "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -88,7 +89,8 @@
                             }
                         }, 
                         {
-                          "name":"properties", "propertytype":"Physics",
+                         "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -144,7 +146,8 @@
                         }],
                  "properties":[
                         {
-                          "name":"properties", "propertytype":"Physics",
+                         "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -204,7 +207,8 @@
                         }],
                  "properties":[
                         {
-                          "name":"properties", "propertytype":"Physics",
+                         "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -252,7 +256,8 @@
                         }],
                  "properties":[
                         {
-                          "name":"properties", "propertytype":"Physics",
+                         "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -392,7 +397,8 @@
                         }],
                  "properties":[
                         {
-                          "name":"properties", "propertytype":"Physics",
+                         "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -526,7 +532,8 @@
                             }
                         }, 
                         {
-                          "name":"properties", "propertytype":"Physics",
+                         "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -762,7 +769,8 @@
                             }
                         }, 
                         {
-                          "name":"properties", "propertytype":"Physics",
+                         "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -814,7 +822,8 @@
                         }],
                  "properties":[
                         {
-                         "name":"Pub1", "propertytype":"PubMessage",
+                         "name":"Pub1",
+                         "propertytype":"PubMessage",
                          "type":"class",
                          "value":
                             {
@@ -824,7 +833,8 @@
                             }
                         }, 
                         {
-                          "name":"properties", "propertytype":"Physics",
+                         "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -856,8 +866,8 @@
                  "type":"sensor",
                  "visible":true,
                  "width":0,
-                 "x":5645.08890570199,
-                 "y":1103.53736797144
+                 "x":5369.08890570199,
+                 "y":395.53736797144
                 }, 
                 {
                  "height":0,
@@ -882,7 +892,8 @@
                         }],
                  "properties":[
                         {
-                         "name":"Pub2", "propertytype":"PubMessage",
+                         "name":"Pub2",
+                         "propertytype":"PubMessage",
                          "type":"class",
                          "value":
                             {
@@ -892,7 +903,8 @@
                             }
                         }, 
                         {
-                          "name":"properties", "propertytype":"Physics",
+                         "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -924,8 +936,8 @@
                  "type":"sensor",
                  "visible":true,
                  "width":0,
-                 "x":6210.28397518125,
-                 "y":584.392187110656
+                 "x":5714.28397518125,
+                 "y":-211.607812889344
                 }, 
                 {
                  "height":0,
@@ -950,7 +962,8 @@
                         }],
                  "properties":[
                         {
-                         "name":"Pub1", "propertytype":"PubMessage",
+                         "name":"Pub1",
+                         "propertytype":"PubMessage",
                          "type":"class",
                          "value":
                             {
@@ -960,7 +973,8 @@
                             }
                         }, 
                         {
-                         "name":"PubContacting", "propertytype":"PubMessage",
+                         "name":"PubContacting",
+                         "propertytype":"PubMessage",
                          "type":"class",
                          "value":
                             {
@@ -970,7 +984,8 @@
                             }
                         }, 
                         {
-                         "name":"PubReleasing", "propertytype":"PubMessage",
+                         "name":"PubReleasing",
+                         "propertytype":"PubMessage",
                          "type":"class",
                          "value":
                             {
@@ -980,7 +995,8 @@
                             }
                         }, 
                         {
-                          "name":"properties", "propertytype":"Physics",
+                         "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -1066,7 +1082,8 @@
                          "value":"red_paint"
                         }, 
                         {
-                         "name":"Pub1", "propertytype":"PubMessage",
+                         "name":"Pub1",
+                         "propertytype":"PubMessage",
                          "type":"class",
                          "value":
                             {
@@ -1077,7 +1094,8 @@
                             }
                         }, 
                         {
-                         "name":"Sub1", "propertytype":"SubMessage",
+                         "name":"Sub1",
+                         "propertytype":"SubMessage",
                          "type":"class",
                          "value":
                             {
@@ -1102,7 +1120,8 @@
                          "value":0
                         }, 
                         {
-                          "name":"properties", "propertytype":"Physics",
+                         "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -1163,7 +1182,8 @@
                          "value":"red_paint"
                         }, 
                         {
-                         "name":"Pub1", "propertytype":"PubMessage",
+                         "name":"Pub1",
+                         "propertytype":"PubMessage",
                          "type":"class",
                          "value":
                             {
@@ -1174,7 +1194,8 @@
                             }
                         }, 
                         {
-                         "name":"Sub1", "propertytype":"SubMessage",
+                         "name":"Sub1",
+                         "propertytype":"SubMessage",
                          "type":"class",
                          "value":
                             {
@@ -1199,7 +1220,8 @@
                          "value":1
                         }, 
                         {
-                          "name":"properties", "propertytype":"Physics",
+                         "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -1283,7 +1305,8 @@
                         }],
                  "properties":[
                         {
-                          "name":"properties", "propertytype":"Physics",
+                         "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {

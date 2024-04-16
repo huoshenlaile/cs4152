@@ -1,9 +1,6 @@
 {
-    "activeFile": "json/falldown.json",
+    "activeFile": "",
     "expandedProjectPaths": [
-        "json",
-        "tileset",
-        "."
     ],
     "fileStates": {
         "json/alpharelease copy.json": {
@@ -51,14 +48,13 @@
         }
     },
     "openFiles": [
-        "json/alpharelease.json",
-        "json/falldown.json"
     ],
     "project": "untitled.tiled-project",
     "recentFiles": [
         "json/alpharelease.json",
-        "json/falldown.json",
-        "json/alpharelease copy 2.json",
-        "tileset/demo_elements.tsx"
+        "json/tubelevel.json",
+        "json/bouncyjump.tmj",
+        "json/doodlejump.json",
+        "json/alpharelease copy.json"
     ]
 }
