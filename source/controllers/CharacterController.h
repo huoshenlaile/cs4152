@@ -1,10 +1,10 @@
 #ifndef __CHARACTER_CONTROLLER_H__
 #define __CHARACTER_CONTROLLER_H__
 
-#include "../helpers/GameSceneConstants.h"
-#include "../objects/message.h"
 #include <cugl/cugl.h>
 #include <vector>
+#include "../helpers/GameSceneConstants.h"
+#include "../objects/message.h"
 /*
 
  O--o--oo--o--o()o--o--oo--o--O
@@ -41,7 +41,8 @@
 
 using namespace cugl;
 
-class CharacterController {
+class CharacterController
+{
 protected:
     std::string _name;
     std::vector<std::shared_ptr<cugl::Texture>> _textures;
@@ -119,15 +120,20 @@ protected:
     std::shared_ptr<scene2::SceneNode> _cameraTrackNode;
     // character self defined functions
     std::map<std::string, std::function<PublishedMessage(ActionParams)>> funcs;
-
 public:
     CharacterController(void);
     virtual ~CharacterController(void);
     void dispose();
 
-    bool init() { return init(cugl::Vec2::ZERO, 1.0f); }
+    bool init()
+    {
+        return init(cugl::Vec2::ZERO, 1.0f);
+    }
 
-    bool init(const cugl::Vec2 &pos) { return init(pos, 1.0f); }
+    bool init(const cugl::Vec2 &pos)
+    {
+        return init(pos, 1.0f);
+    }
 
     bool init(const cugl::Vec2 &pos, float scale);
     void update(float timestep);
@@ -137,15 +143,18 @@ public:
 
 #pragma mark Static Constructors
 
-    static std::shared_ptr<CharacterController> alloc() {
+    static std::shared_ptr<CharacterController> alloc()
+    {
         std::shared_ptr<CharacterController> result = std::make_shared<CharacterController>();
         return (result->init() ? result : nullptr);
     }
-    static std::shared_ptr<CharacterController> alloc(const cugl::Vec2 &pos) {
+    static std::shared_ptr<CharacterController> alloc(const cugl::Vec2 &pos)
+    {
         std::shared_ptr<CharacterController> result = std::make_shared<CharacterController>();
         return (result->init(pos, 1.0f) ? result : nullptr);
     }
-    static std::shared_ptr<CharacterController> alloc(const cugl::Vec2 &pos, float scale) {
+    static std::shared_ptr<CharacterController> alloc(const cugl::Vec2 &pos, float scale)
+    {
         std::shared_ptr<CharacterController> result = std::make_shared<CharacterController>();
         return (result->init(pos, scale) ? result : nullptr);
     }
@@ -176,7 +185,7 @@ public:
      * Use it carefully.
      */
     Vec2 getRHPos() { return _RHNode->getPosition(); }
-
+    
     /**
      * NOTE:
      * This function returns the position of a SceneNode (in scene2) instead of the Obstacle (in world).
@@ -190,9 +199,9 @@ public:
     bool moveRightHand(cugl::Vec2 offset, bool inverse = false);
     bool moveLeftHand(cugl::Vec2 offset, bool inverse = false);
 
-    Vec2 getLeftHandPosition() { return _obstacles[PART_LH]->getPosition(); }
+    Vec2 getLeftHandPosition()  { return _obstacles[PART_LH]->getPosition(); }
     Vec2 getRightHandPosition() { return _obstacles[PART_RH]->getPosition(); }
-
+    
     const std::vector<std::shared_ptr<cugl::physics2::Obstacle>> getObstacles() const { return _obstacles; }
     const std::vector<std::shared_ptr<cugl::physics2::Joint>> getJoints() const { return _joints; }
     std::vector<std::shared_ptr<cugl::physics2::Obstacle>> getHandObstacles() const {
@@ -216,7 +225,7 @@ public:
     std::shared_ptr<cugl::Texture> getTextureForDecoration(const std::string &color);
     std::shared_ptr<cugl::Texture> getTextureForHand(int partId, const std::string &color);
 
-    const std::map<std::string, std::function<PublishedMessage(ActionParams)>> &getActions() { return funcs; }
+    const std::map<std::string, std::function<PublishedMessage(ActionParams)>>& getActions() { return funcs; }
 };
 
 #endif /* CharacterController_h */
