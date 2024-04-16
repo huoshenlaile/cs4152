@@ -1883,6 +1883,66 @@
                  "width":0,
                  "x":4695.42260250791,
                  "y":173.821183535764
+                }, 
+                {
+                 "height":0,
+                 "id":39,
+                 "name":"METADATA",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":0,
+                         "y":-145.175
+                        }, 
+                        {
+                         "x":512.205,
+                         "y":-145.175
+                        }, 
+                        {
+                         "x":512.205,
+                         "y":0
+                        }],
+                 "properties":[
+                        {
+                         "name":"METADATA",
+                         "propertytype":"METADATA",
+                         "type":"class",
+                         "value":
+                            {
+                             "Bad_bg":"lvl4_background_bad",
+                             "Default_bg":"lvl4_background_bad",
+                             "Good_bg":"lvl4_background_good"
+                            }
+                        }, 
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":192,
+                                 "density":0,
+                                 "friction":0.2,
+                                 "restitution":0.1,
+                                 "rotation":false,
+                                 "texture":"alpharelease_frenchfries"
+                                }
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":261.780104712042,
+                 "y":418.848167539267
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1891,7 +1951,7 @@
          "y":0
         }],
  "nextlayerid":3,
- "nextobjectid":38,
+ "nextobjectid":40,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
