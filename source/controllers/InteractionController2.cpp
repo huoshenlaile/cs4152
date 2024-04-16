@@ -13,10 +13,6 @@ bool InteractionController2::init(std::shared_ptr<LevelLoader2> level) {
 
     // query all the interactables
     for (auto interactable : _interactables) {
-        if (interactable -> getName() == "gravitywall") {
-            std::cout << "There is a gravity here!" << std::endl;
-            _BeginContactInteractable[interactable->getObstacleRawPtr()] = interactable;
-        }
         if (interactable->hasTimeUpdate()) {
             _timeUpdateInteractables.push_back(interactable);
         }
@@ -276,6 +272,8 @@ void InteractionController2::runMessageQueue() {
         PublishedMessage message = _messageQueue.front();
         _messageQueue.pop();
         std::string head = message.Head;
+        float float1 = message.float1;
+
         // message to interactable
         auto headToInteractableIt = _HeadToInteractable.find(head);
         if (headToInteractableIt != _HeadToInteractable.end()) {
@@ -294,6 +292,7 @@ void InteractionController2::runMessageQueue() {
         // message to character
         auto characterActions = _character->getActions();
         auto characterActionIt = characterActions.find(head);
+        
         if (characterActionIt != characterActions.end()) {
             ActionParams params = Interactable::ConvertToActionParams(message);
             PublishedMessage new_message = characterActionIt->second(params);
@@ -304,6 +303,17 @@ void InteractionController2::runMessageQueue() {
         // message to level
         if (head == "LevelComplete") {
             _levelComplete = true;
+            int defaultGoodorBad = message.Body == "Good" ? 0 : 1;
+            _level -> changeBackground(defaultGoodorBad);
+        }
+        if (head == "ShowPaintMeter") {
+            _paintPercent = float1;
+        }
+        if (head == "HidePaintMeter") {
+            _paintPercent = float1;
+        }
+        if (head == "ExitTimeTick") {
+            _paintPercent = float1;
         }
     }
 }

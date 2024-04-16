@@ -6,7 +6,10 @@
 
 class Exit : public Interactable {
 protected:
-    std::string message_head;
+    std::string message_head_gameend;
+    std::string message_head_contact;
+    std::string message_head_release;
+
     
     /** The colors required to exit */
     std::set<std::string> _colorReqs;
@@ -15,7 +18,7 @@ protected:
     std::set<std::string> _colorsCollected;
     
     /** Time before a color is taken */
-    float _ttcolor=5.0f;
+    float _ttcolor=2.0f;
     
     /** Character ref */
     std::shared_ptr<CharacterController> _character;

@@ -2,6 +2,7 @@
 bool Sensor::init(const std::shared_ptr<cugl::JsonValue>& json, Vec2 scale, Rect bounds){
     // call super.init
     Interactable::init(json, scale, bounds);
+    _selfTexture->setColor(Color4(0,0,0,0));
     std::shared_ptr<JsonValue> properties = json -> get("properties");
     // find the Publication property
     for (int i = 0; i < properties->size(); i++){

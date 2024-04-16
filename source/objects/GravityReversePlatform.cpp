@@ -9,7 +9,7 @@
 
 bool GravityReversePlatform::init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect  bounds){
     Interactable::init(json, scale, bounds);
-    this -> OnBeginContactEnabled = true;
+    OnBeginContactEnabled = true;
     activated = true;
     _name = "Gravity";
     std::cout << "gravity wall init" << std::endl;

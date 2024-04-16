@@ -58,55 +58,6 @@
                 }, 
                 {
                  "height":0,
-                 "id":82,
-                 "name":"gravitywall",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":0,
-                         "y":-145.174841916086
-                        }, 
-                        {
-                         "x":512.205472139033,
-                         "y":-145.174841916086
-                        }, 
-                        {
-                         "x":512.205472139033,
-                         "y":0
-                        }],
-                 "properties":[
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":192,
-                                 "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
-                                 "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
-                                }
-                            }
-                        }],
-                 "rotation":0,
-                 "type":"gravitywall",
-                 "visible":true,
-                 "width":0,
-                 "x":3062.71841178805,
-                 "y":894.691298741323
-                }, 
-                {
-                 "height":0,
                  "id":81,
                  "name":"METADATA",
                  "polygon":[
@@ -164,80 +115,6 @@
                  "width":0,
                  "x":24.0013378211593,
                  "y":366.115263837837
-                }, 
-                {
-                 "height":0,
-                 "id":66,
-                 "name":"grab_wall1",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":0,
-                         "y":-145.174841916086
-                        }, 
-                        {
-                         "x":512.205472139033,
-                         "y":-145.174841916086
-                        }, 
-                        {
-                         "x":512.205472139033,
-                         "y":0
-                        }],
-                 "properties":[
-                        {
-                         "name":"Grab",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"Publication",
-                         "type":"class",
-                         "value":
-                            {
-                             "Message":"grabbed",
-                             "Pub_id":"grab_wall1",
-                             "Trigger":"contacted"
-                            }
-                        }, 
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":192,
-                                 "density":0,
-                                 "friction":0.2,
-                                 "publications":[
-                                        {
-                                         "body":
-                                            {
-
-                                            },
-                                         "message":"grabbed",
-                                         "pub_id":"grab_wall1",
-                                         "trigger":"contacted"
-                                        }],
-                                 "restitution":0.1,
-                                 "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
-                                }
-                            }
-                        }],
-                 "rotation":0,
-                 "type":"wall",
-                 "visible":true,
-                 "width":0,
-                 "x":3719.05402489952,
-                 "y":343.014643661204
                 }, 
                 {
                  "height":0,
@@ -415,8 +292,8 @@
                  "type":"",
                  "visible":true,
                  "width":193,
-                 "x":6524.18804858659,
-                 "y":1181.64920092113
+                 "x":7485.72651012505,
+                 "y":666.264585536515
                 }, 
                 {
                  "height":0,
@@ -689,8 +566,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":6339.6336680423,
-                 "y":1592.67198227444
+                 "x":6421.10006315432,
+                 "y":1742.0270399798
                 }, 
                 {
                  "gid":25,
@@ -701,8 +578,8 @@
                  "type":"",
                  "visible":true,
                  "width":232,
-                 "x":6874.78964029349,
-                 "y":1187.24134581738
+                 "x":7836.32810183195,
+                 "y":671.856730432765
                 }, 
                 {
                  "gid":27,
@@ -713,8 +590,8 @@
                  "type":"",
                  "visible":true,
                  "width":193,
-                 "x":7246.82297716841,
-                 "y":1181.80332447006
+                 "x":8208.36143870687,
+                 "y":666.418709085445
                 }, 
                 {
                  "gid":26,
@@ -725,8 +602,8 @@
                  "type":"",
                  "visible":true,
                  "width":250,
-                 "x":7595.0084462319,
-                 "y":1159.56580785443
+                 "x":8556.54690777036,
+                 "y":644.181192469815
                 }, 
                 {
                  "height":0,
@@ -916,8 +793,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":6898.3673747384,
-                 "y":284.946182089009
+                 "x":7041.02443925386,
+                 "y":149.352144239753
                 }, 
                 {
                  "height":0,
@@ -990,8 +867,8 @@
                  "type":"sensor",
                  "visible":true,
                  "width":0,
-                 "x":5645.08890570199,
-                 "y":1103.53736797144
+                 "x":5334.7246445336,
+                 "y":1068.0950508384
                 }, 
                 {
                  "height":0,
@@ -1060,8 +937,8 @@
                  "type":"sensor",
                  "visible":true,
                  "width":0,
-                 "x":6210.28397518125,
-                 "y":584.392187110656
+                 "x":6259.2029737085,
+                 "y":568.951833649684
                 }, 
                 {
                  "height":0,
@@ -1097,6 +974,28 @@
                             }
                         }, 
                         {
+                         "name":"PubContacting",
+                         "propertytype":"PubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Enabled":true,
+                             "Head":"ShowButton",
+                             "Trigger":"CONTACT: character body"
+                            }
+                        }, 
+                        {
+                         "name":"PubReleasing",
+                         "propertytype":"PubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Enabled":true,
+                             "Head":"HideButton",
+                             "Trigger":"RELEASED: character body"
+                            }
+                        }, 
+                        {
                          "name":"properties",
                          "propertytype":"Physics",
                          "type":"class",
@@ -1105,7 +1004,7 @@
                              "obstacle":
                                 {
                                  "bodytype":0,
-                                 "color-requirements":"orange,purple",
+                                 "color-requirements":"orange",
                                  "damping":0,
                                  "debugcolor":"yellow",
                                  "debugopacity":0,
@@ -1121,8 +1020,8 @@
                  "type":"exit",
                  "visible":true,
                  "width":0,
-                 "x":6922.35060442516,
-                 "y":1181.38261346142
+                 "x":6932.4109665982,
+                 "y":1154.55498099998
                 }, 
                 {
                  "height":0,
@@ -1223,6 +1122,7 @@
                         }, 
                         {
                          "name":"properties",
+                         "propertytype":"Physics",
                          "type":"class",
                          "value":
                             {
@@ -1344,8 +1244,8 @@
                  "type":"paint",
                  "visible":true,
                  "width":0,
-                 "x":6473.23443641435,
-                 "y":641.354972317315
+                 "x":6544.48418167959,
+                 "y":440.304225155355
                 }, 
                 {
                  "gid":8,
@@ -1356,8 +1256,8 @@
                  "type":"",
                  "visible":true,
                  "width":447,
-                 "x":8012.21717335543,
-                 "y":1030.94724341788
+                 "x":8973.75563489389,
+                 "y":515.562628033265
                 }, 
                 {
                  "height":0,
@@ -1366,15 +1266,15 @@
                  "polygon":[
                         {
                          "x":0,
-                         "y":0
+                         "y":73.7759892689471
                         }, 
                         {
-                         "x":420.112484550513,
-                         "y":9.77005778024425
+                         "x":426.819392665872,
+                         "y":83.5460470491914
                         }, 
                         {
-                         "x":635.053755715893,
-                         "y":87.9305200222002
+                         "x":631.700301658213,
+                         "y":-26.0869179388999
                         }, 
                         {
                          "x":625.283697935645,
@@ -1397,12 +1297,12 @@
                          "y":146.550866703667
                         }, 
                         {
-                         "x":-293.101733407334,
-                         "y":102.585606692567
+                         "x":-289.748279349655,
+                         "y":75.7579742311316
                         }, 
                         {
-                         "x":-151.43589559379,
-                         "y":19.540115560489
+                         "x":-154.789349651469,
+                         "y":73.1953804833595
                         }],
                  "properties":[
                         {
@@ -1430,8 +1330,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":7221.03972493842,
-                 "y":1382.94914770967
+                 "x":7231.10008711146,
+                 "y":1356.12151524823
                 }],
          "opacity":1,
          "type":"objectgroup",

@@ -6,7 +6,7 @@ suffix: G74C2FGE
 
 build:  build                       # The build directory (targets are each a subdirectory)
 assets: assets                      # The folder with the game assets (do not list asset)
-icon:   icon.png
+icon:   icon_gameapp.png
 
 orientation: landscape              # The orientation for mobile devices
 

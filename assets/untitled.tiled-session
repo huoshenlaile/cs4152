@@ -1,35 +1,64 @@
 {
-    "activeFile": "json/alpharelease.json",
+    "activeFile": "",
     "expandedProjectPaths": [
-        "json",
-        "tileset",
-        "."
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
-        "json/alpharelease.json": {
-            "scale": 0.1473,
+        "json/alpharelease copy.json": {
+            "scale": 0.2,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 4796.33401221996,
-                "y": 1123.5573659198915
+                "x": 6995,
+                "y": 1552.5
+            }
+        },
+        "json/alpharelease.json": {
+            "scale": 0.25,
+            "selectedLayer": -1,
+            "viewCenter": {
+                "x": 8380,
+                "y": 994
+            }
+        },
+        "json/bouncyjump.tmj": {
+            "scale": 0.15,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 853.3333333333335,
+                "y": 6403.333333333334
+            }
+        },
+        "json/doodlejump.json": {
+            "scale": 0.15,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 4800,
+                "y": -230
+            }
+        },
+        "json/tubelevel.json": {
+            "scale": 0.11,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 3072.727272727273,
+                "y": 12468.18181818182
             }
         },
         "tileset/demo_elements.tsx": {
             "dynamicWrapping": true,
             "scaleInDock": 1,
-            "scaleInEditor": 0.06
+            "scaleInEditor": 0.03
         }
     },
-    "last.imagePath": "/Users/kiduszegeye/Desktop/Cornell/CS 5152/cs4152/assets/tileset",
-    "last.objectTypesPath": "/Users/kiduszegeye/Desktop/Cornell/CS 5152/cs4152/assets/json/ALLCustomTypes.json",
     "openFiles": [
-        "json/alpharelease.json"
     ],
     "project": "untitled.tiled-project",
-    "property.type": "Physics",
     "recentFiles": [
+        "tileset/demo_elements.tsx",
         "json/alpharelease.json",
-        "tileset/demo_elements.tsx"
+        "json/tubelevel.json",
+        "json/bouncyjump.tmj",
+        "json/doodlejump.json",
+        "json/alpharelease copy.json"
     ]
 }

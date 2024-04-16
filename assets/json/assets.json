@@ -85,6 +85,9 @@
         "button_ingame": {
             "file": "textures/button_interact.png"
         },
+        "paintmeter": {
+            "file": "textures/paintmeter.png"
+        },
         "frame": {
             "file": "textures/frame.png"
         },
@@ -229,8 +232,8 @@
         "titlebackground": {
             "file": "textures/titlebackground.png"
         },
-        "dusty": {
-            "file": "textures/dusty.png"
+        "title_logo": {
+            "file": "textures/title_logo.png"
         },
         "button_newgame": {
             "file": "textures/button_newgame.png"
@@ -264,6 +267,9 @@
         },
         "red_paint": {
             "file": "textures/red_paint_141x144.png"
+        },
+        "purple_paint": {
+            "file": "textures/purple_paint_141x144.png"
         },
         "tube_curved_l": {
             "file": "textures/tube/tube_curved_left.png"

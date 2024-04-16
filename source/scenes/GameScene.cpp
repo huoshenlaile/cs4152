@@ -55,9 +55,9 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, std::str
     _inputController->init(rect);
     _inputController->fillHand(_character->getLeftHandPosition(), _character->getRightHandPosition(), _character->getLHPos(), _character->getRHPos());
 
-#pragma mark Construct Camera Controller 
+#pragma mark Construct Camera Controller
     setCamera(levelName);
-    _camera.init(_character->getBodySceneNode(), _worldnode, 10.0f, std::dynamic_pointer_cast<OrthographicCamera>(getCamera()), _uinode, 5.0f, _camera.getMode());
+    _camera.init(_character->getTrackSceneNode(), _worldnode, 10.0f, std::dynamic_pointer_cast<OrthographicCamera>(getCamera()), _uinode, 5.0f, _camera.getMode());
     _camera.setZoom(_camera.getDefaultZoom());
 
     return true;
@@ -73,7 +73,7 @@ void GameScene::dispose() {
     _pauseButton = nullptr;
     _worldnode->removeAllChildren();
     _worldnode = nullptr;
-//    _levelComplete->removeAllChildren();
+    //    _levelComplete->removeAllChildren();
     _levelComplete = nullptr;
     _level = nullptr;
     this->removeAllChildren();
@@ -127,9 +127,9 @@ void GameScene::preUpdate(float dt) {
         // CULog("Character out!");
         state = RESET;
     }
-    _interactionController -> connectGrabJoint();
-    _interactionController -> ungrabIfNecessary();
-    _interactionController -> grabCDIfNecessary(dt);
+    _interactionController->connectGrabJoint();
+    _interactionController->ungrabIfNecessary();
+    _interactionController->grabCDIfNecessary(dt);
 }
 
 void GameScene::fixedUpdate(float dt) {
@@ -145,10 +145,15 @@ void GameScene::postUpdate(float dt) {
     _interactionController->postUpdate(dt);
 
     if (_interactionController->isLevelComplete()) {
-        _complete = true;
-        _levelComplete->setVisible(true);
-        _levelCompleteReset -> activate();
-        _levelCompleteMenuButton -> activate();
+        finishLevel();
+    }
+    if (_interactionController->paintPercent() > 0.01f && _interactionController->paintPercent() < 1.0f) {
+        _paintMeter->setVisible(true);
+        _paintMeter->setFrame((int)(_interactionController->paintPercent()*8));
+        _paintMeter->setPosition(_uinode->worldToNodeCoords(_character->getBodyPos())+Vec2(0,50));
+    }
+    else{
+        _paintMeter->setVisible(false);
     }
 }
 
@@ -172,16 +177,28 @@ void GameScene::constructSceneNodes(const Size &dimen) {
         }
     });
     _uinode->addChild(_pauseButton);
+    
+    // paint meter
+    _paintMeter = scene2::SpriteNode::allocWithSheet(_assets->get<Texture>("paintmeter"), 3, 3);
+    _paintMeter->removeFromParent();
+    _paintMeter->doLayout();
+    _paintMeter->setVisible(false);
+    _paintMeter->setScale(.5);
+    _paintMeter->setFrame(0);
+    std::cout << _paintMeter->getWidth() << ", " << _paintMeter->getHeight() << "\n";
+
+    _paintMeter->setScissor(Scissor::alloc(_paintMeter->getSize()*2));
 
     // level complete scene
+    
     _levelComplete = _assets->get<scene2::SceneNode>("levelcomplete");
     _levelComplete->removeFromParent();
     _levelComplete->doLayout();
     _levelComplete->setContentSize(dimen);
     _levelComplete->setVisible(false);
-    
-    for (auto i : _levelComplete -> getChildren()) {
-        std::cout << "child name: " << i -> getName() << std::endl;
+
+    for (auto i : _levelComplete->getChildren()) {
+        std::cout << "child name: " << i->getName() << std::endl;
     }
     // TODO: Trying on level complete (MAY CRASH)
     // level complete scene buttons
@@ -206,6 +223,7 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     });
 
     _uinode->addChild(_levelComplete);
+    _uinode->addChild(_paintMeter);
     // deleted level complete related UI
     addChild(_uinode);
 }
@@ -215,7 +233,6 @@ Size GameScene::computeActiveSize() const {
     float ratio1 = dimen.width / dimen.height;
     float ratio2 = ((float)SCENE_WIDTH) / ((float)SCENE_HEIGHT);
     if (ratio1 < ratio2) {
-        
         dimen *= SCENE_WIDTH / dimen.width;
     } else {
         dimen *= SCENE_HEIGHT / dimen.height;
@@ -224,17 +241,40 @@ Size GameScene::computeActiveSize() const {
 }
 
 bool GameScene::isCharacterInMap() {
-    Vec2 pos = _character->getBodySceneNode()->getWorldPosition();
+    Vec2 pos = _character->getTrackSceneNode()->getWorldPosition();
     // CULog("current body pos: %f, %f", pos.x, pos.y);
     return pos.x >= 0 && pos.x <= _worldnode->getSize().width && pos.y >= 0 && pos.y <= _worldnode->getSize().height;
 }
 
-void GameScene::setCamera(std::string selectedLevelKey) { 
+void GameScene::setCamera(std::string selectedLevelKey) {
     if (selectedLevelKey == "alpharelease") {
         _camera.setMode(true);
-        _camera.setDefaultZoom(DEFAULT_ZOOM);     
+        _camera.setDefaultZoom(DEFAULT_ZOOM);
     } else if (selectedLevelKey == "tube") {
+        _camera.setMode(false);
+        _camera.setDefaultZoom(0.19);
+    } else if (selectedLevelKey == "doodlejump") {
+        _camera.setMode(true);
+        _camera.setDefaultZoom(0.2);
+    }
+    else if (selectedLevelKey == "falldown") {
         _camera.setMode(false);
         _camera.setDefaultZoom(DEFAULT_ZOOM);
     }
+}
+
+#pragma mark Level Complete
+/**
+ * Steps to complete a level:
+ * 1. change background (will be done in InteractionController, end of runMessageQueue())
+ * 2. zoom out camera (TODO)
+ * 3. pan to the last strip frame (TODO)
+ * 4. wait for a sec (TODO)
+ * 5. display complete scene (done)
+ */
+void GameScene::finishLevel() {
+    _complete = true;
+    _levelComplete->setVisible(true);
+    _levelCompleteReset->activate();
+    _levelCompleteMenuButton->activate();
 }

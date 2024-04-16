@@ -43,6 +43,9 @@ protected:
     std::shared_ptr<cugl::scene2::SceneNode> _levelComplete;
     std::shared_ptr<cugl::scene2::Button> _levelCompleteReset;
     std::shared_ptr<cugl::scene2::Button> _levelCompleteMenuButton;
+    
+    std::shared_ptr<cugl::scene2::SpriteNode> _paintMeter;
+
     cugl::Vec2 _gravity;
 
     CameraController _camera;
@@ -101,6 +104,8 @@ public:
 #pragma mark -
 
     virtual void preUpdate(float dt);
+    void finishLevel();
+    
     virtual void postUpdate(float dt);
     virtual void fixedUpdate(float dt);
 

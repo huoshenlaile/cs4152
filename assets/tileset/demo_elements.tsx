@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="ragdoll_elements" tilewidth="2581" tileheight="4483" tilecount="19" columns="0" objectalignment="bottomleft">
+<tileset version="1.10" tiledversion="1.10.2" name="ragdoll_elements" tilewidth="3718" tileheight="4483" tilecount="28" columns="0" objectalignment="bottomleft">
  <editorsettings>
   <export target="ragdoll_elements..tsx" format="tsx"/>
  </editorsettings>
@@ -87,6 +87,14 @@
  </tile>
  <tile id="38">
   <image width="180" height="117" source="../textures/bouncingplatform_slime.png"/>
-
+ </tile>
+ <tile id="39">
+  <image width="1280" height="720" source="../textures/titlebackground.png"/>
+ </tile>
+ <tile id="40">
+  <image width="1278" height="4483" source="../textures/lv3_background_1.png"/>
+ </tile>
+ <tile id="41">
+  <image width="3718" height="580" source="../textures/lv1_background_3.png"/>
  </tile>
 </tileset>

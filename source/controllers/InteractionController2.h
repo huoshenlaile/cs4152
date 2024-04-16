@@ -73,6 +73,8 @@ protected:
     std::queue<PublishedMessage> _messageQueue;
 
     bool _levelComplete = false;
+    float _paintPercent = 0.0f;
+
     void runMessageQueue();
     bool isCharacterObs(cugl::physics2::Obstacle* obs) {
         return obs == characterLHRawPtr || obs == characterRHRawPtr || obs == characterBODYRawPtr;
@@ -114,6 +116,8 @@ public:
     void postUpdate(float timestep);
 
     bool isLevelComplete() { return _levelComplete; }
+    float paintPercent() { return _paintPercent > 1.0f ? 1.0f : _paintPercent; }
+
 
     // 4 callback functions to add to the world
     void beginContact(b2Contact* contact);
