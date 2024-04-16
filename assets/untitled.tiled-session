@@ -1,5 +1,5 @@
 {
-    "activeFile": "",
+    "activeFile": "json/alpharelease.json",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -13,11 +13,11 @@
             }
         },
         "json/alpharelease.json": {
-            "scale": 0.25,
-            "selectedLayer": -1,
+            "scale": 0.2476,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 8380,
-                "y": 994
+                "x": 4640.549273021003,
+                "y": 1205.5735056542812
             }
         },
         "json/bouncyjump.tmj": {
@@ -50,7 +50,10 @@
             "scaleInEditor": 0.03
         }
     },
+    "last.externalTilesetPath": "/Users/porridge/Games/cs4152/assets/tileset",
     "openFiles": [
+        "tileset/demo_elements.tsx",
+        "json/alpharelease.json"
     ],
     "project": "untitled.tiled-project",
     "recentFiles": [
@@ -60,5 +63,6 @@
         "json/bouncyjump.tmj",
         "json/doodlejump.json",
         "json/alpharelease copy.json"
-    ]
+    ],
+    "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)"
 }
