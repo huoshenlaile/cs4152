@@ -303,6 +303,8 @@ void InteractionController2::runMessageQueue() {
         // message to level
         if (head == "LevelComplete") {
             _levelComplete = true;
+            int defaultGoodorBad = message.Body == "Good" ? 0 : 1;
+            _level -> changeBackground(defaultGoodorBad);
         }
         if (head == "ShowPaintMeter") {
             _paintPercent = float1;

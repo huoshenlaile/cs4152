@@ -266,11 +266,11 @@ void GameScene::setCamera(std::string selectedLevelKey) {
 #pragma mark Level Complete
 /**
  * Steps to complete a level:
- * 1. change background
- * 2. zoom out camera
- * 3. pan to the last strip frame
- * 4. wait for a sec
- * 5. display complete scene (now we just skip here)
+ * 1. change background (will be done in InteractionController, end of runMessageQueue())
+ * 2. zoom out camera (TODO)
+ * 3. pan to the last strip frame (TODO)
+ * 4. wait for a sec (TODO)
+ * 5. display complete scene (done)
  */
 void GameScene::finishLevel() {
     _complete = true;

@@ -80,8 +80,8 @@
                  "properties":[
                         {
                          "name":"METADATA",
-                         "type":"class",
                          "propertytype":"METADATA",
+                         "type":"class",
                          "value":
                             {
                              "Bad_bg":"lv1_background_2",
@@ -867,8 +867,8 @@
                  "type":"sensor",
                  "visible":true,
                  "width":0,
-                 "x":5369.08890570199,
-                 "y":395.53736797144
+                 "x":5334.7246445336,
+                 "y":1068.0950508384
                 }, 
                 {
                  "height":0,
@@ -937,8 +937,8 @@
                  "type":"sensor",
                  "visible":true,
                  "width":0,
-                 "x":5714.28397518125,
-                 "y":-211.607812889344
+                 "x":6259.2029737085,
+                 "y":568.951833649684
                 }, 
                 {
                  "height":0,
