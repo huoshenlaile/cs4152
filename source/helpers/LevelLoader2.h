@@ -112,6 +112,10 @@ public:
         
         return;
     }
+    
+    std::shared_ptr<scene2::SceneNode> getCharNode() {
+        return _charNode;
+    }
 
 };
 

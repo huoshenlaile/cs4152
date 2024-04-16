@@ -5,8 +5,12 @@
     "fileStates": {
         "json/alpharelease copy.json": {
             "scale": 0.2,
+        "json/alpharelease copy.json": {
+            "scale": 0.2,
             "selectedLayer": 0,
             "viewCenter": {
+                "x": 6995,
+                "y": 1552.5
                 "x": 6995,
                 "y": 1552.5
             }
@@ -25,20 +29,29 @@
             "viewCenter": {
                 "x": 853.3333333333335,
                 "y": 6403.333333333334
+                "x": 853.3333333333335,
+                "y": 6403.333333333334
             }
         },
         "json/doodlejump.json": {
             "scale": 0.15,
+            "scale": 0.15,
             "selectedLayer": 0,
             "viewCenter": {
+                "x": 4800,
+                "y": -230
                 "x": 4800,
                 "y": -230
             }
         },
         "json/tubelevel.json": {
             "scale": 0.11,
+        "json/tubelevel.json": {
+            "scale": 0.11,
             "selectedLayer": 0,
             "viewCenter": {
+                "x": 3072.727272727273,
+                "y": 12468.18181818182
                 "x": 3072.727272727273,
                 "y": 12468.18181818182
             }

@@ -15,11 +15,6 @@
                 "value": 0
             },
             {
-                "name": "color-requirements",
-                "type": "string",
-                "value": ""
-            },
-            {
                 "name": "debugcolor",
                 "type": "string",
                 "value": ""
@@ -99,40 +94,6 @@
     {
         "color": "#ffa0a0a4",
         "drawFill": true,
-        "id": 2,
-        "members": [
-            {
-                "name": "condition1",
-                "propertyType": "PubMessage",
-                "type": "class",
-                "value": {
-                }
-            },
-            {
-                "name": "condition2",
-                "propertyType": "PubMessage",
-                "type": "class",
-                "value": {
-                }
-            }
-        ],
-        "name": "Publication",
-        "type": "class",
-        "useAs": [
-            "property",
-            "map",
-            "layer",
-            "object",
-            "tile",
-            "tileset",
-            "wangcolor",
-            "wangset",
-            "project"
-        ]
-    },
-    {
-        "color": "#ffa0a0a4",
-        "drawFill": true,
         "id": 4,
         "members": [
             {
@@ -141,9 +102,29 @@
                 "value": ""
             },
             {
+                "name": "Bool1",
+                "type": "bool",
+                "value": false
+            },
+            {
                 "name": "Enabled",
                 "type": "bool",
                 "value": false
+            },
+            {
+                "name": "Float1",
+                "type": "float",
+                "value": 0
+            },
+            {
+                "name": "Float2",
+                "type": "float",
+                "value": 0
+            },
+            {
+                "name": "Float3",
+                "type": "float",
+                "value": 0
             },
             {
                 "name": "Head",
@@ -154,6 +135,21 @@
                 "name": "Id",
                 "type": "string",
                 "value": ""
+            },
+            {
+                "name": "Int1",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "Int2",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "Int3",
+                "type": "int",
+                "value": 0
             },
             {
                 "name": "Trigger",
@@ -191,9 +187,29 @@
                 "value": ""
             },
             {
+                "name": "Bool1",
+                "type": "bool",
+                "value": false
+            },
+            {
                 "name": "Enabled",
                 "type": "bool",
                 "value": false
+            },
+            {
+                "name": "Float1",
+                "type": "float",
+                "value": 0
+            },
+            {
+                "name": "Float2",
+                "type": "float",
+                "value": 0
+            },
+            {
+                "name": "Float3",
+                "type": "float",
+                "value": 0
             },
             {
                 "name": "Head",
@@ -204,78 +220,24 @@
                 "name": "Id",
                 "type": "string",
                 "value": ""
+            },
+            {
+                "name": "Int1",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "Int2",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "Int3",
+                "type": "int",
+                "value": 0
             }
         ],
         "name": "SubMessage",
-        "type": "class",
-        "useAs": [
-            "property",
-            "map",
-            "layer",
-            "object",
-            "tile",
-            "tileset",
-            "wangcolor",
-            "wangset",
-            "project"
-        ]
-    },
-    {
-        "color": "#ffa0a0a4",
-        "drawFill": true,
-        "id": 3,
-        "members": [
-            {
-                "name": "condition1",
-                "propertyType": "SubMessage",
-                "type": "class",
-                "value": {
-                }
-            },
-            {
-                "name": "condition2",
-                "propertyType": "SubMessage",
-                "type": "class",
-                "value": {
-                }
-            }
-        ],
-        "name": "Subscription",
-        "type": "class",
-        "useAs": [
-            "property",
-            "map",
-            "layer",
-            "object",
-            "tile",
-            "tileset",
-            "wangcolor",
-            "wangset",
-            "project"
-        ]
-    },
-    {
-        "color": "#ffa0a0a4",
-        "drawFill": true,
-        "id": 23,
-        "members": [
-            {
-                "name": "Bad_bg",
-                "type": "string",
-                "value": ""
-            },
-            {
-                "name": "Default_bg",
-                "type": "string",
-                "value": ""
-            },
-            {
-                "name": "Good_bg",
-                "type": "string",
-                "value": ""
-            }
-        ],
-        "name": "METADATA",
         "type": "class",
         "useAs": [
             "property",
