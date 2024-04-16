@@ -44,147 +44,147 @@ using namespace cugl;
 class CharacterController
 {
 protected:
-	std::string _name;
-	std::vector<std::shared_ptr<cugl::Texture>> _textures;
-	std::shared_ptr<cugl::Texture> _blacktextures;
-	std::shared_ptr<cugl::Texture> _pinktextures;
-	std::shared_ptr<cugl::Texture> _bluetextures;
-	std::shared_ptr<cugl::Texture> _greentextures;
-	std::shared_ptr<cugl::Texture> _orangetextures;
-	std::shared_ptr<cugl::Texture> _purpletextures;
-	std::shared_ptr<cugl::Texture> _orangedecoration;
-	std::shared_ptr<cugl::Texture> _bluedecoration;
-	std::shared_ptr<cugl::Texture> _greendecoration;
-	std::shared_ptr<cugl::Texture> _pinkdecoration;
-	std::shared_ptr<cugl::Texture> _purpledecoration;
-	std::shared_ptr<cugl::Texture> _blacklh;
-	std::shared_ptr<cugl::Texture> _blackrh;
-	std::shared_ptr<cugl::Texture> _pinklh;
-	std::shared_ptr<cugl::Texture> _pinkrh;
-	std::shared_ptr<cugl::Texture> _bluelh;
-	std::shared_ptr<cugl::Texture> _bluerh;
-	std::shared_ptr<cugl::Texture> _greenlh;
-	std::shared_ptr<cugl::Texture> _greenrh;
-	std::shared_ptr<cugl::Texture> _orangelh;
-	std::shared_ptr<cugl::Texture> _orangerh;
-	std::shared_ptr<cugl::Texture> _purplelh;
-	std::shared_ptr<cugl::Texture> _purplerh;
-	std::vector<std::shared_ptr<cugl::physics2::Obstacle>> _obstacles;
-	std::vector<std::shared_ptr<cugl::physics2::Joint>> _joints;
-	/** The physics world; part of the model (though listeners elsewhere) */
-	std::shared_ptr<cugl::physics2::net::NetWorld> _world;
+    std::string _name;
+    std::vector<std::shared_ptr<cugl::Texture>> _textures;
+    std::shared_ptr<cugl::Texture> _blacktextures;
+    std::shared_ptr<cugl::Texture> _pinktextures;
+    std::shared_ptr<cugl::Texture> _bluetextures;
+    std::shared_ptr<cugl::Texture> _greentextures;
+    std::shared_ptr<cugl::Texture> _orangetextures;
+    std::shared_ptr<cugl::Texture> _purpletextures;
+    std::shared_ptr<cugl::Texture> _orangedecoration;
+    std::shared_ptr<cugl::Texture> _bluedecoration;
+    std::shared_ptr<cugl::Texture> _greendecoration;
+    std::shared_ptr<cugl::Texture> _pinkdecoration;
+    std::shared_ptr<cugl::Texture> _purpledecoration;
+    std::shared_ptr<cugl::Texture> _blacklh;
+    std::shared_ptr<cugl::Texture> _blackrh;
+    std::shared_ptr<cugl::Texture> _pinklh;
+    std::shared_ptr<cugl::Texture> _pinkrh;
+    std::shared_ptr<cugl::Texture> _bluelh;
+    std::shared_ptr<cugl::Texture> _bluerh;
+    std::shared_ptr<cugl::Texture> _greenlh;
+    std::shared_ptr<cugl::Texture> _greenrh;
+    std::shared_ptr<cugl::Texture> _orangelh;
+    std::shared_ptr<cugl::Texture> _orangerh;
+    std::shared_ptr<cugl::Texture> _purplelh;
+    std::shared_ptr<cugl::Texture> _purplerh;
+    std::vector<std::shared_ptr<cugl::physics2::Obstacle>> _obstacles;
+    std::vector<std::shared_ptr<cugl::physics2::Joint>> _joints;
+    /** The physics world; part of the model (though listeners elsewhere) */
+    std::shared_ptr<cugl::physics2::net::NetWorld> _world;
 
-	std::shared_ptr<cugl::scene2::ActionManager> _actions;
-	std::shared_ptr<cugl::scene2::Animate> _animate;
-	std::shared_ptr<cugl::scene2::Animate> _blackanimate;
-	std::string _color;
-	bool _colorchange;
+    std::shared_ptr<cugl::scene2::ActionManager> _actions;
+    std::shared_ptr<cugl::scene2::Animate> _animate;
+    std::shared_ptr<cugl::scene2::Animate> _blackanimate;
+    std::string _color;
+    bool _colorchange;
     bool _colorbodychange;
     bool _colordecchange;
     bool _colorlhchange;
     bool _colorrhchange;
-	cugl::Vec2 _offset;
-	std::shared_ptr<cugl::scene2::SceneNode> _node;
-	cugl::Mat4 _affine;
-	float _drawScale;
-	std::string getPartName(int part);
-	bool _motorEnabled = true;
-	std::shared_ptr<cugl::physics2::Obstacle> makePart(int part, int connect, const cugl::Vec2 &pos);
-	Vec2 SolveAngleMiddleBisectorLine(Vec2 p);
-	Vec2 armMiddleExp_R(Vec2 end);
-	std::vector<std::shared_ptr<cugl::physics2::Joint>> dummy_jointsmaker(std::vector<int> part_indices);
-	cugl::Vec2 leftShoulderOffset;
-	cugl::Vec2 leftHandOffset;
-	cugl::Vec2 leftElbowOffset;
-	cugl::Vec2 rightShoulderOffset;
-	cugl::Vec2 rightHandOffset;
-	cugl::Vec2 rightElbowOffset;
-	// TODO fix memory leak, when dispose, should be none.
-	std::shared_ptr<physics2::MotorJoint> leftHandJoint;
-	std::shared_ptr<physics2::MotorJoint> rightHandJoint;
-	std::shared_ptr<physics2::MotorJoint> leftElbowJoint;
-	std::shared_ptr<physics2::MotorJoint> rightElbowJoint;
+    cugl::Vec2 _offset;
+    std::shared_ptr<cugl::scene2::SceneNode> _node;
+    cugl::Mat4 _affine;
+    float _drawScale;
+    std::string getPartName(int part);
+    bool _motorEnabled = true;
+    std::shared_ptr<cugl::physics2::Obstacle> makePart(int part, int connect, const cugl::Vec2 &pos);
+    Vec2 SolveAngleMiddleBisectorLine(Vec2 p);
+    Vec2 armMiddleExp_R(Vec2 end);
+    std::vector<std::shared_ptr<cugl::physics2::Joint>> dummy_jointsmaker(std::vector<int> part_indices);
+    cugl::Vec2 leftShoulderOffset;
+    cugl::Vec2 leftHandOffset;
+    cugl::Vec2 leftElbowOffset;
+    cugl::Vec2 rightShoulderOffset;
+    cugl::Vec2 rightHandOffset;
+    cugl::Vec2 rightElbowOffset;
+    // TODO fix memory leak, when dispose, should be none.
+    std::shared_ptr<physics2::MotorJoint> leftHandJoint;
+    std::shared_ptr<physics2::MotorJoint> rightHandJoint;
+    std::shared_ptr<physics2::MotorJoint> leftElbowJoint;
+    std::shared_ptr<physics2::MotorJoint> rightElbowJoint;
 
-	// arm joints
-	std::shared_ptr<physics2::MotorJoint> leftArmJoint;
-	std::shared_ptr<physics2::MotorJoint> rightArmJoint;
-	std::shared_ptr<physics2::MotorJoint> leftForearmJoint;
-	std::shared_ptr<physics2::MotorJoint> rightForearmJoint;
+    // arm joints
+    std::shared_ptr<physics2::MotorJoint> leftArmJoint;
+    std::shared_ptr<physics2::MotorJoint> rightArmJoint;
+    std::shared_ptr<physics2::MotorJoint> leftForearmJoint;
+    std::shared_ptr<physics2::MotorJoint> rightForearmJoint;
 
-	std::vector<std::shared_ptr<scene2::PolygonNode>> _lineNodes;
-	std::shared_ptr<scene2::SpriteNode> _bodyNode;
-	std::shared_ptr<scene2::SpriteNode> _decorationNode;
-	std::shared_ptr<scene2::PolygonNode> _LHNode;
-	std::shared_ptr<scene2::PolygonNode> _RHNode;
+    std::vector<std::shared_ptr<scene2::PolygonNode>> _lineNodes;
+    std::shared_ptr<scene2::SpriteNode> _bodyNode;
+    std::shared_ptr<scene2::SpriteNode> _decorationNode;
+    std::shared_ptr<scene2::PolygonNode> _LHNode;
+    std::shared_ptr<scene2::PolygonNode> _RHNode;
 
-	std::shared_ptr<scene2::SceneNode> _cameraTrackNode;
-	// character self defined functions
-	std::map<std::string, std::function<PublishedMessage(ActionParams)>> funcs;
+    std::shared_ptr<scene2::SceneNode> _cameraTrackNode;
+    // character self defined functions
+    std::map<std::string, std::function<PublishedMessage(ActionParams)>> funcs;
 public:
-	CharacterController(void);
-	virtual ~CharacterController(void);
-	void dispose();
+    CharacterController(void);
+    virtual ~CharacterController(void);
+    void dispose();
 
-	bool init()
-	{
-		return init(cugl::Vec2::ZERO, 1.0f);
-	}
+    bool init()
+    {
+        return init(cugl::Vec2::ZERO, 1.0f);
+    }
 
-	bool init(const cugl::Vec2 &pos)
-	{
-		return init(pos, 1.0f);
-	}
+    bool init(const cugl::Vec2 &pos)
+    {
+        return init(pos, 1.0f);
+    }
 
-	bool init(const cugl::Vec2 &pos, float scale);
-	void update(float timestep);
+    bool init(const cugl::Vec2 &pos, float scale);
+    void update(float timestep);
 
-	void setColor(std::string color);
-	std::string getColor();
+    void setColor(std::string color);
+    std::string getColor();
 
 #pragma mark Static Constructors
 
-	static std::shared_ptr<CharacterController> alloc()
-	{
-		std::shared_ptr<CharacterController> result = std::make_shared<CharacterController>();
-		return (result->init() ? result : nullptr);
-	}
-	static std::shared_ptr<CharacterController> alloc(const cugl::Vec2 &pos)
-	{
-		std::shared_ptr<CharacterController> result = std::make_shared<CharacterController>();
-		return (result->init(pos, 1.0f) ? result : nullptr);
-	}
-	static std::shared_ptr<CharacterController> alloc(const cugl::Vec2 &pos, float scale)
-	{
-		std::shared_ptr<CharacterController> result = std::make_shared<CharacterController>();
-		return (result->init(pos, scale) ? result : nullptr);
-	}
+    static std::shared_ptr<CharacterController> alloc()
+    {
+        std::shared_ptr<CharacterController> result = std::make_shared<CharacterController>();
+        return (result->init() ? result : nullptr);
+    }
+    static std::shared_ptr<CharacterController> alloc(const cugl::Vec2 &pos)
+    {
+        std::shared_ptr<CharacterController> result = std::make_shared<CharacterController>();
+        return (result->init(pos, 1.0f) ? result : nullptr);
+    }
+    static std::shared_ptr<CharacterController> alloc(const cugl::Vec2 &pos, float scale)
+    {
+        std::shared_ptr<CharacterController> result = std::make_shared<CharacterController>();
+        return (result->init(pos, scale) ? result : nullptr);
+    }
 
-	void activate(const std::shared_ptr<cugl::physics2::net::NetWorld> &world);
-	void deactivate(const std::shared_ptr<cugl::physics2::net::NetWorld> &world);
+    void activate(const std::shared_ptr<cugl::physics2::net::NetWorld> &world);
+    void deactivate(const std::shared_ptr<cugl::physics2::net::NetWorld> &world);
 
-	bool createJoints();
-	bool buildParts(const std::shared_ptr<cugl::AssetManager> &assets);
+    bool createJoints();
+    bool buildParts(const std::shared_ptr<cugl::AssetManager> &assets);
 
-	void setSceneNode(const std::shared_ptr<cugl::scene2::SceneNode> &node);
-	void setDrawScale(float scale);
+    void setSceneNode(const std::shared_ptr<cugl::scene2::SceneNode> &node);
+    void setDrawScale(float scale);
 
-	void enableMotor();
-	void disableMotor();
+    void enableMotor();
+    void disableMotor();
 
-	std::shared_ptr<scene2::PolygonNode> getBodySceneNode() { return _bodyNode; };
-	std::shared_ptr<scene2::SceneNode> getTrackSceneNode() { return _cameraTrackNode; };
-    /** 
-     * NOTE:
-     * This function returns the position of a SceneNode (in scene2) instead of the Obstacle (in world).
-     * Use it carefully.
-     */
-	Vec2 getLHPos() { return _LHNode->getPosition(); }
+    std::shared_ptr<scene2::PolygonNode> getBodySceneNode() { return _bodyNode; };
+    std::shared_ptr<scene2::SceneNode> getTrackSceneNode() { return _cameraTrackNode; };
     /**
      * NOTE:
      * This function returns the position of a SceneNode (in scene2) instead of the Obstacle (in world).
      * Use it carefully.
      */
-	Vec2 getRHPos() { return _RHNode->getPosition(); }
+    Vec2 getLHPos() { return _LHNode->getPosition(); }
+    /**
+     * NOTE:
+     * This function returns the position of a SceneNode (in scene2) instead of the Obstacle (in world).
+     * Use it carefully.
+     */
+    Vec2 getRHPos() { return _RHNode->getPosition(); }
     
     /**
      * NOTE:
@@ -193,17 +193,17 @@ public:
      */
     Vec2 getBodyPos() { return _bodyNode->getPosition(); }
 
-	Vec2 getTrackPos() { return _cameraTrackNode->getPosition(); }
+    Vec2 getTrackPos() { return _cameraTrackNode->getPosition(); }
 
 #pragma mark HAND CONTROLLER
-	bool moveRightHand(cugl::Vec2 offset, bool inverse = false);
-	bool moveLeftHand(cugl::Vec2 offset, bool inverse = false);
+    bool moveRightHand(cugl::Vec2 offset, bool inverse = false);
+    bool moveLeftHand(cugl::Vec2 offset, bool inverse = false);
 
-	Vec2 getLeftHandPosition()  { return _obstacles[PART_LH]->getPosition(); }
-	Vec2 getRightHandPosition() { return _obstacles[PART_RH]->getPosition(); }
+    Vec2 getLeftHandPosition()  { return _obstacles[PART_LH]->getPosition(); }
+    Vec2 getRightHandPosition() { return _obstacles[PART_RH]->getPosition(); }
     
-	const std::vector<std::shared_ptr<cugl::physics2::Obstacle>> getObstacles() const { return _obstacles; }
-	const std::vector<std::shared_ptr<cugl::physics2::Joint>> getJoints() const { return _joints; }
+    const std::vector<std::shared_ptr<cugl::physics2::Obstacle>> getObstacles() const { return _obstacles; }
+    const std::vector<std::shared_ptr<cugl::physics2::Joint>> getJoints() const { return _joints; }
     std::vector<std::shared_ptr<cugl::physics2::Obstacle>> getHandObstacles() const {
         std::vector<std::shared_ptr<cugl::physics2::Obstacle>> hands;
         hands.push_back(_obstacles[PART_LH]);
@@ -211,21 +211,21 @@ public:
         return hands;
     }
 
-	std::shared_ptr<cugl::physics2::Obstacle> getLHObstacle() { return _obstacles[PART_LH]; }
-	std::shared_ptr<cugl::physics2::Obstacle> getRHObstacle() { return _obstacles[PART_RH]; }
-	std::shared_ptr<cugl::physics2::Obstacle> getBodyObstacle() { return _obstacles[PART_BODY]; }
+    std::shared_ptr<cugl::physics2::Obstacle> getLHObstacle() { return _obstacles[PART_LH]; }
+    std::shared_ptr<cugl::physics2::Obstacle> getRHObstacle() { return _obstacles[PART_RH]; }
+    std::shared_ptr<cugl::physics2::Obstacle> getBodyObstacle() { return _obstacles[PART_BODY]; }
 
-	void linkPartsToWorld(const std::shared_ptr<cugl::physics2::net::NetWorld> &_world, const std::shared_ptr<cugl::scene2::SceneNode> &_scenenode, float _scale);
+    void linkPartsToWorld(const std::shared_ptr<cugl::physics2::net::NetWorld> &_world, const std::shared_ptr<cugl::scene2::SceneNode> &_scenenode, float _scale);
 
-	void drawCharacterLines(float scale);
+    void drawCharacterLines(float scale);
 
-	void drawDecoration(float scale);
+    void drawDecoration(float scale);
 
-	std::shared_ptr<cugl::Texture> getTextureForPart(int partId, const std::string &color);
+    std::shared_ptr<scene2::SpriteNode> getTextureForPart(int partId, const std::string &color);
     std::shared_ptr<cugl::Texture> getTextureForDecoration(const std::string &color);
-	std::shared_ptr<cugl::Texture> getTextureForHand(int partId, const std::string &color);
+    std::shared_ptr<cugl::Texture> getTextureForHand(int partId, const std::string &color);
 
-	const std::map<std::string, std::function<PublishedMessage(ActionParams)>>& getActions() { return funcs; }
+    const std::map<std::string, std::function<PublishedMessage(ActionParams)>>& getActions() { return funcs; }
 };
 
 #endif /* CharacterController_h */
