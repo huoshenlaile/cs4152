@@ -818,6 +818,11 @@ void CharacterController::linkPartsToWorld(const std::shared_ptr<cugl::physics2:
 	_node = _scenenode;
 	drawCharacterLines(_scale);
 	drawDecoration(_scale);
+
+#pragma mark camera
+	_cameraTrackNode = cugl::scene2::SceneNode::alloc();
+
+
 	for (int i = 0; i < _obstacles.size(); i++)
 	{
 		auto obj = _obstacles[i];
@@ -860,44 +865,84 @@ void CharacterController::linkPartsToWorld(const std::shared_ptr<cugl::physics2:
 		}
 		_world->addObstacle(obj);
 		// obj->setDebugScene(_debugnode);
-		
+
 #pragma mark ChangeColor Action
 		if (obj->getBodyType() == b2_dynamicBody)
 		{
-            obj->setListener([=](physics2::Obstacle *obs) mutable {
+
+			if (i == PART_BODY){
+				obj->setListener([=](physics2::Obstacle *obs) mutable {
+					if (_colorchange){
+						// Remove the old sprite and add the new sprite based on the part
+						auto newBodySprite = getTextureForPart(i, _color);
+						_scenenode->removeChild(_bodyNode);
+						_bodyNode = newBodySprite;
+						_scenenode->addChild(_bodyNode);
+						_colorbodychange = true;
+					}
+					_bodyNode->setPosition(obs->getPosition() * _scale);
+					_bodyNode->setAngle(obs->getAngle());
+					_cameraTrackNode->setPosition(_bodyNode->getPosition());
+				});
+			}else if (i == PART_LH){
+				obj->setListener([=](physics2::Obstacle *obs) mutable {
+					if (_colorchange){
+						_LHNode->setTexture(getTextureForHand(i, _color));
+						_colorlhchange = true;
+					}
+					_LHNode->setPosition(obs->getPosition() * _scale);
+					_LHNode->setAngle(obs->getAngle());
+				});
+			}else if (i == PART_RH){
+				obj->setListener([=](physics2::Obstacle *obs) mutable {
+					if (_colorchange){
+						_RHNode->setTexture(getTextureForHand(i, _color));
+						_colorrhchange = true;
+					}
+					_RHNode->setPosition(obs->getPosition() * _scale);
+					_RHNode->setAngle(obs->getAngle());
+				});
+			}
+
+
+            // obj->setListener([=](physics2::Obstacle *obs) mutable {
                 
-                if (_colorchange) {
-                    // Remove the old sprite and add the new sprite based on the part
-                    if (i == PART_BODY) {
-                        auto newBodySprite = getTextureForPart(i, _color);
-                        _scenenode->removeChild(_bodyNode);
-                        _bodyNode = newBodySprite;
-                        _scenenode->addChild(_bodyNode);
-                        _colorbodychange = true;
-                    } else if (i == PART_LH) {
-                        _LHNode->setTexture(getTextureForHand(i, _color));
-                        _colorlhchange = true;
-                    } else if (i == PART_RH) {
-                        _RHNode->setTexture(getTextureForHand(i, _color));
-                        _colorrhchange = true;
-                    }
-                }
-                if (i == PART_BODY) {
-                    _bodyNode->setPosition(obs->getPosition() * _scale);
-                    _bodyNode->setAngle(obs->getAngle());
-                } else if (i == PART_LH) {
-                    _LHNode->setPosition(obs->getPosition() * _scale);
-                    _LHNode->setAngle(obs->getAngle());
-                } else if (i == PART_RH) {
-                    _RHNode->setPosition(obs->getPosition() * _scale);
-                    _RHNode->setAngle(obs->getAngle());
-                }
-                drawCharacterLines(_scale);
-                drawDecoration(_scale);
+            //     if (_colorchange) {
+            //         // Remove the old sprite and add the new sprite based on the part
+            //         if (i == PART_BODY) {
+            //             auto newBodySprite = getTextureForPart(i, _color);
+            //             _scenenode->removeChild(_bodyNode);
+            //             _bodyNode = newBodySprite;
+            //             _scenenode->addChild(_bodyNode);
+            //             _colorbodychange = true;
+            //         } else if (i == PART_LH) {
+            //             _LHNode->setTexture(getTextureForHand(i, _color));
+            //             _colorlhchange = true;
+            //         } else if (i == PART_RH) {
+            //             _RHNode->setTexture(getTextureForHand(i, _color));
+            //             _colorrhchange = true;
+            //         }
+            //     }
+            //     if (i == PART_BODY) {
+            //         _bodyNode->setPosition(obs->getPosition() * _scale);
+            //         _bodyNode->setAngle(obs->getAngle());
+            //     } else if (i == PART_LH) {
+            //         _LHNode->setPosition(obs->getPosition() * _scale);
+            //         _LHNode->setAngle(obs->getAngle());
+            //     } else if (i == PART_RH) {
+            //         _RHNode->setPosition(obs->getPosition() * _scale);
+            //         _RHNode->setAngle(obs->getAngle());
+            //     }
+            //     drawCharacterLines(_scale);
+            //     drawDecoration(_scale);
                 
-            });
+            // });
 		}
 	}
+
+
+	_cameraTrackNode->setPosition(_bodyNode->getPosition());
+    _cameraTrackNode->setAnchor(Vec2::ANCHOR_CENTER);
 	for (int i = 0; i < _joints.size(); i++)
 	{
 		printf("adding joints again");

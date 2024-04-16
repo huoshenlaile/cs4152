@@ -117,6 +117,7 @@ protected:
 	std::shared_ptr<scene2::PolygonNode> _LHNode;
 	std::shared_ptr<scene2::PolygonNode> _RHNode;
 
+	std::shared_ptr<scene2::SceneNode> _cameraTrackNode;
 	// character self defined functions
 	std::map<std::string, std::function<PublishedMessage(ActionParams)>> funcs;
 public:
@@ -171,7 +172,7 @@ public:
 	void disableMotor();
 
 	std::shared_ptr<scene2::PolygonNode> getBodySceneNode() { return _bodyNode; };
-
+	std::shared_ptr<scene2::SceneNode> getTrackSceneNode() { return _cameraTrackNode; };
     /** 
      * NOTE:
      * This function returns the position of a SceneNode (in scene2) instead of the Obstacle (in world).
@@ -191,6 +192,8 @@ public:
      * Use it carefully.
      */
     Vec2 getBodyPos() { return _bodyNode->getPosition(); }
+
+	Vec2 getTrackPos() { return _cameraTrackNode->getPosition(); }
 
 #pragma mark HAND CONTROLLER
 	bool moveRightHand(cugl::Vec2 offset, bool inverse = false);

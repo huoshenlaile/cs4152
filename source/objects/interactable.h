@@ -31,9 +31,9 @@ protected:
     Rect _bounds;
     Vec2 _scale = Vec2(32, 32);
 
-    std::string _name;
+    std::string _name = "";
 
-    std::string _texture_name;
+    std::string _texture_name = "";
     bool activated = false;
 
     std::shared_ptr<cugl::physics2::ObstacleWorld> _world;
@@ -63,11 +63,11 @@ public:
     virtual void deactivate() { activated = false; }
 
     // various way of modifying the object or publish message
-    virtual PublishedMessage timeUpdate(float timestep);
-    virtual PublishedMessage onBeginContact(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact = nullptr, std::shared_ptr<Interactable> otherInteractable = nullptr, bool isCharacter = false, std::shared_ptr<CharacterController> character = nullptr);
-    virtual PublishedMessage onEndContact(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact = nullptr, std::shared_ptr<Interactable> otherInteractable = nullptr, bool isCharacter = false, std::shared_ptr<CharacterController> character = nullptr);
-    virtual PublishedMessage onPreSolve(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact = nullptr, const b2Manifold* oldManifold = nullptr, std::shared_ptr<Interactable> otherInteractable = nullptr, bool isCharacter = false, std::shared_ptr<CharacterController> character = nullptr);
-    virtual PublishedMessage onPostSolve(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact = nullptr, const b2ContactImpulse* impulse = nullptr, std::shared_ptr<Interactable> otherInteractable = nullptr, bool isCharacter = false, std::shared_ptr<CharacterController> character = nullptr);
+    virtual PublishedMessage timeUpdate(float timestep) { return PublishedMessage(); }
+    virtual PublishedMessage onBeginContact(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact = nullptr, std::shared_ptr<Interactable> otherInteractable = nullptr, bool isCharacter = false, std::shared_ptr<CharacterController> character = nullptr) { return PublishedMessage(); }
+    virtual PublishedMessage onEndContact(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact = nullptr, std::shared_ptr<Interactable> otherInteractable = nullptr, bool isCharacter = false, std::shared_ptr<CharacterController> character = nullptr) { return PublishedMessage(); }
+    virtual PublishedMessage onPreSolve(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact = nullptr, const b2Manifold* oldManifold = nullptr, std::shared_ptr<Interactable> otherInteractable = nullptr, bool isCharacter = false, std::shared_ptr<CharacterController> character = nullptr) { return PublishedMessage(); }
+    virtual PublishedMessage onPostSolve(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact = nullptr, const b2ContactImpulse* impulse = nullptr, std::shared_ptr<Interactable> otherInteractable = nullptr, bool isCharacter = false, std::shared_ptr<CharacterController> character = nullptr) { return PublishedMessage(); }
 
     bool hasTimeUpdate() { return timeUpdateEnabled; }
     bool hasOnBeginContact() { return OnBeginContactEnabled; }
@@ -78,10 +78,12 @@ public:
     std::string getName() { return _name; }
     const std::map<std::string, std::function<PublishedMessage(ActionParams)>>& getActions() { return actions; }
 
+    virtual bool init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect bounds);
     virtual bool bindAssets(const std::shared_ptr<cugl::AssetManager>& assets, Vec2 scale2d);
     virtual bool linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleWorld> &physicsWorld, const std::shared_ptr<cugl::scene2::SceneNode> &sceneNode, float scale);
-
     virtual void setup() {}
+
+
     // initialize the interactable object
     Interactable(void) {}
     virtual ~Interactable() {
@@ -93,7 +95,7 @@ public:
         _selfObstacle = nullptr;
     }
 
-    virtual bool init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect bounds);
+ 
 
     // static allocator
     static std::shared_ptr<Interactable> alloc(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect bounds) {
@@ -115,8 +117,8 @@ public:
     return params;
 }
     
-    bool isGrabbable() {
-        return this->canBeGrabbed;
+    virtual bool isGrabbable() {
+        return canBeGrabbed;
     }
 
 };

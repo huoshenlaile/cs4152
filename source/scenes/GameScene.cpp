@@ -57,7 +57,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, std::str
 
 #pragma mark Construct Camera Controller
     setCamera(levelName);
-    _camera.init(_character->getBodySceneNode(), _worldnode, 10.0f, std::dynamic_pointer_cast<OrthographicCamera>(getCamera()), _uinode, 5.0f, _camera.getMode());
+    _camera.init(_character->getTrackSceneNode(), _worldnode, 10.0f, std::dynamic_pointer_cast<OrthographicCamera>(getCamera()), _uinode, 5.0f, _camera.getMode());
     _camera.setZoom(_camera.getDefaultZoom());
 
     return true;
@@ -244,7 +244,7 @@ Size GameScene::computeActiveSize() const {
 }
 
 bool GameScene::isCharacterInMap() {
-    Vec2 pos = _character->getBodySceneNode()->getWorldPosition();
+    Vec2 pos = _character->getTrackSceneNode()->getWorldPosition();
     // CULog("current body pos: %f, %f", pos.x, pos.y);
     return pos.x >= 0 && pos.x <= _worldnode->getSize().width && pos.y >= 0 && pos.y <= _worldnode->getSize().height;
 }

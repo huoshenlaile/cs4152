@@ -8,7 +8,14 @@ bool Interactable::init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect
     _bounds = bounds;
     _name = json->getString("name");
     std::shared_ptr<JsonValue> properties = json -> get("properties");
-    auto physicalProperties = properties -> get(properties -> size() - 1) -> get("value");
+    // auto physicalProperties = properties -> get(properties -> size() - 1) -> get("value");
+    std::shared_ptr<JsonValue> physicalProperties = nullptr;
+    for (int i = 0; i < properties->size(); i++){
+        if (properties->get(i)->getString("propertytype") == "Physics"){
+            physicalProperties = properties->get(i)->get("value");
+            break;
+        }
+    }
     int polysize = (int)json->get(VERTICES_FIELD)->children().size();
     success = success && polysize > 0;
     
@@ -29,21 +36,30 @@ bool Interactable::init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect
     _selfTexture = scene2::PolygonNode::allocWithPoly(shape);
     _selfObstacle = cugl::physics2::PolygonObstacle::allocWithAnchor(shape, Vec2(0.5f,0.5f));
     _selfObstacle->setName(json->getString("name"));
-    _selfObstacle->setBodyType((b2BodyType)physicalProperties->get("obstacle")->getInt(BODYTYPE_FIELD));
-    _selfObstacle->setDensity(physicalProperties->get("obstacle")->getDouble(DENSITY_FIELD));
-    _selfObstacle->setFriction(physicalProperties->get("obstacle")->getDouble(FRICTION_FIELD));
-    _selfObstacle->setRestitution(physicalProperties->get("obstacle")->getDouble(RESTITUTION_FIELD));
+    if (physicalProperties != nullptr){
+        _selfObstacle->setBodyType((b2BodyType)physicalProperties->get("obstacle")->getInt(BODYTYPE_FIELD));
+        _selfObstacle->setDensity(physicalProperties->get("obstacle")->getDouble(DENSITY_FIELD));
+        _selfObstacle->setFriction(physicalProperties->get("obstacle")->getDouble(FRICTION_FIELD));
+        _selfObstacle->setRestitution(physicalProperties->get("obstacle")->getDouble(RESTITUTION_FIELD));
+    }else{
+        _selfObstacle->setBodyType(b2_staticBody);
+        _selfObstacle->setDensity(1.0f);
+        _selfObstacle->setFriction(0.0f);
+        _selfObstacle->setRestitution(0.0f);
+    }
+
     _selfObstacle->setPosition(getObjectPos(json));
     _selfObstacle->setAnchor(0.5f, 0.5f);
     _selfObstacle->setAngle((360.0f - json->getFloat("rotation")) * M_PI / 180.0f);
 
     for (auto prop : properties -> children()) {
         if (prop -> getString("name") == "Grab") {
-            this -> canBeGrabbed = prop -> getBool("value");
+            canBeGrabbed = prop -> getBool("value");
         }
     }
-
-    _texture_name = physicalProperties->get("obstacle")->getString(TEXTURE_FIELD);
+    if (physicalProperties!=nullptr){
+        _texture_name = physicalProperties->get("obstacle")->getString(TEXTURE_FIELD);
+    }
     return success;
 }
 
@@ -87,27 +103,6 @@ bool Interactable::linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleWor
     return true;
 }
 
-// ================================ empty pub sub message functions ================================
-
-PublishedMessage Interactable::timeUpdate(float timestep){
-    return PublishedMessage();
-}
-
-PublishedMessage Interactable::onBeginContact(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact, std::shared_ptr<Interactable> otherInteractable, bool isCharacter, std::shared_ptr<CharacterController> character){
-    return PublishedMessage();
-}
-
-PublishedMessage Interactable::onEndContact(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact, std::shared_ptr<Interactable> otherInteractable, bool isCharacter, std::shared_ptr<CharacterController> character){
-    return PublishedMessage();
-}
-
-PublishedMessage Interactable::onPreSolve(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact, const b2Manifold* oldManifold, std::shared_ptr<Interactable> otherInteractable, bool isCharacter, std::shared_ptr<CharacterController> character){
-    return PublishedMessage();
-}
-
-PublishedMessage Interactable::onPostSolve(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact, const b2ContactImpulse* impulse, std::shared_ptr<Interactable> otherInteractable, bool isCharacter, std::shared_ptr<CharacterController> character){
-    return PublishedMessage();
-}
 
 // ================================ private helper functions ================================
 std::vector<float> Interactable::getVertices(const std::shared_ptr<JsonValue>& json) {
