@@ -1,5 +1,8 @@
 {
-    "activeFile": "json/alpharelease.json",
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
         "json/alpharelease copy.json": {
             "scale": 0.2,
@@ -10,11 +13,11 @@
             }
         },
         "json/alpharelease.json": {
-            "scale": 0.2037,
-            "selectedLayer": 0,
+            "scale": 0.25,
+            "selectedLayer": -1,
             "viewCenter": {
-                "x": 7825.233186057929,
-                "y": 1048.109965635739
+                "x": 8380,
+                "y": 994
             }
         },
         "json/bouncyjump.tmj": {
@@ -42,14 +45,16 @@
             }
         },
         "tileset/demo_elements.tsx": {
-            "scaleInDock": 1
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 0.03
         }
     },
     "openFiles": [
-        "json/alpharelease.json"
     ],
     "project": "untitled.tiled-project",
     "recentFiles": [
+        "tileset/demo_elements.tsx",
         "json/alpharelease.json",
         "json/tubelevel.json",
         "json/bouncyjump.tmj",
