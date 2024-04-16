@@ -14,6 +14,12 @@
             "wrapS": "repeat",
             "wrapT": "repeat"
         },
+        "lvl4_background_good":{
+            "file": "textures/level4/lv4_background_1.png"
+        },
+        "lvl4_background_bad":{
+            "file": "textures/level4/lv4_background_2.png"
+        },
         "staticplatform_comet": {
             "file": "textures/staticplatform_comet.png"
         },
