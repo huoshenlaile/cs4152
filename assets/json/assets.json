@@ -47,6 +47,15 @@
         "lv1_background_3": {
             "file": "textures/lv1_background_3.png"
         },
+        "lv2_background_1": {
+            "file": "textures/lv2_background_1.png"
+        },
+        "lv2_background_2": {
+            "file": "textures/lv2_background_1.png"
+        },
+        "lv3_background_3": {
+            "file": "textures/lv2_background_1.png"
+        },
         "lv3_background_1": {
             "file": "textures/lv3_background_1.png"
         },
