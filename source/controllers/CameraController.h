@@ -34,10 +34,8 @@ protected:
     float _maxZoom;
 
     Vec2 _UIPosition;
-
-    bool _move;
     int _initialStay, _finalStay;
-    bool _displayed, _finalMove, _levelComplete, _completed, _initialUpdate;
+    bool _levelComplete, _completed, _initialUpdate, _displayed;
     float _defaultZoom, _levelCompleteZoom;
     bool _horizontal;
     int _finalPos;
@@ -116,8 +114,7 @@ public:
 
     void process(int zoomIn, float speed);
 
-    bool getMove() { return _move; }
-    void setMove(bool flag) { _move = flag; }
+
     Vec2 getUIPosition() { return _UIPosition; }
     void setInitialStay(int stay) { _initialStay = stay; }
     void setFinalStay(int stay) { _finalStay = stay; }
@@ -137,6 +134,8 @@ public:
     void setCamera(std::string selectedLevelKey);
 
     bool cameraStay(int time);
+
+    void setCameraState(int state) { _state = state; }
 };
 
 #endif

@@ -104,7 +104,8 @@ void GameScene::preUpdate(float dt) {
     if (_level == nullptr)
         return;
     // process input
-    _inputController->update(dt);
+    if (_camera.getDisplayed() || !_inputController->getStarted())
+        _inputController->update(dt);
     auto character = _inputController->getCharacter();
     for (auto i = character->_touchInfo.begin(); i != character->_touchInfo.end(); i++) {
         i->worldPos = (Vec2)Scene2::screenToWorldCoords(i->position);
@@ -127,6 +128,7 @@ void GameScene::preUpdate(float dt) {
     if (!isCharacterInMap()) {
         // CULog("Character out!");
         state = RESET;
+        _camera.setCameraState(0);
     }
     _interactionController->connectGrabJoint();
     _interactionController->ungrabIfNecessary();
@@ -209,6 +211,7 @@ void GameScene::constructSceneNodes(const Size &dimen) {
         if (down) {
             std::cout << "level complete reset!" << std::endl;
             this->state = RESET;
+            _camera.setCameraState(0);
         }
     });
 

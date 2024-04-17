@@ -10,21 +10,21 @@ bool CameraController::init(const std::shared_ptr<cugl::scene2::SceneNode> targe
     _camera = camera;
     _maxZoom = maxZoom;
     _ui = ui;
-    _move = false;
     _initialStay = 0;
     _finalStay = 0;
-    _displayed = false;
+    ;
     _horizontal = horizontal;
-    _finalMove = false;
     _levelComplete = false;
     _counter = 0;
     _completed = false;
     _initialUpdate = false;
+    _displayed = false;
     return true;
 }
 
 /* Now it is a finite state machine */
 void CameraController::update(float dt) {
+    CULog("%d", _state);
     switch (_state) {
     // Initial stay
     case 0: {
@@ -34,7 +34,6 @@ void CameraController::update(float dt) {
             _state = 1;
         break;
     }
-
     // Move the camera to the right
     case 1: {
         if (_horizontal) {
@@ -56,8 +55,11 @@ void CameraController::update(float dt) {
     case 2: {
         _finalStay++;
         _camera->update();
-        if (cameraStay(FINAL_STAY))
+        if (cameraStay(FINAL_STAY)) {
             _state = 3;
+            _displayed = true;
+        }
+
         break;
     }
     // In the gameplay
@@ -107,7 +109,7 @@ void CameraController::update(float dt) {
                 _camera->update();
             } else {
                 if (cameraStay(END_STAY)) {
-                    _state = 5;
+                    _state = 0;
                     _completed = true;
                 }
             }
@@ -117,7 +119,7 @@ void CameraController::update(float dt) {
                 _camera->update();
             } else {
                 if (cameraStay(END_STAY)) {
-                    _state = 5;
+                    _state = 0;
                     _completed = true;
                 }
             }
