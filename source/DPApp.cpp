@@ -204,14 +204,18 @@ void DPApp::preUpdate(float timestep) {
 
 void DPApp::postUpdate(float timestep) {
   if (_status == GAME) {
-    _gameScene.postUpdate(timestep);
+      if (!_gameScene.isComplete()){
+          _gameScene.postUpdate(timestep);
+      }
   }
 }
 
 void DPApp::fixedUpdate() {
   if (_status == GAME) {
-    float time = getFixedStep() / 1000000.0f;
-    _gameScene.fixedUpdate(time);
+      if (!_gameScene.isComplete()){
+          float time = getFixedStep() / 1000000.0f;
+          _gameScene.fixedUpdate(time);
+      }
   } else if (_status == PAUSE) {
     _pauseScene.fixedUpdate();
   }
