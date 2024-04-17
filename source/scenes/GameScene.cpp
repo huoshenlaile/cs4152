@@ -153,7 +153,7 @@ void GameScene::postUpdate(float dt) {
     if (_interactionController->paintPercent() > 0.01f && _interactionController->paintPercent() < 1.0f) {
         _paintMeter->setVisible(true);
         _paintMeter->setFrame((int)(_interactionController->paintPercent() * 8));
-        _paintMeter->setPosition(_uinode->worldToNodeCoords(_character->getBodyPos()) + Vec2(0, 50));
+        _paintMeter->setPosition(_uinode->worldToNodeCoords(_character->getBodyPos())+Vec2(0, 50));
     } else {
         _paintMeter->setVisible(false);
     }

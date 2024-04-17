@@ -27,7 +27,9 @@ bool Exit::init(const std::shared_ptr<cugl::JsonValue>& json, Vec2 scale, Rect b
         while(reqs.good()){
             std::string substr;
             std::getline(reqs, substr, ',');
-            _colorReqs.insert(substr);
+            if (substr.length()>0){
+                _colorReqs.insert(substr);
+            }
         }
     }
     activated = true;
