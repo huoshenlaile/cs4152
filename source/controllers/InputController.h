@@ -48,6 +48,7 @@ protected:
     bool _currDown;
     bool _prevDown;
     bool _touchDown;
+    int _initialCd;
 
 protected:
     /** Information representing a single "touch" (possibly multi-finger) */
@@ -268,6 +269,8 @@ public:
     bool isLHAssigned() { return this->_character.leftHand.assigned; }
 
     bool isRHAssigned() { return this->_character.rightHand.assigned; }
+
+    bool getStarted() { return _started; }
 };
 
 #endif /* __PF_INPUT_H__ */

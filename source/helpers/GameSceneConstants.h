@@ -14,14 +14,14 @@
 /** This is not used for now. */
 #define MAX_TORQUE 10000000.0f
 /** Character's max force */
-#define MAX_FORCE  50000.0f
+#define MAX_FORCE 50000.0f
 /** The density for the character's body */
 #define BODY_DENSITY 0.9f
 #define BODY_ANGULAR_DAMPING 40.0f
 /** The density for character's hands*/
 #define HAND_DENSITY 1.0f
 /** The density for other body parts. Right now we don't have other body parts (I think - from George). */
-#define DEFAULT_DENSITY  1.0f
+#define DEFAULT_DENSITY 1.0f
 /** Friction for character's hands*/
 #define HAND_FRICTION 2.0f
 /** Friction for other body parts (right now it's just the big head I think - from George) */
@@ -39,9 +39,9 @@
 #define SCENE_HEIGHT 576
 
 /** Width of the game world in Box2d units */
-#define DEFAULT_WIDTH   32.0f
+#define DEFAULT_WIDTH 32.0f
 /** Height of the game world in Box2d units */
-#define DEFAULT_HEIGHT  18.0f
+#define DEFAULT_HEIGHT 18.0f
 
 #define DEFAULT_TURN_RATE 0.05f
 #define FIXED_TIMESTEP_S 0.02f
@@ -51,8 +51,9 @@
 #define NOZOOM 0
 #define ZOOMIN 1
 #define ZOOMOUT 2
-#define INITIAL_STAY 120
+#define INITIAL_STAY 30
 #define FINAL_STAY 60
+#define END_STAY 120
 
 #define CJOINT_OFFSET 3.0f
 #define HALF_CJOINT_OFFSET 1.5f

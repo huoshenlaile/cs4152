@@ -33,6 +33,7 @@ bool InputController::init(const Rect bounds) {
     _currDown = false;
     _prevDown = false;
     _started = false;
+    _initialCd = 0;
 
 #ifndef CU_TOUCH_SCREEN
     success = Input::activate<Keyboard>();
@@ -60,12 +61,16 @@ void InputController::update(float dt) {
 
 #ifdef CU_TOUCH_SCREEN
     Touchscreen *touch = Input::get<Touchscreen>();
-
     // Press to continue
     if (!_started) {
-        if (touch->touchCount() == 0) {
+        if (_initialCd <= 20) {
+            _initialCd++;
+            return;
         }
-        // CULog("Press to continue!");
+        if (touch->touchCount() == 0) {
+            CULog("Press to continue!");
+        }
+
         else {
             CULog("Now is active");
             _started = true;
@@ -73,7 +78,7 @@ void InputController::update(float dt) {
         return;
     }
     for (auto touchID : touch->touchSet()) {
-        // CULog("Press");
+        CULog("Press");
         bool exist = false;
         for (auto info : _character._touchInfo) {
             if (info.id == touchID)

@@ -104,22 +104,21 @@ void GameScene::preUpdate(float dt) {
     if (_level == nullptr)
         return;
     // process input
-    if (_camera.getDisplayed()) {
-        _inputController->update(dt);
-    }
+    _inputController->update(dt);
     auto character = _inputController->getCharacter();
     for (auto i = character->_touchInfo.begin(); i != character->_touchInfo.end(); i++) {
         i->worldPos = (Vec2)Scene2::screenToWorldCoords(i->position);
     }
-    if (_camera.getDisplayed()) {
-        _inputController->process();
-        _character->moveLeftHand(INPUT_SCALER * _inputController->getLeftHandMovement(), _interactionController->leftHandReverse);
-        _character->moveRightHand(INPUT_SCALER * _inputController->getrightHandMovement(), _interactionController->rightHandReverse);
-        _inputController->fillHand(_character->getLeftHandPosition(), _character->getRightHandPosition(), _character->getLHPos(), _character->getRHPos());
-    }
+    _inputController->process();
+    _character->moveLeftHand(INPUT_SCALER * _inputController->getLeftHandMovement(), _interactionController->leftHandReverse);
+    _character->moveRightHand(INPUT_SCALER * _inputController->getrightHandMovement(), _interactionController->rightHandReverse);
+    _inputController->fillHand(_character->getLeftHandPosition(), _character->getRightHandPosition(), _character->getLHPos(), _character->getRHPos());
 
     // update camera
-    _camera.update(dt);
+    if (_inputController->getStarted() || !_camera.getInitialUpdate()) {
+        _camera.update(dt);
+        _camera.setInitialUpdate(true);
+    }
 
     // update interaction controller
     _interactionController->updateHandsHeldInfo(_inputController->isLHAssigned(), _inputController->isRHAssigned());
@@ -258,8 +257,10 @@ bool GameScene::isCharacterInMap() {
  */
 void GameScene::finishLevel() {
     _camera.levelComplete();
-    /* _levelComplete->setVisible(true);
-     _levelCompleteReset->activate();
-     _levelCompleteMenuButton->activate();*/
-    _complete = true;
+    if (_camera.getCameraComplete()) {
+        _levelComplete->setVisible(true);
+        _levelCompleteReset->activate();
+        _levelCompleteMenuButton->activate();
+        _complete = true;
+    }
 }

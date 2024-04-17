@@ -2,8 +2,6 @@
 #define __CAMERA__CONTROLLER_H
 
 #include <stdio.h>
-
-
 #include "InputController.h"
 #include <chrono>
 #include <cugl/cugl.h>
@@ -39,10 +37,12 @@ protected:
 
     bool _move;
     int _initialStay, _finalStay;
-    bool _displayed, _finalMove, _finalMoveBegin;
+    bool _displayed, _finalMove, _levelComplete, _completed, _initialUpdate;
     float _defaultZoom, _levelCompleteZoom;
     bool _horizontal;
     int _finalPos;
+    int _state;
+    int _counter;
 
 public:
     /**
@@ -128,10 +128,15 @@ public:
     float getLevelCompleteZoom() { return _levelCompleteZoom; }
     void setMode(bool mode) { _horizontal = mode; }
     bool getMode() { return _horizontal; }
+    bool getInitialUpdate() { return _initialUpdate; }
+    void setInitialUpdate(bool update) { _initialUpdate = update; }
 
     void levelComplete();
+    bool getCameraComplete() { return _completed; }
 
     void setCamera(std::string selectedLevelKey);
+
+    bool cameraStay(int time);
 };
 
 #endif
