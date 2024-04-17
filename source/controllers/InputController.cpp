@@ -63,8 +63,9 @@ void InputController::update(float dt) {
 
     // Press to continue
     if (!_started) {
-        if (touch->touchCount() == 0)
-            CULog("Press to continue!");
+        if (touch->touchCount() == 0) {
+        }
+        // CULog("Press to continue!");
         else {
             CULog("Now is active");
             _started = true;

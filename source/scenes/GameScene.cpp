@@ -56,7 +56,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, std::str
     _inputController->fillHand(_character->getLeftHandPosition(), _character->getRightHandPosition(), _character->getLHPos(), _character->getRHPos());
 
 #pragma mark Construct Camera Controller
-    setCamera(levelName);
+    _camera.setCamera(levelName);
     _camera.init(_character->getTrackSceneNode(), _worldnode, 10.0f, std::dynamic_pointer_cast<OrthographicCamera>(getCamera()), _uinode, 5.0f, _camera.getMode());
     _camera.setZoom(_camera.getDefaultZoom());
 
@@ -247,22 +247,6 @@ bool GameScene::isCharacterInMap() {
     return pos.x >= 0 && pos.x <= _worldnode->getSize().width && pos.y >= 0 && pos.y <= _worldnode->getSize().height;
 }
 
-void GameScene::setCamera(std::string selectedLevelKey) {
-    if (selectedLevelKey == "alpharelease") {
-        _camera.setMode(true);
-        _camera.setDefaultZoom(DEFAULT_ZOOM);
-    } else if (selectedLevelKey == "tube") {
-        _camera.setMode(false);
-        _camera.setDefaultZoom(0.2);
-    } else if (selectedLevelKey == "doodlejump") {
-        _camera.setMode(true);
-        _camera.setDefaultZoom(0.2);
-    } else if (selectedLevelKey == "falldown") {
-        _camera.setMode(false);
-        _camera.setDefaultZoom(DEFAULT_ZOOM);
-    }
-}
-
 #pragma mark Level Complete
 /**
  * Steps to complete a level:
@@ -273,8 +257,9 @@ void GameScene::setCamera(std::string selectedLevelKey) {
  * 5. display complete scene (done)
  */
 void GameScene::finishLevel() {
+    _camera.levelComplete();
+    /* _levelComplete->setVisible(true);
+     _levelCompleteReset->activate();
+     _levelCompleteMenuButton->activate();*/
     _complete = true;
-    _levelComplete->setVisible(true);
-    _levelCompleteReset->activate();
-    _levelCompleteMenuButton->activate();
 }

@@ -3,10 +3,11 @@
 
 #include <stdio.h>
 
+
+#include "InputController.h"
+#include <chrono>
 #include <cugl/cugl.h>
 #include <thread>
-#include <chrono>
-#include "InputController.h"
 #include "../helpers/GameSceneConstants.h"
 using namespace cugl;
 
@@ -38,9 +39,10 @@ protected:
 
     bool _move;
     int _initialStay, _finalStay;
-    bool _displayed;
-    float _defaultZoom;
+    bool _displayed, _finalMove, _finalMoveBegin;
+    float _defaultZoom, _levelCompleteZoom;
     bool _horizontal;
+    int _finalPos;
 
 public:
     /**
@@ -122,8 +124,14 @@ public:
     bool getDisplayed() { return _displayed; }
     void setDefaultZoom(float zoom) { _defaultZoom = zoom; }
     float getDefaultZoom() { return _defaultZoom; }
+    void setLevelCompleteZoom(float zoom) { _levelCompleteZoom = zoom; }
+    float getLevelCompleteZoom() { return _levelCompleteZoom; }
     void setMode(bool mode) { _horizontal = mode; }
     bool getMode() { return _horizontal; }
+
+    void levelComplete();
+
+    void setCamera(std::string selectedLevelKey);
 };
 
 #endif

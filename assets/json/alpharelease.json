@@ -80,7 +80,6 @@
                  "properties":[
                         {
                          "name":"METADATA",
-                         "propertytype":"METADATA",
                          "type":"class",
                          "value":
                             {
@@ -1365,5 +1364,5 @@
  "tilewidth":32,
  "type":"map",
  "version":"1.10",
- "width":300
+ "width":480
 }

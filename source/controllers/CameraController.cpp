@@ -10,11 +10,12 @@ bool CameraController::init(const std::shared_ptr<cugl::scene2::SceneNode> targe
     _camera = camera;
     _maxZoom = maxZoom;
     _ui = ui;
-    _move = true;
+    _move = false;
     _initialStay = 0;
     _finalStay = 0;
     _displayed = false;
     _horizontal = horizontal;
+    _finalMove = false;
     return true;
 }
 
@@ -23,21 +24,21 @@ void CameraController::update(float dt) {
         _initialStay++;
         _camera->update();
         return;
-    } else if (_move) {
+    } else if (!_move) {
         if (_horizontal) {
             _camera->translate(30, 0);
             _camera->update();
             if (_camera->getPosition().x >= _root->getSize().width - _camera->getViewport().getMaxX() / (2 * _camera->getZoom())) {
-                _move = false;
+                _move = true;
             }
         } else {
             _camera->translate(0, 30);
             _camera->update();
             if (_camera->getPosition().y >= _root->getSize().height - _camera->getViewport().getMaxY() / (2 * _camera->getZoom())) {
-                _move = false;
+                _move = true;
             }
         }
-    } else {
+    } else if (!_finalMoveBegin) {
         if (_finalStay <= FINAL_STAY) {
             _finalStay++;
             if (_finalStay == FINAL_STAY)
@@ -57,6 +58,28 @@ void CameraController::update(float dt) {
             delete dst;
 
             _camera->update();
+        }
+    } else if (_finalMoveBegin) {
+        CULog("Here!");
+        if (_finalMove)
+            CULog("Moved");
+        else
+            CULog("No move");
+        CULog("%f", _root->getSize().width);
+        if (!_finalMove) {
+            if (_horizontal) {
+                _camera->translate(30, 0);
+                _camera->update();
+                if (_camera->getPosition().x >= _root->getSize().width - _camera->getViewport().getMaxX() / (2 * _camera->getZoom())) {
+                    _finalMove = true;
+                }
+            } else {
+                _camera->translate(0, 30);
+                _camera->update();
+                if (_camera->getPosition().y >= _root->getSize().height - _camera->getViewport().getMaxY() / (2 * _camera->getZoom())) {
+                    _finalMove = true;
+                }
+            }
         }
     }
 
@@ -113,4 +136,50 @@ void CameraController::process(int zoomIn, float speed) {
     }
     _camera->setZoom(truezoom);
     _ui->setScale(1 / _camera->getZoom());
+}
+
+void CameraController::levelComplete() {
+    _finalMoveBegin = true;
+    _camera->setZoom(_levelCompleteZoom);
+    /*CULog("%f", _camera->getPosition().x);
+    if (_finalMove)
+        CULog("Moved");
+    else
+        CULog("No move");
+
+    if (!_finalMove) {
+        if (_horizontal) {
+            _camera->translate(5, 0);
+            _camera->update();
+            if (_camera->getPosition().x >= _root->getSize().width - _camera->getViewport().getMaxX() / (2 * _camera->getZoom())) {
+                _finalMove = true;
+            }
+        } else {
+            _camera->translate(0, 30);
+            _camera->update();
+            if (_camera->getPosition().y >= _root->getSize().height - _camera->getViewport().getMaxY() / (2 * _camera->getZoom())) {
+                _move = true;
+            }
+        }
+    }*/
+}
+
+void CameraController::setCamera(std::string selectedLevelKey) {
+    if (selectedLevelKey == "alpharelease") {
+        setMode(true);
+        setDefaultZoom(DEFAULT_ZOOM);
+        _levelCompleteZoom = DEFAULT_ZOOM;
+    } else if (selectedLevelKey == "tube") {
+        setMode(false);
+        setDefaultZoom(0.2);
+        _levelCompleteZoom = 0.15;
+    } else if (selectedLevelKey == "doodlejump") {
+        setMode(true);
+        setDefaultZoom(0.2);
+        _levelCompleteZoom = 0.15;
+    } else if (selectedLevelKey == "falldown") {
+        setMode(false);
+        setDefaultZoom(DEFAULT_ZOOM);
+        _levelCompleteZoom = 0.15;
+    }
 }

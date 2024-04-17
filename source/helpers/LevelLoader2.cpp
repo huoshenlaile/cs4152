@@ -1,6 +1,6 @@
 #include "LevelLoader2.h"
 
-bool LevelLoader2::preload(const std::shared_ptr<cugl::JsonValue>& json) {
+bool LevelLoader2::preload(const std::shared_ptr<cugl::JsonValue> &json) {
     if (json == nullptr) {
         CUAssertLog(false, "Failed to load level file");
         return false;
@@ -11,8 +11,8 @@ bool LevelLoader2::preload(const std::shared_ptr<cugl::JsonValue>& json) {
     float w = json->get(WIDTH_FIELD)->asFloat();
     float h = json->get(HEIGHT_FIELD)->asFloat();
     _bounds.size.set(w, h);
-    _gravity.set(0,-90.0f); // TODO: make this a field in the json file
-    _world = cugl::physics2::net::NetWorld::alloc(getBounds(),Vec2(0,-90.f));
+    _gravity.set(0, -90.0f); // TODO: make this a field in the json file
+    _world = cugl::physics2::net::NetWorld::alloc(getBounds(), Vec2(0, -90.f));
     _worldnode = cugl::scene2::SceneNode::alloc();
     _uinode = cugl::scene2::SceneNode::alloc();
     _levelCompletenode = cugl::scene2::SceneNode::alloc();
@@ -25,15 +25,15 @@ bool LevelLoader2::preload(const std::shared_ptr<cugl::JsonValue>& json) {
         for (int j = 0; j < objects->size(); j++) {
             // For each object, determine what it is and load it
             loadObject(objects->get(j));
-            
+
             // load background name
-            if (objects -> get(j) -> getString("name") == "METADATA") {
-                auto props = objects -> get(j) -> get("properties");
-                for (auto prop : props -> children()) {
-                    if (prop -> getString("propertytype") == "METADATA") {
-                        goodBg = prop -> get("value") -> getString("Good_bg");
-                        badBg = prop -> get("value") -> getString("Bad_bg");
-                        defaultBg = prop -> get("value") -> getString("Default_bg");
+            if (objects->get(j)->getString("name") == "METADATA") {
+                auto props = objects->get(j)->get("properties");
+                for (auto prop : props->children()) {
+                    if (prop->getString("propertytype") == "METADATA") {
+                        goodBg = prop->get("value")->getString("Good_bg");
+                        badBg = prop->get("value")->getString("Bad_bg");
+                        defaultBg = prop->get("value")->getString("Default_bg");
                     }
                 }
             }
@@ -45,32 +45,32 @@ bool LevelLoader2::preload(const std::shared_ptr<cugl::JsonValue>& json) {
     return true;
 }
 
-bool LevelLoader2::loadObject(const std::shared_ptr<JsonValue>& json){
+bool LevelLoader2::loadObject(const std::shared_ptr<JsonValue> &json) {
     auto type = json->get("type")->asString();
-    std::cout << "===== PARSING " << json->get("name")->asString() << "======"<< std::endl;
-    if (type == WALLS_FIELD){
+    std::cout << "===== PARSING " << json->get("name")->asString() << "======" << std::endl;
+    if (type == WALLS_FIELD) {
         auto wall = Interactable::alloc(json, _scale, _bounds);
         std::cout << "finished " << json->get("name")->asString() << std::endl;
         _interactables.push_back(wall);
-    } else if (type == SENSOR_FIELD){
+    } else if (type == SENSOR_FIELD) {
         auto sensor = Sensor::alloc(json, _scale, _bounds);
         _interactables.push_back(std::static_pointer_cast<Interactable>(sensor));
-    }else if (type == EXIT_FIELD){
+    } else if (type == EXIT_FIELD) {
         auto sensor = Exit::alloc(json, _scale, _bounds);
         _interactables.push_back(std::static_pointer_cast<Interactable>(sensor));
-    }else if (type == PAINT_FIELD){
+    } else if (type == PAINT_FIELD) {
         auto paint = GrowingPaint::alloc(json, _scale, _bounds);
         _interactables.push_back(std::static_pointer_cast<Interactable>(paint));
-    } else if (type == MWALLS_FIELD){
+    } else if (type == MWALLS_FIELD) {
         auto mwall = MovingWall::alloc(json, _scale, _bounds);
         _interactables.push_back(std::static_pointer_cast<Interactable>(mwall));
     } else if (type == GRAVITYWALL_FIELD) {
         auto gravitywall = GravityReversePlatform::alloc(json, _scale, _bounds);
         _interactables.push_back(std::static_pointer_cast<Interactable>(gravitywall));
-    } else if (type == CHARACTER_POS){
+    } else if (type == CHARACTER_POS) {
         _charPos = getObjectPos(json);
     } else if (type == BOUNCY_WALL_FIELD) {
-         auto mwall = BouncyWall::alloc(json, _scale, _bounds);
+        auto mwall = BouncyWall::alloc(json, _scale, _bounds);
         _interactables.push_back(std::static_pointer_cast<Interactable>(mwall));
     } else {
         // log type not recognized
@@ -81,42 +81,39 @@ bool LevelLoader2::loadObject(const std::shared_ptr<JsonValue>& json){
     return true;
 }
 
-
-bool LevelLoader2::construct(std::shared_ptr<cugl::AssetManager>& _assets){
+bool LevelLoader2::construct(std::shared_ptr<cugl::AssetManager> &_assets) {
     Size dimen = computeActiveSize();
-//    _scale = dimen.width == SCENE_WIDTH ? dimen.width / rect.size.width : dimen.height / rect.size.height;
-    Vec2 offset{ (dimen.width - SCENE_WIDTH) / 2.0f, (dimen.height - SCENE_HEIGHT) / 2.0f };
+    //    _scale = dimen.width == SCENE_WIDTH ? dimen.width / rect.size.width : dimen.height / rect.size.height;
+    Vec2 offset{(dimen.width - SCENE_WIDTH) / 2.0f, (dimen.height - SCENE_HEIGHT) / 2.0f};
 
     // ============== construct scene ==============
     _worldnode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
     _worldnode->setPosition(offset);
     _worldnode->setContentSize(Size(SCENE_WIDTH, SCENE_HEIGHT));
-    
+
     // DONT KNOW WHY... ALL COPIED FROM THE old LEVELLOADER
     float xScale = (_world->getBounds().getMaxX() * _scale.x) / _worldnode->getContentSize().width;
     float yScale = (_world->getBounds().getMaxY() * _scale.y) / _worldnode->getContentSize().height;
     _worldnode->setContentSize(_worldnode->getContentSize().width * xScale, _worldnode->getContentSize().height * yScale);
     _scale.set(_worldnode->getContentSize().width / _bounds.size.width, _worldnode->getContentSize().height / _bounds.size.height);
-    
+
     // create scene node for character and platform, bind them to world node
     _charNode = cugl::scene2::SceneNode::alloc();
     _platformNode = cugl::scene2::SceneNode::alloc();
     _platformNode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
     _platformNode->setPosition(Vec2::ZERO);
     _platformNode->setVisible(true);
-    
 
     // set background
     defaultBgTexture = _assets->get<Texture>(defaultBg);
     goodBgTexture = _assets->get<Texture>(goodBg);
     badBgTexture = _assets->get<Texture>(badBg);
-    std::cout << defaultBg << std::endl;
-    _defaultBgNode =  scene2::PolygonNode::allocWithTexture(defaultBgTexture);
-    _defaultBgNode -> setTexture(defaultBgTexture);
+    std::cout << "HEL11!" << defaultBg << std::endl;
+    _defaultBgNode = scene2::PolygonNode::allocWithTexture(defaultBgTexture);
+    _defaultBgNode->setTexture(defaultBgTexture);
     _defaultBgNode->setAbsolute(true);
     _defaultBgNode->setPosition(-10.0f, 0.0f);
-    _defaultBgNode->setContentSize(_defaultBgNode->getContentSize().width*4, _defaultBgNode->getContentSize().height*4);
-    
+    _defaultBgNode->setContentSize(_defaultBgNode->getContentSize().width * 4, _defaultBgNode->getContentSize().height * 4);
 
     CULog("level loader construction scale: %f %f", _scale.x, _scale.y);
     // create character
@@ -126,7 +123,7 @@ bool LevelLoader2::construct(std::shared_ptr<cugl::AssetManager>& _assets){
     _character->linkPartsToWorld(_world, _charNode, _scale.x);
 
     // add interactables to world
-    for (auto inter : _interactables){
+    for (auto inter : _interactables) {
         inter->bindAssets(_assets, _scale);
         inter->linkToWorld(_world, _platformNode, _scale.x);
         inter->setup();
@@ -152,7 +149,6 @@ void LevelLoader2::unload() {
     _interactables.clear();
 }
 
-
 // ========================================= private helper functions =========================================
 Size LevelLoader2::computeActiveSize() const {
     Size dimen = Application::get()->getDisplaySize();
@@ -160,14 +156,13 @@ Size LevelLoader2::computeActiveSize() const {
     float ratio2 = ((float)SCENE_WIDTH) / ((float)SCENE_HEIGHT);
     if (ratio1 < ratio2) {
         dimen *= SCENE_WIDTH / dimen.width;
-    }
-    else {
+    } else {
         dimen *= SCENE_HEIGHT / dimen.height;
     }
     return dimen;
 }
 
-Vec2 LevelLoader2::getObjectPos(const std::shared_ptr<JsonValue>& json) {
+Vec2 LevelLoader2::getObjectPos(const std::shared_ptr<JsonValue> &json) {
     Vec2 pos = Vec2(json->getFloat("x") / _scale.x, ((_bounds.getMaxY() * _scale.y) - json->getFloat("y") + _scale.y) / _scale.y);
     return pos;
 }
