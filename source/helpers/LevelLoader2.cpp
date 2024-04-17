@@ -30,7 +30,7 @@ bool LevelLoader2::preload(const std::shared_ptr<cugl::JsonValue> &json) {
             if (objects->get(j)->getString("name") == "METADATA") {
                 auto props = objects->get(j)->get("properties");
                 for (auto prop : props->children()) {
-                    if (prop->getString("propertytype") == "METADATA") {
+                    if (prop->getString("name") == "METADATA") {
                         goodBg = prop->get("value")->getString("Good_bg");
                         badBg = prop->get("value")->getString("Bad_bg");
                         defaultBg = prop->get("value")->getString("Default_bg");
