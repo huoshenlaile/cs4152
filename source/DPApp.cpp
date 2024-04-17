@@ -109,8 +109,8 @@ void DPApp::onShutdown() {
  * the background.
  */
 void DPApp::onSuspend() {
-  // TODO: Restoration Scene may come in here
-  AudioEngine::get()->pause();
+    // TODO: Restoration Scene may come in here
+    AudioEngine::get()->pause();
 }
 
 /**
@@ -146,19 +146,10 @@ void DPApp::preUpdate(float timestep) {
       
     if (_gameScene.isComplete()) {
         if (_gameScene.state == GameScene::QUIT) {
-            // TODO: Implement QUIT MENU
-    //            _gameScene.dispose();
-    //            _gameScene.setActive(false);
-    //            _menuScene.setActive(true);
-    //            _status = MENU;
             _gameScene.reset();
             _status = LEVELSELECT;
             _levelSelectScene.setActive(true);
         } else if (_gameScene.state == GameScene::RESET) {
-    //            _gameScene.setActive(false);
-    //            _gameScene.reset();
-    //            _gameScene.setActive(true);
-    //            _status = GAME;
             _gameScene.reset();
             _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
             _status = LEVELLOAD;
