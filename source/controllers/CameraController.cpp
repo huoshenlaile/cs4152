@@ -203,7 +203,7 @@ void CameraController::setCamera(std::string selectedLevelKey) {
         _levelCompleteZoom = 0.15;
     } else if (selectedLevelKey == "falldown") {
         setMode(false);
-        setDefaultZoom(DEFAULT_ZOOM);
+        setDefaultZoom(0.2);
         _levelCompleteZoom = 0.15;
     }
 }

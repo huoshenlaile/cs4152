@@ -49,7 +49,7 @@ PublishedMessage Exit::onBeginContact(std::shared_ptr<cugl::physics2::Obstacle> 
             if (other->getName() == "body192"){
                 
                 CULog("on_contact [%s]", message_head_gameend.c_str());
-                if (this->_colorsCollected.count(character->getColor()) == 0){
+                if ((character->getColor() != "black" && this->_colorsCollected.count(character->getColor()) == 0) || (character->getColor() == "black" && _colorReqs.size() == 0)){
                     this->is_contacting=true;
                     _character = character;
                     auto a = PublishedMessage();

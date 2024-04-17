@@ -76,6 +76,7 @@ void GameScene::dispose() {
     _worldnode->removeAllChildren();
     _worldnode = nullptr;
     _levelComplete = nullptr;
+    _paintMeter = nullptr;
     _level = nullptr;
     this->removeAllChildren();
 }
@@ -112,6 +113,9 @@ void GameScene::preUpdate(float dt) {
         i->worldPos = (Vec2)Scene2::screenToWorldCoords(i->position);
     }
     _inputController->process();
+    Size dimen = computeActiveSize();
+    float screen_height_multiplier = SCENE_WIDTH / dimen.height;
+    //std::cout << "screen_height_multiplier: " << screen_height_multiplier << "\n";
     _character->moveLeftHand(INPUT_SCALER * _inputController->getLeftHandMovement(), _interactionController->leftHandReverse);
     _character->moveRightHand(INPUT_SCALER * _inputController->getrightHandMovement(), _interactionController->rightHandReverse);
     _inputController->fillHand(_character->getLeftHandPosition(), _character->getRightHandPosition(), _character->getLHPos(), _character->getRHPos());
@@ -238,6 +242,7 @@ Size GameScene::computeActiveSize() const {
     Size dimen = Application::get()->getDisplaySize();
     float ratio1 = dimen.width / dimen.height;
     float ratio2 = ((float)SCENE_WIDTH) / ((float)SCENE_HEIGHT);
+
     if (ratio1 < ratio2) {
         dimen *= SCENE_WIDTH / dimen.width;
     } else {
