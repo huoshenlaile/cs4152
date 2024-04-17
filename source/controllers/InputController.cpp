@@ -68,17 +68,17 @@ void InputController::update(float dt) {
             return;
         }
         if (touch->touchCount() == 0) {
-            CULog("Press to continue!");
+           // CULog("Press to continue!");
         }
 
         else {
-            CULog("Now is active");
+          //  CULog("Now is active");
             _started = true;
         }
         return;
     }
     for (auto touchID : touch->touchSet()) {
-        CULog("Press");
+       // CULog("Press");
         bool exist = false;
         for (auto info : _character._touchInfo) {
             if (info.id == touchID)

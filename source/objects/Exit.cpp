@@ -2,7 +2,7 @@
 bool Exit::init(const std::shared_ptr<cugl::JsonValue>& json, Vec2 scale, Rect bounds){
     // call super.init
     Interactable::init(json, scale, bounds);
-    _selfTexture->setColor(Color4(0,0,0,0));
+    //_selfTexture->setColor(Color4(255,0,0,125));
     std::shared_ptr<JsonValue> properties = json -> get("properties");
     // find the Publication property
     for (int i = 0; i < properties->size(); i++){
@@ -47,7 +47,6 @@ PublishedMessage Exit::onBeginContact(std::shared_ptr<cugl::physics2::Obstacle> 
         // if the sensor is activated
         if (activated){
             if (other->getName() == "body192"){
-                
                 CULog("on_contact [%s]", message_head_gameend.c_str());
                 if ((character->getColor() != "black" && this->_colorsCollected.count(character->getColor()) == 0) || (character->getColor() == "black" && _colorReqs.size() == 0)){
                     this->is_contacting=true;
