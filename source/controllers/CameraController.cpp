@@ -12,13 +12,13 @@ bool CameraController::init(const std::shared_ptr<cugl::scene2::SceneNode> targe
     _ui = ui;
     _initialStay = 0;
     _finalStay = 0;
-    ;
     _horizontal = horizontal;
     _levelComplete = false;
     _counter = 0;
     _completed = false;
     _initialUpdate = false;
     _displayed = false;
+    _state = 0;
     return true;
 }
 
