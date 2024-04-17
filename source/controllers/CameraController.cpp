@@ -24,7 +24,7 @@ bool CameraController::init(const std::shared_ptr<cugl::scene2::SceneNode> targe
 
 /* Now it is a finite state machine */
 void CameraController::update(float dt) {
-    CULog("%d", _state);
+    CULog("in CamController Update, camera state: %d", _state);
     switch (_state) {
     // Initial stay
     case 0: {

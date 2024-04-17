@@ -98,20 +98,7 @@ public:
         return (result->init(file) ? result : nullptr);
     }
     
-    void changeBackground(int defaultGoodorBad) {
-        if (defaultGoodorBad == -1) {
-            _defaultBgNode -> setTexture(defaultBgTexture);
-        } else if (defaultGoodorBad == 0) {
-            _defaultBgNode -> setTexture(goodBgTexture);
-        } else if (defaultGoodorBad == 1) {
-            _defaultBgNode -> setTexture(badBgTexture);
-        }
-        _defaultBgNode->setAbsolute(true);
-        _defaultBgNode->setPosition(-10.0f, 0.0f);
-        _defaultBgNode->setContentSize(_defaultBgNode->getContentSize().width, _defaultBgNode->getContentSize().height);
-        
-        return;
-    }
+    void changeBackground(int defaultGoodorBad);
     
     std::shared_ptr<scene2::SceneNode> getCharNode() {
         return _charNode;
