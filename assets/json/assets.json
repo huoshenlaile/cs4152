@@ -300,7 +300,8 @@
         }
     },
     "jsons": {
-        "server": "json/server.json"
+        "server": "json/server.json",
+        "progress": "json/GameProgress.json"
     },
     "sounds": {
         "bump": {
@@ -321,11 +322,6 @@
         "left-burn": {
             "type": "sample",
             "file": "sounds/sideburner-left.wav",
-            "volume": 0.5
-        },
-        "PhantomLiberty": {
-            "type": "sample",
-            "file": "sounds/PhantomLiberty.mp3",
             "volume": 0.5
         }
     },

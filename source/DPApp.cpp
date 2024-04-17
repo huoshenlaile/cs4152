@@ -11,53 +11,54 @@ using namespace cugl;
 
 #pragma mark STARTUP, SHUTDOWN
 void DPApp::onStartup() {
-  _assets = AssetManager::alloc();
-  _batch = SpriteBatch::alloc();
+    _assets = AssetManager::alloc();
+    _batch = SpriteBatch::alloc();
 
-  // Start-up basic input
-#ifdef CU_TOUCH_SCREEN
-  Input::activate<Touchscreen>();
-#else
-  Input::activate<Mouse>();
-#endif
+    // Start-up basic input
+    #ifdef CU_TOUCH_SCREEN
+    Input::activate<Touchscreen>();
+    #else
+    Input::activate<Mouse>();
+    #endif
 
-  Input::activate<Keyboard>();
-  Input::activate<TextInput>();
+    Input::activate<Keyboard>();
+    Input::activate<TextInput>();
 
-  _assets->attach<Font>(FontLoader::alloc()->getHook());
-  _assets->attach<Texture>(TextureLoader::alloc()->getHook());
-  _assets->attach<Sound>(SoundLoader::alloc()->getHook());
-  _assets->attach<scene2::SceneNode>(Scene2Loader::alloc()->getHook());
-  _assets->attach<JsonValue>(JsonLoader::alloc()->getHook());
-  _assets->attach<WidgetValue>(WidgetLoader::alloc()->getHook());
-  _assets->attach<LevelLoader2>(GenericLoader<LevelLoader2>::alloc()->getHook());
+    _assets->attach<Font>(FontLoader::alloc()->getHook());
+    _assets->attach<Texture>(TextureLoader::alloc()->getHook());
+    _assets->attach<Sound>(SoundLoader::alloc()->getHook());
+    _assets->attach<scene2::SceneNode>(Scene2Loader::alloc()->getHook());
+    _assets->attach<JsonValue>(JsonLoader::alloc()->getHook());
+    _assets->attach<WidgetValue>(WidgetLoader::alloc()->getHook());
+    _assets->attach<LevelLoader2>(GenericLoader<LevelLoader2>::alloc()->getHook());
 
-  _loadScene.init(_assets);
-  _status = LOAD;
+    _loadScene.init(_assets);
+    _status = LOAD;
 
-  _loaded = false;
-  // Que up the other assets
-  AudioEngine::start(24);
-  _assets->loadDirectoryAsync("json/assets.json", nullptr);
+    _loaded = false;
+    // Que up the other assets
+    AudioEngine::start(24);
+    _assets->loadDirectoryAsync("json/assets.json", nullptr);
 
-  _assets2 = _assets; // the assets dedicated for game scene, currently is still the global asset manager
+    _assets2 = _assets; // the assets dedicated for game scene, currently is still the global asset manager
 
 
-  _levelLoadScene.init(_assets2);
-  // _assets->loadAsync<LevelLoader>(ALPHA_RELEASE_KEY, ALPHA_RELEASE_FILE,
-  //                                 [](const std::string key, bool success) {
-  //                                     if (success) {
-  //                                         // Handle successful loading
-  //                                         std::cout << "Successfully loaded resource with key: " << key << std::endl;
-  //                                     } else {
-  //                                         // Handle failure
-  //                                         std::cout << "Failed to load resource with key: " << key << std::endl;
-  //                                     }
-  //                                 });
-
-  cugl::net::NetworkLayer::start(net::NetworkLayer::Log::INFO);
-  setDeterministic(true);
-  Application::onStartup(); // YOU MUST END with call to parent
+    _levelLoadScene.init(_assets2);
+    // _assets->loadAsync<LevelLoader>(ALPHA_RELEASE_KEY, ALPHA_RELEASE_FILE,
+    //                                 [](const std::string key, bool success) {
+    //                                     if (success) {
+    //                                         // Handle successful loading
+    //                                         std::cout << "Successfully loaded resource with key: " << key << std::endl;
+    //                                     } else {
+    //                                         // Handle failure
+    //                                         std::cout << "Failed to load resource with key: " << key << std::endl;
+    //                                     }
+    //                                 });
+    
+    
+    cugl::net::NetworkLayer::start(net::NetworkLayer::Log::INFO);
+    setDeterministic(true);
+    Application::onStartup(); // YOU MUST END with call to parent
 }
 
 /**
@@ -211,15 +212,14 @@ void DPApp::postUpdate(float timestep) {
 }
 
 void DPApp::fixedUpdate() {
-  if (_status == GAME) {
-      if (!_gameScene.isComplete()){
-          float time = getFixedStep() / 1000000.0f;
-          _gameScene.fixedUpdate(time);
+      if (_status == GAME) {
+          if (!_gameScene.isComplete()){
+              float time = getFixedStep() / 1000000.0f;
+              _gameScene.fixedUpdate(time);
+          }
+      } else if (_status == PAUSE) {
+          _pauseScene.fixedUpdate();
       }
-  } else if (_status == PAUSE) {
-    _pauseScene.fixedUpdate();
-  }
-
 }
 
 #pragma mark SCENE-SPECIFIC UPDATES
@@ -236,29 +236,29 @@ void DPApp::fixedUpdate() {
  * @param timestep  The amount of time (in seconds) since the last frame
  */
 void DPApp::update(float timestep) {
-  // deprecated
+    // deprecated
 }
 
 void DPApp::updateMenu(float timestep) {
-  _menuScene.update(timestep);
-  switch (_menuScene.status) {
-  case MenuScene::START:
-    _menuScene.setActive(false);
-    _levelSelectScene.setActive(true);
-    _status = LEVELSELECT;
-    break;
-  case MenuScene::NONE:
-    // DO NOTHING
-    break;
-  case MenuScene::SETTING:
-    _menuScene.setActive(false);
-    _settingScene.setActive(true);
-    _status = SETTING;
-    break;
-  case MenuScene::QUIT:
-    onShutdown();
-    break;
-  }
+    _menuScene.update(timestep);
+    switch (_menuScene.status) {
+        case MenuScene::START:
+            _menuScene.setActive(false);
+            _levelSelectScene.setActive(true);
+            _status = LEVELSELECT;
+        break;
+        case MenuScene::NONE:
+            // DO NOTHING
+        break;
+        case MenuScene::SETTING:
+            _menuScene.setActive(false);
+            _settingScene.setActive(true);
+            _status = SETTING;
+        break;
+        case MenuScene::QUIT:
+            onShutdown();
+        break;
+    }
 }
 
 void DPApp::updatePause(float timestep) {
@@ -286,24 +286,26 @@ void DPApp::updatePause(float timestep) {
 }
 
 void DPApp::updateLoad(float timestep) {
-  switch (_loadScene.state) {
-  case LoadScene::LOADING:
-    _loadScene.update(0.01f);
-    break;
-  case LoadScene::LOADED:
-    _network = NetEventController::alloc(_assets);
-    _loadScene.dispose(); // Disables the input listeners in this mode
-    _menuScene.init(_assets);
-    _menuScene.setActive(true);
-    _pauseScene.init(_assets, _network);
-    _settingScene.init(_assets);
-    _levelSelectScene.init(_assets);
-    _status = MENU;
-//    _hostScene.init(_assets, _network);
-//    _clientScene.init(_assets, _network);
-//    _gameScene.init(_assets);
-    break;
-  }
+    switch (_loadScene.state) {
+        case LoadScene::LOADING:
+            _loadScene.update(0.01f);
+        break;
+        case LoadScene::LOADED:
+            _network = NetEventController::alloc(_assets);
+            _loadScene.dispose(); // Disables the input listeners in this mode
+            _menuScene.init(_assets);
+            _menuScene.setActive(true);
+            _pauseScene.init(_assets, _network);
+            _settingScene.init(_assets);
+            _levelSelectScene.init(_assets);
+            _gameProgress = _assets2 -> get<JsonValue>("progress");
+            std::cout << _gameProgress -> getString("name") << " from DpApp::updateLoad() - game progress json is loaded!" << std::endl;
+            _status = MENU;
+            //    _hostScene.init(_assets, _network);
+            //    _clientScene.init(_assets, _network);
+            //    _gameScene.init(_assets);
+        break;
+    }
 }
 
 void DPApp::updateSetting(float timestep) {

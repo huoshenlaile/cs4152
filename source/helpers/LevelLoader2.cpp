@@ -34,6 +34,9 @@ bool LevelLoader2::preload(const std::shared_ptr<cugl::JsonValue> &json) {
                         goodBg = prop->get("value")->getString("Good_bg");
                         badBg = prop->get("value")->getString("Bad_bg");
                         defaultBg = prop->get("value")->getString("Default_bg");
+                        if (defaultBg == "") {
+                            CULog("ERROR: Background not loaded! Look at your METADATA!");
+                        }
                     }
                 }
             }

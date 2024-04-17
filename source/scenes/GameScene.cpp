@@ -73,7 +73,6 @@ void GameScene::dispose() {
     _pauseButton = nullptr;
     _worldnode->removeAllChildren();
     _worldnode = nullptr;
-    //    _levelComplete->removeAllChildren();
     _levelComplete = nullptr;
     _level = nullptr;
     this->removeAllChildren();
@@ -149,6 +148,7 @@ void GameScene::postUpdate(float dt) {
 
     if (_interactionController->isLevelComplete()) {
         finishLevel();
+        
     }
     if (_interactionController->paintPercent() > 0.01f && _interactionController->paintPercent() < 1.0f) {
         _paintMeter->setVisible(true);
@@ -173,6 +173,7 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     // pause button
     _pauseButton = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("pausebutton"));
     _pauseButton->removeFromParent();
+    _pauseButton -> doLayout();
     _pauseButton->addListener([this](const std::string &name, bool down) {
         if (down) {
             _gamePaused = true;
