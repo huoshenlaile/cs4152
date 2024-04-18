@@ -2,11 +2,10 @@
 #define __CAMERA__CONTROLLER_H
 
 #include <stdio.h>
-
+#include "InputController.h"
+#include <chrono>
 #include <cugl/cugl.h>
 #include <thread>
-#include <chrono>
-#include "InputController.h"
 #include "../helpers/GameSceneConstants.h"
 using namespace cugl;
 
@@ -35,12 +34,13 @@ protected:
     float _maxZoom;
 
     Vec2 _UIPosition;
-
-    bool _move;
     int _initialStay, _finalStay;
-    bool _displayed;
-    float _defaultZoom;
+    bool _levelComplete, _completed, _initialUpdate, _displayed;
+    float _defaultZoom, _levelCompleteZoom;
     bool _horizontal;
+    int _finalPos;
+    int _state;
+    int _counter;
 
 public:
     /**
@@ -114,16 +114,28 @@ public:
 
     void process(int zoomIn, float speed);
 
-    bool getMove() { return _move; }
-    void setMove(bool flag) { _move = flag; }
+
     Vec2 getUIPosition() { return _UIPosition; }
     void setInitialStay(int stay) { _initialStay = stay; }
     void setFinalStay(int stay) { _finalStay = stay; }
     bool getDisplayed() { return _displayed; }
     void setDefaultZoom(float zoom) { _defaultZoom = zoom; }
     float getDefaultZoom() { return _defaultZoom; }
+    void setLevelCompleteZoom(float zoom) { _levelCompleteZoom = zoom; }
+    float getLevelCompleteZoom() { return _levelCompleteZoom; }
     void setMode(bool mode) { _horizontal = mode; }
     bool getMode() { return _horizontal; }
+    bool getInitialUpdate() { return _initialUpdate; }
+    void setInitialUpdate(bool update) { _initialUpdate = update; }
+
+    void levelComplete();
+    bool getCameraComplete() { return _completed; }
+
+    void setCamera(std::string selectedLevelKey);
+
+    bool cameraStay(int time);
+
+    void setCameraState(int state) { _state = state; }
 };
 
 #endif

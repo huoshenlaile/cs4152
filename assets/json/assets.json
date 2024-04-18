@@ -49,6 +49,15 @@
         "lv1_background_3": {
             "file": "textures/lv1_background_3.png"
         },
+        "lv2_background_1": {
+            "file": "textures/lv2_background_1.png"
+        },
+        "lv2_background_2": {
+            "file": "textures/lv2_background_1.png"
+        },
+        "lv3_background_3": {
+            "file": "textures/lv2_background_1.png"
+        },
         "lv3_background_1": {
             "file": "textures/lv3_background_1.png"
         },
@@ -293,7 +302,8 @@
         }
     },
     "jsons": {
-        "server": "json/server.json"
+        "server": "json/server.json",
+        "progress": "json/GameProgress.json"
     },
     "sounds": {
         "bump": {
@@ -314,11 +324,6 @@
         "left-burn": {
             "type": "sample",
             "file": "sounds/sideburner-left.wav",
-            "volume": 0.5
-        },
-        "PhantomLiberty": {
-            "type": "sample",
-            "file": "sounds/PhantomLiberty.mp3",
             "volume": 0.5
         }
     },

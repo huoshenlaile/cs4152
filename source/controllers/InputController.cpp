@@ -32,6 +32,8 @@ bool InputController::init(const Rect bounds) {
     _character.rightHand.HandPos = cugl::Vec2(0, 0);
     _currDown = false;
     _prevDown = false;
+    _started = false;
+    _initialCd = 0;
 
 #ifndef CU_TOUCH_SCREEN
     success = Input::activate<Keyboard>();
@@ -58,10 +60,25 @@ void InputController::update(float dt) {
     _currDown = _touchDown;
 
 #ifdef CU_TOUCH_SCREEN
-
     Touchscreen *touch = Input::get<Touchscreen>();
+    // Press to continue
+    if (!_started) {
+        if (_initialCd <= 10) {
+            _initialCd++;
+            return;
+        }
+        if (touch->touchCount() == 0) {
+           // CULog("Press to continue!");
+        }
+
+        else {
+          //  CULog("Now is active");
+            _started = true;
+        }
+        return;
+    }
     for (auto touchID : touch->touchSet()) {
-        // CULog("Press");
+       // CULog("Press");
         bool exist = false;
         for (auto info : _character._touchInfo) {
             if (info.id == touchID)
@@ -77,7 +94,6 @@ void InputController::update(float dt) {
         }
     }
 
-    int count = 0;
     // CULog("Here!!!");
 
     for (auto i = _character._touchInfo.begin(); i != _character._touchInfo.end();) {
@@ -96,11 +112,9 @@ void InputController::update(float dt) {
         // CULog("Touchid %d", i->id);
         Vec2 position = touch2Screen(touch->touchPosition(i->id));
         i->position = touch->touchPosition(i->id);
-        // CULog("count: %d", count);
         // CULog("size of touchInfo %d", _character._touchInfo.size());
         // CULog("Current Postion %f, %f", position.x, position.y);
         // CULog("Event type %d", i->type);
-        count++;
     }
 #endif
 }

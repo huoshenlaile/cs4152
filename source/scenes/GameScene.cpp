@@ -56,9 +56,11 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, std::str
     _inputController->fillHand(_character->getLeftHandPosition(), _character->getRightHandPosition(), _character->getLHPos(), _character->getRHPos());
 
 #pragma mark Construct Camera Controller
-    setCamera(levelName);
+    _camera.setCamera(levelName);
     _camera.init(_character->getTrackSceneNode(), _worldnode, 10.0f, std::dynamic_pointer_cast<OrthographicCamera>(getCamera()), _uinode, 5.0f, _camera.getMode());
     _camera.setZoom(_camera.getDefaultZoom());
+    
+//    _level -> changeBackground(-1);
 
     return true;
 }
@@ -73,8 +75,8 @@ void GameScene::dispose() {
     _pauseButton = nullptr;
     _worldnode->removeAllChildren();
     _worldnode = nullptr;
-    //    _levelComplete->removeAllChildren();
     _levelComplete = nullptr;
+    _paintMeter = nullptr;
     _level = nullptr;
     this->removeAllChildren();
 }
@@ -104,20 +106,25 @@ void GameScene::preUpdate(float dt) {
     if (_level == nullptr)
         return;
     // process input
-    _inputController->update(dt);
+    if (_camera.getDisplayed() || !_inputController->getStarted())
+        _inputController->update(dt);
     auto character = _inputController->getCharacter();
     for (auto i = character->_touchInfo.begin(); i != character->_touchInfo.end(); i++) {
         i->worldPos = (Vec2)Scene2::screenToWorldCoords(i->position);
     }
-    if (_camera.getDisplayed()) {
-        _inputController->process();
-        _character->moveLeftHand(INPUT_SCALER * _inputController->getLeftHandMovement(), _interactionController->leftHandReverse);
-        _character->moveRightHand(INPUT_SCALER * _inputController->getrightHandMovement(), _interactionController->rightHandReverse);
-        _inputController->fillHand(_character->getLeftHandPosition(), _character->getRightHandPosition(), _character->getLHPos(), _character->getRHPos());
-    }
+    _inputController->process();
+    Size dimen = computeActiveSize();
+    float screen_height_multiplier = SCENE_WIDTH / dimen.height;
+    //std::cout << "screen_height_multiplier: " << screen_height_multiplier << "\n";
+    _character->moveLeftHand(INPUT_SCALER * _inputController->getLeftHandMovement(), _interactionController->leftHandReverse);
+    _character->moveRightHand(INPUT_SCALER * _inputController->getrightHandMovement(), _interactionController->rightHandReverse);
+    _inputController->fillHand(_character->getLeftHandPosition(), _character->getRightHandPosition(), _character->getLHPos(), _character->getRHPos());
 
     // update camera
-    _camera.update(dt);
+    if (_inputController->getStarted() || !_camera.getInitialUpdate()) {
+        _camera.update(dt);
+        _camera.setInitialUpdate(true);
+    }
 
     // update interaction controller
     _interactionController->updateHandsHeldInfo(_inputController->isLHAssigned(), _inputController->isRHAssigned());
@@ -126,6 +133,7 @@ void GameScene::preUpdate(float dt) {
     if (!isCharacterInMap()) {
         // CULog("Character out!");
         state = RESET;
+        _camera.setCameraState(0);
     }
     _interactionController->connectGrabJoint();
     _interactionController->ungrabIfNecessary();
@@ -146,13 +154,13 @@ void GameScene::postUpdate(float dt) {
 
     if (_interactionController->isLevelComplete()) {
         finishLevel();
+        
     }
     if (_interactionController->paintPercent() > 0.01f && _interactionController->paintPercent() < 1.0f) {
         _paintMeter->setVisible(true);
-        _paintMeter->setFrame((int)(_interactionController->paintPercent()*8));
-        _paintMeter->setPosition(_uinode->worldToNodeCoords(_character->getBodyPos())+Vec2(0,50));
-    }
-    else{
+        _paintMeter->setFrame((int)(_interactionController->paintPercent() * 8));
+        _paintMeter->setPosition(_uinode->worldToNodeCoords(_character->getBodyPos())+Vec2(0, 50));
+    } else {
         _paintMeter->setVisible(false);
     }
 }
@@ -171,13 +179,14 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     // pause button
     _pauseButton = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("pausebutton"));
     _pauseButton->removeFromParent();
+    _pauseButton -> doLayout();
     _pauseButton->addListener([this](const std::string &name, bool down) {
         if (down) {
             _gamePaused = true;
         }
     });
     _uinode->addChild(_pauseButton);
-    
+
     // paint meter
     _paintMeter = scene2::SpriteNode::allocWithSheet(_assets->get<Texture>("paintmeter"), 3, 3);
     _paintMeter->removeFromParent();
@@ -187,10 +196,10 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     _paintMeter->setFrame(0);
     std::cout << _paintMeter->getWidth() << ", " << _paintMeter->getHeight() << "\n";
 
-    _paintMeter->setScissor(Scissor::alloc(_paintMeter->getSize()*2));
+    _paintMeter->setScissor(Scissor::alloc(_paintMeter->getSize() * 2));
 
     // level complete scene
-    
+
     _levelComplete = _assets->get<scene2::SceneNode>("levelcomplete");
     _levelComplete->removeFromParent();
     _levelComplete->doLayout();
@@ -209,6 +218,7 @@ void GameScene::constructSceneNodes(const Size &dimen) {
         if (down) {
             std::cout << "level complete reset!" << std::endl;
             this->state = RESET;
+            _camera.setCameraState(0);
         }
     });
 
@@ -232,6 +242,7 @@ Size GameScene::computeActiveSize() const {
     Size dimen = Application::get()->getDisplaySize();
     float ratio1 = dimen.width / dimen.height;
     float ratio2 = ((float)SCENE_WIDTH) / ((float)SCENE_HEIGHT);
+
     if (ratio1 < ratio2) {
         dimen *= SCENE_WIDTH / dimen.width;
     } else {
@@ -246,23 +257,6 @@ bool GameScene::isCharacterInMap() {
     return pos.x >= 0 && pos.x <= _worldnode->getSize().width && pos.y >= 0 && pos.y <= _worldnode->getSize().height;
 }
 
-void GameScene::setCamera(std::string selectedLevelKey) {
-    if (selectedLevelKey == "alpharelease") {
-        _camera.setMode(true);
-        _camera.setDefaultZoom(DEFAULT_ZOOM);
-    } else if (selectedLevelKey == "tube") {
-        _camera.setMode(false);
-        _camera.setDefaultZoom(0.19);
-    } else if (selectedLevelKey == "doodlejump") {
-        _camera.setMode(false);
-        _camera.setDefaultZoom(0.2);
-    }
-    else if (selectedLevelKey == "falldown") {
-        _camera.setMode(false);
-        _camera.setDefaultZoom(DEFAULT_ZOOM);
-    }
-}
-
 #pragma mark Level Complete
 /**
  * Steps to complete a level:
@@ -273,8 +267,11 @@ void GameScene::setCamera(std::string selectedLevelKey) {
  * 5. display complete scene (done)
  */
 void GameScene::finishLevel() {
-    _complete = true;
-    _levelComplete->setVisible(true);
-    _levelCompleteReset->activate();
-    _levelCompleteMenuButton->activate();
+    _camera.levelComplete();
+    if (_camera.getCameraComplete()) {
+        _levelComplete->setVisible(true);
+        _levelCompleteReset->activate();
+        _levelCompleteMenuButton->activate();
+        _complete = true;
+    }
 }
