@@ -83,7 +83,7 @@ void CameraController::update(float dt) {
     // Move to the first ending frame and stay
     case 4: {
         if (_horizontal) {
-            if (_camera->getPosition().x <= _root->getSize().width - 1280 - _camera->getViewport().getMaxX() / (2 * _camera->getZoom())) {
+            if (_camera->getPosition().x <= _root->getSize().width - 4000 - _camera->getViewport().getMaxX() / (2 * _camera->getZoom())) {
                 _camera->translate(30, 0);
                 _camera->update();
             } else {
