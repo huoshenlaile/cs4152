@@ -254,7 +254,7 @@ void GameScene::setCamera(std::string selectedLevelKey) {
         _camera.setMode(false);
         _camera.setDefaultZoom(0.19);
     } else if (selectedLevelKey == "doodlejump") {
-        _camera.setMode(true);
+        _camera.setMode(false);
         _camera.setDefaultZoom(0.2);
     }
     else if (selectedLevelKey == "falldown") {
