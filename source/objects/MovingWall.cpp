@@ -34,8 +34,6 @@ bool MovingWall::init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect b
 void MovingWall::update(float dt) {
     if (!_isMoving || _path.empty()) return;
     
-    CULog("EEEEEEEEEEEEEEYOU UPDATE: %f", 0.1f);
-
     // Calculate the next position along the path
     Vec2 currentTarget = _path[_currentPathIndex];
     Vec2 currentPosition = _selfObstacle->getPosition();
