@@ -48,6 +48,16 @@ void DPApp::onStartup() {
     }
 
     _assets2 = _assets; // the assets dedicated for game scene, currently is still the global asset manager
+    
+//    std::cout << "The Application's Save Directory is: " << Application::getSaveDirectory() << std::endl;
+//    std::string root = cugl::Application::get()->getSaveDirectory();
+//    std::string path = cugl::filetool::join_path({root,"GameProgress.json"});
+//    _gameProgress = JsonReader::alloc(path);
+//    if (_gameProgress != nullptr) {
+//        std::cout << "game progress: " << _gameProgress -> readJsonString() << std::endl;
+//        std::cout << "From DpApp::updateLoad() - game progress json is loaded!" << std::endl;
+//    }
+    
 
 
     _levelLoadScene.init(_assets2);
@@ -160,18 +170,12 @@ void DPApp::preUpdate(float timestep) {
     } else if (_status == GAME) {
     if (_gameScene.isComplete()) {
         // update json file
-//        if (!_gameProgress -> read) {
-        std::string root = cugl::Application::get()->getSaveDirectory();
+
+//        std::string root = cugl::Application::get()->getSaveDirectory();
 //        std::string path = cugl::filetool::join_path({root,"GameProgress.json"});
-//        _progressWriter = JsonWriter::alloc(path);
 //        std::shared_ptr<JsonValue> jv = JsonValue::allocObject();
 //        jv -> appendValue(this -> _currentLevelKey, _gameScene.defaultGoodOrBad == 0? "good" : _gameScene.defaultGoodOrBad == 1? "bad" : "default");
-//        _progressWriter -> writeJson(jv);
-//        _progressWriter -> close();
-//        _gameProgress = JsonReader::alloc(path);
-//        std::cout << "game progress: " << _gameProgress -> readJsonString() << std::endl;
 //        _progressWriter = JsonWriter::alloc(path);
-//        }
         if (_gameScene.state == GameScene::QUIT) {
             _gameScene.reset();
             _status = LEVELSELECT;
@@ -319,7 +323,6 @@ void DPApp::updateLoad(float timestep) {
             _status = MENU;
             //    _hostScene.init(_assets, _network);
             //    _clientScene.init(_assets, _network);
-            //    _gameScene.init(_assets);
         break;
     }
 }
