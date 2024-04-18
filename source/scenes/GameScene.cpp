@@ -59,6 +59,8 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, std::str
     _camera.setCamera(levelName);
     _camera.init(_character->getTrackSceneNode(), _worldnode, 10.0f, std::dynamic_pointer_cast<OrthographicCamera>(getCamera()), _uinode, 5.0f, _camera.getMode());
     _camera.setZoom(_camera.getDefaultZoom());
+    
+//    _level -> changeBackground(-1);
 
     return true;
 }
@@ -73,8 +75,8 @@ void GameScene::dispose() {
     _pauseButton = nullptr;
     _worldnode->removeAllChildren();
     _worldnode = nullptr;
-    //    _levelComplete->removeAllChildren();
     _levelComplete = nullptr;
+    _paintMeter = nullptr;
     _level = nullptr;
     this->removeAllChildren();
 }
@@ -111,6 +113,9 @@ void GameScene::preUpdate(float dt) {
         i->worldPos = (Vec2)Scene2::screenToWorldCoords(i->position);
     }
     _inputController->process();
+    Size dimen = computeActiveSize();
+    float screen_height_multiplier = SCENE_WIDTH / dimen.height;
+    //std::cout << "screen_height_multiplier: " << screen_height_multiplier << "\n";
     _character->moveLeftHand(INPUT_SCALER * _inputController->getLeftHandMovement(), _interactionController->leftHandReverse);
     _character->moveRightHand(INPUT_SCALER * _inputController->getrightHandMovement(), _interactionController->rightHandReverse);
     _inputController->fillHand(_character->getLeftHandPosition(), _character->getRightHandPosition(), _character->getLHPos(), _character->getRHPos());
@@ -149,11 +154,12 @@ void GameScene::postUpdate(float dt) {
 
     if (_interactionController->isLevelComplete()) {
         finishLevel();
+        
     }
     if (_interactionController->paintPercent() > 0.01f && _interactionController->paintPercent() < 1.0f) {
         _paintMeter->setVisible(true);
         _paintMeter->setFrame((int)(_interactionController->paintPercent() * 8));
-        _paintMeter->setPosition(_uinode->worldToNodeCoords(_character->getBodyPos()) + Vec2(0, 50));
+        _paintMeter->setPosition(_uinode->worldToNodeCoords(_character->getBodyPos())+Vec2(0, 50));
     } else {
         _paintMeter->setVisible(false);
     }
@@ -173,6 +179,7 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     // pause button
     _pauseButton = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("pausebutton"));
     _pauseButton->removeFromParent();
+    _pauseButton -> doLayout();
     _pauseButton->addListener([this](const std::string &name, bool down) {
         if (down) {
             _gamePaused = true;
@@ -235,6 +242,7 @@ Size GameScene::computeActiveSize() const {
     Size dimen = Application::get()->getDisplaySize();
     float ratio1 = dimen.width / dimen.height;
     float ratio2 = ((float)SCENE_WIDTH) / ((float)SCENE_HEIGHT);
+
     if (ratio1 < ratio2) {
         dimen *= SCENE_WIDTH / dimen.width;
     } else {

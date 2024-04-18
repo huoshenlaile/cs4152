@@ -1,0 +1,8 @@
+{
+    "name" : "hello",
+    "current_progress" : 0,
+    "lv1" : "good",
+    "lv2" : "bad",
+    "lv3" : "default",
+    "lv4" : "locked"
+}

@@ -12,19 +12,19 @@ bool CameraController::init(const std::shared_ptr<cugl::scene2::SceneNode> targe
     _ui = ui;
     _initialStay = 0;
     _finalStay = 0;
-    ;
     _horizontal = horizontal;
     _levelComplete = false;
     _counter = 0;
     _completed = false;
     _initialUpdate = false;
     _displayed = false;
+    _state = 0;
     return true;
 }
 
 /* Now it is a finite state machine */
 void CameraController::update(float dt) {
-    CULog("%d", _state);
+    //CULog("in CamController Update, camera state: %d", _state);
     switch (_state) {
     // Initial stay
     case 0: {
@@ -203,7 +203,7 @@ void CameraController::setCamera(std::string selectedLevelKey) {
         _levelCompleteZoom = 0.15;
     } else if (selectedLevelKey == "falldown") {
         setMode(false);
-        setDefaultZoom(DEFAULT_ZOOM);
+        setDefaultZoom(0.2);
         _levelCompleteZoom = 0.15;
     }
 }

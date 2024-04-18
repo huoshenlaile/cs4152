@@ -74,6 +74,7 @@ protected:
 	RestorationScene _restorationScene;
 	LevelLoadScene _levelLoadScene;
 	GameStatus _status;
+    std::shared_ptr<JsonValue> _gameProgress;
 	bool loaded = false;
 
 public:

@@ -34,6 +34,9 @@ bool LevelLoader2::preload(const std::shared_ptr<cugl::JsonValue> &json) {
                         goodBg = prop->get("value")->getString("Good_bg");
                         badBg = prop->get("value")->getString("Bad_bg");
                         defaultBg = prop->get("value")->getString("Default_bg");
+                        if (defaultBg == "") {
+                            CULog("ERROR: Background not loaded! Look at your METADATA!");
+                        }
                     }
                 }
             }
@@ -108,7 +111,7 @@ bool LevelLoader2::construct(std::shared_ptr<cugl::AssetManager> &_assets) {
     defaultBgTexture = _assets->get<Texture>(defaultBg);
     goodBgTexture = _assets->get<Texture>(goodBg);
     badBgTexture = _assets->get<Texture>(badBg);
-    std::cout << "HEL11!" << defaultBg << std::endl;
+    std::cout << "Default Background in LevelLoader2::Construct: " << defaultBg << std::endl;
     _defaultBgNode = scene2::PolygonNode::allocWithTexture(defaultBgTexture);
     _defaultBgNode->setTexture(defaultBgTexture);
     _defaultBgNode->setAbsolute(true);
@@ -165,4 +168,19 @@ Size LevelLoader2::computeActiveSize() const {
 Vec2 LevelLoader2::getObjectPos(const std::shared_ptr<JsonValue> &json) {
     Vec2 pos = Vec2(json->getFloat("x") / _scale.x, ((_bounds.getMaxY() * _scale.y) - json->getFloat("y") + _scale.y) / _scale.y);
     return pos;
+}
+
+void LevelLoader2::changeBackground(int defaultGoodorBad){
+    if (defaultGoodorBad == -1) {
+        _defaultBgNode -> setTexture(defaultBgTexture);
+    } else if (defaultGoodorBad == 0) {
+        _defaultBgNode -> setTexture(goodBgTexture);
+    } else if (defaultGoodorBad == 1) {
+        _defaultBgNode -> setTexture(badBgTexture);
+    }
+    _defaultBgNode->setAbsolute(true);
+    _defaultBgNode->setPosition(-10.0f, 0.0f);
+    _defaultBgNode->setContentSize(_defaultBgNode->getContentSize().width, _defaultBgNode->getContentSize().height);
+    
+    return;
 }

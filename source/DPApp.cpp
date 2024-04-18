@@ -11,53 +11,54 @@ using namespace cugl;
 
 #pragma mark STARTUP, SHUTDOWN
 void DPApp::onStartup() {
-  _assets = AssetManager::alloc();
-  _batch = SpriteBatch::alloc();
+    _assets = AssetManager::alloc();
+    _batch = SpriteBatch::alloc();
 
-  // Start-up basic input
-#ifdef CU_TOUCH_SCREEN
-  Input::activate<Touchscreen>();
-#else
-  Input::activate<Mouse>();
-#endif
+    // Start-up basic input
+    #ifdef CU_TOUCH_SCREEN
+    Input::activate<Touchscreen>();
+    #else
+    Input::activate<Mouse>();
+    #endif
 
-  Input::activate<Keyboard>();
-  Input::activate<TextInput>();
+    Input::activate<Keyboard>();
+    Input::activate<TextInput>();
 
-  _assets->attach<Font>(FontLoader::alloc()->getHook());
-  _assets->attach<Texture>(TextureLoader::alloc()->getHook());
-  _assets->attach<Sound>(SoundLoader::alloc()->getHook());
-  _assets->attach<scene2::SceneNode>(Scene2Loader::alloc()->getHook());
-  _assets->attach<JsonValue>(JsonLoader::alloc()->getHook());
-  _assets->attach<WidgetValue>(WidgetLoader::alloc()->getHook());
-  _assets->attach<LevelLoader2>(GenericLoader<LevelLoader2>::alloc()->getHook());
+    _assets->attach<Font>(FontLoader::alloc()->getHook());
+    _assets->attach<Texture>(TextureLoader::alloc()->getHook());
+    _assets->attach<Sound>(SoundLoader::alloc()->getHook());
+    _assets->attach<scene2::SceneNode>(Scene2Loader::alloc()->getHook());
+    _assets->attach<JsonValue>(JsonLoader::alloc()->getHook());
+    _assets->attach<WidgetValue>(WidgetLoader::alloc()->getHook());
+    _assets->attach<LevelLoader2>(GenericLoader<LevelLoader2>::alloc()->getHook());
 
-  _loadScene.init(_assets);
-  _status = LOAD;
+    _loadScene.init(_assets);
+    _status = LOAD;
 
-  _loaded = false;
-  // Que up the other assets
-  AudioEngine::start(24);
-  _assets->loadDirectoryAsync("json/assets.json", nullptr);
+    _loaded = false;
+    // Que up the other assets
+    AudioEngine::start(24);
+    _assets->loadDirectoryAsync("json/assets.json", nullptr);
 
-  _assets2 = _assets; // the assets dedicated for game scene, currently is still the global asset manager
+    _assets2 = _assets; // the assets dedicated for game scene, currently is still the global asset manager
 
 
-  _levelLoadScene.init(_assets2);
-  // _assets->loadAsync<LevelLoader>(ALPHA_RELEASE_KEY, ALPHA_RELEASE_FILE,
-  //                                 [](const std::string key, bool success) {
-  //                                     if (success) {
-  //                                         // Handle successful loading
-  //                                         std::cout << "Successfully loaded resource with key: " << key << std::endl;
-  //                                     } else {
-  //                                         // Handle failure
-  //                                         std::cout << "Failed to load resource with key: " << key << std::endl;
-  //                                     }
-  //                                 });
-
-  cugl::net::NetworkLayer::start(net::NetworkLayer::Log::INFO);
-  setDeterministic(true);
-  Application::onStartup(); // YOU MUST END with call to parent
+    _levelLoadScene.init(_assets2);
+    // _assets->loadAsync<LevelLoader>(ALPHA_RELEASE_KEY, ALPHA_RELEASE_FILE,
+    //                                 [](const std::string key, bool success) {
+    //                                     if (success) {
+    //                                         // Handle successful loading
+    //                                         std::cout << "Successfully loaded resource with key: " << key << std::endl;
+    //                                     } else {
+    //                                         // Handle failure
+    //                                         std::cout << "Failed to load resource with key: " << key << std::endl;
+    //                                     }
+    //                                 });
+    
+    
+    cugl::net::NetworkLayer::start(net::NetworkLayer::Log::INFO);
+    setDeterministic(true);
+    Application::onStartup(); // YOU MUST END with call to parent
 }
 
 /**
@@ -72,27 +73,27 @@ void DPApp::onStartup() {
  * causing the application to be deleted.
  */
 void DPApp::onShutdown() {
-  _gameScene.dispose();
-  _menuScene.dispose();
-//  _hostScene.dispose();
-//  _clientScene.dispose();
-  _levelSelectScene.dispose();
-  _settingScene.dispose();
-  _restorationScene.dispose();
-  _loadScene.dispose();
-  _pauseScene.dispose();
-  _assets = nullptr;
-  _batch = nullptr;
+    _gameScene.dispose();
+    _menuScene.dispose();
+    //  _hostScene.dispose();
+    //  _clientScene.dispose();
+    _levelSelectScene.dispose();
+    _settingScene.dispose();
+    _restorationScene.dispose();
+    _loadScene.dispose();
+    _pauseScene.dispose();
+    _assets = nullptr;
+    _batch = nullptr;
 
-  // Shutdown input
-#ifdef CU_TOUCH_SCREEN
-  Input::deactivate<Touchscreen>();
-#else
-  Input::deactivate<Mouse>();
-#endif
+    // Shutdown input
+    #ifdef CU_TOUCH_SCREEN
+    Input::deactivate<Touchscreen>();
+    #else
+    Input::deactivate<Mouse>();
+    #endif
 
-  AudioEngine::stop();
-  Application::onShutdown(); // YOU MUST END with call to parent
+    AudioEngine::stop();
+    Application::onShutdown(); // YOU MUST END with call to parent
 }
 
 /**
@@ -108,8 +109,8 @@ void DPApp::onShutdown() {
  * the background.
  */
 void DPApp::onSuspend() {
-  // TODO: Restoration Scene may come in here
-  AudioEngine::get()->pause();
+    // TODO: Restoration Scene may come in here
+    AudioEngine::get()->pause();
 }
 
 /**
@@ -128,36 +129,27 @@ void DPApp::onResume() { AudioEngine::get()->resume(); }
 #pragma mark GENERAL UPDATES
 
 void DPApp::preUpdate(float timestep) {
-  if (_status == LOAD) {
+    if (_status == LOAD) {
     // TODO: 0.01f? Why? Because Walker used this...
     updateLoad(0.01f);
-  } else if (_status == MENU) {
+    } else if (_status == MENU) {
     updateMenu(timestep);
-  } else if (_status == SETTING) {
+    } else if (_status == SETTING) {
     updateSetting(timestep);
-  } else if (_status == LEVELSELECT) {
+    } else if (_status == LEVELSELECT) {
     updateLevelSelect(timestep);
-  } else if (_status == LEVELLOAD) {
+    } else if (_status == LEVELLOAD) {
     updateLevelLoad(timestep);
-  } else if (_status == RESTORE) {
+    } else if (_status == RESTORE) {
     updateRestoration(timestep);
-  } else if (_status == GAME) {
+    } else if (_status == GAME) {
       
     if (_gameScene.isComplete()) {
         if (_gameScene.state == GameScene::QUIT) {
-            // TODO: Implement QUIT MENU
-//            _gameScene.dispose();
-//            _gameScene.setActive(false);
-//            _menuScene.setActive(true);
-//            _status = MENU;
             _gameScene.reset();
             _status = LEVELSELECT;
             _levelSelectScene.setActive(true);
         } else if (_gameScene.state == GameScene::RESET) {
-//            _gameScene.setActive(false);
-//            _gameScene.reset();
-//            _gameScene.setActive(true);
-//            _status = GAME;
             _gameScene.reset();
             _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
             _status = LEVELLOAD;
@@ -177,49 +169,48 @@ void DPApp::preUpdate(float timestep) {
     }
       
 
-  } else if (_status == PAUSE) {
-    switch (_pauseScene.state) {
-        case PauseScene::BACK:
-              _pauseScene.setActive(false);
-              _gameScene.setActive(true);
-              _status = GAME;
+    } else if (_status == PAUSE) {
+        switch (_pauseScene.state) {
+            case PauseScene::BACK:
+                  _pauseScene.setActive(false);
+                  _gameScene.setActive(true);
+                  _status = GAME;
+                  break;
+            case PauseScene::RESET:
+                _pauseScene.setActive(false);
+                _gameScene.reset();
+                _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
+                _status = LEVELLOAD;
+                break;
+            case PauseScene::MENU:
+                _pauseScene.setActive(false);
+                _gameScene.reset();
+                _status = LEVELSELECT;
+                _levelSelectScene.setActive(true);
+                break;
+            default:
               break;
-        case PauseScene::RESET:
-            _pauseScene.setActive(false);
-            _gameScene.reset();
-            _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
-            _status = LEVELLOAD;
-            break;
-        case PauseScene::MENU:
-            _pauseScene.setActive(false);
-            _gameScene.reset();
-            _status = LEVELSELECT;
-            _levelSelectScene.setActive(true);
-            break;
-        default:
-          break;
+        }
     }
-  }
 }
 
 void DPApp::postUpdate(float timestep) {
-  if (_status == GAME) {
-      if (!_gameScene.isComplete()){
-          _gameScene.postUpdate(timestep);
-      }
-  }
+    if (_status == GAME) {
+        if (!_gameScene.isComplete()){
+            _gameScene.postUpdate(timestep);
+        }
+    }
 }
 
 void DPApp::fixedUpdate() {
-  if (_status == GAME) {
-      if (!_gameScene.isComplete()){
-          float time = getFixedStep() / 1000000.0f;
-          _gameScene.fixedUpdate(time);
+      if (_status == GAME) {
+          if (!_gameScene.isComplete()){
+              float time = getFixedStep() / 1000000.0f;
+              _gameScene.fixedUpdate(time);
+          }
+      } else if (_status == PAUSE) {
+          _pauseScene.fixedUpdate();
       }
-  } else if (_status == PAUSE) {
-    _pauseScene.fixedUpdate();
-  }
-
 }
 
 #pragma mark SCENE-SPECIFIC UPDATES
@@ -236,34 +227,34 @@ void DPApp::fixedUpdate() {
  * @param timestep  The amount of time (in seconds) since the last frame
  */
 void DPApp::update(float timestep) {
-  // deprecated
+    // deprecated
 }
 
 void DPApp::updateMenu(float timestep) {
-  _menuScene.update(timestep);
-  switch (_menuScene.status) {
-  case MenuScene::START:
-    _menuScene.setActive(false);
-    _levelSelectScene.setActive(true);
-    _status = LEVELSELECT;
-    break;
-  case MenuScene::NONE:
-    // DO NOTHING
-    break;
-  case MenuScene::SETTING:
-    _menuScene.setActive(false);
-    _settingScene.setActive(true);
-    _status = SETTING;
-    break;
-  case MenuScene::QUIT:
-    onShutdown();
-    break;
-  }
+    _menuScene.update(timestep);
+    switch (_menuScene.status) {
+        case MenuScene::START:
+            _menuScene.setActive(false);
+            _levelSelectScene.setActive(true);
+            _status = LEVELSELECT;
+        break;
+        case MenuScene::NONE:
+            // DO NOTHING
+        break;
+        case MenuScene::SETTING:
+            _menuScene.setActive(false);
+            _settingScene.setActive(true);
+            _status = SETTING;
+        break;
+        case MenuScene::QUIT:
+            onShutdown();
+        break;
+    }
 }
 
 void DPApp::updatePause(float timestep) {
-  _pauseScene.update(timestep);
-  switch (_pauseScene.state) {
+    _pauseScene.update(timestep);
+    switch (_pauseScene.state) {
       case PauseScene::BACK:
         _status = GAME;
         _pauseScene.setActive(false);
@@ -282,41 +273,43 @@ void DPApp::updatePause(float timestep) {
         break;
       default:
         break;
-  }
+    }
 }
 
 void DPApp::updateLoad(float timestep) {
-  switch (_loadScene.state) {
-  case LoadScene::LOADING:
-    _loadScene.update(0.01f);
-    break;
-  case LoadScene::LOADED:
-    _network = NetEventController::alloc(_assets);
-    _loadScene.dispose(); // Disables the input listeners in this mode
-    _menuScene.init(_assets);
-    _menuScene.setActive(true);
-    _pauseScene.init(_assets, _network);
-    _settingScene.init(_assets);
-    _levelSelectScene.init(_assets);
-    _status = MENU;
-//    _hostScene.init(_assets, _network);
-//    _clientScene.init(_assets, _network);
-//    _gameScene.init(_assets);
-    break;
-  }
+    switch (_loadScene.state) {
+        case LoadScene::LOADING:
+            _loadScene.update(0.01f);
+        break;
+        case LoadScene::LOADED:
+            _network = NetEventController::alloc(_assets);
+            _loadScene.dispose(); // Disables the input listeners in this mode
+            _menuScene.init(_assets);
+            _menuScene.setActive(true);
+            _pauseScene.init(_assets, _network);
+            _settingScene.init(_assets);
+            _levelSelectScene.init(_assets);
+            _gameProgress = _assets2 -> get<JsonValue>("progress");
+            std::cout << _gameProgress -> getString("name") << " from DpApp::updateLoad() - game progress json is loaded!" << std::endl;
+            _status = MENU;
+            //    _hostScene.init(_assets, _network);
+            //    _clientScene.init(_assets, _network);
+            //    _gameScene.init(_assets);
+        break;
+    }
 }
 
 void DPApp::updateSetting(float timestep) {
-  _settingScene.update(timestep);
-  switch (_settingScene.state) {
-  case SettingScene::BACK:
-    _status = MENU;
-    _settingScene.setActive(false);
-    _menuScene.setActive(true);
-    break;
-  default:
-    break;
-  }
+    _settingScene.update(timestep);
+    switch (_settingScene.state) {
+        case SettingScene::BACK:
+            _status = MENU;
+            _settingScene.setActive(false);
+            _menuScene.setActive(true);
+        break;
+            default:
+        break;
+    }
 }
 
 void DPApp::updateLevelSelect(float timestep) {
@@ -341,23 +334,23 @@ void DPApp::updateLevelSelect(float timestep) {
 }
 
 void DPApp::updateLevelLoad(float timestep){
-  switch (_levelLoadScene._state) {
-    case LevelLoadScene::LOADING:
-    case LevelLoadScene::CONSTRUCT:
-      _levelLoadScene.update(timestep);
-      break;
-    case LevelLoadScene::DONE:
-      _gameScene.init(_assets2, _levelSelectScene.getSelectedLevelKey());
-      _gameScene.setActive(true);
-      _gameScene.setComplete(false);
-      _status = GAME;
-      break;
-  }
+    switch (_levelLoadScene._state) {
+        case LevelLoadScene::LOADING:
+        case LevelLoadScene::CONSTRUCT:
+            _levelLoadScene.update(timestep);
+            break;
+        case LevelLoadScene::DONE:
+            _gameScene.init(_assets2, _levelSelectScene.getSelectedLevelKey());
+            _gameScene.setActive(true);
+            _gameScene.setComplete(false);
+            _status = GAME;
+            break;
+    }
 }
 
 
 void DPApp::updateRestoration(float timestep) {
-  _restorationScene.update(timestep);
+    _restorationScene.update(timestep);
 }
 
 
@@ -380,30 +373,30 @@ void DPApp::updateClient(float timestep) {
  * at all. The default implmentation does nothing.
  */
 void DPApp::draw() {
-  switch (_status) {
-  case LOAD:
-    _loadScene.render(_batch);
-    break;
-  case MENU:
-    _menuScene.render(_batch);
-    break;
-  case GAME:
-    _gameScene.render(_batch);
-    break;
-  case SETTING:
-    _settingScene.render(_batch);
-    break;
-  case RESTORE:
-    _restorationScene.render(_batch);
-    break;
-  case LEVELSELECT:
-    _levelSelectScene.render(_batch);
-    break;
-  case PAUSE:
-    _pauseScene.render(_batch);
-    break;
-  case LEVELLOAD:
-    _levelLoadScene.render(_batch);
-    break;
-  }
+    switch (_status) {
+    case LOAD:
+        _loadScene.render(_batch);
+        break;
+    case MENU:
+        _menuScene.render(_batch);
+        break;
+    case GAME:
+        _gameScene.render(_batch);
+        break;
+    case SETTING:
+        _settingScene.render(_batch);
+        break;
+    case RESTORE:
+        _restorationScene.render(_batch);
+        break;
+    case LEVELSELECT:
+        _levelSelectScene.render(_batch);
+        break;
+    case PAUSE:
+        _pauseScene.render(_batch);
+        break;
+    case LEVELLOAD:
+        _levelLoadScene.render(_batch);
+        break;
+    }
 }

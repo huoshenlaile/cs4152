@@ -79,6 +79,9 @@ public:
     /** the state of this scene, referenced by DPApp*/
     enum SceneState { INGAME, PAUSE, NETERROR, RESET, QUIT };
     SceneState state;
+    
+    enum GameEndingState { UNFINISHED, GOOD, BAD };
+    GameEndingState gameEndingState;
 #pragma mark -
 #pragma mark Constructors
 
