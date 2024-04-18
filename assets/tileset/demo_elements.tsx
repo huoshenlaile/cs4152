@@ -97,4 +97,7 @@
  <tile id="41">
   <image width="1600" height="3840" source="../textures/lv2_background_1.png"/>
  </tile>
+ <tile id="42">
+  <image width="1600" height="3840" source="../textures/level4/lv4_background_1.png"/>
+ </tile>
 </tileset>

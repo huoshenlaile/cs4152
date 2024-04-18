@@ -57,9 +57,9 @@ public:
     virtual ~CameraController(void){};
 
     static std::shared_ptr<CameraController> alloc(const std::shared_ptr<cugl::scene2::SceneNode> target, const std::shared_ptr<cugl::scene2::SceneNode> root, float lerp,
-                                                   std::shared_ptr<cugl::OrthographicCamera> camera, std::shared_ptr<scene2::SceneNode> ui, float maxZoom, bool horizontal) {
+                                                   std::shared_ptr<cugl::OrthographicCamera> camera, std::shared_ptr<scene2::SceneNode> ui, float maxZoom, bool horizontal, bool skipCameraSpan) {
         std::shared_ptr<CameraController> result = std::make_shared<CameraController>();
-        return (result->init(target, root, lerp, camera, ui, maxZoom, horizontal) ? result : nullptr);
+        return (result->init(target, root, lerp, camera, ui, maxZoom, horizontal, skipCameraSpan) ? result : nullptr);
     }
 
     /**
@@ -73,7 +73,7 @@ public:
      * @return true if the controller is initialized properly, false otherwise
      */
     bool init(const std::shared_ptr<cugl::scene2::SceneNode> target, const std::shared_ptr<cugl::scene2::SceneNode> root, float lerp, std::shared_ptr<cugl::OrthographicCamera> camera,
-              std::shared_ptr<scene2::SceneNode> ui, float maxZoom, bool horizontal);
+              std::shared_ptr<scene2::SceneNode> ui, float maxZoom, bool horizontal, bool skipCameraSpan);
 
     /**
      * The method called to update the camera

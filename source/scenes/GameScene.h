@@ -24,7 +24,9 @@ class GameScene : public cugl::Scene2 {
 protected:
     std::shared_ptr<cugl::AssetManager> _assets;
     std::string _levelName;
-
+    
+    bool skipCameraSpan = false;
+    
     std::shared_ptr<InteractionController2> _interactionController;
     std::shared_ptr<CharacterController> _character;
     std::shared_ptr<AudioController> _audioController;
@@ -104,6 +106,7 @@ public:
 
     void setComplete(bool value) { _complete = value; }
 
+    void setCameraSkip (bool val) {skipCameraSpan = val;}
 #pragma mark -
 
     virtual void preUpdate(float dt);

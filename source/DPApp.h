@@ -64,7 +64,6 @@ protected:
 
 //	HostScene _hostScene;
 //	ClientScene _clientScene;
-    
 	GameScene _gameScene;
 	PauseScene _pauseScene;
 	LoadScene _loadScene;

@@ -54,10 +54,11 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, std::str
     _inputController = std::make_shared<InputController>();
     _inputController->init(rect);
     _inputController->fillHand(_character->getLeftHandPosition(), _character->getRightHandPosition(), _character->getLHPos(), _character->getRHPos());
+    std::cout << "initialized input controller" << std::endl;
 
 #pragma mark Construct Camera Controller
     _camera.setCamera(levelName);
-    _camera.init(_character->getTrackSceneNode(), _worldnode, 10.0f, std::dynamic_pointer_cast<OrthographicCamera>(getCamera()), _uinode, 5.0f, _camera.getMode());
+    _camera.init(_character->getTrackSceneNode(), _worldnode, 10.0f, std::dynamic_pointer_cast<OrthographicCamera>(getCamera()), _uinode, 5.0f, _camera.getMode(), skipCameraSpan);
     _camera.setZoom(_camera.getDefaultZoom());
     
 //    _level -> changeBackground(-1);
