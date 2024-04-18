@@ -139,11 +139,10 @@ void DPApp::preUpdate(float timestep) {
     } else if (_status == LEVELSELECT) {
     updateLevelSelect(timestep);
     } else if (_status == LEVELLOAD) {
-    updateLevelLoad(timestep);
+        updateLevelLoad(timestep);
     } else if (_status == RESTORE) {
     updateRestoration(timestep);
     } else if (_status == GAME) {
-      
     if (_gameScene.isComplete()) {
         if (_gameScene.state == GameScene::QUIT) {
             _gameScene.reset();
@@ -321,9 +320,8 @@ void DPApp::updateLevelSelect(float timestep) {
       _menuScene.setActive(true);
       break;
     case LevelSelectScene::STARTGAME:
+      _gameScene.setCameraSkip(false);
       _levelSelectScene.setActive(false);
-      // _gameScene.init(_assets, _network, true);
-      // _gameScene.setActive(true);
       _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
       _status = LEVELLOAD;
       break;
@@ -343,6 +341,7 @@ void DPApp::updateLevelLoad(float timestep){
             _gameScene.init(_assets2, _levelSelectScene.getSelectedLevelKey());
             _gameScene.setActive(true);
             _gameScene.setComplete(false);
+            _gameScene.setCameraSkip(true);
             _status = GAME;
             break;
     }

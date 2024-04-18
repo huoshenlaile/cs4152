@@ -21,9 +21,7 @@
             "file": "textures/level4/lv4_background_2.png"
         },
         "staticplatform_comet": {
-            "file": "textures/staticplatform_comet.png",
-            "wrapS": "repeat",
-            "wrapT": "repeat"
+            "file": "textures/staticplatform_comet.png"
         },
         "bouncingplatform_slime": {
             "file": "textures/bouncingplatform_slime.png"
