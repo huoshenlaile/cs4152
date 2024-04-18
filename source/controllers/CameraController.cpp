@@ -3,7 +3,7 @@
 using namespace cugl;
 
 bool CameraController::init(const std::shared_ptr<cugl::scene2::SceneNode> target, const std::shared_ptr<cugl::scene2::SceneNode> root, float lerp, std::shared_ptr<cugl::OrthographicCamera> camera,
-                            std::shared_ptr<scene2::SceneNode> ui, float maxZoom, bool horizontal) {
+                            std::shared_ptr<scene2::SceneNode> ui, float maxZoom, bool horizontal, bool skipCameraSpan) {
     _target = target;
     _root = root;
     _lerp = lerp;
@@ -17,8 +17,9 @@ bool CameraController::init(const std::shared_ptr<cugl::scene2::SceneNode> targe
     _counter = 0;
     _completed = false;
     _initialUpdate = false;
-    _displayed = false;
-    _state = 0;
+    _displayed = skipCameraSpan ? true : false;
+    _state = skipCameraSpan ? 3 : 0; //if skipping camera span is 3 just remain in game play
+    std::cout << _state << std::endl;
     return true;
 }
 
@@ -198,7 +199,7 @@ void CameraController::setCamera(std::string selectedLevelKey) {
         setDefaultZoom(0.2);
         _levelCompleteZoom = 0.15;
     } else if (selectedLevelKey == "doodlejump") {
-        setMode(true);
+        setMode(false);
         setDefaultZoom(0.2);
         _levelCompleteZoom = 0.15;
     } else if (selectedLevelKey == "falldown") {
