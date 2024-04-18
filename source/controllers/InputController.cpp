@@ -63,7 +63,7 @@ void InputController::update(float dt) {
     Touchscreen *touch = Input::get<Touchscreen>();
     // Press to continue
     if (!_started) {
-        if (_initialCd <= 20) {
+        if (_initialCd <= 10) {
             _initialCd++;
             return;
         }
