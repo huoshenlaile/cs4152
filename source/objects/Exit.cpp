@@ -71,7 +71,7 @@ PublishedMessage Exit::onEndContact(std::shared_ptr<cugl::physics2::Obstacle> ot
             if (other->getName() == "body192"){
                 CULog("on_release [%s]", message_head_gameend.c_str());
                 this->is_contacting=false;
-                this->contact_time = -2.0f;
+                this->contact_time = 0.0f;
                 auto a = PublishedMessage();
                 a.Head = message_head_release;
                 a.enable = true;
