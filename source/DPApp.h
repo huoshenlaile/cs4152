@@ -57,13 +57,8 @@ protected:
 	std::shared_ptr<cugl::AssetManager> _assets2; // the assets dedicated for game scene, currently is still the global asset manager
 	std::shared_ptr<NetEventController> _network;
     
-<<<<<<< HEAD
 //    std::shared_ptr<JsonWriter> _progressWriter;
 //    std::shared_ptr<JsonReader> _gameProgress;
-=======
-    std::shared_ptr<JsonWriter> _progressWriter;
-    std::shared_ptr<JsonReader> _gameProgress;
->>>>>>> 98dcca0 (a failed version of game progress file)
     std::string _currentLevelKey;
 
 	std::shared_ptr<InputController> _input;

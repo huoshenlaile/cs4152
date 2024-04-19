@@ -85,12 +85,7 @@ bool Interactable::linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleWor
     
     _world->addObstacle(_selfObstacle);
 
-<<<<<<< HEAD
     if ((_texture_name == "") || (_selfTexture == nullptr)){
-=======
-    // TODO: we should not draw sensor out.
-    if (/*(_texture_name == "") ||*/ (_selfTexture == nullptr)){
->>>>>>> 98dcca0 (a failed version of game progress file)
         return false;
     }
 
