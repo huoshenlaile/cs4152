@@ -23,10 +23,12 @@ bool MovingWall::init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect b
                 _path.emplace_back(p.x+point->getFloat("x"), p.y+point->getFloat("y"));
             }
             CULog("HIIIIIILOOOOKKKKKKHEREEEEEEEEE: %f", 0.1f);
+        } else if(properties->get(i)->getString("name") == "MoveOnContact") {
+            _moveOnContact = properties->get(i)->get("value")->asBool();
         }
     }
     
-    _isMoving = !_path.empty();
+    _isMoving = !_path.empty() && !_moveOnContact;
     activated = true;
     return true;
 }
@@ -50,6 +52,14 @@ void MovingWall::update(float dt) {
     }
 
     _selfObstacle->setPosition(currentPosition);
+}
+
+
+PublishedMessage MovingWall::onBeginContact(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact, std::shared_ptr<Interactable> otherInteractable, bool isCharacter, std::shared_ptr<CharacterController> character) {
+    if(_moveOnContact && isCharacter){
+        _isMoving = true;
+    }
+    return PublishedMessage();
 }
 
 
