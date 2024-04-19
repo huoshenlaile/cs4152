@@ -98,10 +98,6 @@
   <image width="1600" height="3840" source="../textures/lv2_background_1.png"/>
  </tile>
  <tile id="42">
-<<<<<<< HEAD
   <image width="1600" height="3840" source="../textures/level4/lv4_background_1.png"/>
-=======
-  <image width="3718" height="580" source="../textures/lv1_background_1.png"/>
->>>>>>> 98dcca0 (a failed version of game progress file)
  </tile>
 </tileset>
