@@ -86,7 +86,9 @@
                             {
                              "Bad_bg":"lv1_background_2",
                              "Default_bg":"lv1_background_1",
-                             "Good_bg":"lv1_background_3"
+                             "Good_bg":"lv1_background_3",
+                             "level_height":2320,
+                             "level_width":14872
                             }
                         }, 
                         {
@@ -1334,16 +1336,16 @@
                  "y":2010.8809261592
                 }, 
                 {
-                 "gid":43,
-                 "height":2320,
-                 "id":90,
+                 "gid":44,
+                 "height":580,
+                 "id":91,
                  "name":"",
                  "rotation":0,
                  "type":"",
                  "visible":false,
-                 "width":15872,
-                 "x":1.34739982949702,
-                 "y":2237.86338448423
+                 "width":3718,
+                 "x":10.2307692307691,
+                 "y":3343.84615384615
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1352,7 +1354,7 @@
          "y":0
         }],
  "nextlayerid":7,
- "nextobjectid":91,
+ "nextobjectid":92,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
