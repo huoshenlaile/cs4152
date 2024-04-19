@@ -77,6 +77,7 @@ protected:
     void constructSceneNodes(const Size &dimen);
 
 public:
+    int defaultGoodOrBad = -1;
     std::vector<std::shared_ptr<cugl::physics2::Joint>> Alljoints;
     /** the state of this scene, referenced by DPApp*/
     enum SceneState { INGAME, PAUSE, NETERROR, RESET, QUIT };

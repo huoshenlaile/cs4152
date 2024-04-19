@@ -84,7 +84,7 @@
                          "type":"class",
                          "value":
                             {
-                             "Bad_bg":"lv2_background_1",
+                             "Bad_bg":"lv2_background_2",
                              "Default_bg":"lv2_background_1",
                              "Good_bg":"lv2_background_1"
                             }
@@ -2140,18 +2140,6 @@
                  "y":15256.358093991
                 }, 
                 {
-                 "gid":85,
-                 "height":24774,
-                 "id":134,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":10322,
-                 "x":10335.191695797,
-                 "y":24763.3995681836
-                }, 
-                {
                  "height":0,
                  "id":136,
                  "name":"",
@@ -2464,6 +2452,18 @@
                  "width":0,
                  "x":5347.33441033926,
                  "y":12574.0441572429
+                }, 
+                {
+                 "gid":85,
+                 "height":3840,
+                 "id":142,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":1600,
+                 "x":10832.0474777448,
+                 "y":6163.3234421365
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -2472,7 +2472,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":142,
+ "nextobjectid":143,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
@@ -2701,7 +2701,7 @@
                 {
                  "id":42,
                  "image":"..\/textures\/lv2_background_1.png",
-                 "imageheight":5289,
+                 "imageheight":3840,
                  "imagewidth":1600
                 }],
          "tilewidth":3718

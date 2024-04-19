@@ -39,8 +39,25 @@ void DPApp::onStartup() {
     // Que up the other assets
     AudioEngine::start(24);
     _assets->loadDirectoryAsync("json/assets.json", nullptr);
+    
+    auto savedir = Application::get()->getSaveDirectory();
+    CULog("save dir: %s", savedir.c_str());
+    auto saveReader = JsonReader::alloc(savedir + "/save.json");
+    if (saveReader != nullptr) {
+        std::cout << saveReader->readLine() << std::endl;
+    }
 
     _assets2 = _assets; // the assets dedicated for game scene, currently is still the global asset manager
+    
+//    std::cout << "The Application's Save Directory is: " << Application::getSaveDirectory() << std::endl;
+//    std::string root = cugl::Application::get()->getSaveDirectory();
+//    std::string path = cugl::filetool::join_path({root,"GameProgress.json"});
+//    _gameProgress = JsonReader::alloc(path);
+//    if (_gameProgress != nullptr) {
+//        std::cout << "game progress: " << _gameProgress -> readJsonString() << std::endl;
+//        std::cout << "From DpApp::updateLoad() - game progress json is loaded!" << std::endl;
+//    }
+    
 
 
     _levelLoadScene.init(_assets2);
@@ -134,6 +151,14 @@ void DPApp::preUpdate(float timestep) {
     updateLoad(0.01f);
     } else if (_status == MENU) {
     updateMenu(timestep);
+        std::string root = cugl::Application::get()->getSaveDirectory();
+        std::string path = cugl::filetool::join_path({root,"GameProgress.json"});
+
+        auto gameProgress = JsonReader::alloc(path);
+        if (gameProgress != nullptr && gameProgress -> ready()) {
+            std::cout << gameProgress -> readJsonString() << std::endl;
+            std::cout << "game progress json is loaded" << std::endl;
+        }
     } else if (_status == SETTING) {
     updateSetting(timestep);
     } else if (_status == LEVELSELECT) {
@@ -144,6 +169,13 @@ void DPApp::preUpdate(float timestep) {
     updateRestoration(timestep);
     } else if (_status == GAME) {
     if (_gameScene.isComplete()) {
+        // update json file
+
+//        std::string root = cugl::Application::get()->getSaveDirectory();
+//        std::string path = cugl::filetool::join_path({root,"GameProgress.json"});
+//        std::shared_ptr<JsonValue> jv = JsonValue::allocObject();
+//        jv -> appendValue(this -> _currentLevelKey, _gameScene.defaultGoodOrBad == 0? "good" : _gameScene.defaultGoodOrBad == 1? "bad" : "default");
+//        _progressWriter = JsonWriter::alloc(path);
         if (_gameScene.state == GameScene::QUIT) {
             _gameScene.reset();
             _status = LEVELSELECT;
@@ -288,12 +320,9 @@ void DPApp::updateLoad(float timestep) {
             _pauseScene.init(_assets, _network);
             _settingScene.init(_assets);
             _levelSelectScene.init(_assets);
-            _gameProgress = _assets2 -> get<JsonValue>("progress");
-            std::cout << _gameProgress -> getString("name") << " from DpApp::updateLoad() - game progress json is loaded!" << std::endl;
             _status = MENU;
             //    _hostScene.init(_assets, _network);
             //    _clientScene.init(_assets, _network);
-            //    _gameScene.init(_assets);
         break;
     }
 }
@@ -314,20 +343,21 @@ void DPApp::updateSetting(float timestep) {
 void DPApp::updateLevelSelect(float timestep) {
     _levelSelectScene.update(timestep);
     switch (_levelSelectScene.state) {
-    case LevelSelectScene::BACK:
-      _status = MENU;
-      _levelSelectScene.setActive(false);
-      _menuScene.setActive(true);
-      break;
-    case LevelSelectScene::STARTGAME:
-      _gameScene.setCameraSkip(false);
-      _levelSelectScene.setActive(false);
-      _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
-      _status = LEVELLOAD;
-      break;
-    case LevelSelectScene::INSCENE:
+        case LevelSelectScene::BACK:
+            _status = MENU;
+            _levelSelectScene.setActive(false);
+            _menuScene.setActive(true);
+            break;
+        case LevelSelectScene::STARTGAME:
+            _gameScene.setCameraSkip(false);
+            _levelSelectScene.setActive(false);
+            _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
+            _currentLevelKey = _levelSelectScene.getSelectedLevelKey();
+            _status = LEVELLOAD;
+            break;
+        case LevelSelectScene::INSCENE:
       // Do nothing
-      break;
+            break;
     }
 }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="ragdoll_elements" tilewidth="2581" tileheight="4483" tilecount="28" columns="0" objectalignment="bottomleft">
+<tileset version="1.10" tiledversion="1.10.2" name="ragdoll_elements" tilewidth="3718" tileheight="4483" tilecount="29" columns="0" objectalignment="bottomleft">
  <editorsettings>
   <export target="ragdoll_elements..tsx" format="tsx"/>
  </editorsettings>
@@ -98,6 +98,10 @@
   <image width="1600" height="3840" source="../textures/lv2_background_1.png"/>
  </tile>
  <tile id="42">
+<<<<<<< HEAD
   <image width="1600" height="3840" source="../textures/level4/lv4_background_1.png"/>
+=======
+  <image width="3718" height="580" source="../textures/lv1_background_1.png"/>
+>>>>>>> 98dcca0 (a failed version of game progress file)
  </tile>
 </tileset>

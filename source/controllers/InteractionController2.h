@@ -92,6 +92,7 @@ protected:
         return nullptr;
     }
 public:
+    int defaultGoodOrBad = -1;
     bool leftHandReverse = false;
     bool rightHandReverse = false;
     InteractionController2() {}
