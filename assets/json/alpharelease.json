@@ -9,55 +9,6 @@
          "objects":[
                 {
                  "height":0,
-                 "id":1,
-                 "name":"",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":0,
-                         "y":-145.174841916086
-                        }, 
-                        {
-                         "x":512.205472139033,
-                         "y":-145.174841916086
-                        }, 
-                        {
-                         "x":512.205472139033,
-                         "y":0
-                        }],
-                 "properties":[
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":192,
-                                 "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
-                                 "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
-                                }
-                            }
-                        }],
-                 "rotation":0,
-                 "type":"wall",
-                 "visible":true,
-                 "width":0,
-                 "x":4375.03523471642,
-                 "y":858.058737701302
-                }, 
-                {
-                 "height":0,
                  "id":81,
                  "name":"METADATA",
                  "polygon":[
@@ -172,8 +123,122 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":6369.08113827873,
-                 "y":1528.83531243868
+                 "x":6259.07013717862,
+                 "y":1517.83421232867
+                }, 
+                {
+                 "height":0,
+                 "id":93,
+                 "name":"",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":-265.01380302644,
+                         "y":74.0463039543816
+                        }, 
+                        {
+                         "x":-267.44512232026,
+                         "y":-76.5145140861943
+                        }, 
+                        {
+                         "x":277.170399495543,
+                         "y":-78.9827242180073
+                        }, 
+                        {
+                         "x":279.601718789363,
+                         "y":74.0463039543816
+                        }, 
+                        {
+                         "x":-272.307760907901,
+                         "y":78.9827242180073
+                        }],
+                 "properties":[
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":192,
+                                 "density":0,
+                                 "friction":0.2,
+                                 "restitution":0.1,
+                                 "rotation":false,
+                                 "texture":"alpharelease_frenchfries"
+                                }
+                            }
+                        }],
+                 "rotation":13.42,
+                 "type":"wall",
+                 "visible":true,
+                 "width":0,
+                 "x":5683.05961594681,
+                 "y":1380.45927633454
+                }, 
+                {
+                 "height":0,
+                 "id":92,
+                 "name":"",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":-236.302812419594,
+                         "y":65.037471308145
+                        }, 
+                        {
+                         "x":-238.470728129865,
+                         "y":-67.2053870184165
+                        }, 
+                        {
+                         "x":247.142390970952,
+                         "y":-69.3733027286883
+                        }, 
+                        {
+                         "x":249.310306681223,
+                         "y":65.037471308145
+                        }, 
+                        {
+                         "x":-242.806559550408,
+                         "y":69.3733027286883
+                        }],
+                 "properties":[
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":192,
+                                 "density":0,
+                                 "friction":0.2,
+                                 "restitution":0.1,
+                                 "rotation":false,
+                                 "texture":"alpharelease_frenchfries"
+                                }
+                            }
+                        }],
+                 "rotation":11.42,
+                 "type":"wall",
+                 "visible":true,
+                 "width":0,
+                 "x":4476.79653409577,
+                 "y":742.304347203428
                 }, 
                 {
                  "ellipse":true,
@@ -184,8 +249,8 @@
                  "type":"character",
                  "visible":true,
                  "width":153.102642632413,
-                 "x":4556.5715785872,
-                 "y":496.035726576057
+                 "x":4446.56057748709,
+                 "y":485.034626466046
                 }, 
                 {
                  "height":0,
@@ -198,14 +263,14 @@
                         }, 
                         {
                          "x":0,
-                         "y":-169.304203843514
+                         "y":-174.121159527522
                         }, 
                         {
-                         "x":538.177158672055,
-                         "y":-169.304203843514
+                         "x":557.444981408086,
+                         "y":-174.121159527522
                         }, 
                         {
-                         "x":538.177158672055,
+                         "x":557.444981408086,
                          "y":0
                         }],
                  "properties":[
@@ -233,57 +298,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":4947.03995463259,
-                 "y":1146.21646317062
-                }, 
-                {
-                 "height":0,
-                 "id":33,
-                 "name":"",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":0,
-                         "y":-145.175
-                        }, 
-                        {
-                         "x":512.205,
-                         "y":-145.175
-                        }, 
-                        {
-                         "x":512.205,
-                         "y":0
-                        }],
-                 "properties":[
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":192,
-                                 "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
-                                 "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
-                                }
-                            }
-                        }],
-                 "rotation":0,
-                 "type":"wall",
-                 "visible":true,
-                 "width":0,
-                 "x":5600.07161292847,
-                 "y":1465.1098634405
+                 "x":4817.76113079645,
+                 "y":1140.03231874462
                 }, 
                 {
                  "gid":28,
@@ -294,8 +310,8 @@
                  "type":"",
                  "visible":true,
                  "width":193,
-                 "x":8130.35552952105,
-                 "y":1321.02399644749
+                 "x":6788.22131609971,
+                 "y":4159.30782483033
                 }, 
                 {
                  "height":0,
@@ -419,12 +435,12 @@
                                 }
                             }
                         }],
-                 "rotation":99,
+                 "rotation":103,
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":7091.17695291667,
-                 "y":1923.07132265151
+                 "x":6981.16595181656,
+                 "y":1912.0702225415
                 }, 
                 {
                  "height":0,
@@ -568,8 +584,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":7084.31644314512,
-                 "y":2148.9549762935
+                 "x":6974.30544204501,
+                 "y":2137.95387618349
                 }, 
                 {
                  "gid":25,
@@ -580,8 +596,8 @@
                  "type":"",
                  "visible":true,
                  "width":232,
-                 "x":8480.95712122795,
-                 "y":1326.61614134374
+                 "x":7138.82290780661,
+                 "y":4164.89996972658
                 }, 
                 {
                  "gid":27,
@@ -592,8 +608,8 @@
                  "type":"",
                  "visible":true,
                  "width":193,
-                 "x":8852.99045810287,
-                 "y":1321.17811999642
+                 "x":7620.86724578164,
+                 "y":4170.46304848927
                 }, 
                 {
                  "gid":26,
@@ -604,8 +620,8 @@
                  "type":"",
                  "visible":true,
                  "width":250,
-                 "x":9201.17592716636,
-                 "y":1298.94060338079
+                 "x":7969.05271484513,
+                 "y":4148.22553187364
                 }, 
                 {
                  "height":0,
@@ -795,8 +811,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":7704.24081924465,
-                 "y":556.280080553453
+                 "x":7594.22981814454,
+                 "y":545.278980443442
                 }, 
                 {
                  "height":0,
@@ -832,7 +848,7 @@
                             {
                              "Enabled":true,
                              "Head":"paint1 out",
-                             "Trigger":"TOUCH: character body"
+                             "Trigger":"body192"
                             }
                         }, 
                         {
@@ -869,8 +885,8 @@
                  "type":"sensor",
                  "visible":true,
                  "width":0,
-                 "x":5966.96209019974,
-                 "y":1394.47775790799
+                 "x":5856.95108909963,
+                 "y":1383.47665779798
                 }, 
                 {
                  "height":0,
@@ -902,7 +918,7 @@
                             {
                              "Enabled":true,
                              "Head":"paint2 out",
-                             "Trigger":"TOUCH: character body"
+                             "Trigger":"body192"
                             }
                         }, 
                         {
@@ -939,8 +955,8 @@
                  "type":"sensor",
                  "visible":true,
                  "width":0,
-                 "x":6922.4193536993,
-                 "y":975.879769963384
+                 "x":6812.40835259919,
+                 "y":964.878669853373
                 }, 
                 {
                  "height":0,
@@ -1022,8 +1038,8 @@
                  "type":"exit",
                  "visible":true,
                  "width":0,
-                 "x":7577.0399859942,
-                 "y":1939.78113208001
+                 "x":7471.8459405781,
+                 "y":1962.49872175805
                 }, 
                 {
                  "height":0,
@@ -1146,8 +1162,8 @@
                  "type":"paint",
                  "visible":true,
                  "width":0,
-                 "x":6516.30796529995,
-                 "y":848.582980479204
+                 "x":6406.29696419984,
+                 "y":837.581880369193
                 }, 
                 {
                  "height":0,
@@ -1246,8 +1262,8 @@
                  "type":"paint",
                  "visible":true,
                  "width":0,
-                 "x":7190.7120065917,
-                 "y":832.926009823848
+                 "x":7080.70100549159,
+                 "y":821.924909713837
                 }, 
                 {
                  "gid":8,
@@ -1258,8 +1274,8 @@
                  "type":"",
                  "visible":true,
                  "width":447,
-                 "x":9618.38465428989,
-                 "y":1170.32203894424
+                 "x":8386.26144196866,
+                 "y":4019.60696743709
                 }, 
                 {
                  "height":0,
@@ -1332,8 +1348,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":7875.72910650746,
-                 "y":2010.8809261592
+                 "x":7765.71810540735,
+                 "y":1999.87982604919
                 }, 
                 {
                  "gid":44,
@@ -1342,7 +1358,7 @@
                  "name":"",
                  "rotation":0,
                  "type":"",
-                 "visible":false,
+                 "visible":true,
                  "width":3718,
                  "x":10.2307692307691,
                  "y":3343.84615384615
@@ -1354,7 +1370,7 @@
          "y":0
         }],
  "nextlayerid":7,
- "nextobjectid":92,
+ "nextobjectid":94,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

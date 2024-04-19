@@ -73,6 +73,7 @@ void GameScene::dispose() {
     _audioController = nullptr;
     _inputController = nullptr;
     _platformWorld = nullptr;
+    _pauseButtonNode = nullptr;
     _pauseButton = nullptr;
     _worldnode->removeAllChildren();
     _worldnode = nullptr;
@@ -177,16 +178,23 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     _uinode->setContentSize(dimen);
     _uinode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
 
+    _pauseButtonNode = _assets->get<scene2::SceneNode>("pausebutton");
+    _pauseButtonNode->removeFromParent();
+    _pauseButtonNode->doLayout();
+    _pauseButtonNode->setContentSize(dimen);
+    _pauseButtonNode->setVisible(true);
     // pause button
-    _pauseButton = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("pausebutton"));
-    _pauseButton->removeFromParent();
+//    _pauseButton = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("pausebutton"));
+//    _pauseButton->removeFromParent();
+//    _pauseButton -> setPosition(Vec2::ANCHOR_TOP_RIGHT.x - 50, Vec2::ANCHOR_TOP_RIGHT.y - 50);
+    _pauseButton = std::dynamic_pointer_cast<scene2::Button>(_pauseButtonNode->getChildByName("pause"));
     _pauseButton -> doLayout();
     _pauseButton->addListener([this](const std::string &name, bool down) {
         if (down) {
             _gamePaused = true;
         }
     });
-    _uinode->addChild(_pauseButton);
+    _uinode->addChild(_pauseButtonNode);
 
     // paint meter
     _paintMeter = scene2::SpriteNode::allocWithSheet(_assets->get<Texture>("paintmeter"), 3, 3);
