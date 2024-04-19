@@ -152,14 +152,6 @@ void DPApp::preUpdate(float timestep) {
     updateLoad(0.01f);
     } else if (_status == MENU) {
     updateMenu(timestep);
-        std::string root = cugl::Application::get()->getSaveDirectory();
-        std::string path = cugl::filetool::join_path({root,"GameProgress.json"});
-
-        auto gameProgress = JsonReader::alloc(path);
-        if (gameProgress != nullptr && gameProgress -> ready()) {
-            std::cout << gameProgress -> readJsonString() << std::endl;
-            std::cout << "game progress json is loaded" << std::endl;
-        }
     } else if (_status == SETTING) {
     updateSetting(timestep);
     } else if (_status == LEVELSELECT) {
@@ -273,7 +265,23 @@ void DPApp::update(float timestep) {
 void DPApp::updateMenu(float timestep) {
     _menuScene.update(timestep);
     switch (_menuScene.status) {
-        case MenuScene::START:
+        case MenuScene::NEWGAME:
+            // TODO: start tutorial!
+            _assets->loadAsync<LevelLoader2>("tutorial", "json/tutorial.json", [&](const std::string key2, bool success2) {
+                if (!success2) {
+                    CULog("Failed to tutorial");
+                }
+                CULog("Loaded tutorial");
+                _menuScene.setActive(false);
+                _assets -> get<LevelLoader2>("tutorial") -> construct(_assets);
+                _gameScene.init(_assets2, "tutorial");
+                _gameScene.setActive(true);
+                _gameScene.setComplete(false);
+                _gameScene.setCameraSkip(true);
+                this -> _status = GAME;
+            });
+            break;
+        case MenuScene::LEVEL:
             _menuScene.setActive(false);
             _levelSelectScene.setActive(true);
             _status = LEVELSELECT;

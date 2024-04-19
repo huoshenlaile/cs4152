@@ -27,12 +27,19 @@ bool MenuScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     std::shared_ptr<scene2::SceneNode> scene = _assets->get<scene2::SceneNode>("menu");
     scene->setContentSize(dimen);
     scene->doLayout(); // Repositions the HUD
-    _startbutton = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("menu_menu_newgame"));
+    _newGameButton = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("menu_menu_newgame"));
+    _levelbutton = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("menu_menu_levels"));
     _settingbutton = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("menu_menu_setting"));
     
-    _startbutton->addListener([this](const std::string& name, bool down) {
+    _newGameButton->addListener([this](const std::string& name, bool down) {
         if (down) {
-            status = START;
+            status = NEWGAME;
+        }
+    });
+    
+    _levelbutton->addListener([this](const std::string& name, bool down) {
+        if (down) {
+            status = LEVEL;
         }
     });
     
@@ -79,15 +86,18 @@ void MenuScene::setActive(bool value) {
         Scene2::setActive(value);
         if (value) {
             status = NONE;
-            _startbutton->activate();
+            _newGameButton -> activate();
             _settingbutton -> activate();
+            _levelbutton -> activate();
 //            _joinbutton->activate();
         } else {
-            _startbutton->deactivate();
+            _newGameButton -> deactivate();
             _settingbutton -> deactivate();
+            _levelbutton -> deactivate();
             // If any were pressed, reset them
-            _startbutton->setDown(false);
+            _newGameButton -> setDown(false);
             _settingbutton -> setDown(false);
+            _levelbutton -> setDown(false);
 //            _joinbutton->deactivate();
 //            _joinbutton->setDown(false);
         }
