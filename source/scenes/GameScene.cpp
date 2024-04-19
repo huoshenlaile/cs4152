@@ -155,7 +155,7 @@ void GameScene::postUpdate(float dt) {
 
     if (_interactionController->isLevelComplete()) {
         this -> defaultGoodOrBad = _interactionController -> defaultGoodOrBad;
-        finishLevel();
+         finishLevel();
     }
     if (_interactionController->paintPercent() > 0.01f && _interactionController->paintPercent() < 1.0f) {
         _paintMeter->setVisible(true);
