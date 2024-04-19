@@ -85,7 +85,7 @@ bool Interactable::linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleWor
     
     _world->addObstacle(_selfObstacle);
 
-    if ((_texture_name == "") || (_selfTexture == nullptr)){
+    if (_selfTexture == nullptr){
         return false;
     }
 
