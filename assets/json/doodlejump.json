@@ -494,7 +494,7 @@
                             {
                              "Enabled":true,
                              "Head":"paint2 out",
-                             "Trigger":"TOUCH: character body"
+                             "Trigger":"body192"
                             }
                         }, 
                         {
@@ -786,7 +786,7 @@
                             {
                              "Enabled":true,
                              "Head":"paint1 out",
-                             "Trigger":"TOUCH: character body"
+                             "Trigger":"body192"
                             }
                         }, 
                         {
