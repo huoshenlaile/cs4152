@@ -206,6 +206,10 @@ void CameraController::setCamera(std::string selectedLevelKey) {
         setMode(false);
         setDefaultZoom(0.17);
         _levelCompleteZoom = 0.15;
+    } else if (selectedLevelKey == "paintdrip"){
+        setMode(false);
+        setDefaultZoom(0.17);
+        _levelCompleteZoom = 0.15;
     }
 }
 

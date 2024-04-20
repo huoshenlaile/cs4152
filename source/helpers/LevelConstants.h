@@ -16,6 +16,7 @@
 #define SENSOR_FIELD        "sensor"
 #define EXIT_FIELD          "exit"
 #define PAINT_FIELD        "paint"
+#define DRIPPAINT_FIELD     "drippaint"
 #define GRAVITYWALL_FIELD   "gravitywall"
 
 

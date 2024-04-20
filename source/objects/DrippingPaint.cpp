@@ -1,10 +1,17 @@
-#include "GrowingPaint.h"
-bool GrowingPaint::init(const std::shared_ptr<cugl::JsonValue>& json, Vec2 scale, Rect bounds){
+//
+//  DrippingPaint.cpp
+//  DustyPaints
+//
+//  Created by Emily on 4/20/24.
+//
+
+#include "DrippingPaint.hpp"
+
+bool DrippingPaint::init(const std::shared_ptr<cugl::JsonValue>& json, Vec2 scale, Rect bounds){
     // call super.init
     Interactable::init(json, scale, bounds);
     std::shared_ptr<JsonValue> properties = json -> get("properties");
     // find the Publication property
-    is_out = false;
     for (int i = 0; i < properties->size(); i++){
         if (properties->get(i)->getString("propertytype") == "SubMessage"){
             auto pub = properties->get(i)->get("value");
@@ -16,16 +23,19 @@ bool GrowingPaint::init(const std::shared_ptr<cugl::JsonValue>& json, Vec2 scale
         }else if(properties->get(i)->getString("name") == "AnimationAsset"){
             auto p = properties->get(i)->get("value")->asString();
             _textureName = p;
-        } else if(properties->get(i)->getString("name") == "instant"){
-            auto p = properties->get(i)->get("value")->asBool();
-            is_out = p;
+        } else if(properties->get(i)->getString("name") == "speed"){
+            auto p = properties->get(i)->get("value")->asFloat();
+            _dripSpeed = p;
         }
     }
-        
+    
+    std::cout << "FINISHED DRIPPING PAINT!!!!!!!! ======= " << std::endl;
+    
     activated = true;
     _selfObstacle->setSensor(true);
     OnBeginContactEnabled = true;
     timeUpdateEnabled = true;
+    is_out = true;
     
     _actions = scene2::ActionManager::alloc();
     //TODO: May change per animation, if it does then parameterize in tiled
@@ -34,39 +44,30 @@ bool GrowingPaint::init(const std::shared_ptr<cugl::JsonValue>& json, Vec2 scale
     return true;
 }
 
-bool GrowingPaint::linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleWorld> &physicsWorld, const std::shared_ptr<cugl::scene2::SceneNode> &sceneNode, float scale){
-    _world = physicsWorld;
+bool DrippingPaint::linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleWorld> &physicsWorld, const std::shared_ptr<cugl::scene2::SceneNode> &sceneNode, float scale){
+    std::cout << "DRIP PAINT LINKING TO WORLD" << std::endl;
+    bool success = Interactable::linkToWorld(physicsWorld, sceneNode, scale);
+    scene2::SceneNode* weak = _selfTexture.get();
+    _selfObstacle->setListener([=](physics2::Obstacle* obs){
+        weak->setPosition(obs->getPosition() * scale);
+        weak->setAngle(obs->getAngle());
+    });
+    return success;
+
+    /*_world = physicsWorld;
     _scene = sceneNode;
     
     _world->addObstacle(_selfObstacle);
+    _selfTexture->setVisible(true);
     _selfTexture->setPosition(_selfObstacle->getPosition() * scale);
-    // add message
-    
-    _animation = scene2::SpriteNode::allocWithSheet(_assets->get<Texture>(_textureName), 3, 3, 8);
-    _animation->setScale(2.5f);
-    _animation->setPosition(_selfObstacle->getPosition() * scale);
-    
-    if(is_out){ // if its initially out, it should have no sub
-        _scene->addChild(_selfTexture);
-        _scene->addChild(_animation);
-        _actions->activate("other", _animate, _animation);
-    } else {
-        actions[sub_message_head] = ([=](ActionParams params){
-            if (is_out){
-                return PublishedMessage();
-            }
-            _scene->addChild(_selfTexture);
-            _scene->addChild(_animation);
-            _actions->activate("other", _animate, _animation);
-            
-            is_out = true;
-            return PublishedMessage();
-        });
-    }
-    return true;
+    _selfTexture->setColor(Color4::BLACK);
+
+    _scene->addChild(_selfTexture);
+    is_out = true;*/
+    //return true;
 }
 
-PublishedMessage GrowingPaint::onBeginContact(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact, std::shared_ptr<Interactable> otherInteractable, bool isCharacter, std::shared_ptr<CharacterController> character){
+PublishedMessage DrippingPaint::onBeginContact(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact, std::shared_ptr<Interactable> otherInteractable, bool isCharacter, std::shared_ptr<CharacterController> character){
     if (isCharacter){
         // if the sensor is activated
         if (activated && is_out){
@@ -82,9 +83,15 @@ PublishedMessage GrowingPaint::onBeginContact(std::shared_ptr<cugl::physics2::Ob
     return PublishedMessage();
 }
 
-PublishedMessage GrowingPaint::timeUpdate(float timestep){
-    if(is_out){
-        _actions->update(timestep);
-    }
+PublishedMessage DrippingPaint::timeUpdate(float timestep){
+    // Calculate the next position along the path
+    Vec2 currentPosition = _selfObstacle->getPosition();
+    float step = _dripSpeed * timestep;
+   
+    currentPosition.y -= step;
+    
+
+    _selfObstacle->setPosition(currentPosition);
+
     return PublishedMessage();
 }

@@ -1113,7 +1113,7 @@
                         {
                          "name":"instant",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }, 
                         {
                          "name":"paint_id",
@@ -1213,7 +1213,7 @@
                         {
                          "name":"instant",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }, 
                         {
                          "name":"paint_id",
