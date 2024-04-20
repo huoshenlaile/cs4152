@@ -190,7 +190,7 @@ void CameraController::levelComplete() {
 }
 
 void CameraController::setCamera(std::string selectedLevelKey) {
-    if (selectedLevelKey == "alpharelease") {
+    if (selectedLevelKey == "level1") {
         setMode(true);
         setDefaultZoom(DEFAULT_ZOOM);
         _levelCompleteZoom = DEFAULT_ZOOM;
