@@ -29,6 +29,16 @@
                     "name": "Good_bg",
                     "type": "string",
                     "value": ""
+                },
+                {
+                    "name": "level_height",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "level_width",
+                    "type": "int",
+                    "value": 0
                 }
             ],
             "name": "METADATA",

@@ -48,20 +48,6 @@
                                  "texture":"alpharelease_frenchfries"
                                 }
                             }
-                        }, 
-                        {
-                         "name":"testPub1",
-                         "propertytype":"Publication",
-                         "type":"class",
-                         "value":
-                            {
-                             "condition1":
-                                {
-                                 "Body":"114514",
-                                 "Enabled":true,
-                                 "Head":"1919891"
-                                }
-                            }
                         }],
                  "rotation":0,
                  "type":"wall",
@@ -94,7 +80,6 @@
                  "properties":[
                         {
                          "name":"Publication",
-                         "propertytype":"Publication",
                          "type":"class",
                          "value":
                             {
@@ -902,7 +887,6 @@
                  "properties":[
                         {
                          "name":"Subscription",
-                         "propertytype":"Subscription",
                          "type":"class",
                          "value":
                             {
@@ -1007,6 +991,16 @@
                                  "rotation":false,
                                  "texture":""
                                 }
+                            }
+                        }, 
+                        {
+                         "name":"pub2",
+                         "propertytype":"PubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Head":"Hello",
+                             "Trigger":"rhand64"
                             }
                         }],
                  "rotation":0,

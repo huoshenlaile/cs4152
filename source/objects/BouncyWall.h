@@ -10,10 +10,7 @@ protected:
 
 public:
     BouncyWall(void) : Interactable() {}
-    ~BouncyWall() {
-        // Call the parent class destructor
-        Interactable::~Interactable();
-    }
+    virtual ~BouncyWall() {}
 
     virtual bool init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect bounds);
 

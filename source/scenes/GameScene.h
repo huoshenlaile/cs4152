@@ -34,6 +34,7 @@ protected:
 
     std::shared_ptr<cugl::physics2::ObstacleWorld> _platformWorld;
 
+    std::shared_ptr<cugl::scene2::SceneNode> _pauseButtonNode;
     std::shared_ptr<cugl::scene2::Button> _pauseButton;
 
 	/** Reference to the physics root of the scene graph */
@@ -77,6 +78,7 @@ protected:
     void constructSceneNodes(const Size &dimen);
 
 public:
+    int defaultGoodOrBad = -1;
     std::vector<std::shared_ptr<cugl::physics2::Joint>> Alljoints;
     /** the state of this scene, referenced by DPApp*/
     enum SceneState { INGAME, PAUSE, NETERROR, RESET, QUIT };
