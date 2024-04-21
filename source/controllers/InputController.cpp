@@ -250,6 +250,17 @@ Vec2 InputController::touch2Screen(const Vec2 pos) const {
     return result;
 }
 
+PublishedMessage InputController::getMessageInPreUpdate() {
+    auto msg = PublishedMessage();
+    if (didPress()){
+        msg.Head = "Screen Pressed";
+    }
+    else if (didRelease()){
+        msg.Head = "Screen Released";
+    }
+    return msg;
+}
+
 #pragma mark -
 #pragma mark Touch and Mouse Callbacks
 

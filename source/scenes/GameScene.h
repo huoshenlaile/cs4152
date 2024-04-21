@@ -51,7 +51,7 @@ protected:
 
     cugl::Vec2 _gravity;
 
-    CameraController _camera;
+    std::shared_ptr<CameraController> _camera;
 
     std::shared_ptr<LevelLoader2> _level;
     /** The scale between the physics world and the screen (MUST BE UNIFORM) */

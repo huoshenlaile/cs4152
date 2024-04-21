@@ -1,11 +1,13 @@
 #include "InteractionController2.h"
 
 // std::unordered_map<std::string, std::vector<std::shared_ptr<Interactable>>> _HeadToInteractable;
-bool InteractionController2::init(std::shared_ptr<LevelLoader2> level) {
+bool InteractionController2::init(std::shared_ptr<LevelLoader2> level, std::shared_ptr<InputController> inputcontroller, std::shared_ptr<CameraController> camera) {
     if (level == nullptr) {
         return false;
     }
     _level = level;
+    _inputcontroller = inputcontroller;
+    _camera = camera;
     _character = level->getCharacter();
     _world = level->getWorld();
     _worldnode = level->getWorldNode();
@@ -267,7 +269,7 @@ void InteractionController2::beforeSolve(b2Contact *contact, const b2Manifold *o
 void InteractionController2::afterSolve(b2Contact *contact, const b2ContactImpulse *impulse) { return; }
 
 void InteractionController2::runMessageQueue() {
-    // for each message in the queue, process it, call it's subscribers
+    // for each message in the queue, process it, call its subscribers
     while (!_messageQueue.empty()) {
         PublishedMessage message = _messageQueue.front();
         _messageQueue.pop();
@@ -326,6 +328,11 @@ void InteractionController2::preUpdate(float timestep) {
             _messageQueue.push(message);
         }
     }
+    PublishedMessage message = _inputcontroller->getMessageInPreUpdate();
+    if (message.Head != "") {
+        _messageQueue.push(message);
+    }
+
     runMessageQueue();
 }
 

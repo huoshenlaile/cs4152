@@ -46,22 +46,23 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, std::str
 #pragma mark Construct UI elements
     constructSceneNodes(dimen);
 
-#pragma mark Construct Interaction Controller
-    _interactionController = InteractionController2::alloc(_level);
-    _interactionController->activateController();
-
 #pragma mark Construct Input Controller
     _inputController = std::make_shared<InputController>();
     _inputController->init(rect);
     _inputController->fillHand(_character->getLeftHandPosition(), _character->getRightHandPosition(), _character->getLHPos(), _character->getRHPos());
     std::cout << "initialized input controller" << std::endl;
+    
 
 #pragma mark Construct Camera Controller
-    _camera.setCamera(levelName);
-    _camera.init(_character->getTrackSceneNode(), _worldnode, 10.0f, std::dynamic_pointer_cast<OrthographicCamera>(getCamera()), _uinode, 5.0f, _camera.getMode(), skipCameraSpan);
-    _camera.setZoom(_camera.getLevelCompleteZoom());
+
+    _camera->setCamera(levelName);
+    _camera->init(_character->getTrackSceneNode(), _worldnode, 10.0f, std::dynamic_pointer_cast<OrthographicCamera>(getCamera()), _uinode, 5.0f, _camera->getMode(), skipCameraSpan);
+    _camera->setZoom(_camera->getLevelCompleteZoom());
     
-//    _level -> changeBackground(-1);
+
+#pragma mark Construct Interaction Controller
+    _interactionController = InteractionController2::alloc(_level, _inputController, _camera);
+    _interactionController->activateController();
 
     return true;
 }
@@ -108,7 +109,7 @@ void GameScene::preUpdate(float dt) {
     if (_level == nullptr)
         return;
     // process input
-    if (_camera.getDisplayed() || !_inputController->getStarted())
+    if (_camera->getDisplayed() || !_inputController->getStarted())
         _inputController->update(dt);
     auto character = _inputController->getCharacter();
     for (auto i = character->_touchInfo.begin(); i != character->_touchInfo.end(); i++) {
@@ -123,9 +124,9 @@ void GameScene::preUpdate(float dt) {
     _inputController->fillHand(_character->getLeftHandPosition(), _character->getRightHandPosition(), _character->getLHPos(), _character->getRHPos());
 
     // update camera
-    if (_inputController->getStarted() || !_camera.getInitialUpdate()) {
-        _camera.update(dt);
-        _camera.setInitialUpdate(true);
+    if (_inputController->getStarted() || !_camera->getInitialUpdate()) {
+        _camera->update(dt);
+        _camera->setInitialUpdate(true);
     }
 //    std::cout << "pause button position: " << _pauseButton -> getPosition().toString() << std::endl;
 //    _pauseButtonNode -> doLayout();
@@ -139,7 +140,7 @@ void GameScene::preUpdate(float dt) {
     if (!isCharacterInMap()) {
         // CULog("Character out!");
         state = RESET;
-        _camera.setCameraState(0);
+        _camera->setCameraState(0);
     }
     _interactionController->connectGrabJoint();
     _interactionController->ungrabIfNecessary();
@@ -228,7 +229,7 @@ void GameScene::constructSceneNodes(const Size &dimen) {
         if (down) {
             std::cout << "level complete reset!" << std::endl;
             this->state = RESET;
-            _camera.setCameraState(0);
+            _camera->setCameraState(0);
         }
     });
 
@@ -277,8 +278,8 @@ bool GameScene::isCharacterInMap() {
  * 5. display complete scene
  */
 void GameScene::finishLevel() {
-    _camera.levelComplete();
-    if (_camera.getCameraComplete()) {
+    _camera->levelComplete();
+    if (_camera->getCameraComplete()) {
         _levelComplete->setVisible(true);
         _levelCompleteReset->activate();
         _levelCompleteMenuButton->activate();

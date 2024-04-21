@@ -3,6 +3,7 @@
 #define __PF_INPUT_H__
 #include <cugl/cugl.h>
 #include <unordered_set>
+#include "../objects/message.h"
 
 class InputController {
 public:
@@ -199,6 +200,9 @@ public:
      * @return true if the exit button was pressed.
      */
     bool didExit() const { return _exitPressed; }
+    
+    PublishedMessage getMessageInPreUpdate();
+
 
 #pragma mark -
 #pragma mark Touch and Mouse Callbacks
@@ -271,6 +275,7 @@ public:
     bool isRHAssigned() { return this->_character.rightHand.assigned; }
 
     bool getStarted() { return _started; }
+    
 };
 
 #endif /* __PF_INPUT_H__ */

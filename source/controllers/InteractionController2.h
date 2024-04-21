@@ -11,6 +11,9 @@
 #include "../objects/objectImport.h"
 #include "../helpers/LevelLoader2.h"
 #include "../controllers/CharacterController.h"
+#include "../controllers/InputController.h"
+#include "../controllers/CameraController.h"
+
 
 using namespace cugl;
 #define GRAB_CD 5.0f
@@ -20,6 +23,9 @@ class InteractionController2 {
 protected:
 
     std::shared_ptr<LevelLoader2> _level;
+    std::shared_ptr<InputController> _inputcontroller;
+    std::shared_ptr<CameraController> _camera;
+
     std::shared_ptr<CharacterController> _character;
 
     //all the interactables in the level (including the wall, which is "static" interactable)
@@ -27,6 +33,7 @@ protected:
 
     // 5 containers for different types of interactables
     std::vector<std::shared_ptr<Interactable>> _timeUpdateInteractables;
+    std::vector<std::shared_ptr<Interactable>> _OnTouchInteractables;
     std::unordered_map<cugl::physics2::Obstacle*, std::shared_ptr<Interactable>> _BeginContactInteractable;
     std::unordered_map<cugl::physics2::Obstacle*, std::shared_ptr<Interactable>> _EndContactInteractable;
     std::unordered_map<cugl::physics2::Obstacle*, std::shared_ptr<Interactable>> _PreSolveInteractable;
@@ -111,7 +118,7 @@ public:
         _worldnode = nullptr;
     }
 
-    bool init(std::shared_ptr<LevelLoader2> level);
+    bool init(std::shared_ptr<LevelLoader2> level, std::shared_ptr<InputController> inputcontroller, std::shared_ptr<CameraController> camera);
     void activateController();
     void preUpdate(float timestep);
     void postUpdate(float timestep);
@@ -126,9 +133,9 @@ public:
     void beforeSolve(b2Contact* contact, const b2Manifold* oldManifold);
     void afterSolve(b2Contact* contact, const b2ContactImpulse* impulse);
 
-    static std::shared_ptr<InteractionController2> alloc(std::shared_ptr<LevelLoader2> level) {
+    static std::shared_ptr<InteractionController2> alloc(std::shared_ptr<LevelLoader2> level,std::shared_ptr<InputController> inputcontroller, std::shared_ptr<CameraController> camera) {
         std::shared_ptr<InteractionController2> result = std::make_shared<InteractionController2>();
-        return (result->init(level) ? result : nullptr);
+        return (result->init(level,inputcontroller,camera) ? result : nullptr);
     }
     
     /**
