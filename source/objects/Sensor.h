@@ -6,8 +6,10 @@
 
 class Sensor : public Interactable {
 protected:
-    std::string message_head;
-    std::string pub_message_body;
+
+    std::vector<std::string> triggers;
+    std::vector<std::string> message_heads;
+    std::vector<std::string> message_bodies;
 
 public:
     Sensor(void) : Interactable() {}

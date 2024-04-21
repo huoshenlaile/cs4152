@@ -58,7 +58,8 @@ public:
     std::string goodBg;
     std::string badBg;
     std::string defaultBg;
-
+    int levelWidth;
+    int levelHeight;
     LevelLoadState _state;
 
     const Vec2 getCharacterPos() const {return _charPos;}

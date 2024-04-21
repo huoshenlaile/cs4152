@@ -110,7 +110,7 @@ void InputController::update(float dt) {
 
     for (auto i = _character._touchInfo.begin(); i != _character._touchInfo.end(); i++) {
         // CULog("Touchid %d", i->id);
-        Vec2 position = touch2Screen(touch->touchPosition(i->id));
+//        Vec2 position = touch2Screen(touch->touchPosition(i->id));
         i->position = touch->touchPosition(i->id);
         // CULog("size of touchInfo %d", _character._touchInfo.size());
         // CULog("Current Postion %f, %f", position.x, position.y);

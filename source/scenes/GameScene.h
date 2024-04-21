@@ -34,6 +34,7 @@ protected:
 
     std::shared_ptr<cugl::physics2::ObstacleWorld> _platformWorld;
 
+    std::shared_ptr<cugl::scene2::SceneNode> _pauseButtonNode;
     std::shared_ptr<cugl::scene2::Button> _pauseButton;
 
 	/** Reference to the physics root of the scene graph */

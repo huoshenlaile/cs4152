@@ -14,10 +14,10 @@
             "wrapS": "repeat",
             "wrapT": "repeat"
         },
-        "lvl4_background_good":{
+        "lvl4_background_good": {
             "file": "textures/level4/lv4_background_1.png"
         },
-        "lvl4_background_bad":{
+        "lvl4_background_bad": {
             "file": "textures/level4/lv4_background_2.png"
         },
         "staticplatform_comet": {
@@ -280,6 +280,15 @@
         "button_pause": {
             "file": "textures/button_pause.png"
         },
+        "button_pause_down": {
+            "file": "textures/button_pause_down.png"
+        },
+        "button_map": {
+            "file": "textures/button_map.png"
+        },
+        "button_map_down": {
+            "file": "textures/button_map_down.png"
+        },
         "red_paint": {
             "file": "textures/red_paint_141x144.png"
         },
@@ -344,7 +353,7 @@
         "title": "widgets/title.json",
         "pause": "widgets/pause.json",
         "levelcomplete": "widgets/levelcomplete.json",
-        "pausebutton": "widgets/pausebutton.json"
+        "pausebutton": "widgets/pausebutton_tryout.json"
     },
     "scene2s": {
         "pause": {

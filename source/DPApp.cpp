@@ -49,14 +49,15 @@ void DPApp::onStartup() {
 
     _assets2 = _assets; // the assets dedicated for game scene, currently is still the global asset manager
     
-//    std::cout << "The Application's Save Directory is: " << Application::getSaveDirectory() << std::endl;
-//    std::string root = cugl::Application::get()->getSaveDirectory();
-//    std::string path = cugl::filetool::join_path({root,"GameProgress.json"});
-//    _gameProgress = JsonReader::alloc(path);
-//    if (_gameProgress != nullptr) {
-//        std::cout << "game progress: " << _gameProgress -> readJsonString() << std::endl;
-//        std::cout << "From DpApp::updateLoad() - game progress json is loaded!" << std::endl;
-//    }
+    std::cout << "The Application's Save Directory is: " << Application::getSaveDirectory() << std::endl;
+    std::string root = cugl::Application::get()->getSaveDirectory();
+    std::string path = cugl::filetool::join_path({root,"save.json"});
+    std::cout << path << std::endl;
+    _gameProgress = JsonReader::alloc(path);
+    if (_gameProgress != nullptr) {
+        std::cout << "game progress: " << _gameProgress -> readLine() << std::endl;
+        std::cout << "From DpApp::updateLoad() - game progress json is loaded!" << std::endl;
+    }
     
 
 
@@ -176,6 +177,14 @@ void DPApp::preUpdate(float timestep) {
 //        std::shared_ptr<JsonValue> jv = JsonValue::allocObject();
 //        jv -> appendValue(this -> _currentLevelKey, _gameScene.defaultGoodOrBad == 0? "good" : _gameScene.defaultGoodOrBad == 1? "bad" : "default");
 //        _progressWriter = JsonWriter::alloc(path);
+        auto savedir = Application::get()->getSaveDirectory();
+        auto saveWriter = JsonWriter::alloc(savedir + "/save.json");
+        if (saveWriter != nullptr) {
+            saveWriter->writeLine(_currentLevelKey);
+        }
+        saveWriter->flush();
+        saveWriter->close();
+        std::cout << "writing line" << std::endl;
         if (_gameScene.state == GameScene::QUIT) {
             _gameScene.reset();
             _status = LEVELSELECT;

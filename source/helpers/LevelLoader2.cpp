@@ -34,6 +34,8 @@ bool LevelLoader2::preload(const std::shared_ptr<cugl::JsonValue> &json) {
                         goodBg = prop->get("value")->getString("Good_bg");
                         badBg = prop->get("value")->getString("Bad_bg");
                         defaultBg = prop->get("value")->getString("Default_bg");
+                        levelWidth = prop->get("value")->getInt("level_width");
+                        levelHeight = prop->get("value")->getInt("level_height");
                         if (defaultBg == "") {
                             CULog("ERROR: Background not loaded! Look at your METADATA!");
                         }
@@ -119,7 +121,11 @@ bool LevelLoader2::construct(std::shared_ptr<cugl::AssetManager> &_assets) {
     _defaultBgNode->setTexture(defaultBgTexture);
     _defaultBgNode->setAbsolute(true);
     _defaultBgNode->setPosition(-10.0f, 0.0f);
-    _defaultBgNode->setContentSize(_defaultBgNode->getContentSize().width * 4, _defaultBgNode->getContentSize().height * 4);
+    std::cout << "(" << levelWidth << ", " << levelHeight << ")" << "\n";
+    _defaultBgNode->setContentSize(levelWidth, levelHeight);
+
+//    _defaultBgNode->setPosition(0.0f, 20.0f);
+//    _defaultBgNode->setContentSize(_defaultBgNode->getContentSize().width * 4, _defaultBgNode->getContentSize().height * 4);
 
     CULog("level loader construction scale: %f %f", _scale.x, _scale.y);
     // create character

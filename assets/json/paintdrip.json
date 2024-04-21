@@ -3237,8 +3237,28 @@
                         {
                          "name":"Movements",
                          "type":"string",
-                         "value":""
-                        }, 
+                         "value":
+                            {
+                             "path":[
+                                    {
+                                     "x":150,
+                                     "y":0
+                                    },
+                                    {
+                                     "x":0,
+                                     "y":0
+                                    },
+                                    {
+                                     "x":150,
+                                     "y":0
+                                    },
+                                    {
+                                     "x":0,
+                                     "y":0
+                                    }],
+                             "speed":20
+                            }
+                        },
                         {
                          "name":"properties",
                          "propertytype":"Physics",
