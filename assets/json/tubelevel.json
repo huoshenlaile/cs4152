@@ -366,7 +366,7 @@
                         {
                          "name":"AnimationAsset",
                          "type":"string",
-                         "value":"red_paint"
+                         "value":"pink_paint"
                         }, 
                         {
                          "name":"Pub1",
@@ -3039,7 +3039,7 @@
                         {
                          "name":"AnimationAsset",
                          "type":"string",
-                         "value":"red_paint"
+                         "value":"green_paint"
                         }, 
                         {
                          "name":"Pub1",
@@ -3136,7 +3136,7 @@
                         {
                          "name":"AnimationAsset",
                          "type":"string",
-                         "value":"red_paint"
+                         "value":"blue_paint"
                         }, 
                         {
                          "name":"Pub1",
