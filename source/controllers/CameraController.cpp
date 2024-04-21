@@ -30,10 +30,6 @@ void CameraController::update(float dt) {
         _camera->setPosition(
             Vec2(_root->getSize().width - _camera->getViewport().getMaxX() / (2 * _camera->getZoom()), _root->getSize().height - _camera->getViewport().getMaxY() / (2 * _camera->getZoom())));
         _moveToTop = true;
-        Vec2 uiPos =
-            Vec2(_camera->getPosition().x - _camera->getViewport().getMaxX() / (2 * _camera->getZoom()), _camera->getPosition().y - _camera->getViewport().getMaxY() / (2 * _camera->getZoom()));
-        _UIPosition = uiPos;
-        _ui->setPosition(uiPos);
     }
     // CULog("in CamController Update, camera state: %d", _state);
     switch (_state) {
@@ -47,15 +43,30 @@ void CameraController::update(float dt) {
     }
     // Move the camera to the right
     case 1: {
-        Vec2 panSpeed = _panSpeed;
         if (_horizontal) {
-            _camera->translate(panSpeed.x, panSpeed.y);
+            Vec2 cameraPos = Vec2(_camera->getPosition().x, _camera->getPosition().y);
+            Vec2 target;
+            Vec2 *dst = new Vec2();
+            // Lazily track the target using lerp
+            target = Vec2(_camera->getPosition().x + _panSpeed.x, _camera->getPosition().y + _panSpeed.y);
+            Vec2::lerp(cameraPos, target, 30 * dt, dst);
+            // Make sure the camera never goes outside of the _root node's bounds
+            (*dst).x = std::max(std::min(_root->getSize().width - _camera->getViewport().getMaxX() / (2 * _camera->getZoom()), (*dst).x), _camera->getViewport().getMaxX() / (2 * _camera->getZoom()));
+            (*dst).y = std::max(std::min(_root->getSize().height - _camera->getViewport().getMaxY() / (2 * _camera->getZoom()), (*dst).y), _camera->getViewport().getMaxY() / (2 * _camera->getZoom()));
+            _camera->translate((*dst).x - cameraPos.x, (*dst).y - cameraPos.y);
+            delete dst;
             _camera->update();
             if (_camera->getPosition().x >= _root->getSize().width - _camera->getViewport().getMaxX() / (2 * _camera->getZoom())) {
                 _state = 2;
             }
         } else {
-            _camera->translate(panSpeed.x, panSpeed.y);
+            Vec2 *dst = new Vec2();
+            (*dst).x =
+                std::max(std::min(_root->getSize().width - _camera->getViewport().getMaxX() / (2 * _camera->getZoom()), _panSpeed.x), _camera->getViewport().getMaxX() / (2 * _camera->getZoom()));
+            (*dst).y =
+                std::max(std::min(_root->getSize().height - _camera->getViewport().getMaxY() / (2 * _camera->getZoom()), _panSpeed.y), _camera->getViewport().getMaxY() / (2 * _camera->getZoom()));
+            _camera->translate((*dst).x, (*dst).y);
+            _camera->translate(_panSpeed.x, _panSpeed.y);
             _camera->update();
             if (_camera->getPosition().y <= _camera->getViewport().getMaxY() / (2 * _camera->getZoom())) {
                 _state = 2;
@@ -82,7 +93,7 @@ void CameraController::update(float dt) {
         Vec2 *dst = new Vec2();
         // Lazily track the target using lerp
         target = Vec2(_target->getWorldPosition().x, _target->getWorldPosition().y);
-        Vec2::lerp(cameraPos, target, _lerp * dt, dst);
+        Vec2::lerp(cameraPos, target, 30 * dt, dst);
         // Make sure the camera never goes outside of the _root node's bounds
         (*dst).x = std::max(std::min(_root->getSize().width - _camera->getViewport().getMaxX() / (2 * _camera->getZoom()), (*dst).x), _camera->getViewport().getMaxX() / (2 * _camera->getZoom()));
         (*dst).y = std::max(std::min(_root->getSize().height - _camera->getViewport().getMaxY() / (2 * _camera->getZoom()), (*dst).y), _camera->getViewport().getMaxY() / (2 * _camera->getZoom()));
@@ -218,7 +229,7 @@ void CameraController::setCamera(std::string selectedLevelKey) {
     } else if (selectedLevelKey == "tube") {
         setMode(false);
         setDefaultZoom(0.15);
-        _levelCompleteZoom = 0.15;
+        _levelCompleteZoom = 0.16;
         _panSpeed = Vec2(0, -30);
     } else if (selectedLevelKey == "doodlejump") {
         setMode(false);
