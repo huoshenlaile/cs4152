@@ -191,7 +191,7 @@ void CameraController::levelComplete() {
 
 void CameraController::setCamera(std::string selectedLevelKey) {
     if (selectedLevelKey == "tutorial") {
-        // TODO: Tutorial Zooms 
+        // TODO: Implement Tutorial Zooms (a state machine)
         setMode(true);
         setDefaultZoom(DEFAULT_ZOOM);
         _levelCompleteZoom = DEFAULT_ZOOM;
