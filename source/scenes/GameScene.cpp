@@ -59,7 +59,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, std::str
 #pragma mark Construct Camera Controller
     _camera.setCamera(levelName);
     _camera.init(_character->getTrackSceneNode(), _worldnode, 10.0f, std::dynamic_pointer_cast<OrthographicCamera>(getCamera()), _uinode, 5.0f, _camera.getMode(), skipCameraSpan);
-    _camera.setZoom(_camera.getDefaultZoom());
+    _camera.setZoom(_camera.getLevelCompleteZoom());
     
 //    _level -> changeBackground(-1);
 
@@ -116,7 +116,7 @@ void GameScene::preUpdate(float dt) {
     }
     _inputController->process();
     Size dimen = computeActiveSize();
-    float screen_height_multiplier = SCENE_WIDTH / dimen.height;
+    //float screen_height_multiplier = SCENE_WIDTH / dimen.height;
     //std::cout << "screen_height_multiplier: " << screen_height_multiplier << "\n";
     _character->moveLeftHand(INPUT_SCALER * _inputController->getLeftHandMovement(), _interactionController->leftHandReverse);
     _character->moveRightHand(INPUT_SCALER * _inputController->getrightHandMovement(), _interactionController->rightHandReverse);
@@ -184,11 +184,8 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     _pauseButtonNode->setContentSize(dimen);
     _pauseButtonNode->setVisible(true);
     // pause button
-//    _pauseButton = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("pausebutton"));
-//    _pauseButton->removeFromParent();
-//    _pauseButton -> setPosition(Vec2::ANCHOR_TOP_RIGHT.x - 50, Vec2::ANCHOR_TOP_RIGHT.y - 50);
     _pauseButton = std::dynamic_pointer_cast<scene2::Button>(_pauseButtonNode->getChildByName("pause"));
-    _pauseButton -> doLayout();
+    _pauseButton->doLayout();
     _pauseButton->addListener([this](const std::string &name, bool down) {
         if (down) {
             _gamePaused = true;

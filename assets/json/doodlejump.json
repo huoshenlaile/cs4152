@@ -252,7 +252,9 @@
                             {
                              "Bad_bg":"lvl4_background_bad",
                              "Default_bg":"lvl4_background_bad",
-                             "Good_bg":"lvl4_background_good"
+                             "Good_bg":"lvl4_background_good",
+                             "level_height":14880,
+                             "level_width":6400
                             }
                         }, 
                         {
@@ -494,7 +496,7 @@
                             {
                              "Enabled":true,
                              "Head":"paint2 out",
-                             "Trigger":"TOUCH: character body"
+                             "Trigger":"body192"
                             }
                         }, 
                         {
@@ -786,7 +788,7 @@
                             {
                              "Enabled":true,
                              "Head":"paint1 out",
-                             "Trigger":"TOUCH: character body"
+                             "Trigger":"body192"
                             }
                         }, 
                         {
@@ -1152,7 +1154,7 @@
                                 }
                             }
                         }],
-                 "rotation":359.62545016384,
+                 "rotation":368.63,
                  "type":"bouncywall",
                  "visible":true,
                  "width":0,

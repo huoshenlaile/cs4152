@@ -35,8 +35,9 @@ protected:
 
     Vec2 _UIPosition;
     int _initialStay, _finalStay;
-    bool _levelComplete, _completed, _initialUpdate, _displayed;
+    bool _levelComplete, _completed, _initialUpdate, _displayed, _moveToTop;
     float _defaultZoom, _levelCompleteZoom;
+    Vec2 _panSpeed;
     bool _horizontal;
     int _finalPos;
     int _state;

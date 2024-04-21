@@ -14,10 +14,10 @@
             "wrapS": "repeat",
             "wrapT": "repeat"
         },
-        "lvl4_background_good":{
+        "lvl4_background_good": {
             "file": "textures/level4/lv4_background_1.png"
         },
-        "lvl4_background_bad":{
+        "lvl4_background_bad": {
             "file": "textures/level4/lv4_background_2.png"
         },
         "staticplatform_comet": {
@@ -280,11 +280,32 @@
         "button_pause": {
             "file": "textures/button_pause.png"
         },
+        "button_pause_down": {
+            "file": "textures/button_pause_down.png"
+        },
+        "button_map": {
+            "file": "textures/button_map.png"
+        },
+        "button_map_down": {
+            "file": "textures/button_map_down.png"
+        },
         "red_paint": {
             "file": "textures/red_paint_141x144.png"
         },
         "purple_paint": {
             "file": "textures/purple_paint_141x144.png"
+        },
+        "pink_paint": {
+            "file": "textures/pink_paint_141x144.png"
+        },
+        "blue_paint": {
+            "file": "textures/blue_paint_141x144.png"
+        },
+        "green_paint": {
+            "file": "textures/green_paint_141x144.png"
+        },
+        "black_paint": {
+            "file": "textures/black_paint_141x144.png"
         },
         "tube_curved_l": {
             "file": "textures/tube/tube_curved_left.png"
@@ -344,7 +365,7 @@
         "title": "widgets/title.json",
         "pause": "widgets/pause.json",
         "levelcomplete": "widgets/levelcomplete.json",
-        "pausebutton": "widgets/pausebutton_tryout.json"
+        "pausebutton": "widgets/pausebutton.json"
     },
     "scene2s": {
         "pause": {
