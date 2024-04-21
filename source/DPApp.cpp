@@ -187,9 +187,9 @@ void DPApp::preUpdate(float timestep) {
             _status = LEVELLOAD;
         }
     } else if (_gameScene.isPaused()) {
-      _status = PAUSE;
-      _gameScene.setActive(false);
-      _pauseScene.setActive(true);
+        _status = PAUSE;
+        _gameScene.setActive(false);
+        _pauseScene.setActive(true);
     } else if (_gameScene.state == GameScene::RESET){
         _gameScene.setActive(false);
         _gameScene.reset();
@@ -204,10 +204,10 @@ void DPApp::preUpdate(float timestep) {
     } else if (_status == PAUSE) {
         switch (_pauseScene.state) {
             case PauseScene::BACK:
-                  _pauseScene.setActive(false);
-                  _gameScene.setActive(true);
-                  _status = GAME;
-                  break;
+                _pauseScene.setActive(false);
+                _gameScene.setActive(true);
+                _status = GAME;
+                break;
             case PauseScene::RESET:
                 _pauseScene.setActive(false);
                 _gameScene.reset();
@@ -267,19 +267,19 @@ void DPApp::updateMenu(float timestep) {
     switch (_menuScene.status) {
         case MenuScene::NEWGAME:
             // TODO: start tutorial!
-            _assets->loadAsync<LevelLoader2>("tutorial", "json/tutorial.json", [&](const std::string key2, bool success2) {
-                if (!success2) {
-                    CULog("Failed to tutorial");
-                }
-                CULog("Loaded tutorial");
-                _menuScene.setActive(false);
-                _assets -> get<LevelLoader2>("tutorial") -> construct(_assets);
-                _gameScene.init(_assets2, "tutorial");
-                _gameScene.setActive(true);
-                _gameScene.setComplete(false);
-                _gameScene.setCameraSkip(true);
-                this -> _status = GAME;
-            });
+//            _assets->loadAsync<LevelLoader2>("tutorial", "json/tutorial.json", [&](const std::string key2, bool success2) {
+//                if (!success2) {
+//                    CULog("Failed to tutorial");
+//                }
+//                CULog("Loaded tutorial");
+//                _menuScene.startTutorial();
+//            });
+            _levelSelectScene.selectedLevelKey = "tutorial";
+            _levelSelectScene.selectedLevelFile = "json/tutorial.json";
+            _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
+            _currentLevelKey = _levelSelectScene.getSelectedLevelKey();
+            _menuScene.setActive(false);
+            _status = LEVELLOAD;
             break;
         case MenuScene::LEVEL:
             _menuScene.setActive(false);
@@ -366,7 +366,6 @@ void DPApp::updateLevelSelect(float timestep) {
             _menuScene.setActive(true);
             break;
         case LevelSelectScene::STARTGAME:
-            _gameScene.setCameraSkip(false);
             _levelSelectScene.setActive(false);
             _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
             _currentLevelKey = _levelSelectScene.getSelectedLevelKey();

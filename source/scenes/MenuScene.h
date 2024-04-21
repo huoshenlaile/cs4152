@@ -30,11 +30,8 @@ public:
     enum SceneStatus {
         /** User has not yet made a SceneStatus */
         NONE,
-        /** User wants to host a game */
         NEWGAME,
         LEVEL,
-        /** User wants to join a game */
-//        JOIN,
         SETTING,
         QUIT
     };
@@ -89,6 +86,5 @@ public:
      * @param value whether the scene is currently active
      */
     virtual void setActive(bool value) override;
-
 };
 #endif

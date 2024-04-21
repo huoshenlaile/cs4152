@@ -115,7 +115,7 @@ void GameScene::preUpdate(float dt) {
         i->worldPos = (Vec2)Scene2::screenToWorldCoords(i->position);
     }
     _inputController->process();
-    Size dimen = computeActiveSize();
+//    Size dimen = computeActiveSize();
     //float screen_height_multiplier = SCENE_WIDTH / dimen.height;
     //std::cout << "screen_height_multiplier: " << screen_height_multiplier << "\n";
     _character->moveLeftHand(INPUT_SCALER * _inputController->getLeftHandMovement(), _interactionController->leftHandReverse);
@@ -127,6 +127,10 @@ void GameScene::preUpdate(float dt) {
         _camera.update(dt);
         _camera.setInitialUpdate(true);
     }
+//    std::cout << "pause button position: " << _pauseButton -> getPosition().toString() << std::endl;
+//    _pauseButtonNode -> doLayout();
+//    _pauseButton -> doLayout();
+//    _uinode -> doLayout();
 
     // update interaction controller
     _interactionController->updateHandsHeldInfo(_inputController->isLHAssigned(), _inputController->isRHAssigned());

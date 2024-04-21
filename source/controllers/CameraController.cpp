@@ -2,8 +2,12 @@
 
 using namespace cugl;
 
-bool CameraController::init(const std::shared_ptr<cugl::scene2::SceneNode> target, const std::shared_ptr<cugl::scene2::SceneNode> root, float lerp, std::shared_ptr<cugl::OrthographicCamera> camera,
-                            std::shared_ptr<scene2::SceneNode> ui, float maxZoom, bool horizontal, bool skipCameraSpan) {
+bool CameraController::init(const std::shared_ptr<cugl::scene2::SceneNode> target, 
+                            const std::shared_ptr<cugl::scene2::SceneNode> root,
+                            float lerp,
+                            std::shared_ptr<cugl::OrthographicCamera> camera,
+                            std::shared_ptr<scene2::SceneNode> ui,
+                            float maxZoom, bool horizontal, bool skipCameraSpan) {
     _target = target;
     _root = root;
     _lerp = lerp;
@@ -215,6 +219,7 @@ void CameraController::setCamera(std::string selectedLevelKey) {
         setMode(true);
         setDefaultZoom(DEFAULT_ZOOM);
         _levelCompleteZoom = DEFAULT_ZOOM;
+        _panSpeed = Vec2(30, 0);
     } else if (selectedLevelKey == "level1") {
         setMode(true);
         setDefaultZoom(DEFAULT_ZOOM);
