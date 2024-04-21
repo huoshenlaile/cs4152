@@ -25,6 +25,8 @@ protected:
     std::shared_ptr<cugl::scene2::ActionManager> _actions;
     std::shared_ptr<cugl::scene2::Animate> _animate;
     
+    Vec2 scale2d;
+    
 public:
     DrippingPaint(void) : Interactable() {}
     ~DrippingPaint() {
@@ -35,6 +37,12 @@ public:
     virtual PublishedMessage timeUpdate(float) override;
     
     virtual bool linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleWorld> &physicsWorld, const std::shared_ptr<cugl::scene2::SceneNode> &sceneNode, float scale) override;
+    
+    virtual bool bindAssets(const std::shared_ptr<cugl::AssetManager>& assets, Vec2 scale2d) override {
+        scale2d = scale2d;
+        return Interactable::bindAssets(assets, scale2d);
+    }
+ 
 
     virtual PublishedMessage onBeginContact(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact = nullptr, std::shared_ptr<Interactable> otherInteractable = nullptr, bool isCharacter = false, std::shared_ptr<CharacterController> character = nullptr) override;
     

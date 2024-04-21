@@ -51,6 +51,8 @@ bool DrippingPaint::linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleWo
     _selfObstacle->setListener([=](physics2::Obstacle* obs){
         weak->setPosition(obs->getPosition() * scale);
         weak->setAngle(obs->getAngle());
+        
+
     });
     return success;
 
@@ -86,12 +88,18 @@ PublishedMessage DrippingPaint::onBeginContact(std::shared_ptr<cugl::physics2::O
 PublishedMessage DrippingPaint::timeUpdate(float timestep){
     // Calculate the next position along the path
     Vec2 currentPosition = _selfObstacle->getPosition();
+    Vec2 currentBounds = _selfObstacle->getSize();
     float step = _dripSpeed * timestep;
-   
-    currentPosition.y -= step;
-    
+    _selfTexture->setAnchor(0, 1);
+    _selfTexture->setScale(_selfTexture->getScale().x, _selfTexture->getScale().y * _dripSpeed);
 
-    _selfObstacle->setPosition(currentPosition);
+    _selfObstacle->setSize(currentBounds.x, _selfTexture->getScale().y * _dripSpeed);
+   
+    //currentPosition.y -= step;
+    
+    //_selfTexture->setContentSize(_selfObstacle->getWidth() * scale2d.x * 1.01, _selfObstacle->getHeight() * scale2d.y * 1.01);
+
+    //_selfObstacle->setPosition(currentPosition);
 
     return PublishedMessage();
 }

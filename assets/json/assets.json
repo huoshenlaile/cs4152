@@ -295,6 +295,9 @@
         "purple_paint": {
             "file": "textures/purple_paint_141x144.png"
         },
+        "black_drip_paint" : {
+            "file": "textures/black_paintcover_720x4900.png"
+        },
         "tube_curved_l": {
             "file": "textures/tube/tube_curved_left.png"
         },
