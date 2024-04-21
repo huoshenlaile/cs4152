@@ -217,7 +217,7 @@ void CameraController::setCamera(std::string selectedLevelKey) {
         _panSpeed = Vec2(30, 0);
     } else if (selectedLevelKey == "tube") {
         setMode(false);
-        setDefaultZoom(0.2);
+        setDefaultZoom(0.15);
         _levelCompleteZoom = 0.15;
         _panSpeed = Vec2(0, 30);
     } else if (selectedLevelKey == "doodlejump") {
