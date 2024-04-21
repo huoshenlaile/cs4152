@@ -17,11 +17,25 @@ bool MovingWall::init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect b
         if(properties->get(i)->getString("name") == "Movements"){
             auto movement = properties->get(i)->get("value");
             _speed = movement->getFloat("speed", 0);
-            for (auto& point : movement->get("path")->children()) {
-                Vec2 p = _selfObstacle->getPosition();
-                CULog("HIIIIIILOOOOKKKKKKHEREEEEEEEEE: %f hi %f", p.x, p.y);
-                _path.emplace_back(p.x+point->getFloat("x"), p.y+point->getFloat("y"));
+            std::string path = movement->getString("xy");
+            std::vector<int> coordinates;
+            std::stringstream ss(path);
+            std::string item;
+            while (getline(ss, item, ',')) {
+                    coordinates.push_back(std::stoi(item));
             }
+            Vec2 p = _selfObstacle->getPosition();
+            for (size_t i = 0; i < coordinates.size(); i += 2) {
+                    int xi = coordinates[i];
+                    int yi = coordinates[i + 1];
+                    _path.emplace_back(p.x + xi, p.y + yi);
+            }
+            
+//            for (auto& point : movement->get("path")->children()) {
+//                Vec2 p = _selfObstacle->getPosition();
+//                CULog("HIIIIIILOOOOKKKKKKHEREEEEEEEEE: %f hi %f", p.x, p.y);
+//                _path.emplace_back(p.x+point->getFloat("x"), p.y+point->getFloat("y"));
+//            }
             CULog("HIIIIIILOOOOKKKKKKHEREEEEEEEEE: %f", 0.1f);
         } else if(properties->get(i)->getString("name") == "MoveOnContact") {
             _moveOnContact = properties->get(i)->get("value")->asBool();

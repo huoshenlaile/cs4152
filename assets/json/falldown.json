@@ -80,6 +80,7 @@
                  "properties":[
                         {
                          "name":"METADATA",
+                         "propertytype": "METADATA",
                          "type":"class",
                          "value":
                             {
@@ -2261,7 +2262,7 @@
                              "obstacle":
                                 {
                                  "bodytype":0,
-                                 "color-requirements":"orange",
+                                 "color-requirements":"purple",
                                  "damping":0,
                                  "debugcolor":"yellow",
                                  "debugopacity":0,

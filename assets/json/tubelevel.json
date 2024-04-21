@@ -83,7 +83,7 @@
                  "type":"movingwall",
                  "visible":true,
                  "width":0,
-                 "x":4743.1930766465,
+                 "x":5063.1930766465,
                  "y":14078.716397199
                 }, 
                 {
@@ -132,7 +132,7 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":-7.48541702028376,
+                 "x":771.002810984673,
                  "y":5601.90505427891
                 }, 
                 {
@@ -181,7 +181,7 @@
                  "type":"bouncywall",
                  "visible":true,
                  "width":0,
-                 "x":419.304678107965,
+                 "x":739.304678107965,
                  "y":16043.0348609122
                 }, 
                 {
@@ -213,27 +213,12 @@
                         }, 
                         {
                          "name":"Movements",
+                         "propertytype":"Moving",
                          "type":"class",
                          "value":
                             {
-                             "path":[
-                                    {
-                                     "x":150,
-                                     "y":0
-                                    }, 
-                                    {
-                                     "x":0,
-                                     "y":0
-                                    }, 
-                                    {
-                                     "x":150,
-                                     "y":0
-                                    }, 
-                                    {
-                                     "x":0,
-                                     "y":0
-                                    }],
-                             "speed":20
+                             "speed":10,
+                             "xy":"150,0,0,0"
                             }
                         }, 
                         {
@@ -260,7 +245,7 @@
                  "type":"movingwall",
                  "visible":true,
                  "width":0,
-                 "x":328.029901804674,
+                 "x":648.029901804674,
                  "y":5140.88025487876
                 }, 
                 {
@@ -272,7 +257,7 @@
                  "type":"character",
                  "visible":true,
                  "width":153.102642632413,
-                 "x":360.711751538336,
+                 "x":1139.19997954329,
                  "y":5221.95983278926
                 }, 
                 {
@@ -305,7 +290,9 @@
                             {
                              "Bad_bg":"lv3_background_1",
                              "Default_bg":"lv3_background_1",
-                             "Good_bg":"lv3_background_1"
+                             "Good_bg":"lv3_background_1",
+                             "level_height":17896,
+                             "level_width":6733
                             }
                         }, 
                         {
@@ -332,13 +319,13 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":3799.15090648642,
-                 "y":10948.9643959854
+                 "x":337.332724668239,
+                 "y":521.691668712671
                 }, 
                 {
                  "height":0,
                  "id":54,
-                 "name":"sensor4",
+                 "name":"pink",
                  "polygon":[
                         {
                          "x":-867.019047018305,
@@ -362,6 +349,11 @@
                         }],
                  "properties":[
                         {
+                         "name":"AnimationAsset",
+                         "type":"string",
+                         "value":"pink_paint"
+                        }, 
+                        {
                          "name":"Pub1",
                          "propertytype":"PubMessage",
                          "type":"class",
@@ -372,6 +364,32 @@
                              "Head":"character color",
                              "Trigger":"TOUCH: character body"
                             }
+                        }, 
+                        {
+                         "name":"Sub1",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"show",
+                             "Enabled":true,
+                             "Head":"paint out"
+                            }
+                        }, 
+                        {
+                         "name":"color",
+                         "type":"string",
+                         "value":"pink"
+                        }, 
+                        {
+                         "name":"instant",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"paint_id",
+                         "type":"int",
+                         "value":0
                         }, 
                         {
                          "name":"properties",
@@ -386,7 +404,7 @@
                                  "debugcolor":"yellow",
                                  "debugopaciy":192,
                                  "density":0,
-                                 "friction":0,
+                                 "friction":0.2,
                                  "publications":[
                                         {
                                          "body":
@@ -397,17 +415,17 @@
                                          "pub_id":"sensor1",
                                          "trigger":"contacted"
                                         }],
-                                 "restitution":0,
+                                 "restitution":0.1,
                                  "rotation":false,
-                                 "texture":""
+                                 "texture":"splotch3"
                                 }
                             }
                         }],
                  "rotation":0,
-                 "type":"sensor",
+                 "type":"paint",
                  "visible":true,
                  "width":0,
-                 "x":2153.21434253534,
+                 "x":2473.21434253534,
                  "y":13883.7576310152
                 }, 
                 {
@@ -468,20 +486,8 @@
                  "type":"exit",
                  "visible":true,
                  "width":0,
-                 "x":5552.4574679155,
+                 "x":5872.4574679155,
                  "y":5425.28564890977
-                }, 
-                {
-                 "gid":30,
-                 "height":4867.93326241791,
-                 "id":89,
-                 "name":"useless3",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":1032.30707267855,
-                 "x":7139.02189661273,
-                 "y":13555.9087296444
                 }, 
                 {
                  "height":0,
@@ -877,7 +883,7 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":4164.76918580183,
+                 "x":4484.76918580183,
                  "y":6051.923719596
                 }, 
                 {
@@ -889,7 +895,7 @@
                  "type":"",
                  "visible":true,
                  "width":337,
-                 "x":-409.728346703639,
+                 "x":-89.728346703639,
                  "y":11745.8893224339
                 }, 
                 {
@@ -901,7 +907,7 @@
                  "type":"",
                  "visible":true,
                  "width":211,
-                 "x":-274.227507678242,
+                 "x":45.772492321758,
                  "y":10773.4579616828
                 }, 
                 {
@@ -966,7 +972,7 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":3076.64790233586,
+                 "x":3396.64790233586,
                  "y":6090.9789982569
                 }, 
                 {
@@ -1031,7 +1037,7 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":2468.12975811355,
+                 "x":2788.12975811355,
                  "y":6090.2242546183
                 }, 
                 {
@@ -1664,7 +1670,7 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":1145.46153412961,
+                 "x":1465.46153412961,
                  "y":6066.07445298345
                 }, 
                 {
@@ -2309,7 +2315,7 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":1566.23766344103,
+                 "x":1886.23766344103,
                  "y":6135.94742161807
                 }, 
                 {
@@ -2974,13 +2980,13 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":3431.82253152491,
+                 "x":3751.82253152491,
                  "y":6141.54249354665
                 }, 
                 {
                  "height":0,
                  "id":103,
-                 "name":"sensor2",
+                 "name":"green",
                  "polygon":[
                         {
                          "x":-1138.99852346273,
@@ -3004,6 +3010,11 @@
                         }],
                  "properties":[
                         {
+                         "name":"AnimationAsset",
+                         "type":"string",
+                         "value":"green_paint"
+                        }, 
+                        {
                          "name":"Pub1",
                          "propertytype":"PubMessage",
                          "type":"class",
@@ -3014,6 +3025,32 @@
                              "Head":"character color",
                              "Trigger":"TOUCH: character body"
                             }
+                        }, 
+                        {
+                         "name":"Sub1",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"show",
+                             "Enabled":true,
+                             "Head":"paint out"
+                            }
+                        }, 
+                        {
+                         "name":"color",
+                         "type":"string",
+                         "value":"green"
+                        }, 
+                        {
+                         "name":"instant",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"paint_id",
+                         "type":"int",
+                         "value":1
                         }, 
                         {
                          "name":"properties",
@@ -3028,25 +3065,25 @@
                                  "debugcolor":"yellow",
                                  "debugopaciy":192,
                                  "density":0,
-                                 "friction":0,
+                                 "friction":0.2,
                                  "publications":[],
-                                 "restitution":0,
+                                 "restitution":0.1,
                                  "rotation":false,
-                                 "texture":""
+                                 "texture":"splotch3"
                                 }
                             }
                         }],
                  "rotation":0,
-                 "type":"sensor",
+                 "type":"paint",
                  "visible":true,
                  "width":0,
-                 "x":3722.15631322107,
+                 "x":4042.15631322107,
                  "y":14014.4544973423
                 }, 
                 {
                  "height":0,
                  "id":105,
-                 "name":"sensor3",
+                 "name":"blue",
                  "polygon":[
                         {
                          "x":-839.958609859221,
@@ -3070,6 +3107,11 @@
                         }],
                  "properties":[
                         {
+                         "name":"AnimationAsset",
+                         "type":"string",
+                         "value":"blue_paint"
+                        }, 
+                        {
                          "name":"Pub1",
                          "propertytype":"PubMessage",
                          "type":"class",
@@ -3080,6 +3122,31 @@
                              "Head":"character color",
                              "Trigger":"TOUCH: character body"
                             }
+                        }, 
+                        {
+                         "name":"Sub1",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"show",
+                             "Head":"paint out"
+                            }
+                        }, 
+                        {
+                         "name":"color",
+                         "type":"string",
+                         "value":"blue"
+                        }, 
+                        {
+                         "name":"instant",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"paint_id",
+                         "type":"int",
+                         "value":2
                         }, 
                         {
                          "name":"properties",
@@ -3094,19 +3161,19 @@
                                  "debugcolor":"yellow",
                                  "debugopaciy":192,
                                  "density":0,
-                                 "friction":0,
+                                 "friction":0.2,
                                  "publications":[],
                                  "restitution":0,
                                  "rotation":false,
-                                 "texture":""
+                                 "texture":"splotch3"
                                 }
                             }
                         }],
                  "rotation":0,
-                 "type":"sensor",
+                 "type":"paint",
                  "visible":true,
                  "width":0,
-                 "x":4543.61920000771,
+                 "x":4863.61920000771,
                  "y":13863.7108241715
                 }, 
                 {
@@ -3118,7 +3185,7 @@
                  "type":"",
                  "visible":false,
                  "width":6333.55038639916,
-                 "x":-2.2316855858594,
+                 "x":317.768314414141,
                  "y":15986.9347082192
                 }, 
                 {
@@ -3152,6 +3219,7 @@
                              "obstacle":
                                 {
                                  "bodytype":0,
+                                 "color-requirements":"blue",
                                  "damping":0,
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
@@ -3159,7 +3227,7 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
+                                 "texture":"lv1_palette"
                                 }
                             }
                         }],
@@ -3167,7 +3235,7 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":5422.66363866949,
+                 "x":5742.66363866949,
                  "y":5702.24160380456
                 }, 
                 {
@@ -3216,7 +3284,7 @@
                  "type":"bouncywall",
                  "visible":true,
                  "width":0,
-                 "x":4633.78176382661,
+                 "x":4953.78176382661,
                  "y":16263.0792227205
                 }, 
                 {
@@ -3265,7 +3333,7 @@
                  "type":"bouncywall",
                  "visible":true,
                  "width":0,
-                 "x":2556.05381165919,
+                 "x":2876.05381165919,
                  "y":16098.6547085202
                 }, 
                 {
@@ -3314,7 +3382,7 @@
                  "type":"bouncywall",
                  "visible":true,
                  "width":0,
-                 "x":3587.44394618834,
+                 "x":3907.44394618834,
                  "y":16113.6023916293
                 }, 
                 {
@@ -3363,8 +3431,79 @@
                  "type":"bouncywall",
                  "visible":true,
                  "width":0,
-                 "x":1526.43335815339,
+                 "x":1846.43335815339,
                  "y":16083.3953834698
+                }, 
+                {
+                 "height":0,
+                 "id":118,
+                 "name":"sensor1",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":1097.4025974026,
+                         "y":-12.9870129870133
+                        }, 
+                        {
+                         "x":1084.41558441558,
+                         "y":837.662337662337
+                        }, 
+                        {
+                         "x":0,
+                         "y":811.688311688312
+                        }],
+                 "properties":[
+                        {
+                         "name":"Pub1",
+                         "propertytype":"PubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Enabled":true,
+                             "Head":"paint out",
+                             "Trigger":"body192"
+                            }
+                        }, 
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":0,
+                                 "density":0,
+                                 "friction":0,
+                                 "restitution":0,
+                                 "rotation":false
+                                }
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"sensor",
+                 "visible":true,
+                 "width":0,
+                 "x":474.025974025974,
+                 "y":4811.68831168831
+                }, 
+                {
+                 "gid":41,
+                 "height":17896.6666666667,
+                 "id":119,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":6733.33333333333,
+                 "x":0,
+                 "y":17923.3333333333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -3373,7 +3512,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":118,
+ "nextobjectid":120,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
@@ -3386,5 +3525,5 @@
  "tilewidth":32,
  "type":"map",
  "version":"1.10",
- "width":200
+ "width":210
 }
