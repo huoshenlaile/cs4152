@@ -340,7 +340,7 @@
                 {
                  "height":0,
                  "id":54,
-                 "name":"sensor4",
+                 "name":"pink",
                  "polygon":[
                         {
                          "x":-867.019047018305,
@@ -364,6 +364,11 @@
                         }],
                  "properties":[
                         {
+                         "name":"AnimationAsset",
+                         "type":"string",
+                         "value":"red_paint"
+                        }, 
+                        {
                          "name":"Pub1",
                          "propertytype":"PubMessage",
                          "type":"class",
@@ -374,6 +379,32 @@
                              "Head":"character color",
                              "Trigger":"TOUCH: character body"
                             }
+                        }, 
+                        {
+                         "name":"Sub1",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"show",
+                             "Enabled":true,
+                             "Head":"paint out"
+                            }
+                        }, 
+                        {
+                         "name":"color",
+                         "type":"string",
+                         "value":"pink"
+                        }, 
+                        {
+                         "name":"instant",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"paint_id",
+                         "type":"int",
+                         "value":0
                         }, 
                         {
                          "name":"properties",
@@ -388,7 +419,7 @@
                                  "debugcolor":"yellow",
                                  "debugopaciy":192,
                                  "density":0,
-                                 "friction":0,
+                                 "friction":0.2,
                                  "publications":[
                                         {
                                          "body":
@@ -399,14 +430,14 @@
                                          "pub_id":"sensor1",
                                          "trigger":"contacted"
                                         }],
-                                 "restitution":0,
+                                 "restitution":0.1,
                                  "rotation":false,
-                                 "texture":""
+                                 "texture":"splotch3"
                                 }
                             }
                         }],
                  "rotation":0,
-                 "type":"sensor",
+                 "type":"paint",
                  "visible":true,
                  "width":0,
                  "x":2473.21434253534,
@@ -2982,7 +3013,7 @@
                 {
                  "height":0,
                  "id":103,
-                 "name":"sensor2",
+                 "name":"green",
                  "polygon":[
                         {
                          "x":-1138.99852346273,
@@ -3006,6 +3037,11 @@
                         }],
                  "properties":[
                         {
+                         "name":"AnimationAsset",
+                         "type":"string",
+                         "value":"red_paint"
+                        }, 
+                        {
                          "name":"Pub1",
                          "propertytype":"PubMessage",
                          "type":"class",
@@ -3016,6 +3052,32 @@
                              "Head":"character color",
                              "Trigger":"TOUCH: character body"
                             }
+                        }, 
+                        {
+                         "name":"Sub1",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"show",
+                             "Enabled":true,
+                             "Head":"paint out"
+                            }
+                        }, 
+                        {
+                         "name":"color",
+                         "type":"string",
+                         "value":"green"
+                        }, 
+                        {
+                         "name":"instant",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"paint_id",
+                         "type":"int",
+                         "value":1
                         }, 
                         {
                          "name":"properties",
@@ -3030,16 +3092,16 @@
                                  "debugcolor":"yellow",
                                  "debugopaciy":192,
                                  "density":0,
-                                 "friction":0,
+                                 "friction":0.2,
                                  "publications":[],
-                                 "restitution":0,
+                                 "restitution":0.1,
                                  "rotation":false,
-                                 "texture":""
+                                 "texture":"splotch3"
                                 }
                             }
                         }],
                  "rotation":0,
-                 "type":"sensor",
+                 "type":"paint",
                  "visible":true,
                  "width":0,
                  "x":4042.15631322107,
@@ -3048,7 +3110,7 @@
                 {
                  "height":0,
                  "id":105,
-                 "name":"sensor3",
+                 "name":"blue",
                  "polygon":[
                         {
                          "x":-839.958609859221,
@@ -3072,6 +3134,11 @@
                         }],
                  "properties":[
                         {
+                         "name":"AnimationAsset",
+                         "type":"string",
+                         "value":"red_paint"
+                        }, 
+                        {
                          "name":"Pub1",
                          "propertytype":"PubMessage",
                          "type":"class",
@@ -3082,6 +3149,31 @@
                              "Head":"character color",
                              "Trigger":"TOUCH: character body"
                             }
+                        }, 
+                        {
+                         "name":"Sub1",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"show",
+                             "Head":"paint out"
+                            }
+                        }, 
+                        {
+                         "name":"color",
+                         "type":"string",
+                         "value":"blue"
+                        }, 
+                        {
+                         "name":"instant",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"paint_id",
+                         "type":"int",
+                         "value":2
                         }, 
                         {
                          "name":"properties",
@@ -3096,16 +3188,16 @@
                                  "debugcolor":"yellow",
                                  "debugopaciy":192,
                                  "density":0,
-                                 "friction":0,
+                                 "friction":0.2,
                                  "publications":[],
                                  "restitution":0,
                                  "rotation":false,
-                                 "texture":""
+                                 "texture":"splotch3"
                                 }
                             }
                         }],
                  "rotation":0,
-                 "type":"sensor",
+                 "type":"paint",
                  "visible":true,
                  "width":0,
                  "x":4863.61920000771,
@@ -3154,6 +3246,7 @@
                              "obstacle":
                                 {
                                  "bodytype":0,
+                                 "color-requirements":"blue",
                                  "damping":0,
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
@@ -3161,7 +3254,7 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
+                                 "texture":"lv1_palette"
                                 }
                             }
                         }],
@@ -3367,6 +3460,65 @@
                  "width":0,
                  "x":1846.43335815339,
                  "y":16083.3953834698
+                }, 
+                {
+                 "height":0,
+                 "id":118,
+                 "name":"sensor1",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":1097.4025974026,
+                         "y":-12.9870129870133
+                        }, 
+                        {
+                         "x":1084.41558441558,
+                         "y":837.662337662337
+                        }, 
+                        {
+                         "x":0,
+                         "y":811.688311688312
+                        }],
+                 "properties":[
+                        {
+                         "name":"Pub1",
+                         "propertytype":"PubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Enabled":true,
+                             "Head":"paint out",
+                             "Trigger":"body192"
+                            }
+                        }, 
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":0,
+                                 "density":0,
+                                 "friction":0,
+                                 "restitution":0,
+                                 "rotation":false
+                                }
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"sensor",
+                 "visible":true,
+                 "width":0,
+                 "x":474.025974025974,
+                 "y":4811.68831168831
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -3375,7 +3527,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":118,
+ "nextobjectid":119,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

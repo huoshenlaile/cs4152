@@ -116,7 +116,7 @@ void GameScene::preUpdate(float dt) {
     }
     _inputController->process();
     Size dimen = computeActiveSize();
-    float screen_height_multiplier = SCENE_WIDTH / dimen.height;
+    //float screen_height_multiplier = SCENE_WIDTH / dimen.height;
     //std::cout << "screen_height_multiplier: " << screen_height_multiplier << "\n";
     _character->moveLeftHand(INPUT_SCALER * _inputController->getLeftHandMovement(), _interactionController->leftHandReverse);
     _character->moveRightHand(INPUT_SCALER * _inputController->getrightHandMovement(), _interactionController->rightHandReverse);
@@ -185,7 +185,7 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     _pauseButtonNode->setVisible(true);
     // pause button
     _pauseButton = std::dynamic_pointer_cast<scene2::Button>(_pauseButtonNode->getChildByName("pause"));
-    _pauseButton -> doLayout();
+    _pauseButton->doLayout();
     _pauseButton->addListener([this](const std::string &name, bool down) {
         if (down) {
             _gamePaused = true;

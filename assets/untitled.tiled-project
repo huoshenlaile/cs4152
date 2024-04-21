@@ -66,11 +66,6 @@
                     "value": 0
                 },
                 {
-                    "name": "color-requirements",
-                    "type": "string",
-                    "value": ""
-                },
-                {
                     "name": "damping",
                     "type": "float",
                     "value": 0
@@ -197,9 +192,29 @@
                     "value": ""
                 },
                 {
+                    "name": "Bool1",
+                    "type": "bool",
+                    "value": false
+                },
+                {
                     "name": "Enabled",
                     "type": "bool",
                     "value": false
+                },
+                {
+                    "name": "Float1",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "Float2",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "Float3",
+                    "type": "float",
+                    "value": 0
                 },
                 {
                     "name": "Head",
@@ -210,6 +225,21 @@
                     "name": "Id",
                     "type": "string",
                     "value": ""
+                },
+                {
+                    "name": "Int1",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "Int2",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "Int3",
+                    "type": "int",
+                    "value": 0
                 },
                 {
                     "name": "Trigger",
@@ -247,9 +277,29 @@
                     "value": ""
                 },
                 {
+                    "name": "Bool1",
+                    "type": "bool",
+                    "value": false
+                },
+                {
                     "name": "Enabled",
                     "type": "bool",
                     "value": false
+                },
+                {
+                    "name": "Float1",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "Float2",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "Float3",
+                    "type": "float",
+                    "value": 0
                 },
                 {
                     "name": "Head",
@@ -260,6 +310,21 @@
                     "name": "Id",
                     "type": "string",
                     "value": ""
+                },
+                {
+                    "name": "Int1",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "Int2",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "Int3",
+                    "type": "int",
+                    "value": 0
                 }
             ],
             "name": "SubMessage",
