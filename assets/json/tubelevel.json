@@ -305,7 +305,9 @@
                             {
                              "Bad_bg":"lv3_background_1",
                              "Default_bg":"lv3_background_1",
-                             "Good_bg":"lv3_background_1"
+                             "Good_bg":"lv3_background_1",
+                             "level_height":17920,
+                             "level_width":6400
                             }
                         }, 
                         {
