@@ -79,23 +79,23 @@
                          "y":0
                         }, 
                         {
-                         "x":-593.698924220992,
+                         "x":-1001.67260021164,
                          "y":65.037471308145
                         }, 
                         {
-                         "x":-599.145703342285,
+                         "x":-1010.86225709432,
                          "y":-67.2053870184165
                         }, 
                         {
-                         "x":620.932819827461,
+                         "x":1047.62088462502,
                          "y":-69.3733027286883
                         }, 
                         {
-                         "x":626.379598948753,
+                         "x":1056.8105415077,
                          "y":65.037471308145
                         }, 
                         {
-                         "x":-610.039261584872,
+                         "x":-1029.24157085967,
                          "y":69.3733027286883
                         }],
                  "properties":[
@@ -123,7 +123,7 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":811.117679089645,
+                 "x":1230.31998836444,
                  "y":1836.67466212317
                 }, 
                 {
@@ -192,8 +192,8 @@
                  "type":"character",
                  "visible":true,
                  "width":153.102642632413,
-                 "x":617.251213085499,
-                 "y":1093.89202047741
+                 "x":526.86555418826,
+                 "y":1490.48845060337
                 }, 
                 {
                  "height":0,
@@ -536,8 +536,8 @@
                  "type":"exit",
                  "visible":true,
                  "width":0,
-                 "x":2583.96857418815,
-                 "y":1790.88705564528
+                 "x":3152.42823188986,
+                 "y":1796.99952508293
                 }, 
                 {
                  "height":0,
@@ -710,8 +710,73 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":2877.8407390174,
-                 "y":1828.26815993642
+                 "x":3446.30039671911,
+                 "y":1834.38062937407
+                }, 
+                {
+                 "height":0,
+                 "id":95,
+                 "name":"moving_wall1",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":0,
+                         "y":-87.3715
+                        }, 
+                        {
+                         "x":512.205,
+                         "y":-87.3715
+                        }, 
+                        {
+                         "x":512.205,
+                         "y":0
+                        }],
+                 "properties":[
+                        {
+                         "name":"Grab",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"Movements",
+                         "propertytype":"bodytype",
+                         "type":"class",
+                         "value":
+                            {
+                             "speed":6,
+                             "wait":0,
+                             "xy":"55,0,0,0"
+                            }
+                        }, 
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":192,
+                                 "density":0,
+                                 "friction":0.2,
+                                 "restitution":0.1,
+                                 "rotation":false,
+                                 "texture":"alpharelease_frenchfries"
+                                }
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"movingwall",
+                 "visible":true,
+                 "width":0,
+                 "x":1742.05378973105,
+                 "y":1546.45476772616
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -720,7 +785,7 @@
          "y":0
         }],
  "nextlayerid":7,
- "nextobjectid":95,
+ "nextobjectid":96,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
