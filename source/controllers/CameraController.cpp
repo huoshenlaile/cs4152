@@ -219,11 +219,12 @@ void CameraController::setCamera(std::string selectedLevelKey) {
         setMode(false);
         setDefaultZoom(0.2);
         _levelCompleteZoom = 0.15;
-        _panSpeed = Vec2(0, 30);
+        _panSpeed = Vec2(0, -30);
     } else if (selectedLevelKey == "doodlejump") {
         setMode(false);
         setDefaultZoom(0.2);
         _levelCompleteZoom = 0.15;
+        _panSpeed = Vec2(0, -30);
     } else if (selectedLevelKey == "falldown") {
         setMode(false);
         setDefaultZoom(0.2);
