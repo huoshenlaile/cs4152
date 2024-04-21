@@ -58,6 +58,41 @@
         {
             "color": "#ffa0a0a4",
             "drawFill": true,
+            "id": 29,
+            "members": [
+                {
+                    "name": "speed",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "wait",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "xy",
+                    "type": "string",
+                    "value": ""
+                }
+            ],
+            "name": "Moving",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
             "id": 20,
             "members": [
                 {
