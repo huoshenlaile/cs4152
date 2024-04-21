@@ -31,6 +31,10 @@ public:
     /** Is in contact? */
     bool is_contacting = false;
     
+    /** Is touching inner fixture? */
+    bool debouncing = false;
+    
+    
     Exit(void) : Interactable() {}
     ~Exit() {
         // Call the parent class destructor
