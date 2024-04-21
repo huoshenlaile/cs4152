@@ -306,8 +306,8 @@
                              "Bad_bg":"lv3_background_1",
                              "Default_bg":"lv3_background_1",
                              "Good_bg":"lv3_background_1",
-                             "level_height":17920,
-                             "level_width":6400
+                             "level_height":17896,
+                             "level_width":6733
                             }
                         }, 
                         {
@@ -334,8 +334,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":4119.15090648642,
-                 "y":10948.9643959854
+                 "x":337.332724668239,
+                 "y":521.691668712671
                 }, 
                 {
                  "height":0,
@@ -503,18 +503,6 @@
                  "width":0,
                  "x":5872.4574679155,
                  "y":5425.28564890977
-                }, 
-                {
-                 "gid":30,
-                 "height":4867.93326241791,
-                 "id":89,
-                 "name":"useless3",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":1032.30707267855,
-                 "x":7459.02189661273,
-                 "y":13555.9087296444
                 }, 
                 {
                  "height":0,
@@ -3519,6 +3507,18 @@
                  "width":0,
                  "x":474.025974025974,
                  "y":4811.68831168831
+                }, 
+                {
+                 "gid":41,
+                 "height":17896.6666666667,
+                 "id":119,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":6733.33333333333,
+                 "x":0,
+                 "y":17923.3333333333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -3527,7 +3527,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":119,
+ "nextobjectid":120,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

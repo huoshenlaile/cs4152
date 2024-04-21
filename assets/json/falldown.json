@@ -80,6 +80,7 @@
                  "properties":[
                         {
                          "name":"METADATA",
+                         "propertytype": "METADATA",
                          "type":"class",
                          "value":
                             {
