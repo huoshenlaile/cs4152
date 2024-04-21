@@ -26,7 +26,6 @@ protected:
     bool OnEndContactEnabled = false;
     bool OnPreSolveEnabled = false;
     bool OnPostSolveEnabled = false;
-    bool onTouchEnabled = false;
     bool canBeGrabbed = false;
 
     Rect _bounds;
@@ -69,14 +68,12 @@ public:
     virtual PublishedMessage onEndContact(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact = nullptr, std::shared_ptr<Interactable> otherInteractable = nullptr, bool isCharacter = false, std::shared_ptr<CharacterController> character = nullptr) { return PublishedMessage(); }
     virtual PublishedMessage onPreSolve(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact = nullptr, const b2Manifold* oldManifold = nullptr, std::shared_ptr<Interactable> otherInteractable = nullptr, bool isCharacter = false, std::shared_ptr<CharacterController> character = nullptr) { return PublishedMessage(); }
     virtual PublishedMessage onPostSolve(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact = nullptr, const b2ContactImpulse* impulse = nullptr, std::shared_ptr<Interactable> otherInteractable = nullptr, bool isCharacter = false, std::shared_ptr<CharacterController> character = nullptr) { return PublishedMessage(); }
-    virtual PublishedMessage onTouch() { return PublishedMessage(); }
 
     bool hasTimeUpdate() { return timeUpdateEnabled; }
     bool hasOnBeginContact() { return OnBeginContactEnabled; }
     bool hasOnEndContact() { return OnEndContactEnabled; }
     bool hasOnPreSolve() { return OnPreSolveEnabled; }
     bool hasOnPostSolve() { return OnPostSolveEnabled; }
-    bool hasOnTouch() { return onTouchEnabled; }
 
 
     std::string getName() { return _name; }
