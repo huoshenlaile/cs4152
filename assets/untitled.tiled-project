@@ -13,6 +13,108 @@
         {
             "color": "#ffa0a0a4",
             "drawFill": true,
+            "id": 27,
+            "members": [
+                {
+                    "name": "fire",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "win",
+                    "type": "bool",
+                    "value": false
+                }
+            ],
+            "name": "Actions",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 28,
+            "members": [
+                {
+                    "name": "fire",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "win",
+                    "type": "string",
+                    "value": ""
+                }
+            ],
+            "name": "Body",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "id": 29,
+            "name": "bodytype",
+            "storageType": "int",
+            "type": "enum",
+            "values": [
+                "static",
+                "kinematic",
+                "dynamic"
+            ],
+            "valuesAsFlags": false
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 32,
+            "members": [
+                {
+                    "name": "obstacle",
+                    "propertyType": "Obstacle",
+                    "type": "class",
+                    "value": {
+                        "bodytype": {
+                        },
+                        "damping": 0,
+                        "debugcolor": {
+                        },
+                        "debugopacity": 192,
+                        "density": 0,
+                        "friction": 0,
+                        "restitution": 0,
+                        "rotation": false,
+                        "texture": "exit"
+                    }
+                }
+            ],
+            "name": "ExitProperties",
+            "type": "class",
+            "useAs": [
+                "property"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
             "id": 26,
             "members": [
                 {
@@ -101,11 +203,6 @@
                     "value": 0
                 },
                 {
-                    "name": "color-requirements",
-                    "type": "string",
-                    "value": ""
-                },
-                {
                     "name": "damping",
                     "type": "float",
                     "value": 0
@@ -158,6 +255,64 @@
                 "wangcolor",
                 "wangset",
                 "project"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 35,
+            "members": [
+                {
+                    "name": "bodytype",
+                    "propertyType": "bodytype",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "damping",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "debugcolor",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "debugopacity",
+                    "type": "float",
+                    "value": 192
+                },
+                {
+                    "name": "density",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "friction",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "restitution",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "rotation",
+                    "type": "bool",
+                    "value": false
+                },
+                {
+                    "name": "texture",
+                    "type": "string",
+                    "value": ""
+                }
+            ],
+            "name": "Obstacle",
+            "type": "class",
+            "useAs": [
+                "property"
             ]
         },
         {
@@ -232,9 +387,29 @@
                     "value": ""
                 },
                 {
+                    "name": "Bool1",
+                    "type": "bool",
+                    "value": false
+                },
+                {
                     "name": "Enabled",
                     "type": "bool",
                     "value": false
+                },
+                {
+                    "name": "Float1",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "Float2",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "Float3",
+                    "type": "float",
+                    "value": 0
                 },
                 {
                     "name": "Head",
@@ -245,6 +420,21 @@
                     "name": "Id",
                     "type": "string",
                     "value": ""
+                },
+                {
+                    "name": "Int1",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "Int2",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "Int3",
+                    "type": "int",
+                    "value": 0
                 },
                 {
                     "name": "Trigger",
@@ -282,9 +472,29 @@
                     "value": ""
                 },
                 {
+                    "name": "Bool1",
+                    "type": "bool",
+                    "value": false
+                },
+                {
                     "name": "Enabled",
                     "type": "bool",
                     "value": false
+                },
+                {
+                    "name": "Float1",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "Float2",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "Float3",
+                    "type": "float",
+                    "value": 0
                 },
                 {
                     "name": "Head",
@@ -295,6 +505,21 @@
                     "name": "Id",
                     "type": "string",
                     "value": ""
+                },
+                {
+                    "name": "Int1",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "Int2",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "Int3",
+                    "type": "int",
+                    "value": 0
                 }
             ],
             "name": "SubMessage",
@@ -343,6 +568,36 @@
                 "wangcolor",
                 "wangset",
                 "project"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 37,
+            "members": [
+                {
+                    "name": "obstacle",
+                    "propertyType": "Obstacle",
+                    "type": "class",
+                    "value": {
+                        "bodytype": {
+                        },
+                        "damping": 0,
+                        "debugcolor": {
+                        },
+                        "debugopacity": 192,
+                        "density": 0,
+                        "friction": 0,
+                        "restitution": 0,
+                        "rotation": false,
+                        "texture": "earth"
+                    }
+                }
+            ],
+            "name": "WallProperties",
+            "type": "class",
+            "useAs": [
+                "property"
             ]
         }
     ]

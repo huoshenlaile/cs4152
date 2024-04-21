@@ -295,6 +295,18 @@
         "purple_paint": {
             "file": "textures/purple_paint_141x144.png"
         },
+        "pink_paint": {
+            "file": "textures/pink_paint_141x144.png"
+        },
+        "blue_paint": {
+            "file": "textures/blue_paint_141x144.png"
+        },
+        "green_paint": {
+            "file": "textures/green_paint_141x144.png"
+        },
+        "black_paint": {
+            "file": "textures/black_paint_141x144.png"
+        },
         "tube_curved_l": {
             "file": "textures/tube/tube_curved_left.png"
         },
@@ -353,7 +365,7 @@
         "title": "widgets/title.json",
         "pause": "widgets/pause.json",
         "levelcomplete": "widgets/levelcomplete.json",
-        "pausebutton": "widgets/pausebutton_tryout.json"
+        "pausebutton": "widgets/pausebutton.json"
     },
     "scene2s": {
         "pause": {

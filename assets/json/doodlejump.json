@@ -252,7 +252,9 @@
                             {
                              "Bad_bg":"lvl4_background_bad",
                              "Default_bg":"lvl4_background_bad",
-                             "Good_bg":"lvl4_background_good"
+                             "Good_bg":"lvl4_background_good",
+                             "level_height":14880,
+                             "level_width":6400
                             }
                         }, 
                         {
