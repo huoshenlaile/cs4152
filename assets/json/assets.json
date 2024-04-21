@@ -353,7 +353,7 @@
         "title": "widgets/title.json",
         "pause": "widgets/pause.json",
         "levelcomplete": "widgets/levelcomplete.json",
-        "pausebutton": "widgets/pausebutton_tryout.json"
+        "pausebutton": "widgets/pausebutton.json"
     },
     "scene2s": {
         "pause": {
