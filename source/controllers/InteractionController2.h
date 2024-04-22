@@ -16,7 +16,7 @@
 
 
 using namespace cugl;
-#define GRAB_CD 5.0f
+#define GRAB_CD 1.0f
 
 class InteractionController2 {
 
