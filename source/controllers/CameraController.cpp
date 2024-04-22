@@ -70,13 +70,13 @@ void CameraController::update(float dt) {
         if (cameraStay(FINAL_STAY)) {
             _state = 3;
             _displayed = true;
+            this->setZoom(getDefaultZoom());
         }
 
         break;
     }
     // In the gameplay
     case 3: {
-        _camera->setZoom(getDefaultZoom());
         Vec2 cameraPos = Vec2(_camera->getPosition().x, _camera->getPosition().y);
         Vec2 target;
         Vec2 *dst = new Vec2();
@@ -91,7 +91,7 @@ void CameraController::update(float dt) {
         _camera->update();
         if (_levelComplete) {
             _state = 4;
-            _camera->setZoom(_levelCompleteZoom);
+            this->setZoom(_levelCompleteZoom);
         }
         break;
     }

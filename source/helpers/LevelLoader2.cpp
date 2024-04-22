@@ -118,11 +118,8 @@ bool LevelLoader2::construct(std::shared_ptr<cugl::AssetManager> &_assets) {
     _defaultBgNode->setTexture(defaultBgTexture);
     _defaultBgNode->setAbsolute(true);
     _defaultBgNode->setPosition(-10.0f, 0.0f);
-    std::cout << "(" << levelWidth << ", " << levelHeight << ")" << "\n";
+    std::cout << "level width and height in LevelLoader2::Construct: (" << levelWidth << ", " << levelHeight << ")" << "\n";
     _defaultBgNode->setContentSize(levelWidth, levelHeight);
-
-//    _defaultBgNode->setPosition(0.0f, 20.0f);
-//    _defaultBgNode->setContentSize(_defaultBgNode->getContentSize().width * 4, _defaultBgNode->getContentSize().height * 4);
 
     CULog("level loader construction scale: %f %f", _scale.x, _scale.y);
     // create character
