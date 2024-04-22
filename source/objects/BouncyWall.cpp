@@ -17,7 +17,6 @@ PublishedMessage BouncyWall::onBeginContact(std::shared_ptr<cugl::physics2::Obst
             double platformAngle = this->getObstacle()->getAngle();
             normal.x = normal.x * std::cos(platformAngle) - normal.y * std::sin(platformAngle);
             normal.y = normal.x * std::sin(platformAngle) + normal.y * std::cos(platformAngle);
-            std::cout << platformAngle << std::endl;
             character->getBodyObstacle()->setLinearVelocity(normal * speed);
         }
     }

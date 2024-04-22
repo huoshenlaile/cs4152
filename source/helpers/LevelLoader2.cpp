@@ -52,10 +52,9 @@ bool LevelLoader2::preload(const std::shared_ptr<cugl::JsonValue> &json) {
 
 bool LevelLoader2::loadObject(const std::shared_ptr<JsonValue> &json) {
     auto type = json->get("type")->asString();
-    std::cout << "===== PARSING " << json->get("name")->asString() << "======" << std::endl;
+    std::cout << "===== PARSING " << json->get("name")->asString() << " ======" << std::endl;
     if (type == WALLS_FIELD) {
         auto wall = Interactable::alloc(json, _scale, _bounds);
-        std::cout << "finished " << json->get("name")->asString() << std::endl;
         _interactables.push_back(wall);
     } else if (type == SENSOR_FIELD) {
         auto sensor = Sensor::alloc(json, _scale, _bounds);

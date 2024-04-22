@@ -24,15 +24,6 @@ bool PaintModel::init(cugl::Poly2 paintFrames, Vec2 locations){
     for(int i  = 0; i < splotches.size(); i++){
         std::string image = splotches[i];
         _textures = image;
-        //std::shared_ptr<scene2::PolygonNode> sprite = scene2::PolygonNode::allocWithTexture(image, _paintFrames);
-        //sprite->setColor(Color4::BLACK);
-        //sprite->setVisible(false);
-        
-        //_sprites = sprite;
-        //sprite->setPosition(locations);
-        //worldnode->addChild(sprite);
-        //std::cout << "Paint Polygon Position: " << sprite->getPositionX() << ", " << sprite->getPositionY() << std::endl;
-        
     }
     //trigger();
     return true;

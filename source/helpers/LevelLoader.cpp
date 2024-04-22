@@ -108,11 +108,9 @@ bool LevelLoader::loadObject(const std::shared_ptr<JsonValue>& json) {
     }else if (type == GOALDOOR_FIELD) {
         return loadGoalDoor(json);
     }else if (type == SENSOR_FIELD){
-//        std::cout << "Loading sensor";
         return loadSensor(json);
     }else if (type == CHARACTER_POS){
         _charPos = getObjectPos(json);
-//        std::cout << _charPos.x << " abcdefg "<< _charPos.y <<std::endl;
     } else if (type == PAINT_FIELD){
         return loadPaint(json);
     }
@@ -278,7 +276,6 @@ bool LevelLoader::loadPaint(const std::shared_ptr<JsonValue>& json){
 * @return true if the wall was successfully loaded
 */
 bool LevelLoader::loadWall(const std::shared_ptr<JsonValue>& json) {
-//    std::cout << "loading wall " << std::endl;
     bool success = true;
     
     std::shared_ptr<JsonValue> properties = json -> get("properties");
@@ -312,8 +309,6 @@ bool LevelLoader::loadWall(const std::shared_ptr<JsonValue>& json) {
     wallobj->setFriction(walljson->get("obstacle")->getDouble(FRICTION_FIELD));
     wallobj->setRestitution(walljson->get("obstacle")->getDouble(RESTITUTION_FIELD));
     wallobj->setPosition(getObjectPos(json));
-    
-//    std::cout << wallobj->getPosition().x << ", " <<  wallobj->getPosition().y <<std::endl;
     wallobj->setAnchor(0.5f, 0.5f);
     
     wallobj->setAngle((360.0f - json->getFloat("rotation")) * M_PI / 180.0f);

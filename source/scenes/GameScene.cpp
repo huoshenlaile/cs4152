@@ -50,8 +50,6 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, std::str
     _inputController = std::make_shared<InputController>();
     _inputController->init(rect);
     _inputController->fillHand(_character->getLeftHandPosition(), _character->getRightHandPosition(), _character->getLHPos(), _character->getRHPos());
-    std::cout << "initialized input controller" << std::endl;
-    
 
 #pragma mark Construct Camera Controller
 
@@ -205,7 +203,6 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     _paintMeter->setVisible(false);
     _paintMeter->setScale(.5);
     _paintMeter->setFrame(0);
-    std::cout << _paintMeter->getWidth() << ", " << _paintMeter->getHeight() << "\n";
 
     _paintMeter->setScissor(Scissor::alloc(_paintMeter->getSize() * 2));
 
@@ -217,9 +214,6 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     _levelComplete->setContentSize(dimen);
     _levelComplete->setVisible(false);
 
-    for (auto i : _levelComplete->getChildren()) {
-        std::cout << "child name: " << i->getName() << std::endl;
-    }
     // TODO: Trying on level complete (MAY CRASH)
     // level complete scene buttons
     auto completemenu = _levelComplete->getChildByName("completemenu");
@@ -227,7 +221,7 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     _levelCompleteReset->deactivate();
     _levelCompleteReset->addListener([this](const std::string &name, bool down) {
         if (down) {
-            std::cout << "level complete reset!" << std::endl;
+            std::cout << "level complete reset triggered!" << std::endl;
             this->state = RESET;
             _camera->setCameraState(0);
         }
@@ -238,7 +232,7 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     _levelCompleteMenuButton->deactivate();
     _levelCompleteMenuButton->addListener([this](const std::string &name, bool down) {
         if (down) {
-            std::cout << "level complete main menu!" << std::endl;
+            std::cout << "level complete main menu triggered!" << std::endl;
             this->state = QUIT;
         }
     });
