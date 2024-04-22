@@ -20,7 +20,7 @@ bool CameraController::init(const std::shared_ptr<cugl::scene2::SceneNode> targe
     _displayed = skipCameraSpan ? true : false;
     _moveToTop = false;
     _state = skipCameraSpan ? 3 : 0; // if skipping camera span is 3 just remain in game play
-    std::cout << _state << std::endl;
+    std::cout << "Camera's initial state, depending on whether you set skipCameraSpan: " << _state << std::endl;
     return true;
 }
 

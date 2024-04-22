@@ -41,10 +41,10 @@ void DPApp::onStartup() {
     _assets->loadDirectoryAsync("json/assets.json", nullptr);
     
     auto savedir = Application::get()->getSaveDirectory();
-    CULog("save dir: %s", savedir.c_str());
+    CULog("save directory is: %s", savedir.c_str());
     auto saveReader = JsonReader::alloc(savedir + "/save.json");
     if (saveReader != nullptr) {
-        std::cout << saveReader->readLine() << std::endl;
+        std::cout << "one line from save.json" << saveReader->readLine() << std::endl;
     }
 
     _assets2 = _assets; // the assets dedicated for game scene, currently is still the global asset manager
@@ -152,14 +152,6 @@ void DPApp::preUpdate(float timestep) {
     updateLoad(0.01f);
     } else if (_status == MENU) {
     updateMenu(timestep);
-        std::string root = cugl::Application::get()->getSaveDirectory();
-        std::string path = cugl::filetool::join_path({root,"GameProgress.json"});
-
-        auto gameProgress = JsonReader::alloc(path);
-        if (gameProgress != nullptr && gameProgress -> ready()) {
-            std::cout << gameProgress -> readJsonString() << std::endl;
-            std::cout << "game progress json is loaded" << std::endl;
-        }
     } else if (_status == SETTING) {
     updateSetting(timestep);
     } else if (_status == LEVELSELECT) {
@@ -184,7 +176,7 @@ void DPApp::preUpdate(float timestep) {
         }
         saveWriter->flush();
         saveWriter->close();
-        std::cout << "writing line" << std::endl;
+        std::cout << "preUpdate writing line to save.json: " << _currentLevelKey << std::endl;
         if (_gameScene.state == GameScene::QUIT) {
             _gameScene.reset();
             _status = LEVELSELECT;

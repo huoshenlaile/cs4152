@@ -106,7 +106,7 @@ PublishedMessage Exit::timeUpdate(float timestep){
         std::string color = _character->getColor();
         if (color != "black" && this->getColorsCollected().count(color) == 0){
             this->addColor(color);
-            std::cout << "Found color " << color << "\n";
+            std::cout << "Found color (from Exit timeUpdate):" << color << "\n";
             _character->setColor("black");
         }
         if (this->getColorsCollected().size() >= this->getColorReqs().size()){
