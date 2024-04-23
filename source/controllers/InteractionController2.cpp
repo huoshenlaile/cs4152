@@ -17,7 +17,7 @@ bool InteractionController2::init(std::shared_ptr<LevelLoader2> level) {
             _timeUpdateInteractables.push_back(interactable);
         }
         if (interactable->hasOnBeginContact()) {
-            std::cout << "these: " << interactable -> getName() << std::endl;
+            std::cout << "Has Begin Contact Interactable: " << interactable -> getName() << std::endl;
             _BeginContactInteractable[interactable->getObstacleRawPtr()] = interactable;
         }
         if (interactable->hasOnEndContact()) {

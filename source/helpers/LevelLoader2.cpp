@@ -52,10 +52,9 @@ bool LevelLoader2::preload(const std::shared_ptr<cugl::JsonValue> &json) {
 
 bool LevelLoader2::loadObject(const std::shared_ptr<JsonValue> &json) {
     auto type = json->get("type")->asString();
-    std::cout << "===== PARSING " << json->get("name")->asString() << "======" << std::endl;
+    std::cout << "===== PARSING " << json->get("name")->asString() << " ======" << std::endl;
     if (type == WALLS_FIELD) {
         auto wall = Interactable::alloc(json, _scale, _bounds);
-        std::cout << "finished " << json->get("name")->asString() << std::endl;
         _interactables.push_back(wall);
     } else if (type == SENSOR_FIELD) {
         auto sensor = Sensor::alloc(json, _scale, _bounds);
@@ -118,11 +117,8 @@ bool LevelLoader2::construct(std::shared_ptr<cugl::AssetManager> &_assets) {
     _defaultBgNode->setTexture(defaultBgTexture);
     _defaultBgNode->setAbsolute(true);
     _defaultBgNode->setPosition(-10.0f, 0.0f);
-    std::cout << "(" << levelWidth << ", " << levelHeight << ")" << "\n";
+    std::cout << "level width and height in LevelLoader2::Construct: (" << levelWidth << ", " << levelHeight << ")" << "\n";
     _defaultBgNode->setContentSize(levelWidth, levelHeight);
-
-//    _defaultBgNode->setPosition(0.0f, 20.0f);
-//    _defaultBgNode->setContentSize(_defaultBgNode->getContentSize().width * 4, _defaultBgNode->getContentSize().height * 4);
 
     CULog("level loader construction scale: %f %f", _scale.x, _scale.y);
     // create character
