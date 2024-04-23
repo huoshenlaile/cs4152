@@ -20,7 +20,6 @@ bool CameraController::init(const std::shared_ptr<cugl::scene2::SceneNode> targe
     _displayed = skipCameraSpan ? true : false;
     _moveToTop = false;
     _state = skipCameraSpan ? 3 : 0; // if skipping camera span is 3 just remain in game play
-    std::cout << _state << std::endl;
     return true;
 }
 
@@ -28,10 +27,10 @@ bool CameraController::init(const std::shared_ptr<cugl::scene2::SceneNode> targe
 void CameraController::update(float dt) {
     if (!_moveToTop && !_horizontal) {
         _camera->setPosition(
-            Vec2(_root->getSize().width - _camera->getViewport().getMaxX() / (2 * _camera->getZoom()), _root->getSize().height - _camera->getViewport().getMaxY() / (2 * _camera->getZoom())));
+            Vec2(_root->getSize().width - _camera->getViewport().getMaxX() / (2 * _camera->getZoom()) + 100.0f, _root->getSize().height - _camera->getViewport().getMaxY() / (2 * _camera->getZoom())));
         _moveToTop = true;
         Vec2 uiPos =
-            Vec2(_camera->getPosition().x - _camera->getViewport().getMaxX() / (2 * _camera->getZoom()), _camera->getPosition().y - _camera->getViewport().getMaxY() / (2 * _camera->getZoom()));
+            Vec2(_camera->getPosition().x - _camera->getViewport().getMaxX() / (2 * _camera->getZoom()) + 100.0f, _camera->getPosition().y - _camera->getViewport().getMaxY() / (2 * _camera->getZoom()));
         _UIPosition = uiPos;
         _ui->setPosition(uiPos);
     }
@@ -221,15 +220,20 @@ void CameraController::setCamera(std::string selectedLevelKey) {
         _levelCompleteZoom = 0.15;
         _panSpeed = Vec2(0, -30);
     } else if (selectedLevelKey == "doodlejump") {
-        setMode(false);
-        setDefaultZoom(0.2);
-        _levelCompleteZoom = 0.15;
-        _panSpeed = Vec2(0, -30);
+        setMode(true);
+        setDefaultZoom(DEFAULT_ZOOM);
+        _levelCompleteZoom = DEFAULT_ZOOM;
+        _panSpeed = Vec2(30, 0);
     } else if (selectedLevelKey == "falldown") {
         setMode(false);
         setDefaultZoom(0.2);
         _levelCompleteZoom = 0.17;
         _panSpeed = Vec2(0, -30);
+    }else if (selectedLevelKey == "level3") {
+        setMode(true);
+        setDefaultZoom(DEFAULT_ZOOM);
+        _levelCompleteZoom = DEFAULT_ZOOM;
+        _panSpeed = Vec2(30, 0);
     }
 }
 

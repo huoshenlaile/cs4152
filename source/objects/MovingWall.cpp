@@ -36,6 +36,11 @@ bool MovingWall::init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect b
 //                CULog("HIIIIIILOOOOKKKKKKHEREEEEEEEEE: %f hi %f", p.x, p.y);
 //                _path.emplace_back(p.x+point->getFloat("x"), p.y+point->getFloat("y"));
 //            }
+            
+            for (auto c : coordinates){
+                std::cout<<c << std::endl;
+            }
+            
             CULog("HIIIIIILOOOOKKKKKKHEREEEEEEEEE: %f", 0.1f);
         } else if(properties->get(i)->getString("name") == "MoveOnContact") {
             _moveOnContact = properties->get(i)->get("value")->asBool();
@@ -48,6 +53,7 @@ bool MovingWall::init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect b
 }
 
 void MovingWall::update(float dt) {
+    std::cout << _isMoving << _path.empty()<<  std::endl;
     if (!_isMoving || _path.empty()) return;
     
     // Calculate the next position along the path
@@ -104,6 +110,8 @@ bool MovingWall::linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleWorld
                 obs->setPosition(currentPosition);
                 weakTexture->setPosition(currentPosition * scale);
                 weakTexture->setAngle(obs->getAngle());
+            } else {
+                _currentPathIndex = (_currentPathIndex + 1) % _path.size();  // Cycle through the path
             }
         });
     }

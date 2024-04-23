@@ -184,8 +184,10 @@ void LevelLoader2::changeBackground(int defaultGoodorBad){
     } else if (defaultGoodorBad == 1) {
         _defaultBgNode -> setTexture(badBgTexture);
     }
+//    _root->setPosition(-100.0f, 0.0f);
+    Application::get()->setClearColor((0.0f,0.0f,0.0f,0.0f));
     _defaultBgNode->setAbsolute(true);
-    _defaultBgNode->setPosition(-10.0f, 0.0f);
+    _defaultBgNode->setPosition(-1000.0f, 0.0f);
     _defaultBgNode->setContentSize(_defaultBgNode->getContentSize().width, _defaultBgNode->getContentSize().height);
     
     return;

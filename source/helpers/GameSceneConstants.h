@@ -32,7 +32,7 @@
 #define MAX_ARM_LENGTH 7.2f
 #define MIN_ARM_LENGTH 0.0f
 /** THESE ABOVE are useful for CHARACTER TUNING!*/
-#define HAND_K 2.0f
+#define HAND_K 1.0f
 #define MIN_HAND_DISTANCE 2.5f
 /** This is the size of the active portion of the screen */
 #define SCENE_WIDTH 1024

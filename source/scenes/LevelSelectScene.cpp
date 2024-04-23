@@ -117,7 +117,9 @@ bool LevelSelectScene::init(const std::shared_ptr<cugl::AssetManager> &assets) {
         _level5->addListener([this](const std::string& name, bool down) {
             if (down) {
                 CULog("Level 5 selected");
-                // startGame();
+                selectedLevelFile = "json/level3.json";
+                selectedLevelKey = "level3";
+                startGame();
             }
         });
 

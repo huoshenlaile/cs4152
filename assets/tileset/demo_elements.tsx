@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="ragdoll_elements" tilewidth="3718" tileheight="5000" tilecount="30" columns="0" objectalignment="bottomleft">
+<tileset version="1.10" tiledversion="1.10.2" name="ragdoll_elements" tilewidth="3718" tileheight="4490" tilecount="32" columns="0" objectalignment="bottomleft">
  <editorsettings>
   <export target="ragdoll_elements..tsx" format="tsx"/>
  </editorsettings>
@@ -89,18 +89,24 @@
   <image width="180" height="117" source="../textures/bouncingplatform_slime.png"/>
  </tile>
  <tile id="39">
-  <image width="1280" height="720" source="../textures/titlebackground.png"/>
+  <image width="1560" height="720" source="../textures/titlebackground.png"/>
  </tile>
  <tile id="40">
   <image width="1600" height="4480" source="../textures/lv3_background_1.png"/>
  </tile>
  <tile id="41">
-  <image width="1560" height="5000" source="../textures/lv2_background_1.png"/>
+  <image width="1280" height="4490" source="../textures/lv2_background_1.png"/>
  </tile>
  <tile id="42">
   <image width="1600" height="3840" source="../textures/level4/lv4_background_1.png"/>
  </tile>
  <tile id="43">
   <image width="3718" height="580" source="../textures/lv1_background_1.png"/>
+ </tile>
+ <tile id="44">
+  <image width="343" height="52" source="../textures/alpharelease_long_frenchfries.png"/>
+ </tile>
+ <tile id="45">
+  <image width="175" height="52" source="../textures/alpharelease_frenchfries.png"/>
  </tile>
 </tileset>
