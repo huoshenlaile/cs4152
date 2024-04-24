@@ -22,7 +22,7 @@
             "visible": true
         },
         "children": {
-            "completemenu": {
+            "badcompletemenu": {
                 "type": "Node",
                 "format": {
                     "type": "Anchored"
@@ -44,10 +44,10 @@
                     "visible": true
                 },
                 "children": {
-                    "complete_background": {
+                    "bad_complete_background": {
                         "type": "Image",
                         "data": {
-                            "texture": "complete_background",
+                            "texture": "bad_complete_background",
                             "anchor": [
                                 0,
                                 1
