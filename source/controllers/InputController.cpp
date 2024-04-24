@@ -56,9 +56,6 @@ bool InputController::init(const Rect bounds) {
 
 void InputController::update(float dt) {
     // CULog("World coord in GF at: %f %f \n", touchPos.x, touchPos.y);
-    _prevDown = _currDown;
-    _currDown = _touchDown;
-
 #ifdef CU_TOUCH_SCREEN
     Touchscreen *touch = Input::get<Touchscreen>();
     // Press to continue
@@ -77,6 +74,8 @@ void InputController::update(float dt) {
         }
         return;
     }
+    _prevDown = _currDown;
+    _currDown = touch->touchCount()>0;
     for (auto touchID : touch->touchSet()) {
        // CULog("Press");
         bool exist = false;
@@ -258,6 +257,7 @@ PublishedMessage InputController::getMessageInPreUpdate() {
     else if (didRelease()){
         msg.Head = "Screen Released";
     }
+    std::cout << didPress() << "\n";
     return msg;
 }
 
