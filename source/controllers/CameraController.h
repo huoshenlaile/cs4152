@@ -1,10 +1,11 @@
 #ifndef __CAMERA__CONTROLLER_H
 #define __CAMERA__CONTROLLER_H
 
-#include <stdio.h>
+
 #include "InputController.h"
 #include <chrono>
 #include <cugl/cugl.h>
+#include <stdio.h>
 #include <thread>
 #include "../helpers/GameSceneConstants.h"
 using namespace cugl;
@@ -35,12 +36,12 @@ protected:
 
     Vec2 _UIPosition;
     int _initialStay, _finalStay;
-    bool _levelComplete, _completed, _initialUpdate, _displayed, _moveToTop;
+    bool _levelComplete, _completed, _initialUpdate, _displayed, _moveToTop, _isTutorial;
     float _defaultZoom, _levelCompleteZoom;
     Vec2 _panSpeed;
     bool _horizontal;
     int _finalPos;
-    int _state;
+    int _state, _tutorialState;
     int _counter;
 
 public:
@@ -115,7 +116,6 @@ public:
 
     void process(int zoomIn, float speed);
 
-
     Vec2 getUIPosition() { return _UIPosition; }
     void setInitialStay(int stay) { _initialStay = stay; }
     void setFinalStay(int stay) { _finalStay = stay; }
@@ -137,6 +137,8 @@ public:
     bool cameraStay(int time);
 
     void setCameraState(int state) { _state = state; }
+
+    void tutorialUpdate(float dt);
 };
 
 #endif
