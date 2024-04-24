@@ -1,59 +1,55 @@
 #ifndef __INTERACTION_CONTROLLER_2_H__
 #define __INTERACTION_CONTROLLER_2_H__
 
+#include <box2d/b2_collision.h>
+#include <box2d/b2_contact.h>
+#include <box2d/b2_distance.h>
+#include <box2d/b2_world.h>
 #include <cugl/cugl.h>
 #include <stdio.h>
-#include <box2d/b2_world.h>
-#include <box2d/b2_contact.h>
-#include <box2d/b2_collision.h>
-#include <box2d/b2_distance.h>
 
-#include "../objects/objectImport.h"
-#include "../helpers/LevelLoader2.h"
+#include "../controllers/CameraController.h"
 #include "../controllers/CharacterController.h"
 #include "../controllers/InputController.h"
-#include "../controllers/CameraController.h"
-
+#include "../helpers/LevelLoader2.h"
+#include "../objects/objectImport.h"
 
 using namespace cugl;
 #define GRAB_CD 1.0f
 
 class InteractionController2 {
-
 protected:
-
     std::shared_ptr<LevelLoader2> _level;
     std::shared_ptr<InputController> _inputcontroller;
     std::shared_ptr<CameraController> _camera;
 
     std::shared_ptr<CharacterController> _character;
 
-    //all the interactables in the level (including the wall, which is "static" interactable)
+    // all the interactables in the level (including the wall, which is "static" interactable)
     std::vector<std::shared_ptr<Interactable>> _interactables;
 
     // 5 containers for different types of interactables
     std::vector<std::shared_ptr<Interactable>> _timeUpdateInteractables;
     std::vector<std::shared_ptr<Interactable>> _OnTouchInteractables;
-    std::unordered_map<cugl::physics2::Obstacle*, std::shared_ptr<Interactable>> _BeginContactInteractable;
-    std::unordered_map<cugl::physics2::Obstacle*, std::shared_ptr<Interactable>> _EndContactInteractable;
-    std::unordered_map<cugl::physics2::Obstacle*, std::shared_ptr<Interactable>> _PreSolveInteractable;
-    std::unordered_map<cugl::physics2::Obstacle*, std::shared_ptr<Interactable>> _PostSolveInteractable;
+    std::unordered_map<cugl::physics2::Obstacle *, std::shared_ptr<Interactable>> _BeginContactInteractable;
+    std::unordered_map<cugl::physics2::Obstacle *, std::shared_ptr<Interactable>> _EndContactInteractable;
+    std::unordered_map<cugl::physics2::Obstacle *, std::shared_ptr<Interactable>> _PreSolveInteractable;
+    std::unordered_map<cugl::physics2::Obstacle *, std::shared_ptr<Interactable>> _PostSolveInteractable;
 
     // message to subscriber map
     std::unordered_map<std::string, std::vector<std::shared_ptr<Interactable>>> _HeadToInteractable;
 
-
     // physics world and render world for convenience
     std::shared_ptr<cugl::physics2::ObstacleWorld> _world;
     std::shared_ptr<cugl::scene2::SceneNode> _worldnode;
-    
-    physics2::Obstacle* characterLHRawPtr;
-    physics2::Obstacle* characterRHRawPtr;
-    physics2::Obstacle* characterBODYRawPtr;
+
+    physics2::Obstacle *characterLHRawPtr;
+    physics2::Obstacle *characterRHRawPtr;
+    physics2::Obstacle *characterBODYRawPtr;
     std::shared_ptr<cugl::physics2::Obstacle> characterLH;
     std::shared_ptr<cugl::physics2::Obstacle> characterRH;
     std::shared_ptr<cugl::physics2::Obstacle> characterBODY;
-    
+
     /**
      * This vector stores TWO obstacles to create joint in between.
      * The FIRST element is always the hand. The second element is always the obstacle.
@@ -73,8 +69,7 @@ protected:
     float _RHGrabCD = 0.0f;
 
     // map from raw obstacle pointer to interactable
-    std::unordered_map<cugl::physics2::Obstacle*, std::shared_ptr<Interactable>> _obstacleToInteractable;
-
+    std::unordered_map<cugl::physics2::Obstacle *, std::shared_ptr<Interactable>> _obstacleToInteractable;
 
     // message queue
     std::queue<PublishedMessage> _messageQueue;
@@ -83,21 +78,18 @@ protected:
     float _paintPercent = 0.0f;
 
     void runMessageQueue();
-    bool isCharacterObs(cugl::physics2::Obstacle* obs) {
-        return obs == characterLHRawPtr || obs == characterRHRawPtr || obs == characterBODYRawPtr;
-    }
-    std::shared_ptr<cugl::physics2::Obstacle> characterRawPtrToObstacle(physics2::Obstacle* rawPtr) {
+    bool isCharacterObs(cugl::physics2::Obstacle *obs) { return obs == characterLHRawPtr || obs == characterRHRawPtr || obs == characterBODYRawPtr; }
+    std::shared_ptr<cugl::physics2::Obstacle> characterRawPtrToObstacle(physics2::Obstacle *rawPtr) {
         if (rawPtr == characterLHRawPtr) {
             return characterLH;
-        }
-        else if (rawPtr == characterRHRawPtr) {
+        } else if (rawPtr == characterRHRawPtr) {
             return characterRH;
-        }
-        else if (rawPtr == characterBODYRawPtr) {
+        } else if (rawPtr == characterBODYRawPtr) {
             return characterBODY;
         }
         return nullptr;
     }
+
 public:
     int defaultGoodOrBad = -1;
     bool leftHandReverse = false;
@@ -126,18 +118,17 @@ public:
     bool isLevelComplete() { return _levelComplete; }
     float paintPercent() { return _paintPercent > 1.0f ? 1.0f : _paintPercent; }
 
-
     // 4 callback functions to add to the world
-    void beginContact(b2Contact* contact);
-    void endContact(b2Contact* contact);
-    void beforeSolve(b2Contact* contact, const b2Manifold* oldManifold);
-    void afterSolve(b2Contact* contact, const b2ContactImpulse* impulse);
+    void beginContact(b2Contact *contact);
+    void endContact(b2Contact *contact);
+    void beforeSolve(b2Contact *contact, const b2Manifold *oldManifold);
+    void afterSolve(b2Contact *contact, const b2ContactImpulse *impulse);
 
-    static std::shared_ptr<InteractionController2> alloc(std::shared_ptr<LevelLoader2> level,std::shared_ptr<InputController> inputcontroller, std::shared_ptr<CameraController> camera) {
+    static std::shared_ptr<InteractionController2> alloc(std::shared_ptr<LevelLoader2> level, std::shared_ptr<InputController> inputcontroller, std::shared_ptr<CameraController> camera) {
         std::shared_ptr<InteractionController2> result = std::make_shared<InteractionController2>();
-        return (result->init(level,inputcontroller,camera) ? result : nullptr);
+        return (result->init(level, inputcontroller, camera) ? result : nullptr);
     }
-    
+
     /**
      * This function creates a revolute joint between two obstacles in the _obstaclesForJoint_ vector,
      * one of which - by definition - MUST be player's hand, and the other one MUST be an obstacle.
@@ -146,20 +137,19 @@ public:
      * It clears the vector everytime it creates a joint.
      */
     void connectGrabJoint();
-    
+
     void updateHandsHeldInfo(bool lh, bool rh) {
         _leftHandIsHeld = lh;
         _rightHandIsHeld = rh;
     }
-    
+
     /**
      * This method removes the joint if the player is not holding the
      * corresponding hand to control the grabbing hand.
      */
     void ungrabIfNecessary();
-    
-    void grabCDIfNecessary(float dt);
 
+    void grabCDIfNecessary(float dt);
 };
 
 #endif

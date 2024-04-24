@@ -52,11 +52,10 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, std::str
     _inputController->fillHand(_character->getLeftHandPosition(), _character->getRightHandPosition(), _character->getLHPos(), _character->getRHPos());
 
 #pragma mark Construct Camera Controller
-
+    _camera = std::make_shared<CameraController>();
     _camera->setCamera(levelName);
     _camera->init(_character->getTrackSceneNode(), _worldnode, 10.0f, std::dynamic_pointer_cast<OrthographicCamera>(getCamera()), _uinode, 5.0f, _camera->getMode(), skipCameraSpan);
     _camera->setZoom(_camera->getLevelCompleteZoom());
-    
 
 #pragma mark Construct Interaction Controller
     _interactionController = InteractionController2::alloc(_level, _inputController, _camera);
@@ -114,9 +113,9 @@ void GameScene::preUpdate(float dt) {
         i->worldPos = (Vec2)Scene2::screenToWorldCoords(i->position);
     }
     _inputController->process();
-//    Size dimen = computeActiveSize();
-    //float screen_height_multiplier = SCENE_WIDTH / dimen.height;
-    //std::cout << "screen_height_multiplier: " << screen_height_multiplier << "\n";
+    //    Size dimen = computeActiveSize();
+    // float screen_height_multiplier = SCENE_WIDTH / dimen.height;
+    // std::cout << "screen_height_multiplier: " << screen_height_multiplier << "\n";
     _character->moveLeftHand(INPUT_SCALER * _inputController->getLeftHandMovement(), _interactionController->leftHandReverse);
     _character->moveRightHand(INPUT_SCALER * _inputController->getrightHandMovement(), _interactionController->rightHandReverse);
     _inputController->fillHand(_character->getLeftHandPosition(), _character->getRightHandPosition(), _character->getLHPos(), _character->getRHPos());
@@ -126,10 +125,10 @@ void GameScene::preUpdate(float dt) {
         _camera->update(dt);
         _camera->setInitialUpdate(true);
     }
-//    std::cout << "pause button position: " << _pauseButton -> getPosition().toString() << std::endl;
-//    _pauseButtonNode -> doLayout();
-//    _pauseButton -> doLayout();
-//    _uinode -> doLayout();
+    //    std::cout << "pause button position: " << _pauseButton -> getPosition().toString() << std::endl;
+    //    _pauseButtonNode -> doLayout();
+    //    _pauseButton -> doLayout();
+    //    _uinode -> doLayout();
 
     // update interaction controller
     _interactionController->updateHandsHeldInfo(_inputController->isLHAssigned(), _inputController->isRHAssigned());
@@ -158,13 +157,13 @@ void GameScene::postUpdate(float dt) {
     _interactionController->postUpdate(dt);
 
     if (_interactionController->isLevelComplete()) {
-        this -> defaultGoodOrBad = _interactionController -> defaultGoodOrBad;
-         finishLevel();
+        this->defaultGoodOrBad = _interactionController->defaultGoodOrBad;
+        finishLevel();
     }
     if (_interactionController->paintPercent() > 0.01f && _interactionController->paintPercent() < 1.0f) {
         _paintMeter->setVisible(true);
         _paintMeter->setFrame((int)(_interactionController->paintPercent() * 8));
-        _paintMeter->setPosition(_uinode->worldToNodeCoords(_character->getBodyPos())+Vec2(0, 50));
+        _paintMeter->setPosition(_uinode->worldToNodeCoords(_character->getBodyPos()) + Vec2(0, 50));
     } else {
         _paintMeter->setVisible(false);
     }
