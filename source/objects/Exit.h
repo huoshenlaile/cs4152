@@ -50,7 +50,7 @@ public:
         
     const std::set<std::string> getColorsCollected() const { return _colorsCollected; }
         
-    void addColor(std::string color) { _colorsCollected.insert(color); }
+    void addColor(std::string color, Vec2 pos);
         
     void setColorsCollected(std::set<std::string> colors) { _colorsCollected = colors; }
         

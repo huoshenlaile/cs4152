@@ -96,6 +96,31 @@ PublishedMessage Exit::onEndContact(std::shared_ptr<cugl::physics2::Obstacle> ot
     return PublishedMessage();
 }
 
+// only called if color is new to the palette
+void Exit::addColor(std::string color, Vec2 character_scene_pos) {
+    _colorsCollected.insert(color);
+    if(color == "green"){
+        
+        auto splatterpoly = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>("green_splatter"));
+        splatterpoly->setPosition(character_scene_pos);
+        //splatterpoly->setColor(Color4::BLACK);
+        //splatterpoly->setPosition(_selfTexture->getPosition());
+        //_selfTexture->setVisible(true);
+        _scene->addChild(splatterpoly);
+        
+        
+    } else {
+        auto splatterpoly = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>("green_splatter"));
+        splatterpoly->setPosition(character_scene_pos);
+        //splatterpoly->setColor(Color4::BLACK);
+        //splatterpoly->setPosition(_selfTexture->getPosition());
+        //_selfTexture->setVisible(true);
+        _scene->addChild(splatterpoly);
+
+    }
+    
+}
+
 PublishedMessage Exit::timeUpdate(float timestep){
     if (this->contact_time < 0 || (this->is_contacting && !this->contactedLongEnough())){
             this->contact_time += timestep;
@@ -105,7 +130,7 @@ PublishedMessage Exit::timeUpdate(float timestep){
         this->contact_time = this->_ttcolor;
         std::string color = _character->getColor();
         if (color != "black" && this->getColorsCollected().count(color) == 0){
-            this->addColor(color);
+            this->addColor(color, _character->getBodySceneNode()->getPosition());
             std::cout << "Found color (from Exit timeUpdate):" << color << "\n";
             _character->setColor("black");
         }
