@@ -409,6 +409,9 @@
         "black_paint": {
             "file": "textures/black_paint_141x144.png"
         },
+        "green_splatter" : {
+            "file" : "textures/green_paintspaltter_148x680.png"
+        },
         "tube_curved_l": {
             "file": "textures/tube/tube_curved_left.png"
         },
