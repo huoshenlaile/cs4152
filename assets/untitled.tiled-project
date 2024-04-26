@@ -43,6 +43,61 @@
         {
             "color": "#ffa0a0a4",
             "drawFill": true,
+            "id": 39,
+            "members": [
+                {
+                    "name": "cells",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "columns",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "name",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "rows",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "scale",
+                    "type": "float",
+                    "value": 0
+                },
+                {
+                    "name": "texture",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "type",
+                    "type": "string",
+                    "value": ""
+                }
+            ],
+            "name": "AnimationDetails",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
             "id": 28,
             "members": [
                 {
@@ -95,8 +150,7 @@
                         "bodytype": {
                         },
                         "damping": 0,
-                        "debugcolor": {
-                        },
+                        "debugcolor": 0,
                         "debugopacity": 192,
                         "density": 0,
                         "friction": 0,
@@ -583,8 +637,7 @@
                         "bodytype": {
                         },
                         "damping": 0,
-                        "debugcolor": {
-                        },
+                        "debugcolor": 0,
                         "debugopacity": 192,
                         "density": 0,
                         "friction": 0,

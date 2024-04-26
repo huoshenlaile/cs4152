@@ -423,6 +423,21 @@
         },
         "tube_str_r": {
             "file": "textures/tube/tube_straight_right.png"
+        },
+        "ui_move": {
+            "file": "textures/ui_move.png"
+        },
+        "ui_hand": {
+            "file": "textures/ui_hand.png"
+        },
+        "ui_jump": {
+            "file": "textures/ui_jump.png"
+        },
+        "ui_walk": {
+            "file": "textures/ui_walk.png"
+        },
+        "ui_walkguide": {
+            "file": "textures/ui_walkguide.png"
         }
     },
     "jsons": {

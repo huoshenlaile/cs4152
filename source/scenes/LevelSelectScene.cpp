@@ -69,7 +69,9 @@ static std::string hex2dec(const std::string hex) {
     _level3 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level3"));
     _level4 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level4"));
     _level5 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level5"));
-
+    _level6 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level6"));
+    _level7 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level7"));
+    _level8 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level8"));
     _backout = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_home"));
 
     // Program the buttons
@@ -122,7 +124,31 @@ static std::string hex2dec(const std::string hex) {
             startGame();
         }
     });
-
+        
+        _level6->addListener([this](const std::string& name, bool down) {
+            if (down) {
+                CULog("Level 6 selected");
+                selectedLevelFile = "json/level7.json"; // Ensure this file exists in your assets
+                selectedLevelKey = "level7";
+                startGame();
+            }
+        });
+        _level7->addListener([this](const std::string& name, bool down) {
+            if (down) {
+                CULog("Level 7 selected");
+                selectedLevelFile = "json/level8.json"; // Ensure this file exists in your assets
+                selectedLevelKey = "level8";
+                startGame();
+            }
+        });
+        _level8->addListener([this](const std::string& name, bool down) {
+            if (down) {
+                CULog("Level 8 selected");
+                selectedLevelFile = "json/level9.json"; // Ensure this file exists in your assets
+                selectedLevelKey = "level9";
+                startGame();
+            }
+        });
 
     addChild(scene);
     setActive(false);
@@ -162,6 +188,9 @@ void LevelSelectScene::setActive(bool value) {
             _level3->activate();
             _level4->activate();
             _level5->activate();
+            _level6->activate();
+            _level7->activate();
+            _level8->activate();
             _backout->activate();
 
             state = INSCENE;
@@ -171,6 +200,9 @@ void LevelSelectScene::setActive(bool value) {
             _level3->deactivate();
             _level4->deactivate();
             _level5->deactivate();
+            _level6->deactivate();
+            _level7->deactivate();
+            _level8->deactivate();
             _backout->deactivate();
 
             _level1->setDown(false);
@@ -178,6 +210,9 @@ void LevelSelectScene::setActive(bool value) {
             _level3->setDown(false);
             _level4->setDown(false);
             _level5->setDown(false);
+            _level6->setDown(false);
+            _level7->setDown(false);
+            _level8->setDown(false);
             _backout->setDown(false);
         }
     }

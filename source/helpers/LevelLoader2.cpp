@@ -76,7 +76,11 @@ bool LevelLoader2::loadObject(const std::shared_ptr<JsonValue> &json) {
     } else if (type == BOUNCY_WALL_FIELD) {
         auto mwall = BouncyWall::alloc(json, _scale, _bounds);
         _interactables.push_back(std::static_pointer_cast<Interactable>(mwall));
-    } else {
+    } else if (type == UI_FIELD) {
+        auto int_ui = InteractableUI::alloc(json, _scale, _bounds);
+        _interactables.push_back(std::static_pointer_cast<Interactable>(int_ui));
+    }
+    else {
         // log type not recognized
         // CUAssertLog(false, "Object type not recognized");
         CULog("unknown type: %s", type.c_str());
