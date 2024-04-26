@@ -274,29 +274,11 @@
         "button_settingicon": {
             "file": "textures/button_settingicon.png"
         },
-        "button_next": {
-            "file": "textures/button_next.png"
-        },
-        "button_next_down": {
-            "file": "textures/button_next_down.png"
-        },
-        "button_restart_down": {
-            "file": "textures/button_restart_down.png"
-        },
-        "button_menu_down": {
-            "file": "textures/button_menu_down.png"
-        },
-        "button_resume_down": {
-            "file": "textures/button_resume_down.png"
-        },
-        "button_settingicon_down": {
-            "file": "textures/button_settingicon_down.png"
-        },
         "complete_background": {
             "file": "textures/complete_background.png"
         },
-        "bad_complete_background": {
-            "file": "textures/bad_complete_background.png"
+        "button_next": {
+            "file": "textures/button_next.png"
         },
         "button_pause": {
             "file": "textures/button_pause.png"

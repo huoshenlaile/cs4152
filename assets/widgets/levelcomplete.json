@@ -116,68 +116,9 @@
                                         50
                                     ],
                                     "visible": true,
-                                    "upnode": "up",
-                                    "downnode": "down"
+                                    "upnode": "up"
                                 },
                                 "children": {
-                                    "down": {
-                                        "type": "Node",
-                                        "format": {
-                                            "type": "Anchored"
-                                        },
-                                        "data": {
-                                            "anchor": [
-                                                0,
-                                                1
-                                            ],
-                                            "size": [
-                                                100,
-                                                100
-                                            ],
-                                            "angle": 0,
-                                            "position": [
-                                                0,
-                                                0
-                                            ],
-                                            "visible": true
-                                        },
-                                        "children": {
-                                            "button_next_down": {
-                                                "type": "Image",
-                                                "data": {
-                                                    "texture": "button_next_down",
-                                                    "anchor": [
-                                                        0,
-                                                        1
-                                                    ],
-                                                    "size": [
-                                                        100,
-                                                        100
-                                                    ],
-                                                    "angle": 0,
-                                                    "position": [
-                                                        0,
-                                                        0
-                                                    ],
-                                                    "visible": true
-                                                },
-                                                "layout": {
-                                                    "x_anchor": "left",
-                                                    "y_anchor": "top",
-                                                    "absolute": false,
-                                                    "x_offset": 0,
-                                                    "y_offset": 0
-                                                }
-                                            }
-                                        },
-                                        "layout": {
-                                            "x_anchor": "left",
-                                            "y_anchor": "top",
-                                            "absolute": false,
-                                            "x_offset": 0,
-                                            "y_offset": 0
-                                        }
-                                    },
                                     "up": {
                                         "type": "Node",
                                         "format": {
@@ -267,68 +208,9 @@
                                         50
                                     ],
                                     "visible": true,
-                                    "upnode": "up",
-                                    "downnode": "down"
+                                    "upnode": "up"
                                 },
                                 "children": {
-                                    "down": {
-                                        "type": "Node",
-                                        "format": {
-                                            "type": "Anchored"
-                                        },
-                                        "data": {
-                                            "anchor": [
-                                                0,
-                                                1
-                                            ],
-                                            "size": [
-                                                100,
-                                                100
-                                            ],
-                                            "angle": 0,
-                                            "position": [
-                                                0,
-                                                0
-                                            ],
-                                            "visible": true
-                                        },
-                                        "children": {
-                                            "button_restart_down": {
-                                                "type": "Image",
-                                                "data": {
-                                                    "texture": "button_restart_down",
-                                                    "anchor": [
-                                                        0,
-                                                        1
-                                                    ],
-                                                    "size": [
-                                                        100,
-                                                        100
-                                                    ],
-                                                    "angle": 0,
-                                                    "position": [
-                                                        0,
-                                                        0
-                                                    ],
-                                                    "visible": true
-                                                },
-                                                "layout": {
-                                                    "x_anchor": "left",
-                                                    "y_anchor": "top",
-                                                    "absolute": false,
-                                                    "x_offset": 0,
-                                                    "y_offset": 0
-                                                }
-                                            }
-                                        },
-                                        "layout": {
-                                            "x_anchor": "left",
-                                            "y_anchor": "top",
-                                            "absolute": false,
-                                            "x_offset": 0,
-                                            "y_offset": 0
-                                        }
-                                    },
                                     "up": {
                                         "type": "Node",
                                         "format": {
@@ -418,68 +300,9 @@
                                         50
                                     ],
                                     "visible": true,
-                                    "upnode": "up",
-                                    "downnode": "down"
+                                    "upnode": "up"
                                 },
                                 "children": {
-                                    "down": {
-                                        "type": "Node",
-                                        "format": {
-                                            "type": "Anchored"
-                                        },
-                                        "data": {
-                                            "anchor": [
-                                                0,
-                                                1
-                                            ],
-                                            "size": [
-                                                100,
-                                                100
-                                            ],
-                                            "angle": 0,
-                                            "position": [
-                                                0,
-                                                0
-                                            ],
-                                            "visible": true
-                                        },
-                                        "children": {
-                                            "button_menu_down": {
-                                                "type": "Image",
-                                                "data": {
-                                                    "texture": "button_menu_down",
-                                                    "anchor": [
-                                                        0,
-                                                        1
-                                                    ],
-                                                    "size": [
-                                                        100,
-                                                        100
-                                                    ],
-                                                    "angle": 0,
-                                                    "position": [
-                                                        0,
-                                                        0
-                                                    ],
-                                                    "visible": true
-                                                },
-                                                "layout": {
-                                                    "x_anchor": "left",
-                                                    "y_anchor": "top",
-                                                    "absolute": false,
-                                                    "x_offset": 0,
-                                                    "y_offset": 0
-                                                }
-                                            }
-                                        },
-                                        "layout": {
-                                            "x_anchor": "left",
-                                            "y_anchor": "top",
-                                            "absolute": false,
-                                            "x_offset": 0,
-                                            "y_offset": 0
-                                        }
-                                    },
                                     "up": {
                                         "type": "Node",
                                         "format": {
