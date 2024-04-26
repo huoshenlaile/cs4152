@@ -240,6 +240,11 @@ void CameraController::setCamera(std::string selectedLevelKey) {
         setDefaultZoom(0.2);
         _levelCompleteZoom = 0.17;
         _panSpeed = Vec2(0, -30);
+    }else if (selectedLevelKey == "level8") {
+        setMode(false);
+        setDefaultZoom(0.2);
+        _levelCompleteZoom = 0.17;
+        _panSpeed = Vec2(0, -30);
     }
 }
 

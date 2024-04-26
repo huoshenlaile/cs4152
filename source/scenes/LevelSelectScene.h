@@ -23,7 +23,7 @@ protected:
     std::shared_ptr<cugl::scene2::Button> _level4;
     std::shared_ptr<cugl::scene2::Button> _level5;
     std::shared_ptr<cugl::scene2::Button> _level6;
-
+    std::shared_ptr<cugl::scene2::Button> _level7;
 
 
 
