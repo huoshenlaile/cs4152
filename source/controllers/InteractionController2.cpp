@@ -275,7 +275,6 @@ void InteractionController2::runMessageQueue() {
         _messageQueue.pop();
         std::string head = message.Head;
         float float1 = message.float1;
-
         // message to interactable
         auto headToInteractableIt = _HeadToInteractable.find(head);
         if (headToInteractableIt != _HeadToInteractable.end()) {
@@ -284,8 +283,9 @@ void InteractionController2::runMessageQueue() {
                 auto actionIt = actions.find(head);
                 if (actionIt != actions.end()) {
                     ActionParams params = Interactable::ConvertToActionParams(message);
-                    PublishedMessage new_message = actionIt->second(params);
+                    PublishedMessage new_message = actionIt->second(params); // Call the subscriber's function
                     if (new_message.Head != "") {
+                        std::cout << new_message.Head <<"\n";
                         _messageQueue.push(new_message);
                     }
                 }
@@ -330,6 +330,7 @@ void InteractionController2::preUpdate(float timestep) {
     }
     PublishedMessage message = _inputcontroller->getMessageInPreUpdate();
     if (message.Head != "") {
+        //std::cout << message.Head << "\n";
         _messageQueue.push(message);
     }
 

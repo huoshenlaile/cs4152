@@ -257,7 +257,6 @@ PublishedMessage InputController::getMessageInPreUpdate() {
     else if (didRelease()){
         msg.Head = "Screen Released";
     }
-    std::cout << didPress() << "\n";
     return msg;
 }
 
