@@ -805,7 +805,7 @@
                         }, 
                         {
                          "name":"Movements",
-                         "propertytype":"Moving",
+                         "propertytype":"bodytype",
                          "type":"class",
                          "value":
                             {

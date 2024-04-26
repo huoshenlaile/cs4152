@@ -37,8 +37,6 @@ public:
     
     Exit(void) : Interactable() {}
     ~Exit() {
-        // Call the parent class destructor
-        Interactable::~Interactable();
     }
     
 #pragma mark -
