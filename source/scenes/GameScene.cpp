@@ -116,8 +116,11 @@ void GameScene::preUpdate(float dt) {
     //    Size dimen = computeActiveSize();
     // float screen_height_multiplier = SCENE_WIDTH / dimen.height;
     // std::cout << "screen_height_multiplier: " << screen_height_multiplier << "\n";
-    _character->moveLeftHand(INPUT_SCALER * _inputController->getLeftHandMovement(), _interactionController->leftHandReverse);
-    _character->moveRightHand(INPUT_SCALER * _inputController->getrightHandMovement(), _interactionController->rightHandReverse);
+    float try_scaler = Application::get() -> getDisplaySize().height ;
+    // std::cout << "input scaler: " << try_scaler << std::endl;
+    try_scaler *= INPUT_SCALER;
+    _character->moveLeftHand(try_scaler * _inputController->getLeftHandMovement(), _interactionController->leftHandReverse);
+    _character->moveRightHand(try_scaler * _inputController->getrightHandMovement(), _interactionController->rightHandReverse);
     _inputController->fillHand(_character->getLeftHandPosition(), _character->getRightHandPosition(), _character->getLHPos(), _character->getRHPos());
 
     // update camera

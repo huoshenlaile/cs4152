@@ -92,8 +92,8 @@ static std::string hex2dec(const std::string hex) {
     _level2->addListener([this](const std::string& name, bool down) {
         if (down) {
             CULog("Level 2 selected");
-            this->selectedLevelFile = "json/doodlejump.json";
-            this->selectedLevelKey = "doodlejump";
+            this->selectedLevelFile = "json/falldown.json";
+            this->selectedLevelKey = "falldown";
             startGame();
         }
     });
@@ -101,8 +101,8 @@ static std::string hex2dec(const std::string hex) {
     _level3->addListener([this](const std::string& name, bool down) {
     if (down) {
         CULog("Level 3 selected");
-        selectedLevelFile = "json/falldown.json";
-        selectedLevelKey = "falldown";
+        selectedLevelFile = "json/doodlejump.json";
+        selectedLevelKey = "doodlejump";
         startGame();
     }
     });
