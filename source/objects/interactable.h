@@ -75,6 +75,7 @@ public:
     bool hasOnPreSolve() { return OnPreSolveEnabled; }
     bool hasOnPostSolve() { return OnPostSolveEnabled; }
 
+
     std::string getName() { return _name; }
     const std::map<std::string, std::function<PublishedMessage(ActionParams)>>& getActions() { return actions; }
 

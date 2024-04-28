@@ -10,7 +10,8 @@ protected:
     /** The asset manager for this scene. */
     std::shared_ptr<cugl::AssetManager> _assets;
     /** The menu button for hosting a game */
-    std::shared_ptr<cugl::scene2::Button> _startbutton;
+    std::shared_ptr<cugl::scene2::Button> _newGameButton;
+    std::shared_ptr<cugl::scene2::Button> _levelbutton;
 //    /** The menu button for joining a game */
 //    std::shared_ptr<cugl::scene2::Button> _joinbutton;
     /** The menu button for setting */
@@ -29,10 +30,8 @@ public:
     enum SceneStatus {
         /** User has not yet made a SceneStatus */
         NONE,
-        /** User wants to host a game */
-        START,
-        /** User wants to join a game */
-//        JOIN,
+        NEWGAME,
+        LEVEL,
         SETTING,
         QUIT
     };
@@ -87,6 +86,5 @@ public:
      * @param value whether the scene is currently active
      */
     virtual void setActive(bool value) override;
-
 };
 #endif

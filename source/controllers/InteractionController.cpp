@@ -305,6 +305,12 @@ void InteractionController::connectGrabJoint() {
         Vec2 difference = obs2 -> getPosition() - obs1 -> getPosition();
         _joint = physics2::RevoluteJoint::allocWithObstacles(_obstaclesForJoint.at(0), _obstaclesForJoint.at(1));
         // Anchor A is the anchor for the Hand.
+        std::cout<<"ocnnect Grab Joint" << std::endl;
+        double platformAngle = obs2->getAngle();
+        std::cout << "difference is " << difference.x << difference.y << std::endl;
+        std::cout<< platformAngle << std::endl;
+        difference.x = difference.x * std::cos(platformAngle) - difference.y * std::sin(platformAngle);
+        difference.y = difference.x * std::sin(platformAngle) + difference.y * std::cos(platformAngle);
         _joint -> setLocalAnchorA(difference);
         _joint -> setLocalAnchorB(0, 0);
         _world -> addJoint(_joint);

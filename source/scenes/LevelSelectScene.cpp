@@ -44,88 +44,116 @@ static std::string hex2dec(const std::string hex) {
 
 
 #pragma mark Class Methods
-bool LevelSelectScene::init(const std::shared_ptr<cugl::AssetManager> &assets) {
-        // Initialize the scene to a locked width
-        Size dimen = Application::get()->getDisplaySize();
-        dimen *= SCENE_HEIGHT/dimen.height;
-        if (assets == nullptr) {
-            return false;
-        } else if (!Scene2::init(dimen)) {
-            return false;
-        }
+    bool LevelSelectScene::init(const std::shared_ptr<cugl::AssetManager> &assets) {
+    // Initialize the scene to a locked width
+    Size dimen = Application::get()->getDisplaySize();
+    dimen *= SCENE_HEIGHT/dimen.height;
+    if (assets == nullptr) {
+        return false;
+    } else if (!Scene2::init(dimen)) {
+        return false;
+    }
 
     //    _network = network;
+
+    // Start up the input handler
+    _assets = assets;
+
+    // Acquire the scene built by the asset loader and resize it the scene
+    std::shared_ptr<scene2::SceneNode> scene = _assets->get<scene2::SceneNode>("level");
+    scene->setContentSize(dimen);
+    scene->doLayout(); // Repositions the HUD
+
+    _level1 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level1"));
+    _level2 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level2"));
+    _level3 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level3"));
+    _level4 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level4"));
+    _level5 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level5"));
+    _level6 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level6"));
+    _level7 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level7"));
+    _level8 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level8"));
+    _backout = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_home"));
+
+    // Program the buttons
+    _backout->addListener([this](const std::string& name, bool down) {
+        if (down) {
+            this -> state = BACK;
+        }
+    });
+    _level1->addListener([this](const std::string& name, bool down) {
+    if (down) {
+        CULog("Level 1 selected");
+        selectedLevelFile = "json/level1.json";
+        selectedLevelKey = "level1";
+        startGame();
+    }
+    });
+
+    _level2->addListener([this](const std::string& name, bool down) {
+        if (down) {
+            CULog("Level 2 selected");
+            this->selectedLevelFile = "json/doodlejump.json";
+            this->selectedLevelKey = "doodlejump";
+            startGame();
+        }
+    });
+
+    _level3->addListener([this](const std::string& name, bool down) {
+    if (down) {
+        CULog("Level 3 selected");
+        selectedLevelFile = "json/falldown.json";
+        selectedLevelKey = "falldown";
+        startGame();
+    }
+    });
+
+    _level4->addListener([this](const std::string& name, bool down) {
+        if (down) {
+            CULog("Level 4 selected");
+            selectedLevelFile = "json/tubelevel.json";
+            selectedLevelKey = "tube";
+            startGame();
+        }
+    });
+
+    _level5->addListener([this](const std::string& name, bool down) {
+        if (down) {
+            CULog("Level 5 selected");
+            selectedLevelFile = "json/level3.json";
+            selectedLevelKey = "level3";
+            startGame();
+        }
+    });
         
-        // Start up the input handler
-        _assets = assets;
-        
-        // Acquire the scene built by the asset loader and resize it the scene
-        std::shared_ptr<scene2::SceneNode> scene = _assets->get<scene2::SceneNode>("level");
-        scene->setContentSize(dimen);
-        scene->doLayout(); // Repositions the HUD
-
-        _level1 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_first"));
-        _level2 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_second"));
-        _level3 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_third"));
-        _level4 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_fourth"));
-        _level5 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_fifth"));
-
-        _backout = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_menu"));
-  
-        // Program the buttons
-        _backout->addListener([this](const std::string& name, bool down) {
+        _level6->addListener([this](const std::string& name, bool down) {
             if (down) {
-                this -> state = BACK;
+                CULog("Level 6 selected");
+                selectedLevelFile = "json/level7.json"; // Ensure this file exists in your assets
+                selectedLevelKey = "level7";
+                startGame();
             }
         });
-        _level1->addListener([this](const std::string& name, bool down) {
+        _level7->addListener([this](const std::string& name, bool down) {
             if (down) {
-                CULog("Level 1 selected");
-                selectedLevelFile = "json/falldown.json";
-                selectedLevelKey = "falldown";
+                CULog("Level 7 selected");
+                selectedLevelFile = "json/level8.json"; // Ensure this file exists in your assets
+                selectedLevelKey = "level8";
+                startGame();
+            }
+        });
+        _level8->addListener([this](const std::string& name, bool down) {
+            if (down) {
+                CULog("Level 8 selected");
+                selectedLevelFile = "json/level9.json"; // Ensure this file exists in your assets
+                selectedLevelKey = "level9";
                 startGame();
             }
         });
 
-        _level2->addListener([this](const std::string& name, bool down) {
-            if (down) {
-                CULog("Level 2 selected");
-                this->selectedLevelFile = "json/doodlejump.json";
-                this->selectedLevelKey = "doodlejump";
-                startGame();
-            }
-        });
-
-        _level3->addListener([this](const std::string& name, bool down) {
-            if (down) {
-                CULog("Level 3 selected");
-                selectedLevelFile = "json/level1.json";
-                selectedLevelKey = "level1";
-                startGame();
-            }
-        });
-        
-        _level4->addListener([this](const std::string& name, bool down) {
-            if (down) {
-                CULog("Level 4 selected");
-                selectedLevelFile = "json/tubelevel.json";
-                selectedLevelKey = "tube";
-                startGame();
-            }
-        });
-
-        _level5->addListener([this](const std::string& name, bool down) {
-            if (down) {
-                CULog("Level 5 selected");
-                // startGame();
-            }
-        });
-
-
-        addChild(scene);
-        setActive(false);
-        return true;
-}
+    addChild(scene);
+    setActive(false);
+    return true;
+    }
 
 bool LevelSelectScene::init(const std::shared_ptr<cugl::AssetManager>& assets, std::shared_ptr<NetEventController> network) {
     // no, we don't use this. we are single-player.
@@ -160,6 +188,9 @@ void LevelSelectScene::setActive(bool value) {
             _level3->activate();
             _level4->activate();
             _level5->activate();
+            _level6->activate();
+            _level7->activate();
+            _level8->activate();
             _backout->activate();
 
             state = INSCENE;
@@ -169,6 +200,9 @@ void LevelSelectScene::setActive(bool value) {
             _level3->deactivate();
             _level4->deactivate();
             _level5->deactivate();
+            _level6->deactivate();
+            _level7->deactivate();
+            _level8->deactivate();
             _backout->deactivate();
 
             _level1->setDown(false);
@@ -176,6 +210,9 @@ void LevelSelectScene::setActive(bool value) {
             _level3->setDown(false);
             _level4->setDown(false);
             _level5->setDown(false);
+            _level6->setDown(false);
+            _level7->setDown(false);
+            _level8->setDown(false);
             _backout->setDown(false);
         }
     }

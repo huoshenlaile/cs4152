@@ -96,6 +96,30 @@ PublishedMessage Exit::onEndContact(std::shared_ptr<cugl::physics2::Obstacle> ot
     return PublishedMessage();
 }
 
+// only called if color is new to the palette
+void Exit::addColor(std::string color, Vec2 character_scene_pos) {
+    _colorsCollected.insert(color);
+    std::shared_ptr<scene2::PolygonNode> splatterpoly;
+    if(color == "green"){
+        splatterpoly = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>("green_splatter"));
+    } else if ( color == "blue" ){
+        splatterpoly = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>("blue_splatter"));
+    } else if ( color == "orange" ) {
+        splatterpoly = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>("orange_splatter"));
+    } else if ( color == "purple" ) {
+        splatterpoly = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>("purple_splatter"));
+    } else if ( color == "pink" ) {
+        splatterpoly = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>("pink_splatter"));
+    }
+    
+    if(splatterpoly != nullptr){
+        splatterpoly->setScale(0.5f, 1.0f);
+        splatterpoly->setPosition(character_scene_pos.x, _selfTexture->getPositionY());
+        _scene->addChild(splatterpoly);
+    }
+    
+}
+
 PublishedMessage Exit::timeUpdate(float timestep){
     if (this->contact_time < 0 || (this->is_contacting && !this->contactedLongEnough())){
             this->contact_time += timestep;
@@ -105,8 +129,8 @@ PublishedMessage Exit::timeUpdate(float timestep){
         this->contact_time = this->_ttcolor;
         std::string color = _character->getColor();
         if (color != "black" && this->getColorsCollected().count(color) == 0){
-            this->addColor(color);
-            std::cout << "Found color " << color << "\n";
+            this->addColor(color, _character->getBodySceneNode()->getPosition());
+            std::cout << "Found color (from Exit timeUpdate):" << color << "\n";
             _character->setColor("black");
         }
         if (this->getColorsCollected().size() >= this->getColorReqs().size()){

@@ -9,7 +9,7 @@
 #define GameSceneConstants_h
 
 /** THESE BELOW are useful for CHARACTER TUNING!*/
-/** The default value of gravity (going down) */
+/** The default value of gravity - not used now. */
 #define CHARACTER_GRAVITY -75.0f
 /** This is not used for now. */
 #define MAX_TORQUE 10000000.0f

@@ -34,7 +34,7 @@ bool CharacterController::init(const cugl::Vec2 &pos, float scale)
     _blackanimate = scene2::Animate::alloc(blackanimate, DURATION);
     
     funcs["character color"] = ([=](ActionParams params){
-        std::cout << "CHARACTER TO COLOR ITSELF CALLBACK RECIEVED ============= " << params.Body << std::endl;
+        std::cout << "CHARACTER TO COLOR ITSELF CALLBACK RECEIVED ============= " << params.Body << std::endl;
         setColor(params.Body);
         return PublishedMessage();
     });
@@ -293,7 +293,6 @@ bool CharacterController::buildParts(const std::shared_ptr<AssetManager> &assets
     }
 
     Vec2 pos = _offset;
-    //    std::cout << _offset.x<< " aaa "<< _offset.y << std::endl;
     CULog("CharacterController buildParts _offset: %f, %f", _offset.x, _offset.y);
     makePart(PART_BODY, PART_NONE, pos);
     // makePart(PART_JR1, PART_BODY, Vec2(CJOINT_OFFSET, 0));
