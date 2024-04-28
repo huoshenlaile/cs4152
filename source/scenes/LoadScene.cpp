@@ -38,7 +38,8 @@ bool LoadScene::init(const std::shared_ptr<AssetManager>& assets) {
         this->_active = down;
     });
     
-    Application::get()->setClearColor(Color4(0,0,0,255));
+
+    Application::get()->setClearColor(Color4(192, 192, 192));
     addChild(layer);
     return true;
 }

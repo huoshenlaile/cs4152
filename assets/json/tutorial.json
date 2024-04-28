@@ -245,7 +245,7 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
+                                 "texture":""
                                 }
                             }
                         }],
@@ -935,7 +935,7 @@
                  "visible":true,
                  "width":0,
                  "x":1635.05562959517,
-                 "y":1411.5421499862
+                 "y":1444.7805165579
                 }, 
                 {
                  "height":0,
@@ -1034,7 +1034,7 @@
                  "visible":true,
                  "width":0,
                  "x":1624.88336417057,
-                 "y":1160.02276720753
+                 "y":1212.25448610592
                 }, 
                 {
                  "height":0,
@@ -1285,7 +1285,7 @@
                              "Action":"show",
                              "Bool1":false,
                              "Enabled":true,
-                             "Float1":6,
+                             "Float1":0,
                              "Head":"ui2 hidden",
                              "Int1":0
                             }
@@ -1378,7 +1378,8 @@
                              "Enabled":true,
                              "Float1":0,
                              "Head":"ui3 hidden",
-                             "Int1":0
+                             "Int1":0,
+                             "Int3":0
                             }
                         }],
                  "rotation":0,
@@ -1477,6 +1478,210 @@
                  "width":0,
                  "x":1769.35195638183,
                  "y":1115.00409637914
+                }, 
+                {
+                 "height":0,
+                 "id":107,
+                 "name":"",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":-734.142660867996,
+                         "y":89.1395416710386
+                        }, 
+                        {
+                         "x":-740.877577222633,
+                         "y":-92.1108997558128
+                        }, 
+                        {
+                         "x":767.816492065414,
+                         "y":-95.0818575498576
+                        }, 
+                        {
+                         "x":774.556662450418,
+                         "y":89.1395416710386
+                        }, 
+                        {
+                         "x":-754.351162810741,
+                         "y":95.0818575498576
+                        }],
+                 "properties":[
+                        {
+                         "name":"hideSub",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"hide",
+                             "Enabled":true,
+                             "Head":"ui3 hidden"
+                            }
+                        }, 
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":192,
+                                 "density":0,
+                                 "friction":0.2,
+                                 "restitution":0.1,
+                                 "rotation":false,
+                                 "texture":""
+                                }
+                            }
+                        }],
+                 "rotation":90,
+                 "type":"wall",
+                 "visible":true,
+                 "width":0,
+                 "x":1006.64767331434,
+                 "y":1420.73616755908
+                }, 
+                {
+                 "height":0,
+                 "id":108,
+                 "name":"",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":-729.582335918681,
+                         "y":89.1395
+                        }, 
+                        {
+                         "x":-736.275038855432,
+                         "y":-92.1109
+                        }, 
+                        {
+                         "x":763.047374441904,
+                         "y":-95.0819
+                        }, 
+                        {
+                         "x":769.746172736521,
+                         "y":89.1395
+                        }, 
+                        {
+                         "x":-749.665016247334,
+                         "y":95.0819
+                        }],
+                 "properties":[
+                        {
+                         "name":"hideSub",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"hide",
+                             "Enabled":true,
+                             "Head":"ui3 hidden"
+                            }
+                        }, 
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":192,
+                                 "density":0,
+                                 "friction":0.2,
+                                 "restitution":0.1,
+                                 "rotation":false,
+                                 "texture":""
+                                }
+                            }
+                        }],
+                 "rotation":90,
+                 "type":"wall",
+                 "visible":true,
+                 "width":0,
+                 "x":2231.71889838556,
+                 "y":1435.29486050185
+                }, 
+                {
+                 "height":0,
+                 "id":109,
+                 "name":"",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":-665.742040014981,
+                         "y":89.1395
+                        }, 
+                        {
+                         "x":-671.849532205877,
+                         "y":-92.1109
+                        }, 
+                        {
+                         "x":696.277687311795,
+                         "y":-95.0819
+                        }, 
+                        {
+                         "x":702.390620475689,
+                         "y":89.1395
+                        }, 
+                        {
+                         "x":-684.067237074168,
+                         "y":95.0819
+                        }],
+                 "properties":[
+                        {
+                         "name":"hideSub",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"hide",
+                             "Enabled":true,
+                             "Head":"ui3 hidden"
+                            }
+                        }, 
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":192,
+                                 "density":0,
+                                 "friction":0.2,
+                                 "restitution":0.1,
+                                 "rotation":false,
+                                 "texture":""
+                                }
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"wall",
+                 "visible":true,
+                 "width":0,
+                 "x":1620.12459414919,
+                 "y":1272.55460588794
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1485,7 +1690,7 @@
          "y":0
         }],
  "nextlayerid":7,
- "nextobjectid":107,
+ "nextobjectid":110,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

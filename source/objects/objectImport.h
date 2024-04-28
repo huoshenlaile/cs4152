@@ -6,3 +6,4 @@
 #include "BouncyWall.h"
 #include "GravityReversePlatform.h"
 #include "InteractableUI.h"
+#include "Wall.h"

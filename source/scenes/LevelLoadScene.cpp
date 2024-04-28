@@ -27,7 +27,7 @@ bool LevelLoadScene::init(const std::shared_ptr<cugl::AssetManager> &assets) {
 
     // currently no progress bar or button simple black screen
 
-    Application::get()->setClearColor(Color4(0, 0, 0, 255));
+    Application::get()->setClearColor(Color4(192, 192, 192));
 
     return true;
 }
