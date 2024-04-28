@@ -46,5 +46,9 @@ public:
               bool loop = false, float volume = -1.0f, bool force = false);
     
     bool playRandomNote();
+    
+    void pause(std::string key);
+    
+    void clear(std::string key);
 };
 #endif

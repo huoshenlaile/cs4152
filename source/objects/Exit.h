@@ -12,10 +12,10 @@ protected:
 
     
     /** The colors required to exit */
-    std::set<std::string> _colorReqs;
+    std::vector<std::string> _colorReqs;
     
     /** The colors that have been collected*/
-    std::set<std::string> _colorsCollected;
+    std::vector<std::string> _colorsCollected;
     
     /** Time before a color is taken */
     float _ttcolor=2.0f;
@@ -42,22 +42,18 @@ public:
 #pragma mark -
 #pragma mark Functions
     
-    const std::set<std::string> getColorReqs() const { return _colorReqs; }
+    const std::vector<std::string> getColorReqs() const { return _colorReqs; }
 
-    void setColorReqs(std::set<std::string> colors) { _colorReqs = colors; }
+    void setColorReqs(std::vector<std::string> colors) { _colorReqs = colors; }
         
-    const std::set<std::string> getColorsCollected() const { return _colorsCollected; }
+    const std::vector<std::string> getColorsCollected() const { return _colorsCollected; }
         
     void addColor(std::string color, Vec2 pos);
         
-    void setColorsCollected(std::set<std::string> colors) { _colorsCollected = colors; }
+    void setColorsCollected(std::vector<std::string> colors) { _colorsCollected = colors; }
         
-    const std::set<std::string> getRemainingColors() const {
-        std::set<std::string> result;
-        std::set_difference(_colorReqs.begin(),_colorReqs.end(), _colorsCollected.begin(), _colorsCollected.end(),
-            std::inserter(result, result.end()));
-        return result;
-    }
+    /**Returns true if it is a good ending.**/
+    bool goodEnding(std::vector<std::string> _colorReqs, std::vector<std::string> _colorsCollected);
     
     const bool contactedLongEnough(){ return contact_time >= _ttcolor;}
 

@@ -78,6 +78,7 @@ protected:
 	RestorationScene _restorationScene;
 	LevelLoadScene _levelLoadScene;
 	GameStatus _status;
+    AudioController _audioController;
 
 public:
 #pragma mark Constructors

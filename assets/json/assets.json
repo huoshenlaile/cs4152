@@ -503,6 +503,11 @@
             "type": "sample",
             "file": "sounds/touch6.wav",
             "volume": 0.5
+        },
+        "menu": {
+            "type": "sample",
+            "file": "sounds/menu_music.wav",
+            "volume": 0.5
         }
     },
     "fonts": {
