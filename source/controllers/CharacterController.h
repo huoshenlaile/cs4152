@@ -198,7 +198,8 @@ public:
 #pragma mark HAND CONTROLLER
     bool moveRightHand(cugl::Vec2 offset, bool inverse = false);
     bool moveLeftHand(cugl::Vec2 offset, bool inverse = false);
-
+    bool resolvingRightHand = false;
+    bool resolvingLeftHand = false;
     Vec2 getLeftHandPosition()  { return _obstacles[PART_LH]->getPosition(); }
     Vec2 getRightHandPosition() { return _obstacles[PART_RH]->getPosition(); }
     

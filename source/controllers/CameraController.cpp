@@ -20,7 +20,6 @@ bool CameraController::init(const std::shared_ptr<cugl::scene2::SceneNode> targe
     _displayed = skipCameraSpan ? true : false;
     _moveToTop = false;
     _state = skipCameraSpan ? 3 : 0; // if skipping camera span is 3 just remain in game play
-    std::cout << "Camera's initial state, depending on whether you set skipCameraSpan: " << _state << std::endl;
     _tutorialState = 0;
     return true;
 }
@@ -34,14 +33,14 @@ void CameraController::update(float dt) {
 
     if (!_moveToTop && !_horizontal) {
         _camera->setPosition(
-            Vec2(_root->getSize().width - _camera->getViewport().getMaxX() / (2 * _camera->getZoom()) + 100.0f, _root->getSize().height - _camera->getViewport().getMaxY() / (2 * _camera->getZoom())));
+            Vec2(_root->getSize().width - _camera->getViewport().getMaxX() / (2 * _camera->getZoom()) - 20, _root->getSize().height - _camera->getViewport().getMaxY() / (2 * _camera->getZoom())));
         _moveToTop = true;
         Vec2 uiPos =
-            Vec2(_camera->getPosition().x - _camera->getViewport().getMaxX() / (2 * _camera->getZoom()) + 100.0f, _camera->getPosition().y - _camera->getViewport().getMaxY() / (2 * _camera->getZoom()));
+            Vec2(_camera->getPosition().x - _camera->getViewport().getMaxX() / (2 * _camera->getZoom()) - 20, _camera->getPosition().y - _camera->getViewport().getMaxY() / (2 * _camera->getZoom()));
         _UIPosition = uiPos;
         _ui->setPosition(uiPos);
     }
-    // CULog("in CamController Update, camera state: %d", _state);
+
     switch (_state) {
     // Initial stay
     case 0: {
@@ -55,16 +54,21 @@ void CameraController::update(float dt) {
     case 1: {
         Vec2 panSpeed = _panSpeed;
         if (_horizontal) {
-            _camera->translate(panSpeed.x, panSpeed.y);
-            _camera->update();
-            if (_camera->getPosition().x >= _root->getSize().width - _camera->getViewport().getMaxX() / (2 * _camera->getZoom())) {
-                _state = 2;
+            if (_camera->getPosition().x <= _root->getSize().width - 500 - _camera->getViewport().getMaxX() / (2 * _camera->getZoom())) {
+                _camera->translate(panSpeed.x, panSpeed.y);
+                _camera->update();
+            } else {
+                if (cameraStay(END_STAY))
+                    _state = 2;
             }
         } else {
-            _camera->translate(panSpeed.x, panSpeed.y);
-            _camera->update();
-            if (_camera->getPosition().y <= _camera->getViewport().getMaxY() / (2 * _camera->getZoom())) {
-                _state = 2;
+            if (_camera->getPosition().y >= 20 + _camera->getViewport().getMaxY() / (2 * _camera->getZoom())) {
+                _camera->translate(panSpeed.x, panSpeed.y);
+                _camera->update();
+            } else {
+                if (cameraStay(END_STAY)) {
+                    _state = 2;
+                }
             }
         }
         break;
@@ -88,7 +92,7 @@ void CameraController::update(float dt) {
         Vec2 *dst = new Vec2();
         // Lazily track the target using lerp
         target = Vec2(_target->getWorldPosition().x, _target->getWorldPosition().y);
-        Vec2::lerp(cameraPos, target, _lerp * dt, dst);
+        Vec2::lerp(cameraPos, target, 30 * dt, dst);
         // Make sure the camera never goes outside of the _root node's bounds
         (*dst).x = std::max(std::min(_root->getSize().width - _camera->getViewport().getMaxX() / (2 * _camera->getZoom()), (*dst).x), _camera->getViewport().getMaxX() / (2 * _camera->getZoom()));
         (*dst).y = std::max(std::min(_root->getSize().height - _camera->getViewport().getMaxY() / (2 * _camera->getZoom()), (*dst).y), _camera->getViewport().getMaxY() / (2 * _camera->getZoom()));
@@ -211,12 +215,12 @@ void CameraController::setZoom(float zoom) {
     if (zoom > _maxZoom)
         return;
     _camera->setZoom(zoom);
-    //CULog("current zoom is: %f", _camera->getZoom());
-    // If this causes the camera to go out of bounds, revert the change
-    // if (_root->getSize().width < _camera->getViewport().getMaxX() / _camera->getZoom() || _root->getSize().height < _camera->getViewport().getMaxY() / _camera->getZoom()) {
-    //    _camera->setZoom(originalZoom);
-    //}
-    // Scale the UI so that it always looks the same size
+    // CULog("current zoom is: %f", _camera->getZoom());
+    //  If this causes the camera to go out of bounds, revert the change
+    //  if (_root->getSize().width < _camera->getViewport().getMaxX() / _camera->getZoom() || _root->getSize().height < _camera->getViewport().getMaxY() / _camera->getZoom()) {
+    //     _camera->setZoom(originalZoom);
+    // }
+    //  Scale the UI so that it always looks the same size
     _ui->setScale(1 / _camera->getZoom());
 }
 
@@ -255,10 +259,7 @@ void CameraController::process(int zoomIn, float speed) {
     _ui->setScale(1 / _camera->getZoom());
 }
 
-void CameraController::levelComplete() {
-    _levelComplete = true;
-    //_camera->setZoom(_levelCompleteZoom);
-}
+void CameraController::levelComplete() { _levelComplete = true; }
 
 void CameraController::setCamera(std::string selectedLevelKey) {
     _isTutorial = false;
@@ -276,35 +277,35 @@ void CameraController::setCamera(std::string selectedLevelKey) {
         _panSpeed = Vec2(30, 0);
     } else if (selectedLevelKey == "tube") {
         setMode(false);
-        setDefaultZoom(0.2);
-        _levelCompleteZoom = 0.15;
+        setDefaultZoom(0.15);
+        _levelCompleteZoom = 0.16;
         _panSpeed = Vec2(0, -30);
     } else if (selectedLevelKey == "doodlejump") {
-        setMode(true);
+        setMode(false);
         setDefaultZoom(DEFAULT_ZOOM);
-        _levelCompleteZoom = DEFAULT_ZOOM;
-        _panSpeed = Vec2(30, 0);
+        _levelCompleteZoom = 0.16;
+        _panSpeed = Vec2(0, -30);
     } else if (selectedLevelKey == "falldown") {
         setMode(false);
-        setDefaultZoom(0.2);
-        _levelCompleteZoom = 0.17;
+        setDefaultZoom(DEFAULT_ZOOM);
+        _levelCompleteZoom = 0.133;
         _panSpeed = Vec2(0, -30);
-    }else if (selectedLevelKey == "level3") {
+    } else if (selectedLevelKey == "level3") {
         setMode(true);
         setDefaultZoom(DEFAULT_ZOOM);
         _levelCompleteZoom = DEFAULT_ZOOM;
         _panSpeed = Vec2(30, 0);
-    }else if (selectedLevelKey == "level7") {
+    } else if (selectedLevelKey == "level7") {
         setMode(false);
         setDefaultZoom(0.2);
         _levelCompleteZoom = 0.17;
         _panSpeed = Vec2(0, -30);
-    }else if (selectedLevelKey == "level8") {
+    } else if (selectedLevelKey == "level8") {
         setMode(false);
         setDefaultZoom(0.2);
         _levelCompleteZoom = 0.17;
         _panSpeed = Vec2(0, -30);
-    }else if (selectedLevelKey == "level9") {
+    } else if (selectedLevelKey == "level9") {
         setMode(false);
         setDefaultZoom(0.2);
         _levelCompleteZoom = 0.17;
