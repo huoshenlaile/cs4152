@@ -1084,7 +1084,7 @@ void CharacterController::update(float dt)
     Vec2 ldisplacement = _obstacles[PART_LH]->getPosition()-_obstacles[PART_BODY]->getPosition();
     auto llength = ldisplacement.length();
     std::cout << "Left len: "<< llength << ", " << MAX_ARM_LENGTH << "\n";
-    if (llength > 3 * MAX_ARM_LENGTH)
+    if (llength > 1.5 * MAX_ARM_LENGTH)
     {
         std::cout <<"Resolving left hand" << "\n";
         _obstacles[PART_LH]->setPosition(_obstacles[PART_LH]->getPosition() - (ldisplacement * (MAX_ARM_LENGTH / llength)));
@@ -1100,7 +1100,7 @@ void CharacterController::update(float dt)
     Vec2 rdisplacement = _obstacles[PART_RH]->getPosition()-_obstacles[PART_BODY]->getPosition();
     auto rlength = rdisplacement.length();
     std::cout << "Right len: "<< rlength << ", " << MAX_ARM_LENGTH << "\n";
-    if (rlength > 3 * MAX_ARM_LENGTH)
+    if (rlength > 1.5 * MAX_ARM_LENGTH)
     {
         std::cout <<"Resolving right hand" << "\n";
         _obstacles[PART_RH]->setPosition(_obstacles[PART_RH]->getPosition() - (rdisplacement * (MAX_ARM_LENGTH / rlength)));
