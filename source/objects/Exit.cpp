@@ -128,8 +128,10 @@ PublishedMessage Exit::timeUpdate(float timestep){
     else if (this->is_contacting && this->contactedLongEnough()){
         this->contact_time = this->_ttcolor;
         std::string color = _character->getColor();
-        if (color != "black" && this->getColorsCollected().count(color) == 0){
+        if (color != "black"){
             this->addColor(color, _character->getBodySceneNode()->getPosition());
+        }
+        if (color != "black" && this->getColorsCollected().count(color) == 0){
             std::cout << "Found color (from Exit timeUpdate):" << color << "\n";
             _character->setColor("black");
         }
