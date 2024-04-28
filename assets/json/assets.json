@@ -409,6 +409,21 @@
         "black_paint": {
             "file": "textures/black_paint_141x144.png"
         },
+        "green_splatter" : {
+            "file" : "textures/green_paintspaltter_148x680.png"
+        },
+        "blue_splatter" : {
+            "file" : "textures/blue_paintspaltter_148x680.png"
+        },
+        "purple_splatter" : {
+            "file" : "textures/purple_paintspaltter_148x680.png"
+        },
+        "orange_splatter" : {
+            "file" : "textures/orange_paintspaltter_148x680.png"
+        },
+        "pink_splatter" : {
+            "file" : "textures/pink_paintspaltter_148x680.png"
+        },
         "tube_curved_l": {
             "file": "textures/tube/tube_curved_left.png"
         },
