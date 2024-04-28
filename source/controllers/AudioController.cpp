@@ -16,6 +16,13 @@ void AudioController::dispose() {
     this -> _assets = nullptr;
 }
 
+void AudioController::pause(std::string key) {
+    AudioEngine::get() -> pause(key);
+}
+
+void AudioController::clear(std::string key){
+    AudioEngine::get() -> clear(key);
+}
 
 bool AudioController::play(const std::string key, const std::string soundName, bool loop, float volume, bool force) {
     auto sound = _assets -> get<Sound>(soundName);
