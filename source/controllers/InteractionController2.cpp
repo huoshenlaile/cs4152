@@ -57,11 +57,11 @@ bool InteractionController2::init(std::shared_ptr<LevelLoader2> level, std::shar
     _levelComplete = false;
 
     // CULog the size of 5 methods.
-    CULog("Size of _timeUpdateInteractables: %lu", _timeUpdateInteractables.size());
-    CULog("Size of _BeginContactInteractable: %lu", _BeginContactInteractable.size());
-    CULog("Size of _EndContactInteractable: %lu", _EndContactInteractable.size());
-    CULog("Size of _PreSolveInteractable: %lu", _PreSolveInteractable.size());
-    CULog("Size of _PostSolveInteractable: %lu", _PostSolveInteractable.size());
+//    CULog("Size of _timeUpdateInteractables: %lu", _timeUpdateInteractables.size());
+//    CULog("Size of _BeginContactInteractable: %lu", _BeginContactInteractable.size());
+//    CULog("Size of _EndContactInteractable: %lu", _EndContactInteractable.size());
+//    CULog("Size of _PreSolveInteractable: %lu", _PreSolveInteractable.size());
+//    CULog("Size of _PostSolveInteractable: %lu", _PostSolveInteractable.size());
 
     return true;
 }
@@ -94,8 +94,8 @@ void InteractionController2::beginContact(b2Contact *contact) {
                 } else {
                     if (_rightHandIsHeld && _RHGrabCD <= 0 && !_rightHandIsGrabbed) {
                         CULog("from beginContact: now grabbing RH");
-                        _obstaclesForJoint.push_back(_obstacleToInteractable[obs2rawPtr] -> getObstacle());
                         _obstaclesForJoint.push_back(characterRH);
+                        _obstaclesForJoint.push_back(_obstacleToInteractable[obs2rawPtr] -> getObstacle());
                         _rightHandIsGrabbed = true;
                     }
                 }

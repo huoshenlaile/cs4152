@@ -555,7 +555,7 @@
                         {
                          "name":"Grab",
                          "type":"bool",
-                         "value":false
+                         "value":true
                         }, 
                         {
                          "name":"properties",
@@ -1299,7 +1299,7 @@
          "y":0
         }],
  "nextlayerid":3,
- "nextobjectid":46,
+ "nextobjectid":48,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

@@ -366,6 +366,7 @@ void DPApp::updateLevelSelect(float timestep) {
             _menuScene.setActive(true);
             break;
         case LevelSelectScene::STARTGAME:
+            _gameScene.setCameraSkip(false);
             _levelSelectScene.setActive(false);
             _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
             _currentLevelKey = _levelSelectScene.getSelectedLevelKey();
