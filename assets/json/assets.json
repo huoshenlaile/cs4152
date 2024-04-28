@@ -62,6 +62,9 @@
         "alpharelease_frenchfries": {
             "file": "textures/alpharelease_frenchfries.png"
         },
+        "alpharelease_long_frenchfries": {
+            "file": "textures/alpharelease_long_frenchfries.png"
+        },
         "alpharelease_ketchup_capoff": {
             "file": "textures/alpharelease_ketchup_capoff.png"
         },
@@ -289,6 +292,105 @@
         "button_map_down": {
             "file": "textures/button_map_down.png"
         },
+        "button_home": {
+            "file": "textures/button_home.png"
+        },
+        "button_home_down": {
+            "file": "textures/button_home_down.png"
+        },
+        "background_select_frames": {
+            "file": "textures/background_select_frames.png"
+        },
+        "button_level1": {
+            "file": "textures/levelselect/button_level1.png"
+        },
+        "button_level5": {
+            "file": "textures/levelselect/button_level5.png"
+        },
+        "button_level2": {
+            "file": "textures/levelselect/button_level2.png"
+        },
+        "button_level3": {
+            "file": "textures/levelselect/button_level3.png"
+        },
+        "button_level8": {
+            "file": "textures/levelselect/button_level8.png"
+        },
+        "button_level4": {
+            "file": "textures/levelselect/button_level4.png"
+        },
+        "button_level6": {
+            "file": "textures/levelselect/button_level6.png"
+        },
+        "button_level7": {
+            "file": "textures/levelselect/button_level7.png"
+        },
+        "button_level9": {
+            "file": "textures/levelselect/button_level9.png"
+        },
+        "button_level10": {
+            "file": "textures/levelselect/button_level10.png"
+        },
+        "button_level11": {
+            "file": "textures/levelselect/button_level11.png"
+        },
+        "button_level12": {
+            "file": "textures/levelselect/button_level12.png"
+        },
+        "button_level14": {
+            "file": "textures/levelselect/button_level14.png"
+        },
+        "button_level13": {
+            "file": "textures/levelselect/button_level13.png"
+        },
+        "button_level15": {
+            "file": "textures/levelselect/button_level15.png"
+        },
+        "button_level1_down": {
+            "file": "textures/levelselect/button_level1_down.png"
+        },
+        "button_level5_down": {
+            "file": "textures/levelselect/button_level5_down.png"
+        },
+        "button_level2_down": {
+            "file": "textures/levelselect/button_level2_down.png"
+        },
+        "button_level3_down": {
+            "file": "textures/levelselect/button_level3_down.png"
+        },
+        "button_level8_down": {
+            "file": "textures/levelselect/button_level8_down.png"
+        },
+        "button_level4_down": {
+            "file": "textures/levelselect/button_level4_down.png"
+        },
+        "button_level6_down": {
+            "file": "textures/levelselect/button_level6_down.png"
+        },
+        "button_level7_down": {
+            "file": "textures/levelselect/button_level7_down.png"
+        },
+        "button_level9_down": {
+            "file": "textures/levelselect/button_level9_down.png"
+        },
+        "button_level10_down": {
+            "file": "textures/levelselect/button_level10_down.png"
+        },
+        "button_level11_down": {
+            "file": "textures/levelselect/button_level11_down.png"
+        },
+        "button_level12_down": {
+            "file": "textures/levelselect/button_level12_down.png"
+        },
+        "button_level14_down": {
+            "file": "textures/levelselect/button_level14_down.png"
+        },
+        "button_level13_down": {
+            "file": "textures/levelselect/button_level13_down.png"
+        },
+        "button_level15_down": {
+            "file": "textures/levelselect/button_level15_down.png"
+        },
         "red_paint": {
             "file": "textures/red_paint_141x144.png"
         },
@@ -297,6 +399,30 @@
         },
         "black_drip_paint" : {
             "file": "textures/black_paintcover_720x4900.png"
+        },
+        "pink_paint": {
+            "file": "textures/pink_paint_141x144.png"
+        },
+        "blue_paint": {
+            "file": "textures/blue_paint_141x144.png"
+        },
+        "green_paint": {
+            "file": "textures/green_paint_141x144.png"
+        },
+        "black_paint": {
+            "file": "textures/black_paint_141x144.png"
+        },
+        "green_splatter" : {
+            "file" : "textures/green_paintspaltter_148x680.png"
+        },
+        "blue_splatter" : {
+            "file" : "textures/blue_paintspaltter_148x680.png"
+        },
+        "purple_splatter" : {
+            "file" : "textures/purple_paintspaltter_148x680.png"
+        },
+        "pink_splatter" : {
+            "file" : "textures/pink_paintspaltter_148x680.png"
         },
         "tube_curved_l": {
             "file": "textures/tube/tube_curved_left.png"
@@ -309,6 +435,21 @@
         },
         "tube_str_r": {
             "file": "textures/tube/tube_straight_right.png"
+        },
+        "ui_move": {
+            "file": "textures/ui_move.png"
+        },
+        "ui_hand": {
+            "file": "textures/ui_hand.png"
+        },
+        "ui_jump": {
+            "file": "textures/ui_jump.png"
+        },
+        "ui_walk": {
+            "file": "textures/ui_walk.png"
+        },
+        "ui_walkguide": {
+            "file": "textures/ui_walkguide.png"
         }
     },
     "jsons": {
@@ -356,7 +497,7 @@
         "title": "widgets/title.json",
         "pause": "widgets/pause.json",
         "levelcomplete": "widgets/levelcomplete.json",
-        "pausebutton": "widgets/pausebutton_tryout.json"
+        "pausebutton": "widgets/pausebutton.json"
     },
     "scene2s": {
         "pause": {

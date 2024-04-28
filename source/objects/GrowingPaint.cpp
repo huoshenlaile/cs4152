@@ -74,7 +74,7 @@ PublishedMessage GrowingPaint::onBeginContact(std::shared_ptr<cugl::physics2::Ob
                 auto a = PublishedMessage();
                 a.Head = pub_message_head;
                 a.Body = color;
-                std::cout << "=======Published a message being like: " << a.Head << " " << a.Body << std::endl;
+                std::cout << "======= Published a message like: " << a.Head << " " << a.Body << std::endl;
                 return a;
             }
         }

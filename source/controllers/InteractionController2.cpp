@@ -1,11 +1,13 @@
 #include "InteractionController2.h"
 
 // std::unordered_map<std::string, std::vector<std::shared_ptr<Interactable>>> _HeadToInteractable;
-bool InteractionController2::init(std::shared_ptr<LevelLoader2> level) {
+bool InteractionController2::init(std::shared_ptr<LevelLoader2> level, std::shared_ptr<InputController> inputcontroller, std::shared_ptr<CameraController> camera) {
     if (level == nullptr) {
         return false;
     }
     _level = level;
+    _inputcontroller = inputcontroller;
+    _camera = camera;
     _character = level->getCharacter();
     _world = level->getWorld();
     _worldnode = level->getWorldNode();
@@ -17,7 +19,7 @@ bool InteractionController2::init(std::shared_ptr<LevelLoader2> level) {
             _timeUpdateInteractables.push_back(interactable);
         }
         if (interactable->hasOnBeginContact()) {
-            std::cout << "these: " << interactable -> getName() << std::endl;
+            std::cout << "Has Begin Contact Interactable: " << interactable -> getName() << std::endl;
             _BeginContactInteractable[interactable->getObstacleRawPtr()] = interactable;
         }
         if (interactable->hasOnEndContact()) {
@@ -55,11 +57,11 @@ bool InteractionController2::init(std::shared_ptr<LevelLoader2> level) {
     _levelComplete = false;
 
     // CULog the size of 5 methods.
-    CULog("Size of _timeUpdateInteractables: %lu", _timeUpdateInteractables.size());
-    CULog("Size of _BeginContactInteractable: %lu", _BeginContactInteractable.size());
-    CULog("Size of _EndContactInteractable: %lu", _EndContactInteractable.size());
-    CULog("Size of _PreSolveInteractable: %lu", _PreSolveInteractable.size());
-    CULog("Size of _PostSolveInteractable: %lu", _PostSolveInteractable.size());
+//    CULog("Size of _timeUpdateInteractables: %lu", _timeUpdateInteractables.size());
+//    CULog("Size of _BeginContactInteractable: %lu", _BeginContactInteractable.size());
+//    CULog("Size of _EndContactInteractable: %lu", _EndContactInteractable.size());
+//    CULog("Size of _PreSolveInteractable: %lu", _PreSolveInteractable.size());
+//    CULog("Size of _PostSolveInteractable: %lu", _PostSolveInteractable.size());
 
     return true;
 }
@@ -92,8 +94,8 @@ void InteractionController2::beginContact(b2Contact *contact) {
                 } else {
                     if (_rightHandIsHeld && _RHGrabCD <= 0 && !_rightHandIsGrabbed) {
                         CULog("from beginContact: now grabbing RH");
-                        _obstaclesForJoint.push_back(_obstacleToInteractable[obs2rawPtr] -> getObstacle());
                         _obstaclesForJoint.push_back(characterRH);
+                        _obstaclesForJoint.push_back(_obstacleToInteractable[obs2rawPtr] -> getObstacle());
                         _rightHandIsGrabbed = true;
                     }
                 }
@@ -267,13 +269,12 @@ void InteractionController2::beforeSolve(b2Contact *contact, const b2Manifold *o
 void InteractionController2::afterSolve(b2Contact *contact, const b2ContactImpulse *impulse) { return; }
 
 void InteractionController2::runMessageQueue() {
-    // for each message in the queue, process it, call it's subscribers
+    // for each message in the queue, process it, call its subscribers
     while (!_messageQueue.empty()) {
         PublishedMessage message = _messageQueue.front();
         _messageQueue.pop();
         std::string head = message.Head;
         float float1 = message.float1;
-
         // message to interactable
         auto headToInteractableIt = _HeadToInteractable.find(head);
         if (headToInteractableIt != _HeadToInteractable.end()) {
@@ -282,8 +283,9 @@ void InteractionController2::runMessageQueue() {
                 auto actionIt = actions.find(head);
                 if (actionIt != actions.end()) {
                     ActionParams params = Interactable::ConvertToActionParams(message);
-                    PublishedMessage new_message = actionIt->second(params);
+                    PublishedMessage new_message = actionIt->second(params); // Call the subscriber's function
                     if (new_message.Head != "") {
+                        std::cout << new_message.Head <<"\n";
                         _messageQueue.push(new_message);
                     }
                 }
@@ -326,6 +328,12 @@ void InteractionController2::preUpdate(float timestep) {
             _messageQueue.push(message);
         }
     }
+    PublishedMessage message = _inputcontroller->getMessageInPreUpdate();
+    if (message.Head != "") {
+        //std::cout << message.Head << "\n";
+        _messageQueue.push(message);
+    }
+
     runMessageQueue();
 }
 

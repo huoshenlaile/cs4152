@@ -17,11 +17,30 @@ bool MovingWall::init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect b
         if(properties->get(i)->getString("name") == "Movements"){
             auto movement = properties->get(i)->get("value");
             _speed = movement->getFloat("speed", 0);
-            for (auto& point : movement->get("path")->children()) {
-                Vec2 p = _selfObstacle->getPosition();
-                CULog("HIIIIIILOOOOKKKKKKHEREEEEEEEEE: %f hi %f", p.x, p.y);
-                _path.emplace_back(p.x+point->getFloat("x"), p.y+point->getFloat("y"));
+            std::string path = movement->getString("xy");
+            std::vector<int> coordinates;
+            std::stringstream ss(path);
+            std::string item;
+            while (getline(ss, item, ',')) {
+                    coordinates.push_back(std::stoi(item));
             }
+            Vec2 p = _selfObstacle->getPosition();
+            for (size_t i = 0; i < coordinates.size(); i += 2) {
+                    int xi = coordinates[i];
+                    int yi = coordinates[i + 1];
+                    _path.emplace_back(p.x + xi, p.y + yi);
+            }
+            
+//            for (auto& point : movement->get("path")->children()) {
+//                Vec2 p = _selfObstacle->getPosition();
+//                CULog("HIIIIIILOOOOKKKKKKHEREEEEEEEEE: %f hi %f", p.x, p.y);
+//                _path.emplace_back(p.x+point->getFloat("x"), p.y+point->getFloat("y"));
+//            }
+            
+            for (auto c : coordinates){
+                std::cout<<c << std::endl;
+            }
+            
             CULog("HIIIIIILOOOOKKKKKKHEREEEEEEEEE: %f", 0.1f);
         } else if(properties->get(i)->getString("name") == "MoveOnContact") {
             _moveOnContact = properties->get(i)->get("value")->asBool();
@@ -34,6 +53,7 @@ bool MovingWall::init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect b
 }
 
 void MovingWall::update(float dt) {
+    std::cout << _isMoving << _path.empty()<<  std::endl;
     if (!_isMoving || _path.empty()) return;
     
     // Calculate the next position along the path
@@ -90,6 +110,8 @@ bool MovingWall::linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleWorld
                 obs->setPosition(currentPosition);
                 weakTexture->setPosition(currentPosition * scale);
                 weakTexture->setAngle(obs->getAngle());
+            } else {
+                _currentPathIndex = (_currentPathIndex + 1) % _path.size();  // Cycle through the path
             }
         });
     }

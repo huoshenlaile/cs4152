@@ -31,10 +31,12 @@ public:
     /** Is in contact? */
     bool is_contacting = false;
     
+    /** Is touching inner fixture? */
+    bool debouncing = false;
+    
+    
     Exit(void) : Interactable() {}
     ~Exit() {
-        // Call the parent class destructor
-        Interactable::~Interactable();
     }
     
 #pragma mark -
@@ -46,7 +48,7 @@ public:
         
     const std::set<std::string> getColorsCollected() const { return _colorsCollected; }
         
-    void addColor(std::string color) { _colorsCollected.insert(color); }
+    void addColor(std::string color, Vec2 pos);
         
     void setColorsCollected(std::set<std::string> colors) { _colorsCollected = colors; }
         

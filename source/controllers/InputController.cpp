@@ -56,9 +56,6 @@ bool InputController::init(const Rect bounds) {
 
 void InputController::update(float dt) {
     // CULog("World coord in GF at: %f %f \n", touchPos.x, touchPos.y);
-    _prevDown = _currDown;
-    _currDown = _touchDown;
-
 #ifdef CU_TOUCH_SCREEN
     Touchscreen *touch = Input::get<Touchscreen>();
     // Press to continue
@@ -77,6 +74,8 @@ void InputController::update(float dt) {
         }
         return;
     }
+    _prevDown = _currDown;
+    _currDown = touch->touchCount()>0;
     for (auto touchID : touch->touchSet()) {
        // CULog("Press");
         bool exist = false;
@@ -248,6 +247,17 @@ Vec2 InputController::touch2Screen(const Vec2 pos) const {
     result.x = px * _sbounds.size.width + _sbounds.origin.x;
     result.y = (1 - py) * _sbounds.size.height + _sbounds.origin.y;
     return result;
+}
+
+PublishedMessage InputController::getMessageInPreUpdate() {
+    auto msg = PublishedMessage();
+    if (didPress()){
+        msg.Head = "Screen Pressed";
+    }
+    else if (didRelease()){
+        msg.Head = "Screen Released";
+    }
+    return msg;
 }
 
 #pragma mark -

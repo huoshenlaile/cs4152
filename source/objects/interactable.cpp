@@ -81,7 +81,6 @@ bool Interactable::bindAssets(const std::shared_ptr<cugl::AssetManager>& assets,
 bool Interactable::linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleWorld> &physicsWorld, const std::shared_ptr<cugl::scene2::SceneNode>& sceneNode, float scale){
     _world = physicsWorld;
     _scene = sceneNode;
-    std::cout << _selfObstacle->getName()<<"\n";
     
     _world->addObstacle(_selfObstacle);
 
