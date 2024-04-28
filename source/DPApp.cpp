@@ -157,7 +157,7 @@ void DPApp::preUpdate(float timestep) {
     } else if (_status == LEVELSELECT) {
     updateLevelSelect(timestep);
     } else if (_status == LEVELLOAD) {
-        updateLevelLoad(timestep);
+    updateLevelLoad(timestep);
     } else if (_status == RESTORE) {
     updateRestoration(timestep);
     } else if (_status == GAME) {

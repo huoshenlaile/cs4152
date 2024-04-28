@@ -60,6 +60,12 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, std::str
 #pragma mark Construct Interaction Controller
     _interactionController = InteractionController2::alloc(_level, _inputController, _camera);
     _interactionController->activateController();
+    
+#pragma mark Audio Controller
+    _audioController = std::make_shared<AudioController>();
+    _audioController -> init(_assets);
+    _audioController -> play("touch1", "touch1");
+    _interactionController -> setAudioController(_audioController);
 
     return true;
 }
@@ -142,9 +148,10 @@ void GameScene::preUpdate(float dt) {
         state = RESET;
         _camera->setCameraState(0);
     }
-    _interactionController->connectGrabJoint();
-    _interactionController->ungrabIfNecessary();
-    _interactionController->grabCDIfNecessary(dt);
+    // NOTE: This is moved to InteractionController.
+//    _interactionController->connectGrabJoint();
+//    _interactionController->ungrabIfNecessary();
+//    _interactionController->grabCDIfNecessary(dt);
 }
 
 void GameScene::fixedUpdate(float dt) {

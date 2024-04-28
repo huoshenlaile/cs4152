@@ -28,3 +28,31 @@ bool AudioController::play(const std::string key, const std::string soundName, b
     }
     return false;
 }
+
+bool AudioController::playRandomNote() {
+    int choice = std::rand();
+    choice = choice % 6;
+    std::string name = "touch1";
+    switch (choice) {
+        case 0:
+            break;
+        case 1:
+            name = "touch2";
+            break;
+        case 2:
+            name = "touch3";
+            break;
+        case 3:
+            name = "touch4";
+            break;
+        case 4:
+            name = "touch5";
+            break;
+        case 5:
+            name = "touch6";
+            break;
+        default:
+            break;
+    }
+    return this -> play(name, name);
+}
