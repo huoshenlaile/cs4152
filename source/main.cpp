@@ -56,7 +56,7 @@ int main(int argc, char * argv[]) {
     DPApp app;
     
     // Set the properties of your application
-    app.setName("Dusty Paint: Technical Prototype");
+    app.setName("Dusty Paint");
     app.setOrganization("Vme50 Studio");
     app.setHighDPI(true);
 
