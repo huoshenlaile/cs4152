@@ -39,6 +39,17 @@ bool CharacterController::init(const cugl::Vec2 &pos, float scale)
         return PublishedMessage();
     });
 
+
+    funcs["character set velocity"] = ([=](ActionParams params){
+        _obstacles[PART_BODY]->setLinearVelocity(Vec2(params.float1, params.float2));
+        return PublishedMessage();
+    });
+
+    funcs["character add velocity"] = ([=](ActionParams params){
+        _obstacles[PART_BODY]->setLinearVelocity(_obstacles[PART_BODY]->getLinearVelocity() + Vec2(params.float1, params.float2));
+        return PublishedMessage();
+    });
+
     return true;
 }
 
