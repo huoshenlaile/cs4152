@@ -1708,55 +1708,6 @@
                 }, 
                 {
                  "height":0,
-                 "id":105,
-                 "name":"static_wall",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":695.199126293376,
-                         "y":0
-                        }, 
-                        {
-                         "x":695.199126293376,
-                         "y":202.433462062437
-                        }, 
-                        {
-                         "x":-5.32719637006395,
-                         "y":202.433462062437
-                        }],
-                 "properties":[
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":0,
-                                 "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
-                                 "rotation":false,
-                                 "texture":"staticplatform_comet"
-                                }
-                            }
-                        }],
-                 "rotation":359.668972406037,
-                 "type":"wall",
-                 "visible":true,
-                 "width":0,
-                 "x":1244.93707845262,
-                 "y":11295.3652487929
-                }, 
-                {
-                 "height":0,
                  "id":119,
                  "name":"static_wall",
                  "polygon":[
@@ -1953,55 +1904,6 @@
                 }, 
                 {
                  "height":0,
-                 "id":113,
-                 "name":"static_wall",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":695.199126293376,
-                         "y":0
-                        }, 
-                        {
-                         "x":695.199126293376,
-                         "y":202.433462062437
-                        }, 
-                        {
-                         "x":-5.32719637006395,
-                         "y":202.433462062437
-                        }],
-                 "properties":[
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":0,
-                                 "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
-                                 "rotation":false,
-                                 "texture":"staticplatform_comet"
-                                }
-                            }
-                        }],
-                 "rotation":359.668972406037,
-                 "type":"wall",
-                 "visible":true,
-                 "width":0,
-                 "x":1952.39744892229,
-                 "y":11291.2778358629
-                }, 
-                {
-                 "height":0,
                  "id":118,
                  "name":"static_wall",
                  "polygon":[
@@ -2051,55 +1953,6 @@
                 }, 
                 {
                  "height":0,
-                 "id":114,
-                 "name":"static_wall",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":695.199126293376,
-                         "y":0
-                        }, 
-                        {
-                         "x":695.199126293376,
-                         "y":202.433462062437
-                        }, 
-                        {
-                         "x":-5.32719637006395,
-                         "y":202.433462062437
-                        }],
-                 "properties":[
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":0,
-                                 "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
-                                 "rotation":false,
-                                 "texture":"staticplatform_comet"
-                                }
-                            }
-                        }],
-                 "rotation":359.668972406037,
-                 "type":"wall",
-                 "visible":true,
-                 "width":0,
-                 "x":2675.75580524521,
-                 "y":11287.0985709569
-                }, 
-                {
-                 "height":0,
                  "id":116,
                  "name":"static_wall",
                  "polygon":[
@@ -2146,104 +1999,6 @@
                  "width":0,
                  "x":2524.70907889837,
                  "y":7866.98791524175
-                }, 
-                {
-                 "height":0,
-                 "id":115,
-                 "name":"static_wall",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":695.199126293376,
-                         "y":0
-                        }, 
-                        {
-                         "x":695.199126293376,
-                         "y":202.433462062437
-                        }, 
-                        {
-                         "x":-5.32719637006395,
-                         "y":202.433462062437
-                        }],
-                 "properties":[
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":0,
-                                 "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
-                                 "rotation":false,
-                                 "texture":"staticplatform_comet"
-                                }
-                            }
-                        }],
-                 "rotation":359.668972406037,
-                 "type":"wall",
-                 "visible":true,
-                 "width":0,
-                 "x":3415.05807340936,
-                 "y":11290.7764470016
-                }, 
-                {
-                 "height":0,
-                 "id":120,
-                 "name":"static_wall",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":695.199126293376,
-                         "y":0
-                        }, 
-                        {
-                         "x":695.199126293376,
-                         "y":202.433462062437
-                        }, 
-                        {
-                         "x":-5.32719637006395,
-                         "y":202.433462062437
-                        }],
-                 "properties":[
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":0,
-                                 "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
-                                 "rotation":false,
-                                 "texture":"staticplatform_comet"
-                                }
-                            }
-                        }],
-                 "rotation":359.668972406037,
-                 "type":"wall",
-                 "visible":true,
-                 "width":0,
-                 "x":4143.02742206837,
-                 "y":11290.7764470016
                 }, 
                 {
                  "height":0,
