@@ -99,37 +99,22 @@ PublishedMessage Exit::onEndContact(std::shared_ptr<cugl::physics2::Obstacle> ot
 // only called if color is new to the palette
 void Exit::addColor(std::string color, Vec2 character_scene_pos) {
     _colorsCollected.insert(color);
+    std::shared_ptr<scene2::PolygonNode> splatterpoly;
     if(color == "green"){
-        
-        auto splatterpoly = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>("green_splatter"));
-        
-        
-        //_selfTexture->getHeight()
-        splatterpoly->setPosition(character_scene_pos.x, _selfTexture->getPositionY());
-        //splatterpoly->setColor(Color4::BLACK);
-        //splatterpoly->setPosition(_selfTexture->getPosition());
-        //_selfTexture->setVisible(true);
-        _scene->addChild(splatterpoly);
-        
-        
+        splatterpoly = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>("green_splatter"));
     } else if ( color == "blue" ){
-        auto splatterpoly = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>("blue_splatter"));
-        splatterpoly->setPosition(character_scene_pos);
-        _scene->addChild(splatterpoly);
-
+        splatterpoly = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>("blue_splatter"));
     } else if ( color == "orange" ) {
-        auto splatterpoly = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>("orange_splatter"));
-        splatterpoly->setPosition(character_scene_pos);
-        _scene->addChild(splatterpoly);
-        
+        splatterpoly = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>("orange_splatter"));
     } else if ( color == "purple" ) {
-        auto splatterpoly = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>("purple_splatter"));
-        splatterpoly->setPosition(character_scene_pos.x, _selfTexture->getPositionY());
-        _scene->addChild(splatterpoly);
-        
+        splatterpoly = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>("purple_splatter"));
     } else if ( color == "pink" ) {
-        auto splatterpoly = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>("pink_splatter"));
-        splatterpoly->setPosition(character_scene_pos);
+        splatterpoly = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>("pink_splatter"));
+    }
+    
+    if(splatterpoly != nullptr){
+        splatterpoly->setScale(0.5f, 1.0f);
+        splatterpoly->setPosition(character_scene_pos.x, _selfTexture->getPositionY());
         _scene->addChild(splatterpoly);
     }
     
