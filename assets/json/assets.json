@@ -473,6 +473,36 @@
             "type": "sample",
             "file": "sounds/sideburner-left.wav",
             "volume": 0.5
+        },
+        "touch1": {
+            "type": "sample",
+            "file": "sounds/touch1.wav",
+            "volume": 0.5
+        },
+        "touch2": {
+            "type": "sample",
+            "file": "sounds/touch2.wav",
+            "volume": 0.5
+        },
+        "touch3": {
+            "type": "sample",
+            "file": "sounds/touch3.wav",
+            "volume": 0.5
+        },
+        "touch4": {
+            "type": "sample",
+            "file": "sounds/touch4.wav",
+            "volume": 0.5
+        },
+        "touch5": {
+            "type": "sample",
+            "file": "sounds/touch5.wav",
+            "volume": 0.5
+        },
+        "touch6": {
+            "type": "sample",
+            "file": "sounds/touch6.wav",
+            "volume": 0.5
         }
     },
     "fonts": {

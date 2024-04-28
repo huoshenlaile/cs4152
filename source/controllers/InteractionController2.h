@@ -10,6 +10,7 @@
 
 #include "../controllers/CameraController.h"
 #include "../controllers/CharacterController.h"
+#include "../controllers/AudioController.h"
 #include "../controllers/InputController.h"
 #include "../helpers/LevelLoader2.h"
 #include "../objects/objectImport.h"
@@ -89,6 +90,10 @@ protected:
         }
         return nullptr;
     }
+    
+    std::shared_ptr<AudioController> _audioController;
+    cugl::physics2::Obstacle* obsOnLH;
+    cugl::physics2::Obstacle* obsOnRH;
 
 public:
     int defaultGoodOrBad = -1;
@@ -127,6 +132,10 @@ public:
     static std::shared_ptr<InteractionController2> alloc(std::shared_ptr<LevelLoader2> level, std::shared_ptr<InputController> inputcontroller, std::shared_ptr<CameraController> camera) {
         std::shared_ptr<InteractionController2> result = std::make_shared<InteractionController2>();
         return (result->init(level, inputcontroller, camera) ? result : nullptr);
+    }
+    
+    void setAudioController(std::shared_ptr<AudioController> audio) {
+        this -> _audioController = audio;
     }
 
     /**
