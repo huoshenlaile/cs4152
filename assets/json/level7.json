@@ -9,55 +9,6 @@
          "objects":[
                 {
                  "height":0,
-                 "id":1,
-                 "name":"",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":0,
-                         "y":-145.174841916086
-                        }, 
-                        {
-                         "x":2840.40413956198,
-                         "y":-145.174841916086
-                        }, 
-                        {
-                         "x":2840.40413956198,
-                         "y":0
-                        }],
-                 "properties":[
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":192,
-                                 "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
-                                 "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
-                                }
-                            }
-                        }],
-                 "rotation":0,
-                 "type":"wall",
-                 "visible":true,
-                 "width":0,
-                 "x":130.254104070493,
-                 "y":8118.7110053307
-                }, 
-                {
-                 "height":0,
                  "id":81,
                  "name":"METADATA",
                  "polygon":[
@@ -406,7 +357,7 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
+                                 "texture":"staticplatform_comet"
                                 }
                             }
                         }],
@@ -463,7 +414,7 @@
                                  "friction":0,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
+                                 "texture":"staticplatform_comet"
                                 }
                             }
                         }],
@@ -903,7 +854,7 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
+                                 "texture":"staticplatform_comet"
                                 }
                             }
                         }],
@@ -960,7 +911,7 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
+                                 "texture":"staticplatform_comet"
                                 }
                             }
                         }],
@@ -1014,10 +965,10 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0,
+                                 "friction":0.5,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
+                                 "texture":"staticplatform_comet"
                                 }
                             }
                         }],
@@ -1071,10 +1022,10 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0,
+                                 "friction":0.5,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
+                                 "texture":"staticplatform_comet"
                                 }
                             }
                         }],
@@ -1128,10 +1079,10 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0,
+                                 "friction":0.5,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
+                                 "texture":"staticplatform_comet"
                                 }
                             }
                         }],
@@ -1185,10 +1136,10 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0,
+                                 "friction":0.5,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
+                                 "texture":"staticplatform_comet"
                                 }
                             }
                         }],
@@ -1242,10 +1193,10 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0,
+                                 "friction":0.5,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
+                                 "texture":"staticplatform_comet"
                                 }
                             }
                         }],
@@ -1299,10 +1250,10 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0,
+                                 "friction":0.5,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
+                                 "texture":"staticplatform_comet"
                                 }
                             }
                         }],
@@ -1356,10 +1307,10 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0,
+                                 "friction":0.5,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
+                                 "texture":"staticplatform_comet"
                                 }
                             }
                         }],
@@ -1413,10 +1364,10 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0,
+                                 "friction":0.5,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
+                                 "texture":"staticplatform_comet"
                                 }
                             }
                         }],
@@ -1470,10 +1421,10 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0,
+                                 "friction":0.5,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
+                                 "texture":"staticplatform_comet"
                                 }
                             }
                         }],
@@ -2845,55 +2796,6 @@
                 }, 
                 {
                  "height":0,
-                 "id":161,
-                 "name":"",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":0,
-                         "y":-145.175
-                        }, 
-                        {
-                         "x":4186.80522875817,
-                         "y":-145.175
-                        }, 
-                        {
-                         "x":4186.80522875817,
-                         "y":0
-                        }],
-                 "properties":[
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":192,
-                                 "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
-                                 "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
-                                }
-                            }
-                        }],
-                 "rotation":0,
-                 "type":"wall",
-                 "visible":true,
-                 "width":0,
-                 "x":3543.1348941673,
-                 "y":8116.54914442047
-                }, 
-                {
-                 "height":0,
                  "id":172,
                  "name":"",
                  "polygon":[
@@ -3033,10 +2935,10 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0,
+                                 "friction":0.5,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
+                                 "texture":"staticplatform_comet"
                                 }
                             }
                         }],
@@ -3044,8 +2946,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":3193.208598778,
-                 "y":8537.50577053632
+                 "x":2899.09095171918,
+                 "y":8428.57330866268
                 }, 
                 {
                  "height":0,
@@ -3090,10 +2992,10 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0,
+                                 "friction":0.5,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
+                                 "texture":"staticplatform_comet"
                                 }
                             }
                         }],
@@ -3101,8 +3003,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":3750.637598778,
-                 "y":9225.90577053632
+                 "x":3456.51995171918,
+                 "y":9116.97330866268
                 }, 
                 {
                  "height":0,
@@ -3147,10 +3049,10 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0,
+                                 "friction":0.5,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
+                                 "texture":"staticplatform_comet"
                                 }
                             }
                         }],
@@ -3158,8 +3060,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":4445.366598778,
-                 "y":9785.50577053632
+                 "x":4151.24895171918,
+                 "y":9676.57330866268
                 }, 
                 {
                  "height":0,
@@ -3204,10 +3106,10 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0,
+                                 "friction":0.5,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
+                                 "texture":"staticplatform_comet"
                                 }
                             }
                         }],
@@ -3264,7 +3166,7 @@
                                  "friction":0,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
+                                 "texture":"staticplatform_comet"
                                 }
                             }
                         }],
@@ -3321,7 +3223,7 @@
                                  "friction":0,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
+                                 "texture":"staticplatform_comet"
                                 }
                             }
                         }],
@@ -3385,7 +3287,7 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
+                                 "texture":"staticplatform_comet"
                                 }
                             }
                         }],
@@ -3395,6 +3297,291 @@
                  "width":0,
                  "x":6085.52650681859,
                  "y":16099.655305762
+                }, 
+                {
+                 "height":0,
+                 "id":179,
+                 "name":"",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":-628.714,
+                         "y":65.0375
+                        }, 
+                        {
+                         "x":-634.484,
+                         "y":-67.2054
+                        }, 
+                        {
+                         "x":657.554,
+                         "y":-69.3733
+                        }, 
+                        {
+                         "x":663.324,
+                         "y":65.0375
+                        }, 
+                        {
+                         "x":-646.019,
+                         "y":69.3733
+                        }],
+                 "properties":[
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":192,
+                                 "density":0,
+                                 "friction":0.2,
+                                 "restitution":0.1,
+                                 "rotation":false,
+                                 "texture":"staticplatform_comet"
+                                }
+                            }
+                        }],
+                 "rotation":180.742,
+                 "type":"wall",
+                 "visible":true,
+                 "width":0,
+                 "x":784.313725490196,
+                 "y":8039.21568627451
+                }, 
+                {
+                 "height":0,
+                 "id":182,
+                 "name":"",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":-628.714,
+                         "y":65.0375
+                        }, 
+                        {
+                         "x":-634.484,
+                         "y":-67.2054
+                        }, 
+                        {
+                         "x":657.554,
+                         "y":-69.3733
+                        }, 
+                        {
+                         "x":663.324,
+                         "y":65.0375
+                        }, 
+                        {
+                         "x":-646.019,
+                         "y":69.3733
+                        }],
+                 "properties":[
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":192,
+                                 "density":0,
+                                 "friction":0.2,
+                                 "restitution":0.1,
+                                 "rotation":false,
+                                 "texture":"staticplatform_comet"
+                                }
+                            }
+                        }],
+                 "rotation":180.742,
+                 "type":"wall",
+                 "visible":true,
+                 "width":0,
+                 "x":4204.79302832244,
+                 "y":8050.10893246187
+                }, 
+                {
+                 "height":0,
+                 "id":180,
+                 "name":"",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":-628.714,
+                         "y":65.0375
+                        }, 
+                        {
+                         "x":-634.484,
+                         "y":-67.2054
+                        }, 
+                        {
+                         "x":657.554,
+                         "y":-69.3733
+                        }, 
+                        {
+                         "x":663.324,
+                         "y":65.0375
+                        }, 
+                        {
+                         "x":-646.019,
+                         "y":69.3733
+                        }],
+                 "properties":[
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":192,
+                                 "density":0,
+                                 "friction":0.2,
+                                 "restitution":0.1,
+                                 "rotation":false,
+                                 "texture":"staticplatform_comet"
+                                }
+                            }
+                        }],
+                 "rotation":180.742,
+                 "type":"wall",
+                 "visible":true,
+                 "width":0,
+                 "x":2058.82352941176,
+                 "y":8050.10893246187
+                }, 
+                {
+                 "height":0,
+                 "id":181,
+                 "name":"",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":-675.853786732673,
+                         "y":65.0375
+                        }, 
+                        {
+                         "x":-682.056410420785,
+                         "y":-67.2054
+                        }, 
+                        {
+                         "x":706.856155392144,
+                         "y":-69.3733
+                        }, 
+                        {
+                         "x":713.058779080256,
+                         "y":65.0375
+                        }, 
+                        {
+                         "x":-694.456282906464,
+                         "y":69.3733
+                        }],
+                 "properties":[
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":192,
+                                 "density":0,
+                                 "friction":0.2,
+                                 "restitution":0.1,
+                                 "rotation":false,
+                                 "texture":"staticplatform_comet"
+                                }
+                            }
+                        }],
+                 "rotation":180.742,
+                 "type":"wall",
+                 "visible":true,
+                 "width":0,
+                 "x":5529.03344083821,
+                 "y":8061.64624309666
+                }, 
+                {
+                 "height":0,
+                 "id":183,
+                 "name":"",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":-644.472420264439,
+                         "y":65.0375
+                        }, 
+                        {
+                         "x":-650.387042596574,
+                         "y":-67.2054
+                        }, 
+                        {
+                         "x":674.035281279823,
+                         "y":-69.3733
+                        }, 
+                        {
+                         "x":679.949903611958,
+                         "y":65.0375
+                        }, 
+                        {
+                         "x":-662.211161938198,
+                         "y":69.3733
+                        }],
+                 "properties":[
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":192,
+                                 "density":0,
+                                 "friction":0.2,
+                                 "restitution":0.1,
+                                 "rotation":false,
+                                 "texture":"staticplatform_comet"
+                                }
+                            }
+                        }],
+                 "rotation":180.742,
+                 "type":"wall",
+                 "visible":true,
+                 "width":0,
+                 "x":6868.47636130664,
+                 "y":8072.11072997358
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -3403,7 +3590,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":179,
+ "nextobjectid":184,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
