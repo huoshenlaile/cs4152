@@ -139,8 +139,8 @@ static std::string hex2dec(const std::string hex) {
     _level7->addListener([this](const std::string& name, bool down) {
         if (down) {
             CULog("Level 7 selected");
-            selectedLevelFile = "json/level5.json";
-            selectedLevelKey = "level5";
+            selectedLevelFile = "json/level7.json";
+            selectedLevelKey = "level7";
             startGame();
         }
     });
@@ -148,15 +148,15 @@ static std::string hex2dec(const std::string hex) {
         _level8->addListener([this](const std::string& name, bool down) {
             if (down) {
                 CULog("Level 8 selected");
-                selectedLevelFile = "json/level7.json"; // Ensure this file exists in your assets
-                selectedLevelKey = "level7";
+                selectedLevelFile = "json/level8.json"; // Ensure this file exists in your assets
+                selectedLevelKey = "level8";
                 startGame();
             }
         });
         _level9->addListener([this](const std::string& name, bool down) {
             if (down) {
                 CULog("Level 9 selected");
-                selectedLevelFile = "json/level8.json"; // Ensure this file exists in your assets
+                selectedLevelFile = "json/level9.json"; // Ensure this file exists in your assets
                 selectedLevelKey = "level8";
                 startGame();
             }
