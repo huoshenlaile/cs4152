@@ -164,8 +164,8 @@ static std::string hex2dec(const std::string hex) {
         _level10->addListener([this](const std::string& name, bool down) {
             if (down) {
                 CULog("Level 10 selected");
-                selectedLevelFile = "json/level5.json"; // Ensure this file exists in your assets
-                selectedLevelKey = "level5";
+                selectedLevelFile = "json/level10.json"; // Ensure this file exists in your assets
+                selectedLevelKey = "level10";
                 startGame();
             }
         });
