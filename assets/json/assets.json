@@ -65,6 +65,9 @@
         "alpharelease_long_frenchfries": {
             "file": "textures/alpharelease_long_frenchfries.png"
         },
+        "alpharelease_long_frenchfries_3": {
+            "file": "textures/alpharelease_long_frenchfries_3.png"
+        },
         "alpharelease_ketchup_capoff": {
             "file": "textures/alpharelease_ketchup_capoff.png"
         },
