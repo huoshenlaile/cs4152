@@ -436,21 +436,46 @@
         "tube_str_r": {
             "file": "textures/tube/tube_straight_right.png"
         },
-        "ui_move": {
-            "file": "textures/ui_move.png"
+        "text_hi": {
+            "file": "textures/text_hi.png"
         },
-        "ui_hand": {
-            "file": "textures/ui_hand.png"
+        "ui_move_text": {
+            "file": "textures/ui_move_text.png"
         },
-        "ui_jump": {
-            "file": "textures/ui_jump.png"
+        "ui_hand_text": {
+            "file": "textures/ui_hand_text.png"
         },
-        "ui_walk": {
-            "file": "textures/ui_walk.png"
+        "ui_jump_text": {
+            "file": "textures/ui_jump_text.png"
         },
-        "ui_walkguide": {
-            "file": "textures/ui_walkguide.png"
+        "ui_walk_text": {
+            "file": "textures/ui_walk_text.png"
+        },
+        "ui_back_walk_text": {
+            "file": "textures/ui_back_walk_text.png"
+        },
+        "text_paint": {
+            "file": "textures/text_paint.png"
+        },
+        "text_deliver": {
+            "file": "textures/text_deliver.png"
+        },
+        "text_grab": {
+            "file": "textures/text_grab.png"
+        },
+        "text_hold": {
+            "file": "textures/text_hold.png"
+        },
+        "text_palette": {
+            "file": "textures/text_palette.png"
+        },
+        "text_yay": {
+            "file": "textures/text_yay.png"
+        },
+        "text_complete": {
+            "file": "textures/text_complete.png"
         }
+        
     },
     "jsons": {
         "server": "json/server.json",
