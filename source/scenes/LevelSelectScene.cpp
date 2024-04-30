@@ -83,8 +83,8 @@ static std::string hex2dec(const std::string hex) {
     _level1->addListener([this](const std::string& name, bool down) {
     if (down) {
         CULog("Level 1 selected");
-        selectedLevelFile = "json/paintdrip.json"; //"json/level1.json";
-        selectedLevelKey = "paintdrip"; //"level1";
+        selectedLevelFile = "json/level1.json";
+        selectedLevelKey = "level1";
         startGame();
     }
     });
