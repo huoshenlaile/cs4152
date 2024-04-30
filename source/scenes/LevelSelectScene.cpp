@@ -75,6 +75,8 @@ static std::string hex2dec(const std::string hex) {
         _level9 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level9"));
         _level10 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level10"));
         _level11 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level11"));
+        
+        _level13 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level13"));
     _backout = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_home"));
 
     // Program the buttons
@@ -177,6 +179,15 @@ static std::string hex2dec(const std::string hex) {
                 startGame();
             }
         });
+        
+        _level13->addListener([this](const std::string& name, bool down) {
+            if (down) {
+                CULog("Level 13 selected");
+                selectedLevelFile = "json/level13.json"; // Ensure this file exists in your assets
+                selectedLevelKey = "level13";
+                startGame();
+            }
+        });
 
     addChild(scene);
     setActive(false);
@@ -222,6 +233,7 @@ void LevelSelectScene::setActive(bool value) {
             _level9->activate();
             _level10->activate();
             _level11->activate();
+            _level13->activate();
             _backout->activate();
 
             state = INSCENE;
@@ -237,6 +249,7 @@ void LevelSelectScene::setActive(bool value) {
             _level9->deactivate();
             _level10->deactivate();
             _level11->deactivate();
+            _level13->deactivate();
             _backout->deactivate();
 
             _level1->setDown(false);
@@ -250,6 +263,7 @@ void LevelSelectScene::setActive(bool value) {
             _level9->setDown(false);
             _level10->setDown(false);
             _level11->setDown(false);
+            _level13->setDown(false);
             _backout->setDown(false);
         }
     }
