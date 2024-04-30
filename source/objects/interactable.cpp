@@ -67,6 +67,7 @@ bool Interactable::bindAssets(const std::shared_ptr<cugl::AssetManager>& assets,
     _assets = assets;
     if (_texture_name == ""){
         _selfTexture->setContentSize(_selfObstacle->getWidth() * scale2d.x * 1.01, _selfObstacle->getHeight() * scale2d.y * 1.01);
+        //_selfTexture->setColor(Color4::BLACK);
         _selfTexture->setAnchor(0.5f, 0.5f);
         _selfTexture->setAngle(_selfObstacle->getAngle());
         _selfTexture->setColor(Color4(0,0,0,0));

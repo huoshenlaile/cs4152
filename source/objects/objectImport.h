@@ -5,5 +5,6 @@
 #include "MovingWall.h"
 #include "BouncyWall.h"
 #include "GravityReversePlatform.h"
+#include "DrippingPaint.hpp"
 #include "InteractableUI.h"
 #include "Wall.h"

@@ -76,6 +76,9 @@ bool LevelLoader2::loadObject(const std::shared_ptr<JsonValue> &json) {
     } else if (type == BOUNCY_WALL_FIELD) {
         auto mwall = BouncyWall::alloc(json, _scale, _bounds);
         _interactables.push_back(std::static_pointer_cast<Interactable>(mwall));
+    } else if (type == DRIPPAINT_FIELD) {
+        auto drip = DrippingPaint::alloc(json, _scale, _bounds);
+        _interactables.push_back(std::static_pointer_cast<Interactable>(drip));
     } else if (type == UI_FIELD) {
         auto int_ui = InteractableUI::alloc(json, _scale, _bounds);
         _interactables.push_back(std::static_pointer_cast<Interactable>(int_ui));

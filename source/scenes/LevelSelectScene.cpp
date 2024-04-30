@@ -177,6 +177,15 @@ static std::string hex2dec(const std::string hex) {
                 startGame();
             }
         });
+        //_level5->addListener([this](const std::string& name, bool down) {
+        //    if (down) {
+        //        CULog("Level 5 selected");
+        //        selectedLevelFile = "json/paintdrip.json";
+        //        selectedLevelKey = "paintdrip";
+        //        startGame();
+        //        // startGame();
+        //    }
+        //});
 
     addChild(scene);
     setActive(false);

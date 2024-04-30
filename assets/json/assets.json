@@ -403,6 +403,24 @@
         "purple_paint": {
             "file": "textures/purple_paint_141x144.png"
         },
+        "black_drip_paint" : {
+            "file": "textures/black_paintcover_720x4900.png"
+        },
+        "blue_drip_paint" : {
+            "file": "textures/blue_paintcover_1560x720.png"
+        },
+        "green_drip_paint" : {
+            "file": "textures/green_paintcover_1560x720.png"
+        },
+        "pink_drip_paint" : {
+            "file": "textures/pink_paintcover_1560x720.png"
+        },
+        "purple_drip_paint" : {
+            "file": "textures/purple_paintcover_1560x720.png"
+        },
+        "red_drip_paint" : {
+            "file": "textures/red_paintcover_1560x720.png"
+        },
         "pink_paint": {
             "file": "textures/pink_paint_141x144.png"
         },
