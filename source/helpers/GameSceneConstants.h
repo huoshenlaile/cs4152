@@ -14,7 +14,7 @@
 /** This is not used for now. */
 #define MAX_TORQUE 10000000.0f
 /** Character's max force */
-#define MAX_FORCE 50000.0f
+#define MAX_FORCE 30000.0f
 /** The density for the character's body */
 #define BODY_DENSITY 0.9f
 #define BODY_ANGULAR_DAMPING 40.0f
@@ -29,7 +29,7 @@
 /** input scaler - how effective can the finger input affect the character movement.
  * NOTE THAT this scaler will be multiplied by the height of screen size. So the scaler itself should be very small.
  */
-#define INPUT_SCALER 0.001f
+#define INPUT_SCALER 0.0015f
 /** HOW LONG the arms can stretch*/
 #define MAX_ARM_LENGTH 7.2f
 #define MIN_ARM_LENGTH 0.0f
