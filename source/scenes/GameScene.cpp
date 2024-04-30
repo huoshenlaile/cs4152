@@ -197,10 +197,18 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     _pauseButtonNode->setVisible(true);
     // pause button
     _pauseButton = std::dynamic_pointer_cast<scene2::Button>(_pauseButtonNode->getChildByName("pause"));
-    _pauseButton->doLayout();
-    _pauseButton->addListener([this](const std::string &name, bool down) {
+    _pauseButton -> doLayout();
+    _pauseButton -> addListener([this](const std::string &name, bool down) {
         if (down) {
             _gamePaused = true;
+        }
+    });
+    _mapButton = std::dynamic_pointer_cast<scene2::Button>(_pauseButtonNode->getChildByName("map"));
+    _mapButton -> doLayout();
+    _mapButton -> addListener([this](const std::string &name, bool down) {
+        if (down) {
+            CULog("Map Button Pressed!");
+            // TODO: add map function
         }
     });
     _uinode->addChild(_pauseButtonNode);

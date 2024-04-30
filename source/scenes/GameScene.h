@@ -34,8 +34,10 @@ protected:
 
     std::shared_ptr<cugl::physics2::ObstacleWorld> _platformWorld;
 
+    /** Note that this node contains the pause button AND the map button. */
     std::shared_ptr<cugl::scene2::SceneNode> _pauseButtonNode;
     std::shared_ptr<cugl::scene2::Button> _pauseButton;
+    std::shared_ptr<cugl::scene2::Button> _mapButton;
 
 	/** Reference to the physics root of the scene graph */
 	std::shared_ptr<cugl::scene2::SceneNode> _worldnode; // the root node
