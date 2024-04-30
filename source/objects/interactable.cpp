@@ -56,6 +56,9 @@ bool Interactable::init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect
         if (prop -> getString("name") == "Grab") {
             canBeGrabbed = prop -> getBool("value");
         }
+        if (prop -> getString("name") == "JumpScale") {
+            jumpscale = prop -> getFloat("value");
+        }
     }
     if (physicalProperties!=nullptr){
         _texture_name = physicalProperties->get("obstacle")->getString(TEXTURE_FIELD);

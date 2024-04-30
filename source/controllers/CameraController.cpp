@@ -309,6 +309,10 @@ void CameraController::setCamera(std::string selectedLevelKey) {
         setDefaultZoom(0.2);
         _levelCompleteZoom = 0.17;
         _panSpeed = Vec2(0, -30);
+    } else if (selectedLevelKey == "level13") {
+        setMode(false);
+        setDefaultZoom(0.2);
+        _levelCompleteZoom = 0.17;
     } else if (selectedLevelKey == "paintdrip"){
         setMode(false);
         setDefaultZoom(0.17);
