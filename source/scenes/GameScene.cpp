@@ -245,6 +245,7 @@ void GameScene::constructSceneNodes(const Size &dimen) {
             this->state = QUIT;
         }
     });
+    // TODO: add next-level function
     _uinode->addChild(_levelCompleteGood);
     // bad scene
     _levelCompleteBad = _assets->get<scene2::SceneNode>("levelcomplete_bad");
@@ -271,6 +272,7 @@ void GameScene::constructSceneNodes(const Size &dimen) {
             this->state = QUIT;
         }
     });
+    // TODO: add next-level function
     _uinode->addChild(_levelCompleteBad);
     
     _uinode->addChild(_paintMeter);

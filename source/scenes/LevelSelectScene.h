@@ -14,9 +14,6 @@ protected:
     /** The asset manager for this scene. */
     std::shared_ptr<cugl::AssetManager> _assets;
 
-
-
-
     std::shared_ptr<cugl::scene2::Button> _level1;
     std::shared_ptr<cugl::scene2::Button> _level2;
     std::shared_ptr<cugl::scene2::Button> _level3;
@@ -29,13 +26,9 @@ protected:
     std::shared_ptr<cugl::scene2::Button> _level10;
     std::shared_ptr<cugl::scene2::Button> _level11;
 
-
-
     std::shared_ptr<cugl::scene2::Button> _backout;
 
-
-    
-    /** The network configuration */
+/** The network configuration */
 //    cugl::net::NetcodeConfig _config;
     
 //    cugl::Timestamp _pingTimer;
@@ -145,6 +138,13 @@ private:
      */
     void startGame();
     
+    /**
+     * This method changes the texture of a specific level button, together with activating/deactivating that button.
+     */
+    void lockOrUnlockLevelButton(int levelNumber, bool isLock);
+    
+    void lockAllLevels();
+    void unlockAllLevels();
 };
 
 #endif /* LevelSelectScene_h */

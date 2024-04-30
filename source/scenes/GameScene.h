@@ -47,10 +47,12 @@ protected:
     std::shared_ptr<cugl::scene2::SceneNode> _levelCompleteGood;
     std::shared_ptr<cugl::scene2::Button> _levelCompleteGoodReset;
     std::shared_ptr<cugl::scene2::Button> _levelCompleteGoodMenu;
+    std::shared_ptr<cugl::scene2::Button> _levelCompleteGoodNext;
     
     std::shared_ptr<cugl::scene2::SceneNode> _levelCompleteBad;
     std::shared_ptr<cugl::scene2::Button> _levelCompleteBadReset;
     std::shared_ptr<cugl::scene2::Button> _levelCompleteBadMenu;
+    std::shared_ptr<cugl::scene2::Button> _levelCompleteBadNext;
     
     std::shared_ptr<cugl::scene2::SpriteNode> _paintMeter;
 
@@ -86,7 +88,7 @@ public:
     int defaultGoodOrBad = -1;
     std::vector<std::shared_ptr<cugl::physics2::Joint>> Alljoints;
     /** the state of this scene, referenced by DPApp*/
-    enum SceneState { INGAME, PAUSE, NETERROR, RESET, QUIT };
+    enum SceneState { INGAME, PAUSE, NETERROR, RESET, QUIT, NEXTLEVEL };
     SceneState state;
     
     enum GameEndingState { UNFINISHED, GOOD, BAD };
