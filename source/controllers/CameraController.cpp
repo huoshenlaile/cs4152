@@ -270,31 +270,30 @@ void CameraController::setCamera(std::string selectedLevelKey) {
         _levelCompleteZoom = DEFAULT_ZOOM;
         _panSpeed = Vec2(30, 0);
         _isTutorial = true;
-    } else if (selectedLevelKey == "level1") {
+    } else if (selectedLevelKey == "level1"|| selectedLevelKey == "level2" ||selectedLevelKey == "level3"||selectedLevelKey == "level10") {
         this->setMode(true);
         setDefaultZoom(DEFAULT_ZOOM);
         _levelCompleteZoom = DEFAULT_ZOOM;
         _panSpeed = Vec2(30, 0);
     } else if (selectedLevelKey == "tube") {
+//        setMode(false);
+//        setDefaultZoom(0.15);
+//        _levelCompleteZoom = 0.16;
+//        _panSpeed = Vec2(0, -30);
         setMode(false);
-        setDefaultZoom(0.15);
-        _levelCompleteZoom = 0.16;
+        setDefaultZoom(0.2);
+        _levelCompleteZoom = 0.17;
         _panSpeed = Vec2(0, -30);
     } else if (selectedLevelKey == "doodlejump") {
         setMode(false);
         setDefaultZoom(DEFAULT_ZOOM);
         _levelCompleteZoom = 0.16;
         _panSpeed = Vec2(0, -30);
-    } else if (selectedLevelKey == "falldown") {
+    } else if (selectedLevelKey == "level4"||selectedLevelKey == "level5"||selectedLevelKey == "level6") {
         setMode(false);
-        setDefaultZoom(DEFAULT_ZOOM);
-        _levelCompleteZoom = 0.133;
+        setDefaultZoom(0.2);
+        _levelCompleteZoom = 0.17;
         _panSpeed = Vec2(0, -30);
-    } else if (selectedLevelKey == "level3") {
-        setMode(true);
-        setDefaultZoom(DEFAULT_ZOOM);
-        _levelCompleteZoom = DEFAULT_ZOOM;
-        _panSpeed = Vec2(30, 0);
     } else if (selectedLevelKey == "level7") {
         setMode(false);
         setDefaultZoom(0.2);

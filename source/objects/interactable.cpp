@@ -70,6 +70,7 @@ bool Interactable::bindAssets(const std::shared_ptr<cugl::AssetManager>& assets,
         //_selfTexture->setColor(Color4::BLACK);
         _selfTexture->setAnchor(0.5f, 0.5f);
         _selfTexture->setAngle(_selfObstacle->getAngle());
+        _selfTexture->setColor(Color4(0,0,0,0));
         return true;
     }
     _selfTexture = scene2::PolygonNode::allocWithTexture(assets->get<Texture>(_texture_name));
