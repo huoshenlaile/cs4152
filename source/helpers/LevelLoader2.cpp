@@ -54,7 +54,7 @@ bool LevelLoader2::loadObject(const std::shared_ptr<JsonValue> &json) {
     auto type = json->get("type")->asString();
     std::cout << "===== PARSING " << json->get("name")->asString() << " ======" << std::endl;
     if (type == WALLS_FIELD) {
-        auto wall = Interactable::alloc(json, _scale, _bounds);
+        auto wall = Wall::alloc(json, _scale, _bounds);
         _interactables.push_back(wall);
     } else if (type == SENSOR_FIELD) {
         auto sensor = Sensor::alloc(json, _scale, _bounds);
@@ -76,6 +76,9 @@ bool LevelLoader2::loadObject(const std::shared_ptr<JsonValue> &json) {
     } else if (type == BOUNCY_WALL_FIELD) {
         auto mwall = BouncyWall::alloc(json, _scale, _bounds);
         _interactables.push_back(std::static_pointer_cast<Interactable>(mwall));
+    } else if (type == DRIPPAINT_FIELD) {
+        auto drip = DrippingPaint::alloc(json, _scale, _bounds);
+        _interactables.push_back(std::static_pointer_cast<Interactable>(drip));
     } else if (type == UI_FIELD) {
         auto int_ui = InteractableUI::alloc(json, _scale, _bounds);
         _interactables.push_back(std::static_pointer_cast<Interactable>(int_ui));
@@ -185,7 +188,6 @@ void LevelLoader2::changeBackground(int defaultGoodorBad){
         _defaultBgNode -> setTexture(badBgTexture);
     }
 //    _root->setPosition(-100.0f, 0.0f);
-    Application::get()->setClearColor((0.0f,0.0f,0.0f,0.0f));
     _defaultBgNode->setAbsolute(true);
     _defaultBgNode->setPosition(-1000.0f, 0.0f);
     _defaultBgNode->setContentSize(_defaultBgNode->getContentSize().width, _defaultBgNode->getContentSize().height);

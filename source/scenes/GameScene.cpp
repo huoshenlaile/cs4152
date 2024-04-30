@@ -81,7 +81,7 @@ void GameScene::dispose() {
     _pauseButton = nullptr;
     _worldnode->removeAllChildren();
     _worldnode = nullptr;
-    _levelComplete = nullptr;
+    _levelCompleteGood = nullptr;
     _paintMeter = nullptr;
     _level = nullptr;
     this->removeAllChildren();
@@ -134,10 +134,6 @@ void GameScene::preUpdate(float dt) {
         _camera->update(dt);
         _camera->setInitialUpdate(true);
     }
-    //    std::cout << "pause button position: " << _pauseButton -> getPosition().toString() << std::endl;
-    //    _pauseButtonNode -> doLayout();
-    //    _pauseButton -> doLayout();
-    //    _uinode -> doLayout();
 
     // update interaction controller
     _interactionController->updateHandsHeldInfo(_inputController->isLHAssigned(), _inputController->isRHAssigned());
@@ -197,10 +193,18 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     _pauseButtonNode->setVisible(true);
     // pause button
     _pauseButton = std::dynamic_pointer_cast<scene2::Button>(_pauseButtonNode->getChildByName("pause"));
-    _pauseButton->doLayout();
-    _pauseButton->addListener([this](const std::string &name, bool down) {
+    _pauseButton -> doLayout();
+    _pauseButton -> addListener([this](const std::string &name, bool down) {
         if (down) {
             _gamePaused = true;
+        }
+    });
+    _mapButton = std::dynamic_pointer_cast<scene2::Button>(_pauseButtonNode->getChildByName("map"));
+    _mapButton -> doLayout();
+    _mapButton -> addListener([this](const std::string &name, bool down) {
+        if (down) {
+            CULog("Map Button Pressed!");
+            // TODO: add map function
         }
     });
     _uinode->addChild(_pauseButtonNode);
@@ -215,38 +219,62 @@ void GameScene::constructSceneNodes(const Size &dimen) {
 
     _paintMeter->setScissor(Scissor::alloc(_paintMeter->getSize() * 2));
 
-    // level complete scene
-
-    _levelComplete = _assets->get<scene2::SceneNode>("levelcomplete");
-    _levelComplete->removeFromParent();
-    _levelComplete->doLayout();
-    _levelComplete->setContentSize(dimen);
-    _levelComplete->setVisible(false);
-
-    // TODO: Trying on level complete (MAY CRASH)
+    // level complete scenes
+    // good scene
+    _levelCompleteGood = _assets->get<scene2::SceneNode>("levelcomplete");
+    _levelCompleteGood->removeFromParent();
+    _levelCompleteGood->doLayout();
+    _levelCompleteGood->setContentSize(dimen);
+    _levelCompleteGood->setVisible(false);
     // level complete scene buttons
-    auto completemenu = _levelComplete->getChildByName("completemenu");
-    _levelCompleteReset = std::dynamic_pointer_cast<scene2::Button>(completemenu->getChildByName("options")->getChildByName("restart"));
-    _levelCompleteReset->deactivate();
-    _levelCompleteReset->addListener([this](const std::string &name, bool down) {
+    auto completemenu = _levelCompleteGood->getChildByName("completemenu");
+    _levelCompleteGoodReset = std::dynamic_pointer_cast<scene2::Button>(completemenu->getChildByName("options")->getChildByName("restart"));
+    _levelCompleteGoodReset->deactivate();
+    _levelCompleteGoodReset->addListener([this](const std::string &name, bool down) {
         if (down) {
-            std::cout << "level complete reset triggered!" << std::endl;
+            std::cout << "level complete reset (GOOD) triggered!" << std::endl;
             this->state = RESET;
             _camera->setCameraState(0);
         }
     });
-
-    // TODO: add this button to the level complete scene
-    _levelCompleteMenuButton = std::dynamic_pointer_cast<scene2::Button>(_levelComplete->getChildByName("completemenu")->getChildByName("options")->getChildByName("menu"));
-    _levelCompleteMenuButton->deactivate();
-    _levelCompleteMenuButton->addListener([this](const std::string &name, bool down) {
+    _levelCompleteGoodMenu = std::dynamic_pointer_cast<scene2::Button>(completemenu->getChildByName("options")->getChildByName("menu"));
+    _levelCompleteGoodMenu->deactivate();
+    _levelCompleteGoodMenu->addListener([this](const std::string &name, bool down) {
         if (down) {
-            std::cout << "level complete main menu triggered!" << std::endl;
+            std::cout << "level complete main menu (GOOD) triggered!" << std::endl;
             this->state = QUIT;
         }
     });
-
-    _uinode->addChild(_levelComplete);
+    // TODO: add next-level function
+    _uinode->addChild(_levelCompleteGood);
+    // bad scene
+    _levelCompleteBad = _assets->get<scene2::SceneNode>("levelcomplete_bad");
+    _levelCompleteBad->removeFromParent();
+    _levelCompleteBad->doLayout();
+    _levelCompleteBad->setContentSize(dimen);
+    _levelCompleteBad->setVisible(false);
+    // level complete scene buttons
+    completemenu = _levelCompleteBad->getChildByName("badcompletemenu");
+    _levelCompleteBadReset = std::dynamic_pointer_cast<scene2::Button>(completemenu->getChildByName("options")->getChildByName("restart"));
+    _levelCompleteBadReset->deactivate();
+    _levelCompleteBadReset->addListener([this](const std::string &name, bool down) {
+        if (down) {
+            std::cout << "level complete reset (BAD) triggered!" << std::endl;
+            this->state = RESET;
+            _camera->setCameraState(0);
+        }
+    });
+    _levelCompleteBadMenu = std::dynamic_pointer_cast<scene2::Button>(completemenu->getChildByName("options")->getChildByName("menu"));
+    _levelCompleteBadMenu->deactivate();
+    _levelCompleteBadMenu->addListener([this](const std::string &name, bool down) {
+        if (down) {
+            std::cout << "level complete main menu (BAD) triggered!" << std::endl;
+            this->state = QUIT;
+        }
+    });
+    // TODO: add next-level function
+    _uinode->addChild(_levelCompleteBad);
+    
     _uinode->addChild(_paintMeter);
     // deleted level complete related UI
     addChild(_uinode);
@@ -283,9 +311,17 @@ bool GameScene::isCharacterInMap() {
 void GameScene::finishLevel() {
     _camera->levelComplete();
     if (_camera->getCameraComplete()) {
-        _levelComplete->setVisible(true);
-        _levelCompleteReset->activate();
-        _levelCompleteMenuButton->activate();
+        if (this -> defaultGoodOrBad == 0) {
+            _levelCompleteGood->setVisible(true);
+            _levelCompleteGoodReset->activate();
+            _levelCompleteGoodMenu->activate();
+        } else if (this -> defaultGoodOrBad == 1) {
+            _levelCompleteBad->setVisible(true);
+            _levelCompleteBadReset->activate();
+            _levelCompleteBadMenu->activate();
+        } else {
+            CULogError("ERROR: finishing level in an invalid state (idk if this is a good or bad ending)");
+        }
         _complete = true;
     }
 }

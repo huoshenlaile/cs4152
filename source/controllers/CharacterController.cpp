@@ -39,6 +39,17 @@ bool CharacterController::init(const cugl::Vec2 &pos, float scale)
         return PublishedMessage();
     });
 
+
+    funcs["character set velocity"] = ([=](ActionParams params){
+        _obstacles[PART_BODY]->setLinearVelocity(Vec2(params.float1, params.float2));
+        return PublishedMessage();
+    });
+
+    funcs["character add velocity"] = ([=](ActionParams params){
+        _obstacles[PART_BODY]->setLinearVelocity(_obstacles[PART_BODY]->getLinearVelocity() + Vec2(params.float1, params.float2));
+        return PublishedMessage();
+    });
+
     return true;
 }
 
@@ -1083,7 +1094,6 @@ void CharacterController::update(float dt)
     }
     Vec2 ldisplacement = _obstacles[PART_LH]->getPosition()-_obstacles[PART_BODY]->getPosition();
     auto llength = ldisplacement.length();
-//    std::cout << "Left len: "<< llength << ", " << MAX_ARM_LENGTH << "\n";
     if (llength > 1.5 * MAX_ARM_LENGTH)
     {
         std::cout <<"Resolving left hand" << "\n";
@@ -1099,7 +1109,6 @@ void CharacterController::update(float dt)
     
     Vec2 rdisplacement = _obstacles[PART_RH]->getPosition()-_obstacles[PART_BODY]->getPosition();
     auto rlength = rdisplacement.length();
-//    std::cout << "Right len: "<< rlength << ", " << MAX_ARM_LENGTH << "\n";
     if (rlength > 1.5 * MAX_ARM_LENGTH)
     {
         std::cout <<"Resolving right hand" << "\n";

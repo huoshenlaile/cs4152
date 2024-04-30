@@ -270,7 +270,7 @@ void CameraController::setCamera(std::string selectedLevelKey) {
         _levelCompleteZoom = DEFAULT_ZOOM;
         _panSpeed = Vec2(30, 0);
         _isTutorial = true;
-    } else if (selectedLevelKey == "level1"|| selectedLevelKey == "level2" ||selectedLevelKey == "level3") {
+    } else if (selectedLevelKey == "level1"|| selectedLevelKey == "level2" ||selectedLevelKey == "level3"||selectedLevelKey == "level10") {
         this->setMode(true);
         setDefaultZoom(DEFAULT_ZOOM);
         _levelCompleteZoom = DEFAULT_ZOOM;
@@ -313,6 +313,10 @@ void CameraController::setCamera(std::string selectedLevelKey) {
         setMode(false);
         setDefaultZoom(0.2);
         _levelCompleteZoom = 0.17;
+    } else if (selectedLevelKey == "paintdrip"){
+        setMode(false);
+        setDefaultZoom(0.17);
+        _levelCompleteZoom = 0.15;
         _panSpeed = Vec2(0, -30);
     }
 }
