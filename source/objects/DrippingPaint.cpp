@@ -19,7 +19,7 @@ bool DrippingPaint::init(const std::shared_ptr<cugl::JsonValue>& json, Vec2 scal
     for (int i = 0; i < properties->size(); i++){
         if (properties->get(i)->getString("propertytype") == "Physics"){
             physicalProperties = properties->get(i)->get("value");
-            break;
+            //break;
         } else if (properties->get(i)->getString("propertytype") == "SubMessage"){
             auto pub = properties->get(i)->get("value");
             sub_message_head = pub->getString("Head");
@@ -54,6 +54,7 @@ bool DrippingPaint::init(const std::shared_ptr<cugl::JsonValue>& json, Vec2 scal
     triangulator.clear();
     
     _selfTexture = scene2::PolygonNode::allocWithPoly(shape);
+    //_selfObstacle = cugl::physics2::PolygonObstacle::alloc(shape);
     _selfObstacle = cugl::physics2::PolygonObstacle::allocWithAnchor(shape, Vec2(0.0f,1.0f));
     _selfObstacle->setName(json->getString("name"));
     if (physicalProperties != nullptr){
@@ -96,8 +97,9 @@ bool DrippingPaint::init(const std::shared_ptr<cugl::JsonValue>& json, Vec2 scal
 
 bool DrippingPaint::bindAssets(const std::shared_ptr<cugl::AssetManager>& assets, Vec2 scale2d){
     _assets = assets;
+    _scale2d = scale2d;
     _selfTexture = scene2::PolygonNode::allocWithTexture(assets->get<Texture>(_texture_name));
-    _selfTexture->setAnchor(0.0f, 1.0f);
+    _selfTexture->setAnchor(0.0f, 0.0f);
     _selfTexture->setContentSize(_selfObstacle->getWidth() * scale2d.x * 1.01, _selfObstacle->getHeight() * scale2d.y * 1.01);
     _selfTexture->setAngle(_selfObstacle->getAngle());
     return true;
@@ -108,7 +110,9 @@ bool DrippingPaint::linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleWo
     //bool success = true;
     scene2::SceneNode* weak = _selfTexture.get();
     _selfObstacle->setListener([=](physics2::Obstacle* obs){
-        weak->setContentSize(weak->getContentWidth(), _selfObstacle->getHeight() * scale * 1.01);
+        weak->setContentSize(weak->getContentWidth(), _selfObstacle->getHeight() * _scale2d.y * 1.01);
+        weak->setPosition(obs->getPosition() * scale);
+
     });
     return success;
 }
@@ -134,7 +138,10 @@ PublishedMessage DrippingPaint::timeUpdate(float timestep){
     Vec2 currentPosition = _selfObstacle->getPosition();
     Vec2 currentBounds = _selfObstacle->getSize();
     //float step = _dripSpeed * timestep;
-    _selfObstacle->setAnchor(0.0f, 1.0);
+    //std::cout << "THIS FUCKING PAINTS pos " << currentPosition.x << ", " << currentPosition.y << " and size " << currentBounds.x  << ", " << currentBounds.y << std::endl;
+    
+    //std::cout << "THIS FUCKING PAINTS pos " << _selfTexture->getPositionY() << " and size " << _selfTexture->getHeight() << std::endl;
+    _selfObstacle->setPosition(currentPosition.x, currentPosition.y - _dripSpeed);
     _selfObstacle->setHeight(_selfObstacle->getHeight() + _dripSpeed);
     //_selfTexture->setScale(_selfTexture->getScale().x, _selfTexture->getScale().y + _dripSpeed);
 

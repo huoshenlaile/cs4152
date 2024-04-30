@@ -18,6 +18,7 @@ bool GrowingPaint::init(const std::shared_ptr<cugl::JsonValue>& json, Vec2 scale
             _textureName = p;
         } else if(properties->get(i)->getString("name") == "instant"){
             auto p = properties->get(i)->get("value")->asBool();
+            std::cout << "INSTANT PAINT? " << p << std::endl;
             is_out = p;
         }
     }
@@ -51,6 +52,7 @@ bool GrowingPaint::linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleWor
         _scene->addChild(_animation);
         _actions->activate("other", _animate, _animation);
     } else {
+        std::cout << "ADDDING AN ACTION FOR " <<sub_message_head << std::endl;
         actions[sub_message_head] = ([=](ActionParams params){
             if (is_out){
                 return PublishedMessage();

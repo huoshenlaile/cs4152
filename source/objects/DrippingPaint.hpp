@@ -18,7 +18,8 @@ protected:
     std::string pub_message_head;
     std::string color;
     bool is_out = false;
-    float _dripSpeed = 1;
+    float _dripSpeed = 0.05;
+    Vec2 _scale2d;
     
     std::shared_ptr<scene2::SpriteNode> _animation;
     std::string _textureName;
