@@ -41,13 +41,16 @@ protected:
 
 	/** Reference to the physics root of the scene graph */
 	std::shared_ptr<cugl::scene2::SceneNode> _worldnode; // the root node
-	std::shared_ptr<cugl::scene2::Label> _winnode; // the win message ( TODO: NOT USED NOW???)
 	std::shared_ptr<cugl::scene2::SceneNode> _uinode; // the UI canvas
 
     /** the level complete scene */
-    std::shared_ptr<cugl::scene2::SceneNode> _levelComplete;
-    std::shared_ptr<cugl::scene2::Button> _levelCompleteReset;
-    std::shared_ptr<cugl::scene2::Button> _levelCompleteMenuButton;
+    std::shared_ptr<cugl::scene2::SceneNode> _levelCompleteGood;
+    std::shared_ptr<cugl::scene2::Button> _levelCompleteGoodReset;
+    std::shared_ptr<cugl::scene2::Button> _levelCompleteGoodMenu;
+    
+    std::shared_ptr<cugl::scene2::SceneNode> _levelCompleteBad;
+    std::shared_ptr<cugl::scene2::Button> _levelCompleteBadReset;
+    std::shared_ptr<cugl::scene2::Button> _levelCompleteBadMenu;
     
     std::shared_ptr<cugl::scene2::SpriteNode> _paintMeter;
 

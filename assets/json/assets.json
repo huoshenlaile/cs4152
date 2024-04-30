@@ -560,6 +560,7 @@
         "title": "widgets/title.json",
         "pause": "widgets/pause.json",
         "levelcomplete": "widgets/levelcomplete.json",
+        "levelcomplete_bad": "widgets/levelcomplete_bad.json",
         "pausebutton": "widgets/pausebutton.json"
     },
     "scene2s": {
@@ -591,6 +592,12 @@
             "type": "Widget",
             "data": {
                 "key": "levelcomplete"
+            }
+        },
+        "levelcomplete_bad" : {
+            "type": "Widget",
+            "data": {
+                "key": "levelcomplete_bad"
             }
         },
         "settings": {
