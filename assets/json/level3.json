@@ -446,7 +446,7 @@
                         {
                          "name":"instant",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }, 
                         {
                          "name":"paint_id",
@@ -469,9 +469,14 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"splotch3"
+                                 "texture":""
                                 }
                             }
+                        }, 
+                        {
+                         "name":"rotation",
+                         "type":"float",
+                         "value":-70
                         }],
                  "rotation":0,
                  "type":"paint",
@@ -546,7 +551,7 @@
                         {
                          "name":"instant",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }, 
                         {
                          "name":"paint_id",
@@ -569,9 +574,14 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"splotch3"
+                                 "texture":""
                                 }
                             }
+                        }, 
+                        {
+                         "name":"rotation",
+                         "type":"float",
+                         "value":-110
                         }],
                  "rotation":0,
                  "type":"paint",

@@ -403,6 +403,36 @@
         "purple_paint": {
             "file": "textures/purple_paint_141x144.png"
         },
+        "pink_paint_splat": {
+            "file": "textures/pink_splat_303x304.png"
+        },
+        "pink_paint_splash": {
+            "file": "textures/pink_splash_167x190.png"
+        },
+        "purple_paint_splat": {
+            "file": "textures/purple_splat_303x304.png"
+        },
+        "purple_paint_splash": {
+            "file": "textures/purple_splash_167x190.png"
+        },
+        "red_paint_splat": {
+            "file": "textures/green_splat_303x304.png"
+        },
+        "red_paint_splash": {
+            "file": "textures/red_splash_167x190.png"
+        },
+        "green_paint_splat": {
+            "file": "textures/green_splat_303x304.png"
+        },
+        "green_paint_splash": {
+            "file": "textures/green_splash_167x190.png"
+        },
+        "blue_paint_splat": {
+            "file": "textures/blue_splat_303x304.png"
+        },
+        "blue_paint_splash": {
+            "file": "textures/blue_splash_167x190.png"
+        },
         "black_drip_paint" : {
             "file": "textures/black_paintcover_720x4900.png"
         },
