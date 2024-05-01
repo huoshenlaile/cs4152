@@ -60,12 +60,12 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, std::str
 #pragma mark Construct Interaction Controller
     _interactionController = InteractionController2::alloc(_level, _inputController, _camera);
     _interactionController->activateController();
-    
+
 #pragma mark Audio Controller
     _audioController = std::make_shared<AudioController>();
-    _audioController -> init(_assets);
-    _audioController -> play("touch1", "touch1");
-    _interactionController -> setAudioController(_audioController);
+    _audioController->init(_assets);
+    _audioController->play("touch1", "touch1");
+    _interactionController->setAudioController(_audioController);
 
     return true;
 }
@@ -122,7 +122,7 @@ void GameScene::preUpdate(float dt) {
     //    Size dimen = computeActiveSize();
     // float screen_height_multiplier = SCENE_WIDTH / dimen.height;
     // std::cout << "screen_height_multiplier: " << screen_height_multiplier << "\n";
-    float try_scaler = Application::get() -> getDisplaySize().height ;
+    float try_scaler = Application::get()->getDisplaySize().height;
     // std::cout << "input scaler: " << try_scaler << std::endl;
     try_scaler *= INPUT_SCALER;
     _character->moveLeftHand(try_scaler * _inputController->getLeftHandMovement(), _interactionController->leftHandReverse);
@@ -145,9 +145,9 @@ void GameScene::preUpdate(float dt) {
         _camera->setCameraState(0);
     }
     // NOTE: This is moved to InteractionController.
-//    _interactionController->connectGrabJoint();
-//    _interactionController->ungrabIfNecessary();
-//    _interactionController->grabCDIfNecessary(dt);
+    //    _interactionController->connectGrabJoint();
+    //    _interactionController->ungrabIfNecessary();
+    //    _interactionController->grabCDIfNecessary(dt);
 }
 
 void GameScene::fixedUpdate(float dt) {
@@ -193,18 +193,19 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     _pauseButtonNode->setVisible(true);
     // pause button
     _pauseButton = std::dynamic_pointer_cast<scene2::Button>(_pauseButtonNode->getChildByName("pause"));
-    _pauseButton -> doLayout();
-    _pauseButton -> addListener([this](const std::string &name, bool down) {
+    _pauseButton->doLayout();
+    _pauseButton->addListener([this](const std::string &name, bool down) {
         if (down) {
             _gamePaused = true;
         }
     });
     _mapButton = std::dynamic_pointer_cast<scene2::Button>(_pauseButtonNode->getChildByName("map"));
-    _mapButton -> doLayout();
-    _mapButton -> addListener([this](const std::string &name, bool down) {
+    _mapButton->doLayout();
+    _mapButton->addListener([this](const std::string &name, bool down) {
         if (down) {
             CULog("Map Button Pressed!");
             // TODO: add map function
+            _camera->setReplay(true);
         }
     });
     _uinode->addChild(_pauseButtonNode);
@@ -288,7 +289,7 @@ void GameScene::constructSceneNodes(const Size &dimen) {
         }
     });
     _uinode->addChild(_levelCompleteBad);
-    
+
     _uinode->addChild(_paintMeter);
     // deleted level complete related UI
     addChild(_uinode);
@@ -325,12 +326,12 @@ bool GameScene::isCharacterInMap() {
 void GameScene::finishLevel() {
     _camera->levelComplete();
     if (_camera->getCameraComplete()) {
-        if (this -> defaultGoodOrBad == 0) {
+        if (this->defaultGoodOrBad == 0) {
             _levelCompleteGood->setVisible(true);
             _levelCompleteGoodReset->activate();
             _levelCompleteGoodMenu->activate();
             _levelCompleteGoodNext->activate();
-        } else if (this -> defaultGoodOrBad == 1) {
+        } else if (this->defaultGoodOrBad == 1) {
             _levelCompleteBad->setVisible(true);
             _levelCompleteBadReset->activate();
             _levelCompleteBadMenu->activate();
