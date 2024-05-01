@@ -19,6 +19,7 @@ bool CameraController::init(const std::shared_ptr<cugl::scene2::SceneNode> targe
     _initialUpdate = false;
     _displayed = skipCameraSpan ? true : false;
     _moveToTop = false;
+    _moveToLeft = false;
     _state = skipCameraSpan ? 3 : 0; // if skipping camera span is 3 just remain in game play
     _tutorialState = 0;
     _initPosOnce = 0;
@@ -37,14 +38,15 @@ void CameraController::update(float dt) {
         _moveToLeft = false;
         _moveToTop = false;
         _replay = false;
+        _displayed = false;
     }
 
     if (!_moveToLeft && _horizontal) {
-        _camera->setPosition(Vec2(_root->getSize().width - _camera->getViewport().getMaxX() / (2 * _camera->getZoom()) - 20 + 100,
-                                  _root->getSize().height - _camera->getViewport().getMaxY() / (2 * _camera->getZoom())));
+        _camera->setPosition(Vec2(_camera->getViewport().getMaxX() / (2 * _camera->getZoom()),
+                                   _camera->getViewport().getMaxY() / (2 * _camera->getZoom())));
         _moveToLeft = true;
         Vec2 uiPos =
-            Vec2(_camera->getPosition().x - _camera->getViewport().getMaxX() / (2 * _camera->getZoom()) - 20, _camera->getPosition().y - _camera->getViewport().getMaxY() / (2 * _camera->getZoom()));
+            Vec2(_camera->getPosition().x - _camera->getViewport().getMaxX() / (2 * _camera->getZoom()), _camera->getPosition().y - _camera->getViewport().getMaxY() / (2 * _camera->getZoom()));
         _UIPosition = uiPos;
         _ui->setPosition(uiPos);
     }

@@ -121,7 +121,8 @@ void GameScene::preUpdate(float dt) {
     for (auto i = character->_touchInfo.begin(); i != character->_touchInfo.end(); i++) {
         i->worldPos = (Vec2)Scene2::screenToWorldCoords(i->position);
     }
-    _inputController->process();
+    if (_camera->getDisplayed() || !_inputController->getStarted())
+        _inputController->process();
     //    Size dimen = computeActiveSize();
     // float screen_height_multiplier = SCENE_WIDTH / dimen.height;
     // std::cout << "screen_height_multiplier: " << screen_height_multiplier << "\n";
