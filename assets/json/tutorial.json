@@ -35,11 +35,11 @@
                          "type":"class",
                          "value":
                             {
-                             "Bad_bg":"",
-                             "Default_bg":"",
-                             "Good_bg":"",
-                             "level_height":0,
-                             "level_width":0
+                             "Bad_bg":"lv0_background",
+                             "Default_bg":"lv0_background",
+                             "Good_bg":"lv0_background",
+                             "level_height":2230,
+                             "level_width":11683
                             }
                         }, 
                         {
@@ -112,7 +112,7 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0.7,
+                                 "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
                                  "texture":"alpharelease_frenchfries"
@@ -167,9 +167,9 @@
                          "type":"class",
                          "value":
                             {
-                             "speed":20,
+                             "speed":10,
                              "wait":0,
-                             "xy":"80,0,0,0"
+                             "xy":"82,0,0,0"
                             }
                         }, 
                         {
@@ -197,7 +197,7 @@
                  "visible":true,
                  "width":0,
                  "x":5676.25367930684,
-                 "y":1637.48813432434
+                 "y":1632.30141233264
                 }, 
                 {
                  "height":0,
@@ -456,78 +456,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":5466.90202757952,
-                 "y":733.707222204978
-                }, 
-                {
-                 "height":0,
-                 "id":55,
-                 "name":"sensor2",
-                 "polygon":[
-                        {
-                         "x":-232.228155264695,
-                         "y":239.834578135941
-                        }, 
-                        {
-                         "x":-209.184814690535,
-                         "y":554.651990529163
-                        }, 
-                        {
-                         "x":-1271.57716486687,
-                         "y":564.206264460309
-                        }, 
-                        {
-                         "x":-1282.65995592851,
-                         "y":203.702419052113
-                        }],
-                 "properties":[
-                        {
-                         "name":"Pub2",
-                         "propertytype":"PubMessage",
-                         "type":"class",
-                         "value":
-                            {
-                             "Enabled":true,
-                             "Head":"paint2 out",
-                             "Trigger":"body192"
-                            }
-                        }, 
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":192,
-                                 "density":0,
-                                 "friction":0,
-                                 "publications":[
-                                        {
-                                         "body":
-                                            {
-
-                                            },
-                                         "message":"contacted",
-                                         "pub_id":"sensor2",
-                                         "trigger":"contacted"
-                                        }],
-                                 "restitution":0,
-                                 "rotation":false,
-                                 "texture":""
-                                }
-                            }
-                        }],
-                 "rotation":0,
-                 "type":"sensor",
-                 "visible":true,
-                 "width":0,
-                 "x":4830.52717735715,
-                 "y":1440.59844736946
+                 "x":4939.73252230783,
+                 "y":960.795624475862
                 }, 
                 {
                  "height":0,
@@ -593,7 +523,7 @@
                              "obstacle":
                                 {
                                  "bodytype":0,
-                                 "color-requirements":"orange",
+                                 "color-requirements":"purple",
                                  "damping":0,
                                  "debugcolor":"yellow",
                                  "debugopacity":0,
@@ -667,7 +597,7 @@
                             {
                              "Action":"show",
                              "Enabled":true,
-                             "Head":"paint2 out"
+                             "Head":"ui5 hidden"
                             }
                         }, 
                         {
@@ -701,7 +631,7 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"splotch3"
+                                 "texture":""
                                 }
                             }
                         }],
@@ -709,8 +639,8 @@
                  "type":"paint",
                  "visible":true,
                  "width":0,
-                 "x":4623.61050048097,
-                 "y":1351.40398484164
+                 "x":4412.74269837229,
+                 "y":1400.06578532826
                 }, 
                 {
                  "height":0,
@@ -2053,7 +1983,7 @@
                              "Bool1":false,
                              "Enabled":true,
                              "Float1":0,
-                             "Head":"ui5 hidden",
+                             "Head":"hide_ui_5",
                              "Int1":0,
                              "Int3":0
                             }
@@ -2062,7 +1992,7 @@
                  "type":"ui",
                  "visible":true,
                  "width":0,
-                 "x":3357.77221031464,
+                 "x":2894.8679617414,
                  "y":1036.84585806213
                 }, 
                 {
@@ -2154,8 +2084,8 @@
                  "type":"ui",
                  "visible":true,
                  "width":0,
-                 "x":4490.78099910149,
-                 "y":1031.38794813806
+                 "x":4065.33493259703,
+                 "y":1242.47878349896
                 }, 
                 {
                  "height":0,
@@ -2746,6 +2676,18 @@
                  "width":0,
                  "x":7897.53883787821,
                  "y":1254.03132275606
+                }, 
+                {
+                 "gid":48,
+                 "height":2230,
+                 "id":126,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":11683.3333333333,
+                 "x":-91.6666666666666,
+                 "y":-93.333333333333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -2754,7 +2696,7 @@
          "y":0
         }],
  "nextlayerid":7,
- "nextobjectid":126,
+ "nextobjectid":127,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
@@ -2767,5 +2709,5 @@
  "tilewidth":32,
  "type":"map",
  "version":"1.10",
- "width":270
+ "width":365
 }

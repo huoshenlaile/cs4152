@@ -9,7 +9,9 @@ protected:
     std::string sub_message_head;
     std::string pub_message_head;
     std::string color;
+    bool _initial_splash_done = false;
     bool is_out = false;
+    float angle_splash = 0.0;
     
     std::shared_ptr<scene2::SpriteNode> _animation;
     std::string _textureName;

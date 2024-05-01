@@ -331,16 +331,16 @@ void LevelSelectScene::lockOrUnlockLevelButton(int levelNumber, bool isLock) {
     std::string buttonString = "button_level";
     buttonString = buttonString + levelNum;
     auto _levelButtonImageNode = std::dynamic_pointer_cast<scene2::PolygonNode>(_assets->get<scene2::SceneNode>(levelString) -> getChildByName(buttonString));
-    std::string newTextureString = buttonString + (isLock? "_locked" : "");
+    std::string newTextureString = buttonString + (isLock ? "_locked" : "");
     auto newTexture = _assets -> get<Texture>(newTextureString);
     _levelButtonImageNode -> setTexture(newTexture);
     
     if (isLock) {
-        std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>(buttonNodeString)) -> setDown(false);
-        std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>(buttonNodeString)) -> deactivate();
+        std::dynamic_pointer_cast<scene2::Button>(_assets -> get<scene2::SceneNode>(buttonNodeString)) -> setDown(false);
+        std::dynamic_pointer_cast<scene2::Button>(_assets -> get<scene2::SceneNode>(buttonNodeString)) -> deactivate();
     } else {
-        std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>(buttonNodeString)) -> setDown(false);
-        std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>(buttonNodeString)) -> activate();
+        std::dynamic_pointer_cast<scene2::Button>(_assets -> get<scene2::SceneNode>(buttonNodeString)) -> setDown(false);
+        std::dynamic_pointer_cast<scene2::Button>(_assets -> get<scene2::SceneNode>(buttonNodeString)) -> activate();
     }
     
     std::cout << "locking or unlocking button " << levelNumber << "!" << std::endl;
