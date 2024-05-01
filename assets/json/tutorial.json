@@ -35,11 +35,11 @@
                          "type":"class",
                          "value":
                             {
-                             "Bad_bg":"",
-                             "Default_bg":"",
-                             "Good_bg":"",
-                             "level_height":0,
-                             "level_width":0
+                             "Bad_bg":"lv0_background",
+                             "Default_bg":"lv0_background",
+                             "Good_bg":"lv0_background",
+                             "level_height":2230,
+                             "level_width":11683
                             }
                         }, 
                         {
@@ -2154,8 +2154,8 @@
                  "type":"ui",
                  "visible":true,
                  "width":0,
-                 "x":4490.78099910149,
-                 "y":1031.38794813806
+                 "x":4049.11433243482,
+                 "y":1039.72128147139
                 }, 
                 {
                  "height":0,
@@ -2746,6 +2746,18 @@
                  "width":0,
                  "x":7897.53883787821,
                  "y":1254.03132275606
+                }, 
+                {
+                 "gid":48,
+                 "height":2230,
+                 "id":126,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":11683.3333333333,
+                 "x":-91.6666666666666,
+                 "y":-93.333333333333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -2754,7 +2766,7 @@
          "y":0
         }],
  "nextlayerid":7,
- "nextobjectid":126,
+ "nextobjectid":127,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
@@ -2767,5 +2779,5 @@
  "tilewidth":32,
  "type":"map",
  "version":"1.10",
- "width":270
+ "width":365
 }
