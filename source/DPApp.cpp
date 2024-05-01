@@ -186,6 +186,23 @@ void DPApp::preUpdate(float timestep) {
             _gameScene.reset();
             _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
             _status = LEVELLOAD;
+        } else if (_gameScene.state == GameScene::NEXTLEVEL) {
+            // TODO: next level
+            _gameScene.reset();
+            if (_currentLevelKey == "tutorial") {
+                // TODO: handle tutorial case
+            } else {
+                char nextLevelNum = _currentLevelKey.back() + 1;
+                std::string nextLevel = "level";
+                nextLevel.push_back(nextLevelNum);
+                std::cout << "next level number is: " << nextLevel << std::endl;
+                _levelSelectScene.selectedLevelKey = nextLevel;
+                _levelSelectScene.selectedLevelFile = "json/" + nextLevel + ".json";
+                _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
+                _currentLevelKey = _levelSelectScene.getSelectedLevelKey();
+                _gameScene.setCameraSkip(false);
+                _status = LEVELLOAD;
+            }
         }
     } else if (_gameScene.isPaused()) {
         _status = PAUSE;
