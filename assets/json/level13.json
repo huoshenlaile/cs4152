@@ -78,8 +78,8 @@
                  "type":"character",
                  "visible":true,
                  "width":153.102642632413,
-                 "x":1724.71078626939,
-                 "y":8680.27171989383
+                 "x":2029.0975364932,
+                 "y":6245.17771810332
                 }, 
                 {
                  "gid":28,
@@ -678,8 +678,8 @@
                  "type":"sensor",
                  "visible":true,
                  "width":0,
-                 "x":3796.08398887909,
-                 "y":22852.2966886246
+                 "x":3819.27239467619,
+                 "y":23281.282195871
                 }, 
                 {
                  "height":0,
@@ -4202,8 +4202,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":883.239192939177,
-                 "y":6963.12061819708
+                 "x":919.669065434623,
+                 "y":6999.55049069253
                 }, 
                 {
                  "height":0,
@@ -4240,7 +4240,7 @@
                             {
                              "speed":16,
                              "wait":10,
-                             "xy":"50,-25,50,-75,0,-75"
+                             "xy":"100,-25,100,-125,30,-125,100,-125,100,-25,0,0"
                             }
                         }, 
                         {
@@ -4368,7 +4368,7 @@
                          "type":"class",
                          "value":
                             {
-                             "speed":8,
+                             "speed":12,
                              "wait":10,
                              "xy":"0,100,100,100,0,100,0,0"
                             }
@@ -4911,6 +4911,171 @@
                  "width":0,
                  "x":2495.79635792247,
                  "y":2337.35677662353
+                }, 
+                {
+                 "height":0,
+                 "id":200,
+                 "name":"sensor1",
+                 "polygon":[
+                        {
+                         "x":-3372.88,
+                         "y":-634.108
+                        }, 
+                        {
+                         "x":-3414.77,
+                         "y":-1878.23
+                        }, 
+                        {
+                         "x":-2549.48,
+                         "y":-1848.65
+                        }, 
+                        {
+                         "x":-1715.84,
+                         "y":-1833.87
+                        }, 
+                        {
+                         "x":-1814.79,
+                         "y":-645.794
+                        }],
+                 "properties":[
+                        {
+                         "name":"Pub1",
+                         "propertytype":"PubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Enabled":true,
+                             "Head":"paint1 out",
+                             "Trigger":"body192"
+                            }
+                        }, 
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"yellow",
+                                 "debugopaciy":192,
+                                 "density":0,
+                                 "friction":0,
+                                 "publications":[],
+                                 "restitution":0,
+                                 "rotation":false,
+                                 "texture":""
+                                }
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"sensor",
+                 "visible":true,
+                 "width":0,
+                 "x":5050.99285560543,
+                 "y":9838.47109483686
+                }, 
+                {
+                 "height":0,
+                 "id":201,
+                 "name":"paint1",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":889.417,
+                         "y":197.586
+                        }, 
+                        {
+                         "x":804.711,
+                         "y":623.954
+                        }, 
+                        {
+                         "x":84.7064,
+                         "y":779.943
+                        }, 
+                        {
+                         "x":-635.298,
+                         "y":790.342
+                        }, 
+                        {
+                         "x":-635.298,
+                         "y":72.7947
+                        }],
+                 "properties":[
+                        {
+                         "name":"AnimationAsset",
+                         "type":"string",
+                         "value":"purple_paint"
+                        }, 
+                        {
+                         "name":"Pub1",
+                         "propertytype":"PubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Body":"purple",
+                             "Enabled":true,
+                             "Head":"character color",
+                             "Trigger":"TOUCH: character body"
+                            }
+                        }, 
+                        {
+                         "name":"Sub1",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"show",
+                             "Enabled":true,
+                             "Head":"paint1 out"
+                            }
+                        }, 
+                        {
+                         "name":"color",
+                         "type":"string",
+                         "value":"purple"
+                        }, 
+                        {
+                         "name":"instant",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"paint_id",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":192,
+                                 "density":0,
+                                 "friction":0.2,
+                                 "restitution":0.1,
+                                 "rotation":false,
+                                 "texture":"splotch3"
+                                }
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"paint",
+                 "visible":true,
+                 "width":0,
+                 "x":2647.9920669659,
+                 "y":1600.91064092536
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -4919,7 +5084,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":200,
+ "nextobjectid":202,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
