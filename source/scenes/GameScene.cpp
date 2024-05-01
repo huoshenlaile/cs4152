@@ -93,11 +93,14 @@ void GameScene::setActive(bool value) {
         if (value) {
             _worldnode->setVisible(true);
             _pauseButton->activate();
+            _mapButton -> activate();
             _gamePaused = false;
             _inputController->fillHand(_character->getLeftHandPosition(), _character->getRightHandPosition(), _character->getLHPos(), _character->getRHPos());
         } else {
             _pauseButton->deactivate();
             _pauseButton->setDown(false);
+            _mapButton -> deactivate();
+            _mapButton -> setDown(false);
         }
     }
 }
@@ -245,6 +248,14 @@ void GameScene::constructSceneNodes(const Size &dimen) {
             this->state = QUIT;
         }
     });
+    _levelCompleteGoodNext = std::dynamic_pointer_cast<scene2::Button>(completemenu->getChildByName("options")->getChildByName("next"));
+    _levelCompleteGoodNext->deactivate();
+    _levelCompleteGoodNext->addListener([this](const std::string &name, bool down) {
+        if (down) {
+            std::cout << "level complete next (GOOD) triggered!" << std::endl;
+            this->state = NEXTLEVEL;
+        }
+    });
     _uinode->addChild(_levelCompleteGood);
     // bad scene
     _levelCompleteBad = _assets->get<scene2::SceneNode>("levelcomplete_bad");
@@ -269,6 +280,14 @@ void GameScene::constructSceneNodes(const Size &dimen) {
         if (down) {
             std::cout << "level complete main menu (BAD) triggered!" << std::endl;
             this->state = QUIT;
+        }
+    });
+    _levelCompleteBadNext = std::dynamic_pointer_cast<scene2::Button>(completemenu->getChildByName("options")->getChildByName("next"));
+    _levelCompleteBadNext->deactivate();
+    _levelCompleteBadNext->addListener([this](const std::string &name, bool down) {
+        if (down) {
+            std::cout << "level complete next (BAD) triggered!" << std::endl;
+            this->state = NEXTLEVEL;
         }
     });
     _uinode->addChild(_levelCompleteBad);
@@ -313,10 +332,12 @@ void GameScene::finishLevel() {
             _levelCompleteGood->setVisible(true);
             _levelCompleteGoodReset->activate();
             _levelCompleteGoodMenu->activate();
+            _levelCompleteGoodNext->activate();
         } else if (this -> defaultGoodOrBad == 1) {
             _levelCompleteBad->setVisible(true);
             _levelCompleteBadReset->activate();
             _levelCompleteBadMenu->activate();
+            _levelCompleteBadNext->activate();
         } else {
             CULogError("ERROR: finishing level in an invalid state (idk if this is a good or bad ending)");
         }

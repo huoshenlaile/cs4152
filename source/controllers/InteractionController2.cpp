@@ -84,13 +84,13 @@ void InteractionController2::beginContact(b2Contact *contact) {
                 if (obsOnLH != obs2rawPtr) {
                     obsOnLH = obs2rawPtr;
                   //  CULog("Left Hand: playing a random note!");
-                    _audioController -> playRandomNote();
+                   // _audioController -> playRandomNote();
                 }
             } else if (obs1rawPtr == characterRHRawPtr && !obs2rawPtr->isSensor()) {
                 if (obsOnRH != obs2rawPtr) {
                     obsOnRH = obs2rawPtr;
                   //  CULog("Right Hand: playing a random note!");
-                    _audioController -> playRandomNote();
+                    // _audioController -> playRandomNote();
                 }
             }
             // grab code
@@ -121,14 +121,14 @@ void InteractionController2::beginContact(b2Contact *contact) {
             if (obs2rawPtr == characterLHRawPtr && !obs1rawPtr->isSensor()) {
                 if (obsOnLH != obs1rawPtr) {
                     obsOnLH = obs1rawPtr;
-                    CULog("Left Hand: playing a random note!");
-                    _audioController -> playRandomNote();
+                    // CULog("Left Hand: playing a random note!");
+                    // _audioController -> playRandomNote();
                 }
             } else if (obs2rawPtr == characterRHRawPtr && !obs1rawPtr->isSensor()) {
                 if (obsOnRH != obs1rawPtr) {
                     obsOnRH = obs1rawPtr;
-                    CULog("Right Hand: playing a random note!");
-                    _audioController -> playRandomNote();
+                    // CULog("Right Hand: playing a random note!");
+                    // _audioController -> playRandomNote();
                 }
             }
             // this is grab code

@@ -27,6 +27,8 @@ protected:
     bool OnPreSolveEnabled = false;
     bool OnPostSolveEnabled = false;
     bool canBeGrabbed = false;
+    
+    float jumpscale = 150.0;
 
     Rect _bounds;
     Vec2 _scale = Vec2(32, 32);

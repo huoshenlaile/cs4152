@@ -43,6 +43,7 @@ protected:
     int _finalPos;
     int _state, _tutorialState;
     int _counter;
+    int _initPosOnce;
 
 public:
     /**
@@ -101,7 +102,7 @@ public:
     void addZoom(float zoom);
 
     /**
-     * This method sets the target of the camera.
+     * This method _state = 1;s the target of the camera.
      *
      * @param target The target to set the camera to
      */

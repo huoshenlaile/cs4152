@@ -12,7 +12,7 @@ PublishedMessage BouncyWall::onBeginContact(std::shared_ptr<cugl::physics2::Obst
     //if the character body collides with the bouncy wall from above without hand touching
     if (isCharacter && character->getBodyObstacle()->getY() > this->getObstacle()->getY() && character->getLHObstacle() != other && character->getRHObstacle() != other){
         if (activated){
-            float speed = 150;
+            float speed = this->jumpscale;
             cugl::Vec2 normal (0.0,1.0);
             double platformAngle = this->getObstacle()->getAngle();
             normal.x = normal.x * std::cos(platformAngle) - normal.y * std::sin(platformAngle);

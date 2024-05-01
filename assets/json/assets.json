@@ -35,6 +35,9 @@
         "alpharelease_background": {
             "file": "textures/alpharelease_background.png"
         },
+        "lv0_background": {
+            "file": "textures/lv0_background.png"
+        },
         "lv1_palette": {
             "file": "textures/lv1_palette.png"
         },
@@ -396,6 +399,51 @@
         },
         "button_level15_down": {
             "file": "textures/levelselect/button_level15_down.png"
+        },
+        "button_level1_locked": {
+            "file": "textures/levelselect/lockedstate/button_level1_locked.png"
+        },
+        "button_level2_locked": {
+            "file": "textures/levelselect/lockedstate/button_level2_locked.png"
+        },
+        "button_level3_locked": {
+            "file": "textures/levelselect/lockedstate/button_level3_locked.png"
+        },
+        "button_level4_locked": {
+            "file": "textures/levelselect/lockedstate/button_level4_locked.png"
+        },
+        "button_level5_locked": {
+            "file": "textures/levelselect/lockedstate/button_level5_locked.png"
+        },
+        "button_level6_locked": {
+            "file": "textures/levelselect/lockedstate/button_level6_locked.png"
+        },
+        "button_level7_locked": {
+            "file": "textures/levelselect/lockedstate/button_level7_locked.png"
+        },
+        "button_level8_locked": {
+            "file": "textures/levelselect/lockedstate/button_level8_locked.png"
+        },
+        "button_level9_locked": {
+            "file": "textures/levelselect/lockedstate/button_level9_locked.png"
+        },
+        "button_level10_locked": {
+            "file": "textures/levelselect/lockedstate/button_level10_locked.png"
+        },
+        "button_level11_locked": {
+            "file": "textures/levelselect/lockedstate/button_level11_locked.png"
+        },
+        "button_level12_locked": {
+            "file": "textures/levelselect/lockedstate/button_level12_locked.png"
+        },
+        "button_level13_locked": {
+            "file": "textures/levelselect/lockedstate/button_level13_locked.png"
+        },
+        "button_level14_locked": {
+            "file": "textures/levelselect/lockedstate/button_level14_locked.png"
+        },
+        "button_level15_locked": {
+            "file": "textures/levelselect/lockedstate/button_level15_locked.png"
         },
         "red_paint": {
             "file": "textures/red_paint_141x144.png"

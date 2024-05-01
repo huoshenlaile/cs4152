@@ -186,6 +186,32 @@ void DPApp::preUpdate(float timestep) {
             _gameScene.reset();
             _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
             _status = LEVELLOAD;
+        } else if (_gameScene.state == GameScene::NEXTLEVEL) {
+            // TODO: next level
+            _gameScene.reset();
+            std::string nextLevel;
+            if (_currentLevelKey == "tutorial") {
+                nextLevel = "level1";
+            } else if (_currentLevelKey == "level15") {
+                // TODO: what to do with the final level?
+                nextLevel = "level1";
+            } else {
+                char nextLevelNum = _currentLevelKey.at(_currentLevelKey.length() - 1);
+                nextLevel = "level";
+                if (nextLevelNum == '9') {
+                    nextLevel.push_back(_currentLevelKey.at(_currentLevelKey.length() - 2) + 1);
+                    nextLevel.push_back(nextLevelNum + 1);
+                } else {
+                    nextLevel.push_back(nextLevelNum + 1);
+                }
+            }
+            std::cout << "next level number is: " << nextLevel << std::endl;
+            _levelSelectScene.selectedLevelKey = nextLevel;
+            _levelSelectScene.selectedLevelFile = "json/" + nextLevel + ".json";
+            _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
+            _currentLevelKey = _levelSelectScene.getSelectedLevelKey();
+            _gameScene.setCameraSkip(false);
+            _status = LEVELLOAD;
         }
     } else if (_gameScene.isPaused()) {
         _status = PAUSE;
