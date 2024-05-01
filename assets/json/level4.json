@@ -765,7 +765,7 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0.2,
+                                 "friction":0.7,
                                  "restitution":0.1,
                                  "rotation":false,
                                  "texture":"alpharelease_mustard"
