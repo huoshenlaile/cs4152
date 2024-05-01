@@ -374,7 +374,7 @@
                                         }],
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"splotch3"
+                                 "texture":""
                                 }
                             }
                         }],
@@ -2896,7 +2896,7 @@
                                  "publications":[],
                                  "restitution":0,
                                  "rotation":false,
-                                 "texture":"splotch3"
+                                 "texture":""
                                 }
                             }
                         }],

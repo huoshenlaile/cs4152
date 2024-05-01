@@ -634,6 +634,11 @@
                                  "texture":""
                                 }
                             }
+                        }, 
+                        {
+                         "name":"rotation",
+                         "type":"float",
+                         "value":140
                         }],
                  "rotation":0,
                  "type":"paint",
@@ -740,7 +745,6 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "propertytype":"AnimationDetails",
                          "type":"class",
                          "value":
                             {
@@ -990,7 +994,6 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "propertytype":"AnimationDetails",
                          "type":"class",
                          "value":
                             {
@@ -1160,7 +1163,6 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "propertytype":"AnimationDetails",
                          "type":"class",
                          "value":
                             {
@@ -1251,7 +1253,6 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "propertytype":"AnimationDetails",
                          "type":"class",
                          "value":
                             {
@@ -1745,7 +1746,6 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "propertytype":"AnimationDetails",
                          "type":"class",
                          "value":
                             {
@@ -1837,7 +1837,6 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "propertytype":"AnimationDetails",
                          "type":"class",
                          "value":
                             {
@@ -1927,7 +1926,6 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "propertytype":"AnimationDetails",
                          "type":"class",
                          "value":
                             {
@@ -2019,7 +2017,6 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "propertytype":"AnimationDetails",
                          "type":"class",
                          "value":
                             {
@@ -2176,7 +2173,6 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "propertytype":"AnimationDetails",
                          "type":"class",
                          "value":
                             {
@@ -2268,7 +2264,6 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "propertytype":"AnimationDetails",
                          "type":"class",
                          "value":
                             {
@@ -2425,7 +2420,6 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "propertytype":"AnimationDetails",
                          "type":"class",
                          "value":
                             {
@@ -2517,7 +2511,6 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "propertytype":"AnimationDetails",
                          "type":"class",
                          "value":
                             {
@@ -2609,7 +2602,6 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "propertytype":"AnimationDetails",
                          "type":"class",
                          "value":
                             {

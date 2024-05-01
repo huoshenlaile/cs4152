@@ -33,7 +33,7 @@ bool GrowingPaint::init(const std::shared_ptr<cugl::JsonValue>& json, Vec2 scale
     
     _actions = scene2::ActionManager::alloc();
     //TODO: May change per animation, if it does then parameterize in tiled
-    _animate = scene2::Animate::alloc(0, 8, 1.0f, 1);
+    _animate = scene2::Animate::alloc(0, 8, 0.5f, 1);
     
     return true;
 }
@@ -48,9 +48,12 @@ bool GrowingPaint::linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleWor
     
     std::cout << "animation asset: " <<_textureName + "_splash" << std::endl;
     _animation = scene2::SpriteNode::allocWithSheet(_assets->get<Texture>(_textureName + "_splash"), 3, 3, 9);
-    _animation->setScale(2.5f);
+    _animation->setScale(2.2f);
     _animation->setAngle(angle_splash);
-    _animation->setPosition(_selfObstacle->getPosition() * scale);
+    
+    Vec2 direction_paint{(float) (40.0f * cos(angle_splash + M_PI_2)), (float) (40 * sin(angle_splash + M_PI_2))};
+
+    _animation->setPosition(_selfObstacle->getPosition() * scale - direction_paint);
     
     if(is_out){ // if its initially out, it should have no sub
         _scene->addChild(_selfTexture);
@@ -96,11 +99,11 @@ PublishedMessage GrowingPaint::timeUpdate(float timestep){
             std::cout << "activating second paint animation" << std::endl;
             _initial_splash_done = true;
             auto new_anim = scene2::SpriteNode::allocWithSheet(_assets->get<Texture>(_textureName + "_splat"), 3, 3, 9);
-            new_anim->setScale(1.5f);
+            new_anim->setScale(2.2f); 
             new_anim->setPosition(_animation->getPosition());
             _scene->removeChild(_animation);
             _scene->addChild(new_anim);
-            _actions->activate("splat", scene2::Animate::alloc(0, 8, 1.0f, 1), new_anim);
+            _actions->activate("splat", scene2::Animate::alloc(0, 8, 0.7f, 1), new_anim);
             
         }
     }
