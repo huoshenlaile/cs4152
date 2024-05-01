@@ -490,6 +490,12 @@
         "pink_splatter": {
             "file": "textures/pink_paintspaltter_148x680.png"
         },
+        "tube_pink": {
+            "file": "textures/tube/pink_tube.png"
+        },
+        "tube_blue": {
+            "file": "textures/tube/blue_tube.png"
+        },
         "tube_curved_l": {
             "file": "textures/tube/tube_curved_left.png"
         },
