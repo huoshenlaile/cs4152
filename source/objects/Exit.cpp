@@ -28,9 +28,10 @@ bool Exit::init(const std::shared_ptr<cugl::JsonValue>& json, Vec2 scale, Rect b
             std::string substr;
             std::getline(reqs, substr, ',');
             if (substr.length()>0){
-                _colorReqs.insert(substr);
+                _colorReqs.push_back(substr);
             }
         }
+       
     }
     activated = true;
     _selfObstacle->setSensor(true);
@@ -41,6 +42,23 @@ bool Exit::init(const std::shared_ptr<cugl::JsonValue>& json, Vec2 scale, Rect b
     return true;
 }
 
+bool Exit::goodEnding(std::vector<std::string> _colorReqs, std::vector<std::string> _colorsCollected) {
+        std::sort(_colorReqs.begin(),_colorReqs.end());
+        std::sort(_colorsCollected.begin(), _colorsCollected.end());
+
+    if (_colorReqs.size() != _colorsCollected.size()){
+        return false;
+    }
+
+        for (int i = 0; i < _colorReqs.size(); i++){
+            std::cout << _colorReqs[i] << std::endl;
+            if(_colorReqs[i] != _colorsCollected[i]){
+                return false;
+            }
+        }
+    return true;
+}
+
 PublishedMessage Exit::onBeginContact(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact, std::shared_ptr<Interactable> otherInteractable, bool isCharacter, std::shared_ptr<CharacterController> character){
     //CULog("Sensor of [%s] tested", message_head_gameend.c_str());
     if (isCharacter){
@@ -48,7 +66,7 @@ PublishedMessage Exit::onBeginContact(std::shared_ptr<cugl::physics2::Obstacle> 
         if (activated){
             if (other->getName() == "body192"){
                 CULog("on_contact [%s]", message_head_gameend.c_str());
-                if ((character->getColor() != "black" && this->_colorsCollected.count(character->getColor()) == 0) || (character->getColor() == "black" && _colorReqs.size() == 0)){
+                if ((character->getColor() != "black") || (character->getColor() == "black" && _colorReqs.size() == 0)){
                     if(!this->is_contacting){
                         this->is_contacting=true;
                         _character = character;
@@ -98,7 +116,7 @@ PublishedMessage Exit::onEndContact(std::shared_ptr<cugl::physics2::Obstacle> ot
 
 // only called if color is new to the palette
 void Exit::addColor(std::string color, Vec2 character_scene_pos) {
-    _colorsCollected.insert(color);
+    _colorsCollected.push_back(color);
     std::shared_ptr<scene2::PolygonNode> splatterpoly;
     if(color == "green"){
         splatterpoly = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>("green_splatter"));
@@ -128,16 +146,21 @@ PublishedMessage Exit::timeUpdate(float timestep){
     else if (this->is_contacting && this->contactedLongEnough()){
         this->contact_time = this->_ttcolor;
         std::string color = _character->getColor();
-        if (color != "black" && this->getColorsCollected().count(color) == 0){
+        if (color != "black"){
             this->addColor(color, _character->getBodySceneNode()->getPosition());
-            std::cout << "Found color (from Exit timeUpdate):" << color << "\n";
             _character->setColor("black");
         }
+//        if (color != "black" && this->getColorsCollected().count(color) == 0){
+//            std::cout << "Found color (from Exit timeUpdate):" << color << "\n";
+//            _character->setColor("black");
+//        }
+        
+        std::cout << this->getColorsCollected().size() << " phone " << this->getColorReqs().size() << std::endl;
         if (this->getColorsCollected().size() >= this->getColorReqs().size()){
             CULog("Game over! - Setting Complete.");
             auto a = PublishedMessage();
             a.Head = message_head_gameend;
-            if (this->getRemainingColors().size()==0){
+            if (goodEnding(_colorReqs, _colorsCollected)){
                 CULog("Good ending!");
                 a.Body = "Good";
             }

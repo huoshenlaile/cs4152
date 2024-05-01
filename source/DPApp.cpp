@@ -157,7 +157,7 @@ void DPApp::preUpdate(float timestep) {
     } else if (_status == LEVELSELECT) {
     updateLevelSelect(timestep);
     } else if (_status == LEVELLOAD) {
-        updateLevelLoad(timestep);
+    updateLevelLoad(timestep);
     } else if (_status == RESTORE) {
     updateRestoration(timestep);
     } else if (_status == GAME) {
@@ -179,12 +179,30 @@ void DPApp::preUpdate(float timestep) {
         std::cout << "preUpdate writing line to save.json: " << _currentLevelKey << std::endl;
         if (_gameScene.state == GameScene::QUIT) {
             _gameScene.reset();
-            _status = LEVELSELECT;
             _levelSelectScene.setActive(true);
+            _audioController.play("menu", "menu");
+            _status = LEVELSELECT;
         } else if (_gameScene.state == GameScene::RESET) {
             _gameScene.reset();
             _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
             _status = LEVELLOAD;
+        } else if (_gameScene.state == GameScene::NEXTLEVEL) {
+            // TODO: next level
+            _gameScene.reset();
+            if (_currentLevelKey == "tutorial") {
+                // TODO: handle tutorial case
+            } else {
+                char nextLevelNum = _currentLevelKey.back() + 1;
+                std::string nextLevel = "level";
+                nextLevel.push_back(nextLevelNum);
+                std::cout << "next level number is: " << nextLevel << std::endl;
+                _levelSelectScene.selectedLevelKey = nextLevel;
+                _levelSelectScene.selectedLevelFile = "json/" + nextLevel + ".json";
+                _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
+                _currentLevelKey = _levelSelectScene.getSelectedLevelKey();
+                _gameScene.setCameraSkip(false);
+                _status = LEVELLOAD;
+            }
         }
     } else if (_gameScene.isPaused()) {
         _status = PAUSE;
@@ -217,8 +235,9 @@ void DPApp::preUpdate(float timestep) {
             case PauseScene::MENU:
                 _pauseScene.setActive(false);
                 _gameScene.reset();
-                _status = LEVELSELECT;
                 _levelSelectScene.setActive(true);
+                _audioController.play("menu", "menu", true);
+                _status = LEVELSELECT;
                 break;
             default:
               break;
@@ -337,6 +356,9 @@ void DPApp::updateLoad(float timestep) {
             _pauseScene.init(_assets, _network);
             _settingScene.init(_assets);
             _levelSelectScene.init(_assets);
+            
+            _audioController.init(_assets);
+            _audioController.play("menu", "menu", true);
             _status = MENU;
             //    _hostScene.init(_assets, _network);
             //    _clientScene.init(_assets, _network);
@@ -389,6 +411,7 @@ void DPApp::updateLevelLoad(float timestep){
             _gameScene.setActive(true);
             _gameScene.setComplete(false);
             _gameScene.setCameraSkip(true);
+            _audioController.clear("menu");
             _status = GAME;
             break;
     }

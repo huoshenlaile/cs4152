@@ -109,7 +109,7 @@ bool InteractableUI::linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleW
 
 PublishedMessage InteractableUI::timeUpdate(float timestep){
 
-    if (_cd <= _show_cd || _cd <= _hide_cd){
+    if ((_cd <= _show_cd || _cd <= _hide_cd) && _selfTexture->isVisible()){
         _cd+=timestep;
     }
     if (_animated){

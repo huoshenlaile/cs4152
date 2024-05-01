@@ -44,7 +44,7 @@ static std::string hex2dec(const std::string hex) {
 
 
 #pragma mark Class Methods
-    bool LevelSelectScene::init(const std::shared_ptr<cugl::AssetManager> &assets) {
+bool LevelSelectScene::init(const std::shared_ptr<cugl::AssetManager> &assets) {
     // Initialize the scene to a locked width
     Size dimen = Application::get()->getDisplaySize();
     dimen *= SCENE_HEIGHT/dimen.height;
@@ -72,6 +72,11 @@ static std::string hex2dec(const std::string hex) {
     _level6 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level6"));
     _level7 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level7"));
     _level8 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level8"));
+        _level9 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level9"));
+        _level10 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level10"));
+        _level11 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level11"));
+        
+        _level13 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level13"));
     _backout = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_home"));
 
     // Program the buttons
@@ -92,60 +97,91 @@ static std::string hex2dec(const std::string hex) {
     _level2->addListener([this](const std::string& name, bool down) {
         if (down) {
             CULog("Level 2 selected");
-            this->selectedLevelFile = "json/falldown.json";
-            this->selectedLevelKey = "falldown";
+            this->selectedLevelFile = "json/level2.json";
+            this->selectedLevelKey = "level2";
             startGame();
         }
     });
 
     _level3->addListener([this](const std::string& name, bool down) {
-    if (down) {
-        CULog("Level 3 selected");
-        selectedLevelFile = "json/doodlejump.json";
-        selectedLevelKey = "doodlejump";
-        startGame();
-    }
-    });
-
-    _level4->addListener([this](const std::string& name, bool down) {
         if (down) {
-            CULog("Level 4 selected");
-            selectedLevelFile = "json/tubelevel.json";
-            selectedLevelKey = "tube";
-            startGame();
-        }
-    });
-
-    _level5->addListener([this](const std::string& name, bool down) {
-        if (down) {
-            CULog("Level 5 selected");
+            CULog("Level 3 selected");
             selectedLevelFile = "json/level3.json";
             selectedLevelKey = "level3";
             startGame();
         }
     });
+    _level4->addListener([this](const std::string& name, bool down) {
+        if (down) {
+            CULog("Level 4 selected");
+            this->selectedLevelFile = "json/level4.json";
+            this->selectedLevelKey = "level4";
+            startGame();
+        }
+    });
+    _level5->addListener([this](const std::string& name, bool down) {
+    if (down) {
+        CULog("Level 5 selected");
+        selectedLevelFile = "json/level5.json";
+        selectedLevelKey = "level5";
+        startGame();
+    }
+    });
+    _level6->addListener([this](const std::string& name, bool down) {
+        if (down) {
+            CULog("Level 6 selected");
+            selectedLevelFile = "json/level6.json";
+            selectedLevelKey = "level6";
+            startGame();
+        }
+    });
+    _level7->addListener([this](const std::string& name, bool down) {
+        if (down) {
+            CULog("Level 7 selected");
+            selectedLevelFile = "json/level7.json";
+            selectedLevelKey = "level7";
+            startGame();
+        }
+    });
         
-        _level6->addListener([this](const std::string& name, bool down) {
+        _level8->addListener([this](const std::string& name, bool down) {
             if (down) {
-                CULog("Level 6 selected");
-                selectedLevelFile = "json/level7.json"; // Ensure this file exists in your assets
-                selectedLevelKey = "level7";
-                startGame();
-            }
-        });
-        _level7->addListener([this](const std::string& name, bool down) {
-            if (down) {
-                CULog("Level 7 selected");
+                CULog("Level 8 selected");
                 selectedLevelFile = "json/level8.json"; // Ensure this file exists in your assets
                 selectedLevelKey = "level8";
                 startGame();
             }
         });
-        _level8->addListener([this](const std::string& name, bool down) {
+        _level9->addListener([this](const std::string& name, bool down) {
             if (down) {
-                CULog("Level 8 selected");
+                CULog("Level 9 selected");
+                selectedLevelFile = "json/level9.json"; // Ensure this file exists in your assets
+                selectedLevelKey = "level8";
+                startGame();
+            }
+        });
+        _level10->addListener([this](const std::string& name, bool down) {
+            if (down) {
+                CULog("Level 10 selected");
                 selectedLevelFile = "json/level9.json"; // Ensure this file exists in your assets
                 selectedLevelKey = "level9";
+                startGame();
+            }
+        });
+        _level11->addListener([this](const std::string& name, bool down) {
+            if (down) {
+                CULog("Level 10 selected");
+                selectedLevelFile = "json/level9.json"; // Ensure this file exists in your assets
+                selectedLevelKey = "level9";
+                startGame();
+            }
+        });
+        
+        _level13->addListener([this](const std::string& name, bool down) {
+            if (down) {
+                CULog("Level 13 selected");
+                selectedLevelFile = "json/level13.json"; // Ensure this file exists in your assets
+                selectedLevelKey = "level13";
                 startGame();
             }
         });
@@ -153,7 +189,7 @@ static std::string hex2dec(const std::string hex) {
     addChild(scene);
     setActive(false);
     return true;
-    }
+}
 
 bool LevelSelectScene::init(const std::shared_ptr<cugl::AssetManager>& assets, std::shared_ptr<NetEventController> network) {
     // no, we don't use this. we are single-player.
@@ -191,6 +227,11 @@ void LevelSelectScene::setActive(bool value) {
             _level6->activate();
             _level7->activate();
             _level8->activate();
+            _level9->activate();
+            _level10->activate();
+            _level11->activate();
+            _level13->activate();
+            unlockAllLevels();
             _backout->activate();
 
             state = INSCENE;
@@ -203,6 +244,10 @@ void LevelSelectScene::setActive(bool value) {
             _level6->deactivate();
             _level7->deactivate();
             _level8->deactivate();
+            _level9->deactivate();
+            _level10->deactivate();
+            _level11->deactivate();
+            _level13->deactivate();
             _backout->deactivate();
 
             _level1->setDown(false);
@@ -213,6 +258,10 @@ void LevelSelectScene::setActive(bool value) {
             _level6->setDown(false);
             _level7->setDown(false);
             _level8->setDown(false);
+            _level9->setDown(false);
+            _level10->setDown(false);
+            _level11->setDown(false);
+            _level13->setDown(false);
             _backout->setDown(false);
         }
     }
@@ -272,4 +321,39 @@ void LevelSelectScene::startGame(){
 //    _network->startGame();
     // this -> state = STARTGAME;
     this -> state = STARTGAME;
+}
+
+void LevelSelectScene::lockOrUnlockLevelButton(int levelNumber, bool isLock) {
+    std::string levelString = "level_levels_level";
+    std::string levelNum = std::to_string(levelNumber);
+    std::string buttonNodeString = levelString + levelNum;
+    levelString = levelString + levelNum + "_up";
+    std::string buttonString = "button_level";
+    buttonString = buttonString + levelNum;
+    auto _levelButtonImageNode = std::dynamic_pointer_cast<scene2::PolygonNode>(_assets->get<scene2::SceneNode>(levelString) -> getChildByName(buttonString));
+    std::string newTextureString = buttonString + (isLock ? "_locked" : "");
+    auto newTexture = _assets -> get<Texture>(newTextureString);
+    _levelButtonImageNode -> setTexture(newTexture);
+    
+    if (isLock) {
+        std::dynamic_pointer_cast<scene2::Button>(_assets -> get<scene2::SceneNode>(buttonNodeString)) -> setDown(false);
+        std::dynamic_pointer_cast<scene2::Button>(_assets -> get<scene2::SceneNode>(buttonNodeString)) -> deactivate();
+    } else {
+        std::dynamic_pointer_cast<scene2::Button>(_assets -> get<scene2::SceneNode>(buttonNodeString)) -> setDown(false);
+        std::dynamic_pointer_cast<scene2::Button>(_assets -> get<scene2::SceneNode>(buttonNodeString)) -> activate();
+    }
+    
+    std::cout << "locking or unlocking button " << levelNumber << "!" << std::endl;
+}
+
+void LevelSelectScene::lockAllLevels() {
+    for (int i = 1; i <= 15; i ++) {
+        lockOrUnlockLevelButton(i, true);
+    }
+}
+
+void LevelSelectScene::unlockAllLevels() {
+    for (int i = 1; i <= 15; i ++) {
+        lockOrUnlockLevelButton(i, false);
+    }
 }

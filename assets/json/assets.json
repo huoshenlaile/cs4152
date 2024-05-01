@@ -65,6 +65,9 @@
         "alpharelease_long_frenchfries": {
             "file": "textures/alpharelease_long_frenchfries.png"
         },
+        "alpharelease_long_frenchfries_3": {
+            "file": "textures/alpharelease_long_frenchfries_3.png"
+        },
         "alpharelease_ketchup_capoff": {
             "file": "textures/alpharelease_ketchup_capoff.png"
         },
@@ -277,6 +280,9 @@
         "complete_background": {
             "file": "textures/complete_background.png"
         },
+        "bad_complete_background": {
+            "file": "textures/bad_complete_background.png"
+        },
         "button_next": {
             "file": "textures/button_next.png"
         },
@@ -391,11 +397,74 @@
         "button_level15_down": {
             "file": "textures/levelselect/button_level15_down.png"
         },
+        "button_level1_locked": {
+            "file": "textures/levelselect/lockedstate/button_level1_locked.png"
+        },
+        "button_level2_locked": {
+            "file": "textures/levelselect/lockedstate/button_level2_locked.png"
+        },
+        "button_level3_locked": {
+            "file": "textures/levelselect/lockedstate/button_level3_locked.png"
+        },
+        "button_level4_locked": {
+            "file": "textures/levelselect/lockedstate/button_level4_locked.png"
+        },
+        "button_level5_locked": {
+            "file": "textures/levelselect/lockedstate/button_level5_locked.png"
+        },
+        "button_level6_locked": {
+            "file": "textures/levelselect/lockedstate/button_level6_locked.png"
+        },
+        "button_level7_locked": {
+            "file": "textures/levelselect/lockedstate/button_level7_locked.png"
+        },
+        "button_level8_locked": {
+            "file": "textures/levelselect/lockedstate/button_level8_locked.png"
+        },
+        "button_level9_locked": {
+            "file": "textures/levelselect/lockedstate/button_level9_locked.png"
+        },
+        "button_level10_locked": {
+            "file": "textures/levelselect/lockedstate/button_level10_locked.png"
+        },
+        "button_level11_locked": {
+            "file": "textures/levelselect/lockedstate/button_level11_locked.png"
+        },
+        "button_level12_locked": {
+            "file": "textures/levelselect/lockedstate/button_level12_locked.png"
+        },
+        "button_level13_locked": {
+            "file": "textures/levelselect/lockedstate/button_level13_locked.png"
+        },
+        "button_level14_locked": {
+            "file": "textures/levelselect/lockedstate/button_level14_locked.png"
+        },
+        "button_level15_locked": {
+            "file": "textures/levelselect/lockedstate/button_level15_locked.png"
+        },
         "red_paint": {
             "file": "textures/red_paint_141x144.png"
         },
         "purple_paint": {
             "file": "textures/purple_paint_141x144.png"
+        },
+        "black_drip_paint" : {
+            "file": "textures/black_paintcover_720x4900.png"
+        },
+        "blue_drip_paint" : {
+            "file": "textures/blue_paintcover_1560x720.png"
+        },
+        "green_drip_paint" : {
+            "file": "textures/green_paintcover_1560x720.png"
+        },
+        "pink_drip_paint" : {
+            "file": "textures/pink_paintcover_1560x720.png"
+        },
+        "purple_drip_paint" : {
+            "file": "textures/purple_paintcover_1560x720.png"
+        },
+        "red_drip_paint" : {
+            "file": "textures/red_paintcover_1560x720.png"
         },
         "pink_paint": {
             "file": "textures/pink_paint_141x144.png"
@@ -409,17 +478,17 @@
         "black_paint": {
             "file": "textures/black_paint_141x144.png"
         },
-        "green_splatter" : {
-            "file" : "textures/green_paintspaltter_148x680.png"
+        "green_splatter": {
+            "file": "textures/green_paintspaltter_148x680.png"
         },
-        "blue_splatter" : {
-            "file" : "textures/blue_paintspaltter_148x680.png"
+        "blue_splatter": {
+            "file": "textures/blue_paintspaltter_148x680.png"
         },
-        "purple_splatter" : {
-            "file" : "textures/purple_paintspaltter_148x680.png"
+        "purple_splatter": {
+            "file": "textures/purple_paintspaltter_148x680.png"
         },
-        "pink_splatter" : {
-            "file" : "textures/pink_paintspaltter_148x680.png"
+        "pink_splatter": {
+            "file": "textures/pink_paintspaltter_148x680.png"
         },
         "tube_curved_l": {
             "file": "textures/tube/tube_curved_left.png"
@@ -433,21 +502,46 @@
         "tube_str_r": {
             "file": "textures/tube/tube_straight_right.png"
         },
-        "ui_move": {
-            "file": "textures/ui_move.png"
+        "text_hi": {
+            "file": "textures/text_hi.png"
         },
-        "ui_hand": {
-            "file": "textures/ui_hand.png"
+        "ui_move_text": {
+            "file": "textures/ui_move_text.png"
         },
-        "ui_jump": {
-            "file": "textures/ui_jump.png"
+        "ui_hand_text": {
+            "file": "textures/ui_hand_text.png"
         },
-        "ui_walk": {
-            "file": "textures/ui_walk.png"
+        "ui_jump_text": {
+            "file": "textures/ui_jump_text.png"
         },
-        "ui_walkguide": {
-            "file": "textures/ui_walkguide.png"
+        "ui_walk_text": {
+            "file": "textures/ui_walk_text.png"
+        },
+        "ui_back_walk_text": {
+            "file": "textures/ui_back_walk_text.png"
+        },
+        "text_paint": {
+            "file": "textures/text_paint.png"
+        },
+        "text_deliver": {
+            "file": "textures/text_deliver.png"
+        },
+        "text_grab": {
+            "file": "textures/text_grab.png"
+        },
+        "text_hold": {
+            "file": "textures/text_hold.png"
+        },
+        "text_palette": {
+            "file": "textures/text_palette.png"
+        },
+        "text_yay": {
+            "file": "textures/text_yay.png"
+        },
+        "text_complete": {
+            "file": "textures/text_complete.png"
         }
+        
     },
     "jsons": {
         "server": "json/server.json",
@@ -473,6 +567,41 @@
             "type": "sample",
             "file": "sounds/sideburner-left.wav",
             "volume": 0.5
+        },
+        "touch1": {
+            "type": "sample",
+            "file": "sounds/touch1.wav",
+            "volume": 0.5
+        },
+        "touch2": {
+            "type": "sample",
+            "file": "sounds/touch2.wav",
+            "volume": 0.5
+        },
+        "touch3": {
+            "type": "sample",
+            "file": "sounds/touch3.wav",
+            "volume": 0.5
+        },
+        "touch4": {
+            "type": "sample",
+            "file": "sounds/touch4.wav",
+            "volume": 0.5
+        },
+        "touch5": {
+            "type": "sample",
+            "file": "sounds/touch5.wav",
+            "volume": 0.5
+        },
+        "touch6": {
+            "type": "sample",
+            "file": "sounds/touch6.wav",
+            "volume": 0.5
+        },
+        "menu": {
+            "type": "sample",
+            "file": "sounds/menu_music.wav",
+            "volume": 0.5
         }
     },
     "fonts": {
@@ -494,6 +623,7 @@
         "title": "widgets/title.json",
         "pause": "widgets/pause.json",
         "levelcomplete": "widgets/levelcomplete.json",
+        "levelcomplete_bad": "widgets/levelcomplete_bad.json",
         "pausebutton": "widgets/pausebutton.json"
     },
     "scene2s": {
@@ -525,6 +655,12 @@
             "type": "Widget",
             "data": {
                 "key": "levelcomplete"
+            }
+        },
+        "levelcomplete_bad" : {
+            "type": "Widget",
+            "data": {
+                "key": "levelcomplete_bad"
             }
         },
         "settings": {
