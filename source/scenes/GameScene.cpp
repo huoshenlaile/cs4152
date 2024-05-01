@@ -93,11 +93,14 @@ void GameScene::setActive(bool value) {
         if (value) {
             _worldnode->setVisible(true);
             _pauseButton->activate();
+            _mapButton -> activate();
             _gamePaused = false;
             _inputController->fillHand(_character->getLeftHandPosition(), _character->getRightHandPosition(), _character->getLHPos(), _character->getRHPos());
         } else {
             _pauseButton->deactivate();
             _pauseButton->setDown(false);
+            _mapButton -> deactivate();
+            _mapButton -> setDown(false);
         }
     }
 }
