@@ -371,7 +371,7 @@
                         {
                          "name":"instant",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }, 
                         {
                          "name":"paint_id",
@@ -397,6 +397,11 @@
                                  "texture":"splotch3"
                                 }
                             }
+                        }, 
+                        {
+                         "name":"rotation",
+                         "type":"float",
+                         "value":-90
                         }],
                  "rotation":0,
                  "type":"paint",
@@ -2215,7 +2220,7 @@
                         {
                          "name":"instant",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }, 
                         {
                          "name":"paint_id",
