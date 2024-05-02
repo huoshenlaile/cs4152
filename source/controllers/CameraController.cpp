@@ -68,7 +68,7 @@ void CameraController::update(float dt) {
 
         if (_initPosOnce == 0 && _horizontal) {
             _initPosOnce++;
-            _camera->setPosition(Vec2(_camera->getPosition().x + 300, _camera->getPosition().y));
+            _camera->setPosition(Vec2(_camera->getPosition().x+50, _camera->getPosition().y));
         }
         //        _camera->setPosition(Vec2(_camera->getPosition().x+30, _camera->getPosition().y));
         _camera->update();
@@ -304,8 +304,7 @@ void CameraController::setCamera(std::string selectedLevelKey) {
         setDefaultZoom(0.4);
         _levelCompleteZoom = DEFAULT_ZOOM;
         _panSpeed = Vec2(30, 0);
-        _isTutorial = true;
-    } else if (selectedLevelKey == "level1" || selectedLevelKey == "level2" || selectedLevelKey == "level3" || selectedLevelKey == "level10") {
+    } else if (selectedLevelKey == "level1"|| selectedLevelKey == "level2" ||selectedLevelKey == "level3"||selectedLevelKey == "level10") {
         this->setMode(true);
         setDefaultZoom(DEFAULT_ZOOM);
         _levelCompleteZoom = DEFAULT_ZOOM;
@@ -327,7 +326,7 @@ void CameraController::setCamera(std::string selectedLevelKey) {
     } else if (selectedLevelKey == "level4" || selectedLevelKey == "level5" || selectedLevelKey == "level6") {
         setMode(false);
         setDefaultZoom(0.2);
-        _levelCompleteZoom = 0.17;
+        _levelCompleteZoom = 0.16;
         _panSpeed = Vec2(0, -30);
     } else if (selectedLevelKey == "level7") {
         setMode(false);

@@ -765,7 +765,7 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0.2,
+                                 "friction":0.7,
                                  "restitution":0.1,
                                  "rotation":false,
                                  "texture":"alpharelease_mustard"
@@ -1931,8 +1931,8 @@
                  "type":"exit",
                  "visible":true,
                  "width":0,
-                 "x":3137.89486287747,
-                 "y":19084.9905971911
+                 "x":3152.8202360118,
+                 "y":16196.9308956986
                 }, 
                 {
                  "height":0,
@@ -1989,7 +1989,7 @@
                              "obstacle":
                                 {
                                  "bodytype":0,
-                                 "color-requirements":"",
+                                 "color-requirements":"orange,purple",
                                  "damping":0,
                                  "debugcolor":"yellow",
                                  "debugopacity":0,

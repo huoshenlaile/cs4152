@@ -112,7 +112,7 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0.7,
+                                 "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
                                  "texture":"alpharelease_frenchfries"
@@ -452,82 +452,12 @@
                                 }
                             }
                         }],
-                 "rotation":225,
+                 "rotation":206.672455625689,
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":5466.90202757952,
-                 "y":733.707222204978
-                }, 
-                {
-                 "height":0,
-                 "id":55,
-                 "name":"sensor2",
-                 "polygon":[
-                        {
-                         "x":-232.228155264695,
-                         "y":239.834578135941
-                        }, 
-                        {
-                         "x":-209.184814690535,
-                         "y":554.651990529163
-                        }, 
-                        {
-                         "x":-1271.57716486687,
-                         "y":564.206264460309
-                        }, 
-                        {
-                         "x":-1282.65995592851,
-                         "y":203.702419052113
-                        }],
-                 "properties":[
-                        {
-                         "name":"Pub2",
-                         "propertytype":"PubMessage",
-                         "type":"class",
-                         "value":
-                            {
-                             "Enabled":true,
-                             "Head":"paint2 out",
-                             "Trigger":"body192"
-                            }
-                        }, 
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":192,
-                                 "density":0,
-                                 "friction":0,
-                                 "publications":[
-                                        {
-                                         "body":
-                                            {
-
-                                            },
-                                         "message":"contacted",
-                                         "pub_id":"sensor2",
-                                         "trigger":"contacted"
-                                        }],
-                                 "restitution":0,
-                                 "rotation":false,
-                                 "texture":""
-                                }
-                            }
-                        }],
-                 "rotation":0,
-                 "type":"sensor",
-                 "visible":true,
-                 "width":0,
-                 "x":4830.52717735715,
-                 "y":1440.59844736946
+                 "x":4079.10438131723,
+                 "y":767.794998394178
                 }, 
                 {
                  "height":0,
@@ -593,7 +523,7 @@
                              "obstacle":
                                 {
                                  "bodytype":0,
-                                 "color-requirements":"orange",
+                                 "color-requirements":"purple",
                                  "damping":0,
                                  "debugcolor":"yellow",
                                  "debugopacity":0,
@@ -667,7 +597,7 @@
                             {
                              "Action":"show",
                              "Enabled":true,
-                             "Head":"paint2 out"
+                             "Head":"ui6 shown"
                             }
                         }, 
                         {
@@ -678,7 +608,7 @@
                         {
                          "name":"instant",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }, 
                         {
                          "name":"paint_id",
@@ -701,16 +631,21 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"splotch3"
+                                 "texture":""
                                 }
                             }
+                        }, 
+                        {
+                         "name":"rotation",
+                         "type":"float",
+                         "value":140
                         }],
                  "rotation":0,
                  "type":"paint",
                  "visible":true,
                  "width":0,
-                 "x":4623.61050048097,
-                 "y":1351.40398484164
+                 "x":3613.35760997875,
+                 "y":1384.69299516685
                 }, 
                 {
                  "height":0,
@@ -810,7 +745,6 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "propertytype":"AnimationDetails",
                          "type":"class",
                          "value":
                             {
@@ -1060,7 +994,6 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "propertytype":"AnimationDetails",
                          "type":"class",
                          "value":
                             {
@@ -1230,7 +1163,6 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "propertytype":"AnimationDetails",
                          "type":"class",
                          "value":
                             {
@@ -1321,7 +1253,6 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "propertytype":"AnimationDetails",
                          "type":"class",
                          "value":
                             {
@@ -1815,7 +1746,6 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "propertytype":"AnimationDetails",
                          "type":"class",
                          "value":
                             {
@@ -1880,8 +1810,8 @@
                  "type":"ui",
                  "visible":true,
                  "width":0,
-                 "x":3048.12834224599,
-                 "y":1358.28877005348
+                 "x":2825.22288490548,
+                 "y":1350.60237497277
                 }, 
                 {
                  "height":0,
@@ -1907,7 +1837,6 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "propertytype":"AnimationDetails",
                          "type":"class",
                          "value":
                             {
@@ -1997,7 +1926,6 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "propertytype":"AnimationDetails",
                          "type":"class",
                          "value":
                             {
@@ -2062,7 +1990,7 @@
                  "type":"ui",
                  "visible":true,
                  "width":0,
-                 "x":3357.77221031464,
+                 "x":2894.8679617414,
                  "y":1036.84585806213
                 }, 
                 {
@@ -2089,7 +2017,6 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "propertytype":"AnimationDetails",
                          "type":"class",
                          "value":
                             {
@@ -2154,8 +2081,8 @@
                  "type":"ui",
                  "visible":true,
                  "width":0,
-                 "x":4049.11433243482,
-                 "y":1039.72128147139
+                 "x":3594.61184761966,
+                 "y":1118.84433238353
                 }, 
                 {
                  "height":0,
@@ -2246,7 +2173,6 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "propertytype":"AnimationDetails",
                          "type":"class",
                          "value":
                             {
@@ -2338,7 +2264,6 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "propertytype":"AnimationDetails",
                          "type":"class",
                          "value":
                             {
@@ -2495,7 +2420,6 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "propertytype":"AnimationDetails",
                          "type":"class",
                          "value":
                             {
@@ -2587,7 +2511,6 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "propertytype":"AnimationDetails",
                          "type":"class",
                          "value":
                             {
@@ -2679,7 +2602,6 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "propertytype":"AnimationDetails",
                          "type":"class",
                          "value":
                             {

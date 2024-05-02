@@ -910,7 +910,7 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"splotch3"
+                                 "texture":""
                                 }
                             }
                         }],
@@ -2435,7 +2435,7 @@
                  "visible":true,
                  "width":0,
                  "x":2627.52525870296,
-                 "y":18336.2629108537
+                 "y":15414.1849887758
                 }, 
                 {
                  "height":0,
@@ -2492,7 +2492,7 @@
                              "obstacle":
                                 {
                                  "bodytype":0,
-                                 "color-requirements":"",
+                                 "color-requirements":"orange,purple",
                                  "damping":0,
                                  "debugcolor":"yellow",
                                  "debugopacity":0,

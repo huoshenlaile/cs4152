@@ -20,6 +20,9 @@ bool GrowingPaint::init(const std::shared_ptr<cugl::JsonValue>& json, Vec2 scale
             auto p = properties->get(i)->get("value")->asBool();
             std::cout << "INSTANT PAINT? " << p << std::endl;
             is_out = p;
+        } else if(properties->get(i)->getString("name") == "rotation"){
+            auto r = properties->get(i)->get("value")->asFloat();
+            angle_splash = CU_MATH_DEG_TO_RAD(r);
         }
     }
         
@@ -30,7 +33,7 @@ bool GrowingPaint::init(const std::shared_ptr<cugl::JsonValue>& json, Vec2 scale
     
     _actions = scene2::ActionManager::alloc();
     //TODO: May change per animation, if it does then parameterize in tiled
-    _animate = scene2::Animate::alloc(0, 7, 1.0f, 1);
+    _animate = scene2::Animate::alloc(0, 8, 0.5f, 1);
     
     return true;
 }
@@ -43,14 +46,19 @@ bool GrowingPaint::linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleWor
     _selfTexture->setPosition(_selfObstacle->getPosition() * scale);
     // add message
     
-    _animation = scene2::SpriteNode::allocWithSheet(_assets->get<Texture>(_textureName), 3, 3, 8);
-    _animation->setScale(2.5f);
-    _animation->setPosition(_selfObstacle->getPosition() * scale);
+    std::cout << "animation asset: " <<_textureName + "_splash" << std::endl;
+    _animation = scene2::SpriteNode::allocWithSheet(_assets->get<Texture>(_textureName + "_splash"), 3, 3, 9);
+    _animation->setScale(2.2f);
+    _animation->setAngle(angle_splash);
+    
+    Vec2 direction_paint{(float) (40.0f * cos(angle_splash + M_PI_2)), (float) (40 * sin(angle_splash + M_PI_2))};
+
+    _animation->setPosition(_selfObstacle->getPosition() * scale - direction_paint);
     
     if(is_out){ // if its initially out, it should have no sub
         _scene->addChild(_selfTexture);
         _scene->addChild(_animation);
-        _actions->activate("other", _animate, _animation);
+        _actions->activate("initial", _animate, _animation);
     } else {
         std::cout << "ADDDING AN ACTION FOR " <<sub_message_head << std::endl;
         actions[sub_message_head] = ([=](ActionParams params){
@@ -59,7 +67,7 @@ bool GrowingPaint::linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleWor
             }
             _scene->addChild(_selfTexture);
             _scene->addChild(_animation);
-            _actions->activate("other", _animate, _animation);
+            _actions->activate("initial", _animate, _animation);
             
             is_out = true;
             return PublishedMessage();
@@ -87,6 +95,17 @@ PublishedMessage GrowingPaint::onBeginContact(std::shared_ptr<cugl::physics2::Ob
 PublishedMessage GrowingPaint::timeUpdate(float timestep){
     if(is_out){
         _actions->update(timestep);
+        if(!_actions->isActive("initial") && !_initial_splash_done){ // either its complete, or it no longer exists.
+            std::cout << "activating second paint animation" << std::endl;
+            _initial_splash_done = true;
+            auto new_anim = scene2::SpriteNode::allocWithSheet(_assets->get<Texture>(_textureName + "_splat"), 3, 3, 9);
+            new_anim->setScale(2.2f); 
+            new_anim->setPosition(_animation->getPosition());
+            _scene->removeChild(_animation);
+            _scene->addChild(new_anim);
+            _actions->activate("splat", scene2::Animate::alloc(0, 8, 0.7f, 1), new_anim);
+            
+        }
     }
     return PublishedMessage();
 }
