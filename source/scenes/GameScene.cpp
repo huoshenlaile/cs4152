@@ -141,9 +141,12 @@ void GameScene::preUpdate(float dt) {
     if (_inputController->getStarted() || !_camera->getInitialUpdate()) {
         _camera->update(dt);
         _camera->setInitialUpdate(true);
-        /*if(pm.Head != ""){
-            _interactionController->_messageQueue.push(pm);
-        }*/
+    }
+    // make one time publish with a boolean flag
+    if(_camera->getState() == 1){
+        PublishedMessage pm;
+        pm.Head = "Erase Tap Continue Button";
+        _interactionController->pushToMessageQueue(pm);
     }
 
     // update interaction controller

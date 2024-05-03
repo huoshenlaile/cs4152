@@ -133,6 +133,8 @@ public:
     void setInitialUpdate(bool update) { _initialUpdate = update; }
     bool getReplay() { return _replay; }
     void setReplay(bool replay) { _replay = replay; }
+    
+    int getState() const {return _state; }
 
     void levelComplete();
     bool getCameraComplete() { return _completed; }

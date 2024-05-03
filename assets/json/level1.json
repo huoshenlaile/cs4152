@@ -1043,7 +1043,7 @@
                              "name":"1",
                              "repeat":false,
                              "rows":6,
-                             "scale":2,
+                             "scale":3,
                              "texture":"lv1_speechbubble_1",
                              "type":"string"
                             }
@@ -1121,11 +1121,23 @@
                              "name":"cont",
                              "rows":6,
                              "repeat":false,
-                             "scale":2,
+                             "scale":3,
                              "texture":"tap_to_continue",
                              "type":"string"
                             }
                         },
+                        {
+                         "name":"hideSub",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"hide",
+                             "Enabled":true,
+                             "Float1":0,
+                             "Head":"Erase Tap Continue Button"
+                            }
+                        }, 
                         {
                          "name":"properties",
                          "propertytype":"Physics",
@@ -1164,7 +1176,7 @@
                  "type":"ui",
                  "visible":true,
                  "width":0,
-                 "x":2842.54406484747,
+                 "x":3900.60876513291,
                  "y":1814.88846814249
                 }, 
                 {
@@ -1199,7 +1211,7 @@
                              "name":"2",
                              "rows":6,
                              "repeat":false,
-                             "scale":2,
+                             "scale":3,
                              "texture":"lv1_speechbubble_2",
                              "type":"string"
                             }
@@ -1277,7 +1289,7 @@
                              "name":"3",
                              "rows":6,
                              "repeat":false,
-                             "scale":2,
+                             "scale":3,
                              "texture":"lv1_speechbubble_3",
                              "type":"string"
                             }
