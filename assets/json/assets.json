@@ -526,6 +526,9 @@
         "pink_splatter": {
             "file": "textures/pink_paintspaltter_148x680.png"
         },
+        "red_splatter" : {
+            "file": "textures/red_paintspaltter_148x680.png"
+        },
         "tube_pink": {
             "file": "textures/tube/pink_tube.png"
         },
@@ -591,6 +594,12 @@
         },
         "lv1_speechbubble_3" : {
             "file" : "textures/lv1_speechbubble_3.png"
+        },
+        "lv2_speechbubble_1" : {
+            "file" : "textures/lv2_speechbubble_1.png"
+        },
+        "lv2_speechbubble_3" : {
+            "file" : "textures/lv2_speechbubble_3.png"
         },
         "tap_to_continue" : {
             "file" : "textures/ui_taptocont_370x138.png"
