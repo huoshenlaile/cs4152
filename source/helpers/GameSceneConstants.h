@@ -23,7 +23,7 @@
 /** The density for other body parts. Right now we don't have other body parts (I think - from George). */
 #define DEFAULT_DENSITY 1.0f
 /** Friction for character's hands*/
-#define HAND_FRICTION 150000000.0f
+#define HAND_FRICTION 1.0f
 /** Friction for other body parts (right now it's just the big head I think - from George) */
 #define OTHER_FRICTION 1.0f
 /** input scaler - how effective can the finger input affect the character movement.

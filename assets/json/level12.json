@@ -40,9 +40,9 @@
                          "type":"class",
                          "value":
                             {
-                             "speed":20,
-                             "wait":10,
-                             "xy":"45,25,105,25,45,25,0,0"
+                             "speed":5,
+                             "wait":5,
+                             "xy":"70,0,0,0"
                             }
                         }, 
                         {
@@ -69,8 +69,8 @@
                  "type":"movingwall",
                  "visible":true,
                  "width":0,
-                 "x":4426.35014881305,
-                 "y":895.650041122548
+                 "x":4062.16198492838,
+                 "y":743.904972837267
                 }, 
                 {
                  "height":0,
@@ -86,11 +86,11 @@
                          "y":-160.364200729927
                         }, 
                         {
-                         "x":548.701350364965,
+                         "x":1213.9645082597,
                          "y":-160.364200729927
                         }, 
                         {
-                         "x":548.701350364965,
+                         "x":1213.9645082597,
                          "y":0
                         }],
                  "properties":[
@@ -107,7 +107,7 @@
                             {
                              "speed":5,
                              "wait":10,
-                             "xy":"0,30,0,0"
+                             "xy":"-80,0,0,0"
                             }
                         }, 
                         {
@@ -126,7 +126,7 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
+                                 "texture":"alpharelease_long_frenchfries"
                                 }
                             }
                         }],
@@ -134,8 +134,8 @@
                  "type":"movingwall",
                  "visible":true,
                  "width":0,
-                 "x":4696.37269363775,
-                 "y":2217.27823881955
+                 "x":6653.61505708321,
+                 "y":2128.34426147949
                 }, 
                 {
                  "height":0,
@@ -184,7 +184,7 @@
                  "visible":true,
                  "width":0,
                  "x":4073.97881703376,
-                 "y":1371.24171201027
+                 "y":1211.90939031073
                 }, 
                 {
                  "ellipse":true,
@@ -196,7 +196,7 @@
                  "visible":true,
                  "width":153.103,
                  "x":4352.77575283786,
-                 "y":993.780845696571
+                 "y":834.448523997026
                 }, 
                 {
                  "height":0,
@@ -249,116 +249,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":7240.84643966716,
-                 "y":1457.26779780301
-                }, 
-                {
-                 "height":0,
-                 "id":27,
-                 "name":"",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":0,
-                         "y":-174.121
-                        }, 
-                        {
-                         "x":557.445,
-                         "y":-174.121
-                        }, 
-                        {
-                         "x":557.445,
-                         "y":0
-                        }],
-                 "properties":[
-                        {
-                         "name":"Grab",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":192,
-                                 "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
-                                 "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
-                                }
-                            }
-                        }],
-                 "rotation":0,
-                 "type":"wall",
-                 "visible":true,
-                 "width":0,
-                 "x":7266.74597867288,
-                 "y":2238.01683889636
-                }, 
-                {
-                 "height":0,
-                 "id":42,
-                 "name":"",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":0,
-                         "y":-174.121
-                        }, 
-                        {
-                         "x":557.445,
-                         "y":-174.121
-                        }, 
-                        {
-                         "x":557.445,
-                         "y":0
-                        }],
-                 "properties":[
-                        {
-                         "name":"Grab",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":192,
-                                 "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
-                                 "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
-                                }
-                            }
-                        }],
-                 "rotation":0,
-                 "type":"wall",
-                 "visible":true,
-                 "width":0,
-                 "x":6683.99539592229,
-                 "y":2238.01683889636
+                 "x":7196.13705069548,
+                 "y":1129.39894534399
                 }, 
                 {
                  "height":0,
@@ -371,14 +263,14 @@
                         }, 
                         {
                          "x":0,
-                         "y":-174.121
+                         "y":-44.0255967042498
                         }, 
                         {
-                         "x":557.445,
-                         "y":-174.121
+                         "x":3020.58463573287,
+                         "y":-44.0255967042498
                         }, 
                         {
-                         "x":557.445,
+                         "x":3020.58463573287,
                          "y":0
                         }],
                  "properties":[
@@ -411,62 +303,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":6051.26519121897,
-                 "y":2182.0188758684
-                }, 
-                {
-                 "height":0,
-                 "id":44,
-                 "name":"",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":0,
-                         "y":-174.121
-                        }, 
-                        {
-                         "x":557.445,
-                         "y":-174.121
-                        }, 
-                        {
-                         "x":557.445,
-                         "y":0
-                        }],
-                 "properties":[
-                        {
-                         "name":"Grab",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":192,
-                                 "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
-                                 "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
-                                }
-                            }
-                        }],
-                 "rotation":0,
-                 "type":"wall",
-                 "visible":true,
-                 "width":0,
-                 "x":5434.20530011189,
-                 "y":2024.72909970385
+                 "x":7198.91956448151,
+                 "y":47.4558412472642
                 }, 
                 {
                  "height":0,
@@ -501,7 +339,7 @@
                         {
                          "name":"Grab",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }, 
                         {
                          "name":"properties",
@@ -540,23 +378,23 @@
                          "y":0
                         }, 
                         {
-                         "x":-686.854,
+                         "x":-570.184682101979,
                          "y":-103.332
                         }, 
                         {
-                         "x":674.697,
+                         "x":560.092675386849,
                          "y":-106.371
                         }, 
                         {
-                         "x":677.736,
+                         "x":562.61546953074,
                          "y":97.2536
                         }, 
                         {
-                         "x":-692.932,
+                         "x":-575.23027038976,
                          "y":100.293
                         }, 
                         {
-                         "x":-692.932,
+                         "x":-575.23027038976,
                          "y":-109.41
                         }],
                  "properties":[
@@ -589,8 +427,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":7134.91163653099,
-                 "y":1026.62095888633
+                 "x":7090.20224755931,
+                 "y":581.050376817074
                 }, 
                 {
                  "height":0,
@@ -734,8 +572,8 @@
                  "type":"exit",
                  "visible":true,
                  "width":0,
-                 "x":4072.71209778488,
-                 "y":1821.73460493565
+                 "x":8671.82055395187,
+                 "y":709.157400253618
                 }, 
                 {
                  "height":0,
@@ -808,169 +646,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":4473.71828273774,
-                 "y":1871.78698312637
-                }, 
-                {
-                 "height":0,
-                 "id":18,
-                 "name":"sensor2",
-                 "polygon":[
-                        {
-                         "x":-63.0969,
-                         "y":239.835
-                        }, 
-                        {
-                         "x":-71.6831,
-                         "y":500.007
-                        }, 
-                        {
-                         "x":-271.255,
-                         "y":572.013
-                        }, 
-                        {
-                         "x":-348.501,
-                         "y":203.702
-                        }],
-                 "properties":[
-                        {
-                         "name":"Pub2",
-                         "propertytype":"PubMessage",
-                         "type":"class",
-                         "value":
-                            {
-                             "Enabled":true,
-                             "Head":"paint2 out",
-                             "Trigger":"body192"
-                            }
-                        }, 
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":192,
-                                 "density":0,
-                                 "friction":0,
-                                 "publications":[],
-                                 "restitution":0,
-                                 "rotation":false,
-                                 "texture":""
-                                }
-                            }
-                        }],
-                 "rotation":0,
-                 "type":"sensor",
-                 "visible":true,
-                 "width":0,
-                 "x":7269.38631964945,
-                 "y":-175.10747529506
-                }, 
-                {
-                 "height":0,
-                 "id":19,
-                 "name":"paint2",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":276.624,
-                         "y":123.202
-                        }, 
-                        {
-                         "x":250.279,
-                         "y":389.06
-                        }, 
-                        {
-                         "x":26.3452,
-                         "y":486.325
-                        }, 
-                        {
-                         "x":-197.589,
-                         "y":492.809
-                        }, 
-                        {
-                         "x":-197.589,
-                         "y":45.3903
-                        }],
-                 "properties":[
-                        {
-                         "name":"AnimationAsset",
-                         "type":"string",
-                         "value":"purple_paint"
-                        }, 
-                        {
-                         "name":"Pub1",
-                         "propertytype":"PubMessage",
-                         "type":"class",
-                         "value":
-                            {
-                             "Body":"purple",
-                             "Enabled":true,
-                             "Head":"character color",
-                             "Trigger":"TOUCH: character body"
-                            }
-                        }, 
-                        {
-                         "name":"Sub1",
-                         "propertytype":"SubMessage",
-                         "type":"class",
-                         "value":
-                            {
-                             "Action":"show",
-                             "Enabled":true,
-                             "Head":"paint2 out"
-                            }
-                        }, 
-                        {
-                         "name":"color",
-                         "type":"string",
-                         "value":"purple"
-                        }, 
-                        {
-                         "name":"instant",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"paint_id",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":192,
-                                 "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
-                                 "rotation":false,
-                                 "texture":"splotch3"
-                                }
-                            }
-                        }],
-                 "rotation":0,
-                 "type":"paint",
-                 "visible":true,
-                 "width":0,
-                 "x":8123.70977457274,
-                 "y":11.5264800032762
+                 "x":9072.82673890473,
+                 "y":759.209778444338
                 }, 
                 {
                  "height":0,
@@ -1034,8 +711,8 @@
                  "type":"sensor",
                  "visible":true,
                  "width":0,
-                 "x":7938.86897938188,
-                 "y":1107.83585491168
+                 "x":8035.49373718987,
+                 "y":1584.73600394298
                 }, 
                 {
                  "height":0,
@@ -1158,20 +835,8 @@
                  "type":"paint",
                  "visible":true,
                  "width":0,
-                 "x":7356.88860373336,
-                 "y":1033.50411268331
-                }, 
-                {
-                 "gid":46,
-                 "height":52,
-                 "id":24,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":175,
-                 "x":4644.14003438461,
-                 "y":942.24862278597
+                 "x":7312.17921476168,
+                 "y":705.635260224294
                 }, 
                 {
                  "height":0,
@@ -1208,7 +873,7 @@
                             {
                              "speed":5,
                              "wait":10,
-                             "xy":"0,38,0,0"
+                             "xy":"0,40,0,0"
                             }
                         }, 
                         {
@@ -1235,8 +900,8 @@
                  "type":"movingwall",
                  "visible":true,
                  "width":0,
-                 "x":7882.19722038385,
-                 "y":2230.31105228326
+                 "x":7896.65505170915,
+                 "y":2133.92551011459
                 }],
          "opacity":1,
          "type":"objectgroup",
