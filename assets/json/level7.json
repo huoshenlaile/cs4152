@@ -4196,12 +4196,12 @@
                                 }
                             }
                         }],
-                 "rotation":17.6259228736984,
+                 "rotation":0,
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":4377.49740277665,
-                 "y":20315.8895351748
+                 "x":4392.82943901646,
+                 "y":20192.6686493074
                 }, 
                 {
                  "height":0,
@@ -4256,7 +4256,7 @@
                                  "friction":0,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"staticplatform_comet"
+                                 "texture":"smoothplatform_comet"
                                 }
                             }
                         }],
@@ -4920,7 +4920,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":225,
+ "nextobjectid":226,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
