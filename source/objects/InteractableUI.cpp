@@ -119,7 +119,7 @@ PublishedMessage InteractableUI::timeUpdate(float timestep){
     if ((_cd <= _show_cd || _cd <= _hide_cd) && _selfTexture->isVisible()){
         _cd+=timestep;
     }
-    if (_animated){
+    if (_animated && _shown_already){
         _actions->update(timestep);
         if (!_actions->isActive(_aniname) && _repeat){
             _actions->activate(_aniname, _animate, _animation);
