@@ -75,6 +75,7 @@ bool LevelSelectScene::init(const std::shared_ptr<cugl::AssetManager> &assets) {
     _level9 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level9"));
     _level10 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level10"));
     _level11 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level11"));
+    _level12 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level12"));
     _level13 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level13"));
     _level14 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level14"));
     _backout = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_home"));
