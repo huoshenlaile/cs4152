@@ -305,7 +305,7 @@ void CameraController::setCamera(std::string selectedLevelKey) {
         setDefaultZoom(0.4);
         _levelCompleteZoom = DEFAULT_ZOOM;
         _panSpeed = Vec2(30, 0);
-    } else if (selectedLevelKey == "level1"|| selectedLevelKey == "level2" ||selectedLevelKey == "level3"||selectedLevelKey == "level10") {
+    } else if (selectedLevelKey == "level1"|| selectedLevelKey == "level2" ||selectedLevelKey == "level3") {
         this->setMode(true);
         setDefaultZoom(DEFAULT_ZOOM);
         _levelCompleteZoom = DEFAULT_ZOOM;
@@ -315,7 +315,7 @@ void CameraController::setCamera(std::string selectedLevelKey) {
         setDefaultZoom(DEFAULT_ZOOM);
         _levelCompleteZoom = 0.16;
         _panSpeed = Vec2(0, -30);
-    } else if (selectedLevelKey == "level4" || selectedLevelKey == "level5" || selectedLevelKey == "level6") {
+    } else if (selectedLevelKey == "level4" || selectedLevelKey == "level5" || selectedLevelKey == "level6" || selectedLevelKey == "level10") {
         setMode(false);
         setDefaultZoom(0.2);
         _levelCompleteZoom = 0.16;
@@ -323,12 +323,12 @@ void CameraController::setCamera(std::string selectedLevelKey) {
     } else if (selectedLevelKey == "level7") {
         setMode(false);
         setDefaultZoom(0.2);
-        _levelCompleteZoom = 0.165;
+        _levelCompleteZoom = 0.16;
         _panSpeed = Vec2(0, -30);
     } else if (selectedLevelKey == "level8") {
         setMode(false);
         setDefaultZoom(0.2);
-        _levelCompleteZoom = 0.17;
+        _levelCompleteZoom = 0.16;
         _panSpeed = Vec2(0, -30);
     } else if (selectedLevelKey == "level9") {
         setMode(false);
@@ -338,12 +338,12 @@ void CameraController::setCamera(std::string selectedLevelKey) {
     } else if (selectedLevelKey == "level13") {
         setMode(false);
         setDefaultZoom(0.2);
-        _levelCompleteZoom = 0.17;
+        _levelCompleteZoom = 0.16;
         _panSpeed = Vec2(0, -30);
     } else if (selectedLevelKey == "paintdrip") {
         setMode(false);
-        setDefaultZoom(0.17);
-        _levelCompleteZoom = 0.15;
+        setDefaultZoom(0.2);
+        _levelCompleteZoom = 0.16;
         _panSpeed = Vec2(0, -30);
     }
 }
