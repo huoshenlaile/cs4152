@@ -339,12 +339,10 @@ void GameScene::finishLevel() {
     // TODO: Emily publish end UI
     PublishedMessage pm;
     if(this->defaultGoodOrBad == 0){
-        pm.Head = "UI End";
-        pm.Body = "Bad";
+        pm.Head = "UI End Good";
         _interactionController->pushToMessageQueue(pm);
     } else {
-        pm.Head = "UI End";
-        pm.Body = "Bad";
+        pm.Head = "UI End Bad";
         _interactionController->pushToMessageQueue(pm);
     }
     
