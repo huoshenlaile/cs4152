@@ -39,6 +39,7 @@ void CameraController::update(float dt) {
         _moveToTop = false;
         _replay = false;
         _displayed = false;
+        this->setZoom(_levelCompleteZoom);
     }
 
     if (!_moveToLeft && _horizontal) {
@@ -331,8 +332,8 @@ void CameraController::setCamera(std::string selectedLevelKey) {
         _panSpeed = Vec2(0, -30);
     } else if (selectedLevelKey == "level9") {
         setMode(false);
-        setDefaultZoom(0.5);
-        _levelCompleteZoom = 0.17;
+        setDefaultZoom(0.2);
+        _levelCompleteZoom = 0.16;
         _panSpeed = Vec2(0, -30);
     } else if (selectedLevelKey == "level13") {
         setMode(false);
