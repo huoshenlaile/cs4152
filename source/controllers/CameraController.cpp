@@ -309,15 +309,6 @@ void CameraController::setCamera(std::string selectedLevelKey) {
         setDefaultZoom(DEFAULT_ZOOM);
         _levelCompleteZoom = DEFAULT_ZOOM;
         _panSpeed = Vec2(30, 0);
-    } else if (selectedLevelKey == "tube") {
-        //        setMode(false);
-        //        setDefaultZoom(0.15);
-        //        _levelCompleteZoom = 0.16;
-        //        _panSpeed = Vec2(0, -30);
-        setMode(false);
-        setDefaultZoom(0.2);
-        _levelCompleteZoom = 0.17;
-        _panSpeed = Vec2(0, -30);
     } else if (selectedLevelKey == "doodlejump") {
         setMode(false);
         setDefaultZoom(DEFAULT_ZOOM);
@@ -340,13 +331,14 @@ void CameraController::setCamera(std::string selectedLevelKey) {
         _panSpeed = Vec2(0, -30);
     } else if (selectedLevelKey == "level9") {
         setMode(false);
-        setDefaultZoom(0.2);
+        setDefaultZoom(0.5);
         _levelCompleteZoom = 0.17;
         _panSpeed = Vec2(0, -30);
     } else if (selectedLevelKey == "level13") {
         setMode(false);
         setDefaultZoom(0.2);
         _levelCompleteZoom = 0.17;
+        _panSpeed = Vec2(0, -30);
     } else if (selectedLevelKey == "paintdrip") {
         setMode(false);
         setDefaultZoom(0.17);
