@@ -36,7 +36,7 @@
                         }, 
                         {
                          "name":"Movements",
-                         "propertytype":"Moving",
+                         "propertytype":"bodytype",
                          "type":"class",
                          "value":
                             {
@@ -101,7 +101,7 @@
                         }, 
                         {
                          "name":"Movements",
-                         "propertytype":"Moving",
+                         "propertytype":"bodytype",
                          "type":"class",
                          "value":
                             {
@@ -251,60 +251,6 @@
                  "width":0,
                  "x":7240.84643966716,
                  "y":1457.26779780301
-                }, 
-                {
-                 "height":0,
-                 "id":40,
-                 "name":"",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":0,
-                         "y":-174.121
-                        }, 
-                        {
-                         "x":557.445,
-                         "y":-174.121
-                        }, 
-                        {
-                         "x":557.445,
-                         "y":0
-                        }],
-                 "properties":[
-                        {
-                         "name":"Grab",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":192,
-                                 "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
-                                 "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
-                                }
-                            }
-                        }],
-                 "rotation":0,
-                 "type":"wall",
-                 "visible":true,
-                 "width":0,
-                 "x":7248.61644743716,
-                 "y":882.287222822437
                 }, 
                 {
                  "height":0,
@@ -1256,7 +1202,7 @@
                         }, 
                         {
                          "name":"Movements",
-                         "propertytype":"Moving",
+                         "propertytype":"bodytype",
                          "type":"class",
                          "value":
                             {

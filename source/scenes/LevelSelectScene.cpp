@@ -168,15 +168,23 @@ bool LevelSelectScene::init(const std::shared_ptr<cugl::AssetManager> &assets) {
                 startGame();
             }
         });
-        _level11->addListener([this](const std::string& name, bool down) {
-            if (down) {
-                CULog("Level 11 selected");
-                selectedLevelFile = "json/paintdrip.json"; // Ensure this file exists in your assets
-                selectedLevelKey = "paintdrip";
-                startGame();
-            }
-        });
+    _level11->addListener([this](const std::string& name, bool down) {
+        if (down) {
+            CULog("Level 11 selected");
+            selectedLevelFile = "json/level11.json"; // Ensure this file exists in your assets
+            selectedLevelKey = "level11";
+            startGame();
+        }
+    });
         
+        _level12->addListener([this](const std::string& name, bool down) {
+        if (down) {
+            CULog("Level 12 selected");
+            selectedLevelFile = "json/level12.json"; // Ensure this file exists in your assets
+            selectedLevelKey = "level12";
+            startGame();
+        }
+        });
         _level13->addListener([this](const std::string& name, bool down) {
             if (down) {
                 CULog("Level 13 selected");
@@ -185,6 +193,14 @@ bool LevelSelectScene::init(const std::shared_ptr<cugl::AssetManager> &assets) {
                 startGame();
             }
         });
+    _level14->addListener([this](const std::string& name, bool down) {
+        if (down) {
+            CULog("Level 14 selected");
+            selectedLevelFile = "json/paintdrip.json"; // Ensure this file exists in your assets
+            selectedLevelKey = "paintdrip";
+            startGame();
+        }
+    });
 
     addChild(scene);
     setActive(false);
@@ -230,7 +246,9 @@ void LevelSelectScene::setActive(bool value) {
             _level9->activate();
             _level10->activate();
             _level11->activate();
+            _level12->activate();
             _level13->activate();
+            _level14->activate();
             unlockAllLevels();
             _backout->activate();
 
@@ -247,7 +265,9 @@ void LevelSelectScene::setActive(bool value) {
             _level9->deactivate();
             _level10->deactivate();
             _level11->deactivate();
+            _level12->deactivate();
             _level13->deactivate();
+            _level14->deactivate();
             _backout->deactivate();
 
             _level1->setDown(false);
@@ -261,7 +281,9 @@ void LevelSelectScene::setActive(bool value) {
             _level9->setDown(false);
             _level10->setDown(false);
             _level11->setDown(false);
+            _level12->setDown(false);
             _level13->setDown(false);
+            _level14->setDown(false);
             _backout->setDown(false);
         }
     }
