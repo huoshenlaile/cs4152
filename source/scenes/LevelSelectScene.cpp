@@ -72,11 +72,11 @@ bool LevelSelectScene::init(const std::shared_ptr<cugl::AssetManager> &assets) {
     _level6 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level6"));
     _level7 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level7"));
     _level8 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level8"));
-        _level9 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level9"));
-        _level10 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level10"));
-        _level11 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level11"));
-        
-        _level13 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level13"));
+    _level9 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level9"));
+    _level10 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level10"));
+    _level11 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level11"));
+    _level13 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level13"));
+    _level14 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level14"));
     _backout = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_home"));
 
     // Program the buttons
@@ -143,61 +143,59 @@ bool LevelSelectScene::init(const std::shared_ptr<cugl::AssetManager> &assets) {
             startGame();
         }
     });
-        
-        _level8->addListener([this](const std::string& name, bool down) {
-            if (down) {
-                CULog("Level 8 selected");
-                selectedLevelFile = "json/level8.json"; // Ensure this file exists in your assets
-                selectedLevelKey = "level8";
-                startGame();
-            }
-        });
-        _level9->addListener([this](const std::string& name, bool down) {
-            if (down) {
-                CULog("Level 9 selected");
-                selectedLevelFile = "json/level9.json"; // Ensure this file exists in your assets
-                selectedLevelKey = "level9";
-                startGame();
-            }
-        });
-        _level10->addListener([this](const std::string& name, bool down) {
-            if (down) {
-                CULog("Level 10 selected");
-                selectedLevelFile = "json/level10.json"; // Ensure this file exists in your assets
-                selectedLevelKey = "level10";
-                startGame();
-            }
-        });
-    _level11->addListener([this](const std::string& name, bool down) {
+    _level8->addListener([this](const std::string& name, bool down) {
         if (down) {
-            CULog("Level 11 selected");
-            selectedLevelFile = "json/level11.json"; // Ensure this file exists in your assets
-            selectedLevelKey = "level11";
+            CULog("Level 8 selected");
+            selectedLevelFile = "json/level8.json"; // Ensure this file exists in your assets
+            selectedLevelKey = "level8";
             startGame();
         }
     });
-        
-        _level12->addListener([this](const std::string& name, bool down) {
+    _level9->addListener([this](const std::string& name, bool down) {
         if (down) {
-            CULog("Level 12 selected");
-            selectedLevelFile = "json/level12.json"; // Ensure this file exists in your assets
-            selectedLevelKey = "level12";
+            CULog("Level 9 selected");
+            selectedLevelFile = "json/level9.json"; // Ensure this file exists in your assets
+            selectedLevelKey = "level9";
             startGame();
         }
-        });
-        _level13->addListener([this](const std::string& name, bool down) {
-            if (down) {
-                CULog("Level 13 selected");
-                selectedLevelFile = "json/level13.json"; // Ensure this file exists in your assets
-                selectedLevelKey = "level13";
-                startGame();
-            }
-        });
+    });
+    _level10->addListener([this](const std::string& name, bool down) {
+        if (down) {
+            CULog("Level 10 selected");
+            selectedLevelFile = "json/level10.json"; // Ensure this file exists in your assets
+            selectedLevelKey = "level10";
+            startGame();
+        }
+    });
+    _level11->addListener([this](const std::string& name, bool down) {
+        if (down) {
+            CULog("Level 11 selected");
+            selectedLevelFile = "json/paintdrip.json"; // Ensure this file exists in your assets
+            selectedLevelKey = "paintdrip";
+            startGame();
+        }
+    });
+    _level12->addListener([this](const std::string& name, bool down) {
+    if (down) {
+        CULog("Level 12 selected");
+        selectedLevelFile = "json/level12.json"; // Ensure this file exists in your assets
+        selectedLevelKey = "level12";
+        startGame();
+    }
+    });
+    _level13->addListener([this](const std::string& name, bool down) {
+        if (down) {
+            CULog("Level 13 selected");
+            selectedLevelFile = "json/level13.json"; // Ensure this file exists in your assets
+            selectedLevelKey = "level13";
+            startGame();
+        }
+    });
     _level14->addListener([this](const std::string& name, bool down) {
         if (down) {
             CULog("Level 14 selected");
-            selectedLevelFile = "json/paintdrip.json"; // Ensure this file exists in your assets
-            selectedLevelKey = "paintdrip";
+            selectedLevelFile = "json/level14.json"; // Ensure this file exists in your assets
+            selectedLevelKey = "level14";
             startGame();
         }
     });
