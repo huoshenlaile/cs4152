@@ -66,6 +66,10 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, std::str
     _audioController -> init(_assets);
     _audioController -> play("touch1", "touch1");
     _interactionController -> setAudioController(_audioController);
+    
+    PublishedMessage pm;
+    pm.Head = "UI Start";
+    _interactionController->pushToMessageQueue(pm);
 
     return true;
 }
@@ -136,6 +140,9 @@ void GameScene::preUpdate(float dt) {
     if (_inputController->getStarted() || !_camera->getInitialUpdate()) {
         _camera->update(dt);
         _camera->setInitialUpdate(true);
+        /*if(pm.Head != ""){
+            _interactionController->_messageQueue.push(pm);
+        }*/
     }
 
     // update interaction controller
@@ -327,6 +334,18 @@ bool GameScene::isCharacterInMap() {
  */
 void GameScene::finishLevel() {
     _camera->levelComplete();
+    // TODO: Emily publish end UI
+    PublishedMessage pm;
+    if(this->defaultGoodOrBad == 0){
+        pm.Head = "UI End";
+        pm.Body = "Bad";
+        _interactionController->pushToMessageQueue(pm);
+    } else {
+        pm.Head = "UI End";
+        pm.Body = "Bad";
+        _interactionController->pushToMessageQueue(pm);
+    }
+    
     if (_camera->getCameraComplete()) {
         if (this -> defaultGoodOrBad == 0) {
             _levelCompleteGood->setVisible(true);

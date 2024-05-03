@@ -579,8 +579,13 @@
         },
         "text_complete": {
             "file": "textures/text_complete.png"
+        },
+        "lv1_speechbubble_1" : {
+            "file" : "textures/lv1_speechbubble_1.png"
+        },
+        "tap_to_continue" : {
+            "file" : "textures/ui_taptocont_370x138.png"
         }
-        
     },
     "jsons": {
         "server": "json/server.json",
