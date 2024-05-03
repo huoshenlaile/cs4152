@@ -23,6 +23,9 @@
         "staticplatform_comet": {
             "file": "textures/staticplatform_comet.png"
         },
+        "smoothplatform_comet": {
+            "file": "textures/movingplatform_comet.png"
+        },
         "bouncingplatform_slime": {
             "file": "textures/bouncingplatform_slime.png"
         },
