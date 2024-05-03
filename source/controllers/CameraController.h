@@ -25,6 +25,8 @@ protected:
     /** The camera for this scene */
     std::shared_ptr<cugl::OrthographicCamera> _camera;
     /** The lerp speed of the camera */
+    //std::shared_ptr<InteractionController2> _interactionController;
+    
     float _lerp;
     /** The time to cancel the pan if someone is panning */
     float _timeToCancelPan;
@@ -43,7 +45,8 @@ protected:
     int _state, _tutorialState;
     int _counter;
     int _initPosOnce;
-
+    
+    std::map<std::string, std::function<PublishedMessage(ActionParams)>> uiActions;
 public:
     /**
      * Creates a new camera controller with the default values.

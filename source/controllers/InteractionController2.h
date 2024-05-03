@@ -159,6 +159,8 @@ public:
     void ungrabIfNecessary();
 
     void grabCDIfNecessary(float dt);
+    void pushToMessageQueue(PublishedMessage pm);
+
 };
 
 #endif

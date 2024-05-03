@@ -11,6 +11,7 @@ bool InteractableUI::init(const std::shared_ptr<cugl::JsonValue>& json, Vec2 sca
         if (prop->getString("propertytype") == "SubMessage" && prop->get("value")->getString("Action") == "show"){
             auto pub = prop->get("value");
             show_subscription_head = pub->getString("Head");
+            std::cout << "found show_subscription_head " << show_subscription_head << std::endl;
             _show_cd = pub->getFloat("Float1");
         }else if(prop->getString("propertytype") == "SubMessage" && prop->get("value")->getString("Action") == "hide"){
             auto pub = prop->get("value");
@@ -28,6 +29,7 @@ bool InteractableUI::init(const std::shared_ptr<cugl::JsonValue>& json, Vec2 sca
             _cells = p->getInt("cells");
             _cols = p->getInt("columns");
             _rows = p->getInt("rows");
+            _repeat = p->getBool("repeat", true);
             _aniname = p->getString("name");
             _scale = p->getFloat("scale");
 
@@ -53,7 +55,6 @@ bool InteractableUI::linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleW
     if (_animated){
         _animation = scene2::SpriteNode::allocWithSheet(_assets->get<Texture>(_textureName), _rows, _cols, _cells);
         _animation->setScale(_scale);
-        std::cout << "(" << _animation->getSize().width << ", " << _animation->getSize().height << ")\n";
         _animation->setPosition(_selfObstacle->getPosition() * scale);
         
         _scene->addChild(_animation);
@@ -69,7 +70,9 @@ bool InteractableUI::linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleW
     
 
     actions[show_subscription_head] = ([=](ActionParams params){
+        std::cout << "SHOW IS TRIGGERED??????" << std::endl;
         if (!_shown_already && _cd >= _show_cd && !_selfTexture->isVisible()){
+            std::cout << "UI TEXT IS SHOWN!!!!" << std::endl;
             _cd=0;
             _shown_already = true;
             _selfTexture->setVisible(true);
@@ -83,27 +86,31 @@ bool InteractableUI::linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleW
         }
         return PublishedMessage();
     });
-    actions[hide_subscription_head] = ([=](ActionParams params){
-        if (_cd >= _hide_cd && _selfTexture->isVisible()){
-            _cd=0;
-            _selfTexture->setVisible(false);
-            if(_animated){
-                _animation->setVisible(false);
+    if(hide_subscription_head != ""){
+        actions[hide_subscription_head] = ([=](ActionParams params){
+            if (_cd >= _hide_cd && _selfTexture->isVisible()){
+                _cd=0;
+                _selfTexture->setVisible(false);
+                if(_animated){
+                    _animation->setVisible(false);
+                }
+                PublishedMessage m = PublishedMessage();
+                m.Head = getName() + " hidden";
+                m.enable = true;
+                return m;
             }
+            return PublishedMessage();
+        });
+    }
+    if(toggle_subscription_head != ""){
+        actions[toggle_subscription_head] = ([=](ActionParams params){
+            _selfTexture->setVisible(!_selfTexture->isVisible());
             PublishedMessage m = PublishedMessage();
-            m.Head = getName() + " hidden";
+            m.Head = getName() + " toggle";
             m.enable = true;
             return m;
-        }
-        return PublishedMessage();
-    });
-    actions[toggle_subscription_head] = ([=](ActionParams params){
-        _selfTexture->setVisible(!_selfTexture->isVisible());
-        PublishedMessage m = PublishedMessage();
-        m.Head = getName() + " toggle";
-        m.enable = true;
-        return m;
-    });
+        });
+    }
     return true;
 }
 
@@ -114,7 +121,7 @@ PublishedMessage InteractableUI::timeUpdate(float timestep){
     }
     if (_animated){
         _actions->update(timestep);
-        if (!_actions->isActive(_aniname)){
+        if (!_actions->isActive(_aniname) && _repeat){
             _actions->activate(_aniname, _animate, _animation);
         }
     }

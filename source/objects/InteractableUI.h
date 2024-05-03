@@ -16,6 +16,7 @@ protected:
 
     bool _showing = false;
     bool _animated = false;
+    bool _repeat = true;
     std::string _textureName;
     std::string _aniname;
     int _cells;
