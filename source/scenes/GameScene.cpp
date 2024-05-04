@@ -217,7 +217,7 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     _mapButton->doLayout();
     _mapButton->addListener([this](const std::string &name, bool down) {
         if (down) {
-            CULog("Map Button Pressed!");
+//            CULog("Map Button Pressed!");
             // TODO: add map function
             _camera->setReplay(true);
         }
@@ -355,6 +355,7 @@ void GameScene::finishLevel() {
             _levelCompleteGoodReset->activate();
             _levelCompleteGoodMenu->activate();
             _levelCompleteGoodNext->activate();
+            std :: cout << "activating the good menu button" << std::endl;
         } else if (this->defaultGoodOrBad == 1) {
             _levelCompleteBad->setVisible(true);
             _levelCompleteBadReset->activate();
@@ -364,5 +365,6 @@ void GameScene::finishLevel() {
             CULogError("ERROR: finishing level in an invalid state (idk if this is a good or bad ending)");
         }
         _complete = true;
+        this->state = UPDATING;
     }
 }

@@ -1,0 +1,9 @@
+{
+	"level2":	{
+		"completed":	false,
+		"endingType":	null
+	},
+	"level1":	{
+		"completed":	true
+	}
+}

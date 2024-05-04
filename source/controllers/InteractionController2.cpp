@@ -327,7 +327,7 @@ void InteractionController2::runMessageQueue() {
         // message to interactable
         auto headToInteractableIt = _HeadToInteractable.find(head);
         if (headToInteractableIt != _HeadToInteractable.end()) {
-            std::cout << "message queue found:........ " << head << " with an interactable " << std::endl;
+//            std::cout << "message queue found:........ " << head << " with an interactable " << std::endl;
 
             for (auto interactable : headToInteractableIt->second) {
                 auto actions = interactable->getActions();

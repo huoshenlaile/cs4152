@@ -88,7 +88,7 @@ public:
     int defaultGoodOrBad = -1;
     std::vector<std::shared_ptr<cugl::physics2::Joint>> Alljoints;
     /** the state of this scene, referenced by DPApp*/
-    enum SceneState { INGAME, PAUSE, NETERROR, RESET, QUIT, NEXTLEVEL };
+    enum SceneState { INGAME, PAUSE, NETERROR, RESET, QUIT, NEXTLEVEL, UPDATING};
     SceneState state;
     
     enum GameEndingState { UNFINISHED, GOOD, BAD };
@@ -111,6 +111,8 @@ public:
 
     bool isPaused() const { return _gamePaused; }
 
+    int getEndingType() const {return defaultGoodOrBad;}
+    
     bool isComplete() const { return _complete; }
 
     void setComplete(bool value) { _complete = value; }

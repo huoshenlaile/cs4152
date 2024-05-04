@@ -65,7 +65,7 @@ PublishedMessage Exit::onBeginContact(std::shared_ptr<cugl::physics2::Obstacle> 
         // if the sensor is activated
         if (activated){
             if (other->getName() == "body192"){
-                CULog("on_contact [%s]", message_head_gameend.c_str());
+//                CULog("on_contact [%s]", message_head_gameend.c_str());
                 if ((character->getColor() != "black") || (character->getColor() == "black" && _colorReqs.size() == 0)){
                     if(!this->is_contacting){
                         this->is_contacting=true;
@@ -93,7 +93,7 @@ PublishedMessage Exit::onEndContact(std::shared_ptr<cugl::physics2::Obstacle> ot
         // if the sensor is activated
         if (activated){
             if (other->getName() == "body192"){
-                CULog("on_release [%s]", message_head_gameend.c_str());
+//                CULog("on_release [%s]", message_head_gameend.c_str());
                 if(this->is_contacting && !this->debouncing){
                     this->is_contacting=false;
                     auto a = PublishedMessage();
@@ -157,15 +157,15 @@ PublishedMessage Exit::timeUpdate(float timestep){
         
         std::cout << this->getColorsCollected().size() << " phone " << this->getColorReqs().size() << std::endl;
         if (this->getColorsCollected().size() >= this->getColorReqs().size()){
-            CULog("Game over! - Setting Complete.");
+//            CULog("Game over! - Setting Complete.");
             auto a = PublishedMessage();
             a.Head = message_head_gameend;
             if (goodEnding(_colorReqs, _colorsCollected)){
-                CULog("Good ending!");
+//                CULog("Good ending!");
                 a.Body = "Good";
             }
             else{
-                CULog("Bad ending!");
+//                CULog("Bad ending!");
                 a.Body = "Bad";
             }
             a.enable = true;

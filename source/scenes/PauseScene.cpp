@@ -69,7 +69,7 @@ void PauseScene::dispose() {
 
 void PauseScene::setActive(bool value) {
   if (isActive() != value) {
-    CULog("Making active %d", value);
+//    CULog("Making active %d", value);
     Scene2::setActive(value);
     if (value) {
       _backout->activate();

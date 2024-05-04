@@ -313,6 +313,96 @@
         "background_select_frames": {
             "file": "textures/background_select_frames.png"
         },
+        "button_level1_bad": {
+            "file": "textures/levelselect/badstate/button_level1_bad.png"
+        },
+        "button_level2_bad": {
+            "file": "textures/levelselect/badstate/button_level2_bad.png"
+        },
+        "button_level3_bad": {
+            "file": "textures/levelselect/badstate/button_level3_bad.png"
+        },
+        "button_level4_bad": {
+            "file": "textures/levelselect/badstate/button_level4_bad.png"
+        },
+        "button_level5_bad": {
+            "file": "textures/levelselect/badstate/button_level5_bad.png"
+        },
+        "button_level6_bad": {
+            "file": "textures/levelselect/badstate/button_level6_bad.png"
+        },
+        "button_level7_bad": {
+            "file": "textures/levelselect/badstate/button_level7_bad.png"
+        },
+        "button_level8_bad": {
+            "file": "textures/levelselect/badstate/button_level8_bad.png"
+        },
+        "button_level9_bad": {
+            "file": "textures/levelselect/badstate/button_level9_bad.png"
+        },
+        "button_level10_bad": {
+            "file": "textures/levelselect/badstate/button_level10_bad.png"
+        },
+        "button_level11_bad": {
+            "file": "textures/levelselect/badstate/button_level11_bad.png"
+        },
+        "button_level12_bad": {
+            "file": "textures/levelselect/badstate/button_level12_bad.png"
+        },
+        "button_level13_bad": {
+            "file": "textures/levelselect/badstate/button_level13_bad.png"
+        },
+        "button_level14_bad": {
+            "file": "textures/levelselect/badstate/button_level14_bad.png"
+        },
+        "button_level15_bad": {
+            "file": "textures/levelselect/badstate/button_level15_bad.png"
+        },
+        "button_level1_good": {
+            "file": "textures/levelselect/goodstate/button_level1_good.png"
+        },
+        "button_level2_good": {
+            "file": "textures/levelselect/goodstate/button_level2_good.png"
+        },
+        "button_level3_good": {
+            "file": "textures/levelselect/goodstate/button_level3_good.png"
+        },
+        "button_level4_good": {
+            "file": "textures/levelselect/goodstate/button_level4_good.png"
+        },
+        "button_level5_good": {
+            "file": "textures/levelselect/goodstate/button_level5_good.png"
+        },
+        "button_level6_good": {
+            "file": "textures/levelselect/goodstate/button_level6_good.png"
+        },
+        "button_level7_good": {
+            "file": "textures/levelselect/goodstate/button_level7_good.png"
+        },
+        "button_level8_good": {
+            "file": "textures/levelselect/goodstate/button_level8_good.png"
+        },
+        "button_level9_good": {
+            "file": "textures/levelselect/goodstate/button_level9_good.png"
+        },
+        "button_level10_good": {
+            "file": "textures/levelselect/goodstate/button_level10_good.png"
+        },
+        "button_level11_good": {
+            "file": "textures/levelselect/goodstate/button_level11_good.png"
+        },
+        "button_level12_good": {
+            "file": "textures/levelselect/goodstate/button_level12_good.png"
+        },
+        "button_level13_good": {
+            "file": "textures/levelselect/goodstate/button_level13_good.png"
+        },
+        "button_level14_good": {
+            "file": "textures/levelselect/goodstate/button_level14_good.png"
+        },
+        "button_level15_good": {
+            "file": "textures/levelselect/goodstate/button_level15_good.png"
+        },
         "button_level1": {
             "file": "textures/levelselect/button_level1.png"
         },

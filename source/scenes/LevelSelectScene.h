@@ -141,6 +141,7 @@ private:
      */
     void startGame();
     
+    void updateLevelStatus();
     /**
      * This method changes the texture of a specific level button, together with activating/deactivating that button.
      */
