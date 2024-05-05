@@ -4718,7 +4718,7 @@
                              "name":"cont",
                              "rows":6,
                              "repeat":false,
-                             "scale":2,
+                             "scale":5,
                              "texture":"tap_to_continue",
                              "type":"string"
                             }
@@ -4728,6 +4728,18 @@
                          "type":"bool",
                          "value":true
                         }, 
+                        {
+                         "name":"hideSub",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"hide",
+                             "Enabled":true,
+                             "Float1":0,
+                             "Head":"Erase Tap Continue Button"
+                            }
+                        },
                         {
                          "name":"properties",
                          "propertytype":"Physics",
@@ -4766,8 +4778,8 @@
                  "type":"ui",
                  "visible":true,
                  "width":0,
-                 "x":5921.4501510574,
-                 "y":3897.28096676737
+                 "x":6271.8875526256,
+                 "y":3165.37817841716
                 }, 
                 {
                  "height":0,
