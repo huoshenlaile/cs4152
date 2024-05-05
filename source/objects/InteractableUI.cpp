@@ -69,8 +69,8 @@ bool InteractableUI::linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleW
     // add message
     
 
-    actions[show_subscription_head] = ([=](ActionParams params){
-        std::cout << "SHOW IS TRIGGERED??????" << std::endl;
+    actions[show_subscription_head] = ([&](ActionParams params){
+        std::cout << "SHOW IS TRIGGERED?????? _cd >= _show_cd " << _cd << " >= " << _show_cd << std::endl;
         if (!_shown_already && _cd >= _show_cd && !_selfTexture->isVisible()){
             std::cout << "UI TEXT IS SHOWN!!!!" << std::endl;
             _cd=0;
@@ -115,8 +115,10 @@ bool InteractableUI::linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleW
 }
 
 PublishedMessage InteractableUI::timeUpdate(float timestep){
-
-    if ((_cd <= _show_cd || _cd <= _hide_cd) && _selfTexture->isVisible()){
+    // instead... -- only one timer needs to run at time, true.
+    // if showCDTimerTriggered (from action), start incrementing _cd. When it hits _show_cd, set _shown_already, and activate the animation
+    // if hideCDTimerTriggered (from action), start incrementing _cd. When it hits _hide_cd, set invisble everything.
+    if ((_cd <= _show_cd || _cd <= _hide_cd) /*&& _selfTexture->isVisible()*/){
         _cd+=timestep;
     }
     if (_animated && _shown_already){
