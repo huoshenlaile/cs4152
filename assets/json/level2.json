@@ -1391,19 +1391,19 @@
                  "polygon":[
                         {
                          "x":0,
-                         "y":-6.72684
-                        }, 
+                         "y":-6.72684048949678
+                        },
                         {
                          "x":902.407,
-                         "y":-8.40361
-                        }, 
+                         "y":-8.40360978659792
+                        },
                         {
                          "x":909.458,
-                         "y":266.114
-                        }, 
+                         "y":266.113506522711
+                        },
                         {
                          "x":0,
-                         "y":271.716
+                         "y":271.716468113955
                         }],
                  "properties":[
                         {
@@ -1416,9 +1416,21 @@
                              "name":"cont",
                              "rows":6,
                              "repeat":false,
-                             "scale":2,
+                             "scale":3,
                              "texture":"tap_to_continue",
                              "type":"string"
+                            }
+                        },
+                        {
+                         "name":"hideSub",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"hide",
+                             "Enabled":true,
+                             "Float1":0,
+                             "Head":"Erase Tap Continue Button"
                             }
                         },
                         {
@@ -1440,7 +1452,7 @@
                                  "texture":""
                                 }
                             }
-                        }, 
+                        },
                         {
                          "name":"showSub",
                          "propertytype":"SubMessage",
@@ -1459,8 +1471,8 @@
                  "type":"ui",
                  "visible":true,
                  "width":0,
-                 "x":2818.29419035847,
-                 "y":1792.33621755253
+                 "x":3900.60876513291,
+                 "y":1814.88846814249
                 }],
          "opacity":1,
          "type":"objectgroup",

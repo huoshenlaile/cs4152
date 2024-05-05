@@ -42,7 +42,7 @@ bool LevelLoadScene::loadFileAsync(const std::string &file, const std::string &k
             CULog("Failed to load level loader");
             return;
         }
-        CULog("Loaded level loader");
+//        CULog("Loaded level loader");
         _state = CONSTRUCT;
     });
     return true;
@@ -50,7 +50,7 @@ bool LevelLoadScene::loadFileAsync(const std::string &file, const std::string &k
 
 void LevelLoadScene::update(float timestep) {
     if (_state == CONSTRUCT) {
-        CULog("constructing level1111");
+//        CULog("constructing level1111");
         auto ll = _assets->get<LevelLoader2>(_key);
         ll->construct(_assets);
         _state = DONE;

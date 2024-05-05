@@ -40,42 +40,33 @@ void DPApp::onStartup() {
     AudioEngine::start(24);
     _assets->loadDirectoryAsync("json/assets.json", nullptr);
     
-    auto savedir = Application::get()->getSaveDirectory();
-    CULog("save directory is: %s", savedir.c_str());
-    auto saveReader = JsonReader::alloc(savedir + "/save.json");
-    if (saveReader != nullptr) {
-        std::cout << "one line from save.json" << saveReader->readLine() << std::endl;
-    }
 
     _assets2 = _assets; // the assets dedicated for game scene, currently is still the global asset manager
     
-    std::cout << "The Application's Save Directory is: " << Application::getSaveDirectory() << std::endl;
-    std::string root = cugl::Application::get()->getSaveDirectory();
-    std::string path = cugl::filetool::join_path({root,"save.json"});
-    std::cout << path << std::endl;
-    _gameProgress = JsonReader::alloc(path);
-    if (_gameProgress != nullptr) {
-        std::cout << "game progress: " << _gameProgress -> readLine() << std::endl;
-        std::cout << "From DpApp::updateLoad() - game progress json is loaded!" << std::endl;
-    }
     
-
-
     _levelLoadScene.init(_assets2);
-    // _assets->loadAsync<LevelLoader>(ALPHA_RELEASE_KEY, ALPHA_RELEASE_FILE,
-    //                                 [](const std::string key, bool success) {
-    //                                     if (success) {
-    //                                         // Handle successful loading
-    //                                         std::cout << "Successfully loaded resource with key: " << key << std::endl;
-    //                                     } else {
-    //                                         // Handle failure
-    //                                         std::cout << "Failed to load resource with key: " << key << std::endl;
-    //                                     }
-    //                                 });
-    
     
     cugl::net::NetworkLayer::start(net::NetworkLayer::Log::INFO);
     setDeterministic(true);
+    
+    
+    auto savedir = Application::get()->getSaveDirectory();
+    std::shared_ptr<JsonReader> jsonreader = JsonReader::alloc(savedir + "user_progress.json");
+    if(jsonreader==nullptr){
+        std::shared_ptr<JsonWriter> jsonwriter = JsonWriter::alloc(savedir + "user_progress.json");
+        //std::cout<< "r-20" <<std::endl;
+        JsonValue updatedjson;
+        //std::cout<< "r-21" <<std::endl;
+        std::shared_ptr<JsonValue> res = updatedjson.allocNull();
+        if(jsonwriter != nullptr && res != nullptr){
+            jsonwriter->writeJson(res);
+            //std::cout<< "r-23" <<std::endl;
+        }
+        jsonwriter->close();
+    } else {
+        jsonreader->close();
+    }
+    
     Application::onStartup(); // YOU MUST END with call to parent
 }
 
@@ -162,22 +153,13 @@ void DPApp::preUpdate(float timestep) {
     updateRestoration(timestep);
     } else if (_status == GAME) {
     if (_gameScene.isComplete()) {
-        // update json file
-
-//        std::string root = cugl::Application::get()->getSaveDirectory();
-//        std::string path = cugl::filetool::join_path({root,"GameProgress.json"});
-//        std::shared_ptr<JsonValue> jv = JsonValue::allocObject();
-//        jv -> appendValue(this -> _currentLevelKey, _gameScene.defaultGoodOrBad == 0? "good" : _gameScene.defaultGoodOrBad == 1? "bad" : "default");
-//        _progressWriter = JsonWriter::alloc(path);
-        auto savedir = Application::get()->getSaveDirectory();
-        auto saveWriter = JsonWriter::alloc(savedir + "/save.json");
-        if (saveWriter != nullptr) {
-            saveWriter->writeLine(_currentLevelKey);
+        if(_gameScene.state == GameScene::UPDATING){
+            updateLevelJson();
+            _gameScene.state = GameScene::NETERROR; //using dummy state so it runs once
+            //std::cout<<"updated the json and now moving on" <<std::endl;
         }
-        saveWriter->flush();
-        saveWriter->close();
-        std::cout << "preUpdate writing line to save.json: " << _currentLevelKey << std::endl;
         if (_gameScene.state == GameScene::QUIT) {
+            std::cout << "quitting game back to level select"<< std::endl;
             _gameScene.reset();
             _levelSelectScene.setActive(true);
             _audioController.play("menu", "menu");
@@ -294,14 +276,6 @@ void DPApp::updateMenu(float timestep) {
     _menuScene.update(timestep);
     switch (_menuScene.status) {
         case MenuScene::NEWGAME:
-            // TODO: start tutorial!
-//            _assets->loadAsync<LevelLoader2>("tutorial", "json/tutorial.json", [&](const std::string key2, bool success2) {
-//                if (!success2) {
-//                    CULog("Failed to tutorial");
-//                }
-//                CULog("Loaded tutorial");
-//                _menuScene.startTutorial();
-//            });
             _levelSelectScene.selectedLevelKey = "tutorial";
             _levelSelectScene.selectedLevelFile = "json/tutorial.json";
             _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
@@ -477,4 +451,134 @@ void DPApp::draw() {
         _levelLoadScene.render(_batch);
         break;
     }
+}
+
+void DPApp::addLevelJson(std::shared_ptr<JsonValue> json, std::string levelkey, bool completedfield, std::string endingtypefield){
+    std::cout << levelkey << std::endl;
+    std::shared_ptr<JsonValue> level = json->get(levelkey);
+    
+    if (level != nullptr){
+        std::cout << "exists" << std::endl;
+        std::shared_ptr<JsonValue> completed = level->get("completed");
+        std::shared_ptr<JsonValue> endingType = level->get("endingType");
+        
+        if (completed != nullptr){
+            completed->set(completedfield);
+        } else {
+            level->appendValue("completed", completedfield);
+        }
+        
+        if (endingType != nullptr){
+            std::cout << level->getString("endingType") << std::endl;
+            if (level->getString("endingType").compare("0") != 0){
+                //don't update if already good ending for this level
+                endingType->set(endingtypefield);
+            }
+        } else {
+            level->appendValue("endingType", endingtypefield);
+        }
+        std::cout << level->get("completed")->toString() << std::endl;
+    } else {
+        std::cout << "doesn't exist" << std::endl;
+        if (!json->isObject()){
+            //json file might be empty
+            std::cout << "making init object" << std::endl;
+            json->initObject();
+        }
+        //finished a new level
+        std::cout <<" appending object" << std::endl;
+        json->appendObject(levelkey);
+        std::shared_ptr<JsonValue> levelfields = json->get(levelkey);
+        levelfields->appendValue("completed", completedfield);
+        levelfields->appendValue("endingType", endingtypefield);
+    }
+    std::cout << json->toString() <<std::endl;
+    std::cout <<"=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-" << std::endl;
+    return;
+}
+
+void DPApp::updateLevelJson(){
+    //std::cout<< "r-1" <<std::endl;
+    auto savedir = Application::get()->getSaveDirectory();
+    //std::cout<< "r-2" <<std::endl;
+    std::shared_ptr<JsonReader> jsonreader = JsonReader::alloc(savedir + "user_progress.json");
+    
+//    std::cout << jsonreader->readAll() <<std::endl;
+//    jsonreader->reset();
+    
+    //std::cout<< "r-3" <<std::endl;
+    if (jsonreader != nullptr && jsonreader->ready()){
+        //std::cout<< "r-4" <<std::endl;
+        std::shared_ptr<JsonValue> json;
+        
+        //std::cout<< "r-5" <<std::endl;
+        if (jsonreader->readLine()[0] != '{'){
+            //std::cout<< "r-6" <<std::endl;
+            std::shared_ptr<JsonValue> myjson = JsonValue::allocObject();
+            //std::cout<< "r-7" <<std::endl;
+            json = myjson;
+            //std::cout<< "r-8" <<std::endl;
+        } else {
+            jsonreader->reset();
+            //std::cout<< "r-9" <<std::endl;
+            json = jsonreader->readJson();
+            //std::cout<< "r-10" <<std::endl;
+            jsonreader->close();
+            //std::cout<< "r-11" <<std::endl;
+        }
+        if (json != nullptr){
+            addLevelJson(json, _currentLevelKey, true, std::to_string(_gameScene.getEndingType()));
+            //std::cout<< "r-12" <<std::endl;
+            //now unlock new level
+            if (_currentLevelKey == "tutorial"){
+                addLevelJson(json, "level1", false, "null");
+                //std::cout<< "r-13" <<std::endl;
+            } else {
+                size_t start = _currentLevelKey.find("level") + 5;
+                //std::cout<< "r-14" <<std::endl;
+                size_t end = _currentLevelKey.size();
+                //std::cout<< "r-15" <<std::endl;
+                int num = std::stoi(_currentLevelKey.substr(start, end - start))+1;
+                //std::cout<< "r-16" <<std::endl;
+                std::string next_level = "level"+std::to_string(num);
+                //std::cout<< "r-17" <<std::endl;
+                if (json->get(next_level) == nullptr){
+                    addLevelJson(json, next_level, false, "null");
+                }
+                
+                //std::cout<< "r-18" <<std::endl;
+            }
+        } else {
+            CULog("There is a parsing error in the json file");
+        }
+        
+        //std::cout<< "r-19" <<std::endl;
+        
+        
+        std::shared_ptr<JsonWriter> jsonwriter = JsonWriter::alloc(savedir + "user_progress.json");
+        //std::cout<< "r-20" <<std::endl;
+        JsonValue updatedjson;
+        //std::cout<< "r-21" <<std::endl;
+        std::shared_ptr<JsonValue> res = updatedjson.allocWithJson(json->toString());
+        //std::cout<< "r-22" <<std::endl;
+        if(jsonwriter != nullptr && res != nullptr){
+            jsonwriter->writeJson(res);
+            //std::cout<< "r-23" <<std::endl;
+        }
+        jsonwriter->close();
+        //std::cout<< "r-25" <<std::endl;
+        
+        std::cout << "wrote to json file" << std::endl;
+        
+    } else {
+        if (jsonreader!=nullptr){
+            jsonreader->close();
+        }
+        
+        //std::cout<< "r-26" <<std::endl;
+    }
+    
+    //std::cout<< "r-27" <<std::endl;
+    
+    return;
 }

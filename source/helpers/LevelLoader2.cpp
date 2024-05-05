@@ -52,7 +52,7 @@ bool LevelLoader2::preload(const std::shared_ptr<cugl::JsonValue> &json) {
 
 bool LevelLoader2::loadObject(const std::shared_ptr<JsonValue> &json) {
     auto type = json->get("type")->asString();
-    std::cout << "===== PARSING " << json->get("name")->asString() << " ======" << std::endl;
+//    std::cout << "===== PARSING " << json->get("name")->asString() << " ======" << std::endl;
     if (type == WALLS_FIELD) {
         auto wall = Wall::alloc(json, _scale, _bounds);
         _interactables.push_back(wall);
@@ -86,7 +86,7 @@ bool LevelLoader2::loadObject(const std::shared_ptr<JsonValue> &json) {
     else {
         // log type not recognized
         // CUAssertLog(false, "Object type not recognized");
-        CULog("unknown type: %s", type.c_str());
+//        CULog("unknown type: %s", type.c_str());
         return false;
     }
     return true;

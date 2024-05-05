@@ -260,6 +260,7 @@ Vec2 InputController::touch2Screen(const Vec2 pos) const {
 PublishedMessage InputController::getMessageInPreUpdate() {
     auto msg = PublishedMessage();
     if (didPress()){
+        std::cout << "SCREEN PRESSED MSG PUSHED TO QUEUE" << std::endl;
         msg.Head = "Screen Pressed";
     }
     else if (didRelease()){

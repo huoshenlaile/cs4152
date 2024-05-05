@@ -70,7 +70,7 @@ bool InteractableUI::linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleW
     
 
     actions[show_subscription_head] = ([=](ActionParams params){
-        std::cout << "SHOW IS TRIGGERED??????" << std::endl;
+//        std::cout << "SHOW IS TRIGGERED??????" << std::endl;
         if (!_shown_already && _cd >= _show_cd && !_selfTexture->isVisible()){
             std::cout << "UI TEXT IS SHOWN!!!!" << std::endl;
             _cd=0;
@@ -119,7 +119,7 @@ PublishedMessage InteractableUI::timeUpdate(float timestep){
     if ((_cd <= _show_cd || _cd <= _hide_cd) && _selfTexture->isVisible()){
         _cd+=timestep;
     }
-    if (_animated){
+    if (_animated && _shown_already){
         _actions->update(timestep);
         if (!_actions->isActive(_aniname) && _repeat){
             _actions->activate(_aniname, _animate, _animation);
