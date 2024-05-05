@@ -1092,36 +1092,38 @@ void CharacterController::update(float dt)
     if(_colorlhchange == true && _colorrhchange == true && _colorbodychange == true && _colordecchange == true){
         _colorchange = false;
     }
-    Vec2 ldisplacement = _obstacles[PART_LH]->getPosition()-_obstacles[PART_BODY]->getPosition();
-    auto llength = ldisplacement.length();
-    if (llength > 1.5 * MAX_ARM_LENGTH)
-    {
-        std::cout <<"Resolving left hand" << "\n";
-        _obstacles[PART_LH]->setPosition(_obstacles[PART_LH]->getPosition() - (ldisplacement * (MAX_ARM_LENGTH / llength)));
-        _obstacles[PART_LH]->setSensor(true);
-        resolvingLeftHand=true;
+    if (!isGrabbing){
+        Vec2 ldisplacement = _obstacles[PART_LH]->getPosition()-_obstacles[PART_BODY]->getPosition();
+        auto llength = ldisplacement.length();
+        if (llength > 1.5 * MAX_ARM_LENGTH)
+        {
+            std::cout <<"Resolving left hand" << "\n";
+            _obstacles[PART_LH]->setPosition(_obstacles[PART_LH]->getPosition() - (ldisplacement * (MAX_ARM_LENGTH / llength)));
+            _obstacles[PART_LH]->setSensor(true);
+            resolvingLeftHand=true;
+        }
+        else if(resolvingLeftHand && llength <= MAX_ARM_LENGTH){
+            std::cout <<"DONE Resolving left hand" << "\n";
+            _obstacles[PART_LH]->setSensor(false);
+            resolvingLeftHand=false;
+        }
     }
-    else if(resolvingLeftHand && llength <= MAX_ARM_LENGTH){
-        std::cout <<"DONE Resolving left hand" << "\n";
-        _obstacles[PART_LH]->setSensor(false);
-        resolvingLeftHand=false;
+    if (!isGrabbing){
+        Vec2 rdisplacement = _obstacles[PART_RH]->getPosition()-_obstacles[PART_BODY]->getPosition();
+        auto rlength = rdisplacement.length();
+        if (rlength > 1.5 * MAX_ARM_LENGTH)
+        {
+            std::cout <<"Resolving right hand" << "\n";
+            _obstacles[PART_RH]->setPosition(_obstacles[PART_RH]->getPosition() - (rdisplacement * (MAX_ARM_LENGTH / rlength)));
+            _obstacles[PART_RH]->setSensor(true);
+            resolvingRightHand=true;
+        }
+        else if(resolvingRightHand && rlength <= MAX_ARM_LENGTH){
+            std::cout <<"DONE Resolving right hand" << "\n";
+            _obstacles[PART_RH]->setSensor(false);
+            resolvingRightHand=false;
+        }
     }
-    
-    Vec2 rdisplacement = _obstacles[PART_RH]->getPosition()-_obstacles[PART_BODY]->getPosition();
-    auto rlength = rdisplacement.length();
-    if (rlength > 1.5 * MAX_ARM_LENGTH)
-    {
-        std::cout <<"Resolving right hand" << "\n";
-        _obstacles[PART_RH]->setPosition(_obstacles[PART_RH]->getPosition() - (rdisplacement * (MAX_ARM_LENGTH / rlength)));
-        _obstacles[PART_RH]->setSensor(true);
-        resolvingRightHand=true;
-    }
-    else if(resolvingRightHand && rlength <= MAX_ARM_LENGTH){
-        std::cout <<"DONE Resolving right hand" << "\n";
-        _obstacles[PART_RH]->setSensor(false);
-        resolvingRightHand=false;
-    }
-
 }
 
 void CharacterController::setColor(std::string color)
