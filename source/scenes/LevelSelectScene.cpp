@@ -169,7 +169,7 @@ bool LevelSelectScene::init(const std::shared_ptr<cugl::AssetManager> &assets) {
         if (down) {
             CULog("Level 11 selected");
             selectedLevelFile = "json/level13.json"; // Ensure this file exists in your assets
-            selectedLevelKey = "paintdrip";
+            selectedLevelKey = "level15";
             startGame();
         }
     });
