@@ -120,6 +120,7 @@ protected:
     std::shared_ptr<scene2::SceneNode> _cameraTrackNode;
     // character self defined functions
     std::map<std::string, std::function<PublishedMessage(ActionParams)>> funcs;
+    bool isGrabbing = false;
 public:
     CharacterController(void);
     virtual ~CharacterController(void);
@@ -227,6 +228,8 @@ public:
     std::shared_ptr<cugl::Texture> getTextureForHand(int partId, const std::string &color);
 
     const std::map<std::string, std::function<PublishedMessage(ActionParams)>>& getActions() { return funcs; }
+    
+    void setGrab(bool isGrab) { this->isGrabbing = isGrab; }
 };
 
 #endif /* CharacterController_h */
