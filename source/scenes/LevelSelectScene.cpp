@@ -368,16 +368,18 @@ void LevelSelectScene::lockOrUnlockLevelButton(int levelNumber, bool isLock) {
     auto savedir = Application::get()->getSaveDirectory();
     std::shared_ptr<JsonReader> jsonreader = JsonReader::alloc(savedir + "user_progress.json");
     
-    if (jsonreader != nullptr && jsonreader->ready() && !isLock){
-        std::shared_ptr<JsonValue> jsonobj = jsonreader->readJson();
-        if (jsonobj->get("level"+std::to_string(levelNumber)) != nullptr){
-            if (jsonobj->get("level"+std::to_string(levelNumber))->getString("endingType") == "0"){
-                newTextureString = "button_level"+std::to_string(levelNumber)+"_good";
-            } else if (jsonobj->get("level"+std::to_string(levelNumber))->getString("endingType") == "1"){
-                newTextureString = "button_level"+std::to_string(levelNumber)+"_bad";
-            }
-        }
-    }
+    //delete to unlock all
+//    if (jsonreader != nullptr && jsonreader->ready() && !isLock){
+//        std::shared_ptr<JsonValue> jsonobj = jsonreader->readJson();
+//        if (jsonobj->get("level"+std::to_string(levelNumber)) != nullptr){
+//            if (jsonobj->get("level"+std::to_string(levelNumber))->getString("endingType") == "0"){
+//                newTextureString = "button_level"+std::to_string(levelNumber)+"_good";
+//            } else if (jsonobj->get("level"+std::to_string(levelNumber))->getString("endingType") == "1"){
+//                newTextureString = "button_level"+std::to_string(levelNumber)+"_bad";
+//            }
+//        }
+//    }
+    
 //    std::cout << newTextureString <<std::endl;
     auto newTexture = _assets->get<Texture>(newTextureString);
     _levelButtonImageNode->setTexture(newTexture);
@@ -393,8 +395,6 @@ void LevelSelectScene::lockOrUnlockLevelButton(int levelNumber, bool isLock) {
     
 //    std::cout << "locking or unlocking button " << levelNumber << "!" << std::endl;
 }
-
-
 
 void LevelSelectScene::lockAllLevels() {
     for (int i = 1; i <= 15; i ++) {
@@ -434,17 +434,19 @@ void LevelSelectScene::updateLevelStatus() {
     
     
     //debugging purposes
-    for (auto i = unlocked_levels.begin(); i != unlocked_levels.end(); i++){
+//    for (auto i = unlocked_levels.begin(); i != unlocked_levels.end(); i++){
 //        std::cout<< (*i) << std::endl;
-    }
+//    }
     
     for (int i = 1; i <= 15; i ++) {
-        if (unlocked_levels.find(i) != unlocked_levels.end()){
-//            std::cout << "unlock" <<std::endl;
-            lockOrUnlockLevelButton(i, false);
-        } else {
-//            std::cout << "lock" <<std::endl;
-            lockOrUnlockLevelButton(i, true);
-        }
+        lockOrUnlockLevelButton(i, false);
+        //comment to unlock all
+//        if (unlocked_levels.find(i) != unlocked_levels.end()){
+////            std::cout << "unlock" <<std::endl;
+//            lockOrUnlockLevelButton(i, false);
+//        } else {
+////            std::cout << "lock" <<std::endl;
+//            lockOrUnlockLevelButton(i, true);
+//        }
     }
 }
