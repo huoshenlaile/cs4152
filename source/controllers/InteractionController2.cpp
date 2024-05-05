@@ -105,6 +105,7 @@ void InteractionController2::beginContact(b2Contact *contact) {
                         _obstaclesForJoint.push_back(characterLH);
                         _obstaclesForJoint.push_back(_obstacleToInteractable[obs2rawPtr] -> getObstacle());
                         _leftHandIsGrabbed = true;
+                        _character -> setGrab(true);
                     }
                 } else {
                     if (_rightHandIsHeld && _RHGrabCD <= 0 && !_rightHandIsGrabbed) {
@@ -112,6 +113,7 @@ void InteractionController2::beginContact(b2Contact *contact) {
                         _obstaclesForJoint.push_back(characterRH);
                         _obstaclesForJoint.push_back(_obstacleToInteractable[obs2rawPtr] -> getObstacle());
                         _rightHandIsGrabbed = true;
+                        _character -> setGrab(true);
                     }
                 }
             }
@@ -142,6 +144,7 @@ void InteractionController2::beginContact(b2Contact *contact) {
                         _obstaclesForJoint.push_back(_obstacleToInteractable[obs1rawPtr] -> getObstacle());
                         _obstaclesForJoint.push_back(characterLH);
                         _leftHandIsGrabbed = true;
+                        _character -> setGrab(true);
                     }
                 } else {
                    if (_rightHandIsHeld && _RHGrabCD <= 0 && _rightHandIsGrabbed) {
@@ -149,6 +152,7 @@ void InteractionController2::beginContact(b2Contact *contact) {
                         _obstaclesForJoint.push_back(characterRH);
                         _obstaclesForJoint.push_back(_obstacleToInteractable[obs1rawPtr] -> getObstacle());
                         _rightHandIsGrabbed = true;
+                       _character -> setGrab(true);
                     }
                 }
             }
@@ -442,6 +446,7 @@ void InteractionController2::ungrabIfNecessary() {
         _leftHandIsGrabbed = false;
         leftHandReverse = false;
         _LHGrabCD = GRAB_CD;
+        _character -> setGrab(false);
     }
     if (_rightHandIsGrabbed && !_rightHandIsHeld) {
         std::cout << "Removing RH Joint - from ungrab" << std::endl;
@@ -450,6 +455,7 @@ void InteractionController2::ungrabIfNecessary() {
         _rightHandIsGrabbed = false;
         rightHandReverse = false;
         _RHGrabCD = GRAB_CD;
+        _character -> setGrab(false);
     }
 }
 
