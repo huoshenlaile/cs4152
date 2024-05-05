@@ -71,6 +71,9 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, std::str
     pm.Head = "UI Start";
     _interactionController->pushToMessageQueue(pm);
 
+CULog("Actual input scaler: %f", acutal_input_scaler);
+
+
     return true;
 }
 
@@ -127,14 +130,10 @@ void GameScene::preUpdate(float dt) {
     }
     if (_camera->getDisplayed() || !_inputController->getStarted())
         _inputController->process();
-    //    Size dimen = computeActiveSize();
-    // float screen_height_multiplier = SCENE_WIDTH / dimen.height;
-    // std::cout << "screen_height_multiplier: " << screen_height_multiplier << "\n";
-    float try_scaler = Application::get()->getDisplaySize().height;
-    // std::cout << "input scaler: " << try_scaler << std::endl;
-    try_scaler *= INPUT_SCALER;
-    _character->moveLeftHand(try_scaler * _inputController->getLeftHandMovement(), _interactionController->leftHandReverse);
-    _character->moveRightHand(try_scaler * _inputController->getrightHandMovement(), _interactionController->rightHandReverse);
+
+    _character->moveLeftHand(acutal_input_scaler * _inputController->getLeftHandMovement(), _interactionController->leftHandReverse);
+    _character->moveRightHand(acutal_input_scaler * _inputController->getrightHandMovement(), _interactionController->rightHandReverse);
+
     _inputController->fillHand(_character->getLeftHandPosition(), _character->getRightHandPosition(), _character->getLHPos(), _character->getRHPos());
 
     // update camera
@@ -217,7 +216,7 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     _mapButton->doLayout();
     _mapButton->addListener([this](const std::string &name, bool down) {
         if (down) {
-            CULog("Map Button Pressed!");
+//            CULog("Map Button Pressed!");
             // TODO: add map function
             _camera->setReplay(true);
         }
@@ -355,6 +354,7 @@ void GameScene::finishLevel() {
             _levelCompleteGoodReset->activate();
             _levelCompleteGoodMenu->activate();
             _levelCompleteGoodNext->activate();
+            std :: cout << "activating the good menu button" << std::endl;
         } else if (this->defaultGoodOrBad == 1) {
             _levelCompleteBad->setVisible(true);
             _levelCompleteBadReset->activate();
@@ -364,5 +364,6 @@ void GameScene::finishLevel() {
             CULogError("ERROR: finishing level in an invalid state (idk if this is a good or bad ending)");
         }
         _complete = true;
+        this->state = UPDATING;
     }
 }

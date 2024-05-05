@@ -1,11 +1,8 @@
-#include <stdio.h>
-
-#include <iostream>
-
 #include "LevelSelectScene.h"
-
-#include <iostream>
 #include <sstream>
+#include <stdio.h>
+#include <iostream>
+
 
 using namespace cugl;
 using namespace cugl::net;
@@ -86,9 +83,9 @@ bool LevelSelectScene::init(const std::shared_ptr<cugl::AssetManager> &assets) {
             this -> state = BACK;
         }
     });
+    
     _level1->addListener([this](const std::string& name, bool down) {
     if (down) {
-        CULog("Level 1 selected");
         selectedLevelFile = "json/level1.json";
         selectedLevelKey = "level1";
         startGame();
@@ -171,7 +168,7 @@ bool LevelSelectScene::init(const std::shared_ptr<cugl::AssetManager> &assets) {
     _level14->addListener([this](const std::string& name, bool down) {
         if (down) {
             CULog("Level 11 selected");
-            selectedLevelFile = "json/level14.json"; // Ensure this file exists in your assets
+            selectedLevelFile = "json/level13.json"; // Ensure this file exists in your assets
             selectedLevelKey = "paintdrip";
             startGame();
         }
@@ -187,7 +184,7 @@ bool LevelSelectScene::init(const std::shared_ptr<cugl::AssetManager> &assets) {
     _level13->addListener([this](const std::string& name, bool down) {
         if (down) {
             CULog("Level 13 selected");
-            selectedLevelFile = "json/level13.json"; // Ensure this file exists in your assets
+            selectedLevelFile = "json/level14.json"; // Ensure this file exists in your assets
             selectedLevelKey = "level13";
             startGame();
         }
@@ -248,7 +245,8 @@ void LevelSelectScene::setActive(bool value) {
             _level12->activate();
             _level13->activate();
             _level14->activate();
-            unlockAllLevels();
+//            unlockAllLevels();
+            updateLevelStatus();
             _backout->activate();
 
             state = INSCENE;
@@ -345,17 +343,39 @@ void LevelSelectScene::startGame(){
 }
 
 void LevelSelectScene::lockOrUnlockLevelButton(int levelNumber, bool isLock) {
+    //for activating and deactivating correct button
     std::string levelString = "level_levels_level";
     std::string levelNum = std::to_string(levelNumber);
     std::string buttonNodeString = levelString + levelNum;
-    levelString = levelString + levelNum + "_up";
-    std::string buttonString = "button_level";
-    buttonString = buttonString + levelNum;
-    auto _levelButtonImageNode = std::dynamic_pointer_cast<scene2::PolygonNode>(_assets->get<scene2::SceneNode>(levelString) -> getChildByName(buttonString));
-    std::string newTextureString = buttonString + (isLock ? "_locked" : "");
-    auto newTexture = _assets -> get<Texture>(newTextureString);
-    _levelButtonImageNode -> setTexture(newTexture);
     
+    levelString = levelString + levelNum + "_up";
+    std::string buttonString = "button_level" + levelNum;
+    
+    auto _levelButtonImageNode = std::dynamic_pointer_cast<scene2::PolygonNode>(_assets->get<scene2::SceneNode>(levelString)-> getChildByName(buttonString));
+    
+    //for setting the correct texture of the level select button
+    std::string newTextureString = buttonString + (isLock ? "_locked" : "");
+    
+    auto savedir = Application::get()->getSaveDirectory();
+    std::shared_ptr<JsonReader> jsonreader = JsonReader::alloc(savedir + "user_progress.json");
+    
+    //delete to unlock all
+//    if (jsonreader != nullptr && jsonreader->ready() && !isLock){
+//        std::shared_ptr<JsonValue> jsonobj = jsonreader->readJson();
+//        if (jsonobj->get("level"+std::to_string(levelNumber)) != nullptr){
+//            if (jsonobj->get("level"+std::to_string(levelNumber))->getString("endingType") == "0"){
+//                newTextureString = "button_level"+std::to_string(levelNumber)+"_good";
+//            } else if (jsonobj->get("level"+std::to_string(levelNumber))->getString("endingType") == "1"){
+//                newTextureString = "button_level"+std::to_string(levelNumber)+"_bad";
+//            }
+//        }
+//    }
+    
+//    std::cout << newTextureString <<std::endl;
+    auto newTexture = _assets->get<Texture>(newTextureString);
+    _levelButtonImageNode->setTexture(newTexture);
+    Size contentDimen = _assets->get<scene2::SceneNode>(levelString)-> getChildByName(buttonString)->getContentSize();
+    _levelButtonImageNode->setContentSize(contentDimen.width, contentDimen.height);
     if (isLock) {
         std::dynamic_pointer_cast<scene2::Button>(_assets -> get<scene2::SceneNode>(buttonNodeString)) -> setDown(false);
         std::dynamic_pointer_cast<scene2::Button>(_assets -> get<scene2::SceneNode>(buttonNodeString)) -> deactivate();
@@ -364,7 +384,7 @@ void LevelSelectScene::lockOrUnlockLevelButton(int levelNumber, bool isLock) {
         std::dynamic_pointer_cast<scene2::Button>(_assets -> get<scene2::SceneNode>(buttonNodeString)) -> activate();
     }
     
-    std::cout << "locking or unlocking button " << levelNumber << "!" << std::endl;
+//    std::cout << "locking or unlocking button " << levelNumber << "!" << std::endl;
 }
 
 void LevelSelectScene::lockAllLevels() {
@@ -376,5 +396,48 @@ void LevelSelectScene::lockAllLevels() {
 void LevelSelectScene::unlockAllLevels() {
     for (int i = 1; i <= 15; i ++) {
         lockOrUnlockLevelButton(i, false);
+    }
+}
+
+void LevelSelectScene::updateLevelStatus() {
+    std::string root = cugl::Application::get()->getSaveDirectory();
+    std::shared_ptr<JsonReader> _gameProgress = JsonReader::alloc(root+"user_progress.json");
+    std::set<int> unlocked_levels;
+    
+    if (_gameProgress != nullptr && _gameProgress->ready() && _gameProgress->readLine()[0] == '{'){
+        _gameProgress->reset();
+        std::shared_ptr<JsonValue> jsonobj = _gameProgress->readJson();
+        for (auto child : jsonobj->children()){
+            if (child->key() == "tutorial"){
+                continue;
+            }
+            std::string levelNumber = child->key().substr(5,child->key().length()-5);
+            int num = std::stoi(levelNumber);
+            unlocked_levels.emplace(num);
+        }
+    } else {
+        CULog("Error in json file");
+    }
+    
+    if (_gameProgress != nullptr){
+        _gameProgress->close();
+    }
+    
+    
+    //debugging purposes
+//    for (auto i = unlocked_levels.begin(); i != unlocked_levels.end(); i++){
+//        std::cout<< (*i) << std::endl;
+//    }
+    
+    for (int i = 1; i <= 15; i ++) {
+        lockOrUnlockLevelButton(i, false);
+        //comment to unlock all
+//        if (unlocked_levels.find(i) != unlocked_levels.end()){
+////            std::cout << "unlock" <<std::endl;
+//            lockOrUnlockLevelButton(i, false);
+//        } else {
+////            std::cout << "lock" <<std::endl;
+//            lockOrUnlockLevelButton(i, true);
+//        }
     }
 }

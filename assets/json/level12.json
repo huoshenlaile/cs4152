@@ -556,7 +556,7 @@
                              "obstacle":
                                 {
                                  "bodytype":0,
-                                 "color-requirements":"purple,orange",
+                                 "color-requirements":"orange",
                                  "damping":0,
                                  "debugcolor":"yellow",
                                  "debugopacity":0,
@@ -630,7 +630,7 @@
                              "obstacle":
                                 {
                                  "bodytype":0,
-                                 "color-requirements":"",
+                                 "color-requirements":"orange",
                                  "damping":0,
                                  "debugcolor":"yellow",
                                  "debugopacity":0,

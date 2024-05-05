@@ -23,13 +23,16 @@
 /** The density for other body parts. Right now we don't have other body parts (I think - from George). */
 #define DEFAULT_DENSITY 1.0f
 /** Friction for character's hands*/
-#define HAND_FRICTION 1.0f
+#define HAND_FRICTION 50.0f
 /** Friction for other body parts (right now it's just the big head I think - from George) */
 #define OTHER_FRICTION 1.0f
 /** input scaler - how effective can the finger input affect the character movement.
  * NOTE THAT this scaler will be multiplied by the height of screen size. So the scaler itself should be very small.
  */
-#define INPUT_SCALER 0.0015f
+#define INPUT_SCALER 1.92f
+
+extern float acutal_input_scaler;
+
 /** HOW LONG the arms can stretch*/
 #define MAX_ARM_LENGTH 7.2f
 #define MIN_ARM_LENGTH 0.0f

@@ -91,7 +91,7 @@ public:
     Interactable(void) {}
     virtual ~Interactable() {
         // set everything to nullptr
-        _world = nullptr;
+//        _world = nullptr; //this crashed app when exiting from level so commented out for now...
         _scene = nullptr;
         _assets = nullptr;
         _selfTexture = nullptr;

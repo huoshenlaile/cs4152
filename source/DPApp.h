@@ -31,6 +31,8 @@
 
 #include "helpers/LevelConstants.h"
 #include "helpers/LevelLoader2.h"
+#include "helpers/GameSceneConstants.h"
+#include "helpers/deviceInputScale.h"
 using namespace cugl::physics2::net;
 
 /**
@@ -57,8 +59,6 @@ protected:
 	std::shared_ptr<cugl::AssetManager> _assets2; // the assets dedicated for game scene, currently is still the global asset manager
 	std::shared_ptr<NetEventController> _network;
     
-
-    std::shared_ptr<JsonWriter> _progressWriter;
     std::shared_ptr<JsonReader> _gameProgress;
     std::string _currentLevelKey;
 
@@ -130,6 +130,11 @@ public:
 
 	void updateSetting(float timestep);
 
+    /**Updates the level json after completing one level (adds current level and unlock the next level**/
+    void updateLevelJson();
+    
+    /**Takes care of adding and updating one specific level's json fields**/
+    void addLevelJson(std::shared_ptr<JsonValue> json, std::string levelkey, bool completedfield, std::string endingtypefield);
 	virtual void draw() override;
 };
 #endif /* DPApp_h */

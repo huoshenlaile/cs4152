@@ -54,10 +54,13 @@ bool InputController::init(const Rect bounds) {
     return success;
 }
 
+Touchscreen * savedtouch = nullptr;
+
 void InputController::update(float dt) {
     // CULog("World coord in GF at: %f %f \n", touchPos.x, touchPos.y);
 //#ifdef CU_TOUCH_SCREEN
     Touchscreen *touch = Input::get<Touchscreen>();
+    savedtouch = touch;
     // Press to continue
     if (!_started) {
         if (_initialCd <= 10) {
@@ -122,7 +125,7 @@ void InputController::update(float dt) {
 //#endif
 }
 void InputController::process() {
-    Touchscreen *touch = Input::get<Touchscreen>();
+    Touchscreen *touch = savedtouch;
     for (auto i = _character._touchInfo.begin(); i != _character._touchInfo.end(); i++) {
         // CULog("Touchid %d", i->id);
         if (touch->touchDown(i->id)) {
