@@ -1,11 +1,8 @@
-#include <stdio.h>
-
-#include <iostream>
-
 #include "LevelSelectScene.h"
-
-#include <iostream>
 #include <sstream>
+#include <stdio.h>
+#include <iostream>
+
 
 using namespace cugl;
 using namespace cugl::net;
@@ -89,12 +86,6 @@ bool LevelSelectScene::init(const std::shared_ptr<cugl::AssetManager> &assets) {
     
     _level1->addListener([this](const std::string& name, bool down) {
     if (down) {
-//        auto _levelButtonImageNode = std::dynamic_pointer_cast<scene2::PolygonNode>(_assets->get<scene2::SceneNode>("level_levels_level1")-> getChildByName("button_level1"));
-//        
-//        auto newTexture = _assets->get<Texture>("button_level1_down");
-//        _levelButtonImageNode->setTexture(newTexture);
-//        Size contentDimen = _assets->get<scene2::SceneNode>("level_levels_level1")-> getChildByName("button_level1")->getContentSize();
-//        _levelButtonImageNode->setContentSize(contentDimen.width, contentDimen.height);
         selectedLevelFile = "json/level1.json";
         selectedLevelKey = "level1";
         startGame();
@@ -368,16 +359,18 @@ void LevelSelectScene::lockOrUnlockLevelButton(int levelNumber, bool isLock) {
     auto savedir = Application::get()->getSaveDirectory();
     std::shared_ptr<JsonReader> jsonreader = JsonReader::alloc(savedir + "user_progress.json");
     
-    if (jsonreader != nullptr && jsonreader->ready() && !isLock){
-        std::shared_ptr<JsonValue> jsonobj = jsonreader->readJson();
-        if (jsonobj->get("level"+std::to_string(levelNumber)) != nullptr){
-            if (jsonobj->get("level"+std::to_string(levelNumber))->getString("endingType") == "0"){
-                newTextureString = "button_level"+std::to_string(levelNumber)+"_good";
-            } else if (jsonobj->get("level"+std::to_string(levelNumber))->getString("endingType") == "1"){
-                newTextureString = "button_level"+std::to_string(levelNumber)+"_bad";
-            }
-        }
-    }
+    //delete to unlock all
+//    if (jsonreader != nullptr && jsonreader->ready() && !isLock){
+//        std::shared_ptr<JsonValue> jsonobj = jsonreader->readJson();
+//        if (jsonobj->get("level"+std::to_string(levelNumber)) != nullptr){
+//            if (jsonobj->get("level"+std::to_string(levelNumber))->getString("endingType") == "0"){
+//                newTextureString = "button_level"+std::to_string(levelNumber)+"_good";
+//            } else if (jsonobj->get("level"+std::to_string(levelNumber))->getString("endingType") == "1"){
+//                newTextureString = "button_level"+std::to_string(levelNumber)+"_bad";
+//            }
+//        }
+//    }
+    
 //    std::cout << newTextureString <<std::endl;
     auto newTexture = _assets->get<Texture>(newTextureString);
     _levelButtonImageNode->setTexture(newTexture);
@@ -393,8 +386,6 @@ void LevelSelectScene::lockOrUnlockLevelButton(int levelNumber, bool isLock) {
     
 //    std::cout << "locking or unlocking button " << levelNumber << "!" << std::endl;
 }
-
-
 
 void LevelSelectScene::lockAllLevels() {
     for (int i = 1; i <= 15; i ++) {
@@ -434,17 +425,19 @@ void LevelSelectScene::updateLevelStatus() {
     
     
     //debugging purposes
-    for (auto i = unlocked_levels.begin(); i != unlocked_levels.end(); i++){
+//    for (auto i = unlocked_levels.begin(); i != unlocked_levels.end(); i++){
 //        std::cout<< (*i) << std::endl;
-    }
+//    }
     
     for (int i = 1; i <= 15; i ++) {
-        if (unlocked_levels.find(i) != unlocked_levels.end()){
-//            std::cout << "unlock" <<std::endl;
-            lockOrUnlockLevelButton(i, false);
-        } else {
-//            std::cout << "lock" <<std::endl;
-            lockOrUnlockLevelButton(i, true);
-        }
+        lockOrUnlockLevelButton(i, false);
+        //comment to unlock all
+//        if (unlocked_levels.find(i) != unlocked_levels.end()){
+////            std::cout << "unlock" <<std::endl;
+//            lockOrUnlockLevelButton(i, false);
+//        } else {
+////            std::cout << "lock" <<std::endl;
+//            lockOrUnlockLevelButton(i, true);
+//        }
     }
 }
