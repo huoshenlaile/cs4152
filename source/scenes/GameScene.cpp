@@ -324,7 +324,7 @@ Size GameScene::computeActiveSize() const {
 bool GameScene::isCharacterInMap() {
     Vec2 pos = _character->getTrackSceneNode()->getWorldPosition();
     // CULog("current body pos: %f, %f", pos.x, pos.y);
-    return pos.x >= 0 && pos.x <= _worldnode->getSize().width && pos.y >= 0 && pos.y <= _worldnode->getSize().height;
+    return pos.x >= 0-400 && pos.x <= _worldnode->getSize().width+400 && pos.y >= -400 && pos.y <= _worldnode->getSize().height+400;
 }
 
 #pragma mark Level Complete
