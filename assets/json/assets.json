@@ -71,6 +71,36 @@
         "alpharelease_long_frenchfries": {
             "file": "textures/alpharelease_long_frenchfries.png"
         },
+        "painttube_black":{
+          "file": "textures/newplatforms/painttube_black.png"
+        },
+        "painttube_blue":{
+          "file": "textures/newplatforms/painttube_blue.png"
+        },
+        "painttube_green":{
+          "file": "textures/newplatforms/painttube_green.png"
+        },
+        "painttube_pink":{
+          "file": "textures/newplatforms/painttube_pink.png"
+        },
+        "painttube_purple":{
+          "file": "textures/newplatforms/painttube_purple.png"
+        },
+        "painttube_red":{
+          "file": "textures/newplatforms/painttube_red.png"
+        },
+        "staticplatform_brush":{
+          "file": "textures/newplatforms/staticplatform_brush.png"
+        },
+        "staticplatform_brush2x":{
+          "file": "textures/newplatforms/staticplatform_brush2x.png"
+        },
+        "staticplatform_brush3x":{
+          "file": "textures/newplatforms/staticplatform_brush3x.png"
+        },
+        "long_frenchfriesx3":{
+          "file": "textures/newplatforms/staticplatform_frenchfries3x.png"
+        },
         "alpharelease_long_frenchfries_3": {
             "file": "textures/alpharelease_long_frenchfries_3.png"
         },

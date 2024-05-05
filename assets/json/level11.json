@@ -83,55 +83,6 @@
                 }, 
                 {
                  "height":0,
-                 "id":116,
-                 "name":"",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":0,
-                         "y":-186.254456083541
-                        }, 
-                        {
-                         "x":679.410253141377,
-                         "y":-186.254456083541
-                        }, 
-                        {
-                         "x":679.410253141377,
-                         "y":0
-                        }],
-                 "properties":[
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":192,
-                                 "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
-                                 "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
-                                }
-                            }
-                        }],
-                 "rotation":0,
-                 "type":"wall",
-                 "visible":true,
-                 "width":0,
-                 "x":9597.75697467513,
-                 "y":1755.44462203226
-                }, 
-                {
-                 "height":0,
                  "id":119,
                  "name":"",
                  "polygon":[
@@ -217,7 +168,7 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
+                                 "texture":"alpharelease_long_frenchfries_3alpharelease_long_frenchfries_3"
                                 }
                             }
                         }],
@@ -1115,6 +1066,63 @@
                  "width":0,
                  "x":8528.02782996137,
                  "y":1377.20370515104
+                }, 
+                {
+                 "height":0,
+                 "id":124,
+                 "name":"",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":-318.101,
+                         "y":-93.4108
+                        }, 
+                        {
+                         "x":300.429,
+                         "y":-93.4108
+                        }, 
+                        {
+                         "x":300.429,
+                         "y":88.3615
+                        }, 
+                        {
+                         "x":-315.577,
+                         "y":88.3615
+                        }, 
+                        {
+                         "x":-315.577,
+                         "y":-90.8861
+                        }],
+                 "properties":[
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"",
+                                 "debugopacity":0,
+                                 "density":0,
+                                 "friction":1000000000,
+                                 "restitution":0.2,
+                                 "rotation":false,
+                                 "texture":"alpharelease_frenchfries"
+                                }
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":9953.67808753636,
+                 "y":1662.16216216216
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1123,7 +1131,7 @@
          "y":0
         }],
  "nextlayerid":7,
- "nextobjectid":124,
+ "nextobjectid":125,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

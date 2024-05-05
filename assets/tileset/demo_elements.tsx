@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="ragdoll_elements" tilewidth="3718" tileheight="4490" tilecount="34" columns="0" objectalignment="bottomleft">
+<tileset version="1.10" tiledversion="1.10.2" name="ragdoll_elements" tilewidth="3718" tileheight="4490" tilecount="35" columns="0" objectalignment="bottomleft">
  <editorsettings>
   <export target="ragdoll_elements..tsx" format="tsx"/>
  </editorsettings>
@@ -114,5 +114,8 @@
  </tile>
  <tile id="47">
   <image width="2900" height="580" source="../textures/lv0_background.png"/>
+ </tile>
+ <tile id="48">
+  <image width="343" height="52" source="../textures/newplatforms/staticplatform_frenchfries3x.png"/>
  </tile>
 </tileset>
