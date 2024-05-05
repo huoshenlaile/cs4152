@@ -2443,6 +2443,23 @@
                             }
                         },
                         {
+                         "name":"hideSub",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"hide",
+                             "Enabled":true,
+                             "Float1":0,
+                             "Head":"Erase Tap Continue Button"
+                            }
+                        },
+                        {
+                         "name":"LoadOnce",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"properties",
                          "propertytype":"Physics",
                          "type":"class",
@@ -2480,8 +2497,8 @@
                  "type":"ui",
                  "visible":true,
                  "width":0,
-                 "x":6285.31037141755,
-                 "y":3433.83455425609
+                 "x":6271.8875526256,
+                 "y":3165.37817841716
                 }, 
                 {
                  "height":0,

@@ -115,7 +115,7 @@ public:
         _worldnode = nullptr;
     }
 
-    bool init(std::shared_ptr<LevelLoader2> level, std::shared_ptr<InputController> inputcontroller, std::shared_ptr<CameraController> camera);
+    bool init(std::shared_ptr<LevelLoader2> level, std::shared_ptr<InputController> inputcontroller, std::shared_ptr<CameraController> camera, bool skipInitUIItems);
     void activateController();
     void preUpdate(float timestep);
     void postUpdate(float timestep);
@@ -129,9 +129,9 @@ public:
     void beforeSolve(b2Contact *contact, const b2Manifold *oldManifold);
     void afterSolve(b2Contact *contact, const b2ContactImpulse *impulse);
 
-    static std::shared_ptr<InteractionController2> alloc(std::shared_ptr<LevelLoader2> level, std::shared_ptr<InputController> inputcontroller, std::shared_ptr<CameraController> camera) {
+    static std::shared_ptr<InteractionController2> alloc(std::shared_ptr<LevelLoader2> level, std::shared_ptr<InputController> inputcontroller, std::shared_ptr<CameraController> camera, bool skipInitUIItems) {
         std::shared_ptr<InteractionController2> result = std::make_shared<InteractionController2>();
-        return (result->init(level, inputcontroller, camera) ? result : nullptr);
+        return (result->init(level, inputcontroller, camera, skipInitUIItems) ? result : nullptr);
     }
     
     void setAudioController(std::shared_ptr<AudioController> audio) {

@@ -2984,11 +2984,28 @@
                              "name":"cont",
                              "rows":6,
                              "repeat":false,
-                             "scale":2,
+                             "scale":5,
                              "texture":"tap_to_continue",
                              "type":"string"
                             }
                         },
+                        {
+                         "name":"hideSub",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"hide",
+                             "Enabled":true,
+                             "Float1":0,
+                             "Head":"Erase Tap Continue Button"
+                            }
+                        },
+                        {
+                         "name":"LoadOnce",
+                         "type":"bool",
+                         "value":true
+                        }, 
                         {
                          "name":"properties",
                          "propertytype":"Physics",
@@ -3027,9 +3044,9 @@
                  "type":"ui",
                  "visible":true,
                  "width":0,
-                 "x":6653.25541707607,
-                 "y":3363.86202616745
-                }, 
+                 "x":6271.8875526256,
+                 "y":3165.37817841716
+                },
                 {
                  "height":0,
                  "id":218,
