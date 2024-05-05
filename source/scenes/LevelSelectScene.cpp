@@ -168,7 +168,7 @@ bool LevelSelectScene::init(const std::shared_ptr<cugl::AssetManager> &assets) {
     _level14->addListener([this](const std::string& name, bool down) {
         if (down) {
             CULog("Level 11 selected");
-            selectedLevelFile = "json/level14.json"; // Ensure this file exists in your assets
+            selectedLevelFile = "json/level13.json"; // Ensure this file exists in your assets
             selectedLevelKey = "paintdrip";
             startGame();
         }
@@ -184,7 +184,7 @@ bool LevelSelectScene::init(const std::shared_ptr<cugl::AssetManager> &assets) {
     _level13->addListener([this](const std::string& name, bool down) {
         if (down) {
             CULog("Level 13 selected");
-            selectedLevelFile = "json/level13.json"; // Ensure this file exists in your assets
+            selectedLevelFile = "json/level14.json"; // Ensure this file exists in your assets
             selectedLevelKey = "level13";
             startGame();
         }
