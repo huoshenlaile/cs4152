@@ -2990,6 +2990,11 @@
                             }
                         },
                         {
+                         "name":"LoadOnce",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"properties",
                          "propertytype":"Physics",
                          "type":"class",
