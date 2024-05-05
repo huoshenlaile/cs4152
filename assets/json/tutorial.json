@@ -167,7 +167,7 @@
                          "type":"class",
                          "value":
                             {
-                             "speed":13,
+                             "speed":10,
                              "MoveOnContact":true,
                              "xy":"30,0,30,35,82,35,82,10,82,35,30,35,30,0,0,0"
                             }
