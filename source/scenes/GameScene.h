@@ -117,7 +117,12 @@ public:
 
     void setComplete(bool value) { _complete = value; }
 
-    void setCameraSkip (bool val) {skipCameraSpan = val;}
+    void setCameraSkip (bool val) {
+        skipCameraSpan = val;
+    }
+    
+    void setCameraState (int state) {_camera->setCameraState(state);}
+    
 #pragma mark -
 
     virtual void preUpdate(float dt);

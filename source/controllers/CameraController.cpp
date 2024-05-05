@@ -24,6 +24,8 @@ bool CameraController::init(const std::shared_ptr<cugl::scene2::SceneNode> targe
     _tutorialState = 0;
     _initPosOnce = 0;
     _replay = false;
+    _skipCameraSpan = skipCameraSpan;
+    _skipPosMove = false;
     return true;
 }
 
@@ -41,7 +43,13 @@ void CameraController::update(float dt) {
         _displayed = false;
         this->setZoom(_levelCompleteZoom);
     }
-
+    if(_skipCameraSpan && !_skipPosMove){
+        Vec2 targetPos = Vec2(_target->getWorldPosition().x, _target->getWorldPosition().y);
+        _camera->setPosition(targetPos);
+        _skipPosMove = true;
+        CULog("%f,%f", targetPos.x, targetPos.y);
+        CULog("camera auto focus!!!!");
+    }
     if (!_moveToLeft && _horizontal) {
         _camera->setPosition(Vec2(_camera->getViewport().getMaxX() / (2 * _camera->getZoom()),
                                    _camera->getViewport().getMaxY() / (2 * _camera->getZoom())));
