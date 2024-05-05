@@ -22,58 +22,36 @@ bool MovingWall::init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect b
             std::stringstream ss(path);
             std::string item;
             while (getline(ss, item, ',')) {
-                    coordinates.push_back(std::stoi(item));
+                coordinates.push_back(std::stoi(item));
             }
             Vec2 p = _selfObstacle->getPosition();
             for (size_t i = 0; i < coordinates.size(); i += 2) {
-                    int xi = coordinates[i];
-                    int yi = coordinates[i + 1];
-                    _path.emplace_back(p.x + xi, p.y + yi);
+                int xi = coordinates[i];
+                int yi = coordinates[i + 1];
+                _path.emplace_back(p.x + xi, p.y + yi);
             }
             
-//            for (auto& point : movement->get("path")->children()) {
-//                Vec2 p = _selfObstacle->getPosition();
-//                CULog("HIIIIIILOOOOKKKKKKHEREEEEEEEEE: %f hi %f", p.x, p.y);
-//                _path.emplace_back(p.x+point->getFloat("x"), p.y+point->getFloat("y"));
-//            }
+            //            for (auto& point : movement->get("path")->children()) {
+            //                Vec2 p = _selfObstacle->getPosition();
+            //                CULog("HIIIIIILOOOOKKKKKKHEREEEEEEEEE: %f hi %f", p.x, p.y);
+            //                _path.emplace_back(p.x+point->getFloat("x"), p.y+point->getFloat("y"));
+            //            }
             
             for (auto c : coordinates){
                 std::cout<<c << std::endl;
             }
             
             CULog("HIIIIIILOOOOKKKKKKHEREEEEEEEEE: %f", 0.1f);
-        } else if(properties->get(i)->getString("name") == "MoveOnContact") {
-            _moveOnContact = properties->get(i)->get("value")->asBool();
+            _moveOnContact = movement->getBool("MoveOnContact");
         }
     }
     
     _isMoving = !_path.empty() && !_moveOnContact;
     activated = true;
+    OnBeginContactEnabled = true;
+    timeUpdateEnabled = true;
     return true;
 }
-
-void MovingWall::update(float dt) {
-    std::cout << _isMoving << _path.empty()<<  std::endl;
-    if (!_isMoving || _path.empty()) return;
-    
-    // Calculate the next position along the path
-    Vec2 currentTarget = _path[_currentPathIndex];
-    Vec2 currentPosition = _selfObstacle->getPosition();
-    Vec2 direction = (currentTarget - currentPosition);
-    float distance = direction.length();
-    direction.normalize();
-
-    float step = _speed * dt;
-    if (step >= distance) {
-        currentPosition = currentTarget;
-        _currentPathIndex = (_currentPathIndex + 1) % _path.size();  // Loop the path
-    } else {
-        currentPosition += direction * step;
-    }
-
-    _selfObstacle->setPosition(currentPosition);
-}
-
 
 PublishedMessage MovingWall::onBeginContact(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact, std::shared_ptr<Interactable> otherInteractable, bool isCharacter, std::shared_ptr<CharacterController> character) {
     if(_moveOnContact && isCharacter){
@@ -92,6 +70,7 @@ bool MovingWall::linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleWorld
     if (!_path.empty()) {
         scene2::SceneNode* weakTexture = _selfTexture.get(); // Safe as long as `this` is alive
         _selfObstacle->setListener([=](physics2::Obstacle* obs){
+            if (!_isMoving || _path.empty()) return;
             Vec2 currentPosition = obs->getPosition();
             Vec2 currentTarget = _path[_currentPathIndex];
             
