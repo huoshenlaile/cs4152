@@ -1,11 +1,8 @@
-#include <stdio.h>
-
-#include <iostream>
-
 #include "LevelSelectScene.h"
-
-#include <iostream>
 #include <sstream>
+#include <stdio.h>
+#include <iostream>
+
 
 using namespace cugl;
 using namespace cugl::net;
@@ -89,12 +86,6 @@ bool LevelSelectScene::init(const std::shared_ptr<cugl::AssetManager> &assets) {
     
     _level1->addListener([this](const std::string& name, bool down) {
     if (down) {
-//        auto _levelButtonImageNode = std::dynamic_pointer_cast<scene2::PolygonNode>(_assets->get<scene2::SceneNode>("level_levels_level1")-> getChildByName("button_level1"));
-//        
-//        auto newTexture = _assets->get<Texture>("button_level1_down");
-//        _levelButtonImageNode->setTexture(newTexture);
-//        Size contentDimen = _assets->get<scene2::SceneNode>("level_levels_level1")-> getChildByName("button_level1")->getContentSize();
-//        _levelButtonImageNode->setContentSize(contentDimen.width, contentDimen.height);
         selectedLevelFile = "json/level1.json";
         selectedLevelKey = "level1";
         startGame();
