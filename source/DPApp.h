@@ -31,6 +31,8 @@
 
 #include "helpers/LevelConstants.h"
 #include "helpers/LevelLoader2.h"
+#include "helpers/GameSceneConstants.h"
+#include "helpers/deviceInputScale.h"
 using namespace cugl::physics2::net;
 
 /**

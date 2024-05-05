@@ -29,7 +29,10 @@
 /** input scaler - how effective can the finger input affect the character movement.
  * NOTE THAT this scaler will be multiplied by the height of screen size. So the scaler itself should be very small.
  */
-#define INPUT_SCALER 0.0015f
+#define INPUT_SCALER 1.92f
+
+extern float acutal_input_scaler;
+
 /** HOW LONG the arms can stretch*/
 #define MAX_ARM_LENGTH 7.2f
 #define MIN_ARM_LENGTH 0.0f

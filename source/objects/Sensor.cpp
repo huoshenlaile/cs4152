@@ -33,7 +33,6 @@ PublishedMessage Sensor::onBeginContact(std::shared_ptr<cugl::physics2::Obstacle
             if (other_name == triggers[i]){
                 auto a = PublishedMessage();
                 a.Head = message_heads[i];
-                CULog("Sensor %s triggered", a.Head.c_str());
                 a.Body = message_bodies[i];
                 return a;
             }

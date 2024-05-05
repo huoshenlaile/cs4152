@@ -9,6 +9,8 @@
 
 using namespace cugl;
 
+float acutal_input_scaler = 0.0015f;
+
 #pragma mark STARTUP, SHUTDOWN
 void DPApp::onStartup() {
     _assets = AssetManager::alloc();
@@ -45,7 +47,9 @@ void DPApp::onStartup() {
     
     
     _levelLoadScene.init(_assets2);
-    
+    acutal_input_scaler = getInputScale();
+    CULog("time for fixed update: %f", getFixedStep() / 1000000.0f);
+
     cugl::net::NetworkLayer::start(net::NetworkLayer::Log::INFO);
     setDeterministic(true);
     
