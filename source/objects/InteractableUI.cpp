@@ -115,10 +115,8 @@ bool InteractableUI::linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleW
 }
 
 PublishedMessage InteractableUI::timeUpdate(float timestep){
-    // instead... -- only one timer needs to run at time, true.
-    // if showCDTimerTriggered (from action), start incrementing _cd. When it hits _show_cd, set _shown_already, and activate the animation
-    // if hideCDTimerTriggered (from action), start incrementing _cd. When it hits _hide_cd, set invisble everything.
-    if ((_cd <= _show_cd || _cd <= _hide_cd) /*&& _selfTexture->isVisible()*/){
+
+    if ((_cd <= _show_cd || _cd <= _hide_cd) && _selfTexture->isVisible()){
         _cd+=timestep;
     }
     if (_animated && _shown_already){

@@ -1422,11 +1422,6 @@
                             }
                         },
                         {
-                         "name":"LoadOnce",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
                          "name":"hideSub",
                          "propertytype":"SubMessage",
                          "type":"class",

@@ -58,7 +58,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, std::str
     _camera->setZoom(_camera->getLevelCompleteZoom());
 
 #pragma mark Construct Interaction Controller
-    _interactionController = InteractionController2::alloc(_level, _inputController, _camera, skipCameraSpan);
+    _interactionController = InteractionController2::alloc(_level, _inputController, _camera);
     _interactionController->activateController();
 
 #pragma mark Audio Controller

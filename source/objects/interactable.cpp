@@ -59,9 +59,6 @@ bool Interactable::init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect
         if (prop -> getString("name") == "JumpScale") {
             jumpscale = prop -> getFloat("value");
         }
-        if(prop -> getString("name") == "LoadOnce") {
-            loadOnce = prop -> getBool("value");
-        }
     }
     if (physicalProperties!=nullptr){
         _texture_name = physicalProperties->get("obstacle")->getString(TEXTURE_FIELD);
