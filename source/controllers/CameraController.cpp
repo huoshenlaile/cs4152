@@ -304,37 +304,37 @@ void CameraController::setCamera(std::string selectedLevelKey) {
         setMode(true);
         setDefaultZoom(0.4);
         _levelCompleteZoom = DEFAULT_ZOOM;
-        _panSpeed = Vec2(30, 0);
+        _panSpeed = Vec2(45, 0);
     } else if (selectedLevelKey == "level1"|| selectedLevelKey == "level2" ||selectedLevelKey == "level3") {
         this->setMode(true);
         setDefaultZoom(DEFAULT_ZOOM);
         _levelCompleteZoom = DEFAULT_ZOOM;
-        _panSpeed = Vec2(30, 0);
+        _panSpeed = Vec2(45, 0);
     } else if (selectedLevelKey == "doodlejump") {
         setMode(false);
         setDefaultZoom(DEFAULT_ZOOM);
         _levelCompleteZoom = 0.16;
-        _panSpeed = Vec2(0, -30);
+        _panSpeed = Vec2(0, -50);
     } else if (selectedLevelKey == "level4" || selectedLevelKey == "level5" || selectedLevelKey == "level6") {
         setMode(false);
         setDefaultZoom(0.2);
         _levelCompleteZoom = 0.16;
-        _panSpeed = Vec2(0, -30);
+        _panSpeed = Vec2(0, -50);
     } else if (selectedLevelKey == "level7"||selectedLevelKey == "level8"||selectedLevelKey == "level9") {
         setMode(false);
         setDefaultZoom(0.2);
         _levelCompleteZoom = 0.165;
-        _panSpeed = Vec2(0, -30);
+        _panSpeed = Vec2(0, -50);
     }else if (selectedLevelKey == "level10"||selectedLevelKey == "level11"||selectedLevelKey == "level12") {
         this->setMode(true);
         setDefaultZoom(DEFAULT_ZOOM);
         _levelCompleteZoom = DEFAULT_ZOOM;
-        _panSpeed = Vec2(30, 0);
+        _panSpeed = Vec2(45, 0);
     }else if (selectedLevelKey == "level13" || selectedLevelKey == "level14" || selectedLevelKey == "level15") {
         setMode(false);
         setDefaultZoom(0.2);
         _levelCompleteZoom = 0.17;
-        _panSpeed = Vec2(0, -30);
+        _panSpeed = Vec2(0, -50);
     } 
 }
 
