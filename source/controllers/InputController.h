@@ -275,6 +275,7 @@ public:
     bool isRHAssigned() { return this->_character.rightHand.assigned; }
 
     bool getStarted() { return _started; }
+    void setStarted(bool start){_started = start;}
     
 };
 

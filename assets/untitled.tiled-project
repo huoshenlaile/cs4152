@@ -399,40 +399,6 @@
         {
             "color": "#ffa0a0a4",
             "drawFill": true,
-            "id": 22,
-            "members": [
-                {
-                    "name": "condition1",
-                    "propertyType": "PubMessage",
-                    "type": "class",
-                    "value": {
-                    }
-                },
-                {
-                    "name": "condition2",
-                    "propertyType": "PubMessage",
-                    "type": "class",
-                    "value": {
-                    }
-                }
-            ],
-            "name": "Publication",
-            "type": "class",
-            "useAs": [
-                "property",
-                "map",
-                "layer",
-                "object",
-                "tile",
-                "tileset",
-                "wangcolor",
-                "wangset",
-                "project"
-            ]
-        },
-        {
-            "color": "#ffa0a0a4",
-            "drawFill": true,
             "id": 23,
             "members": [
                 {
@@ -577,40 +543,6 @@
                 }
             ],
             "name": "SubMessage",
-            "type": "class",
-            "useAs": [
-                "property",
-                "map",
-                "layer",
-                "object",
-                "tile",
-                "tileset",
-                "wangcolor",
-                "wangset",
-                "project"
-            ]
-        },
-        {
-            "color": "#ffa0a0a4",
-            "drawFill": true,
-            "id": 25,
-            "members": [
-                {
-                    "name": "condition1",
-                    "propertyType": "SubMessage",
-                    "type": "class",
-                    "value": {
-                    }
-                },
-                {
-                    "name": "condition2",
-                    "propertyType": "SubMessage",
-                    "type": "class",
-                    "value": {
-                    }
-                }
-            ],
-            "name": "Subscription",
             "type": "class",
             "useAs": [
                 "property",

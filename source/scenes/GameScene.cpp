@@ -56,9 +56,10 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, std::str
     _camera->setCamera(levelName);
     _camera->init(_character->getTrackSceneNode(), _worldnode, 10.0f, std::dynamic_pointer_cast<OrthographicCamera>(getCamera()), _uinode, 5.0f, _camera->getMode(), skipCameraSpan);
     _camera->setZoom(_camera->getLevelCompleteZoom());
+    
 
 #pragma mark Construct Interaction Controller
-    _interactionController = InteractionController2::alloc(_level, _inputController, _camera, skipCameraSpan);
+    _interactionController = InteractionController2::alloc(_level, _inputController, _camera);
     _interactionController->activateController();
 
 #pragma mark Audio Controller
@@ -114,11 +115,13 @@ void GameScene::setActive(bool value) {
 
 void GameScene::reset() {
     _assets->unload<LevelLoader2>(_levelName);
+    _camera->setCameraState(3);
     GameScene::dispose();
 }
 
 #pragma mark preUpdate
 void GameScene::preUpdate(float dt) {
+//    CULog("position %f,%f!!!", _character->getTrackSceneNode()->getWorldPosition().x,_character->getTrackSceneNode()->getWorldPosition().y);
     if (_level == nullptr)
         return;
     // process input
@@ -137,7 +140,7 @@ void GameScene::preUpdate(float dt) {
     _inputController->fillHand(_character->getLeftHandPosition(), _character->getRightHandPosition(), _character->getLHPos(), _character->getRHPos());
 
     // update camera
-    if (_inputController->getStarted() || !_camera->getInitialUpdate()) {
+    if (_inputController->getStarted() || !_camera->getInitialUpdate() || skipCameraSpan) {
         _camera->update(dt);
         _camera->setInitialUpdate(true);
     }
@@ -155,7 +158,7 @@ void GameScene::preUpdate(float dt) {
     if (!isCharacterInMap()) {
         // CULog("Character out!");
         state = RESET;
-        _camera->setCameraState(0);
+        _camera->setCameraState(3);
     }
     // NOTE: This is moved to InteractionController.
     //    _interactionController->connectGrabJoint();

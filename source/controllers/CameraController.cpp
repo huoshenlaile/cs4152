@@ -24,6 +24,8 @@ bool CameraController::init(const std::shared_ptr<cugl::scene2::SceneNode> targe
     _tutorialState = 0;
     _initPosOnce = 0;
     _replay = false;
+    _skipCameraSpan = skipCameraSpan;
+    _skipPosMove = false;
     return true;
 }
 
@@ -41,7 +43,13 @@ void CameraController::update(float dt) {
         _displayed = false;
         this->setZoom(_levelCompleteZoom);
     }
-
+    if(_skipCameraSpan && !_skipPosMove){
+        Vec2 targetPos = Vec2(_target->getWorldPosition().x, _target->getWorldPosition().y);
+        _camera->setPosition(targetPos);
+        _skipPosMove = true;
+        CULog("%f,%f", targetPos.x, targetPos.y);
+        CULog("camera auto focus!!!!");
+    }
     if (!_moveToLeft && _horizontal) {
         _camera->setPosition(Vec2(_camera->getViewport().getMaxX() / (2 * _camera->getZoom()),
                                    _camera->getViewport().getMaxY() / (2 * _camera->getZoom())));
@@ -304,43 +312,38 @@ void CameraController::setCamera(std::string selectedLevelKey) {
         setMode(true);
         setDefaultZoom(0.4);
         _levelCompleteZoom = DEFAULT_ZOOM;
-        _panSpeed = Vec2(30, 0);
+        _panSpeed = Vec2(45, 0);
     } else if (selectedLevelKey == "level1"|| selectedLevelKey == "level2" ||selectedLevelKey == "level3") {
         this->setMode(true);
         setDefaultZoom(DEFAULT_ZOOM);
         _levelCompleteZoom = DEFAULT_ZOOM;
-        _panSpeed = Vec2(30, 0);
+        _panSpeed = Vec2(45, 0);
     } else if (selectedLevelKey == "doodlejump") {
         setMode(false);
         setDefaultZoom(DEFAULT_ZOOM);
         _levelCompleteZoom = 0.16;
-        _panSpeed = Vec2(0, -30);
+        _panSpeed = Vec2(0, -50);
     } else if (selectedLevelKey == "level4" || selectedLevelKey == "level5" || selectedLevelKey == "level6") {
         setMode(false);
         setDefaultZoom(0.2);
         _levelCompleteZoom = 0.16;
-        _panSpeed = Vec2(0, -30);
+        _panSpeed = Vec2(0, -50);
     } else if (selectedLevelKey == "level7"||selectedLevelKey == "level8"||selectedLevelKey == "level9") {
         setMode(false);
         setDefaultZoom(0.2);
         _levelCompleteZoom = 0.165;
-        _panSpeed = Vec2(0, -30);
+        _panSpeed = Vec2(0, -50);
     }else if (selectedLevelKey == "level10"||selectedLevelKey == "level11"||selectedLevelKey == "level12") {
         this->setMode(true);
         setDefaultZoom(DEFAULT_ZOOM);
         _levelCompleteZoom = DEFAULT_ZOOM;
-        _panSpeed = Vec2(30, 0);
-    }else if (selectedLevelKey == "level13") {
+        _panSpeed = Vec2(45, 0);
+    }else if (selectedLevelKey == "level13" || selectedLevelKey == "level14" || selectedLevelKey == "level15") {
         setMode(false);
         setDefaultZoom(0.2);
         _levelCompleteZoom = 0.17;
-        _panSpeed = Vec2(0, -30);
-    } else if (selectedLevelKey == "level15") {
-        setMode(false);
-        setDefaultZoom(0.17);
-        _levelCompleteZoom = 0.15;
-        _panSpeed = Vec2(0, -30);
-    }
+        _panSpeed = Vec2(0, -50);
+    } 
 }
 
 bool CameraController::cameraStay(int time) {

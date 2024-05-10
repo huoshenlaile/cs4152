@@ -398,6 +398,7 @@ void DPApp::updateLevelLoad(float timestep){
             _gameScene.setActive(true);
             _gameScene.setComplete(false);
             _gameScene.setCameraSkip(true);
+
             _audioController.clear("menu");
             _status = GAME;
             break;

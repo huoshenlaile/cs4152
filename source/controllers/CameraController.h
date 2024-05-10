@@ -37,7 +37,7 @@ protected:
 
     Vec2 _UIPosition;
     int _initialStay, _finalStay;
-    bool _levelComplete, _completed, _initialUpdate, _displayed, _moveToLeft, _moveToTop, _isTutorial, _replay;
+    bool _levelComplete, _completed, _initialUpdate, _displayed, _moveToLeft, _moveToTop, _isTutorial, _replay, _skipCameraSpan, _skipPosMove;
     float _defaultZoom, _levelCompleteZoom;
     Vec2 _panSpeed;
     bool _horizontal;
@@ -122,6 +122,7 @@ public:
     Vec2 getUIPosition() { return _UIPosition; }
     void setInitialStay(int stay) { _initialStay = stay; }
     void setFinalStay(int stay) { _finalStay = stay; }
+    void setDisplayed(bool display) {_displayed = display;}
     bool getDisplayed() { return _displayed; }
     void setDefaultZoom(float zoom) { _defaultZoom = zoom; }
     float getDefaultZoom() { return _defaultZoom; }

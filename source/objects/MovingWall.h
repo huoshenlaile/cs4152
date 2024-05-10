@@ -18,7 +18,7 @@ protected:
     std::vector<Vec2> _path;        // Path for movement
     float _speed;                   // Speed of movement along the path
     size_t _currentPathIndex = 0;   // Current index in the path
-    bool _isMoving = true;          // Is the wall currently moving?
+    bool _isMoving = false;          // Is the wall currently moving?
     float _movementTimer = 0.0;     // Timer to manage movement updates
     float _remainingDuration = 0;  
     bool _moveOnContact = false;
@@ -29,6 +29,7 @@ public:
 
     virtual bool init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect bounds) override;
     void update(float dt);
+    
     
     virtual PublishedMessage onBeginContact(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact = nullptr, std::shared_ptr<Interactable> otherInteractable = nullptr, bool isCharacter = false, std::shared_ptr<CharacterController> character = nullptr) override;
 
