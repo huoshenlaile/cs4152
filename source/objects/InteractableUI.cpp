@@ -70,24 +70,13 @@ bool InteractableUI::linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleW
     
 
     actions[show_subscription_head] = ([=](ActionParams params){
-//        std::cout << "SHOW IS TRIGGERED??????" << std::endl;
-        if (!_shown_already && _cd >= _show_cd && !_selfTexture->isVisible()){
-            std::cout << "UI TEXT IS SHOWN!!!!" << std::endl;
-            _cd=0;
-            _shown_already = true;
-            _selfTexture->setVisible(true);
-            if (_animated){
-                _animation->setVisible(true);
-            }
-            PublishedMessage m = PublishedMessage();
-            m.Head = getName() + " shown";
-            m.enable = true;
-            return m;
-        }
+        std::cout << "SHOW IS TRIGGERED?????? not shown_alrdy " << !_shown_already << " cd >= show_cd? " << (_cd >= _show_cd) << " texture invisible? " << !_selfTexture->isVisible() << std::endl;
+        _showCDTimerTriggered = true;
         return PublishedMessage();
     });
     if(hide_subscription_head != ""){
         actions[hide_subscription_head] = ([=](ActionParams params){
+    
             if (_cd >= _hide_cd && _selfTexture->isVisible()){
                 _cd=0;
                 _selfTexture->setVisible(false);
@@ -118,7 +107,24 @@ PublishedMessage InteractableUI::timeUpdate(float timestep){
     // instead... -- only one timer needs to run at time, true.
     // if showCDTimerTriggered (from action), start incrementing _cd. When it hits _show_cd, set _shown_already, and activate the animation
     // if hideCDTimerTriggered (from action), start incrementing _cd. When it hits _hide_cd, set invisble everything.
-    if ((_cd <= _show_cd || _cd <= _hide_cd) /*&& _selfTexture->isVisible()*/){
+    if (_showCDTimerTriggered && _cd <= _show_cd){
+        _cd += timestep;
+    }
+    if (!_shown_already && _cd >= _show_cd && !_selfTexture->isVisible() && _showCDTimerTriggered){
+        _cd=0;
+        _shown_already = true;
+        _showCDTimerTriggered = false;
+        _selfTexture->setVisible(true);
+        if (_animated){
+            _animation->setVisible(true);
+        }
+        PublishedMessage m = PublishedMessage();
+        m.Head = getName() + " shown";
+        m.enable = true;
+        return m;
+    }
+    
+    if ( _cd <= _hide_cd && _selfTexture->isVisible()){
         _cd+=timestep;
     }
     if (_animated && _shown_already){

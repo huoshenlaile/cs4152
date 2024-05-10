@@ -24,6 +24,8 @@ protected:
     int _cols;
     float _scale;
     bool _shown_already=false;
+    
+    bool _showCDTimerTriggered = false;
     std::shared_ptr<cugl::scene2::ActionManager> _actions;
     std::shared_ptr<cugl::scene2::Animate> _animate;
     std::shared_ptr<scene2::SpriteNode> _animation;

@@ -1172,7 +1172,7 @@
                              "Action":"show",
                              "Bool1":false,
                              "Enabled":true,
-                             "Float1":0,
+                             "Float1":2.0,
                              "Head":"UI Start",
                              "Int1":0
                             }
