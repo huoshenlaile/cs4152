@@ -27,6 +27,7 @@ protected:
     bool OnPreSolveEnabled = false;
     bool OnPostSolveEnabled = false;
     bool canBeGrabbed = false;
+    bool loadOnce = false;
     
     float jumpscale = 150.0;
 
@@ -76,7 +77,7 @@ public:
     bool hasOnEndContact() { return OnEndContactEnabled; }
     bool hasOnPreSolve() { return OnPreSolveEnabled; }
     bool hasOnPostSolve() { return OnPostSolveEnabled; }
-
+    bool loadOnlyOnInitial() { return loadOnce; }
 
     std::string getName() { return _name; }
     const std::map<std::string, std::function<PublishedMessage(ActionParams)>>& getActions() { return actions; }
