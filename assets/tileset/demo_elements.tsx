@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="ragdoll_elements" tilewidth="5000" tileheight="4490" tilecount="37" columns="0" objectalignment="bottomleft">
+<tileset version="1.10" tiledversion="1.10.2" name="ragdoll_elements" tilewidth="5000" tileheight="5056" tilecount="52" columns="0" objectalignment="bottomleft">
  <editorsettings>
   <export target="ragdoll_elements..tsx" format="tsx"/>
  </editorsettings>
@@ -92,13 +92,13 @@
   <image width="1560" height="720" source="../textures/titlebackground.png"/>
  </tile>
  <tile id="40">
-  <image width="1280" height="4483" source="../textures/lv3_background_1.png"/>
+  <image width="1280" height="5056" source="../textures/lv3_background_1.png"/>
  </tile>
  <tile id="41">
   <image width="1280" height="4490" source="../textures/lv2_background_1.png"/>
  </tile>
  <tile id="42">
-  <image width="1600" height="3840" source="../textures/level4/lv4_background_1.png"/>
+  <image width="5000" height="580" source="../textures/level4/lv4_background_1.png"/>
  </tile>
  <tile id="43">
   <image width="3718" height="580" source="../textures/lv1_background_1.png"/>
@@ -110,7 +110,7 @@
   <image width="175" height="52" source="../textures/alpharelease_frenchfries.png"/>
  </tile>
  <tile id="46">
-  <image width="1280" height="4483" source="../textures/lv3_background_1.png"/>
+  <image width="1280" height="5056" source="../textures/lv3_background_1.png"/>
  </tile>
  <tile id="47">
   <image width="2900" height="580" source="../textures/lv0_background.png"/>
@@ -123,5 +123,50 @@
  </tile>
  <tile id="50">
   <image width="5000" height="580" source="../textures/level4/lv4_background_2.png"/>
+ </tile>
+ <tile id="51">
+  <image width="290" height="52" source="../../../../../../Downloads/staticplatform_comet2x.png"/>
+ </tile>
+ <tile id="52">
+  <image width="343" height="52" source="../../../../../../Downloads/staticplatform_comet3x.png"/>
+ </tile>
+ <tile id="53">
+  <image width="484" height="571" source="../../../../../../Downloads/octopus_blue.png"/>
+ </tile>
+ <tile id="54">
+  <image width="500" height="794" source="../../../../../../Downloads/octopus_green.png"/>
+ </tile>
+ <tile id="55">
+  <image width="500" height="794" source="../../../../../../Downloads/octopus_pink.png"/>
+ </tile>
+ <tile id="56">
+  <image width="500" height="794" source="../../../../../../Downloads/octopus_purple.png"/>
+ </tile>
+ <tile id="57">
+  <image width="484" height="571" source="../../../../../../Downloads/octopus_red.png"/>
+ </tile>
+ <tile id="58">
+  <image width="343" height="52" source="../../../../../../Downloads/staticplatform_frenchfries3x (1).png"/>
+ </tile>
+ <tile id="59">
+  <image width="193" height="443" source="../../../../../../Downloads/mayo_green.png"/>
+ </tile>
+ <tile id="60">
+  <image width="250" height="463" source="../../../../../../Downloads/mustard_blue.png"/>
+ </tile>
+ <tile id="61">
+  <image width="250" height="463" source="../../../../../../Downloads/mustard_pink.png"/>
+ </tile>
+ <tile id="62">
+  <image width="250" height="463" source="../../../../../../Downloads/mustard_purple.png"/>
+ </tile>
+ <tile id="63">
+  <image width="232" height="476" source="../../../../../../Downloads/soy_black.png"/>
+ </tile>
+ <tile id="64">
+  <image width="447" height="138" source="../../../../../../Downloads/goal_palette.png"/>
+ </tile>
+ <tile id="65">
+  <image width="447" height="138" source="../../../../../../Downloads/goal_ufo.png"/>
  </tile>
 </tileset>

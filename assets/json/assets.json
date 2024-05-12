@@ -42,7 +42,10 @@
             "file": "textures/lv0_background.png"
         },
         "lv1_palette": {
-            "file": "textures/lv1_palette.png"
+            "file": "textures/goal/goal_palette.png"
+        },
+        "lv2_palette": {
+            "file": "textures/goal/goal_ufo.png"
         },
         "lv1_background_1": {
             "file": "textures/lv1_background_1.png"
