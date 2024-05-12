@@ -168,6 +168,7 @@ void DPApp::preUpdate(float timestep) {
             } else if (_gameScene.state == GameScene::RESET) {
                 _gameScene.reset();
                 _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
+                _gameScene.setCameraSkip(true);
                 _status = LEVELLOAD;
             } else if (_gameScene.state == GameScene::NEXTLEVEL) {
                 // TODO: next level

@@ -95,7 +95,7 @@ void CameraController::update(float dt) {
                 _camera->translate(panSpeed.x, panSpeed.y);
                 _camera->update();
             } else {
-                if (cameraStay(END_STAY))
+                if (cameraStay(FINAL_STAY))
                     _state = 2;
             }
         } else {
@@ -103,7 +103,7 @@ void CameraController::update(float dt) {
                 _camera->translate(panSpeed.x, panSpeed.y);
                 _camera->update();
             } else {
-                if (cameraStay(END_STAY)) {
+                if (cameraStay(FINAL_STAY)) {
                     _state = 2;
                 }
             }
@@ -170,7 +170,7 @@ void CameraController::update(float dt) {
     case 5: {
         Vec2 panSpeed = _panSpeed;
         if (_horizontal) {
-            if (_camera->getPosition().x <= _root->getSize().width - 500 - _camera->getViewport().getMaxX() / (2 * _camera->getZoom())) {
+            if (_camera->getPosition().x <= _root->getSize().width - 700 - _camera->getViewport().getMaxX() / (2 * _camera->getZoom())) {
                 _camera->translate(panSpeed.x, panSpeed.y);
                 _camera->update();
             } else {
