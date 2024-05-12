@@ -4261,8 +4261,18 @@
                         {
                          "name":"AnimationDetails",
                          "type":"string",
-                         "value":""
-                        }, 
+                         "value":
+                                {
+                                    "cells":12,
+                                    "columns":2,
+                                    "name":"1",
+                                    "repeat":false,
+                                    "rows":6,
+                                    "scale":4,
+                                    "texture":"lv2_speechbubble_1",
+                                    "type":"string"
+                                }
+                        },
                         {
                          "name":"properties",
                          "propertytype":"Physics",
@@ -4329,8 +4339,18 @@
                         {
                          "name":"AnimationDetails",
                          "type":"string",
-                         "value":""
-                        }, 
+                         "value":
+                                {
+                                    "cells":12,
+                                    "columns":2,
+                                    "name":"1",
+                                    "repeat":false,
+                                    "rows":6,
+                                    "scale":4,
+                                    "texture":"lv2_speechbubble_3",
+                                    "type":"string"
+                                }
+                        },
                         {
                          "name":"properties",
                          "propertytype":"Physics",
@@ -4397,8 +4417,23 @@
                         {
                          "name":"AnimationDetails",
                          "type":"string",
-                         "value":""
-                        }, 
+                         "value":
+                            {
+                            "cells":11,
+                            "columns":2,
+                            "name":"cont",
+                            "rows":6,
+                            "repeat":false,
+                            "scale":5,
+                            "texture":"tap_to_continue",
+                            "type":"string"
+                            }
+                        },
+                        {
+                            "name":"LoadOnce",
+                            "type":"bool",
+                            "value":true
+                        },
                         {
                          "name":"properties",
                          "propertytype":"Physics",
@@ -4419,6 +4454,18 @@
                                 }
                             }
                         }, 
+                        {
+                            "name":"hideSub",
+                            "propertytype":"SubMessage",
+                            "type":"class",
+                            "value":
+                            {
+                                "Action":"hide",
+                                "Enabled":true,
+                                "Float1":0,
+                                "Head":"Erase Tap Continue Button"
+                            }
+                        },
                         {
                          "name":"showSub",
                          "propertytype":"SubMessage",
@@ -4465,8 +4512,18 @@
                         {
                          "name":"AnimationDetails",
                          "type":"string",
-                         "value":""
-                        }, 
+                         "value":
+                            {
+                                "cells":12,
+                                "columns":2,
+                                "name":"2",
+                                "rows":6,
+                                "repeat":false,
+                                "scale":2,
+                                "texture":"lv2_speechbubble_5",
+                                "type":"string"
+                            }
+                        },
                         {
                          "name":"properties",
                          "propertytype":"Physics",
@@ -4533,8 +4590,18 @@
                         {
                          "name":"AnimationDetails",
                          "type":"string",
-                         "value":""
-                        }, 
+                         "value":
+                                {
+                                    "cells":12,
+                                    "columns":2,
+                                    "name":"2",
+                                    "rows":6,
+                                    "repeat":false,
+                                    "scale":2,
+                                    "texture":"lv2_speechbubble_5",
+                                    "type":"string"
+                                }
+                        },
                         {
                          "name":"properties",
                          "propertytype":"Physics",
@@ -4601,7 +4668,17 @@
                         {
                          "name":"AnimationDetails",
                          "type":"string",
-                         "value":""
+                         "value":
+                            {
+                            "cells":12,
+                            "columns":2,
+                            "name":"2",
+                            "rows":6,
+                            "repeat":false,
+                            "scale":2,
+                            "texture":"lv2_speechbubble_7",
+                            "type":"string"
+                            }
                         }, 
                         {
                          "name":"properties",
@@ -4669,7 +4746,18 @@
                         {
                          "name":"AnimationDetails",
                          "type":"string",
-                         "value":""
+                         "value":
+                            {
+                                "cells":12,
+                                "columns":2,
+                                "name":"2",
+                                "rows":6,
+                                "repeat":false,
+                                "scale":2,
+                                "texture":"lv2_speechbubble_7",
+                                "type":"string"
+                            }
+
                         }, 
                         {
                          "name":"properties",
@@ -4737,8 +4825,18 @@
                         {
                          "name":"AnimationDetails",
                          "type":"string",
-                         "value":""
-                        }, 
+                         "value":
+                            {
+                                "cells":12,
+                                "columns":2,
+                                "name":"2",
+                                "rows":6,
+                                "repeat":false,
+                                "scale":2,
+                                "texture":"lv2_speechbubble_6",
+                                "type":"string"
+                            }
+                        },
                         {
                          "name":"properties",
                          "propertytype":"Physics",
@@ -4805,8 +4903,18 @@
                         {
                          "name":"AnimationDetails",
                          "type":"string",
-                         "value":""
-                        }, 
+                         "value":ta
+                            {
+                            "cells":12,
+                            "columns":2,
+                            "name":"2",
+                            "rows":6,
+                            "repeat":false,
+                            "scale":2,
+                            "texture":"lv2_speechbubble_8",
+                            "type":"string"
+                            }
+                        },
                         {
                          "name":"properties",
                          "propertytype":"Physics",
