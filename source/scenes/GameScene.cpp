@@ -57,12 +57,6 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, std::str
     _camera->setCamera(levelName);
     _camera->init(_character->getTrackSceneNode(), _worldnode, 10.0f, std::dynamic_pointer_cast<OrthographicCamera>(getCamera()), _uinode, 5.0f, _camera->getMode(), _skipCameraSpan);
     _camera->setZoom(_camera->getLevelCompleteZoom());
-    
-    if (_skipCameraSpan) {
-        CULog("1!");
-    } else
-        CULog("0");
-
 
 #pragma mark Construct Interaction Controller
     _interactionController = InteractionController2::alloc(_level, _inputController, _camera);
@@ -70,16 +64,15 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, std::str
 
 #pragma mark Audio Controller
     _audioController = std::make_shared<AudioController>();
-    _audioController -> init(_assets);
-    _audioController -> play("touch1", "touch1");
-    _interactionController -> setAudioController(_audioController);
-    
+    _audioController->init(_assets);
+    _audioController->play("touch1", "touch1");
+    _interactionController->setAudioController(_audioController);
+
     PublishedMessage pm;
     pm.Head = "UI Start";
     _interactionController->pushToMessageQueue(pm);
 
-CULog("Actual input scaler: %f", acutal_input_scaler);
-
+    CULog("Actual input scaler: %f", acutal_input_scaler);
 
     return true;
 }
@@ -107,14 +100,14 @@ void GameScene::setActive(bool value) {
         if (value) {
             _worldnode->setVisible(true);
             _pauseButton->activate();
-            _mapButton -> activate();
+            _mapButton->activate();
             _gamePaused = false;
             _inputController->fillHand(_character->getLeftHandPosition(), _character->getRightHandPosition(), _character->getLHPos(), _character->getRHPos());
         } else {
             _pauseButton->deactivate();
             _pauseButton->setDown(false);
-            _mapButton -> deactivate();
-            _mapButton -> setDown(false);
+            _mapButton->deactivate();
+            _mapButton->setDown(false);
         }
     }
 }
@@ -127,23 +120,18 @@ void GameScene::reset() {
 
 #pragma mark preUpdate
 void GameScene::preUpdate(float dt) {
-//    CULog("position %f,%f!!!", _character->getTrackSceneNode()->getWorldPosition().x,_character->getTrackSceneNode()->getWorldPosition().y);
+    //    CULog("position %f,%f!!!", _character->getTrackSceneNode()->getWorldPosition().x,_character->getTrackSceneNode()->getWorldPosition().y);
     if (_level == nullptr)
         return;
     // process input
 
-    if (_skipCameraSpan) {
-        CULog("1!");
-    } else
-        CULog("0");
-
-    if (_camera->getDisplayed() || !_inputController->getStarted())
+    if ((_camera->getDisplayed() || !_inputController->getStarted()) && !_camera->getLevelComplete())
         _inputController->update(dt);
     auto character = _inputController->getCharacter();
     for (auto i = character->_touchInfo.begin(); i != character->_touchInfo.end(); i++) {
         i->worldPos = (Vec2)Scene2::screenToWorldCoords(i->position);
     }
-    if (_camera->getDisplayed() || !_inputController->getStarted())
+    if ((_camera->getDisplayed() || !_inputController->getStarted()) && !_camera->getLevelComplete())
         _inputController->process();
 
     _character->moveLeftHand(acutal_input_scaler * _inputController->getLeftHandMovement(), _interactionController->leftHandReverse);
@@ -152,20 +140,12 @@ void GameScene::preUpdate(float dt) {
     _inputController->fillHand(_character->getLeftHandPosition(), _character->getRightHandPosition(), _character->getLHPos(), _character->getRHPos());
 
     // update camera
-    if (_skipCameraSpan) {
-        CULog("1!");
-    } else
-        CULog("0");
-
-    if (_inputController->getStarted() || !_camera->getInitialUpdate() || 
-        
-        
-) {
+    if (_inputController->getStarted() || !_camera->getInitialUpdate() || _skipCameraSpan) {
         _camera->update(dt);
         _camera->setInitialUpdate(true);
     }
     // make one time publish with a boolean flag
-    if(_camera->getState() == 1){
+    if (_camera->getState() == 1) {
         PublishedMessage pm;
         pm.Head = "Erase Tap Continue Button";
         _interactionController->pushToMessageQueue(pm);
@@ -239,7 +219,7 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     _mapButton->doLayout();
     _mapButton->addListener([this](const std::string &name, bool down) {
         if (down) {
-//            CULog("Map Button Pressed!");
+            //            CULog("Map Button Pressed!");
             // TODO: add map function
             _camera->setReplay(true);
         }
@@ -347,7 +327,7 @@ Size GameScene::computeActiveSize() const {
 bool GameScene::isCharacterInMap() {
     Vec2 pos = _character->getTrackSceneNode()->getWorldPosition();
     // CULog("current body pos: %f, %f", pos.x, pos.y);
-    return pos.x >= 0-400 && pos.x <= _worldnode->getSize().width+400 && pos.y >= -400 && pos.y <= _worldnode->getSize().height+400;
+    return pos.x >= 0 - 400 && pos.x <= _worldnode->getSize().width + 500 && pos.y >= -500;
 }
 
 #pragma mark Level Complete
@@ -363,21 +343,21 @@ void GameScene::finishLevel() {
     _camera->levelComplete();
     // TODO: Emily publish end UI
     PublishedMessage pm;
-    if(this->defaultGoodOrBad == 0){
+    if (this->defaultGoodOrBad == 0) {
         pm.Head = "UI End Good";
         _interactionController->pushToMessageQueue(pm);
     } else {
         pm.Head = "UI End Bad";
         _interactionController->pushToMessageQueue(pm);
     }
-    
+
     if (_camera->getCameraComplete()) {
         if (this->defaultGoodOrBad == 0) {
             _levelCompleteGood->setVisible(true);
             _levelCompleteGoodReset->activate();
             _levelCompleteGoodMenu->activate();
             _levelCompleteGoodNext->activate();
-            std :: cout << "activating the good menu button" << std::endl;
+            std ::cout << "activating the good menu button" << std::endl;
         } else if (this->defaultGoodOrBad == 1) {
             _levelCompleteBad->setVisible(true);
             _levelCompleteBadReset->activate();
