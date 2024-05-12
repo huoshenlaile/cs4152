@@ -33,6 +33,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, std::str
     _active = false;
     _gamePaused = false;
     _complete = false;
+    _skipCameraSpan = false;
     _scale = dimen.width == SCENE_WIDTH ? dimen.width / rect.size.width : dimen.height / rect.size.height;
 
 #pragma mark fetch from level loader
@@ -54,9 +55,14 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, std::str
 #pragma mark Construct Camera Controller
     _camera = std::make_shared<CameraController>();
     _camera->setCamera(levelName);
-    _camera->init(_character->getTrackSceneNode(), _worldnode, 10.0f, std::dynamic_pointer_cast<OrthographicCamera>(getCamera()), _uinode, 5.0f, _camera->getMode(), skipCameraSpan);
+    _camera->init(_character->getTrackSceneNode(), _worldnode, 10.0f, std::dynamic_pointer_cast<OrthographicCamera>(getCamera()), _uinode, 5.0f, _camera->getMode(), _skipCameraSpan);
     _camera->setZoom(_camera->getLevelCompleteZoom());
     
+    if (_skipCameraSpan) {
+        CULog("1!");
+    } else
+        CULog("0");
+
 
 #pragma mark Construct Interaction Controller
     _interactionController = InteractionController2::alloc(_level, _inputController, _camera);
@@ -125,6 +131,12 @@ void GameScene::preUpdate(float dt) {
     if (_level == nullptr)
         return;
     // process input
+
+    if (_skipCameraSpan) {
+        CULog("1!");
+    } else
+        CULog("0");
+
     if (_camera->getDisplayed() || !_inputController->getStarted())
         _inputController->update(dt);
     auto character = _inputController->getCharacter();
@@ -140,7 +152,15 @@ void GameScene::preUpdate(float dt) {
     _inputController->fillHand(_character->getLeftHandPosition(), _character->getRightHandPosition(), _character->getLHPos(), _character->getRHPos());
 
     // update camera
-    if (_inputController->getStarted() || !_camera->getInitialUpdate() || skipCameraSpan) {
+    if (_skipCameraSpan) {
+        CULog("1!");
+    } else
+        CULog("0");
+
+    if (_inputController->getStarted() || !_camera->getInitialUpdate() || 
+        
+        
+) {
         _camera->update(dt);
         _camera->setInitialUpdate(true);
     }
