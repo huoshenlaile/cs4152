@@ -1,7 +1,7 @@
 #include "InteractionController2.h"
 
 // std::unordered_map<std::string, std::vector<std::shared_ptr<Interactable>>> _HeadToInteractable;
-bool InteractionController2::init(std::shared_ptr<LevelLoader2> level, std::shared_ptr<InputController> inputcontroller, std::shared_ptr<CameraController> camera) {
+bool InteractionController2::init(std::shared_ptr<LevelLoader2> level, std::shared_ptr<InputController> inputcontroller, std::shared_ptr<CameraController> camera, bool skipInitUIItems = false) {
     if (level == nullptr) {
         return false;
     }
@@ -13,6 +13,14 @@ bool InteractionController2::init(std::shared_ptr<LevelLoader2> level, std::shar
     _worldnode = level->getWorldNode();
     _interactables = level->getInteractables();
 
+    if(skipInitUIItems) {
+        for (auto iter = _interactables.begin(); iter != _interactables.end(); ) {
+            if ((*iter)->loadOnlyOnInitial())
+                iter = _interactables.erase(iter);
+            else
+                ++iter;
+        }
+    }
     // query all the interactables
     for (auto interactable : _interactables) {
         if (interactable->hasTimeUpdate()) {
