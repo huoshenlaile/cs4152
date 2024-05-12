@@ -135,6 +135,7 @@ void CameraController::update(float dt) {
         (*dst).y = std::max(std::min(_root->getSize().height - _camera->getViewport().getMaxY() / (2 * _camera->getZoom()), (*dst).y), _camera->getViewport().getMaxY() / (2 * _camera->getZoom()));
         _camera->translate((*dst).x - cameraPos.x, (*dst).y - cameraPos.y);
         delete dst;
+        this->setZoom(getDefaultZoom());
         _camera->update();
         if (_levelComplete) {
             _state = 4;
@@ -213,6 +214,7 @@ void CameraController::tutorialUpdate(float dt) {
     // Initialization
     case (0): {
         this->setZoom(getDefaultZoom());
+        std::cout << "here" << "\n";
         _displayed = true;
         //_tutorialState = 1;
         break;

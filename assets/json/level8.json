@@ -1524,7 +1524,7 @@
                                  "friction":0.7,
                                  "restitution":0,
                                  "rotation":false,
-                                 "texture":"lv1_palette"
+                                 "texture":"lv2_palette"
                                 }
                             }
                         }],
@@ -7078,7 +7078,7 @@
                 {
                  "id":40,
                  "image":"..\/textures\/lv3_background_1.png",
-                 "imageheight":4483,
+                 "imageheight":5056,
                  "imagewidth":1280
                 }, 
                 {
