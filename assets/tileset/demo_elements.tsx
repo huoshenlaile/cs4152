@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="ragdoll_elements" tilewidth="5000" tileheight="5056" tilecount="66" columns="0" objectalignment="bottomleft">
+<tileset version="1.10" tiledversion="1.10.2" name="ragdoll_elements" tilewidth="5000" tileheight="5056" tilecount="52" columns="0" objectalignment="bottomleft">
  <editorsettings>
   <export target="ragdoll_elements..tsx" format="tsx"/>
  </editorsettings>
@@ -124,50 +124,8 @@
  <tile id="50">
   <image width="5000" height="580" source="../textures/level4/lv4_background_2.png"/>
  </tile>
- <tile id="51">
-  <image source="../../../../../../Downloads/staticplatform_comet2x.png"/>
- </tile>
- <tile id="52">
-  <image source="../../../../../../Downloads/staticplatform_comet3x.png"/>
- </tile>
- <tile id="53">
-  <image source="../../../../../../Downloads/octopus_blue.png"/>
- </tile>
- <tile id="54">
-  <image source="../../../../../../Downloads/octopus_green.png"/>
- </tile>
- <tile id="55">
-  <image source="../../../../../../Downloads/octopus_pink.png"/>
- </tile>
- <tile id="56">
-  <image source="../../../../../../Downloads/octopus_purple.png"/>
- </tile>
- <tile id="57">
-  <image source="../../../../../../Downloads/octopus_red.png"/>
- </tile>
  <tile id="58">
   <image width="343" height="52" source="../../../../../../Downloads/staticplatform_frenchfries3x (1).png"/>
- </tile>
- <tile id="59">
-  <image source="../../../../../../Downloads/mayo_green.png"/>
- </tile>
- <tile id="60">
-  <image source="../../../../../../Downloads/mustard_blue.png"/>
- </tile>
- <tile id="61">
-  <image source="../../../../../../Downloads/mustard_pink.png"/>
- </tile>
- <tile id="62">
-  <image source="../../../../../../Downloads/mustard_purple.png"/>
- </tile>
- <tile id="63">
-  <image source="../../../../../../Downloads/soy_black.png"/>
- </tile>
- <tile id="64">
-  <image source="../../../../../../Downloads/goal_palette.png"/>
- </tile>
- <tile id="65">
-  <image source="../../../../../../Downloads/goal_ufo.png"/>
  </tile>
  <tile id="66">
   <image width="447" height="138" source="../textures/goal/goal_palette.png"/>
