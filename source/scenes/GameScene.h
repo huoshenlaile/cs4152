@@ -24,9 +24,6 @@ class GameScene : public cugl::Scene2 {
 protected:
     std::shared_ptr<cugl::AssetManager> _assets;
     std::string _levelName;
-    
-    bool skipCameraSpan = false;
-    
     std::shared_ptr<InteractionController2> _interactionController;
     std::shared_ptr<CharacterController> _character;
     std::shared_ptr<AudioController> _audioController;
@@ -68,6 +65,10 @@ protected:
     bool _complete;
 
     bool _gamePaused;
+    bool _skipCameraSpan;
+        
+        
+;
     /** Relates input id to arm */
     std::unordered_map<std::string, int> _input_to_arm;
     /** Relates arm to input id*/
@@ -118,7 +119,7 @@ public:
     void setComplete(bool value) { _complete = value; }
 
     void setCameraSkip (bool val) {
-        skipCameraSpan = val;
+        _skipCameraSpan = val;
     }
     
     void setCameraState (int state) {_camera->setCameraState(state);}

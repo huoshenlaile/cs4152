@@ -139,6 +139,7 @@ public:
 
     void levelComplete();
     bool getCameraComplete() { return _completed; }
+    bool getLevelComplete() { return _levelComplete; }
 
     void setCamera(std::string selectedLevelKey);
 
