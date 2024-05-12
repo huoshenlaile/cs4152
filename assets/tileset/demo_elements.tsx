@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="ragdoll_elements" tilewidth="5000" tileheight="5056" tilecount="52" columns="0" objectalignment="bottomleft">
+<tileset version="1.10" tiledversion="1.10.2" name="ragdoll_elements" tilewidth="5000" tileheight="5056" tilecount="66" columns="0" objectalignment="bottomleft">
  <editorsettings>
   <export target="ragdoll_elements..tsx" format="tsx"/>
  </editorsettings>
@@ -125,48 +125,90 @@
   <image width="5000" height="580" source="../textures/level4/lv4_background_2.png"/>
  </tile>
  <tile id="51">
-  <image width="290" height="52" source="../../../../../../Downloads/staticplatform_comet2x.png"/>
+  <image source="../../../../../../Downloads/staticplatform_comet2x.png"/>
  </tile>
  <tile id="52">
-  <image width="343" height="52" source="../../../../../../Downloads/staticplatform_comet3x.png"/>
+  <image source="../../../../../../Downloads/staticplatform_comet3x.png"/>
  </tile>
  <tile id="53">
-  <image width="484" height="571" source="../../../../../../Downloads/octopus_blue.png"/>
+  <image source="../../../../../../Downloads/octopus_blue.png"/>
  </tile>
  <tile id="54">
-  <image width="500" height="794" source="../../../../../../Downloads/octopus_green.png"/>
+  <image source="../../../../../../Downloads/octopus_green.png"/>
  </tile>
  <tile id="55">
-  <image width="500" height="794" source="../../../../../../Downloads/octopus_pink.png"/>
+  <image source="../../../../../../Downloads/octopus_pink.png"/>
  </tile>
  <tile id="56">
-  <image width="500" height="794" source="../../../../../../Downloads/octopus_purple.png"/>
+  <image source="../../../../../../Downloads/octopus_purple.png"/>
  </tile>
  <tile id="57">
-  <image width="484" height="571" source="../../../../../../Downloads/octopus_red.png"/>
+  <image source="../../../../../../Downloads/octopus_red.png"/>
  </tile>
  <tile id="58">
   <image width="343" height="52" source="../../../../../../Downloads/staticplatform_frenchfries3x (1).png"/>
  </tile>
  <tile id="59">
-  <image width="193" height="443" source="../../../../../../Downloads/mayo_green.png"/>
+  <image source="../../../../../../Downloads/mayo_green.png"/>
  </tile>
  <tile id="60">
-  <image width="250" height="463" source="../../../../../../Downloads/mustard_blue.png"/>
+  <image source="../../../../../../Downloads/mustard_blue.png"/>
  </tile>
  <tile id="61">
-  <image width="250" height="463" source="../../../../../../Downloads/mustard_pink.png"/>
+  <image source="../../../../../../Downloads/mustard_pink.png"/>
  </tile>
  <tile id="62">
-  <image width="250" height="463" source="../../../../../../Downloads/mustard_purple.png"/>
+  <image source="../../../../../../Downloads/mustard_purple.png"/>
  </tile>
  <tile id="63">
-  <image width="232" height="476" source="../../../../../../Downloads/soy_black.png"/>
+  <image source="../../../../../../Downloads/soy_black.png"/>
  </tile>
  <tile id="64">
-  <image width="447" height="138" source="../../../../../../Downloads/goal_palette.png"/>
+  <image source="../../../../../../Downloads/goal_palette.png"/>
  </tile>
  <tile id="65">
-  <image width="447" height="138" source="../../../../../../Downloads/goal_ufo.png"/>
+  <image source="../../../../../../Downloads/goal_ufo.png"/>
+ </tile>
+ <tile id="66">
+  <image width="447" height="138" source="../textures/goal/goal_palette.png"/>
+ </tile>
+ <tile id="67">
+  <image width="447" height="138" source="../textures/goal/goal_ufo.png"/>
+ </tile>
+ <tile id="68">
+  <image width="290" height="52" source="../textures/staticplatform_comet2x.png"/>
+ </tile>
+ <tile id="69">
+  <image width="343" height="52" source="../textures/staticplatform_comet3x.png"/>
+ </tile>
+ <tile id="70">
+  <image width="193" height="443" source="../textures/paintingbottle/mayo_green.png"/>
+ </tile>
+ <tile id="71">
+  <image width="250" height="463" source="../textures/paintingbottle/mustard_blue.png"/>
+ </tile>
+ <tile id="72">
+  <image width="250" height="463" source="../textures/paintingbottle/mustard_pink.png"/>
+ </tile>
+ <tile id="73">
+  <image width="250" height="463" source="../textures/paintingbottle/mustard_purple.png"/>
+ </tile>
+ <tile id="74">
+  <image width="484" height="571" source="../textures/paintingbottle/octopus_blue.png"/>
+ </tile>
+ <tile id="75">
+  <image width="500" height="794" source="../textures/paintingbottle/octopus_green.png"/>
+ </tile>
+ <tile id="76">
+  <image width="500" height="794" source="../textures/paintingbottle/octopus_pink.png"/>
+ </tile>
+ <tile id="77">
+  <image width="500" height="794" source="../textures/paintingbottle/octopus_purple.png"/>
+ </tile>
+ <tile id="78">
+  <image width="484" height="571" source="../textures/paintingbottle/octopus_red.png"/>
+ </tile>
+ <tile id="79">
+  <image width="232" height="476" source="../textures/paintingbottle/soy_black.png"/>
  </tile>
 </tileset>

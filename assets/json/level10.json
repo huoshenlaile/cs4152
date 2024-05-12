@@ -82,6 +82,104 @@
                  "y":1370.12423145691
                 }, 
                 {
+                 "height":0,
+                 "id":116,
+                 "name":"",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":0,
+                         "y":-186.254456083541
+                        }, 
+                        {
+                         "x":679.410253141377,
+                         "y":-186.254456083541
+                        }, 
+                        {
+                         "x":679.410253141377,
+                         "y":0
+                        }],
+                 "properties":[
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":192,
+                                 "density":0,
+                                 "friction":0.2,
+                                 "restitution":0.1,
+                                 "rotation":false,
+                                 "texture":"alpharelease_frenchfries"
+                                }
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"wall",
+                 "visible":true,
+                 "width":0,
+                 "x":9597.75697467513,
+                 "y":1755.44462203226
+                }, 
+                {
+                 "height":0,
+                 "id":119,
+                 "name":"",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":0,
+                         "y":-186.254456083541
+                        }, 
+                        {
+                         "x":1473.59369833153,
+                         "y":-186.254456083541
+                        }, 
+                        {
+                         "x":1473.59369833153,
+                         "y":0
+                        }],
+                 "properties":[
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":192,
+                                 "density":0,
+                                 "friction":0.2,
+                                 "restitution":0.1,
+                                 "rotation":false,
+                                 "texture":"alpharelease_frenchfries"
+                                }
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"wall",
+                 "visible":true,
+                 "width":0,
+                 "x":2854.57514200784,
+                 "y":1756.71934366493
+                }, 
+                {
                  "gid":28,
                  "height":500,
                  "id":46,
@@ -287,7 +385,7 @@
                                  "friction":0.7,
                                  "restitution":0,
                                  "rotation":false,
-                                 "texture":"lv2_palette"
+                                 "texture":"lv1_palette"
                                 }
                             }
                         }],
@@ -697,14 +795,14 @@
                         }, 
                         {
                          "x":0,
-                         "y":-222.912098429115
+                         "y":-161.767017828781
                         }, 
                         {
-                         "x":1479.71040489397,
-                         "y":-222.912098429115
+                         "x":1740.96665836812,
+                         "y":-161.767017828781
                         }, 
                         {
-                         "x":1479.71040489397,
+                         "x":1740.96665836812,
                          "y":0
                         }],
                  "properties":[
@@ -748,121 +846,8 @@
                  "type":"movingwall",
                  "visible":true,
                  "width":0,
-                 "x":7863.78985635815,
-                 "y":1781.14399624726
-                }, 
-                {
-                 "height":0,
-                 "id":120,
-                 "name":"",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":-740.088,
-                         "y":-118.943
-                        }, 
-                        {
-                         "x":722.467,
-                         "y":-114.537
-                        }, 
-                        {
-                         "x":718.062,
-                         "y":92.511
-                        }, 
-                        {
-                         "x":-731.278,
-                         "y":88.1057
-                        }, 
-                        {
-                         "x":-735.683,
-                         "y":-118.943
-                        }],
-                 "properties":[
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":1,
-                                 "debugcolor":"0",
-                                 "debugopacity":0,
-                                 "density":0,
-                                 "friction":1000000000,
-                                 "restitution":0.2,
-                                 "rotation":false,
-                                 "texture":"alpharelease_long_frenchfries"
-                                }
-                            }
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":3585.23725834798,
-                 "y":1704.74516695958
-                }, 
-                {
-                 "height":0,
-                 "id":122,
-                 "name":"",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":-318.101,
-                         "y":-93.4108
-                        }, 
-                        {
-                         "x":300.429,
-                         "y":-93.4108
-                        }, 
-                        {
-                         "x":300.429,
-                         "y":88.3615
-                        }, 
-                        {
-                         "x":-315.577,
-                         "y":88.3615
-                        }, 
-                        {
-                         "x":-315.577,
-                         "y":-90.8861
-                        }],
-                 "properties":[
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"",
-                                 "debugopacity":0,
-                                 "density":0,
-                                 "friction":1000000000,
-                                 "restitution":0.2,
-                                 "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
-                                }
-                            }
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":9842.10526315789,
-                 "y":1684.21052631579
+                 "x":7852.67256897627,
+                 "y":1731.1162030288
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -871,7 +856,7 @@
          "y":0
         }],
  "nextlayerid":7,
- "nextobjectid":123,
+ "nextobjectid":120,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
