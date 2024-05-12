@@ -94,7 +94,7 @@
                              "obstacle":
                                 {
                                  "bodytype":0,
-                                 "color-requirements":"orange",
+                                 "color-requirements":"black",
                                  "damping":0,
                                  "debugcolor":"0",
                                  "debugopacity":0,
@@ -110,7 +110,7 @@
                  "type":"exit",
                  "visible":true,
                  "width":0,
-                 "x":546.901354183981,
+                 "x":401.673138416346,
                  "y":10877.15414432
                 }, 
                 {
@@ -460,119 +460,6 @@
                  "width":0,
                  "x":818.186330499009,
                  "y":6129.15243042968
-                }, 
-                {
-                 "height":0,
-                 "id":76,
-                 "name":"paint1",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":176.662,
-                         "y":0
-                        }, 
-                        {
-                         "x":167.364,
-                         "y":102.278
-                        }, 
-                        {
-                         "x":381.218,
-                         "y":116.225
-                        }, 
-                        {
-                         "x":348.675,
-                         "y":362.622
-                        }, 
-                        {
-                         "x":357.973,
-                         "y":464.9
-                        }, 
-                        {
-                         "x":46.49,
-                         "y":613.668
-                        }, 
-                        {
-                         "x":-130.172,
-                         "y":441.655
-                        }, 
-                        {
-                         "x":-97.629,
-                         "y":306.834
-                        }, 
-                        {
-                         "x":-172.013,
-                         "y":223.152
-                        }, 
-                        {
-                         "x":-158.066,
-                         "y":88.331
-                        }, 
-                        {
-                         "x":-148.768,
-                         "y":13.947
-                        }],
-                 "properties":[
-                        {
-                         "name":"AnimationAsset",
-                         "type":"string",
-                         "value":"red_paint"
-                        }, 
-                        {
-                         "name":"Pub1",
-                         "propertytype":"PubMessage",
-                         "type":"class",
-                         "value":
-                            {
-                             "Body":"orange",
-                             "Enabled":true,
-                             "Head":"character color",
-                             "Trigger":"TOUCH: character body"
-                            }
-                        }, 
-                        {
-                         "name":"color",
-                         "type":"string",
-                         "value":"orange"
-                        }, 
-                        {
-                         "name":"instant",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"paint_id",
-                         "type":"int",
-                         "value":0
-                        }, 
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":192,
-                                 "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
-                                 "rotation":false,
-                                 "texture":"splotch3"
-                                }
-                            }
-                        }],
-                 "rotation":0,
-                 "type":"paint",
-                 "visible":true,
-                 "width":0,
-                 "x":784.676854598046,
-                 "y":2474.78736492441
                 }, 
                 {
                  "height":0,
@@ -1793,8 +1680,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":3563.90055730295,
-                 "y":7388.30961733905
+                 "x":3510.62810677023,
+                 "y":7418.75101764346
                 }, 
                 {
                  "height":0,
@@ -1843,7 +1730,7 @@
                  "visible":true,
                  "width":0,
                  "x":4281.87967400506,
-                 "y":7957.11458734939
+                 "y":8177.81473955639
                 }, 
                 {
                  "height":0,
@@ -2391,7 +2278,7 @@
                          "type":"class",
                          "value":
                             {
-                             "Body":"black",
+                             "Body":"orange",
                              "Enabled":true,
                              "Head":"character color",
                              "Trigger":"TOUCH: character body"
@@ -2413,7 +2300,7 @@
                                  "friction":0,
                                  "restitution":0,
                                  "rotation":false,
-                                 "texture":"black_drip_paint"
+                                 "texture":"red_drip_paint"
                                 }
                             }
                         }, 
@@ -3142,104 +3029,6 @@
                 }, 
                 {
                  "height":0,
-                 "id":218,
-                 "name":"static_wall",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":695.199,
-                         "y":0
-                        }, 
-                        {
-                         "x":695.199,
-                         "y":202.433
-                        }, 
-                        {
-                         "x":-5.3272,
-                         "y":202.433
-                        }],
-                 "properties":[
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":0,
-                                 "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
-                                 "rotation":false,
-                                 "texture":"staticplatform_comet"
-                                }
-                            }
-                        }],
-                 "rotation":89.079337693921,
-                 "type":"wall",
-                 "visible":true,
-                 "width":0,
-                 "x":3250.81896867161,
-                 "y":10128.5852473235
-                }, 
-                {
-                 "height":0,
-                 "id":219,
-                 "name":"static_wall",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":695.199,
-                         "y":0
-                        }, 
-                        {
-                         "x":695.199,
-                         "y":202.433
-                        }, 
-                        {
-                         "x":-5.3272,
-                         "y":202.433
-                        }],
-                 "properties":[
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":0,
-                                 "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
-                                 "rotation":false,
-                                 "texture":"staticplatform_comet"
-                                }
-                            }
-                        }],
-                 "rotation":89.079337693921,
-                 "type":"wall",
-                 "visible":true,
-                 "width":0,
-                 "x":3254.43297025843,
-                 "y":10817.666358001
-                }, 
-                {
-                 "height":0,
                  "id":223,
                  "name":"static_wall",
                  "polygon":[
@@ -3496,7 +3285,7 @@
                  "visible":true,
                  "width":0,
                  "x":3970.94362875101,
-                 "y":10681.6301858156
+                 "y":10986.0441888597
                 }, 
                 {
                  "height":0,
@@ -3545,7 +3334,7 @@
                  "visible":true,
                  "width":0,
                  "x":3578.14513601849,
-                 "y":8518.65090422636
+                 "y":9074.20645978192
                 }, 
                 {
                  "height":0,
@@ -4133,7 +3922,7 @@
                  "visible":true,
                  "width":0,
                  "x":4267.49258474115,
-                 "y":9065.95947524658
+                 "y":9865.04623323745
                 }, 
                 {
                  "height":0,
@@ -4206,57 +3995,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":1076.95070144969,
+                 "x":931.722485682055,
                  "y":11024.517673585
-                }, 
-                {
-                 "height":0,
-                 "id":238,
-                 "name":"static_wall",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":695.199,
-                         "y":0
-                        }, 
-                        {
-                         "x":695.199,
-                         "y":202.433
-                        }, 
-                        {
-                         "x":-5.3272,
-                         "y":202.433
-                        }],
-                 "properties":[
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":0,
-                                 "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
-                                 "rotation":false,
-                                 "texture":"staticplatform_comet"
-                                }
-                            }
-                        }],
-                 "rotation":358.791,
-                 "type":"wall",
-                 "visible":true,
-                 "width":0,
-                 "x":3577.31958762886,
-                 "y":9618.55670103093
                 }, 
                 {
                  "height":0,
