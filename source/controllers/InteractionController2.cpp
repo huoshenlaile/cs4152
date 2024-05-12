@@ -418,6 +418,17 @@ void InteractionController2::activateController() {
     _world->activateCollisionCallbacks(true);
 }
 
+void InteractionController2::deactivateController() {
+    if (_world == nullptr) {
+        return;
+    }
+    _world->activateCollisionCallbacks(false);
+    _world->onBeginContact = nullptr;
+    _world->onEndContact = nullptr;
+    _world->beforeSolve = nullptr;
+    _world->afterSolve = nullptr;
+}
+
 void InteractionController2::connectGrabJoint() {
     if (!_obstaclesForJoint.empty()) {
         std::shared_ptr<physics2::Obstacle> obs1 = _obstaclesForJoint.at(0);

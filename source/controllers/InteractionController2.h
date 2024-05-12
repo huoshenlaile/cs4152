@@ -102,6 +102,7 @@ public:
     InteractionController2() {}
     ~InteractionController2() {
         // set all pointers to nullptr
+        deactivateController();
         _level = nullptr;
         _character = nullptr;
         _interactables.clear();
@@ -117,6 +118,7 @@ public:
 
     bool init(std::shared_ptr<LevelLoader2> level, std::shared_ptr<InputController> inputcontroller, std::shared_ptr<CameraController> camera, bool skipInitUIItems);
     void activateController();
+    void deactivateController();
     void preUpdate(float timestep);
     void postUpdate(float timestep);
 
