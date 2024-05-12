@@ -57,7 +57,7 @@ extern float acutal_input_scaler;
 #define ZOOMIN 1
 #define ZOOMOUT 2
 #define INITIAL_STAY 30
-#define FINAL_STAY 60
+#define FINAL_STAY 30
 #define END_STAY 120
 
 #define CJOINT_OFFSET 3.0f

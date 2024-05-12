@@ -1851,12 +1851,12 @@
                                 }
                             }
                         }],
-                 "rotation":0,
+                 "rotation":356.711805432639,
                  "type":"bouncywall",
                  "visible":true,
                  "width":0,
-                 "x":6241.41682299533,
-                 "y":24073.566065749
+                 "x":6197.31020482621,
+                 "y":23947.4300944993
                 }, 
                 {
                  "height":0,
@@ -1965,7 +1965,7 @@
                  "visible":true,
                  "width":0,
                  "x":2299.11237382336,
-                 "y":24111.6007909907
+                 "y":24199.8124990901
                 }, 
                 {
                  "height":0,
@@ -2069,12 +2069,12 @@
                                 }
                             }
                         }],
-                 "rotation":0,
+                 "rotation":356.711805432639,
                  "type":"bouncywall",
                  "visible":true,
                  "width":0,
-                 "x":4616.281395043,
-                 "y":24062.7318295627
+                 "x":4574.22887500445,
+                 "y":24029.8287391699
                 }, 
                 {
                  "height":0,
@@ -2178,12 +2178,12 @@
                                 }
                             }
                         }],
-                 "rotation":0,
+                 "rotation":356.711805432639,
                  "type":"bouncywall",
                  "visible":true,
                  "width":0,
-                 "x":6566.06927313686,
-                 "y":24073.5336558377
+                 "x":6521.42630641692,
+                 "y":23928.7762176116
                 }, 
                 {
                  "height":0,
@@ -2292,7 +2292,7 @@
                  "visible":true,
                  "width":0,
                  "x":2589.57244483029,
-                 "y":24033.7411703433
+                 "y":24121.9528784427
                 }, 
                 {
                  "height":0,
@@ -2396,12 +2396,12 @@
                                 }
                             }
                         }],
-                 "rotation":0,
+                 "rotation":356.711805432639,
                  "type":"bouncywall",
                  "visible":true,
                  "width":0,
-                 "x":4940.93384518453,
-                 "y":24062.6994196513
+                 "x":4898.34497659515,
+                 "y":24011.1748622821
                 }, 
                 {
                  "height":0,
@@ -2505,12 +2505,12 @@
                                 }
                             }
                         }],
-                 "rotation":0,
+                 "rotation":356.711805432639,
                  "type":"bouncywall",
                  "visible":true,
                  "width":0,
-                 "x":6896.16993382449,
-                 "y":24069.198237869
+                 "x":6850.7348355965,
+                 "y":23905.5139166731
                 }, 
                 {
                  "height":0,
@@ -2614,12 +2614,12 @@
                                 }
                             }
                         }],
-                 "rotation":0,
+                 "rotation":356.711805432639,
                  "type":"bouncywall",
                  "visible":true,
                  "width":0,
-                 "x":5271.03450587215,
-                 "y":24058.3640016827
+                 "x":5227.65350577473,
+                 "y":23987.9125613437
                 }, 
                 {
                  "height":0,
@@ -2723,12 +2723,12 @@
                                 }
                             }
                         }],
-                 "rotation":0,
+                 "rotation":356.711805432639,
                  "type":"bouncywall",
                  "visible":true,
                  "width":0,
-                 "x":7220.26933525602,
-                 "y":24068.078584471
+                 "x":7174.23643652168,
+                 "y":23885.8063082222
                 }, 
                 {
                  "height":0,
@@ -2832,12 +2832,12 @@
                                 }
                             }
                         }],
-                 "rotation":0,
+                 "rotation":356.711805432639,
                  "type":"bouncywall",
                  "visible":true,
                  "width":0,
-                 "x":5595.13390730369,
-                 "y":24057.2443482846
+                 "x":5551.15510669991,
+                 "y":23968.2049528927
                 }, 
                 {
                  "height":0,
@@ -2941,12 +2941,12 @@
                                 }
                             }
                         }],
-                 "rotation":0,
+                 "rotation":356.711805432639,
                  "type":"bouncywall",
                  "visible":true,
                  "width":0,
-                 "x":7558.55260299374,
-                 "y":24071.9257735524
+                 "x":7512.18344199048,
+                 "y":23870.2438023247
                 }, 
                 {
                  "height":0,
@@ -3050,12 +3050,12 @@
                                 }
                             }
                         }],
-                 "rotation":0,
+                 "rotation":356.711805432639,
                  "type":"bouncywall",
                  "visible":true,
                  "width":0,
-                 "x":5933.41717504141,
-                 "y":24061.091537366
+                 "x":5889.10211216871,
+                 "y":23952.6424469952
                 }, 
                 {
                  "height":0,
@@ -3164,7 +3164,7 @@
                  "visible":true,
                  "width":0,
                  "x":2020.5532778104,
-                 "y":24174.2781410764
+                 "y":24262.4898491759
                 }, 
                 {
                  "height":0,
@@ -3551,134 +3551,6 @@
                 }, 
                 {
                  "height":0,
-                 "id":177,
-                 "name":"moving_wall1",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":0,
-                         "y":-254.580674841785
-                        }, 
-                        {
-                         "x":807.818330647231,
-                         "y":-254.580674841785
-                        }, 
-                        {
-                         "x":807.818330647231,
-                         "y":0
-                        }],
-                 "properties":[
-                        {
-                         "name":"Grab",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"Movements",
-                         "propertytype":"bodytype",
-                         "type":"class",
-                         "value":
-                            {
-                             "speed":10,
-                             "xy":"0,100,0,0"
-                            }
-                        }, 
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":192,
-                                 "density":0,
-                                 "friction":0,
-                                 "restitution":0.1,
-                                 "rotation":false,
-                                 "texture":"smoothplatform_comet"
-                                }
-                            }
-                        }],
-                 "rotation":3.44997424770339,
-                 "type":"movingwall",
-                 "visible":true,
-                 "width":0,
-                 "x":5200.57883746647,
-                 "y":22932.6784769532
-                }, 
-                {
-                 "height":0,
-                 "id":224,
-                 "name":"moving_wall1",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":0,
-                         "y":-1134.03480675991
-                        }, 
-                        {
-                         "x":201.298239669218,
-                         "y":-1134.03480675991
-                        }, 
-                        {
-                         "x":201.298239669218,
-                         "y":0
-                        }],
-                 "properties":[
-                        {
-                         "name":"Grab",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"Movements",
-                         "propertytype":"bodytype",
-                         "type":"class",
-                         "value":
-                            {
-                             "speed":10,
-                             "xy":"0,100,0,0"
-                            }
-                        }, 
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":192,
-                                 "density":0,
-                                 "friction":0,
-                                 "restitution":0.1,
-                                 "rotation":false,
-                                 "texture":"staticplatform_comet"
-                                }
-                            }
-                        }],
-                 "rotation":0,
-                 "type":"movingwall",
-                 "visible":true,
-                 "width":0,
-                 "x":5977.43292027727,
-                 "y":22942.9721270109
-                }, 
-                {
-                 "height":0,
                  "id":179,
                  "name":"",
                  "polygon":[
@@ -3976,63 +3848,6 @@
                 }, 
                 {
                  "height":0,
-                 "id":216,
-                 "name":"",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":-351.603055607967,
-                         "y":115.01860337225
-                        }, 
-                        {
-                         "x":-354.829861732169,
-                         "y":-118.852058489809
-                        }, 
-                        {
-                         "x":367.731578391161,
-                         "y":-122.686300441341
-                        }, 
-                        {
-                         "x":370.958384515362,
-                         "y":115.01860337225
-                        }, 
-                        {
-                         "x":-361.281113478651,
-                         "y":122.686300441341
-                        }],
-                 "properties":[
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":192,
-                                 "density":0,
-                                 "friction":10000000,
-                                 "restitution":0.1,
-                                 "rotation":false,
-                                 "texture":"staticplatform_comet"
-                                }
-                            }
-                        }],
-                 "rotation":180.742,
-                 "type":"wall",
-                 "visible":true,
-                 "width":0,
-                 "x":3549.7793956015,
-                 "y":22464.9924166521
-                }, 
-                {
-                 "height":0,
                  "id":227,
                  "name":"",
                  "polygon":[
@@ -4086,7 +3901,7 @@
                  "visible":true,
                  "width":0,
                  "x":1430.82176847747,
-                 "y":24242.8071683614
+                 "y":24339.0381226517
                 }, 
                 {
                  "height":0,
@@ -4200,64 +4015,7 @@
                  "visible":true,
                  "width":0,
                  "x":546.358123512222,
-                 "y":24242.0861744952
-                }, 
-                {
-                 "height":0,
-                 "id":217,
-                 "name":"",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":-351.603055607967,
-                         "y":115.01860337225
-                        }, 
-                        {
-                         "x":-354.829861732169,
-                         "y":-118.852058489809
-                        }, 
-                        {
-                         "x":367.731578391161,
-                         "y":-122.686300441341
-                        }, 
-                        {
-                         "x":370.958384515362,
-                         "y":115.01860337225
-                        }, 
-                        {
-                         "x":-361.281113478651,
-                         "y":122.686300441341
-                        }],
-                 "properties":[
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":192,
-                                 "density":0,
-                                 "friction":10000000,
-                                 "restitution":0.1,
-                                 "rotation":false,
-                                 "texture":"staticplatform_comet"
-                                }
-                            }
-                        }],
-                 "rotation":180.742,
-                 "type":"wall",
-                 "visible":true,
-                 "width":0,
-                 "x":4269.29718014184,
-                 "y":22467.4679013084
+                 "y":24338.3171287855
                 }],
          "opacity":1,
          "type":"objectgroup",

@@ -16,12 +16,12 @@ void DPApp::onStartup() {
     _assets = AssetManager::alloc();
     _batch = SpriteBatch::alloc();
 
-    // Start-up basic input
-    #ifdef CU_TOUCH_SCREEN
+// Start-up basic input
+#ifdef CU_TOUCH_SCREEN
     Input::activate<Touchscreen>();
-    #else
+#else
     Input::activate<Mouse>();
-    #endif
+#endif
 
     Input::activate<Keyboard>();
     Input::activate<TextInput>();
@@ -41,36 +41,33 @@ void DPApp::onStartup() {
     // Que up the other assets
     AudioEngine::start(24);
     _assets->loadDirectoryAsync("json/assets.json", nullptr);
-    
 
     _assets2 = _assets; // the assets dedicated for game scene, currently is still the global asset manager
-    
-    
+
     _levelLoadScene.init(_assets2);
     acutal_input_scaler = getInputScale();
     CULog("time for fixed update: %f", getFixedStep() / 1000000.0f);
 
     cugl::net::NetworkLayer::start(net::NetworkLayer::Log::INFO);
     setDeterministic(true);
-    
-    
+
     auto savedir = Application::get()->getSaveDirectory();
     std::shared_ptr<JsonReader> jsonreader = JsonReader::alloc(savedir + "user_progress.json");
-    if(jsonreader==nullptr){
+    if (jsonreader == nullptr) {
         std::shared_ptr<JsonWriter> jsonwriter = JsonWriter::alloc(savedir + "user_progress.json");
-        //std::cout<< "r-20" <<std::endl;
+        // std::cout<< "r-20" <<std::endl;
         JsonValue updatedjson;
-        //std::cout<< "r-21" <<std::endl;
+        // std::cout<< "r-21" <<std::endl;
         std::shared_ptr<JsonValue> res = updatedjson.allocNull();
-        if(jsonwriter != nullptr && res != nullptr){
+        if (jsonwriter != nullptr && res != nullptr) {
             jsonwriter->writeJson(res);
-            //std::cout<< "r-23" <<std::endl;
+            // std::cout<< "r-23" <<std::endl;
         }
         jsonwriter->close();
     } else {
         jsonreader->close();
     }
-    
+
     Application::onStartup(); // YOU MUST END with call to parent
 }
 
@@ -98,12 +95,12 @@ void DPApp::onShutdown() {
     _assets = nullptr;
     _batch = nullptr;
 
-    // Shutdown input
-    #ifdef CU_TOUCH_SCREEN
+// Shutdown input
+#ifdef CU_TOUCH_SCREEN
     Input::deactivate<Touchscreen>();
-    #else
+#else
     Input::deactivate<Mouse>();
-    #endif
+#endif
 
     AudioEngine::stop();
     Application::onShutdown(); // YOU MUST END with call to parent
@@ -143,120 +140,118 @@ void DPApp::onResume() { AudioEngine::get()->resume(); }
 
 void DPApp::preUpdate(float timestep) {
     if (_status == LOAD) {
-    // TODO: 0.01f? Why? Because Walker used this...
-    updateLoad(0.01f);
+        // TODO: 0.01f? Why? Because Walker used this...
+        updateLoad(0.01f);
     } else if (_status == MENU) {
-    updateMenu(timestep);
+        updateMenu(timestep);
     } else if (_status == SETTING) {
-    updateSetting(timestep);
+        updateSetting(timestep);
     } else if (_status == LEVELSELECT) {
-    updateLevelSelect(timestep);
+        updateLevelSelect(timestep);
     } else if (_status == LEVELLOAD) {
-    updateLevelLoad(timestep);
+        updateLevelLoad(timestep);
     } else if (_status == RESTORE) {
-    updateRestoration(timestep);
+        updateRestoration(timestep);
     } else if (_status == GAME) {
-    if (_gameScene.isComplete()) {
-        if(_gameScene.state == GameScene::UPDATING){
-            updateLevelJson();
-            _gameScene.state = GameScene::NETERROR; //using dummy state so it runs once
-            //std::cout<<"updated the json and now moving on" <<std::endl;
-        }
-        if (_gameScene.state == GameScene::QUIT) {
-            std::cout << "quitting game back to level select"<< std::endl;
-            _gameScene.reset();
-            _levelSelectScene.setActive(true);
-            _audioController.play("menu", "menu");
-            _status = LEVELSELECT;
-        } else if (_gameScene.state == GameScene::RESET) {
-            _gameScene.reset();
-            _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
-            _status = LEVELLOAD;
-        } else if (_gameScene.state == GameScene::NEXTLEVEL) {
-            // TODO: next level
-            _gameScene.reset();
-            std::string nextLevel;
-            if (_currentLevelKey == "tutorial") {
-                nextLevel = "level1";
-            } else if (_currentLevelKey == "level15") {
-                // TODO: what to do with the final level?
-                nextLevel = "level1";
-            } else {
-                char nextLevelNum = _currentLevelKey.at(_currentLevelKey.length() - 1);
-                nextLevel = "level";
-                if (nextLevelNum == '9') {
-                    nextLevel.push_back(_currentLevelKey.at(_currentLevelKey.length() - 2) + 1);
-                    nextLevel.push_back(nextLevelNum + 1);
-                } else {
-                    nextLevel.push_back(nextLevelNum + 1);
-                }
+        if (_gameScene.isComplete()) {
+            if (_gameScene.state == GameScene::UPDATING) {
+                updateLevelJson();
+                _gameScene.state = GameScene::NETERROR; // using dummy state so it runs once
+                // std::cout<<"updated the json and now moving on" <<std::endl;
             }
-            std::cout << "next level number is: " << nextLevel << std::endl;
-            _levelSelectScene.selectedLevelKey = nextLevel;
-            _levelSelectScene.selectedLevelFile = "json/" + nextLevel + ".json";
-            _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
-            _currentLevelKey = _levelSelectScene.getSelectedLevelKey();
-            _gameScene.setCameraSkip(false);
-            _status = LEVELLOAD;
-        }
-    } else if (_gameScene.isPaused()) {
-        _status = PAUSE;
-        _gameScene.setActive(false);
-        _pauseScene.setActive(true);
-    } else if (_gameScene.state == GameScene::RESET){
-        _gameScene.setActive(false);
-        _gameScene.reset();
-        _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
-        _status = LEVELLOAD;
-    }
-    else {
-        _gameScene.preUpdate(timestep);
-    }
-      
-
-    } else if (_status == PAUSE) {
-        switch (_pauseScene.state) {
-            case PauseScene::BACK:
-                _pauseScene.setActive(false);
-                _gameScene.setActive(true);
-                _status = GAME;
-                break;
-            case PauseScene::RESET:
-                _pauseScene.setActive(false);
-                _gameScene.reset();
-                _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
-                _status = LEVELLOAD;
-                break;
-            case PauseScene::MENU:
-                _pauseScene.setActive(false);
+            if (_gameScene.state == GameScene::QUIT) {
+                std::cout << "quitting game back to level select" << std::endl;
                 _gameScene.reset();
                 _levelSelectScene.setActive(true);
-                _audioController.play("menu", "menu", true);
+                _audioController.play("menu", "menu");
                 _status = LEVELSELECT;
-                break;
-            default:
-              break;
+            } else if (_gameScene.state == GameScene::RESET) {
+                _gameScene.reset();
+                _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
+                _gameScene.setCameraSkip(true);
+                _status = LEVELLOAD;
+            } else if (_gameScene.state == GameScene::NEXTLEVEL) {
+                // TODO: next level
+                _gameScene.reset();
+                std::string nextLevel;
+                if (_currentLevelKey == "tutorial") {
+                    nextLevel = "level1";
+                } else if (_currentLevelKey == "level15") {
+                    // TODO: what to do with the final level?
+                    nextLevel = "level1";
+                } else {
+                    char nextLevelNum = _currentLevelKey.at(_currentLevelKey.length() - 1);
+                    nextLevel = "level";
+                    if (nextLevelNum == '9') {
+                        nextLevel.push_back(_currentLevelKey.at(_currentLevelKey.length() - 2) + 1);
+                        nextLevel.push_back(nextLevelNum + 1);
+                    } else {
+                        nextLevel.push_back(nextLevelNum + 1);
+                    }
+                }
+                std::cout << "next level number is: " << nextLevel << std::endl;
+                _levelSelectScene.selectedLevelKey = nextLevel;
+                _levelSelectScene.selectedLevelFile = "json/" + nextLevel + ".json";
+                _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
+                _currentLevelKey = _levelSelectScene.getSelectedLevelKey();
+                _gameScene.setCameraSkip(false);
+                _status = LEVELLOAD;
+            }
+        } else if (_gameScene.isPaused()) {
+            _status = PAUSE;
+            _gameScene.setActive(false);
+            _pauseScene.setActive(true);
+        } else if (_gameScene.state == GameScene::RESET) {
+            _gameScene.setActive(false);
+            _gameScene.reset();
+            _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
+            _status = LEVELLOAD;
+        } else {
+            _gameScene.preUpdate(timestep);
+        }
+    } else if (_status == PAUSE) {
+        switch (_pauseScene.state) {
+        case PauseScene::BACK:
+            _pauseScene.setActive(false);
+            _gameScene.setActive(true);
+            _status = GAME;
+            break;
+        case PauseScene::RESET:
+            _pauseScene.setActive(false);
+            _gameScene.reset();
+            _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
+            _status = LEVELLOAD;
+            break;
+        case PauseScene::MENU:
+            _pauseScene.setActive(false);
+            _gameScene.reset();
+            _levelSelectScene.setActive(true);
+            _audioController.play("menu", "menu", true);
+            _status = LEVELSELECT;
+            break;
+        default:
+            break;
         }
     }
 }
 
 void DPApp::postUpdate(float timestep) {
     if (_status == GAME) {
-        if (!_gameScene.isComplete()){
+        if (!_gameScene.isComplete()) {
             _gameScene.postUpdate(timestep);
         }
     }
 }
 
 void DPApp::fixedUpdate() {
-      if (_status == GAME) {
-          if (!_gameScene.isComplete()){
-              float time = getFixedStep() / 1000000.0f;
-              _gameScene.fixedUpdate(time);
-          }
-      } else if (_status == PAUSE) {
-          _pauseScene.fixedUpdate();
-      }
+    if (_status == GAME) {
+        if (!_gameScene.isComplete()) {
+            float time = getFixedStep() / 1000000.0f;
+            _gameScene.fixedUpdate(time);
+        }
+    } else if (_status == PAUSE) {
+        _pauseScene.fixedUpdate();
+    }
 }
 
 #pragma mark SCENE-SPECIFIC UPDATES
@@ -279,29 +274,29 @@ void DPApp::update(float timestep) {
 void DPApp::updateMenu(float timestep) {
     _menuScene.update(timestep);
     switch (_menuScene.status) {
-        case MenuScene::NEWGAME:
-            _levelSelectScene.selectedLevelKey = "tutorial";
-            _levelSelectScene.selectedLevelFile = "json/tutorial.json";
-            _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
-            _currentLevelKey = _levelSelectScene.getSelectedLevelKey();
-            _menuScene.setActive(false);
-            _status = LEVELLOAD;
-            break;
-        case MenuScene::LEVEL:
-            _menuScene.setActive(false);
-            _levelSelectScene.setActive(true);
-            _status = LEVELSELECT;
+    case MenuScene::NEWGAME:
+        _levelSelectScene.selectedLevelKey = "tutorial";
+        _levelSelectScene.selectedLevelFile = "json/tutorial.json";
+        _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
+        _currentLevelKey = _levelSelectScene.getSelectedLevelKey();
+        _menuScene.setActive(false);
+        _status = LEVELLOAD;
         break;
-        case MenuScene::NONE:
-            // DO NOTHING
+    case MenuScene::LEVEL:
+        _menuScene.setActive(false);
+        _levelSelectScene.setActive(true);
+        _status = LEVELSELECT;
         break;
-        case MenuScene::SETTING:
-            _menuScene.setActive(false);
-            _settingScene.setActive(true);
-            _status = SETTING;
+    case MenuScene::NONE:
+        // DO NOTHING
         break;
-        case MenuScene::QUIT:
-            onShutdown();
+    case MenuScene::SETTING:
+        _menuScene.setActive(false);
+        _settingScene.setActive(true);
+        _status = SETTING;
+        break;
+    case MenuScene::QUIT:
+        onShutdown();
         break;
     }
 }
@@ -309,46 +304,46 @@ void DPApp::updateMenu(float timestep) {
 void DPApp::updatePause(float timestep) {
     _pauseScene.update(timestep);
     switch (_pauseScene.state) {
-      case PauseScene::BACK:
+    case PauseScene::BACK:
         _status = GAME;
         _pauseScene.setActive(false);
         _gameScene.setActive(true);
         break;
-      case PauseScene::RESET:
+    case PauseScene::RESET:
         _status = GAME;
         _pauseScene.setActive(false);
         _gameScene.reset();
         _gameScene.setActive(true);
         break;
-      case PauseScene::MENU:
+    case PauseScene::MENU:
         _status = LEVELSELECT;
         _pauseScene.setActive(false);
         _gameScene.reset();
         break;
-      default:
+    default:
         break;
     }
 }
 
 void DPApp::updateLoad(float timestep) {
     switch (_loadScene.state) {
-        case LoadScene::LOADING:
-            _loadScene.update(0.01f);
+    case LoadScene::LOADING:
+        _loadScene.update(0.01f);
         break;
-        case LoadScene::LOADED:
-            _network = NetEventController::alloc(_assets);
-            _loadScene.dispose(); // Disables the input listeners in this mode
-            _menuScene.init(_assets);
-            _menuScene.setActive(true);
-            _pauseScene.init(_assets, _network);
-            _settingScene.init(_assets);
-            _levelSelectScene.init(_assets);
-            
-            _audioController.init(_assets);
-            _audioController.play("menu", "menu", true);
-            _status = MENU;
-            //    _hostScene.init(_assets, _network);
-            //    _clientScene.init(_assets, _network);
+    case LoadScene::LOADED:
+        _network = NetEventController::alloc(_assets);
+        _loadScene.dispose(); // Disables the input listeners in this mode
+        _menuScene.init(_assets);
+        _menuScene.setActive(true);
+        _pauseScene.init(_assets, _network);
+        _settingScene.init(_assets);
+        _levelSelectScene.init(_assets);
+
+        _audioController.init(_assets);
+        _audioController.play("menu", "menu", true);
+        _status = MENU;
+        //    _hostScene.init(_assets, _network);
+        //    _clientScene.init(_assets, _network);
         break;
     }
 }
@@ -356,12 +351,12 @@ void DPApp::updateLoad(float timestep) {
 void DPApp::updateSetting(float timestep) {
     _settingScene.update(timestep);
     switch (_settingScene.state) {
-        case SettingScene::BACK:
-            _status = MENU;
-            _settingScene.setActive(false);
-            _menuScene.setActive(true);
+    case SettingScene::BACK:
+        _status = MENU;
+        _settingScene.setActive(false);
+        _menuScene.setActive(true);
         break;
-            default:
+    default:
         break;
     }
 }
@@ -369,55 +364,47 @@ void DPApp::updateSetting(float timestep) {
 void DPApp::updateLevelSelect(float timestep) {
     _levelSelectScene.update(timestep);
     switch (_levelSelectScene.state) {
-        case LevelSelectScene::BACK:
-            _status = MENU;
-            _levelSelectScene.setActive(false);
-            _menuScene.setActive(true);
-            break;
-        case LevelSelectScene::STARTGAME:
-            _gameScene.setCameraSkip(false);
-            _levelSelectScene.setActive(false);
-            _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
-            _currentLevelKey = _levelSelectScene.getSelectedLevelKey();
-            _status = LEVELLOAD;
-            break;
-        case LevelSelectScene::INSCENE:
-      // Do nothing
-            break;
+    case LevelSelectScene::BACK:
+        _status = MENU;
+        _levelSelectScene.setActive(false);
+        _menuScene.setActive(true);
+        break;
+    case LevelSelectScene::STARTGAME:
+        _gameScene.setCameraSkip(false);
+        _levelSelectScene.setActive(false);
+        _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
+        _currentLevelKey = _levelSelectScene.getSelectedLevelKey();
+        _status = LEVELLOAD;
+        break;
+    case LevelSelectScene::INSCENE:
+        // Do nothing
+        break;
     }
 }
 
-void DPApp::updateLevelLoad(float timestep){
+void DPApp::updateLevelLoad(float timestep) {
     switch (_levelLoadScene._state) {
-        case LevelLoadScene::LOADING:
-        case LevelLoadScene::CONSTRUCT:
-            _levelLoadScene.update(timestep);
-            break;
-        case LevelLoadScene::DONE:
-            _gameScene.init(_assets2, _levelSelectScene.getSelectedLevelKey());
-            _gameScene.setActive(true);
-            _gameScene.setComplete(false);
-            _gameScene.setCameraSkip(true);
+    case LevelLoadScene::LOADING:
+    case LevelLoadScene::CONSTRUCT:
+        _levelLoadScene.update(timestep);
+        break;
+    case LevelLoadScene::DONE:
+        _gameScene.init(_assets2, _levelSelectScene.getSelectedLevelKey());
+        _gameScene.setActive(true);
+        _gameScene.setComplete(false);
+        _gameScene.setCameraSkip(false);
 
-            _audioController.clear("menu");
-            _status = GAME;
-            break;
+        _audioController.clear("menu");
+        _status = GAME;
+        break;
     }
 }
 
+void DPApp::updateRestoration(float timestep) { _restorationScene.update(timestep); }
 
-void DPApp::updateRestoration(float timestep) {
-    _restorationScene.update(timestep);
-}
+void DPApp::updateHost(float timestep) {}
 
-
-void DPApp::updateHost(float timestep) {
-
-}
-
-void DPApp::updateClient(float timestep) {
-
-}
+void DPApp::updateClient(float timestep) {}
 
 #pragma mark DRAW
 /**
@@ -458,25 +445,25 @@ void DPApp::draw() {
     }
 }
 
-void DPApp::addLevelJson(std::shared_ptr<JsonValue> json, std::string levelkey, bool completedfield, std::string endingtypefield){
+void DPApp::addLevelJson(std::shared_ptr<JsonValue> json, std::string levelkey, bool completedfield, std::string endingtypefield) {
     std::cout << levelkey << std::endl;
     std::shared_ptr<JsonValue> level = json->get(levelkey);
-    
-    if (level != nullptr){
+
+    if (level != nullptr) {
         std::cout << "exists" << std::endl;
         std::shared_ptr<JsonValue> completed = level->get("completed");
         std::shared_ptr<JsonValue> endingType = level->get("endingType");
-        
-        if (completed != nullptr){
+
+        if (completed != nullptr) {
             completed->set(completedfield);
         } else {
             level->appendValue("completed", completedfield);
         }
-        
-        if (endingType != nullptr){
+
+        if (endingType != nullptr) {
             std::cout << level->getString("endingType") << std::endl;
-            if (level->getString("endingType").compare("0") != 0){
-                //don't update if already good ending for this level
+            if (level->getString("endingType").compare("0") != 0) {
+                // don't update if already good ending for this level
                 endingType->set(endingtypefield);
             }
         } else {
@@ -485,105 +472,103 @@ void DPApp::addLevelJson(std::shared_ptr<JsonValue> json, std::string levelkey, 
         std::cout << level->get("completed")->toString() << std::endl;
     } else {
         std::cout << "doesn't exist" << std::endl;
-        if (!json->isObject()){
-            //json file might be empty
+        if (!json->isObject()) {
+            // json file might be empty
             std::cout << "making init object" << std::endl;
             json->initObject();
         }
-        //finished a new level
-        std::cout <<" appending object" << std::endl;
+        // finished a new level
+        std::cout << " appending object" << std::endl;
         json->appendObject(levelkey);
         std::shared_ptr<JsonValue> levelfields = json->get(levelkey);
         levelfields->appendValue("completed", completedfield);
         levelfields->appendValue("endingType", endingtypefield);
     }
-    std::cout << json->toString() <<std::endl;
-    std::cout <<"=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-" << std::endl;
+    std::cout << json->toString() << std::endl;
+    std::cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-" << std::endl;
     return;
 }
 
-void DPApp::updateLevelJson(){
-    //std::cout<< "r-1" <<std::endl;
+void DPApp::updateLevelJson() {
+    // std::cout<< "r-1" <<std::endl;
     auto savedir = Application::get()->getSaveDirectory();
-    //std::cout<< "r-2" <<std::endl;
+    // std::cout<< "r-2" <<std::endl;
     std::shared_ptr<JsonReader> jsonreader = JsonReader::alloc(savedir + "user_progress.json");
-    
-//    std::cout << jsonreader->readAll() <<std::endl;
-//    jsonreader->reset();
-    
-    //std::cout<< "r-3" <<std::endl;
-    if (jsonreader != nullptr && jsonreader->ready()){
-        //std::cout<< "r-4" <<std::endl;
+
+    //    std::cout << jsonreader->readAll() <<std::endl;
+    //    jsonreader->reset();
+
+    // std::cout<< "r-3" <<std::endl;
+    if (jsonreader != nullptr && jsonreader->ready()) {
+        // std::cout<< "r-4" <<std::endl;
         std::shared_ptr<JsonValue> json;
-        
-        //std::cout<< "r-5" <<std::endl;
-        if (jsonreader->readLine()[0] != '{'){
-            //std::cout<< "r-6" <<std::endl;
+
+        // std::cout<< "r-5" <<std::endl;
+        if (jsonreader->readLine()[0] != '{') {
+            // std::cout<< "r-6" <<std::endl;
             std::shared_ptr<JsonValue> myjson = JsonValue::allocObject();
-            //std::cout<< "r-7" <<std::endl;
+            // std::cout<< "r-7" <<std::endl;
             json = myjson;
-            //std::cout<< "r-8" <<std::endl;
+            // std::cout<< "r-8" <<std::endl;
         } else {
             jsonreader->reset();
-            //std::cout<< "r-9" <<std::endl;
+            // std::cout<< "r-9" <<std::endl;
             json = jsonreader->readJson();
-            //std::cout<< "r-10" <<std::endl;
+            // std::cout<< "r-10" <<std::endl;
             jsonreader->close();
-            //std::cout<< "r-11" <<std::endl;
+            // std::cout<< "r-11" <<std::endl;
         }
-        if (json != nullptr){
+        if (json != nullptr) {
             addLevelJson(json, _currentLevelKey, true, std::to_string(_gameScene.getEndingType()));
-            //std::cout<< "r-12" <<std::endl;
-            //now unlock new level
-            if (_currentLevelKey == "tutorial"){
+            // std::cout<< "r-12" <<std::endl;
+            // now unlock new level
+            if (_currentLevelKey == "tutorial") {
                 addLevelJson(json, "level1", false, "null");
-                //std::cout<< "r-13" <<std::endl;
+                // std::cout<< "r-13" <<std::endl;
             } else {
                 size_t start = _currentLevelKey.find("level") + 5;
-                //std::cout<< "r-14" <<std::endl;
+                // std::cout<< "r-14" <<std::endl;
                 size_t end = _currentLevelKey.size();
-                //std::cout<< "r-15" <<std::endl;
-                int num = std::stoi(_currentLevelKey.substr(start, end - start))+1;
-                //std::cout<< "r-16" <<std::endl;
-                std::string next_level = "level"+std::to_string(num);
-                //std::cout<< "r-17" <<std::endl;
-                if (json->get(next_level) == nullptr){
+                // std::cout<< "r-15" <<std::endl;
+                int num = std::stoi(_currentLevelKey.substr(start, end - start)) + 1;
+                // std::cout<< "r-16" <<std::endl;
+                std::string next_level = "level" + std::to_string(num);
+                // std::cout<< "r-17" <<std::endl;
+                if (json->get(next_level) == nullptr) {
                     addLevelJson(json, next_level, false, "null");
                 }
-                
-                //std::cout<< "r-18" <<std::endl;
+
+                // std::cout<< "r-18" <<std::endl;
             }
         } else {
             CULog("There is a parsing error in the json file");
         }
-        
-        //std::cout<< "r-19" <<std::endl;
-        
-        
+
+        // std::cout<< "r-19" <<std::endl;
+
         std::shared_ptr<JsonWriter> jsonwriter = JsonWriter::alloc(savedir + "user_progress.json");
-        //std::cout<< "r-20" <<std::endl;
+        // std::cout<< "r-20" <<std::endl;
         JsonValue updatedjson;
-        //std::cout<< "r-21" <<std::endl;
+        // std::cout<< "r-21" <<std::endl;
         std::shared_ptr<JsonValue> res = updatedjson.allocWithJson(json->toString());
-        //std::cout<< "r-22" <<std::endl;
-        if(jsonwriter != nullptr && res != nullptr){
+        // std::cout<< "r-22" <<std::endl;
+        if (jsonwriter != nullptr && res != nullptr) {
             jsonwriter->writeJson(res);
-            //std::cout<< "r-23" <<std::endl;
+            // std::cout<< "r-23" <<std::endl;
         }
         jsonwriter->close();
-        //std::cout<< "r-25" <<std::endl;
-        
+        // std::cout<< "r-25" <<std::endl;
+
         std::cout << "wrote to json file" << std::endl;
-        
     } else {
-        if (jsonreader!=nullptr){
+        if (jsonreader != nullptr) {
             jsonreader->close();
         }
-        
-        //std::cout<< "r-26" <<std::endl;
+
+        // std::cout<< "r-26" <<std::endl;
     }
-    
-    //std::cout<< "r-27" <<std::endl;
-    
+
+    // std::cout<< "r-27" <<std::endl;
+
     return;
 }
