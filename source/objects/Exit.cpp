@@ -123,7 +123,7 @@ void Exit::addColor(std::string color, Vec2 character_scene_pos) {
     } else if ( color == "blue" ){
         splatterpoly = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>("blue_splatter"));
     } else if ( color == "orange" ) {
-        splatterpoly = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>("orange_splatter"));
+        splatterpoly = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>("red_splatter"));
     } else if ( color == "purple" ) {
         splatterpoly = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>("purple_splatter"));
     } else if ( color == "pink" ) {

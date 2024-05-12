@@ -46,7 +46,6 @@ void CameraController::update(float dt) {
     if(_skipCameraSpan && !_skipPosMove){
         Vec2 targetPos = Vec2(_target->getWorldPosition().x, _target->getWorldPosition().y);
         _camera->setPosition(targetPos);
-        this->setZoom(getDefaultZoom());
         _skipPosMove = true;
         CULog("%f,%f", targetPos.x, targetPos.y);
         CULog("camera auto focus!!!!");
@@ -136,6 +135,7 @@ void CameraController::update(float dt) {
         (*dst).y = std::max(std::min(_root->getSize().height - _camera->getViewport().getMaxY() / (2 * _camera->getZoom()), (*dst).y), _camera->getViewport().getMaxY() / (2 * _camera->getZoom()));
         _camera->translate((*dst).x - cameraPos.x, (*dst).y - cameraPos.y);
         delete dst;
+        this->setZoom(getDefaultZoom());
         _camera->update();
         if (_levelComplete) {
             _state = 4;
