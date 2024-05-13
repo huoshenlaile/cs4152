@@ -349,6 +349,9 @@
         "button_home_down": {
             "file": "textures/button_home_down.png"
         },
+        "button_back": {
+            "file": "textures/button_back.png"
+        },
         "background_select_frames": {
             "file": "textures/background_select_frames.png"
         },
@@ -845,7 +848,10 @@
         "pause": "widgets/pause.json",
         "levelcomplete": "widgets/levelcomplete.json",
         "levelcomplete_bad": "widgets/levelcomplete_bad.json",
-        "pausebutton": "widgets/pausebutton.json"
+        "pausebutton": "widgets/pausebutton.json",
+        "slider1": "widgets/slider1.json",
+        "slider2": "widgets/slider2.json",
+        "levelcomplete_bad_honors": "widgets/levelcomplete_bad_honors.json"
     },
     "scene2s": {
         "pause": {
