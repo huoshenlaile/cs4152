@@ -1,18 +1,7 @@
 {
     "textures": {
-        "splotch1": {
-            "file": "textures/pureOrange.png"
-        },
-        "splotch2": {
-            "file": "textures/pureOrange.png"
-        },
         "splotch3": {
             "file": "textures/pureOrange.png"
-        },
-        "spikes": {
-            "file": "textures/spikes.png",
-            "wrapS": "repeat",
-            "wrapT": "repeat"
         },
         "lvl4_background_good": {
             "file": "textures/level4/lv4_background_1.png"
@@ -128,70 +117,22 @@
         "alpharelease_mayo_capon": {
             "file": "textures/alpharelease_mayo_capon.png"
         },
-        "popleft": {
-            "file": "textures/popart_platformbubble_left.png"
-        },
-        "popright": {
-            "file": "textures/popart_platformbubble_right.png"
-        },
-        "popmid": {
-            "file": "textures/popart_platformLine.png"
-        },
         "pinkbackground": {
             "file": "textures/popart_background.png",
             "wrapS": "repeat",
             "wrapT": "repeat"
         },
-        "goalpop": {
-            "file": "textures/popart_goal.png"
-        },
         "button": {
             "file": "textures/button.png"
-        },
-        "button_ingame": {
-            "file": "textures/button_interact.png"
         },
         "paintmeter": {
             "file": "textures/paintmeter.png"
         },
-        "frame": {
-            "file": "textures/frame.png"
-        },
         "left": {
             "file": "textures/left_arrow.png"
         },
-        "hand": {
-            "file": "textures/crate01.png",
-            "minfilter": "linear",
-            "magfilter": "linear"
-        },
-        "body1": {
-            "file": "textures/body1.png",
-            "minfilter": "linear",
-            "magfilter": "linear"
-        },
-        "j1": {
-            "file": "textures/j1.png",
-            "minfilter": "linear",
-            "magfilter": "linear"
-        },
-        "hand1": {
-            "file": "textures/hand1.png",
-            "minfilter": "linear",
-            "magfilter": "linear"
-        },
         "body192": {
             "file": "textures/body192.png",
-            "minfilter": "linear",
-            "magfilter": "linear"
-        },
-        "joint32": {
-            "file": "textures/joint32.png",
-            "minfilter": "linear",
-            "magfilter": "linear"
-        },
-        "hand64": {
-            "file": "textures/hand64.png",
             "minfilter": "linear",
             "magfilter": "linear"
         },
@@ -276,21 +217,6 @@
         },
         "background_select": {
             "file": "textures/background_select.png"
-        },
-        "button_fifth": {
-            "file": "textures/button_fifth.png"
-        },
-        "button_fourth": {
-            "file": "textures/button_fourth.png"
-        },
-        "button_third": {
-            "file": "textures/button_third.png"
-        },
-        "button_second": {
-            "file": "textures/button_second.png"
-        },
-        "button_first": {
-            "file": "textures/button_first.png"
         },
         "button_menu": {
             "file": "textures/button_menu.png"
@@ -772,26 +698,7 @@
         "progress": "json/GameProgress.json"
     },
     "sounds": {
-        "bump": {
-            "type": "sample",
-            "file": "sounds/bump.wav",
-            "volume": 0.5
-        },
-        "burn": {
-            "type": "sample",
-            "file": "sounds/afterburner.wav",
-            "volume": 0.8
-        },
-        "right-burn": {
-            "type": "sample",
-            "file": "sounds/sideburner-right.wav",
-            "volume": 0.5
-        },
-        "left-burn": {
-            "type": "sample",
-            "file": "sounds/sideburner-left.wav",
-            "volume": 0.5
-        },
+
         "touch1": {
             "type": "sample",
             "file": "sounds/touch1.wav",
@@ -840,9 +747,6 @@
     },
     "widgets": {
         "colorbutton": "widgets/colorbutton.json",
-        "textbutton": "widgets/textbutton.json",
-        "textfield": "widgets/textfield.json",
-        "labelbox": "widgets/labelbox.json",
         "levelselect": "widgets/levelselect.json",
         "title": "widgets/title.json",
         "pause": "widgets/pause.json",
