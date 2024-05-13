@@ -263,7 +263,7 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0.2,
+                                 "friction":10000,
                                  "restitution":0.1,
                                  "rotation":false,
                                  "texture":"alpharelease_long_frenchfries"
@@ -331,11 +331,11 @@
                  "name":"exit_sensor",
                  "polygon":[
                         {
-                         "x":1026.1004870154,
+                         "x":1369.03601513611,
                          "y":0
                         }, 
                         {
-                         "x":1026.1004870154,
+                         "x":1369.03601513611,
                          "y":344.999727286767
                         }, 
                         {
@@ -405,7 +405,7 @@
                  "type":"exit",
                  "visible":true,
                  "width":0,
-                 "x":7736.17572434652,
+                 "x":7393.24019622581,
                  "y":1704.07209705877
                 }, 
                 {
@@ -480,7 +480,7 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":0,
                                  "density":0,
-                                 "friction":0.7,
+                                 "friction":10000,
                                  "restitution":0,
                                  "rotation":false,
                                  "texture":"lv1_palette"
@@ -1035,6 +1035,7 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
+                         "propertytype":"AnimationDetails",
                          "type":"class",
                          "value":
                             {
@@ -1113,24 +1114,25 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "type":"string",
+                         "propertytype":"AnimationDetails",
+                         "type":"class",
                          "value":
                             {
                              "cells":11,
                              "columns":2,
                              "name":"cont",
-                             "rows":6,
                              "repeat":false,
+                             "rows":6,
                              "scale":3,
                              "texture":"tap_to_continue",
                              "type":"string"
                             }
-                        },
+                        }, 
                         {
-                            "name":"LoadOnce",
-                            "type":"bool",
-                            "value":true
-                        },
+                         "name":"LoadOnce",
+                         "type":"bool",
+                         "value":true
+                        }, 
                         {
                          "name":"hideSub",
                          "propertytype":"SubMessage",
@@ -1172,7 +1174,7 @@
                              "Action":"show",
                              "Bool1":false,
                              "Enabled":true,
-                             "Float1":2.0,
+                             "Float1":2,
                              "Head":"UI Start",
                              "Int1":0
                             }
@@ -1208,19 +1210,20 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "type":"string",
+                         "propertytype":"AnimationDetails",
+                         "type":"class",
                          "value":
                             {
                              "cells":12,
                              "columns":2,
                              "name":"2",
-                             "rows":6,
                              "repeat":false,
+                             "rows":6,
                              "scale":3,
                              "texture":"lv1_speechbubble_2",
                              "type":"string"
                             }
-                        },
+                        }, 
                         {
                          "name":"properties",
                          "propertytype":"Physics",
@@ -1286,19 +1289,20 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "type":"string",
+                         "propertytype":"AnimationDetails",
+                         "type":"class",
                          "value":
                             {
                              "cells":12,
                              "columns":2,
                              "name":"3",
-                             "rows":6,
                              "repeat":false,
+                             "rows":6,
                              "scale":3,
                              "texture":"lv1_speechbubble_3",
                              "type":"string"
                             }
-                        },
+                        }, 
                         {
                          "name":"properties",
                          "propertytype":"Physics",
