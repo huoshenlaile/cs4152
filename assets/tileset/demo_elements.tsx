@@ -40,9 +40,6 @@
  <tile id="16">
   <image width="2340" height="1080" source="../textures/popart_background.png"/>
  </tile>
- <tile id="22">
-  <image width="2581" height="580" source="../textures/alpharelease_background.png"/>
- </tile>
  <tile id="24">
   <image width="232" height="476" source="../textures/alpharelease_soy_capon.png"/>
  </tile>

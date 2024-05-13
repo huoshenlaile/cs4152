@@ -41,7 +41,7 @@ protected:
     std::shared_ptr<cugl::physics2::net::NetWorld> _world;
     std::shared_ptr<CharacterController> _character;
 
-    std::string _background_name = ALPHA_RELEASE_BACKGROUND;
+    std::string _background_name = "lv1_background_1";
     // a vector of interactables shared pointer
     std::vector<std::shared_ptr<Interactable>> _interactables;
 
