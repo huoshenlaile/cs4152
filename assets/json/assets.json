@@ -80,35 +80,35 @@
         "alpharelease_long_frenchfries": {
             "file": "textures/alpharelease_long_frenchfries.png"
         },
-        "painttube_black":{
-          "file": "textures/newplatforms/painttube_black.png"
+        "painttube_black": {
+            "file": "textures/newplatforms/painttube_black.png"
         },
-        "painttube_blue":{
-          "file": "textures/newplatforms/painttube_blue.png"
+        "painttube_blue": {
+            "file": "textures/newplatforms/painttube_blue.png"
         },
-        "painttube_green":{
-          "file": "textures/newplatforms/painttube_green.png"
+        "painttube_green": {
+            "file": "textures/newplatforms/painttube_green.png"
         },
-        "painttube_pink":{
-          "file": "textures/newplatforms/painttube_pink.png"
+        "painttube_pink": {
+            "file": "textures/newplatforms/painttube_pink.png"
         },
-        "painttube_purple":{
-          "file": "textures/newplatforms/painttube_purple.png"
+        "painttube_purple": {
+            "file": "textures/newplatforms/painttube_purple.png"
         },
-        "painttube_red":{
-          "file": "textures/newplatforms/painttube_red.png"
+        "painttube_red": {
+            "file": "textures/newplatforms/painttube_red.png"
         },
-        "staticplatform_brush":{
-          "file": "textures/newplatforms/staticplatform_brush.png"
+        "staticplatform_brush": {
+            "file": "textures/newplatforms/staticplatform_brush.png"
         },
-        "staticplatform_brush2x":{
-          "file": "textures/newplatforms/staticplatform_brush2x.png"
+        "staticplatform_brush2x": {
+            "file": "textures/newplatforms/staticplatform_brush2x.png"
         },
-        "staticplatform_brush3x":{
-          "file": "textures/newplatforms/staticplatform_brush3x.png"
+        "staticplatform_brush3x": {
+            "file": "textures/newplatforms/staticplatform_brush3x.png"
         },
-        "long_frenchfriesx3":{
-          "file": "textures/newplatforms/staticplatform_frenchfries3x.png"
+        "long_frenchfriesx3": {
+            "file": "textures/newplatforms/staticplatform_frenchfries3x.png"
         },
         "alpharelease_long_frenchfries_3": {
             "file": "textures/alpharelease_long_frenchfries_3.png"
@@ -348,6 +348,9 @@
         },
         "button_home_down": {
             "file": "textures/button_home_down.png"
+        },
+        "button_back": {
+            "file": "textures/button_back.png"
         },
         "background_select_frames": {
             "file": "textures/background_select_frames.png"
@@ -613,22 +616,22 @@
         "blue_paint_splash": {
             "file": "textures/blue_splash_167x190.png"
         },
-        "black_drip_paint" : {
+        "black_drip_paint": {
             "file": "textures/black_paintcover_720x4900.png"
         },
-        "blue_drip_paint" : {
+        "blue_drip_paint": {
             "file": "textures/blue_paintcover_1560x720.png"
         },
-        "green_drip_paint" : {
+        "green_drip_paint": {
             "file": "textures/green_paintcover_1560x720.png"
         },
-        "pink_drip_paint" : {
+        "pink_drip_paint": {
             "file": "textures/pink_paintcover_1560x720.png"
         },
-        "purple_drip_paint" : {
+        "purple_drip_paint": {
             "file": "textures/purple_paintcover_1560x720.png"
         },
-        "red_drip_paint" : {
+        "red_drip_paint": {
             "file": "textures/red_paintcover_1560x720.png"
         },
         "pink_paint": {
@@ -655,7 +658,7 @@
         "pink_splatter": {
             "file": "textures/pink_paintspaltter_148x680.png"
         },
-        "red_splatter" : {
+        "red_splatter": {
             "file": "textures/red_paintspaltter_148x680.png"
         },
         "tube_pink": {
@@ -715,38 +718,53 @@
         "text_complete": {
             "file": "textures/text_complete.png"
         },
-        "lv1_speechbubble_1" : {
-            "file" : "textures/lv1_speechbubble_1.png"
+        "lv1_speechbubble_1": {
+            "file": "textures/lv1_speechbubble_1.png"
         },
-        "lv1_speechbubble_2" : {
-            "file" : "textures/lv1_speechbubble_2.png"
+        "lv1_speechbubble_2": {
+            "file": "textures/lv1_speechbubble_2.png"
         },
-        "lv1_speechbubble_3" : {
-            "file" : "textures/lv1_speechbubble_3.png"
+        "lv1_speechbubble_3": {
+            "file": "textures/lv1_speechbubble_3.png"
         },
-        "lv2_speechbubble_1" : {
-            "file" : "textures/lv2_speechbubble_1.png"
+        "lv2_speechbubble_1": {
+            "file": "textures/lv2_speechbubble_1.png"
         },
-        "lv2_speechbubble_3" : {
-            "file" : "textures/lv2_speechbubble_3.png"
+        "lv2_speechbubble_3": {
+            "file": "textures/lv2_speechbubble_3.png"
         },
-        "lv2_speechbubble_4" : {
-            "file" : "textures/lv2_speechbubble_4.png"
+        "lv2_speechbubble_4": {
+            "file": "textures/lv2_speechbubble_4.png"
         },
-        "lv2_speechbubble_5" : {
-            "file" : "textures/lv2_speechbubble_5.png"
+        "lv2_speechbubble_5": {
+            "file": "textures/lv2_speechbubble_5.png"
         },
-        "lv2_speechbubble_6" : {
-            "file" : "textures/lv2_speechbubble_6.png"
+        "lv2_speechbubble_6": {
+            "file": "textures/lv2_speechbubble_6.png"
         },
-        "lv2_speechbubble_7" : {
-            "file" : "textures/lv2_speechbubble_7.png"
+        "lv2_speechbubble_7": {
+            "file": "textures/lv2_speechbubble_7.png"
         },
-        "lv2_speechbubble_8" : {
-            "file" : "textures/lv2_speechbubble_8.png"
+        "lv2_speechbubble_8": {
+            "file": "textures/lv2_speechbubble_8.png"
         },
-        "tap_to_continue" : {
-            "file" : "textures/ui_taptocont_370x138.png"
+        "tap_to_continue": {
+            "file": "textures/ui_taptocont_370x138.png"
+        },
+        "settings_honor_text": {
+            "file": "textures/setting/settings_honor_text.png"
+        },
+        "slot": {
+            "file": "textures/setting/slot.png"
+        },
+        "knob": {
+            "file": "textures/setting/knob.png"
+        },
+        "toggle_down": {
+            "file": "textures/setting/toggle_down.png"
+        },
+        "toggle_up": {
+            "file": "textures/setting/toggle_up.png"
         }
     },
     "jsons": {
@@ -830,7 +848,10 @@
         "pause": "widgets/pause.json",
         "levelcomplete": "widgets/levelcomplete.json",
         "levelcomplete_bad": "widgets/levelcomplete_bad.json",
-        "pausebutton": "widgets/pausebutton.json"
+        "pausebutton": "widgets/pausebutton.json",
+        "slider1": "widgets/slider1.json",
+        "slider2": "widgets/slider2.json",
+        "levelcomplete_bad_honors": "widgets/levelcomplete_bad_honors.json"
     },
     "scene2s": {
         "pause": {

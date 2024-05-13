@@ -29,8 +29,6 @@ protected:
     bool canBeGrabbed = false;
     bool loadOnce = false;
     
-    float jumpscale = 150.0;
-
     Rect _bounds;
     Vec2 _scale = Vec2(32, 32);
 

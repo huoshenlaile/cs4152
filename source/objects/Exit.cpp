@@ -66,18 +66,21 @@ PublishedMessage Exit::onBeginContact(std::shared_ptr<cugl::physics2::Obstacle> 
         if (activated){
             if (other->getName() == "body192"){
 //                CULog("on_contact [%s]", message_head_gameend.c_str());
-                if ((character->getColor() != "black") || (character->getColor() == "black" && _colorReqs.size() == 0)){
-                    if(!this->is_contacting){
-                        this->is_contacting=true;
-                        _character = character;
-                        auto a = PublishedMessage();
-                        a.Head = message_head_contact;
-                        a.enable = true;
-                        return a;
-                    }
-                    else{
-                        this->debouncing=true;
-                        //If i am touching the exit and i touch it again, do not run exit code
+                if (std::find(_colorsCollected.begin(), _colorsCollected.end(), character->getColor()) == _colorsCollected.end()){
+                    if ((character->getColor() != "black")
+                        || (character->getColor() == "black" && (_colorReqs.size() == 0 || std::find(_colorReqs.begin(), _colorReqs.end(), "black")!=_colorReqs.end()))){
+                        if(!this->is_contacting){
+                            this->is_contacting=true;
+                            _character = character;
+                            auto a = PublishedMessage();
+                            a.Head = message_head_contact;
+                            a.enable = true;
+                            return a;
+                        }
+                        else{
+                            this->debouncing=true;
+                            //If i am touching the exit and i touch it again, do not run exit code
+                        }
                     }
                 }
                 
@@ -146,9 +149,11 @@ PublishedMessage Exit::timeUpdate(float timestep){
     else if (this->is_contacting && this->contactedLongEnough()){
         this->contact_time = this->_ttcolor;
         std::string color = _character->getColor();
-        if (color != "black"){
-            this->addColor(color, _character->getBodySceneNode()->getPosition());
-            _character->setColor("black");
+        if (std::find(_colorsCollected.begin(), _colorsCollected.end(), color) == _colorsCollected.end()){
+            if (color != "black" || (color == "black" && std::find(_colorReqs.begin(), _colorReqs.end(), "black") != _colorReqs.end())){
+                this->addColor(color, _character->getBodySceneNode()->getPosition());
+                _character->setColor("black");
+            }
         }
 //        if (color != "black" && this->getColorsCollected().count(color) == 0){
 //            std::cout << "Found color (from Exit timeUpdate):" << color << "\n";
