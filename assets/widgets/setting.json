@@ -1,0 +1,635 @@
+{
+    "variables": {},
+    "contents": {
+        "type": "Node",
+        "format": {
+            "type": "Anchored"
+        },
+        "data": {
+            "anchor": [
+                0,
+                0
+            ],
+            "size": [
+                1560,
+                720
+            ],
+            "angle": 0,
+            "position": [
+                0,
+                0
+            ],
+            "visible": true
+        },
+        "children": {
+            "setting_background": {
+                "type": "Image",
+                "data": {
+                    "texture": "setting_background",
+                    "anchor": [
+                        0.5,
+                        0.5
+                    ],
+                    "size": [
+                        1560,
+                        720
+                    ],
+                    "angle": 0,
+                    "position": [
+                        0,
+                        0
+                    ],
+                    "visible": true
+                },
+                "layout": {
+                    "x_anchor": "center",
+                    "y_anchor": "fill",
+                    "absolute": false,
+                    "x_offset": 0,
+                    "y_offset": 0
+                }
+            },
+            "slider1": {
+                "type": "Widget",
+                "data": {
+                    "key": "slider1"
+                },
+                "layout": {
+                    "x_anchor": "left",
+                    "y_anchor": "top",
+                    "absolute": false,
+                    "x_offset": 0.23,
+                    "y_offset": -0.4
+                }
+            },
+            "slider2": {
+                "type": "Widget",
+                "data": {
+                    "key": "slider2"
+                },
+                "layout": {
+                    "x_anchor": "left",
+                    "y_anchor": "top",
+                    "absolute": false,
+                    "x_offset": 0.28,
+                    "y_offset": -0.63
+                }
+            },
+            "toggle": {
+                "type": "Button",
+                "format": {
+                    "type": "Anchored"
+                },
+                "data": {
+                    "anchor": [
+                        0,
+                        1
+                    ],
+                    "size": [
+                        99,
+                        49
+                    ],
+                    "angle": 0,
+                    "position": [
+                        397,
+                        49
+                    ],
+                    "visible": true,
+                    "upnode": "up",
+                    "downnode": "down"
+                },
+                "children": {
+                    "down": {
+                        "type": "Node",
+                        "format": {
+                            "type": "Anchored"
+                        },
+                        "data": {
+                            "anchor": [
+                                0,
+                                1
+                            ],
+                            "size": [
+                                99,
+                                49
+                            ],
+                            "angle": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "visible": true
+                        },
+                        "children": {
+                            "toggle_down": {
+                                "type": "Image",
+                                "data": {
+                                    "texture": "toggle_down",
+                                    "anchor": [
+                                        0,
+                                        1
+                                    ],
+                                    "size": [
+                                        99,
+                                        49
+                                    ],
+                                    "angle": 0,
+                                    "position": [
+                                        0,
+                                        0
+                                    ],
+                                    "visible": true
+                                },
+                                "layout": {
+                                    "x_anchor": "left",
+                                    "y_anchor": "top",
+                                    "absolute": false,
+                                    "x_offset": 0,
+                                    "y_offset": 0
+                                }
+                            }
+                        },
+                        "layout": {
+                            "x_anchor": "left",
+                            "y_anchor": "top",
+                            "absolute": false,
+                            "x_offset": 0,
+                            "y_offset": 0
+                        }
+                    },
+                    "up": {
+                        "type": "Node",
+                        "format": {
+                            "type": "Anchored"
+                        },
+                        "data": {
+                            "anchor": [
+                                0,
+                                1
+                            ],
+                            "size": [
+                                99,
+                                49
+                            ],
+                            "angle": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "visible": true
+                        },
+                        "children": {
+                            "toggle_up": {
+                                "type": "Image",
+                                "data": {
+                                    "texture": "toggle_up",
+                                    "anchor": [
+                                        0,
+                                        1
+                                    ],
+                                    "size": [
+                                        99,
+                                        49
+                                    ],
+                                    "angle": 0,
+                                    "position": [
+                                        0,
+                                        0
+                                    ],
+                                    "visible": true
+                                },
+                                "layout": {
+                                    "x_anchor": "left",
+                                    "y_anchor": "top",
+                                    "absolute": false,
+                                    "x_offset": 0,
+                                    "y_offset": 0
+                                }
+                            }
+                        },
+                        "layout": {
+                            "x_anchor": "left",
+                            "y_anchor": "top",
+                            "absolute": false,
+                            "x_offset": 0,
+                            "y_offset": 0
+                        }
+                    }
+                },
+                "layout": {
+                    "x_anchor": "left",
+                    "y_anchor": "top",
+                    "absolute": false,
+                    "x_offset": 0.25,
+                    "y_offset": -0.86
+                }
+            },
+            "settings": {
+                "type": "Node",
+                "format": {
+                    "type": "Anchored"
+                },
+                "data": {
+                    "anchor": [
+                        0,
+                        1
+                    ],
+                    "size": [
+                        390.6,
+                        115.2
+                    ],
+                    "angle": 0,
+                    "position": [
+                        18,
+                        574.8
+                    ],
+                    "visible": true
+                },
+                "children": {
+                    "settings_text": {
+                        "type": "Image",
+                        "data": {
+                            "texture": "settings_text",
+                            "anchor": [
+                                0,
+                                1
+                            ],
+                            "size": [
+                                390.6,
+                                115.2
+                            ],
+                            "angle": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "visible": true
+                        },
+                        "layout": {
+                            "x_anchor": "left",
+                            "y_anchor": "top",
+                            "absolute": false,
+                            "x_offset": 0,
+                            "y_offset": 0
+                        }
+                    }
+                },
+                "layout": {
+                    "x_anchor": "left",
+                    "y_anchor": "top",
+                    "absolute": false,
+                    "x_offset": 0.01,
+                    "y_offset": -0.04
+                }
+            },
+            "music": {
+                "type": "Node",
+                "format": {
+                    "type": "Anchored"
+                },
+                "data": {
+                    "anchor": [
+                        0,
+                        1
+                    ],
+                    "size": [
+                        180.9,
+                        66.6
+                    ],
+                    "angle": 0,
+                    "position": [
+                        147,
+                        461.4
+                    ],
+                    "visible": true
+                },
+                "children": {
+                    "settings_music_text": {
+                        "type": "Image",
+                        "data": {
+                            "texture": "settings_music_text",
+                            "anchor": [
+                                0,
+                                1
+                            ],
+                            "size": [
+                                180.9,
+                                66.6
+                            ],
+                            "angle": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "visible": true
+                        },
+                        "layout": {
+                            "x_anchor": "left",
+                            "y_anchor": "top",
+                            "absolute": false,
+                            "x_offset": 0,
+                            "y_offset": 0
+                        }
+                    }
+                },
+                "layout": {
+                    "x_anchor": "left",
+                    "y_anchor": "top",
+                    "absolute": false,
+                    "x_offset": 0.09,
+                    "y_offset": -0.27
+                }
+            },
+            "designers": {
+                "type": "Node",
+                "format": {
+                    "type": "Anchored"
+                },
+                "data": {
+                    "anchor": [
+                        1,
+                        1
+                    ],
+                    "size": [
+                        293.4,
+                        247.5
+                    ],
+                    "angle": 0,
+                    "position": [
+                        1212,
+                        442.5
+                    ],
+                    "visible": true
+                },
+                "children": {
+                    "credit_designers": {
+                        "type": "Image",
+                        "data": {
+                            "texture": "credit_designers",
+                            "anchor": [
+                                0,
+                                1
+                            ],
+                            "size": [
+                                293.4,
+                                247.5
+                            ],
+                            "angle": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "visible": true
+                        },
+                        "layout": {
+                            "x_anchor": "left",
+                            "y_anchor": "top",
+                            "absolute": false,
+                            "x_offset": 0,
+                            "y_offset": 0
+                        }
+                    }
+                },
+                "layout": {
+                    "x_anchor": "right",
+                    "y_anchor": "top",
+                    "absolute": false,
+                    "x_offset": -0.04,
+                    "y_offset": -0.04
+                }
+            },
+            "programmers": {
+                "type": "Node",
+                "format": {
+                    "type": "Anchored"
+                },
+                "data": {
+                    "anchor": [
+                        1,
+                        1
+                    ],
+                    "size": [
+                        464.4,
+                        494.1
+                    ],
+                    "angle": 0,
+                    "position": [
+                        724,
+                        195.9
+                    ],
+                    "visible": true
+                },
+                "children": {
+                    "credit_programmers": {
+                        "type": "Image",
+                        "data": {
+                            "texture": "credit_programmers",
+                            "anchor": [
+                                0,
+                                1
+                            ],
+                            "size": [
+                                464.4,
+                                494.1
+                            ],
+                            "angle": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "visible": true
+                        },
+                        "layout": {
+                            "x_anchor": "left",
+                            "y_anchor": "top",
+                            "absolute": false,
+                            "x_offset": 0,
+                            "y_offset": 0
+                        }
+                    }
+                },
+                "layout": {
+                    "x_anchor": "right",
+                    "y_anchor": "top",
+                    "absolute": false,
+                    "x_offset": -0.24,
+                    "y_offset": -0.04
+                }
+            },
+            "sound": {
+                "type": "Node",
+                "format": {
+                    "type": "Anchored"
+                },
+                "data": {
+                    "anchor": [
+                        0,
+                        1
+                    ],
+                    "size": [
+                        180,
+                        66.6
+                    ],
+                    "angle": 0,
+                    "position": [
+                        213,
+                        294.4
+                    ],
+                    "visible": true
+                },
+                "children": {
+                    "settings_sound_text": {
+                        "type": "Image",
+                        "data": {
+                            "texture": "settings_sound_text",
+                            "anchor": [
+                                0,
+                                1
+                            ],
+                            "size": [
+                                180,
+                                66.6
+                            ],
+                            "angle": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "visible": true
+                        },
+                        "layout": {
+                            "x_anchor": "left",
+                            "y_anchor": "top",
+                            "absolute": false,
+                            "x_offset": 0,
+                            "y_offset": 0
+                        }
+                    }
+                },
+                "layout": {
+                    "x_anchor": "left",
+                    "y_anchor": "top",
+                    "absolute": false,
+                    "x_offset": 0.14,
+                    "y_offset": -0.5
+                }
+            },
+            "credits": {
+                "type": "Node",
+                "format": {
+                    "type": "Anchored"
+                },
+                "data": {
+                    "anchor": [
+                        1,
+                        1
+                    ],
+                    "size": [
+                        326.7,
+                        115.2
+                    ],
+                    "angle": 0,
+                    "position": [
+                        1178,
+                        28.8
+                    ],
+                    "visible": true
+                },
+                "children": {
+                    "settings_credits_text": {
+                        "type": "Image",
+                        "data": {
+                            "texture": "settings_credits_text",
+                            "anchor": [
+                                0,
+                                1
+                            ],
+                            "size": [
+                                326.7,
+                                115.2
+                            ],
+                            "angle": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "visible": true
+                        },
+                        "layout": {
+                            "x_anchor": "left",
+                            "y_anchor": "top",
+                            "absolute": false,
+                            "x_offset": 0,
+                            "y_offset": 0
+                        }
+                    }
+                },
+                "layout": {
+                    "x_anchor": "right",
+                    "y_anchor": "top",
+                    "absolute": false,
+                    "x_offset": -0.04,
+                    "y_offset": -0.8
+                }
+            },
+            "honor": {
+                "type": "Node",
+                "format": {
+                    "type": "Anchored"
+                },
+                "data": {
+                    "anchor": [
+                        0,
+                        1
+                    ],
+                    "size": [
+                        386,
+                        74
+                    ],
+                    "angle": 0,
+                    "position": [
+                        254,
+                        122
+                    ],
+                    "visible": true
+                },
+                "children": {
+                    "settings_honor_text": {
+                        "type": "Image",
+                        "data": {
+                            "texture": "settings_honor_text",
+                            "anchor": [
+                                0,
+                                1
+                            ],
+                            "size": [
+                                386,
+                                74
+                            ],
+                            "angle": 0,
+                            "position": [
+                                0,
+                                0
+                            ],
+                            "visible": true
+                        },
+                        "layout": {
+                            "x_anchor": "left",
+                            "y_anchor": "top",
+                            "absolute": false,
+                            "x_offset": 0,
+                            "y_offset": 0
+                        }
+                    }
+                },
+                "layout": {
+                    "x_anchor": "left",
+                    "y_anchor": "top",
+                    "absolute": false,
+                    "x_offset": 0.16,
+                    "y_offset": -0.73
+                }
+            }
+        }
+    }
+}

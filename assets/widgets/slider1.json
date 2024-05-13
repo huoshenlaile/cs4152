@@ -1,0 +1,85 @@
+{
+    "variables": {},
+    "contents": {
+        "type": "Slider",
+        "format": {
+            "type": "Anchored"
+        },
+        "data": {
+            "anchor": [
+                0.5,
+                0.5
+            ],
+            "size": [
+                427,
+                45
+            ],
+            "angle": 0,
+            "position": [
+                150,
+                397
+            ],
+            "bounds": [ 22, 22, 378, 0 ],
+            "knob": "knob",
+            "path": "slot",
+            "value": 25,
+            "visible": true
+        },
+        "children": {
+            "slot": {
+                "type": "Image",
+                "data": {
+                    "texture": "slot",
+                    "anchor": [
+                        0,
+                        1
+                    ],
+                    "size": [
+                        427,
+                        24
+                    ],
+                    "angle": 0,
+                    "position": [
+                        0,
+                        11
+                    ],
+                    "visible": true
+                },
+                "layout": {
+                    "x_anchor": "left",
+                    "y_anchor": "top",
+                    "absolute": false,
+                    "x_offset": 0,
+                    "y_offset": -0.22
+                }
+            },
+            "knob": {
+                "type": "Image",
+                "data": {
+                    "texture": "knob",
+                    "anchor": [
+                        0,
+                        1
+                    ],
+                    "size": [
+                        45,
+                        45
+                    ],
+                    "angle": 0,
+                    "position": [
+                        155,
+                        0
+                    ],
+                    "visible": true
+                },
+                "layout": {
+                    "x_anchor": "left",
+                    "y_anchor": "top",
+                    "absolute": false,
+                    "x_offset": 0.36,
+                    "y_offset": 0
+                }
+            }
+        }
+    }
+}
