@@ -747,9 +747,6 @@
     },
     "widgets": {
         "colorbutton": "widgets/colorbutton.json",
-        "textbutton": "widgets/textbutton.json",
-        "textfield": "widgets/textfield.json",
-        "labelbox": "widgets/labelbox.json",
         "levelselect": "widgets/levelselect.json",
         "title": "widgets/title.json",
         "pause": "widgets/pause.json",
