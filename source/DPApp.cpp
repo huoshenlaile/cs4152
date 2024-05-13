@@ -338,7 +338,6 @@ void DPApp::updateLoad(float timestep) {
         _pauseScene.init(_assets, _network);
         _settingScene.init(_assets);
         _levelSelectScene.init(_assets);
-
         _audioController.init(_assets);
         _audioController.play("menu", "menu", true);
         _status = MENU;
