@@ -320,11 +320,6 @@ void CameraController::setCamera(std::string selectedLevelKey) {
         setDefaultZoom(DEFAULT_ZOOM);
         _levelCompleteZoom = DEFAULT_ZOOM;
         _panSpeed = Vec2(50, 0);
-    } else if (selectedLevelKey == "doodlejump") {
-        setMode(false);
-        setDefaultZoom(DEFAULT_ZOOM);
-        _levelCompleteZoom = 0.16;
-        _panSpeed = Vec2(0, -50);
     } else if (selectedLevelKey == "level4" || selectedLevelKey == "level5" || selectedLevelKey == "level6") {
         setMode(false);
         setDefaultZoom(0.2);

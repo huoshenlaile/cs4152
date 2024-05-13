@@ -71,9 +71,9 @@ public:
     void dispose() override;
     
 
-    // string of selected level name, initialized to "" (empty string)
-    std::string selectedLevelFile = "json/alpharelease.json";
-    std::string selectedLevelKey = "alpharelease";
+    // string of selected level name
+    std::string selectedLevelFile = "json/level1.json";
+    std::string selectedLevelKey = "level1";
 
     std::string getSelectedLevelFile() {
         return this->selectedLevelFile;

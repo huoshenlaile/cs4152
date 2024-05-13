@@ -118,12 +118,10 @@ bool LevelLoader::loadObject(const std::shared_ptr<JsonValue>& json) {
 }
 
 void LevelLoader::setBackgroundScene(){
-    auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(ALPHA_RELEASE_BACKGROUND));
+    auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>("lv1_background_1"));
     sprite->setAbsolute(true);
     sprite->setPosition(-10.0f, 0.0f);
     sprite->setContentSize(sprite->getContentSize().width*4, sprite->getContentSize().height*4);
-//    auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(alpharelease_background), Rect(-100.0f,-100.0f,20000.0f, 20000.0f)); //TODO: don't hard code
-//    sprite->setPosition(Vec2(0.0f,0.0f));
     _worldnode->addChild(sprite);
 }
 
@@ -479,18 +477,10 @@ void LevelLoader::setRootNode(const std::shared_ptr<scene2::SceneNode>& node){
         auto txt = _assets->get<Texture>(wall->getTextureKey());
 //        std::cout<< wall->getTextureKey() << std::endl;
         auto sprite = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(wall->getTextureKey()));
-//        if (wall->getTextureKey()!= "alpharelease_frenchfries"){
-//            sprite->setContentSize(wall->getWidth()*_scale.x*1.2, wall->getHeight()*_scale.y*1.2);
-//        }else{
-//            
-//        }
         sprite->setContentSize(wall->getWidth()*_scale.x*1.01, wall->getHeight()*_scale.y*1.01);
         
         sprite->setAnchor(0.5f,0.5f);
         sprite->setAngle(wall->getAngle());
-//        sprite->setAngle(-1.0f * wall->getAngle());
-        
-//        sprite->setAngle(90.0f);
         if (wall == nullptr){
             continue;
         }

@@ -30,9 +30,6 @@
         "nogravityplatform_blackhole": {
             "file": "textures/nogravityplatform_blackhole.png"
         },
-        "alpharelease_background": {
-            "file": "textures/alpharelease_background.png"
-        },
         "lv0_background": {
             "file": "textures/lv0_background.png"
         },
@@ -116,11 +113,6 @@
         },
         "alpharelease_mayo_capon": {
             "file": "textures/alpharelease_mayo_capon.png"
-        },
-        "pinkbackground": {
-            "file": "textures/popart_background.png",
-            "wrapS": "repeat",
-            "wrapT": "repeat"
         },
         "button": {
             "file": "textures/button.png"
