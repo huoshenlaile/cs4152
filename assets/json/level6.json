@@ -4260,7 +4260,8 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "type":"string",
+                         "propertytype":"AnimationDetails",
+                         "type":"class",
                          "value":
                                 {
                                     "cells":12,
@@ -4338,7 +4339,8 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "type":"string",
+                         "propertytype":"AnimationDetails",
+                         "type":"class",
                          "value":
                                 {
                                     "cells":12,
@@ -4416,7 +4418,8 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "type":"string",
+                         "propertytype":"AnimationDetails",
+                         "type":"class",
                          "value":
                             {
                             "cells":11,
@@ -4511,7 +4514,8 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "type":"string",
+                         "propertytype":"AnimationDetails",
+                         "type":"class",
                          "value":
                             {
                                 "cells":12,
@@ -4589,7 +4593,8 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "type":"string",
+                         "propertytype":"AnimationDetails",
+                         "type":"class",
                          "value":
                                 {
                                     "cells":12,
@@ -4667,7 +4672,8 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "type":"string",
+                         "propertytype":"AnimationDetails",
+                         "type":"class",
                          "value":
                             {
                             "cells":12,
@@ -4745,7 +4751,8 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "type":"string",
+                         "propertytype":"AnimationDetails",
+                         "type":"class",
                          "value":
                             {
                                 "cells":12,
@@ -4824,7 +4831,8 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "type":"string",
+                         "propertytype":"AnimationDetails",
+                         "type":"class",
                          "value":
                             {
                                 "cells":12,
@@ -4902,7 +4910,8 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "type":"string",
+                         "propertytype":"AnimationDetails",
+                         "type":"class",
                          "value":
                             {
                             "cells":12,
