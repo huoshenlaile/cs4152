@@ -1,7 +1,11 @@
 {
     "textures": {
         "background_loading": {
-            "file": "textures/background_loading.png"
+            "file": "textures/background_loading.png",
+            "wrapS": "clamp",
+            "wrapT": "clamp",
+            "minfilter": "linear",
+            "magfilter": "linear"
         },
         "logo": {
             "file": "textures/title_logo.png",
@@ -38,14 +42,14 @@
             }
         }
     },
-    "scene2s" : {
-        "load" : {
-            "type"      : "Solid",
-            "format"    : {
-                "type" : "Anchored"
+    "scene2s": {
+        "load": {
+            "type": "Solid",
+            "format": {
+                "type": "Anchored"
             },
-            "data" : {
-                "color": [239,61,49,255]
+            "data": {
+                "image": "background_loading"
             },
             "children": {
                 "logo": {
@@ -83,12 +87,12 @@
                             0
                         ],
                         "visible": true,
-                        "scale": 0.81
+                        "scale": 0.88
                     },
                     "layout": {
                         "x_anchor": "left",
                         "y_anchor": "top",
-                        "absolute": false,
+                        "absolute": true,
                         "x_offset": 0,
                         "y_offset": 0
                     }
@@ -151,6 +155,13 @@
                         "absolute": true
                     }
                 }
+            },
+            "layout": {
+                "x_anchor": "right",
+                "y_anchor": "top",
+                "absolute": false,
+                "x_offset": -0.05,
+                "y_offset": -0.24
             }
         }
     }
