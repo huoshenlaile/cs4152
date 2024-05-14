@@ -288,7 +288,7 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"splotch3"
+                                 "texture":""
                                 }
                             }
                         }],
@@ -1220,7 +1220,7 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"splotch3"
+                                 "texture":""
                                 }
                             }
                         }],
@@ -2013,7 +2013,7 @@
                             }
                         }],
                  "rotation":55.0128220735155,
-                 "type":"",
+                 "type":"wall",
                  "visible":true,
                  "width":0,
                  "x":484.3800456674,
@@ -2082,7 +2082,7 @@
                             }
                         }],
                  "rotation":23.3852495997662,
-                 "type":"",
+                 "type":"wall",
                  "visible":true,
                  "width":0,
                  "x":2409.16424347988,
@@ -2138,7 +2138,7 @@
                             }
                         }],
                  "rotation":39.3045996474661,
-                 "type":"",
+                 "type":"wall",
                  "visible":true,
                  "width":0,
                  "x":1458.89894298831,
@@ -2194,7 +2194,7 @@
                             }
                         }],
                  "rotation":1.118847782969,
-                 "type":"",
+                 "type":"wall",
                  "visible":true,
                  "width":0,
                  "x":6771.46850806008,
@@ -2251,7 +2251,7 @@
                             }
                         }],
                  "rotation":333.622573388324,
-                 "type":"",
+                 "type":"wall",
                  "visible":true,
                  "width":0,
                  "x":5598.52049747145,
@@ -2307,7 +2307,7 @@
                             }
                         }],
                  "rotation":350.733621161762,
-                 "type":"",
+                 "type":"wall",
                  "visible":true,
                  "width":0,
                  "x":3152.53946541685,
@@ -2363,7 +2363,7 @@
                             }
                         }],
                  "rotation":340.973488062282,
-                 "type":"",
+                 "type":"wall",
                  "visible":true,
                  "width":0,
                  "x":4597.50143325066,
@@ -2419,7 +2419,7 @@
                             }
                         }],
                  "rotation":29.4446232905419,
-                 "type":"",
+                 "type":"wall",
                  "visible":true,
                  "width":0,
                  "x":2758.35918786713,
@@ -2475,7 +2475,7 @@
                             }
                         }],
                  "rotation":359.172,
-                 "type":"",
+                 "type":"wall",
                  "visible":true,
                  "width":0,
                  "x":4196.07843137255,
@@ -2531,7 +2531,7 @@
                             }
                         }],
                  "rotation":54.3399785535984,
-                 "type":"",
+                 "type":"wall",
                  "visible":true,
                  "width":0,
                  "x":520.529674260993,
@@ -2587,7 +2587,7 @@
                             }
                         }],
                  "rotation":88.9565588313898,
-                 "type":"",
+                 "type":"wall",
                  "visible":true,
                  "width":0,
                  "x":934.16780440332,
@@ -2643,7 +2643,7 @@
                             }
                         }],
                  "rotation":0.737035263326334,
-                 "type":"",
+                 "type":"wall",
                  "visible":true,
                  "width":0,
                  "x":3195.72214716735,
@@ -2699,7 +2699,7 @@
                             }
                         }],
                  "rotation":0.737035,
-                 "type":"",
+                 "type":"wall",
                  "visible":true,
                  "width":0,
                  "x":4658.25446898002,
@@ -2755,7 +2755,7 @@
                             }
                         }],
                  "rotation":269.343145140717,
-                 "type":"",
+                 "type":"wall",
                  "visible":true,
                  "width":0,
                  "x":5283.12840681672,
