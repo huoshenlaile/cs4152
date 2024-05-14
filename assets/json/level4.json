@@ -822,18 +822,6 @@
                  "y":13434.0468537976
                 }, 
                 {
-                 "ellipse":true,
-                 "height":0,
-                 "id":117,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":3453.30704130414,
-                 "y":15086.4851035844
-                }, 
-                {
                  "height":0,
                  "id":137,
                  "name":"exit_sensor",
@@ -930,8 +918,8 @@
                          "y":192.72894175088
                         }, 
                         {
-                         "x":1457.24358442093,
-                         "y":-60.178831189537
+                         "x":1438.79339991909,
+                         "y":105.872829327069
                         }, 
                         {
                          "x":1442.44276941754,
@@ -955,7 +943,7 @@
                         }, 
                         {
                          "x":-807.468688344021,
-                         "y":-72.4556603930995
+                         "y":130.496369127199
                         }, 
                         {
                          "x":-357.07658253749,
@@ -1128,8 +1116,8 @@
                  "type":"sensor",
                  "visible":true,
                  "width":0,
-                 "x":5866.87306501548,
-                 "y":14931.3628132484
+                 "x":7674.99114619629,
+                 "y":13935.0528501488
                 }, 
                 {
                  "height":0,
@@ -1268,7 +1256,7 @@
                              "texture":"lv2_speechbubble_1",
                              "type":"string"
                             }
-                        },
+                        }, 
                         {
                          "name":"properties",
                          "propertytype":"Physics",
@@ -1347,7 +1335,7 @@
                              "texture":"lv2_speechbubble_3",
                              "type":"string"
                             }
-                        },
+                        }, 
                         {
                          "name":"properties",
                          "propertytype":"Physics",
@@ -1420,13 +1408,18 @@
                              "cells":11,
                              "columns":2,
                              "name":"cont",
-                             "rows":6,
                              "repeat":false,
+                             "rows":6,
                              "scale":5,
                              "texture":"tap_to_continue",
                              "type":"string"
                             }
-                        },
+                        }, 
+                        {
+                         "name":"LoadOnce",
+                         "type":"bool",
+                         "value":true
+                        }, 
                         {
                          "name":"hideSub",
                          "propertytype":"SubMessage",
@@ -1438,12 +1431,7 @@
                              "Float1":0,
                              "Head":"Erase Tap Continue Button"
                             }
-                        },
-                        {
-                         "name":"LoadOnce",
-                         "type":"bool",
-                         "value":true
-                        },
+                        }, 
                         {
                          "name":"properties",
                          "propertytype":"Physics",
@@ -1516,13 +1504,13 @@
                              "cells":12,
                              "columns":2,
                              "name":"2",
-                             "rows":6,
                              "repeat":false,
+                             "rows":6,
                              "scale":3,
                              "texture":"lv2_speechbubble_5",
                              "type":"string"
                             }
-                        },
+                        }, 
                         {
                          "name":"properties",
                          "propertytype":"Physics",
@@ -1595,13 +1583,12 @@
                              "cells":12,
                              "columns":2,
                              "name":"2",
-                             "rows":6,
                              "repeat":false,
+                             "rows":6,
                              "scale":3,
                              "texture":"lv2_speechbubble_5",
                              "type":"string"
                             }
-
                         }, 
                         {
                          "name":"properties",
@@ -1675,13 +1662,13 @@
                              "cells":12,
                              "columns":2,
                              "name":"2",
-                             "rows":6,
                              "repeat":false,
+                             "rows":6,
                              "scale":3,
                              "texture":"lv2_speechbubble_7",
                              "type":"string"
                             }
-                        },
+                        }, 
                         {
                          "name":"properties",
                          "propertytype":"Physics",
@@ -1754,13 +1741,13 @@
                              "cells":12,
                              "columns":2,
                              "name":"2",
-                             "rows":6,
                              "repeat":false,
+                             "rows":6,
                              "scale":3,
                              "texture":"lv2_speechbubble_7",
                              "type":"string"
                             }
-                        },
+                        }, 
                         {
                          "name":"properties",
                          "propertytype":"Physics",
@@ -1833,13 +1820,13 @@
                              "cells":12,
                              "columns":2,
                              "name":"2",
-                             "rows":6,
                              "repeat":false,
+                             "rows":6,
                              "scale":4,
                              "texture":"lv2_speechbubble_6",
                              "type":"string"
                             }
-                        },
+                        }, 
                         {
                          "name":"properties",
                          "propertytype":"Physics",
@@ -1912,13 +1899,13 @@
                              "cells":12,
                              "columns":2,
                              "name":"2",
-                             "rows":6,
                              "repeat":false,
+                             "rows":6,
                              "scale":4,
                              "texture":"lv2_speechbubble_8",
                              "type":"string"
                             }
-                        },
+                        }, 
                         {
                          "name":"properties",
                          "propertytype":"Physics",
@@ -2219,23 +2206,23 @@
                          "y":0
                         }, 
                         {
-                         "x":-318.101,
+                         "x":-633.017878520741,
                          "y":-93.4108
                         }, 
                         {
-                         "x":300.429,
+                         "x":597.850771377982,
                          "y":-93.4108
                         }, 
                         {
-                         "x":300.429,
+                         "x":597.850771377982,
                          "y":88.3615
                         }, 
                         {
-                         "x":-315.577,
+                         "x":-627.995143209043,
                          "y":88.3615
                         }, 
                         {
-                         "x":-315.577,
+                         "x":-627.995143209043,
                          "y":-90.8861
                         }],
                  "properties":[
@@ -2263,8 +2250,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":5598.52049747145,
-                 "y":16441.3753870836
+                 "x":5577.87826595885,
+                 "y":16451.612145132
                 }, 
                 {
                  "height":0,
@@ -2802,8 +2789,6 @@
                 {
                  "id":7,
                  "image":"..\/tileset\/lv1_palette.png",
-                 "imageheight":138,
-                 "imagewidth":447,
                  "properties":[
                         {
                          "name":"properties",
@@ -2815,8 +2800,6 @@
                 {
                  "id":9,
                  "image":"..\/textures\/popleft.png",
-                 "imageheight":100,
-                 "imagewidth":214,
                  "objectgroup":
                     {
                      "draworder":"index",
@@ -2849,51 +2832,35 @@
                 }, 
                 {
                  "id":10,
-                 "image":"..\/textures\/goalpop.png",
-                 "imageheight":100,
-                 "imagewidth":100
+                 "image":"..\/textures\/goalpop.png"
                 }, 
                 {
                  "id":11,
-                 "image":"..\/textures\/popright.png",
-                 "imageheight":100,
-                 "imagewidth":214
+                 "image":"..\/textures\/popright.png"
                 }, 
                 {
                  "id":12,
-                 "image":"..\/textures\/popart_platformbubble_left.png",
-                 "imageheight":700,
-                 "imagewidth":1500
+                 "image":"..\/textures\/popart_platformbubble_left.png"
                 }, 
                 {
                  "id":13,
-                 "image":"..\/textures\/popart_platformbubble_right.png",
-                 "imageheight":700,
-                 "imagewidth":1500
+                 "image":"..\/textures\/popart_platformbubble_right.png"
                 }, 
                 {
                  "id":14,
-                 "image":"..\/textures\/popart_platformLine.png",
-                 "imageheight":301,
-                 "imagewidth":2501
+                 "image":"..\/textures\/popart_platformLine.png"
                 }, 
                 {
                  "id":15,
-                 "image":"..\/textures\/popart_goal.png",
-                 "imageheight":700,
-                 "imagewidth":700
+                 "image":"..\/textures\/popart_goal.png"
                 }, 
                 {
                  "id":16,
-                 "image":"..\/textures\/popart_background.png",
-                 "imageheight":1080,
-                 "imagewidth":2340
+                 "image":"..\/textures\/popart_background.png"
                 }, 
                 {
                  "id":22,
-                 "image":"..\/textures\/alpharelease_background.png",
-                 "imageheight":580,
-                 "imagewidth":2581
+                 "image":"..\/textures\/alpharelease_background.png"
                 }, 
                 {
                  "id":24,
@@ -2969,9 +2936,7 @@
                 }, 
                 {
                  "id":36,
-                 "image":"..\/textures\/spikes.png",
-                 "imageheight":50,
-                 "imagewidth":103
+                 "image":"..\/textures\/spikes.png"
                 }, 
                 {
                  "id":37,
@@ -2994,7 +2959,7 @@
                 {
                  "id":40,
                  "image":"..\/textures\/lv3_background_1.png",
-                 "imageheight":4483,
+                 "imageheight":5056,
                  "imagewidth":1280
                 }, 
                 {
