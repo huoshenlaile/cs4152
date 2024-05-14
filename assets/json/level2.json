@@ -1447,11 +1447,12 @@
                          "type":"class",
                          "value":
                             {
+                            "MoveOnContact":true,
                              "speed":8,
                              "wait":10,
-                             "xy":"-110,0,-110,-34,-110,0,0,0"
+                             "xy":"0,0,0,34,110,34,0,34,0,0"
                             }
-                        }, 
+                        },
                         {
                          "name":"properties",
                          "propertytype":"Physics",
@@ -1476,8 +1477,8 @@
                  "type":"movingwall",
                  "visible":true,
                  "width":0,
-                 "x":7774.28768071675,
-                 "y":577.481322987212
+                 "x":4176.6087638889,
+                 "y":1534.92813149785
                 }],
          "opacity":1,
          "type":"objectgroup",
