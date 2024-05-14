@@ -323,7 +323,7 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"splotch3"
+                                 "texture":""
                                 }
                             }
                         }],
