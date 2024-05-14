@@ -2315,7 +2315,7 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0.2,
+                                 "friction":0,
                                  "restitution":0.1,
                                  "rotation":false,
                                  "texture":""
@@ -2337,6 +2337,10 @@
                         {
                          "x":0,
                          "y":0
+                        }, 
+                        {
+                         "x":0,
+                         "y":-1853.66948660602
                         }, 
                         {
                          "x":0,
@@ -2364,7 +2368,7 @@
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
                                  "density":0,
-                                 "friction":0.2,
+                                 "friction":0,
                                  "restitution":0.1,
                                  "rotation":false,
                                  "texture":""
@@ -2392,11 +2396,11 @@
                          "y":-334.217619684064
                         }, 
                         {
-                         "x":1654.71938003128,
+                         "x":1825.45108734835,
                          "y":-334.217619684064
                         }, 
                         {
-                         "x":1654.71938003128,
+                         "x":1825.45108734835,
                          "y":0
                         }],
                  "properties":[
@@ -2411,7 +2415,7 @@
                          "type":"class",
                          "value":
                             {
-                             "speed":15,
+                             "speed":10,
                              "xy":"0,300,0,0"
                             }
                         }, 
@@ -3525,12 +3529,12 @@
                                 }
                             }
                         }],
-                 "rotation":345.733098580338,
+                 "rotation":334.964427333164,
                  "type":"bouncywall",
                  "visible":true,
                  "width":0,
-                 "x":2321.74855552796,
-                 "y":25010.5196657399
+                 "x":2307.02011879602,
+                 "y":25017.8639270505
                 }, 
                 {
                  "height":0,
@@ -3634,12 +3638,12 @@
                                 }
                             }
                         }],
-                 "rotation":351.348671254552,
+                 "rotation":342.740366021078,
                  "type":"bouncywall",
                  "visible":true,
                  "width":0,
-                 "x":1965.55900107134,
-                 "y":24993.2648158843
+                 "x":1953.17451663606,
+                 "y":24997.7252512717
                 }, 
                 {
                  "height":0,
@@ -4655,12 +4659,12 @@
                                 }
                             }
                         }],
-                 "rotation":351.349,
+                 "rotation":349.964314860049,
                  "type":"bouncywall",
                  "visible":true,
                  "width":0,
-                 "x":1623.03664921466,
-                 "y":24993.4554973822
+                 "x":1621.00143902231,
+                 "y":24994.0465885632
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -4694,8 +4698,6 @@
                 {
                  "id":7,
                  "image":"..\/tileset\/lv1_palette.png",
-                 "imageheight":138,
-                 "imagewidth":447,
                  "properties":[
                         {
                          "name":"properties",
@@ -4707,8 +4709,6 @@
                 {
                  "id":9,
                  "image":"..\/textures\/popleft.png",
-                 "imageheight":100,
-                 "imagewidth":214,
                  "objectgroup":
                     {
                      "draworder":"index",
@@ -4741,51 +4741,35 @@
                 }, 
                 {
                  "id":10,
-                 "image":"..\/textures\/goalpop.png",
-                 "imageheight":100,
-                 "imagewidth":100
+                 "image":"..\/textures\/goalpop.png"
                 }, 
                 {
                  "id":11,
-                 "image":"..\/textures\/popright.png",
-                 "imageheight":100,
-                 "imagewidth":214
+                 "image":"..\/textures\/popright.png"
                 }, 
                 {
                  "id":12,
-                 "image":"..\/textures\/popart_platformbubble_left.png",
-                 "imageheight":700,
-                 "imagewidth":1500
+                 "image":"..\/textures\/popart_platformbubble_left.png"
                 }, 
                 {
                  "id":13,
-                 "image":"..\/textures\/popart_platformbubble_right.png",
-                 "imageheight":700,
-                 "imagewidth":1500
+                 "image":"..\/textures\/popart_platformbubble_right.png"
                 }, 
                 {
                  "id":14,
-                 "image":"..\/textures\/popart_platformLine.png",
-                 "imageheight":301,
-                 "imagewidth":2501
+                 "image":"..\/textures\/popart_platformLine.png"
                 }, 
                 {
                  "id":15,
-                 "image":"..\/textures\/popart_goal.png",
-                 "imageheight":700,
-                 "imagewidth":700
+                 "image":"..\/textures\/popart_goal.png"
                 }, 
                 {
                  "id":16,
-                 "image":"..\/textures\/popart_background.png",
-                 "imageheight":1080,
-                 "imagewidth":2340
+                 "image":"..\/textures\/popart_background.png"
                 }, 
                 {
                  "id":22,
-                 "image":"..\/textures\/alpharelease_background.png",
-                 "imageheight":580,
-                 "imagewidth":2581
+                 "image":"..\/textures\/alpharelease_background.png"
                 }, 
                 {
                  "id":24,
@@ -4861,9 +4845,7 @@
                 }, 
                 {
                  "id":36,
-                 "image":"..\/textures\/spikes.png",
-                 "imageheight":50,
-                 "imagewidth":103
+                 "image":"..\/textures\/spikes.png"
                 }, 
                 {
                  "id":37,
