@@ -186,8 +186,8 @@
                  "type":"paint",
                  "visible":true,
                  "width":0,
-                 "x":3936.45153961715,
-                 "y":12161.7924381137
+                 "x":3357.12890147098,
+                 "y":8694.76926520817
                 }, 
                 {
                  "height":0,
@@ -644,7 +644,7 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":5030.04151788473,
+                 "x":5122.12254919228,
                  "y":7990.47780994114
                 }, 
                 {
@@ -2567,7 +2567,7 @@
                  "type":"sensor",
                  "visible":true,
                  "width":0,
-                 "x":4467.01745416242,
+                 "x":4559.09848546997,
                  "y":8099.62044883909
                 }, 
                 {
@@ -3878,7 +3878,7 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":4091.3371618747,
+                 "x":4183.41819318225,
                  "y":8245.12599098128
                 }, 
                 {
@@ -3974,8 +3974,8 @@
                  "type":"paint",
                  "visible":true,
                  "width":0,
-                 "x":5774.51077370222,
-                 "y":12176.8460759607
+                 "x":5510.08556615059,
+                 "y":8772.21149485553
                 }, 
                 {
                  "gid":33,
@@ -4263,17 +4263,17 @@
                          "propertytype":"AnimationDetails",
                          "type":"class",
                          "value":
-                                {
-                                    "cells":12,
-                                    "columns":2,
-                                    "name":"1",
-                                    "repeat":false,
-                                    "rows":6,
-                                    "scale":4,
-                                    "texture":"lv2_speechbubble_1",
-                                    "type":"string"
-                                }
-                        },
+                            {
+                             "cells":12,
+                             "columns":2,
+                             "name":"1",
+                             "repeat":false,
+                             "rows":6,
+                             "scale":4,
+                             "texture":"lv2_speechbubble_1",
+                             "type":"string"
+                            }
+                        }, 
                         {
                          "name":"properties",
                          "propertytype":"Physics",
@@ -4342,17 +4342,17 @@
                          "propertytype":"AnimationDetails",
                          "type":"class",
                          "value":
-                                {
-                                    "cells":12,
-                                    "columns":2,
-                                    "name":"1",
-                                    "repeat":false,
-                                    "rows":6,
-                                    "scale":4,
-                                    "texture":"lv2_speechbubble_3",
-                                    "type":"string"
-                                }
-                        },
+                            {
+                             "cells":12,
+                             "columns":2,
+                             "name":"1",
+                             "repeat":false,
+                             "rows":6,
+                             "scale":4,
+                             "texture":"lv2_speechbubble_3",
+                             "type":"string"
+                            }
+                        }, 
                         {
                          "name":"properties",
                          "propertytype":"Physics",
@@ -4422,21 +4422,33 @@
                          "type":"class",
                          "value":
                             {
-                            "cells":11,
-                            "columns":2,
-                            "name":"cont",
-                            "rows":6,
-                            "repeat":false,
-                            "scale":5,
-                            "texture":"tap_to_continue",
-                            "type":"string"
+                             "cells":11,
+                             "columns":2,
+                             "name":"cont",
+                             "repeat":false,
+                             "rows":6,
+                             "scale":5,
+                             "texture":"tap_to_continue",
+                             "type":"string"
                             }
-                        },
+                        }, 
                         {
-                            "name":"LoadOnce",
-                            "type":"bool",
-                            "value":true
-                        },
+                         "name":"LoadOnce",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"hideSub",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"hide",
+                             "Enabled":true,
+                             "Float1":0,
+                             "Head":"Erase Tap Continue Button"
+                            }
+                        }, 
                         {
                          "name":"properties",
                          "propertytype":"Physics",
@@ -4457,18 +4469,6 @@
                                 }
                             }
                         }, 
-                        {
-                            "name":"hideSub",
-                            "propertytype":"SubMessage",
-                            "type":"class",
-                            "value":
-                            {
-                                "Action":"hide",
-                                "Enabled":true,
-                                "Float1":0,
-                                "Head":"Erase Tap Continue Button"
-                            }
-                        },
                         {
                          "name":"showSub",
                          "propertytype":"SubMessage",
@@ -4518,16 +4518,16 @@
                          "type":"class",
                          "value":
                             {
-                                "cells":12,
-                                "columns":2,
-                                "name":"2",
-                                "rows":6,
-                                "repeat":false,
-                                "scale":2,
-                                "texture":"lv2_speechbubble_5",
-                                "type":"string"
+                             "cells":12,
+                             "columns":2,
+                             "name":"2",
+                             "repeat":false,
+                             "rows":6,
+                             "scale":2,
+                             "texture":"lv2_speechbubble_5",
+                             "type":"string"
                             }
-                        },
+                        }, 
                         {
                          "name":"properties",
                          "propertytype":"Physics",
@@ -4596,17 +4596,17 @@
                          "propertytype":"AnimationDetails",
                          "type":"class",
                          "value":
-                                {
-                                    "cells":12,
-                                    "columns":2,
-                                    "name":"2",
-                                    "rows":6,
-                                    "repeat":false,
-                                    "scale":2,
-                                    "texture":"lv2_speechbubble_5",
-                                    "type":"string"
-                                }
-                        },
+                            {
+                             "cells":12,
+                             "columns":2,
+                             "name":"2",
+                             "repeat":false,
+                             "rows":6,
+                             "scale":2,
+                             "texture":"lv2_speechbubble_5",
+                             "type":"string"
+                            }
+                        }, 
                         {
                          "name":"properties",
                          "propertytype":"Physics",
@@ -4676,14 +4676,14 @@
                          "type":"class",
                          "value":
                             {
-                            "cells":12,
-                            "columns":2,
-                            "name":"2",
-                            "rows":6,
-                            "repeat":false,
-                            "scale":2,
-                            "texture":"lv2_speechbubble_7",
-                            "type":"string"
+                             "cells":12,
+                             "columns":2,
+                             "name":"2",
+                             "repeat":false,
+                             "rows":6,
+                             "scale":2,
+                             "texture":"lv2_speechbubble_7",
+                             "type":"string"
                             }
                         }, 
                         {
@@ -4755,16 +4755,15 @@
                          "type":"class",
                          "value":
                             {
-                                "cells":12,
-                                "columns":2,
-                                "name":"2",
-                                "rows":6,
-                                "repeat":false,
-                                "scale":2,
-                                "texture":"lv2_speechbubble_7",
-                                "type":"string"
+                             "cells":12,
+                             "columns":2,
+                             "name":"2",
+                             "repeat":false,
+                             "rows":6,
+                             "scale":2,
+                             "texture":"lv2_speechbubble_7",
+                             "type":"string"
                             }
-
                         }, 
                         {
                          "name":"properties",
@@ -4835,16 +4834,16 @@
                          "type":"class",
                          "value":
                             {
-                                "cells":12,
-                                "columns":2,
-                                "name":"2",
-                                "rows":6,
-                                "repeat":false,
-                                "scale":2,
-                                "texture":"lv2_speechbubble_6",
-                                "type":"string"
+                             "cells":12,
+                             "columns":2,
+                             "name":"2",
+                             "repeat":false,
+                             "rows":6,
+                             "scale":2,
+                             "texture":"lv2_speechbubble_6",
+                             "type":"string"
                             }
-                        },
+                        }, 
                         {
                          "name":"properties",
                          "propertytype":"Physics",
@@ -4914,16 +4913,16 @@
                          "type":"class",
                          "value":
                             {
-                            "cells":12,
-                            "columns":2,
-                            "name":"2",
-                            "rows":6,
-                            "repeat":false,
-                            "scale":2,
-                            "texture":"lv2_speechbubble_8",
-                            "type":"string"
+                             "cells":12,
+                             "columns":2,
+                             "name":"2",
+                             "repeat":false,
+                             "rows":6,
+                             "scale":2,
+                             "texture":"lv2_speechbubble_8",
+                             "type":"string"
                             }
-                        },
+                        }, 
                         {
                          "name":"properties",
                          "propertytype":"Physics",
@@ -4975,24 +4974,24 @@
                          "y":0
                         }, 
                         {
-                         "x":-318.101,
-                         "y":-93.4108
+                         "x":-949.60191661852,
+                         "y":-146.036409821742
                         }, 
                         {
-                         "x":300.429,
-                         "y":-93.4108
+                         "x":896.847083812328,
+                         "y":-146.036409821742
                         }, 
                         {
-                         "x":300.429,
-                         "y":88.3615
+                         "x":896.847083812328,
+                         "y":138.142444197715
                         }, 
                         {
-                         "x":-315.577,
-                         "y":88.3615
+                         "x":-942.067217772729,
+                         "y":138.142444197715
                         }, 
                         {
-                         "x":-315.577,
-                         "y":-90.8861
+                         "x":-942.067217772729,
+                         "y":-142.089348840818
                         }],
                  "properties":[
                         {
@@ -5011,130 +5010,16 @@
                                  "friction":1000000000,
                                  "restitution":0.2,
                                  "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
+                                 "texture":"alpharelease_long_frenchfries_3"
                                 }
                             }
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":379.229070022422,
-                 "y":7808.86233849163
-                }, 
-                {
-                 "height":0,
-                 "id":150,
-                 "name":"",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":-318.101,
-                         "y":-93.4108
-                        }, 
-                        {
-                         "x":300.429,
-                         "y":-93.4108
-                        }, 
-                        {
-                         "x":300.429,
-                         "y":88.3615
-                        }, 
-                        {
-                         "x":-315.577,
-                         "y":88.3615
-                        }, 
-                        {
-                         "x":-315.577,
-                         "y":-90.8861
-                        }],
-                 "properties":[
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"",
-                                 "debugopacity":0,
-                                 "density":0,
-                                 "friction":1000000000,
-                                 "restitution":0.2,
-                                 "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
-                                }
-                            }
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":998.791784132098,
-                 "y":7809.10189287153
-                }, 
-                {
-                 "height":0,
-                 "id":151,
-                 "name":"",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":-318.101,
-                         "y":-93.4108
-                        }, 
-                        {
-                         "x":300.429,
-                         "y":-93.4108
-                        }, 
-                        {
-                         "x":300.429,
-                         "y":88.3615
-                        }, 
-                        {
-                         "x":-315.577,
-                         "y":88.3615
-                        }, 
-                        {
-                         "x":-315.577,
-                         "y":-90.8861
-                        }],
-                 "properties":[
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"",
-                                 "debugopacity":0,
-                                 "density":0,
-                                 "friction":1000000000,
-                                 "restitution":0.2,
-                                 "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
-                                }
-                            }
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":1631.09142166734,
-                 "y":7813.12927909787
+                 "x":1010.72998664094,
+                 "y":7861.48794831337
                 }, 
                 {
                  "height":0,
@@ -5186,67 +5071,11 @@
                             }
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":2049.69574036511,
-                 "y":17740.8722109533
-                }, 
-                {
-                 "height":0,
-                 "id":154,
-                 "name":"",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":-740.088,
-                         "y":-118.943
-                        }, 
-                        {
-                         "x":722.467,
-                         "y":-114.537
-                        }, 
-                        {
-                         "x":718.062,
-                         "y":92.511
-                        }, 
-                        {
-                         "x":-731.278,
-                         "y":88.1057
-                        }, 
-                        {
-                         "x":-735.683,
-                         "y":-118.943
-                        }],
-                 "properties":[
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":1,
-                                 "debugcolor":"0",
-                                 "debugopacity":0,
-                                 "density":0,
-                                 "friction":1000000000,
-                                 "restitution":0.2,
-                                 "rotation":false,
-                                 "texture":"alpharelease_long_frenchfries"
-                                }
-                            }
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":3648,
-                 "y":17760
+                 "x":2524.34608438092,
+                 "y":17794.0475659524
                 }, 
                 {
                  "height":0,
@@ -5298,11 +5127,11 @@
                             }
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":5253.54969574037,
-                 "y":17768.7626774848
+                 "x":4796.6392644192,
+                 "y":17795.429673203
                 }, 
                 {
                  "height":0,
@@ -5354,11 +5183,59 @@
                             }
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"wall",
                  "visible":true,
                  "width":0,
                  "x":6855.98377281947,
                  "y":17789.046653144
+                }, 
+                {
+                 "gid":45,
+                 "height":278.759215523962,
+                 "id":158,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":1838.73867162921,
+                 "x":60.93048147364,
+                 "y":8790.65915271392
+                }, 
+                {
+                 "gid":46,
+                 "height":191.971485600228,
+                 "id":159,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":646.057884231536,
+                 "x":5757.07222421516,
+                 "y":7256.31614190973
+                }, 
+                {
+                 "gid":45,
+                 "height":220.094597291728,
+                 "id":160,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":1451.77782444351,
+                 "x":4483.00895840282,
+                 "y":18445.2871085428
+                }, 
+                {
+                 "gid":46,
+                 "height":189.595946046649,
+                 "id":161,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":638.063279964686,
+                 "x":6755.77153740996,
+                 "y":16960.9565178184
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -5367,7 +5244,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":158,
+ "nextobjectid":164,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
