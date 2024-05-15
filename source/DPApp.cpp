@@ -169,6 +169,8 @@ void DPApp::preUpdate(float timestep) {
                 _gameScene.reset();
                 _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
                 _gameScene.setCameraSkip(true);
+                cout << "1" << endl;
+                //_reset = true;
                 _status = LEVELLOAD;
             } else if (_gameScene.state == GameScene::NEXTLEVEL) {
                 // TODO: next level
@@ -204,6 +206,7 @@ void DPApp::preUpdate(float timestep) {
         } else if (_gameScene.state == GameScene::RESET) {
             _gameScene.setActive(false);
             _gameScene.reset();
+            _reset = true;
             _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
             _status = LEVELLOAD;
         } else {
@@ -219,6 +222,7 @@ void DPApp::preUpdate(float timestep) {
         case PauseScene::RESET:
             _pauseScene.setActive(false);
             _gameScene.reset();
+            _reset = true;
             _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
             _status = LEVELLOAD;
             break;
@@ -391,7 +395,15 @@ void DPApp::updateLevelLoad(float timestep) {
         _gameScene.init(_assets2, _levelSelectScene.getSelectedLevelKey());
         _gameScene.setActive(true);
         _gameScene.setComplete(false);
-        _gameScene.setCameraSkip(false);
+        if(_reset){
+            CULog("reset to true!!!");
+            _gameScene.setCameraSkip(true);
+            _reset = false;
+        }
+        else {
+            CULog("reset to false!!");
+            _gameScene.setCameraSkip(false);
+        }
 
         _audioController.clear("menu");
         _status = GAME;

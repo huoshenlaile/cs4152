@@ -123,7 +123,7 @@ bool LevelLoader2::construct(std::shared_ptr<cugl::AssetManager> &_assets) {
     _defaultBgNode = scene2::PolygonNode::allocWithTexture(defaultBgTexture);
     _defaultBgNode->setTexture(defaultBgTexture);
     _defaultBgNode->setAbsolute(true);
-    _defaultBgNode->setPosition(-10.0f, 0.0f);
+    _defaultBgNode->setPosition(40.0f, 0.0f);
     std::cout << "level width and height in LevelLoader2::Construct: (" << levelWidth << ", " << levelHeight << ")" << "\n";
     _defaultBgNode->setContentSize(levelWidth, levelHeight);
 
@@ -189,7 +189,7 @@ void LevelLoader2::changeBackground(int defaultGoodorBad){
     }
 //    _root->setPosition(-100.0f, 0.0f);
     _defaultBgNode->setAbsolute(true);
-    _defaultBgNode->setPosition(-10.0f, 0.0f);
+    _defaultBgNode->setPosition(40.0f, 0.0f);
     _defaultBgNode->setContentSize(_defaultBgNode->getContentSize().width, _defaultBgNode->getContentSize().height);
     
     return;

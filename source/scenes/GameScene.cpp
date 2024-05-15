@@ -54,9 +54,12 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, std::str
 
 #pragma mark Construct Camera Controller
     _camera = std::make_shared<CameraController>();
-    _camera->setCamera(levelName);
+    _camera->setCamera(levelName, computeActiveSize());
     _camera->init(_character->getTrackSceneNode(), _worldnode, 10.0f, std::dynamic_pointer_cast<OrthographicCamera>(getCamera()), _uinode, 5.0f, _camera->getMode(), _skipCameraSpan);
     _camera->setZoom(_camera->getLevelCompleteZoom());
+    
+    if(_skipCameraSpan) CULog("skip");
+    else CULog("Noskip");
 
 #pragma mark Construct Interaction Controller
     _interactionController = InteractionController2::alloc(_level, _inputController, _camera, _skipCameraSpan);
@@ -115,6 +118,7 @@ void GameScene::setActive(bool value) {
 void GameScene::reset() {
     _assets->unload<LevelLoader2>(_levelName);
     _camera->setCameraState(3);
+    _camera->setCameraSkip(true);
     GameScene::dispose();
 }
 
@@ -124,7 +128,13 @@ void GameScene::preUpdate(float dt) {
     if (_level == nullptr)
         return;
     // process input
-
+    if(_skipCameraSpan && _camera->getState() < 2) {
+        _camera->setState(3);
+        _camera->setDisplayed(true);
+        _inputController->setStarted(true);
+        _skipCameraSpan = false;
+    }
+    
     if ((_camera->getDisplayed() || !_inputController->getStarted()) && !_camera->getLevelComplete())
         _inputController->update(dt);
     auto character = _inputController->getCharacter();
@@ -140,7 +150,7 @@ void GameScene::preUpdate(float dt) {
     _inputController->fillHand(_character->getLeftHandPosition(), _character->getRightHandPosition(), _character->getLHPos(), _character->getRHPos());
 
     // update camera
-    if (_inputController->getStarted() || !_camera->getInitialUpdate() || _skipCameraSpan) {
+    if (_inputController->getStarted() || !_camera->getInitialUpdate()) {
         _camera->update(dt);
         _camera->setInitialUpdate(true);
     }

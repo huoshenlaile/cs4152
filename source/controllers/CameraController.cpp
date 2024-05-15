@@ -307,7 +307,8 @@ void CameraController::process(int zoomIn, float speed) {
 
 void CameraController::levelComplete() { _levelComplete = true; }
 
-void CameraController::setCamera(std::string selectedLevelKey) {
+void CameraController::setCamera(std::string selectedLevelKey, Vec2 activeSize) {
+    CULog("active size: %f, %f", activeSize.x, activeSize.y);
     _isTutorial = false;
     if (selectedLevelKey == "tutorial") {
         // TODO: Implement Tutorial Zooms (a state machine)
@@ -317,28 +318,29 @@ void CameraController::setCamera(std::string selectedLevelKey) {
         _panSpeed = Vec2(50, 0);
     } else if (selectedLevelKey == "level1" || selectedLevelKey == "level2" || selectedLevelKey == "level3") {
         this->setMode(true);
-        setDefaultZoom(DEFAULT_ZOOM);
-        _levelCompleteZoom = DEFAULT_ZOOM;
+        setDefaultZoom(activeSize.y / 576 * 0.245);
+        _levelCompleteZoom = activeSize.y / 576 * 0.245;
+        CULog("%f", _levelCompleteZoom);
         _panSpeed = Vec2(50, 0);
     } else if (selectedLevelKey == "level4" || selectedLevelKey == "level5" || selectedLevelKey == "level6") {
         setMode(false);
-        setDefaultZoom(0.2);
-        _levelCompleteZoom = 0.13;
+        setDefaultZoom(activeSize.x / 1248.73 * 0.2);
+        _levelCompleteZoom = activeSize.x / 1248.73 * 0.162;
         _panSpeed = Vec2(0, -50);
     } else if (selectedLevelKey == "level7" || selectedLevelKey == "level8" || selectedLevelKey == "level9") {
         setMode(false);
-        setDefaultZoom(0.2);
-        _levelCompleteZoom = 0.13;
+        setDefaultZoom(activeSize.x / 1248.73 * 0.2);
+        _levelCompleteZoom = activeSize.x / 1248.73 * 0.162;
         _panSpeed = Vec2(0, -50);
     } else if (selectedLevelKey == "level10" || selectedLevelKey == "level11" || selectedLevelKey == "level12") {
         this->setMode(true);
-        setDefaultZoom(DEFAULT_ZOOM);
-        _levelCompleteZoom = DEFAULT_ZOOM;
+        setDefaultZoom(activeSize.y / 576 * 0.245);
+        _levelCompleteZoom = activeSize.y / 576 * 0.245;
         _panSpeed = Vec2(50, 0);
     } else if (selectedLevelKey == "level13" || selectedLevelKey == "level14" || selectedLevelKey == "level15") {
         setMode(false);
-        setDefaultZoom(0.2);
-        _levelCompleteZoom = 0.13;
+        setDefaultZoom(activeSize.x / 1248.73 * 0.2);
+        _levelCompleteZoom = activeSize.x / 1248.73 * 0.162;
         _panSpeed = Vec2(0, -50);
     }
 }

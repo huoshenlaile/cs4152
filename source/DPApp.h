@@ -65,7 +65,8 @@ protected:
 	std::shared_ptr<InputController> _input;
 
 	/** Whether or not we have finished loading all assets */
-	bool _loaded = false;
+    bool _loaded = false;
+    bool _reset = false;
 
 //	HostScene _hostScene;
 //	ClientScene _clientScene;

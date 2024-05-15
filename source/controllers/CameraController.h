@@ -136,18 +136,21 @@ public:
     void setReplay(bool replay) { _replay = replay; }
     
     int getState() const {return _state; }
-
+    void setState(int val) {_state  = val;}
     void levelComplete();
     bool getCameraComplete() { return _completed; }
     bool getLevelComplete() { return _levelComplete; }
 
-    void setCamera(std::string selectedLevelKey);
+    void setCamera(std::string selectedLevelKey, Vec2 activeSize);
 
     bool cameraStay(int time);
 
     void setCameraState(int state) { _state = state; }
 
     void tutorialUpdate(float dt);
+    
+    void setCameraSkip(bool skip){_skipCameraSpan = skip;}
+    bool getCameraSkip(){return _skipCameraSpan;}
 };
 
 #endif
