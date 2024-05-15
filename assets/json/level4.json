@@ -1001,11 +1001,11 @@
                         }, 
                         {
                          "x":0,
-                         "y":-203.538
+                         "y":-179.880129208371
                         }, 
                         {
                          "x":597.895,
-                         "y":-203.538
+                         "y":-179.880129208371
                         }, 
                         {
                          "x":597.895,
@@ -2242,7 +2242,7 @@
                                  "friction":1000000000,
                                  "restitution":0.2,
                                  "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
+                                 "texture":"alpharelease_long_frenchfries"
                                 }
                             }
                         }],
@@ -2876,6 +2876,30 @@
                  "width":0,
                  "x":67.6581882197086,
                  "y":10109.8901098901
+                }, 
+                {
+                 "gid":89,
+                 "height":179.375047192797,
+                 "id":191,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":603.666024206528,
+                 "x":6174.16511989045,
+                 "y":11579.4477778228
+                }, 
+                {
+                 "gid":89,
+                 "height":52,
+                 "id":192,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":175,
+                 "x":6347.78260869565,
+                 "y":15620.2028985507
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -2884,7 +2908,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":190,
+ "nextobjectid":193,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
