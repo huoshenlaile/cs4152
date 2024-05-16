@@ -5168,7 +5168,7 @@
                          "value":
                             {
                              "Bad_bg":"lv5_background_2",
-                             "Default_bg":"lv5_background_1",
+                             "Default_bg":"lv5_background_2",
                              "Good_bg":"lv5_background_1",
                              "level_height":24801,
                              "level_width":6242
@@ -5359,6 +5359,18 @@
                  "width":0,
                  "x":181.584772023019,
                  "y":16777.600708278
+                }, 
+                {
+                 "gid":131,
+                 "height":24751.9459459459,
+                 "id":303,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":6266.3154293534,
+                 "x":6387.02702702703,
+                 "y":24791.5135135135
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -5367,7 +5379,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":303,
+ "nextobjectid":304,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
