@@ -339,7 +339,7 @@ void CameraController::setCamera(std::string selectedLevelKey, Vec2 activeSize) 
         _panSpeed = Vec2(50, 0);
     } else if (selectedLevelKey == "level13" || selectedLevelKey == "level14" || selectedLevelKey == "level15") {
         setMode(false);
-        setDefaultZoom(activeSize.x / 1248.73 * 0.2);
+        setDefaultZoom(activeSize.x / 1248.73 * 0.225);
         _levelCompleteZoom = activeSize.x / 1248.73 * 0.162;
         _panSpeed = Vec2(0, -50);
     }

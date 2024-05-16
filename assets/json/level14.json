@@ -115,66 +115,6 @@
                 }, 
                 {
                  "height":0,
-                 "id":39,
-                 "name":"METADATA",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":0,
-                         "y":-145.175
-                        }, 
-                        {
-                         "x":512.205,
-                         "y":-145.175
-                        }, 
-                        {
-                         "x":512.205,
-                         "y":0
-                        }],
-                 "properties":[
-                        {
-                         "name":"METADATA",
-                         "propertytype":"METADATA",
-                         "type":"class",
-                         "value":
-                            {
-                             "Bad_bg":"lvl4_background_bad",
-                             "Default_bg":"lvl4_background_bad",
-                             "Good_bg":"lvl4_background_good"
-                            }
-                        }, 
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":192,
-                                 "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
-                                 "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
-                                }
-                            }
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":354.372697304635,
-                 "y":534.588908280008
-                }, 
-                {
-                 "height":0,
                  "id":66,
                  "name":"sensor2",
                  "polygon":[
@@ -2163,7 +2103,7 @@
                  "type":"",
                  "visible":true,
                  "width":2080.75949367089,
-                 "x":7643.02004027203,
+                 "x":13618.6297963696,
                  "y":3879.99877270716
                 }, 
                 {
@@ -2993,11 +2933,11 @@
                          "type":"class",
                          "value":
                             {
-                             "Bad_bg":"lv3_background_1",
-                             "Default_bg":"lv3_background_1",
-                             "Good_bg":"lv3_background_1",
-                             "level_height":17896,
-                             "level_width":6733
+                             "Bad_bg":"lv5_background_2",
+                             "Default_bg":"lv5_background_1",
+                             "Good_bg":"lv5_background_1",
+                             "level_height":24768,
+                             "level_width":7732
                             }
                         }, 
                         {
