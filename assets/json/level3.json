@@ -792,7 +792,7 @@
                                  "restitution":0.1,
                                  "rotation":false,
                                  "subscriptions":[],
-                                 "texture":"alpharelease_ketchup_capon"
+                                 "texture":"ketchup_red"
                                 }
                             }
                         }],
@@ -974,7 +974,7 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_mustard"
+                                 "texture":"mustard_purple"
                                 }
                             }
                         }],

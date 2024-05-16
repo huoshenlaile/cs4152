@@ -665,7 +665,7 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_mustard"
+                                 "texture":"ketchup_red"
                                 }
                             }
                         }],
@@ -988,7 +988,7 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_soy_capon"
+                                 "texture":"soy_black"
                                 }
                             }
                         }],

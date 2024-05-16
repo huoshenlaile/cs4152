@@ -114,6 +114,42 @@
         "alpharelease_mayo_capon": {
             "file": "textures/alpharelease_mayo_capon.png"
         },
+        "ketchup_red": {
+            "file": "textures/paintingbottle/ketchup_red.png"
+        },
+        "soy_black": {
+            "file": "textures/paintingbottle/soy_black.png"
+        },
+        "mustard_orange": {
+            "file": "textures/paintingbottle/mustard_orange.png"
+        },
+        "mustard_pink": {
+            "file": "textures/paintingbottle/mustard_pink.png"
+        },
+        "mustard_purple": {
+            "file": "textures/paintingbottle/mustard_purple.png"
+        },
+        "mayo_green": {
+            "file": "textures/paintingbottle/mayo_green.png"
+        },
+        "mayo_yellow": {
+            "file": "textures/paintingbottle/mayo_yellow.png"
+        },
+        "octopus_blue": {
+            "file": "textures/paintingbottle/octopus_blue.png"
+        },
+        "octopus_green": {
+            "file": "textures/paintingbottle/octopus_green.png"
+        },
+        "octopus_pink": {
+            "file": "textures/paintingbottle/octopus_pink.png"
+        },
+        "octopus_purple": {
+            "file": "textures/paintingbottle/octopus_purple.png"
+        },
+        "octopus_red": {
+            "file": "textures/paintingbottle/octopus_red.png"
+        },
         "button": {
             "file": "textures/button.png"
         },
