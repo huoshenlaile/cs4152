@@ -5,7 +5,7 @@
 #include "GameSceneConstants.h"
 using namespace std;
 
-//extern "C" const char *getDeviceModelIdentifier();
+extern "C" const char *getDeviceModelIdentifier();
 float getInputScale();
 
 #endif
