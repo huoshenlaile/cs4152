@@ -213,8 +213,6 @@ void CameraController::tutorialUpdate(float dt) {
     // Initialization
     case (0): {
         this->setZoom(getDefaultZoom());
-        std::cout << "here"
-                  << "\n";
         _displayed = true;
         //_tutorialState = 1;
         break;
