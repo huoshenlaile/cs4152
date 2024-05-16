@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <thread>
 #include "../helpers/GameSceneConstants.h"
-#include "InputController.h"
+#include "../objects/message.h"
 using namespace cugl;
 
 /**

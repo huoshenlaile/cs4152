@@ -134,23 +134,27 @@ void GameScene::preUpdate(float dt) {
     }
 
     // clear inputController whenever the map button is pressed
-    if (_camera->getReplay()) {
+    
+    
+    if ((_camera->getDisplayed() || !_inputController->getStarted()) && !_camera->getLevelComplete()){
+        // input enabled
+         _inputController->fillHand(_character->getLeftHandPosition(), _character->getRightHandPosition(), _character->getLHPos(), _character->getRHPos());
+        _inputController->update(dt);
+        auto character = _inputController->getCharacter();
+        for (auto i = character->_touchInfo.begin(); i != character->_touchInfo.end(); i++) {
+            i->worldPos = (Vec2)Scene2::screenToWorldCoords(i->position);
+        }
+        _inputController->process();
+    }else{
+        // input disabled
         _inputController->resetInput();
     }
-    
-    if ((_camera->getDisplayed() || !_inputController->getStarted()) && !_camera->getLevelComplete())
-        _inputController->update(dt);
-    auto character = _inputController->getCharacter();
-    for (auto i = character->_touchInfo.begin(); i != character->_touchInfo.end(); i++) {
-        i->worldPos = (Vec2)Scene2::screenToWorldCoords(i->position);
-    }
-    if ((_camera->getDisplayed() || !_inputController->getStarted()) && !_camera->getLevelComplete())
-        _inputController->process();
 
+    
     _character->moveLeftHand(acutal_input_scaler * _inputController->getLeftHandMovement(), _interactionController->leftHandReverse);
     _character->moveRightHand(acutal_input_scaler * _inputController->getrightHandMovement(), _interactionController->rightHandReverse);
 
-    _inputController->fillHand(_character->getLeftHandPosition(), _character->getRightHandPosition(), _character->getLHPos(), _character->getRHPos());
+
 
     // update camera
     if (_inputController->getStarted() || !_camera->getInitialUpdate()) {
