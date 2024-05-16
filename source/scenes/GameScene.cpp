@@ -54,7 +54,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, std::str
 
 #pragma mark Construct Camera Controller
     _camera = std::make_shared<CameraController>();
-    _camera->setCamera(levelName);
+    _camera->setCamera(levelName, computeActiveSize());
     _camera->init(_character->getTrackSceneNode(), _worldnode, 10.0f, std::dynamic_pointer_cast<OrthographicCamera>(getCamera()), _uinode, 5.0f, _camera->getMode(), _skipCameraSpan);
     _camera->setZoom(_camera->getLevelCompleteZoom());
 
@@ -86,6 +86,7 @@ void GameScene::dispose() {
     _platformWorld = nullptr;
     _pauseButtonNode = nullptr;
     _pauseButton = nullptr;
+    _mapButton = nullptr;
     _worldnode->removeAllChildren();
     _worldnode = nullptr;
     _levelCompleteGood = nullptr;
@@ -115,6 +116,7 @@ void GameScene::setActive(bool value) {
 void GameScene::reset() {
     _assets->unload<LevelLoader2>(_levelName);
     _camera->setCameraState(3);
+    _camera->setCameraSkip(true);
     GameScene::dispose();
 }
 
@@ -124,23 +126,38 @@ void GameScene::preUpdate(float dt) {
     if (_level == nullptr)
         return;
     // process input
-
-    if ((_camera->getDisplayed() || !_inputController->getStarted()) && !_camera->getLevelComplete())
-        _inputController->update(dt);
-    auto character = _inputController->getCharacter();
-    for (auto i = character->_touchInfo.begin(); i != character->_touchInfo.end(); i++) {
-        i->worldPos = (Vec2)Scene2::screenToWorldCoords(i->position);
+    if(_skipCameraSpan && _camera->getState() < 2) {
+        _camera->setState(3);
+        _camera->setDisplayed(true);
+        _inputController->setStarted(true);
+        _skipCameraSpan = false;
     }
-    if ((_camera->getDisplayed() || !_inputController->getStarted()) && !_camera->getLevelComplete())
-        _inputController->process();
 
+    // clear inputController whenever the map button is pressed
+    
+    
+    if ((_camera->getDisplayed() || !_inputController->getStarted()) && !_camera->getLevelComplete()){
+        // input enabled
+         _inputController->fillHand(_character->getLeftHandPosition(), _character->getRightHandPosition(), _character->getLHPos(), _character->getRHPos());
+        _inputController->update(dt);
+        auto character = _inputController->getCharacter();
+        for (auto i = character->_touchInfo.begin(); i != character->_touchInfo.end(); i++) {
+            i->worldPos = (Vec2)Scene2::screenToWorldCoords(i->position);
+        }
+        _inputController->process();
+    }else{
+        // input disabled
+        _inputController->resetInput();
+    }
+
+    
     _character->moveLeftHand(acutal_input_scaler * _inputController->getLeftHandMovement(), _interactionController->leftHandReverse);
     _character->moveRightHand(acutal_input_scaler * _inputController->getrightHandMovement(), _interactionController->rightHandReverse);
 
-    _inputController->fillHand(_character->getLeftHandPosition(), _character->getRightHandPosition(), _character->getLHPos(), _character->getRHPos());
+
 
     // update camera
-    if (_inputController->getStarted() || !_camera->getInitialUpdate() || _skipCameraSpan) {
+    if (_inputController->getStarted() || !_camera->getInitialUpdate()) {
         _camera->update(dt);
         _camera->setInitialUpdate(true);
     }
@@ -189,6 +206,17 @@ void GameScene::postUpdate(float dt) {
     } else {
         _paintMeter->setVisible(false);
     }
+    
+    if (_level->getExit()->last_color_collected != _last_color_collected){
+        _last_color_collected = _level->getExit()->last_color_collected;
+        if (_colorNodesImgs.count(_last_color_collected)>0){
+            auto paintnode = _colorNodesImgs[_last_color_collected];
+            std::cout << _last_color_collected+"_check";
+            
+            auto texture = _assets->get<Texture>(_last_color_collected+"_check");
+            paintnode->setTexture(texture);
+        }
+    }
 }
 
 #pragma mark Helper Functions
@@ -202,6 +230,17 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     _uinode->setContentSize(dimen);
     _uinode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
 
+    auto exit = _level->getExit();
+    float color_offset = 30.0f;
+    for (std::string color : exit->getColorReqs()){
+        _colorNodesImgs[color] = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(color+"_blank"));
+        _colorNodesImgs[color]->removeFromParent();
+        _colorNodesImgs[color]->setAnchor(Vec2::ANCHOR_TOP_LEFT);
+        _colorNodesImgs[color]->setPosition(color_offset,_uinode->getHeight()-30.0f);
+        color_offset += 60.0f;
+        _colorNodesImgs[color]->setVisible(true);
+        _uinode->addChild(_colorNodesImgs[color]);
+    }
     _pauseButtonNode = _assets->get<scene2::SceneNode>("pausebutton");
     _pauseButtonNode->removeFromParent();
     _pauseButtonNode->doLayout();

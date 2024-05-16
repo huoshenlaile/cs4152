@@ -51,21 +51,6 @@
 #define VERTICES_FIELD      "polygon"
 #define BOUNDARY_FIELD      "boundary"
 
-/** The source for our level file */
-#define LEVEL_ONE_FILE      "json/tutorial.json"
-/** The key for our loaded level */
-#define LEVEL_ONE_KEY       "samplelevel"
-#define LEVEL_ONE_KEY_JSON       "samplelevel_json"
-
-#define LEVEL_ONE_BACKGROUND "pinkbackground"
-
-/** The source for our level file */
-#define ALPHA_RELEASE_FILE      "json/alpharelease.json"
-/** The key for our loaded level */
-#define ALPHA_RELEASE_KEY       "alpharelease"
-
-
-#define ALPHA_RELEASE_BACKGROUND "alpharelease_background"
 
 #endif
 

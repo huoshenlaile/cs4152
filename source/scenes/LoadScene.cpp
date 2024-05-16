@@ -33,10 +33,10 @@ bool LoadScene::init(const std::shared_ptr<AssetManager>& assets) {
     
     _bar = std::dynamic_pointer_cast<scene2::ProgressBar>(assets->get<scene2::SceneNode>("load_bar"));
     _brand = assets->get<scene2::SceneNode>("load_name");
-    _button = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("load_play"));
-    _button->addListener([=](const std::string& name, bool down) {
-        this->_active = down;
-    });
+//    _button = std::dynamic_pointer_cast<scene2::Button>(assets->get<scene2::SceneNode>("load_play"));
+//    _button->addListener([=](const std::string& name, bool down) {
+//        this->_active = down;
+//    });
     
 
     Application::get()->setClearColor(Color4(255, 255, 255));
@@ -72,8 +72,9 @@ void LoadScene::update(float progress) {
             _progress = 1.0f;
             _bar->setVisible(false);
             _brand->setVisible(false);
-            _button->setVisible(true);
-            _button->activate();
+            this -> _active = false;
+//            _button->setVisible(true);
+//            _button->activate();
         }
         _bar->setProgress(_progress);
     }

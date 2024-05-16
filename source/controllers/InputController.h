@@ -277,6 +277,7 @@ public:
     bool getStarted() { return _started; }
     void setStarted(bool start){_started = start;}
     
+    void resetInput();
 };
 
 #endif /* __PF_INPUT_H__ */

@@ -34,6 +34,8 @@ public:
     /** Is touching inner fixture? */
     bool debouncing = false;
     
+    std::string last_color_collected = "";
+    
     
     Exit(void) : Interactable() {}
     ~Exit() {

@@ -60,8 +60,9 @@ bool LevelLoader2::loadObject(const std::shared_ptr<JsonValue> &json) {
         auto sensor = Sensor::alloc(json, _scale, _bounds);
         _interactables.push_back(std::static_pointer_cast<Interactable>(sensor));
     } else if (type == EXIT_FIELD) {
-        auto sensor = Exit::alloc(json, _scale, _bounds);
-        _interactables.push_back(std::static_pointer_cast<Interactable>(sensor));
+        auto exit = Exit::alloc(json, _scale, _bounds);
+        _exit = exit;
+        _interactables.push_back(std::static_pointer_cast<Interactable>(exit));
     } else if (type == PAINT_FIELD) {
         auto paint = GrowingPaint::alloc(json, _scale, _bounds);
         _interactables.push_back(std::static_pointer_cast<Interactable>(paint));
@@ -123,7 +124,7 @@ bool LevelLoader2::construct(std::shared_ptr<cugl::AssetManager> &_assets) {
     _defaultBgNode = scene2::PolygonNode::allocWithTexture(defaultBgTexture);
     _defaultBgNode->setTexture(defaultBgTexture);
     _defaultBgNode->setAbsolute(true);
-    _defaultBgNode->setPosition(-10.0f, 0.0f);
+    _defaultBgNode->setPosition(40.0f, 0.0f);
     std::cout << "level width and height in LevelLoader2::Construct: (" << levelWidth << ", " << levelHeight << ")" << "\n";
     _defaultBgNode->setContentSize(levelWidth, levelHeight);
 
@@ -189,7 +190,7 @@ void LevelLoader2::changeBackground(int defaultGoodorBad){
     }
 //    _root->setPosition(-100.0f, 0.0f);
     _defaultBgNode->setAbsolute(true);
-    _defaultBgNode->setPosition(-10.0f, 0.0f);
+    _defaultBgNode->setPosition(40.0f, 0.0f);
     _defaultBgNode->setContentSize(_defaultBgNode->getContentSize().width, _defaultBgNode->getContentSize().height);
     
     return;

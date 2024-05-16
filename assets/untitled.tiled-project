@@ -217,6 +217,11 @@
             "id": 29,
             "members": [
                 {
+                    "name": "MoveOnContact",
+                    "type": "bool",
+                    "value": false
+                },
+                {
                     "name": "speed",
                     "type": "int",
                     "value": 0
@@ -583,6 +588,74 @@
             "type": "class",
             "useAs": [
                 "property"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 40,
+            "members": [
+                {
+                    "name": "condition1",
+                    "propertyType": "PubMessage",
+                    "type": "class",
+                    "value": {
+                    }
+                },
+                {
+                    "name": "condition2",
+                    "propertyType": "PubMessage",
+                    "type": "class",
+                    "value": {
+                    }
+                }
+            ],
+            "name": "Publication",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 41,
+            "members": [
+                {
+                    "name": "condition1",
+                    "propertyType": "SubMessage",
+                    "type": "class",
+                    "value": {
+                    }
+                },
+                {
+                    "name": "condition2",
+                    "propertyType": "SubMessage",
+                    "type": "class",
+                    "value": {
+                    }
+                }
+            ],
+            "name": "Subscription",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
             ]
         }
     ]

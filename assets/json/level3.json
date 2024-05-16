@@ -135,24 +135,24 @@
                  "name":"sensor1",
                  "polygon":[
                         {
-                         "x":-365.416210220611,
-                         "y":-156.799829934072
+                         "x":-1607.30453721283,
+                         "y":-357.19377403875
                         }, 
                         {
-                         "x":-415.706902703396,
-                         "y":-452.622288602792
+                         "x":-1828.51108455881,
+                         "y":-1031.0844313292
                         }, 
                         {
-                         "x":-310.367614364884,
-                         "y":-445.495023605788
+                         "x":-1365.17007406822,
+                         "y":-1014.84835069107
                         }, 
                         {
-                         "x":-208.882343148191,
-                         "y":-441.931391107287
+                         "x":-918.781182923003,
+                         "y":-1006.73031037201
                         }, 
                         {
-                         "x":-220.929031397222,
-                         "y":-155.625606198932
+                         "x":-971.76924458936,
+                         "y":-354.518864201814
                         }],
                  "properties":[
                         {
@@ -200,8 +200,8 @@
                  "type":"sensor",
                  "visible":true,
                  "width":0,
-                 "x":5271.53553137642,
-                 "y":772.167985735889
+                 "x":7874.59275915498,
+                 "y":1313.14184355133
                 }, 
                 {
                  "height":0,
@@ -209,20 +209,20 @@
                  "name":"sensor2",
                  "polygon":[
                         {
-                         "x":-63.0968668775919,
-                         "y":239.834578135941
+                         "x":-154.26336400525,
+                         "y":514.463385318102
                         }, 
                         {
-                         "x":-71.6830507015286,
-                         "y":500.007181785993
+                         "x":-175.255430112392,
+                         "y":1072.55338001838
                         }, 
                         {
-                         "x":-271.254594044785,
-                         "y":572.012665709333
+                         "x":-663.181046063758,
+                         "y":1227.01061178449
                         }, 
                         {
-                         "x":-348.501345137038,
-                         "y":203.702419052113
+                         "x":-852.038976285316,
+                         "y":436.957159878908
                         }],
                  "properties":[
                         {
@@ -270,8 +270,8 @@
                  "type":"sensor",
                  "visible":true,
                  "width":0,
-                 "x":5339.91990126897,
-                 "y":1254.17502025774
+                 "x":7043.08264956814,
+                 "y":-150.588624036721
                 }, 
                 {
                  "height":0,
@@ -279,11 +279,11 @@
                  "name":"exit_sensor",
                  "polygon":[
                         {
-                         "x":1054.22497461891,
+                         "x":1272.99702825335,
                          "y":0
                         }, 
                         {
-                         "x":1054.22497461891,
+                         "x":1272.99702825335,
                          "y":344.999727286767
                         }, 
                         {
@@ -353,8 +353,8 @@
                  "type":"exit",
                  "visible":true,
                  "width":0,
-                 "x":7802.41034721367,
-                 "y":1699.41770161291
+                 "x":7339.14473788336,
+                 "y":1756.25047268791
                 }, 
                 {
                  "height":0,
@@ -482,8 +482,8 @@
                  "type":"paint",
                  "visible":true,
                  "width":0,
-                 "x":4866.70924564886,
-                 "y":171.703048904705
+                 "x":5124.44120441175,
+                 "y":199.819262587929
                 }, 
                 {
                  "height":0,
@@ -587,20 +587,8 @@
                  "type":"paint",
                  "visible":true,
                  "width":0,
-                 "x":5112.75425523486,
-                 "y":1383.72332452779
-                }, 
-                {
-                 "gid":8,
-                 "height":138,
-                 "id":79,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":447,
-                 "x":8386.26144196866,
-                 "y":4019.60696743709
+                 "x":5375.17224961162,
+                 "y":1369.66521768618
                 }, 
                 {
                  "height":0,
@@ -673,8 +661,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":7928.67449342028,
-                 "y":1752.70379609658
+                 "x":7757.04977946147,
+                 "y":1787.02873888834
                 }, 
                 {
                  "gid":44,
@@ -804,7 +792,7 @@
                                  "restitution":0.1,
                                  "rotation":false,
                                  "subscriptions":[],
-                                 "texture":"alpharelease_ketchup_capon"
+                                 "texture":"ketchup_red"
                                 }
                             }
                         }],
@@ -986,7 +974,7 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_mustard"
+                                 "texture":"mustard_purple"
                                 }
                             }
                         }],
@@ -1008,11 +996,11 @@
                         }, 
                         {
                          "x":0,
-                         "y":-145.09665970592
+                         "y":-220.353634742631
                         }, 
                         {
                          "x":1445.53148870379,
-                         "y":-145.09665970592
+                         "y":-220.353634742631
                         }, 
                         {
                          "x":1445.53148870379,
@@ -1044,7 +1032,7 @@
                  "visible":true,
                  "width":0,
                  "x":4178.19848579139,
-                 "y":2016.18409625711
+                 "y":2091.44107129382
                 }, 
                 {
                  "height":0,
@@ -1057,11 +1045,11 @@
                         }, 
                         {
                          "x":0,
-                         "y":-145.09665970592
+                         "y":-222.189170719136
                         }, 
                         {
                          "x":1445.53148870379,
-                         "y":-145.09665970592
+                         "y":-222.189170719136
                         }, 
                         {
                          "x":1445.53148870379,
@@ -1093,7 +1081,7 @@
                  "visible":true,
                  "width":0,
                  "x":5613.03470531486,
-                 "y":2016.18409625711
+                 "y":2093.27660727033
                 }, 
                 {
                  "height":0,
@@ -1119,7 +1107,8 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "type":"string",
+                         "propertytype":"AnimationDetails",
+                         "type":"class",
                          "value":
                             {
                              "cells":12,
@@ -1131,7 +1120,7 @@
                              "texture":"lv1_speechbubble_1",
                              "type":"string"
                             }
-                        },
+                        }, 
                         {
                          "name":"properties",
                          "propertytype":"Physics",
@@ -1197,24 +1186,25 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "type":"string",
+                         "propertytype":"AnimationDetails",
+                         "type":"class",
                          "value":
                             {
                              "cells":11,
                              "columns":2,
                              "name":"cont",
-                             "rows":6,
                              "repeat":false,
+                             "rows":6,
                              "scale":3,
                              "texture":"tap_to_continue",
                              "type":"string"
                             }
-                        },
+                        }, 
                         {
                          "name":"LoadOnce",
                          "type":"bool",
                          "value":true
-                        },
+                        }, 
                         {
                          "name":"hideSub",
                          "propertytype":"SubMessage",
@@ -1292,19 +1282,20 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "type":"string",
+                         "propertytype":"AnimationDetails",
+                         "type":"class",
                          "value":
                             {
                              "cells":12,
                              "columns":2,
                              "name":"2",
-                             "rows":6,
                              "repeat":false,
+                             "rows":6,
                              "scale":2,
                              "texture":"lv1_speechbubble_2",
                              "type":"string"
                             }
-                        },
+                        }, 
                         {
                          "name":"properties",
                          "propertytype":"Physics",
@@ -1370,19 +1361,20 @@
                  "properties":[
                         {
                          "name":"AnimationDetails",
-                         "type":"string",
+                         "propertytype":"AnimationDetails",
+                         "type":"class",
                          "value":
                             {
                              "cells":12,
                              "columns":2,
                              "name":"2",
-                             "rows":6,
                              "repeat":false,
+                             "rows":6,
                              "scale":2,
                              "texture":"lv1_speechbubble_3",
                              "type":"string"
                             }
-                        },
+                        }, 
                         {
                          "name":"properties",
                          "propertytype":"Physics",
@@ -1435,11 +1427,11 @@
                         }, 
                         {
                          "x":0,
-                         "y":-145.097
+                         "y":-215.021505488688
                         }, 
                         {
                          "x":1445.53,
-                         "y":-145.097
+                         "y":-215.021505488688
                         }, 
                         {
                          "x":1445.53,
@@ -1470,8 +1462,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":4550.1930165928,
-                 "y":870.315169234335
+                 "x":4733.96316492006,
+                 "y":972.772118888038
                 }, 
                 {
                  "height":0,
@@ -1484,11 +1476,11 @@
                         }, 
                         {
                          "x":0,
-                         "y":-145.097
+                         "y":-209.853209567265
                         }, 
                         {
                          "x":1445.53,
-                         "y":-145.097
+                         "y":-209.853209567265
                         }, 
                         {
                          "x":1445.53,
@@ -1519,8 +1511,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":6675.70312703537,
-                 "y":870.863330199362
+                 "x":6680.70638076211,
+                 "y":935.425967457031
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1529,7 +1521,7 @@
          "y":0
         }],
  "nextlayerid":7,
- "nextobjectid":121,
+ "nextobjectid":123,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

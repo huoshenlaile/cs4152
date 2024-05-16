@@ -35,6 +35,11 @@ protected:
     std::shared_ptr<cugl::scene2::SceneNode> _pauseButtonNode;
     std::shared_ptr<cugl::scene2::Button> _pauseButton;
     std::shared_ptr<cugl::scene2::Button> _mapButton;
+    
+   // std::shared_ptr<cugl::scene2::SceneNode> _colorNodes;
+    std::unordered_map<std::string,std::shared_ptr<cugl::scene2::PolygonNode>> _colorNodesImgs;
+    
+    std::string _last_color_collected = "";
 
 	/** Reference to the physics root of the scene graph */
 	std::shared_ptr<cugl::scene2::SceneNode> _worldnode; // the root node
