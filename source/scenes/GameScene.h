@@ -56,6 +56,10 @@ protected:
     std::shared_ptr<cugl::scene2::Button> _levelCompleteBadMenu;
     std::shared_ptr<cugl::scene2::Button> _levelCompleteBadNext;
     
+    std::shared_ptr<cugl::scene2::SceneNode> _levelCompleteHonorsBad;
+    std::shared_ptr<cugl::scene2::Button> _levelCompleteHonorsBadReset;
+    std::shared_ptr<cugl::scene2::Button> _levelCompleteHonorsBadMenu;
+    
     std::shared_ptr<cugl::scene2::SpriteNode> _paintMeter;
 
     cugl::Vec2 _gravity;
@@ -91,6 +95,7 @@ protected:
     void constructSceneNodes(const Size &dimen);
 
 public:
+    bool _honors = true;
     int defaultGoodOrBad = -1;
     std::vector<std::shared_ptr<cugl::physics2::Joint>> Alljoints;
     /** the state of this scene, referenced by DPApp*/
@@ -111,7 +116,8 @@ public:
 
 #pragma mark -
 #pragma mark State Access
-
+    void setHonors(bool val) {_honors = val;}
+    
     bool isActive() const { return _active; }
     virtual void setActive(bool value) override;
 

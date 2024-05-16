@@ -382,7 +382,7 @@ void LevelSelectScene::lockOrUnlockLevelButton(int levelNumber, bool isLock) {
     }
     //delete to unlock all
     
-//    std::cout << newTextureString <<std::endl;
+
     auto newTexture = _assets->get<Texture>(newTextureString);
     _levelButtonImageNode->setTexture(newTexture);
     Size contentDimen = _assets->get<scene2::SceneNode>(levelString)-> getChildByName(buttonString)->getContentSize();
@@ -441,14 +441,14 @@ void LevelSelectScene::updateLevelStatus() {
     
     for (int i = 1; i <= 15; i ++) {
         lockOrUnlockLevelButton(i, false);
+        
         //delete to unlock all
         if (unlocked_levels.find(i) != unlocked_levels.end()){
-//            std::cout << "unlock" <<std::endl;
             lockOrUnlockLevelButton(i, false);
         } else {
-//            std::cout << "lock" <<std::endl;
             lockOrUnlockLevelButton(i, true);
         }
         //delete to unlock all
+        
     }
 }

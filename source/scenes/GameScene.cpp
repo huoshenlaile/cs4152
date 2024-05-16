@@ -344,6 +344,31 @@ void GameScene::constructSceneNodes(const Size &dimen) {
         }
     });
     _uinode->addChild(_levelCompleteBad);
+    
+    _levelCompleteHonorsBad = _assets->get<scene2::SceneNode>("levelcomplete_bad_honors");
+    _levelCompleteHonorsBad->removeFromParent();
+    _levelCompleteHonorsBad->doLayout();
+    _levelCompleteHonorsBad->setContentSize(dimen);
+    _levelCompleteHonorsBad->setVisible(false);
+    completemenu = _levelCompleteHonorsBad->getChildByName("badcompletemenu");
+    _levelCompleteHonorsBadReset = std::dynamic_pointer_cast<scene2::Button>(completemenu->getChildByName("options")->getChildByName("restart"));
+    _levelCompleteHonorsBadReset->deactivate();
+    _levelCompleteHonorsBadReset->addListener([this](const std::string &name, bool down) {
+        if (down) {
+            std::cout << "level complete reset (HONORS BAD) triggered!" << std::endl;
+            this->state = RESET;
+            _camera->setCameraState(0);
+        }
+    });
+    _levelCompleteHonorsBadMenu = std::dynamic_pointer_cast<scene2::Button>(completemenu->getChildByName("options")->getChildByName("menu"));
+    _levelCompleteHonorsBadMenu->deactivate();
+    _levelCompleteHonorsBadMenu->addListener([this](const std::string &name, bool down) {
+        if (down) {
+            std::cout << "level complete main menu (HONORS BAD) triggered!" << std::endl;
+            this->state = QUIT;
+        }
+    });
+    _uinode->addChild(_levelCompleteHonorsBad);
 
     _uinode->addChild(_paintMeter);
     // deleted level complete related UI
@@ -397,11 +422,15 @@ void GameScene::finishLevel() {
             _levelCompleteGoodMenu->activate();
             _levelCompleteGoodNext->activate();
             std ::cout << "activating the good menu button" << std::endl;
-        } else if (this->defaultGoodOrBad == 1) {
+        } else if (this->defaultGoodOrBad == 1 and !_honors) {
             _levelCompleteBad->setVisible(true);
             _levelCompleteBadReset->activate();
             _levelCompleteBadMenu->activate();
             _levelCompleteBadNext->activate();
+        } else if (this->defaultGoodOrBad == 1 and _honors){
+            _levelCompleteHonorsBad->setVisible(true);
+            _levelCompleteHonorsBadReset->activate();
+            _levelCompleteHonorsBadMenu->activate();
         } else {
             CULogError("ERROR: finishing level in an invalid state (idk if this is a good or bad ending)");
         }

@@ -53,41 +53,26 @@ void DPApp::onStartup() {
 
     auto savedir = Application::get()->getSaveDirectory();
     std::shared_ptr<JsonReader> jsonreader = JsonReader::alloc(savedir + "user_progress.json");
-    if (jsonreader == nullptr) { //set to true to reset the json file
+    if (jsonreader == nullptr) { //set to true to reset the json file -> run -> restore -> run again
+//        jsonreader->reset();
+        //initially unlock level 1 only when invalid json or empty json
+        std::shared_ptr<JsonValue> json;
+        json = JsonValue::allocObject();
+        addLevelJson(json, "level1", false, "null");
         std::shared_ptr<JsonWriter> jsonwriter = JsonWriter::alloc(savedir + "user_progress.json");
         // std::cout<< "r-20" <<std::endl;
         JsonValue updatedjson;
         // std::cout<< "r-21" <<std::endl;
-        std::shared_ptr<JsonValue> res = updatedjson.allocNull();
+        std::shared_ptr<JsonValue> res = updatedjson.allocWithJson(json->toString());
+        // std::cout<< "r-22" <<std::endl;
         if (jsonwriter != nullptr && res != nullptr) {
             jsonwriter->writeJson(res);
             // std::cout<< "r-23" <<std::endl;
         }
         jsonwriter->close();
-    } else {
-        if (jsonreader && jsonreader->ready() && jsonreader->readLine()[0] != '{') {
-            jsonreader->reset();
-            //initially unlock level 1 only when invalid json or empty json
-            std::shared_ptr<JsonValue> json;
-            json = JsonValue::allocObject();
-            addLevelJson(json, "level1", false, "null");
-            std::shared_ptr<JsonWriter> jsonwriter = JsonWriter::alloc(savedir + "user_progress.json");
-            // std::cout<< "r-20" <<std::endl;
-            JsonValue updatedjson;
-            // std::cout<< "r-21" <<std::endl;
-            std::shared_ptr<JsonValue> res = updatedjson.allocWithJson(json->toString());
-            // std::cout<< "r-22" <<std::endl;
-            if (jsonwriter != nullptr && res != nullptr) {
-                jsonwriter->writeJson(res);
-                // std::cout<< "r-23" <<std::endl;
-            }
-            jsonwriter->close();
-            // std::cout<< "r-25" <<std::endl;
+        // std::cout<< "r-25" <<std::endl;
 
-            std::cout << "wrote to json file" << std::endl;
-        }
-        
-        jsonreader->close();
+        std::cout << "wrote to json file" << std::endl;
     }
 
     Application::onStartup(); // YOU MUST END with call to parent
@@ -381,12 +366,14 @@ void DPApp::updateSetting(float timestep) {
         _settingScene.setActive(false);
         _menuScene.setActive(true);
         honors_mode = true;
+        _gameScene.setHonors(honors_mode);
         break;
     case SettingScene::NONHONORSMODE:
         _status = MENU;
         _settingScene.setActive(false);
         _menuScene.setActive(true);
         honors_mode = false;
+        _gameScene.setHonors(honors_mode);
         break;
     default:
         break;

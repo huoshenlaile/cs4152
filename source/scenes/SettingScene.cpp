@@ -30,7 +30,7 @@ bool SettingScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
         }
     });
     
-	_backout = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("sAttings_back"));
+	_backout = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("setting_back"));
 	_backout->addListener([this](const std::string& name, bool down) {
 		if (down) {
             if (honors_mode){

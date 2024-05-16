@@ -885,67 +885,16 @@
                 "key": "levelcomplete_bad"
             }
         },
+        "levelcomplete_bad_honors": {
+            "type": "Widget",
+            "data": {
+                "key": "levelcomplete_bad_honors"
+            }
+        },
         "setting": {
             "type": "Widget",
             "data": {
                 "key": "setting"
-            }
-        },
-        "sAttings": {
-            "type": "Node",
-            "format": {
-                "type": "Anchored"
-            },
-            "children": {
-                "title": {
-                    "type": "Label",
-                    "data": {
-                        "anchor": [
-                            0.5,
-                            1
-                        ],
-                        "scale": 1.5,
-                        "font": "gyparody",
-                        "text": "Settings",
-                        "padding": [
-                            20,
-                            20,
-                            20,
-                            20
-                        ],
-                        "halign": "center",
-                        "valign": "middle"
-                    },
-                    "layout": {
-                        "x_anchor": "center",
-                        "y_anchor": "top"
-                    }
-                },
-                "back": {
-                    "type": "Button",
-                    "data": {
-                        "upnode": "up",
-                        "anchor": [
-                            0,
-                            0
-                        ]
-                    },
-                    "children": {
-                        "up": {
-                            "type": "Image",
-                            "data": {
-                                "texture": "left"
-                            }
-                        }
-                    },
-                    "layout": {
-                        "x_anchor": "left",
-                        "y_anchor": "bottom",
-                        "y_offset": 10,
-                        "x_offset": 10,
-                        "absolute": true
-                    }
-                }
             }
         }
     }
