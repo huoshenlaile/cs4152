@@ -2761,7 +2761,7 @@
                                  "restitution":0.1,
                                  "rotation":false,
                                  "subscriptions":[],
-                                 "texture":"alpharelease_ketchup_capon"
+                                 "texture":"mustard_purple"
                                 }
                             }
                         }],
@@ -3055,7 +3055,7 @@
                                  "friction":0.7,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_mustard"
+                                 "texture":"ketchup_red"
                                 }
                             }
                         }],
@@ -3063,8 +3063,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":2034.46426395162,
-                 "y":8376.48797051268
+                 "x":2125.05659844639,
+                 "y":8425.26845831756
                 }, 
                 {
                  "height":0,
