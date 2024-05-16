@@ -398,3 +398,9 @@ Vec2 InputController::getrightHandMovement() {
     // CULog("Right Hand Movement Log: %f, %f", movement.x, movement.y);
     return movement;
 }
+
+void InputController::resetInput() { 
+    _character.leftHand.assigned = false; 
+    _character.rightHand.assigned = false; 
+    _character._touchInfo.clear();
+}

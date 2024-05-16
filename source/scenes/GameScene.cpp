@@ -57,9 +57,6 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, std::str
     _camera->setCamera(levelName, computeActiveSize());
     _camera->init(_character->getTrackSceneNode(), _worldnode, 10.0f, std::dynamic_pointer_cast<OrthographicCamera>(getCamera()), _uinode, 5.0f, _camera->getMode(), _skipCameraSpan);
     _camera->setZoom(_camera->getLevelCompleteZoom());
-    
-    if(_skipCameraSpan) CULog("skip");
-    else CULog("Noskip");
 
 #pragma mark Construct Interaction Controller
     _interactionController = InteractionController2::alloc(_level, _inputController, _camera, _skipCameraSpan);
@@ -133,6 +130,11 @@ void GameScene::preUpdate(float dt) {
         _camera->setDisplayed(true);
         _inputController->setStarted(true);
         _skipCameraSpan = false;
+    }
+
+    // clear inputController whenever the map button is pressed
+    if (_camera->getReplay()) {
+        _inputController->resetInput();
     }
     
     if ((_camera->getDisplayed() || !_inputController->getStarted()) && !_camera->getLevelComplete())
