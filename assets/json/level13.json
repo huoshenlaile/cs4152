@@ -630,7 +630,7 @@
                              "obstacle":
                                 {
                                  "bodytype":0,
-                                 "color-requirements":"purple",
+                                 "color-requirements":"black",
                                  "damping":0,
                                  "debugcolor":"yellow",
                                  "debugopacity":0,
