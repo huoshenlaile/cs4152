@@ -149,6 +149,7 @@ private:
     
     void lockAllLevels();
     void unlockAllLevels();
+    void addButtons(std::shared_ptr<cugl::AssetManager> _assets);
 };
 
 #endif /* LevelSelectScene_h */

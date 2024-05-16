@@ -81,8 +81,9 @@ protected:
     AudioController _audioController;
 
 public:
+    bool honors_mode = true;
 #pragma mark Constructors
-
+    
 	DPApp() : cugl::Application() {}
 
 	~DPApp() {}
