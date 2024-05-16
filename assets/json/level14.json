@@ -1,5 +1,5 @@
 { "compressionlevel":-1,
- "height":465,
+ "height":774,
  "infinite":false,
  "layers":[
         {
@@ -2936,8 +2936,8 @@
                              "Bad_bg":"lv5_background_2",
                              "Default_bg":"lv5_background_1",
                              "Good_bg":"lv5_background_1",
-                             "level_height":24768,
-                             "level_width":7732
+                             "level_height":24801,
+                             "level_width":6242
                             }
                         }, 
                         {

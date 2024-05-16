@@ -128,9 +128,17 @@ void LevelSelectScene::addButtons(std::shared_ptr<cugl::AssetManager> _assets){
     });
     _level14->addListener([this](const std::string& name, bool down) {
         if (down) {
-            CULog("Level 11 selected");
+            CULog("Level 14 selected");
             selectedLevelFile = "json/level14.json"; // Ensure this file exists in your assets
             selectedLevelKey = "level14";
+            startGame();
+        }
+    });
+    _level15->addListener([this](const std::string& name, bool down) {
+        if (down) {
+            CULog("Level 14 selected");
+            selectedLevelFile = "json/level15.json"; // Ensure this file exists in your assets
+            selectedLevelKey = "level15";
             startGame();
         }
     });
@@ -200,6 +208,7 @@ bool LevelSelectScene::init(const std::shared_ptr<cugl::AssetManager> &assets) {
         _level12 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level12"));
         _level13 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level13"));
         _level14 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level14"));
+        _level15 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level15"));
         _backout = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_home"));
     addButtons(_assets);
     addChild(scene);
@@ -253,6 +262,7 @@ void LevelSelectScene::setActive(bool value) {
             _level12->activate();
             _level13->activate();
             _level14->activate();
+            _level15->activate();
 //            unlockAllLevels();
             updateLevelStatus();
             _backout->activate();
@@ -274,6 +284,7 @@ void LevelSelectScene::setActive(bool value) {
             _level12->deactivate();
             _level13->deactivate();
             _level14->deactivate();
+            _level15->deactivate();
             _backout->deactivate();
 
             _level1->setDown(false);
@@ -290,6 +301,7 @@ void LevelSelectScene::setActive(bool value) {
             _level12->setDown(false);
             _level13->setDown(false);
             _level14->setDown(false);
+            _level15->setDown(false);
             _backout->setDown(false);
         }
     }
@@ -369,7 +381,7 @@ void LevelSelectScene::lockOrUnlockLevelButton(int levelNumber, bool isLock) {
     std::shared_ptr<JsonReader> jsonreader = JsonReader::alloc(savedir + "user_progress.json");
     
     //delete to unlock all
-    if (jsonreader != nullptr && jsonreader->ready() && !isLock && jsonreader->readLine()[0] == '{'){
+    /*if (jsonreader != nullptr && jsonreader->ready() && !isLock && jsonreader->readLine()[0] == '{'){
         jsonreader->reset();
         std::shared_ptr<JsonValue> jsonobj = jsonreader->readJson();
         if (jsonobj->get("level"+std::to_string(levelNumber)) != nullptr){
@@ -379,7 +391,7 @@ void LevelSelectScene::lockOrUnlockLevelButton(int levelNumber, bool isLock) {
                 newTextureString = "button_level"+std::to_string(levelNumber)+"_bad";
             }
         }
-    }
+    }*/
     //delete to unlock all
     
 
@@ -443,11 +455,11 @@ void LevelSelectScene::updateLevelStatus() {
         lockOrUnlockLevelButton(i, false);
         
         //delete to unlock all
-        if (unlocked_levels.find(i) != unlocked_levels.end()){
+        /*if (unlocked_levels.find(i) != unlocked_levels.end()){
             lockOrUnlockLevelButton(i, false);
         } else {
             lockOrUnlockLevelButton(i, true);
-        }
+        }*/
         //delete to unlock all
         
     }

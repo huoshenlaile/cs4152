@@ -28,6 +28,7 @@ protected:
     std::shared_ptr<cugl::scene2::Button> _level12;
     std::shared_ptr<cugl::scene2::Button> _level13;
     std::shared_ptr<cugl::scene2::Button> _level14;
+    std::shared_ptr<cugl::scene2::Button> _level15;
 
     std::shared_ptr<cugl::scene2::Button> _backout;
 

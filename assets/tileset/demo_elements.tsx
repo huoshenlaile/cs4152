@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="ragdoll_elements" tilewidth="5000" tileheight="5056" tilecount="48" columns="0" objectalignment="bottomleft">
+<tileset version="1.10" tiledversion="1.10.2" name="ragdoll_elements" tilewidth="5000" tileheight="5056" tilecount="49" columns="0" objectalignment="bottomleft">
  <editorsettings>
   <export target="ragdoll_elements..tsx" format="tsx"/>
  </editorsettings>
@@ -62,7 +62,7 @@
   <image width="3718" height="580" source="../textures/lv1_background_1.png"/>
  </tile>
  <tile id="44">
-  <image width="343" height="52" source="../textures/alpharelease_long_frenchfries.png"/>
+  <image width="290" height="52" source="../textures/alpharelease_long_frenchfries.png"/>
  </tile>
  <tile id="45">
   <image width="175" height="52" source="../textures/alpharelease_frenchfries.png"/>
@@ -83,7 +83,7 @@
   <image width="5000" height="580" source="../textures/level4/lv4_background_2.png"/>
  </tile>
  <tile id="58">
-  <image width="343" height="52" source="../../../../../../Downloads/staticplatform_frenchfries3x (1).png"/>
+  <image source="../../../../../../Downloads/staticplatform_frenchfries3x (1).png"/>
  </tile>
  <tile id="66">
   <image width="447" height="138" source="../textures/goal/goal_palette.png"/>
@@ -134,7 +134,7 @@
   <image width="343" height="52" source="../textures/alpharelease_long_frenchfries_3.png"/>
  </tile>
  <tile id="82">
-  <image width="343" height="52" source="../textures/alpharelease_long_frenchfries.png"/>
+  <image width="290" height="52" source="../textures/alpharelease_long_frenchfries.png"/>
  </tile>
  <tile id="83">
   <image width="175" height="52" source="../textures/alpharelease_frenchfries.png"/>
@@ -147,5 +147,8 @@
  </tile>
  <tile id="86">
   <image width="290" height="52" source="../textures/alpharelease_long_frenchfries.png"/>
+ </tile>
+ <tile id="87">
+  <image width="1280" height="5056" source="../textures/lv5_background_1.png"/>
  </tile>
 </tileset>
