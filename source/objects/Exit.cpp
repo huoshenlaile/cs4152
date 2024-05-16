@@ -135,7 +135,7 @@ void Exit::addColor(std::string color, Vec2 character_scene_pos) {
     
     if(splatterpoly != nullptr){
         splatterpoly->setScale(0.5f, 1.0f);
-        splatterpoly->setPosition(character_scene_pos.x, _selfTexture->getPositionY());
+        splatterpoly->setPosition(character_scene_pos.x, _selfTexture->getPositionY()-10.0f);
         _scene->addChild(splatterpoly);
     }
     
@@ -153,6 +153,7 @@ PublishedMessage Exit::timeUpdate(float timestep){
             if (color != "black" || (color == "black" && std::find(_colorReqs.begin(), _colorReqs.end(), "black") != _colorReqs.end())){
                 this->addColor(color, _character->getBodySceneNode()->getPosition());
                 _character->setColor("black");
+                last_color_collected = color;
             }
         }
 //        if (color != "black" && this->getColorsCollected().count(color) == 0){

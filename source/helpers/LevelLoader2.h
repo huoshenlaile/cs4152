@@ -28,6 +28,7 @@ protected:
     std::shared_ptr<scene2::SceneNode> _worldnode;
     std::shared_ptr<scene2::SceneNode> _charNode; //character node
     std::shared_ptr<scene2::SceneNode> _platformNode; // platform node
+    std::shared_ptr<Exit> _exit;
 
     // game scene UI and complete should be managed by game scene it self, 
     // level loader only cares about what is inside the level
@@ -70,6 +71,7 @@ public:
     std::shared_ptr<scene2::SceneNode> getWorldNode() { return _worldnode; }
     std::shared_ptr<cugl::physics2::net::NetWorld> getWorld() { return _world; }
     std::shared_ptr<CharacterController> getCharacter() { return _character; }
+    std::shared_ptr<Exit> getExit() { return _exit; }
     std::vector<std::shared_ptr<Interactable>> getInteractables() { return _interactables; } // this will make a copy of the vector
     
     // overrided preload for Assets Manager

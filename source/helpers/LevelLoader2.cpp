@@ -60,8 +60,9 @@ bool LevelLoader2::loadObject(const std::shared_ptr<JsonValue> &json) {
         auto sensor = Sensor::alloc(json, _scale, _bounds);
         _interactables.push_back(std::static_pointer_cast<Interactable>(sensor));
     } else if (type == EXIT_FIELD) {
-        auto sensor = Exit::alloc(json, _scale, _bounds);
-        _interactables.push_back(std::static_pointer_cast<Interactable>(sensor));
+        auto exit = Exit::alloc(json, _scale, _bounds);
+        _exit = exit;
+        _interactables.push_back(std::static_pointer_cast<Interactable>(exit));
     } else if (type == PAINT_FIELD) {
         auto paint = GrowingPaint::alloc(json, _scale, _bounds);
         _interactables.push_back(std::static_pointer_cast<Interactable>(paint));

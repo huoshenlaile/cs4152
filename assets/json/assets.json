@@ -3,6 +3,42 @@
         "splotch3": {
             "file": "textures/pureOrange.png"
         },
+        "black_blank": {
+            "file": "textures/black_blank.png"
+        },
+        "black_check": {
+            "file": "textures/black_check.png"
+        },
+        "purple_blank": {
+            "file": "textures/purple_blank.png"
+        },
+        "purple_check": {
+            "file": "textures/purple_check.png"
+        },
+        "green_blank": {
+            "file": "textures/green_blank.png"
+        },
+        "green_check": {
+            "file": "textures/green_check.png"
+        },
+        "pink_blank": {
+            "file": "textures/pink_blank.png"
+        },
+        "pink_check": {
+            "file": "textures/pink_check.png"
+        },
+        "blue_blank": {
+            "file": "textures/blue_blank.png"
+        },
+        "blue_check": {
+            "file": "textures/blue_check.png"
+        },
+        "orange_blank": {
+            "file": "textures/red_blank.png"
+        },
+        "orange_check": {
+            "file": "textures/red_check.png"
+        },
         "lvl4_background_good": {
             "file": "textures/level4/lv4_background_1.png"
         },

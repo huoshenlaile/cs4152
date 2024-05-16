@@ -86,6 +86,7 @@ void GameScene::dispose() {
     _platformWorld = nullptr;
     _pauseButtonNode = nullptr;
     _pauseButton = nullptr;
+    _mapButton = nullptr;
     _worldnode->removeAllChildren();
     _worldnode = nullptr;
     _levelCompleteGood = nullptr;
@@ -201,6 +202,17 @@ void GameScene::postUpdate(float dt) {
     } else {
         _paintMeter->setVisible(false);
     }
+    
+    if (_level->getExit()->last_color_collected != _last_color_collected){
+        _last_color_collected = _level->getExit()->last_color_collected;
+        if (_colorNodesImgs.count(_last_color_collected)>0){
+            auto paintnode = _colorNodesImgs[_last_color_collected];
+            std::cout << _last_color_collected+"_check";
+            
+            auto texture = _assets->get<Texture>(_last_color_collected+"_check");
+            paintnode->setTexture(texture);
+        }
+    }
 }
 
 #pragma mark Helper Functions
@@ -214,6 +226,17 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     _uinode->setContentSize(dimen);
     _uinode->setAnchor(Vec2::ANCHOR_BOTTOM_LEFT);
 
+    auto exit = _level->getExit();
+    float color_offset = 30.0f;
+    for (std::string color : exit->getColorReqs()){
+        _colorNodesImgs[color] = scene2::PolygonNode::allocWithTexture(_assets->get<Texture>(color+"_blank"));
+        _colorNodesImgs[color]->removeFromParent();
+        _colorNodesImgs[color]->setAnchor(Vec2::ANCHOR_TOP_LEFT);
+        _colorNodesImgs[color]->setPosition(color_offset,_uinode->getHeight()-30.0f);
+        color_offset += 60.0f;
+        _colorNodesImgs[color]->setVisible(true);
+        _uinode->addChild(_colorNodesImgs[color]);
+    }
     _pauseButtonNode = _assets->get<scene2::SceneNode>("pausebutton");
     _pauseButtonNode->removeFromParent();
     _pauseButtonNode->doLayout();
