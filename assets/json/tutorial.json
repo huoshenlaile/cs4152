@@ -2802,28 +2802,23 @@
                     "width": 0,
                     "x": 7224.61963059461,
                     "y": 1485.98972491922
-                },
-                "opacity": 1,
-                "type": "objectgroup",
-                "visible": true,
-                "x": 0,
-                "y": 0
-            }
-        ],
-        "nextlayerid": 7,
-        "nextobjectid": 132,
-        "orientation": "orthogonal",
-        "renderorder": "right-down",
-        "tiledversion": "1.10.2",
-        "tileheight": 32,
-        "tilesets": [
-            {
-                "firstgid": 1,
-                "source": "..\/tileset\/demo_elements.tsx"
-            }
-        ],
-        "tilewidth": 32,
-        "type": "map",
-        "version": "1.10",
-        "width": 365
-    }
+                }
+            ]
+        }],
+    "nextlayerid": 7,
+    "nextobjectid": 132,
+    "orientation": "orthogonal",
+    "renderorder": "right-down",
+    "tiledversion": "1.10.2",
+    "tileheight": 32,
+    "tilesets": [
+        {
+            "firstgid": 1,
+            "source": "..\/tileset\/demo_elements.tsx"
+        }
+    ],
+    "tilewidth": 32,
+    "type": "map",
+    "version": "1.10",
+    "width": 365
+}
