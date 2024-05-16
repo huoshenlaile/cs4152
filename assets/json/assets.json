@@ -1,5 +1,47 @@
 {
     "textures": {
+        "setting_background": {
+            "file": "textures/setting/setting_background.png"
+        },
+        "credit_designers": {
+            "file": "textures/setting/credit_designers.png"
+        },
+        "credit_programmers": {
+            "file": "textures/setting/credit_programmers.png"
+        },
+        "knob": {
+            "file": "textures/setting/knob.png"
+        },
+        "settings_credits_text": {
+            "file": "textures/setting/settings_credits_text.png"
+        },
+        "settings_honor_text": {
+            "file": "textures/setting/settings_honor_text.png"
+        },
+        "settings_music_text": {
+            "file": "textures/setting/settings_music_text.png"
+        },
+        "settings_sound_text": {
+            "file": "textures/setting/settings_sound_text.png"
+        },
+        "settings_text": {
+            "file": "textures/setting/settings_text.png"
+        },
+        "slot": {
+            "file": "textures/setting/slot.png"
+        },
+        "toggle_down": {
+            "file": "textures/setting/toggle_down.png"
+        },
+        "toggle_up": {
+            "file": "textures/setting/toggle_up.png"
+        },
+        "splotch1": {
+            "file": "textures/pureOrange.png"
+        },
+        "splotch2": {
+            "file": "textures/pureOrange.png"
+        },
         "splotch3": {
             "file": "textures/pureOrange.png"
         },
@@ -746,21 +788,6 @@
         },
         "tap_to_continue": {
             "file": "textures/ui_taptocont_370x138.png"
-        },
-        "settings_honor_text": {
-            "file": "textures/setting/settings_honor_text.png"
-        },
-        "slot": {
-            "file": "textures/setting/slot.png"
-        },
-        "knob": {
-            "file": "textures/setting/knob.png"
-        },
-        "toggle_down": {
-            "file": "textures/setting/toggle_down.png"
-        },
-        "toggle_up": {
-            "file": "textures/setting/toggle_up.png"
         }
     },
     "jsons": {
@@ -768,7 +795,6 @@
         "progress": "json/GameProgress.json"
     },
     "sounds": {
-
         "touch1": {
             "type": "sample",
             "file": "sounds/touch1.wav",
@@ -823,6 +849,7 @@
         "levelcomplete": "widgets/levelcomplete.json",
         "levelcomplete_bad": "widgets/levelcomplete_bad.json",
         "pausebutton": "widgets/pausebutton.json",
+        "setting": "widgets/setting.json",
         "slider1": "widgets/slider1.json",
         "slider2": "widgets/slider2.json",
         "levelcomplete_bad_honors": "widgets/levelcomplete_bad_honors.json"
@@ -839,86 +866,41 @@
             "data": {
                 "key": "title"
             }
-        }, 
-        "level" :   {
+        },
+        "level": {
             "type": "Widget",
             "data": {
                 "key": "levelselect"
             }
-        },          
-        "pausebutton" : {
+        },
+        "pausebutton": {
             "type": "Widget",
             "data": {
                 "key": "pausebutton"
             }
-        },    
-        "levelcomplete" : {
+        },
+        "levelcomplete": {
             "type": "Widget",
             "data": {
                 "key": "levelcomplete"
             }
         },
-        "levelcomplete_bad" : {
+        "levelcomplete_bad": {
             "type": "Widget",
             "data": {
                 "key": "levelcomplete_bad"
             }
         },
-        "settings": {
-            "type": "Node",
-            "format": {
-                "type": "Anchored"
-            },
-            "children": {
-                "title": {
-                    "type": "Label",
-                    "data": {
-                        "anchor": [
-                            0.5,
-                            1.0
-                        ],
-                        "scale": 1.5,
-                        "font": "gyparody",
-                        "text": "Settings",
-                        "padding": [
-                            20,
-                            20,
-                            20,
-                            20
-                        ],
-                        "halign": "center",
-                        "valign": "middle"
-                    },
-                    "layout": {
-                        "x_anchor": "center",
-                        "y_anchor": "top"
-                    }
-                },
-                "back": {
-                    "type": "Button",
-                    "data": {
-                        "upnode": "up",
-                        "anchor": [
-                            0.0,
-                            0.0
-                        ]
-                    },
-                    "children": {
-                        "up": {
-                            "type": "Image",
-                            "data": {
-                                "texture": "left"
-                            }
-                        }
-                    },
-                    "layout": {
-                        "x_anchor": "left",
-                        "y_anchor": "bottom",
-                        "y_offset": 10,
-                        "x_offset": 10,
-                        "absolute": true
-                    }
-                }
+        "levelcomplete_bad_honors": {
+            "type": "Widget",
+            "data": {
+                "key": "levelcomplete_bad_honors"
+            }
+        },
+        "setting": {
+            "type": "Widget",
+            "data": {
+                "key": "setting"
             }
         }
     }

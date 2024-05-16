@@ -53,19 +53,26 @@ void DPApp::onStartup() {
 
     auto savedir = Application::get()->getSaveDirectory();
     std::shared_ptr<JsonReader> jsonreader = JsonReader::alloc(savedir + "user_progress.json");
-    if (jsonreader == nullptr) {
+    if (jsonreader == nullptr) { //set to true to reset the json file -> run -> restore -> run again
+//        jsonreader->reset();
+        //initially unlock level 1 only when invalid json or empty json
+        std::shared_ptr<JsonValue> json;
+        json = JsonValue::allocObject();
+        addLevelJson(json, "level1", false, "null");
         std::shared_ptr<JsonWriter> jsonwriter = JsonWriter::alloc(savedir + "user_progress.json");
         // std::cout<< "r-20" <<std::endl;
         JsonValue updatedjson;
         // std::cout<< "r-21" <<std::endl;
-        std::shared_ptr<JsonValue> res = updatedjson.allocNull();
+        std::shared_ptr<JsonValue> res = updatedjson.allocWithJson(json->toString());
+        // std::cout<< "r-22" <<std::endl;
         if (jsonwriter != nullptr && res != nullptr) {
             jsonwriter->writeJson(res);
             // std::cout<< "r-23" <<std::endl;
         }
         jsonwriter->close();
-    } else {
-        jsonreader->close();
+        // std::cout<< "r-25" <<std::endl;
+
+        std::cout << "wrote to json file" << std::endl;
     }
 
     Application::onStartup(); // YOU MUST END with call to parent
@@ -354,10 +361,19 @@ void DPApp::updateLoad(float timestep) {
 void DPApp::updateSetting(float timestep) {
     _settingScene.update(timestep);
     switch (_settingScene.state) {
-    case SettingScene::BACK:
+    case SettingScene::HONORSMODE:
         _status = MENU;
         _settingScene.setActive(false);
         _menuScene.setActive(true);
+        honors_mode = true;
+        _gameScene.setHonors(honors_mode);
+        break;
+    case SettingScene::NONHONORSMODE:
+        _status = MENU;
+        _settingScene.setActive(false);
+        _menuScene.setActive(true);
+        honors_mode = false;
+        _gameScene.setHonors(honors_mode);
         break;
     default:
         break;
@@ -456,6 +472,8 @@ void DPApp::draw() {
     }
 }
 
+// check if the level exists (unlocked previously). If not completed previously, simply add current level and unlock next level
+// if exists, only update if good ending
 void DPApp::addLevelJson(std::shared_ptr<JsonValue> json, std::string levelkey, bool completedfield, std::string endingtypefield) {
     std::cout << levelkey << std::endl;
     std::shared_ptr<JsonValue> level = json->get(levelkey);
@@ -506,69 +524,68 @@ void DPApp::updateLevelJson() {
     // std::cout<< "r-2" <<std::endl;
     std::shared_ptr<JsonReader> jsonreader = JsonReader::alloc(savedir + "user_progress.json");
 
-    //    std::cout << jsonreader->readAll() <<std::endl;
-    //    jsonreader->reset();
 
-    // std::cout<< "r-3" <<std::endl;
+    
     if (jsonreader != nullptr && jsonreader->ready()) {
-        // std::cout<< "r-4" <<std::endl;
+        
         std::shared_ptr<JsonValue> json;
 
-        // std::cout<< "r-5" <<std::endl;
+        
         if (jsonreader->readLine()[0] != '{') {
-            // std::cout<< "r-6" <<std::endl;
+            
             std::shared_ptr<JsonValue> myjson = JsonValue::allocObject();
-            // std::cout<< "r-7" <<std::endl;
+            
             json = myjson;
-            // std::cout<< "r-8" <<std::endl;
+            
         } else {
             jsonreader->reset();
-            // std::cout<< "r-9" <<std::endl;
+            
             json = jsonreader->readJson();
-            // std::cout<< "r-10" <<std::endl;
+            
             jsonreader->close();
-            // std::cout<< "r-11" <<std::endl;
+            
         }
         if (json != nullptr) {
             addLevelJson(json, _currentLevelKey, true, std::to_string(_gameScene.getEndingType()));
-            // std::cout<< "r-12" <<std::endl;
-            // now unlock new level
-            if (_currentLevelKey == "tutorial") {
-                addLevelJson(json, "level1", false, "null");
-                // std::cout<< "r-13" <<std::endl;
-            } else {
-                size_t start = _currentLevelKey.find("level") + 5;
-                // std::cout<< "r-14" <<std::endl;
-                size_t end = _currentLevelKey.size();
-                // std::cout<< "r-15" <<std::endl;
-                int num = std::stoi(_currentLevelKey.substr(start, end - start)) + 1;
-                // std::cout<< "r-16" <<std::endl;
-                std::string next_level = "level" + std::to_string(num);
-                // std::cout<< "r-17" <<std::endl;
-                if (json->get(next_level) == nullptr) {
-                    addLevelJson(json, next_level, false, "null");
+            
+            //unlock new level only when good ending for honors_mode or non honors_mode
+            if ((_gameScene.getEndingType() == 0 && honors_mode) || !honors_mode){
+                if (_currentLevelKey == "tutorial") {
+                    addLevelJson(json, "level1", false, "null");
+                } else {
+                    size_t start = _currentLevelKey.find("level") + 5;
+                    
+                    size_t end = _currentLevelKey.size();
+                    
+                    int num = std::stoi(_currentLevelKey.substr(start, end - start)) + 1;
+                    
+                    std::string next_level = "level" + std::to_string(num);
+                    
+                    if (json->get(next_level) == nullptr) {
+                        addLevelJson(json, next_level, false, "null");
+                    }
                 }
-
-                // std::cout<< "r-18" <<std::endl;
             }
+            
+            
         } else {
             CULog("There is a parsing error in the json file");
         }
 
-        // std::cout<< "r-19" <<std::endl;
+        
 
         std::shared_ptr<JsonWriter> jsonwriter = JsonWriter::alloc(savedir + "user_progress.json");
-        // std::cout<< "r-20" <<std::endl;
+        
         JsonValue updatedjson;
-        // std::cout<< "r-21" <<std::endl;
+        
         std::shared_ptr<JsonValue> res = updatedjson.allocWithJson(json->toString());
-        // std::cout<< "r-22" <<std::endl;
+        
         if (jsonwriter != nullptr && res != nullptr) {
             jsonwriter->writeJson(res);
-            // std::cout<< "r-23" <<std::endl;
+            
         }
         jsonwriter->close();
-        // std::cout<< "r-25" <<std::endl;
+        
 
         std::cout << "wrote to json file" << std::endl;
     } else {
@@ -576,10 +593,10 @@ void DPApp::updateLevelJson() {
             jsonreader->close();
         }
 
-        // std::cout<< "r-26" <<std::endl;
+        
     }
 
-    // std::cout<< "r-27" <<std::endl;
+    
 
     return;
 }

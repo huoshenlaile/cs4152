@@ -11,72 +11,7 @@ using namespace std;
 /** Regardless of logo, lock the height to this */
 #define SCENE_HEIGHT  720
 
-#pragma mark Helpers
-/**
- * Converts a hexadecimal string to a decimal string
- *
- * This function assumes that the string is 4 hexadecimal characters
- * or less, and therefore it converts to a decimal string of five
- * characters or less (as is the case with the lobby server). We
- * pad the decimal string with leading 0s to bring it to 5 characters
- * exactly.
- *
- * @param hex the hexadecimal string to convert
- *
- * @return the decimal equivalent to hex
- */
-static std::string hex2dec(const std::string hex) {
-    Uint32 value = strtool::stou32(hex,0,16);
-    std::string result = strtool::to_string(value);
-    if (result.size() < 5) {
-        size_t diff = 5-result.size();
-        std::string alt(5,'0');
-        for(size_t ii = 0; ii < result.size(); ii++) {
-            alt[diff+ii] = result[ii];
-        }
-        result = alt;
-    }
-    return result;
-}
-
-
-#pragma mark Class Methods
-bool LevelSelectScene::init(const std::shared_ptr<cugl::AssetManager> &assets) {
-    // Initialize the scene to a locked width
-    Size dimen = Application::get()->getDisplaySize();
-    dimen *= SCENE_HEIGHT/dimen.height;
-    if (assets == nullptr) {
-        return false;
-    } else if (!Scene2::init(dimen)) {
-        return false;
-    }
-
-    //    _network = network;
-
-    // Start up the input handler
-    _assets = assets;
-
-    // Acquire the scene built by the asset loader and resize it the scene
-    std::shared_ptr<scene2::SceneNode> scene = _assets->get<scene2::SceneNode>("level");
-    scene->setContentSize(dimen);
-    scene->doLayout(); // Repositions the HUD
-
-    _level1 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level1"));
-    _level2 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level2"));
-    _level3 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level3"));
-    _level4 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level4"));
-    _level5 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level5"));
-    _level6 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level6"));
-    _level7 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level7"));
-    _level8 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level8"));
-    _level9 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level9"));
-    _level10 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level10"));
-    _level11 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level11"));
-    _level12 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level12"));
-    _level13 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level13"));
-    _level14 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level14"));
-    _backout = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_home"));
-
+void LevelSelectScene::addButtons(std::shared_ptr<cugl::AssetManager> _assets){
     // Program the buttons
     _backout->addListener([this](const std::string& name, bool down) {
         if (down) {
@@ -199,13 +134,82 @@ bool LevelSelectScene::init(const std::shared_ptr<cugl::AssetManager> &assets) {
             startGame();
         }
     });
-    
-    
+}
 
+#pragma mark Helpers
+/**
+ * Converts a hexadecimal string to a decimal string
+ *
+ * This function assumes that the string is 4 hexadecimal characters
+ * or less, and therefore it converts to a decimal string of five
+ * characters or less (as is the case with the lobby server). We
+ * pad the decimal string with leading 0s to bring it to 5 characters
+ * exactly.
+ *
+ * @param hex the hexadecimal string to convert
+ *
+ * @return the decimal equivalent to hex
+ */
+static std::string hex2dec(const std::string hex) {
+    Uint32 value = strtool::stou32(hex,0,16);
+    std::string result = strtool::to_string(value);
+    if (result.size() < 5) {
+        size_t diff = 5-result.size();
+        std::string alt(5,'0');
+        for(size_t ii = 0; ii < result.size(); ii++) {
+            alt[diff+ii] = result[ii];
+        }
+        result = alt;
+    }
+    return result;
+}
+
+
+#pragma mark Class Methods
+bool LevelSelectScene::init(const std::shared_ptr<cugl::AssetManager> &assets) {
+    // Initialize the scene to a locked width
+    Size dimen = Application::get()->getDisplaySize();
+    dimen *= SCENE_HEIGHT/dimen.height;
+    if (assets == nullptr) {
+        return false;
+    } else if (!Scene2::init(dimen)) {
+        return false;
+    }
+
+    //    _network = network;
+
+    // Start up the input handler
+    _assets = assets;
+
+    // Acquire the scene built by the asset loader and resize it the scene
+    std::shared_ptr<scene2::SceneNode> scene = _assets->get<scene2::SceneNode>("level");
+    scene->setContentSize(dimen);
+    scene->doLayout(); // Repositions the HUD
+    
+    _level1 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level1"));
+        _level2 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level2"));
+        _level3 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level3"));
+        _level4 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level4"));
+        _level5 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level5"));
+        _level6 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level6"));
+        _level7 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level7"));
+        _level8 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level8"));
+        _level9 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level9"));
+        _level10 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level10"));
+        _level11 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level11"));
+        _level12 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level12"));
+        _level13 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level13"));
+        _level14 = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_levels_level14"));
+        _backout = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("level_home"));
+    addButtons(_assets);
     addChild(scene);
+    
     setActive(false);
+    
     return true;
 }
+
+
 
 bool LevelSelectScene::init(const std::shared_ptr<cugl::AssetManager>& assets, std::shared_ptr<NetEventController> network) {
     // no, we don't use this. we are single-player.
@@ -252,7 +256,8 @@ void LevelSelectScene::setActive(bool value) {
 //            unlockAllLevels();
             updateLevelStatus();
             _backout->activate();
-
+            
+            addButtons(_assets);
             state = INSCENE;
         } else {
             _level1->deactivate();
@@ -364,18 +369,20 @@ void LevelSelectScene::lockOrUnlockLevelButton(int levelNumber, bool isLock) {
     std::shared_ptr<JsonReader> jsonreader = JsonReader::alloc(savedir + "user_progress.json");
     
     //delete to unlock all
-//    if (jsonreader != nullptr && jsonreader->ready() && !isLock){
-//        std::shared_ptr<JsonValue> jsonobj = jsonreader->readJson();
-//        if (jsonobj->get("level"+std::to_string(levelNumber)) != nullptr){
-//            if (jsonobj->get("level"+std::to_string(levelNumber))->getString("endingType") == "0"){
-//                newTextureString = "button_level"+std::to_string(levelNumber)+"_good";
-//            } else if (jsonobj->get("level"+std::to_string(levelNumber))->getString("endingType") == "1"){
-//                newTextureString = "button_level"+std::to_string(levelNumber)+"_bad";
-//            }
-//        }
-//    }
+    if (jsonreader != nullptr && jsonreader->ready() && !isLock && jsonreader->readLine()[0] == '{'){
+        jsonreader->reset();
+        std::shared_ptr<JsonValue> jsonobj = jsonreader->readJson();
+        if (jsonobj->get("level"+std::to_string(levelNumber)) != nullptr){
+            if (jsonobj->get("level"+std::to_string(levelNumber))->getString("endingType") == "0"){
+                newTextureString = "button_level"+std::to_string(levelNumber)+"_good";
+            } else if (jsonobj->get("level"+std::to_string(levelNumber))->getString("endingType") == "1"){
+                newTextureString = "button_level"+std::to_string(levelNumber)+"_bad";
+            }
+        }
+    }
+    //delete to unlock all
     
-//    std::cout << newTextureString <<std::endl;
+
     auto newTexture = _assets->get<Texture>(newTextureString);
     _levelButtonImageNode->setTexture(newTexture);
     Size contentDimen = _assets->get<scene2::SceneNode>(levelString)-> getChildByName(buttonString)->getContentSize();
@@ -407,7 +414,6 @@ void LevelSelectScene::updateLevelStatus() {
     std::string root = cugl::Application::get()->getSaveDirectory();
     std::shared_ptr<JsonReader> _gameProgress = JsonReader::alloc(root+"user_progress.json");
     std::set<int> unlocked_levels;
-    
     if (_gameProgress != nullptr && _gameProgress->ready() && _gameProgress->readLine()[0] == '{'){
         _gameProgress->reset();
         std::shared_ptr<JsonValue> jsonobj = _gameProgress->readJson();
@@ -435,13 +441,14 @@ void LevelSelectScene::updateLevelStatus() {
     
     for (int i = 1; i <= 15; i ++) {
         lockOrUnlockLevelButton(i, false);
-        //comment to unlock all
-//        if (unlocked_levels.find(i) != unlocked_levels.end()){
-////            std::cout << "unlock" <<std::endl;
-//            lockOrUnlockLevelButton(i, false);
-//        } else {
-////            std::cout << "lock" <<std::endl;
-//            lockOrUnlockLevelButton(i, true);
-//        }
+        
+        //delete to unlock all
+        if (unlocked_levels.find(i) != unlocked_levels.end()){
+            lockOrUnlockLevelButton(i, false);
+        } else {
+            lockOrUnlockLevelButton(i, true);
+        }
+        //delete to unlock all
+        
     }
 }

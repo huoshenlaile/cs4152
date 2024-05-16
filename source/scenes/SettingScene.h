@@ -12,9 +12,13 @@ protected:
     std::shared_ptr<cugl::scene2::Button> _backout;
     
 public:
+    bool honors_mode = true;
+    
+    std::shared_ptr<cugl::scene2::Button> _honors_mode_button;
     enum SceneState {
         INSCENE,
-        BACK
+        HONORSMODE,
+        NONHONORSMODE
     };
     SceneState state;
 

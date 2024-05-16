@@ -134,23 +134,27 @@ void GameScene::preUpdate(float dt) {
     }
 
     // clear inputController whenever the map button is pressed
-    if (_camera->getReplay()) {
+    
+    
+    if ((_camera->getDisplayed() || !_inputController->getStarted()) && !_camera->getLevelComplete()){
+        // input enabled
+         _inputController->fillHand(_character->getLeftHandPosition(), _character->getRightHandPosition(), _character->getLHPos(), _character->getRHPos());
+        _inputController->update(dt);
+        auto character = _inputController->getCharacter();
+        for (auto i = character->_touchInfo.begin(); i != character->_touchInfo.end(); i++) {
+            i->worldPos = (Vec2)Scene2::screenToWorldCoords(i->position);
+        }
+        _inputController->process();
+    }else{
+        // input disabled
         _inputController->resetInput();
     }
-    
-    if ((_camera->getDisplayed() || !_inputController->getStarted()) && !_camera->getLevelComplete())
-        _inputController->update(dt);
-    auto character = _inputController->getCharacter();
-    for (auto i = character->_touchInfo.begin(); i != character->_touchInfo.end(); i++) {
-        i->worldPos = (Vec2)Scene2::screenToWorldCoords(i->position);
-    }
-    if ((_camera->getDisplayed() || !_inputController->getStarted()) && !_camera->getLevelComplete())
-        _inputController->process();
 
+    
     _character->moveLeftHand(acutal_input_scaler * _inputController->getLeftHandMovement(), _interactionController->leftHandReverse);
     _character->moveRightHand(acutal_input_scaler * _inputController->getrightHandMovement(), _interactionController->rightHandReverse);
 
-    _inputController->fillHand(_character->getLeftHandPosition(), _character->getRightHandPosition(), _character->getLHPos(), _character->getRHPos());
+
 
     // update camera
     if (_inputController->getStarted() || !_camera->getInitialUpdate()) {
@@ -340,6 +344,31 @@ void GameScene::constructSceneNodes(const Size &dimen) {
         }
     });
     _uinode->addChild(_levelCompleteBad);
+    
+    _levelCompleteHonorsBad = _assets->get<scene2::SceneNode>("levelcomplete_bad_honors");
+    _levelCompleteHonorsBad->removeFromParent();
+    _levelCompleteHonorsBad->doLayout();
+    _levelCompleteHonorsBad->setContentSize(dimen);
+    _levelCompleteHonorsBad->setVisible(false);
+    completemenu = _levelCompleteHonorsBad->getChildByName("badcompletemenu");
+    _levelCompleteHonorsBadReset = std::dynamic_pointer_cast<scene2::Button>(completemenu->getChildByName("options")->getChildByName("restart"));
+    _levelCompleteHonorsBadReset->deactivate();
+    _levelCompleteHonorsBadReset->addListener([this](const std::string &name, bool down) {
+        if (down) {
+            std::cout << "level complete reset (HONORS BAD) triggered!" << std::endl;
+            this->state = RESET;
+            _camera->setCameraState(0);
+        }
+    });
+    _levelCompleteHonorsBadMenu = std::dynamic_pointer_cast<scene2::Button>(completemenu->getChildByName("options")->getChildByName("menu"));
+    _levelCompleteHonorsBadMenu->deactivate();
+    _levelCompleteHonorsBadMenu->addListener([this](const std::string &name, bool down) {
+        if (down) {
+            std::cout << "level complete main menu (HONORS BAD) triggered!" << std::endl;
+            this->state = QUIT;
+        }
+    });
+    _uinode->addChild(_levelCompleteHonorsBad);
 
     _uinode->addChild(_paintMeter);
     // deleted level complete related UI
@@ -393,11 +422,15 @@ void GameScene::finishLevel() {
             _levelCompleteGoodMenu->activate();
             _levelCompleteGoodNext->activate();
             std ::cout << "activating the good menu button" << std::endl;
-        } else if (this->defaultGoodOrBad == 1) {
+        } else if (this->defaultGoodOrBad == 1 and !_honors) {
             _levelCompleteBad->setVisible(true);
             _levelCompleteBadReset->activate();
             _levelCompleteBadMenu->activate();
             _levelCompleteBadNext->activate();
+        } else if (this->defaultGoodOrBad == 1 and _honors){
+            _levelCompleteHonorsBad->setVisible(true);
+            _levelCompleteHonorsBadReset->activate();
+            _levelCompleteHonorsBadMenu->activate();
         } else {
             CULogError("ERROR: finishing level in an invalid state (idk if this is a good or bad ending)");
         }

@@ -55,10 +55,11 @@ bool InputController::init(const Rect bounds) {
 }
 
 Touchscreen * savedtouch = nullptr;
-
+float acc = 0;
 void InputController::update(float dt) {
     // CULog("World coord in GF at: %f %f \n", touchPos.x, touchPos.y);
 //#ifdef CU_TOUCH_SCREEN
+    acc+=dt;
     Touchscreen *touch = Input::get<Touchscreen>();
     savedtouch = touch;
     // Press to continue
@@ -80,6 +81,7 @@ void InputController::update(float dt) {
     _prevDown = _currDown;
     _currDown = touch->touchCount()>0;
     for (auto touchID : touch->touchSet()) {
+        
        // CULog("Press");
         bool exist = false;
         for (auto &info : _character._touchInfo) {
@@ -125,7 +127,7 @@ void InputController::update(float dt) {
 //#endif
 }
 void InputController::process() {
-    Touchscreen *touch = savedtouch;
+    Touchscreen *touch = Input::get<Touchscreen>();
     for (auto i = _character._touchInfo.begin(); i != _character._touchInfo.end(); i++) {
         // CULog("Touchid %d", i->id);
         if (touch->touchDown(i->id)) {
@@ -263,7 +265,6 @@ Vec2 InputController::touch2Screen(const Vec2 pos) const {
 PublishedMessage InputController::getMessageInPreUpdate() {
     auto msg = PublishedMessage();
     if (didPress()){
-        std::cout << "SCREEN PRESSED MSG PUSHED TO QUEUE" << std::endl;
         msg.Head = "Screen Pressed";
     }
     else if (didRelease()){
@@ -275,89 +276,7 @@ PublishedMessage InputController::getMessageInPreUpdate() {
 #pragma mark -
 #pragma mark Touch and Mouse Callbacks
 
-/**
- * Callback for the beginning of a touch event
- * **FROM GEORGE: The NAMING of this class is UNCLEAR. Here's the logic:
- *
- * _character is an inner abstract struct, used to denote the positions of two hands.
- *
- * the logic is as such:
- * Since the _character is an inner struct, at first we should assign the POSITIONS OF CHARACTER's two hands to _character using "FillHands()" function.
- *
- * When the player first touches a finger onto the screen, both 'leftHand' and 'rightHand' OF _character are unassigned.
- *
- * Then, we compare the positions of these hands with player's finger, and assign the nearest hand to player's finger. When the player puts the other finger on, the leftover hand (be it right or left)
- * is assigned. That is to say: **leftHand and rightHand should match with character's two hands, but are not matched with player's two fingers.*
- *
- * ***Similar things happen when the player removes fingers. The corresponding hand gets unassigned.
- *
- * @param event The associated event
- * @param focus    Whether the listener currently has focus
- */
-void InputController::touchBeganCB(const TouchEvent &event, bool focus) {
-    //_character._event = event;
-    if (!_touchDown) {
-        _touchDown = true;
-        TouchInfo touchInfo;
-        touchInfo.position = event.position;
-        touchInfo.type = 0;
-        touchInfo.id = event.touch;
-        _character._touchInfo.push_back(touchInfo);
-    }
-    touchPos = event.position;
-    CULog("Original touch move at: %f %f \n", event.position.x, event.position.y);
-}
 
-/**
- * Callback for the end of a touch event
- *
- * @param event The associated event
- * @param focus    Whether the listener currently has focus
- */
-void InputController::touchEndedCB(const TouchEvent &event, bool focus) {
-    _pausePressed = false;
-
-    if (_touchDown) {
-        _touchDown = false;
-    }
-    //_character._event = event;
-    touchPos = event.position;
-    for (auto i = _character._touchInfo.begin(); i != _character._touchInfo.end(); i++) {
-        if (i->id == event.touch) {
-            if (i->type == 1) {
-                _character.leftHand.assigned = false;
-                _character.leftHand.prev = Vec2(-1, -1);
-                _character.leftHand.curr = Vec2(-1, -1);
-                _character.leftHand.touchID = -1;
-            } else if (i->type == 2) {
-                _character.rightHand.assigned = false;
-                _character.rightHand.prev = Vec2(-1, -1);
-                _character.rightHand.curr = Vec2(-1, -1);
-                _character.rightHand.touchID = -1;
-            }
-            _character._touchInfo.erase(i);
-            break;
-        }
-    }
-}
-
-/**
- * Callback for a touch moved event.
- *
- * @param event The associated event
- * @param previous The previous position of the touch
- * @param focus    Whether the listener currently has focus
- */
-void InputController::touchesMovedCB(const TouchEvent &event, const Vec2 &previous, bool focus) {
-    //_character._event = event;
-    if (_touchDown) {
-        for (auto i : _character._touchInfo) {
-            if (i.id == event.touch) {
-                i.position = event.position;
-            }
-        }
-    }
-}
 
 unsigned int InputController::getNumTouches() {
     if (!_character.leftHand.assigned && !_character.rightHand.assigned) {
@@ -402,5 +321,12 @@ Vec2 InputController::getrightHandMovement() {
 void InputController::resetInput() { 
     _character.leftHand.assigned = false; 
     _character.rightHand.assigned = false; 
+    _character.leftHand.HandPos = cugl::Vec2(0, 0);
+    _character.rightHand.HandPos = cugl::Vec2(0, 0);
+    _character.leftHand.prev = cugl::Vec2(0, 0);
+    _character.rightHand.curr = cugl::Vec2(0, 0);
+    _currDown = false;
+    _prevDown = false;
     _character._touchInfo.clear();
+
 }
