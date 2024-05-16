@@ -4159,8 +4159,8 @@
                  "type":"movingwall",
                  "visible":true,
                  "width":0,
-                 "x":6843.50154362658,
-                 "y":17432.9180786863
+                 "x":6589.09841251112,
+                 "y":17354.6401921892
                 }, 
                 {
                  "gid":42,
@@ -5070,12 +5070,12 @@
                                 }
                             }
                         }],
-                 "rotation":0,
+                 "rotation":10,
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":2524.34608438092,
-                 "y":17794.0475659524
+                 "x":2476.95271945201,
+                 "y":17403.0523052889
                 }, 
                 {
                  "height":0,
@@ -5126,12 +5126,12 @@
                                 }
                             }
                         }],
-                 "rotation":0,
+                 "rotation":8,
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":4796.6392644192,
-                 "y":17795.429673203
+                 "x":3931.71035446659,
+                 "y":17676.9462608807
                 }, 
                 {
                  "height":0,
@@ -5182,12 +5182,68 @@
                                 }
                             }
                         }],
+                 "rotation":4,
+                 "type":"wall",
+                 "visible":true,
+                 "width":0,
+                 "x":5422.33448371994,
+                 "y":17812.7433356085
+                }, 
+                {
+                 "height":0,
+                 "id":164,
+                 "name":"",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":-740.088,
+                         "y":-118.943
+                        }, 
+                        {
+                         "x":722.467,
+                         "y":-114.537
+                        }, 
+                        {
+                         "x":718.062,
+                         "y":92.511
+                        }, 
+                        {
+                         "x":-731.278,
+                         "y":88.1057
+                        }, 
+                        {
+                         "x":-735.683,
+                         "y":-118.943
+                        }],
+                 "properties":[
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":1,
+                                 "debugcolor":"0",
+                                 "debugopacity":0,
+                                 "density":0,
+                                 "friction":1000000000,
+                                 "restitution":0.2,
+                                 "rotation":false,
+                                 "texture":"alpharelease_long_frenchfries"
+                                }
+                            }
+                        }],
                  "rotation":0,
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":6855.98377281947,
-                 "y":17789.046653144
+                 "x":6903.37713774838,
+                 "y":17860.2423007266
                 }, 
                 {
                  "gid":45,
@@ -5244,7 +5300,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":164,
+ "nextobjectid":165,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
