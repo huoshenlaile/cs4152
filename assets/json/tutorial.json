@@ -113,7 +113,7 @@
                                  "debugopacity":192,
                                  "density":0,
                                  "friction":100000000,
-                                 "restitution":0.1,
+                                 "restitution":0,
                                  "rotation":false,
                                  "texture":"alpharelease_long_frenchfries_3"
                                 }
@@ -170,7 +170,7 @@
                                  "debugopacity":192,
                                  "density":0,
                                  "friction":100000000,
-                                 "restitution":0.1,
+                                 "restitution":0,
                                  "rotation":false,
                                  "texture":"alpharelease_long_frenchfries_3"
                                 }
@@ -227,7 +227,7 @@
                                  "debugopacity":192,
                                  "density":0,
                                  "friction":100000000,
-                                 "restitution":0.1,
+                                 "restitution":0,
                                  "rotation":false,
                                  "texture":"alpharelease_long_frenchfries"
                                 }
@@ -310,8 +310,8 @@
                  "type":"movingwall",
                  "visible":true,
                  "width":0,
-                 "x":5682.64345566467,
-                 "y":1609.91294134814
+                 "x":5694.37022200885,
+                 "y":1545.41572645515
                 }, 
                 {
                  "height":0,
