@@ -35,8 +35,8 @@
                          "type":"class",
                          "value":
                             {
-                             "Bad_bg":"lv3_background_1",
-                             "Default_bg":"lv3_background_1",
+                             "Bad_bg":"lv3_background_2",
+                             "Default_bg":"lv3_background_2",
                              "Good_bg":"lv3_background_1",
                              "level_height":29600,
                              "level_width":7732

@@ -4131,7 +4131,7 @@
                          "type":"class",
                          "value":
                             {
-                             "speed":25,
+                             "speed":30,
                              "xy":"0,325,-35,325,0,325,0,0"
                             }
                         }, 
@@ -4159,8 +4159,8 @@
                  "type":"movingwall",
                  "visible":true,
                  "width":0,
-                 "x":6589.09841251112,
-                 "y":17354.6401921892
+                 "x":6984.29249511036,
+                 "y":17438.0999797461
                 }, 
                 {
                  "gid":42,
@@ -4203,7 +4203,7 @@
                          "value":
                             {
                              "Bad_bg":"lv2_background_2",
-                             "Default_bg":"lv2_background_1",
+                             "Default_bg":"lv2_background_2",
                              "Good_bg":"lv2_background_1",
                              "level_height":24768,
                              "level_width":7732

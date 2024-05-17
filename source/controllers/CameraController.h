@@ -37,12 +37,12 @@ protected:
 
     Vec2 _UIPosition;
     int _initialStay, _finalStay;
-    bool _levelComplete, _completed, _initialUpdate, _displayed, _moveToLeft, _moveToTop, _isTutorial, _replay, _skipCameraSpan, _skipPosMove;
+    bool _levelComplete, _completed, _initialUpdate, _displayed, _moveToLeft, _moveToTop, _replay, _skipCameraSpan, _skipPosMove;
     float _defaultZoom, _levelCompleteZoom;
     Vec2 _panSpeed;
     bool _horizontal;
     int _finalPos;
-    int _state, _tutorialState;
+    int _state;
     int _counter;
     int _initPosOnce;
     
@@ -146,8 +146,6 @@ public:
     bool cameraStay(int time);
 
     void setCameraState(int state) { _state = state; }
-
-    void tutorialUpdate(float dt);
     
     void setCameraSkip(bool skip){_skipCameraSpan = skip;}
     bool getCameraSkip(){return _skipCameraSpan;}
