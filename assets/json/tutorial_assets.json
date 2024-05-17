@@ -1,0 +1,104 @@
+{
+    "textures": {
+        "lv1_palette": {
+            "file": "textures/goal/goal_palette.png"
+        },
+        "lv0_background": {
+            "file": "textures/lv0_background.png"
+        },
+        "alpharelease_frenchfries_BIG": {
+            "file": "textures/alpharelease_frenchfries_BIG.png"
+        },
+        "ketchup_red": {
+            "file": "textures/paintingbottle/ketchup_red.png"
+        },
+        "soy_black": {
+            "file": "textures/paintingbottle/soy_black.png"
+        },
+        "mustard_purple": {
+            "file": "textures/paintingbottle/mustard_purple.png"
+        },
+        "mayo_green": {
+            "file": "textures/paintingbottle/mayo_green.png"
+        },
+        "paintmeter": {
+            "file": "textures/paintmeter.png"
+        },
+        "red_paint": {
+            "file": "textures/red_paint_141x144.png"
+        },
+        "purple_paint": {
+            "file": "textures/purple_paint_141x144.png"
+        },
+        "purple_paint_splat": {
+            "file": "textures/purple_splat_303x304.png"
+        },
+        "purple_paint_splash": {
+            "file": "textures/purple_splash_167x190.png"
+        },
+        "purple_splatter": {
+            "file": "textures/purple_paintspaltter_148x680.png"
+        },
+        "text_hi": {
+            "file": "textures/text_hi.png"
+        },
+        "ui_grabbable": {
+            "file": "textures/ui_grabbable.png"
+        },
+        "ui_move_text": {
+            "file": "textures/ui_move_text.png"
+        },
+        "ui_hand_text": {
+            "file": "textures/ui_hand_text.png"
+        },
+        "ui_jump_text": {
+            "file": "textures/ui_jump_text.png"
+        },
+        "ui_walk_text": {
+            "file": "textures/ui_walk_text.png"
+        },
+        "ui_back_walk_text": {
+            "file": "textures/ui_back_walk_text.png"
+        },
+        "text_paint": {
+            "file": "textures/text_paint.png"
+        },
+        "text_deliver": {
+            "file": "textures/text_deliver.png"
+        },
+        "text_grab": {
+            "file": "textures/text_grab.png"
+        },
+        "text_hold": {
+            "file": "textures/text_hold.png"
+        },
+        "text_palette": {
+            "file": "textures/text_palette.png"
+        },
+        "text_yay": {
+            "file": "textures/text_yay.png"
+        },
+        "text_complete": {
+            "file": "textures/text_complete.png"
+        },
+        "tap_to_continue": {
+            "file": "textures/ui_taptocont_370x138.png"
+        },
+        "paintmeter": {
+            "file": "textures/paintmeter.png"
+        }
+    },
+    "jsons": {
+        "server": "json/server.json",
+        "progress": "json/GameProgress.json"
+    },
+    "sounds": {
+    },
+    "fonts": {
+    },
+    "widgets": {
+    },
+    "scene2s": {
+    }
+}
+
