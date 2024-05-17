@@ -27,17 +27,55 @@ bool LevelLoadScene::init(const std::shared_ptr<cugl::AssetManager> &assets) {
 
     // copied from LoadScene.cpp
     _assets->loadDirectory("json/level_loading.json");
-    auto layer = assets->get<scene2::SceneNode>("levelload");
-    layer->setContentSize(dimen);
-    layer->doLayout(); // This rearranges the children to fit the screen
-    _bar = std::dynamic_pointer_cast<scene2::ProgressBar>(assets->get<scene2::SceneNode>("levelload_bar"));
-    _bar->setProgress(0.0f);
-    _bar->setVisible(false);
-    addChild(layer);
+    layerA = assets->get<scene2::SceneNode>("levelloadA");
+    layerA->setContentSize(dimen);
+    layerA->doLayout();
+    barA = std::dynamic_pointer_cast<scene2::ProgressBar>(assets->get<scene2::SceneNode>("levelloadA_bar"));
+    
+    layerB = assets->get<scene2::SceneNode>("levelloadB");
+    layerB->setContentSize(dimen);
+    layerB->doLayout();
+    barB = std::dynamic_pointer_cast<scene2::ProgressBar>(assets->get<scene2::SceneNode>("levelloadB_bar"));
+
+    layerC = assets->get<scene2::SceneNode>("levelloadC");
+    layerC->setContentSize(dimen);
+    layerC->doLayout();
+    barC = std::dynamic_pointer_cast<scene2::ProgressBar>(assets->get<scene2::SceneNode>("levelloadC_bar"));
+
+    layerD = assets->get<scene2::SceneNode>("levelloadD");
+    layerD->setContentSize(dimen);
+    layerD->doLayout();
+    barD = std::dynamic_pointer_cast<scene2::ProgressBar>(assets->get<scene2::SceneNode>("levelloadD_bar"));
+
+    layerE = assets->get<scene2::SceneNode>("levelloadE");
+    layerE->setContentSize(dimen);
+    layerE->doLayout();
+    barE = std::dynamic_pointer_cast<scene2::ProgressBar>(assets->get<scene2::SceneNode>("levelloadE_bar"));
+    
 
     Application::get()->setClearColor(Color4(255, 255, 255));
 
     return true;
+}
+
+// helper funcion to get level number from "level1" "level4" like strings
+int getLevelNumber(const std::string& levelStr) {
+    // Check if the string starts with "level"
+    if (levelStr.compare(0, 5, "level") != 0) {
+        return 1;
+    }
+    
+    // Extract the substring after "level"
+    std::string numberStr = levelStr.substr(5);
+
+    // Convert the substring to an integer
+    int number;
+    std::stringstream ss(numberStr);
+    if (!(ss >> number)) {
+        return 1; // Return 0 if conversion fails
+    }
+
+    return number;
 }
 
 bool LevelLoadScene::loadFileAsync(const std::string &file, const std::string &key, const std::string &levelAssets) {
@@ -47,6 +85,31 @@ bool LevelLoadScene::loadFileAsync(const std::string &file, const std::string &k
     _key = key;
     _levelAssets = levelAssets;
     CULog("Loading level description file: %s, Loading level assets: %s, Loading level key: %s, old addsets: %s", file.c_str(), levelAssets.c_str(), key.c_str(), _levelAssets_currently_loaded.c_str());
+
+    // set cover based on level number
+    int levelNumber = getLevelNumber(key);
+    removeAllChildren();
+    if (levelNumber == 1 || levelNumber == 2 || levelNumber == 3){
+        addChild(layerA);
+        _bar = barA;
+    }else if (levelNumber == 4 || levelNumber == 5 || levelNumber == 6){
+        addChild(layerB);
+        _bar = barB;
+    }else if (levelNumber == 7 || levelNumber == 8 || levelNumber == 9){
+        addChild(layerC);
+        _bar = barC;
+    }else if (levelNumber == 10 || levelNumber == 11 || levelNumber == 12){
+        addChild(layerD);
+        _bar = barD;
+    }else if (levelNumber == 13 || levelNumber == 14 || levelNumber == 15){
+        addChild(layerE);
+        _bar = barE;
+    }else{
+        CULog("Level number not found: %s", key.c_str());
+        addChild(layerA);
+        _bar = barA;
+    }
+
     loadAssets();
     
     return true;
@@ -100,10 +163,8 @@ void LevelLoadScene::update(float timestep) {
         auto ll = _assets->get<LevelLoader2>(_key);
         ll->construct(_assets);
         _state = DONE;
-        _bar->setVisible(false);
     }else{
         auto progress = _assets->progress();
-        _bar->setVisible(true);
         _bar->setProgress(progress);
         CULog("get progress: %f",_bar->getProgress());
         CULog("Loading progress: %f", progress);

@@ -14,6 +14,20 @@ protected:
 
     bool _is_currently_loaded = false;
     std::shared_ptr<cugl::scene2::ProgressBar>  _bar;
+
+    // 5 different cover for 5 major levels
+    std::shared_ptr<cugl::scene2::SceneNode> layerA;
+    std::shared_ptr<cugl::scene2::SceneNode> layerB;
+    std::shared_ptr<cugl::scene2::SceneNode> layerC;
+    std::shared_ptr<cugl::scene2::SceneNode> layerD;
+    std::shared_ptr<cugl::scene2::SceneNode> layerE;
+
+    std::shared_ptr<cugl::scene2::ProgressBar> barA;
+    std::shared_ptr<cugl::scene2::ProgressBar> barB;
+    std::shared_ptr<cugl::scene2::ProgressBar> barC;
+    std::shared_ptr<cugl::scene2::ProgressBar> barD;
+    std::shared_ptr<cugl::scene2::ProgressBar> barE;
+
     bool _constructWorld();
 
     bool loadAssets();
