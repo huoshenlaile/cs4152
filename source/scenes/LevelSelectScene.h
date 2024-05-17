@@ -39,6 +39,10 @@ protected:
 //    Uint64 _totalPing;
 //    int _sendCount;
 //    int _receiveCount;
+    std::string selectedLevelFile = "json/level1.json";
+    std::string selectedLevelKey = "level1";
+    std::string selectedLevelAssets = "json/level1_assets.json";
+
 
 public:
     /** the state of this scene, referenced by DPApp*/
@@ -73,8 +77,6 @@ public:
     
 
     // string of selected level name
-    std::string selectedLevelFile = "json/level1.json";
-    std::string selectedLevelKey = "level1";
 
     std::string getSelectedLevelFile() {
         return this->selectedLevelFile;
@@ -84,6 +86,16 @@ public:
         return this->selectedLevelKey;
     }
 
+    std::string getSelectedLevelAssets() {
+        return this->selectedLevelAssets;
+    }
+
+    // set the selected level name to next one based on the current level name
+    void go_to_next_level();
+
+
+    // set the level file name to tutorial
+    void newGame();
     /**
      * Initializes the controller contents, and starts the game
      *

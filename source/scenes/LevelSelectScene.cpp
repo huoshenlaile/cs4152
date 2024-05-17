@@ -23,15 +23,16 @@ void LevelSelectScene::addButtons(std::shared_ptr<cugl::AssetManager> _assets){
     if (down) {
         selectedLevelFile = "json/level1.json";
         selectedLevelKey = "level1";
+        selectedLevelAssets = "json/level1_assets.json";
         startGame();
     }
     });
 
     _level2->addListener([this](const std::string& name, bool down) {
         if (down) {
-            CULog("Level 2 selected");
-            this->selectedLevelFile = "json/level2.json";
-            this->selectedLevelKey = "level2";
+            selectedLevelFile = "json/level2.json";
+            selectedLevelKey = "level2";
+            selectedLevelAssets = "json/level2_assets.json";
             startGame();
         }
     });
@@ -41,14 +42,16 @@ void LevelSelectScene::addButtons(std::shared_ptr<cugl::AssetManager> _assets){
             CULog("Level 3 selected");
             selectedLevelFile = "json/level3.json";
             selectedLevelKey = "level3";
+            selectedLevelAssets = "json/level3_assets.json";
             startGame();
         }
     });
     _level4->addListener([this](const std::string& name, bool down) {
         if (down) {
             CULog("Level 4 selected");
-            this->selectedLevelFile = "json/level4.json";
-            this->selectedLevelKey = "level4";
+            selectedLevelFile = "json/level4.json";
+            selectedLevelKey = "level4";
+            selectedLevelAssets = "json/level4_assets.json";
             startGame();
         }
     });
@@ -57,6 +60,7 @@ void LevelSelectScene::addButtons(std::shared_ptr<cugl::AssetManager> _assets){
         CULog("Level 5 selected");
         selectedLevelFile = "json/level5.json";
         selectedLevelKey = "level5";
+        selectedLevelAssets = "json/level5_assets.json";
         startGame();
     }
     });
@@ -65,6 +69,7 @@ void LevelSelectScene::addButtons(std::shared_ptr<cugl::AssetManager> _assets){
             CULog("Level 6 selected");
             selectedLevelFile = "json/level6.json";
             selectedLevelKey = "level6";
+            selectedLevelAssets = "json/level6_assets.json";
             startGame();
         }
     });
@@ -73,6 +78,7 @@ void LevelSelectScene::addButtons(std::shared_ptr<cugl::AssetManager> _assets){
             CULog("Level 7 selected");
             selectedLevelFile = "json/level7.json";
             selectedLevelKey = "level7";
+            selectedLevelAssets = "json/level7_assets.json";
             startGame();
         }
     });
@@ -81,6 +87,7 @@ void LevelSelectScene::addButtons(std::shared_ptr<cugl::AssetManager> _assets){
             CULog("Level 8 selected");
             selectedLevelFile = "json/level8.json"; // Ensure this file exists in your assets
             selectedLevelKey = "level8";
+            selectedLevelAssets = "json/level8_assets.json";
             startGame();
         }
     });
@@ -89,6 +96,7 @@ void LevelSelectScene::addButtons(std::shared_ptr<cugl::AssetManager> _assets){
             CULog("Level 9 selected");
             selectedLevelFile = "json/level9.json"; // Ensure this file exists in your assets
             selectedLevelKey = "level9";
+            selectedLevelAssets = "json/level9_assets.json";
             startGame();
         }
     });
@@ -97,6 +105,7 @@ void LevelSelectScene::addButtons(std::shared_ptr<cugl::AssetManager> _assets){
             CULog("Level 10 selected");
             selectedLevelFile = "json/level10.json"; // Ensure this file exists in your assets
             selectedLevelKey = "level10";
+            selectedLevelAssets = "json/level10_assets.json";
             startGame();
         }
     });
@@ -106,6 +115,7 @@ void LevelSelectScene::addButtons(std::shared_ptr<cugl::AssetManager> _assets){
             CULog("Level 14 selected");
             selectedLevelFile = "json/level11.json"; // Ensure this file exists in your assets
             selectedLevelKey = "level11";
+            selectedLevelAssets = "json/level11_assets.json";
             startGame();
         }
     });
@@ -115,6 +125,7 @@ void LevelSelectScene::addButtons(std::shared_ptr<cugl::AssetManager> _assets){
         CULog("Level 12 selected");
         selectedLevelFile = "json/level12.json"; // Ensure this file exists in your assets
         selectedLevelKey = "level12";
+        selectedLevelAssets = "json/level12_assets.json";
         startGame();
     }
     });
@@ -123,6 +134,7 @@ void LevelSelectScene::addButtons(std::shared_ptr<cugl::AssetManager> _assets){
             CULog("Level 13 selected");
             selectedLevelFile = "json/level13.json"; // Ensure this file exists in your assets
             selectedLevelKey = "level13";
+            selectedLevelAssets = "json/level13_assets.json";
             startGame();
         }
     });
@@ -131,6 +143,7 @@ void LevelSelectScene::addButtons(std::shared_ptr<cugl::AssetManager> _assets){
             CULog("Level 14 selected");
             selectedLevelFile = "json/level14.json"; // Ensure this file exists in your assets
             selectedLevelKey = "level14";
+            selectedLevelAssets = "json/level14_assets.json";
             startGame();
         }
     });
@@ -139,6 +152,7 @@ void LevelSelectScene::addButtons(std::shared_ptr<cugl::AssetManager> _assets){
             CULog("Level 14 selected");
             selectedLevelFile = "json/level15.json"; // Ensure this file exists in your assets
             selectedLevelKey = "level15";
+            selectedLevelAssets = "json/level15_assets.json";
             startGame();
         }
     });
@@ -217,6 +231,138 @@ bool LevelSelectScene::init(const std::shared_ptr<cugl::AssetManager> &assets) {
     
     return true;
 }
+
+void LevelSelectScene::newGame(){
+    // update level description file
+    selectedLevelFile = "json/tutorial.json";
+    selectedLevelKey = "tutorial";
+    selectedLevelAssets = "json/tutorial_assets.json";
+
+}
+
+
+void LevelSelectScene::go_to_next_level() {
+    // update level description file
+    if (selectedLevelFile == "json/tutorial.json"){
+        selectedLevelFile = "json/level1.json";
+    }else if (selectedLevelFile == "json/level1.json"){
+        selectedLevelFile = "json/level2.json";
+    }else if (selectedLevelFile == "json/level2.json"){
+        selectedLevelFile = "json/level3.json";
+    }else if (selectedLevelFile == "json/level3.json"){
+        selectedLevelFile = "json/level4.json";
+    }else if (selectedLevelFile == "json/level4.json"){
+        selectedLevelFile = "json/level5.json";
+    }else if (selectedLevelFile == "json/level5.json"){
+        selectedLevelFile = "json/level6.json";
+    }else if (selectedLevelFile == "json/level6.json"){
+        selectedLevelFile = "json/level7.json";
+    }else if (selectedLevelFile == "json/level7.json"){
+        selectedLevelFile = "json/level8.json";
+    }else if (selectedLevelFile == "json/level8.json"){
+        selectedLevelFile = "json/level9.json";
+    }else if (selectedLevelFile == "json/level9.json"){
+        selectedLevelFile = "json/level10.json";
+    }else if (selectedLevelFile == "json/level10.json"){
+        selectedLevelFile = "json/level11.json";
+    }else if (selectedLevelFile == "json/level11.json"){
+        selectedLevelFile = "json/level12.json";
+    }else if (selectedLevelFile == "json/level12.json"){
+        selectedLevelFile = "json/level13.json";
+    }else if (selectedLevelFile == "json/level13.json"){
+        selectedLevelFile = "json/level14.json";
+    }else if (selectedLevelFile == "json/level14.json"){
+        selectedLevelFile = "json/level15.json";
+    }else if (selectedLevelFile == "json/level15.json"){
+        CULog("No more levels to go to!");
+        selectedLevelFile = "json/level15.json";
+    }else{
+        CULog("Error in level selection, defaulting to level 1.");
+        selectedLevelFile = "json/level1.json";
+    }
+
+
+    // update level key
+    if (selectedLevelKey == "tutorial"){
+        selectedLevelKey = "level1";
+    }else if (selectedLevelKey == "level1"){
+        selectedLevelKey = "level2";
+    }else if (selectedLevelKey == "level2"){
+        selectedLevelKey = "level3";
+    }else if (selectedLevelKey == "level3"){
+        selectedLevelKey = "level4";
+    }else if (selectedLevelKey == "level4"){
+        selectedLevelKey = "level5";
+    }else if (selectedLevelKey == "level5"){
+        selectedLevelKey = "level6";
+    }else if (selectedLevelKey == "level6"){
+        selectedLevelKey = "level7";
+    }else if (selectedLevelKey == "level7"){
+        selectedLevelKey = "level8";
+    }else if (selectedLevelKey == "level8"){
+        selectedLevelKey = "level9";
+    }else if (selectedLevelKey == "level9"){
+        selectedLevelKey = "level10";
+    }else if (selectedLevelKey == "level10"){
+        selectedLevelKey = "level11";
+    }else if (selectedLevelKey == "level11"){
+        selectedLevelKey = "level12";
+    }else if (selectedLevelKey == "level12"){
+        selectedLevelKey = "level13";
+    }else if (selectedLevelKey == "level13"){
+        selectedLevelKey = "level14";
+    }else if (selectedLevelKey == "level14"){
+        selectedLevelKey = "level15";
+    }else if (selectedLevelKey == "level15"){
+        CULog("No more levels to go to!");
+        selectedLevelKey = "level15";
+    }else{
+        CULog("Error in level selection, defaulting to level 1.");
+        selectedLevelKey = "level1";
+    }
+
+    // update level assets
+    if (selectedLevelAssets == "json/tutorial_assets.json"){
+        selectedLevelAssets = "json/level1_assets.json";
+    }else if (selectedLevelAssets == "json/level1_assets.json"){
+        selectedLevelAssets = "json/level2_assets.json";
+    }else if (selectedLevelAssets == "json/level2_assets.json"){
+        selectedLevelAssets = "json/level3_assets.json";
+    }else if (selectedLevelAssets == "json/level3_assets.json"){
+        selectedLevelAssets = "json/level4_assets.json";
+    }else if (selectedLevelAssets == "json/level4_assets.json"){
+        selectedLevelAssets = "json/level5_assets.json";
+    }else if (selectedLevelAssets == "json/level5_assets.json"){
+        selectedLevelAssets = "json/level6_assets.json";
+    }else if (selectedLevelAssets == "json/level6_assets.json"){
+        selectedLevelAssets = "json/level7_assets.json";
+    }else if (selectedLevelAssets == "json/level7_assets.json"){
+        selectedLevelAssets = "json/level8_assets.json";
+    }else if (selectedLevelAssets == "json/level8_assets.json"){
+        selectedLevelAssets = "json/level9_assets.json";
+    }else if (selectedLevelAssets == "json/level9_assets.json"){
+        selectedLevelAssets = "json/level10_assets.json";
+    }else if (selectedLevelAssets == "json/level10_assets.json"){
+        selectedLevelAssets = "json/level11_assets.json";
+    }else if (selectedLevelAssets == "json/level11_assets.json"){
+        selectedLevelAssets = "json/level12_assets.json";
+    }else if (selectedLevelAssets == "json/level12_assets.json"){
+        selectedLevelAssets = "json/level13_assets.json";
+    }else if (selectedLevelAssets == "json/level13_assets.json"){
+        selectedLevelAssets = "json/level14_assets.json";
+    }else if (selectedLevelAssets == "json/level14_assets.json"){
+        selectedLevelAssets = "json/level15_assets.json";
+    }else if (selectedLevelAssets == "json/level15_assets.json"){
+        CULog("No more levels to go to!");
+        selectedLevelAssets = "json/level15_assets.json";
+    }else{
+        CULog("Error in level selection, defaulting to level 1.");
+        selectedLevelAssets = "json/level1_assets.json";
+    }
+}
+
+
+
 
 
 
