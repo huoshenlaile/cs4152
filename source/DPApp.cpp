@@ -590,7 +590,7 @@ void DPApp::playCurrentLevelMusic() {
     if (_currentLevelKey == "level7" || _currentLevelKey == "level8" || _currentLevelKey == "level9" || _currentLevelKey == "level10" || _currentLevelKey == "level11" || _currentLevelKey == "level12") {
         _audioController.play("space", "space", true);
     } else {
-        _audioController.play("gallery", "gallery");
+        _audioController.play("gallery", "gallery", true);
     }
     hasPlayedEndingMusic = false;
 }
