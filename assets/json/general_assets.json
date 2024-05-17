@@ -1,0 +1,574 @@
+{
+    "textures": {
+        "cugl-play" : {
+            "file": "textures/cugl-play.png"
+        },
+        "setting_background": {
+            "file": "textures/setting/setting_background.png"
+        },
+        "credit_designers": {
+            "file": "textures/setting/credit_designers.png"
+        },
+        "credit_programmers": {
+            "file": "textures/setting/credit_programmers.png"
+        },
+        "knob": {
+            "file": "textures/setting/knob.png"
+        },
+        "settings_credits_text": {
+            "file": "textures/setting/settings_credits_text.png"
+        },
+        "settings_honor_text": {
+            "file": "textures/setting/settings_honor_text.png"
+        },
+        "settings_music_text": {
+            "file": "textures/setting/settings_music_text.png"
+        },
+        "settings_sound_text": {
+            "file": "textures/setting/settings_sound_text.png"
+        },
+        "settings_text": {
+            "file": "textures/setting/settings_text.png"
+        },
+        "slot": {
+            "file": "textures/setting/slot.png"
+        },
+        "toggle_down": {
+            "file": "textures/setting/toggle_down.png"
+        },
+        "toggle_up": {
+            "file": "textures/setting/toggle_up.png"
+        },
+        "black_blank": {
+            "file": "textures/black_blank.png"
+        },
+        "black_check": {
+            "file": "textures/black_check.png"
+        },
+        "purple_blank": {
+            "file": "textures/purple_blank.png"
+        },
+        "purple_check": {
+            "file": "textures/purple_check.png"
+        },
+        "green_blank": {
+            "file": "textures/green_blank.png"
+        },
+        "green_check": {
+            "file": "textures/green_check.png"
+        },
+        "pink_blank": {
+            "file": "textures/pink_blank.png"
+        },
+        "pink_check": {
+            "file": "textures/pink_check.png"
+        },
+        "blue_blank": {
+            "file": "textures/blue_blank.png"
+        },
+        "blue_check": {
+            "file": "textures/blue_check.png"
+        },
+        "orange_blank": {
+            "file": "textures/red_blank.png"
+        },
+        "orange_check": {
+            "file": "textures/red_check.png"
+        },
+        "body192": {
+            "file": "textures/body192.png",
+            "minfilter": "linear",
+            "magfilter": "linear"
+        },
+        "lhand64": {
+            "file": "textures/lhand64.png",
+            "minfilter": "linear",
+            "magfilter": "linear"
+        },
+        "rhand64": {
+            "file": "textures/rhand64.png",
+            "minfilter": "linear",
+            "magfilter": "linear"
+        },
+        "black_animation": {
+            "file": "textures/character/black.png"
+        },
+        "pink_animation": {
+            "file": "textures/character/pink.png"
+        },
+        "blue_animation": {
+            "file": "textures/character/blue.png"
+        },
+        "green_animation": {
+            "file": "textures/character/green.png"
+        },
+        "purple_animation": {
+            "file": "textures/character/purple.png"
+        },
+        "orange_animation": {
+            "file": "textures/character/orange.png"
+        },
+        "orange_decoration": {
+            "file": "textures/decoration/orange_decoration.png"
+        },
+        "pink_decoration": {
+            "file": "textures/decoration/pink_decoration.png"
+        },
+        "blue_decoration": {
+            "file": "textures/decoration/blue_decoration.png"
+        },
+        "green_decoration": {
+            "file": "textures/decoration/green_decoration.png"
+        },
+        "purple_decoration": {
+            "file": "textures/decoration/purple_decoration.png"
+        },
+        "black_lh": {
+            "file": "textures/hand/black_lefthand.png"
+        },
+        "black_rh": {
+            "file": "textures/hand/black_righthand.png"
+        },
+        "pink_lh": {
+            "file": "textures/hand/pink_lefthand.png"
+        },
+        "pink_rh": {
+            "file": "textures/hand/pink_righthand.png"
+        },
+        "blue_lh": {
+            "file": "textures/hand/blue_lefthand.png"
+        },
+        "blue_rh": {
+            "file": "textures/hand/blue_righthand.png"
+        },
+        "green_lh": {
+            "file": "textures/hand/green_lefthand.png"
+        },
+        "green_rh": {
+            "file": "textures/hand/green_righthand.png"
+        },
+        "purple_lh": {
+            "file": "textures/hand/purple_lefthand.png"
+        },
+        "purple_rh": {
+            "file": "textures/hand/purple_righthand.png"
+        },
+        "orange_lh": {
+            "file": "textures/hand/orange_lefthand.png"
+        },
+        "orange_rh": {
+            "file": "textures/hand/orange_righthand.png"
+        },
+        "background_select": {
+            "file": "textures/background_select.png"
+        },
+        "button_menu": {
+            "file": "textures/button_menu.png"
+        },
+        "titlebackground": {
+            "file": "textures/titlebackground.png"
+        },
+        "title_logo": {
+            "file": "textures/title_logo.png"
+        },
+        "button_newgame": {
+            "file": "textures/button_newgame.png"
+        },
+        "button_levels": {
+            "file": "textures/button_levels.png"
+        },
+        "button_setting": {
+            "file": "textures/button_setting.png"
+        },
+        "pause_background": {
+            "file": "textures/pause_background.png"
+        },
+        "button_resume": {
+            "file": "textures/button_resume.png"
+        },
+        "button_restart": {
+            "file": "textures/button_restart.png"
+        },
+        "button_settingicon": {
+            "file": "textures/button_settingicon.png"
+        },
+        "complete_background": {
+            "file": "textures/complete_background.png"
+        },
+        "bad_complete_background": {
+            "file": "textures/bad_complete_background.png"
+        },
+        "button_next": {
+            "file": "textures/button_next.png"
+        },
+        "button_pause": {
+            "file": "textures/button_pause.png"
+        },
+        "button_pause_down": {
+            "file": "textures/button_pause_down.png"
+        },
+        "button_map": {
+            "file": "textures/button_map.png"
+        },
+        "button_map_down": {
+            "file": "textures/button_map_down.png"
+        },
+        "button_home": {
+            "file": "textures/button_home.png"
+        },
+        "button_home_down": {
+            "file": "textures/button_home_down.png"
+        },
+        "button_back": {
+            "file": "textures/button_back.png"
+        },
+        "background_select_frames": {
+            "file": "textures/background_select_frames.png"
+        },
+        "button_level1_bad": {
+            "file": "textures/levelselect/badstate/button_level1_bad.png"
+        },
+        "button_level2_bad": {
+            "file": "textures/levelselect/badstate/button_level2_bad.png"
+        },
+        "button_level3_bad": {
+            "file": "textures/levelselect/badstate/button_level3_bad.png"
+        },
+        "button_level4_bad": {
+            "file": "textures/levelselect/badstate/button_level4_bad.png"
+        },
+        "button_level5_bad": {
+            "file": "textures/levelselect/badstate/button_level5_bad.png"
+        },
+        "button_level6_bad": {
+            "file": "textures/levelselect/badstate/button_level6_bad.png"
+        },
+        "button_level7_bad": {
+            "file": "textures/levelselect/badstate/button_level7_bad.png"
+        },
+        "button_level8_bad": {
+            "file": "textures/levelselect/badstate/button_level8_bad.png"
+        },
+        "button_level9_bad": {
+            "file": "textures/levelselect/badstate/button_level9_bad.png"
+        },
+        "button_level10_bad": {
+            "file": "textures/levelselect/badstate/button_level10_bad.png"
+        },
+        "button_level11_bad": {
+            "file": "textures/levelselect/badstate/button_level11_bad.png"
+        },
+        "button_level12_bad": {
+            "file": "textures/levelselect/badstate/button_level12_bad.png"
+        },
+        "button_level13_bad": {
+            "file": "textures/levelselect/badstate/button_level13_bad.png"
+        },
+        "button_level14_bad": {
+            "file": "textures/levelselect/badstate/button_level14_bad.png"
+        },
+        "button_level15_bad": {
+            "file": "textures/levelselect/badstate/button_level15_bad.png"
+        },
+        "button_level1_good": {
+            "file": "textures/levelselect/goodstate/button_level1_good.png"
+        },
+        "button_level2_good": {
+            "file": "textures/levelselect/goodstate/button_level2_good.png"
+        },
+        "button_level3_good": {
+            "file": "textures/levelselect/goodstate/button_level3_good.png"
+        },
+        "button_level4_good": {
+            "file": "textures/levelselect/goodstate/button_level4_good.png"
+        },
+        "button_level5_good": {
+            "file": "textures/levelselect/goodstate/button_level5_good.png"
+        },
+        "button_level6_good": {
+            "file": "textures/levelselect/goodstate/button_level6_good.png"
+        },
+        "button_level7_good": {
+            "file": "textures/levelselect/goodstate/button_level7_good.png"
+        },
+        "button_level8_good": {
+            "file": "textures/levelselect/goodstate/button_level8_good.png"
+        },
+        "button_level9_good": {
+            "file": "textures/levelselect/goodstate/button_level9_good.png"
+        },
+        "button_level10_good": {
+            "file": "textures/levelselect/goodstate/button_level10_good.png"
+        },
+        "button_level11_good": {
+            "file": "textures/levelselect/goodstate/button_level11_good.png"
+        },
+        "button_level12_good": {
+            "file": "textures/levelselect/goodstate/button_level12_good.png"
+        },
+        "button_level13_good": {
+            "file": "textures/levelselect/goodstate/button_level13_good.png"
+        },
+        "button_level14_good": {
+            "file": "textures/levelselect/goodstate/button_level14_good.png"
+        },
+        "button_level15_good": {
+            "file": "textures/levelselect/goodstate/button_level15_good.png"
+        },
+        "button_level1": {
+            "file": "textures/levelselect/button_level1.png"
+        },
+        "button_level5": {
+            "file": "textures/levelselect/button_level5.png"
+        },
+        "button_level2": {
+            "file": "textures/levelselect/button_level2.png"
+        },
+        "button_level3": {
+            "file": "textures/levelselect/button_level3.png"
+        },
+        "button_level8": {
+            "file": "textures/levelselect/button_level8.png"
+        },
+        "button_level4": {
+            "file": "textures/levelselect/button_level4.png"
+        },
+        "button_level6": {
+            "file": "textures/levelselect/button_level6.png"
+        },
+        "button_level7": {
+            "file": "textures/levelselect/button_level7.png"
+        },
+        "button_level9": {
+            "file": "textures/levelselect/button_level9.png"
+        },
+        "button_level10": {
+            "file": "textures/levelselect/button_level10.png"
+        },
+        "button_level11": {
+            "file": "textures/levelselect/button_level11.png"
+        },
+        "button_level12": {
+            "file": "textures/levelselect/button_level12.png"
+        },
+        "button_level14": {
+            "file": "textures/levelselect/button_level14.png"
+        },
+        "button_level13": {
+            "file": "textures/levelselect/button_level13.png"
+        },
+        "button_level15": {
+            "file": "textures/levelselect/button_level15.png"
+        },
+        "button_level1_down": {
+            "file": "textures/levelselect/button_level1_down.png"
+        },
+        "button_level5_down": {
+            "file": "textures/levelselect/button_level5_down.png"
+        },
+        "button_level2_down": {
+            "file": "textures/levelselect/button_level2_down.png"
+        },
+        "button_level3_down": {
+            "file": "textures/levelselect/button_level3_down.png"
+        },
+        "button_level8_down": {
+            "file": "textures/levelselect/button_level8_down.png"
+        },
+        "button_level4_down": {
+            "file": "textures/levelselect/button_level4_down.png"
+        },
+        "button_level6_down": {
+            "file": "textures/levelselect/button_level6_down.png"
+        },
+        "button_level7_down": {
+            "file": "textures/levelselect/button_level7_down.png"
+        },
+        "button_level9_down": {
+            "file": "textures/levelselect/button_level9_down.png"
+        },
+        "button_level10_down": {
+            "file": "textures/levelselect/button_level10_down.png"
+        },
+        "button_level11_down": {
+            "file": "textures/levelselect/button_level11_down.png"
+        },
+        "button_level12_down": {
+            "file": "textures/levelselect/button_level12_down.png"
+        },
+        "button_level14_down": {
+            "file": "textures/levelselect/button_level14_down.png"
+        },
+        "button_level13_down": {
+            "file": "textures/levelselect/button_level13_down.png"
+        },
+        "button_level15_down": {
+            "file": "textures/levelselect/button_level15_down.png"
+        },
+        "button_level1_locked": {
+            "file": "textures/levelselect/lockedstate/button_level1_locked.png"
+        },
+        "button_level2_locked": {
+            "file": "textures/levelselect/lockedstate/button_level2_locked.png"
+        },
+        "button_level3_locked": {
+            "file": "textures/levelselect/lockedstate/button_level3_locked.png"
+        },
+        "button_level4_locked": {
+            "file": "textures/levelselect/lockedstate/button_level4_locked.png"
+        },
+        "button_level5_locked": {
+            "file": "textures/levelselect/lockedstate/button_level5_locked.png"
+        },
+        "button_level6_locked": {
+            "file": "textures/levelselect/lockedstate/button_level6_locked.png"
+        },
+        "button_level7_locked": {
+            "file": "textures/levelselect/lockedstate/button_level7_locked.png"
+        },
+        "button_level8_locked": {
+            "file": "textures/levelselect/lockedstate/button_level8_locked.png"
+        },
+        "button_level9_locked": {
+            "file": "textures/levelselect/lockedstate/button_level9_locked.png"
+        },
+        "button_level10_locked": {
+            "file": "textures/levelselect/lockedstate/button_level10_locked.png"
+        },
+        "button_level11_locked": {
+            "file": "textures/levelselect/lockedstate/button_level11_locked.png"
+        },
+        "button_level12_locked": {
+            "file": "textures/levelselect/lockedstate/button_level12_locked.png"
+        },
+        "button_level13_locked": {
+            "file": "textures/levelselect/lockedstate/button_level13_locked.png"
+        },
+        "button_level14_locked": {
+            "file": "textures/levelselect/lockedstate/button_level14_locked.png"
+        },
+        "button_level15_locked": {
+            "file": "textures/levelselect/lockedstate/button_level15_locked.png"
+        }
+    },
+    "jsons": {
+        "server": "json/server.json",
+        "progress": "json/GameProgress.json"
+    },
+    "sounds": {
+        "menu": {
+            "type": "sample",
+            "file": "sounds/main_theme_menu_music.wav",
+            "volume": 0.5
+        },
+        "gallery": {
+            "type": "sample",
+            "file": "sounds/gallery_extended.wav",
+            "volume": 0.5
+        },
+        "space": {
+            "type": "sample",
+            "file": "sounds/in_space_extended.wav",
+            "volume": 0.5
+        },
+        "bad_ending": {
+            "type": "sample",
+            "file": "sounds/game_over_music.wav",
+            "volume": 0.5
+        },
+        "good_ending": {
+            "type": "sample",
+            "file": "sounds/win_music.wav",
+            "volume": 0.5
+        },
+        "levelselect_museum": {
+            "type": "sample",
+            "file": "sounds/levelselect_museum.wav",
+            "volume": 0.5
+        },
+        "levelselect_space": {
+            "type": "sample",
+            "file": "sounds/levelselect_space.wav",
+            "volume": 0.5
+        },
+        "levelselect_studio": {
+            "type": "sample",
+            "file": "sounds/levelselect_studio.wav",
+            "volume": 0.5
+        }
+    },
+    "fonts": {
+        "retro": {
+            "file": "fonts/RetroGame.ttf",
+            "size": 64
+        },
+        "gyparody": {
+            "file": "fonts/gyparody-hv.ttf",
+            "size": 48
+        }
+    },
+    "widgets": {
+        "colorbutton": "widgets/colorbutton.json",
+        "levelselect": "widgets/levelselect.json",
+        "title": "widgets/title.json",
+        "pause": "widgets/pause.json",
+        "levelcomplete": "widgets/levelcomplete.json",
+        "levelcomplete_bad": "widgets/levelcomplete_bad.json",
+        "pausebutton": "widgets/pausebutton.json",
+        "setting": "widgets/setting.json",
+        "slider1": "widgets/slider1.json",
+        "slider2": "widgets/slider2.json",
+        "levelcomplete_bad_honors": "widgets/levelcomplete_bad_honors.json"
+    },
+    "scene2s": {
+        "pause": {
+            "type": "Widget",
+            "data": {
+                "key": "pause"
+            }
+        },
+        "menu": {
+            "type": "Widget",
+            "data": {
+                "key": "title"
+            }
+        },
+        "level": {
+            "type": "Widget",
+            "data": {
+                "key": "levelselect"
+            }
+        },
+        "pausebutton": {
+            "type": "Widget",
+            "data": {
+                "key": "pausebutton"
+            }
+        },
+        "levelcomplete": {
+            "type": "Widget",
+            "data": {
+                "key": "levelcomplete"
+            }
+        },
+        "levelcomplete_bad": {
+            "type": "Widget",
+            "data": {
+                "key": "levelcomplete_bad"
+            }
+        },
+        "levelcomplete_bad_honors": {
+            "type": "Widget",
+            "data": {
+                "key": "levelcomplete_bad_honors"
+            }
+        },
+        "setting": {
+            "type": "Widget",
+            "data": {
+                "key": "setting"
+            }
+        }
+    }
+}
+

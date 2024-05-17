@@ -1,0 +1,182 @@
+
+{
+    "textures": {
+        "lv1_palette": {
+            "file": "textures/goal/goal_palette.png"
+        },
+        "lv1_background_1": {
+            "file": "textures/lv1_background_1.png"
+        },
+        "lv1_background_2": {
+            "file": "textures/lv1_background_2.png"
+        },
+        "lv1_background_3": {
+            "file": "textures/lv1_background_3.png"
+        },
+        "alpharelease_frenchfries": {
+            "file": "textures/alpharelease_frenchfries.png"
+        },
+        "alpharelease_long_frenchfries": {
+            "file": "textures/alpharelease_long_frenchfries.png"
+        },
+        "alpharelease_frenchfries_BIG": {
+            "file": "textures/alpharelease_frenchfries_BIG.png"
+        },
+        "alpharelease_long_frenchfries_3": {
+            "file": "textures/alpharelease_long_frenchfries_3.png"
+        },
+        "alpharelease_ketchup_capoff": {
+            "file": "textures/alpharelease_ketchup_capoff.png"
+        },
+        "alpharelease_ketchup_capon": {
+            "file": "textures/alpharelease_ketchup_capon.png"
+        },
+        "alpharelease_mustard": {
+            "file": "textures/alpharelease_mustard.png"
+        },
+        "alpharelease_soy_capon": {
+            "file": "textures/alpharelease_soy_capon.png"
+        },
+        "alpharelease_mayo_capon": {
+            "file": "textures/alpharelease_mayo_capon.png"
+        },
+        "ketchup_red": {
+            "file": "textures/paintingbottle/ketchup_red.png"
+        },
+        "soy_black": {
+            "file": "textures/paintingbottle/soy_black.png"
+        },
+        "mustard_orange": {
+            "file": "textures/paintingbottle/mustard_orange.png"
+        },
+        "mustard_pink": {
+            "file": "textures/paintingbottle/mustard_pink.png"
+        },
+        "mustard_blue": {
+            "file": "textures/paintingbottle/mustard_blue.png"
+        },
+        "mustard_purple": {
+            "file": "textures/paintingbottle/mustard_purple.png"
+        },
+        "mayo_green": {
+            "file": "textures/paintingbottle/mayo_green.png"
+        },
+        "mayo_yellow": {
+            "file": "textures/paintingbottle/mayo_yellow.png"
+        },
+        "paintmeter": {
+            "file": "textures/paintmeter.png"
+        },
+        "red_paint": {
+            "file": "textures/red_paint_141x144.png"
+        },
+        "purple_paint": {
+            "file": "textures/purple_paint_141x144.png"
+        },
+        "pink_paint_splat": {
+            "file": "textures/pink_splat_303x304.png"
+        },
+        "pink_paint_splash": {
+            "file": "textures/pink_splash_167x190.png"
+        },
+        "purple_paint_splat": {
+            "file": "textures/purple_splat_303x304.png"
+        },
+        "purple_paint_splash": {
+            "file": "textures/purple_splash_167x190.png"
+        },
+        "red_paint_splat": {
+            "file": "textures/red_splat_303x304.png"
+        },
+        "red_paint_splash": {
+            "file": "textures/red_splash_167x190.png"
+        },
+        "green_paint_splat": {
+            "file": "textures/green_splat_303x304.png"
+        },
+        "green_paint_splash": {
+            "file": "textures/green_splash_167x190.png"
+        },
+        "blue_paint_splat": {
+            "file": "textures/blue_splat_303x304.png"
+        },
+        "blue_paint_splash": {
+            "file": "textures/blue_splash_167x190.png"
+        },
+        "black_drip_paint": {
+            "file": "textures/black_paintcover_720x4900.png"
+        },
+        "blue_drip_paint": {
+            "file": "textures/blue_paintcover_720x4900.png"
+        },
+        "green_drip_paint": {
+            "file": "textures/green_paintcover_720x4900.png"
+        },
+        "pink_drip_paint": {
+            "file": "textures/pink_paintcover_720x4900.png"
+        },
+        "purple_drip_paint": {
+            "file": "textures/purple_paintcover_720x4900.png"
+        },
+        "red_drip_paint": {
+            "file": "textures/red_paintcover_720x4900.png"
+        },
+        "pink_paint": {
+            "file": "textures/pink_paint_141x144.png"
+        },
+        "blue_paint": {
+            "file": "textures/blue_paint_141x144.png"
+        },
+        "green_paint": {
+            "file": "textures/green_paint_141x144.png"
+        },
+        "black_paint": {
+            "file": "textures/black_paint_141x144.png"
+        },
+        "green_splatter": {
+            "file": "textures/green_paintspaltter_148x680.png"
+        },
+        "blue_splatter": {
+            "file": "textures/blue_paintspaltter_148x680.png"
+        },
+        "purple_splatter": {
+            "file": "textures/purple_paintspaltter_148x680.png"
+        },
+        "pink_splatter": {
+            "file": "textures/pink_paintspaltter_148x680.png"
+        },
+        "red_splatter": {
+            "file": "textures/red_paintspaltter_148x680.png"
+        },
+        "ui_grabbable": {
+            "file": "textures/ui_grabbable.png"
+        },
+        "lv1_speechbubble_1": {
+            "file": "textures/lv1_speechbubble_1.png"
+        },
+        "lv1_speechbubble_2": {
+            "file": "textures/lv1_speechbubble_2.png"
+        },
+        "lv1_speechbubble_3": {
+            "file": "textures/lv1_speechbubble_3.png"
+        },
+        "tap_to_continue": {
+            "file": "textures/ui_taptocont_370x138.png"
+        },
+        "paintmeter": {
+            "file": "textures/paintmeter.png"
+        }
+    },
+    "jsons": {
+        "server": "json/server.json",
+        "progress": "json/GameProgress.json"
+    },
+    "sounds": {
+    },
+    "fonts": {
+    },
+    "widgets": {
+    },
+    "scene2s": {
+    }
+}
