@@ -670,19 +670,19 @@
             "file": "textures/black_paintcover_720x4900.png"
         },
         "blue_drip_paint": {
-            "file": "textures/blue_paintcover_1560x720.png"
+            "file": "textures/blue_paintcover_720x4900.png"
         },
         "green_drip_paint": {
-            "file": "textures/green_paintcover_1560x720.png"
+            "file": "textures/green_paintcover_720x4900.png"
         },
         "pink_drip_paint": {
-            "file": "textures/pink_paintcover_1560x720.png"
+            "file": "textures/pink_paintcover_720x4900.png"
         },
         "purple_drip_paint": {
-            "file": "textures/purple_paintcover_1560x720.png"
+            "file": "textures/purple_paintcover_720x4900.png"
         },
         "red_drip_paint": {
-            "file": "textures/red_paintcover_1560x720.png"
+            "file": "textures/red_paintcover_720x4900.png"
         },
         "pink_paint": {
             "file": "textures/pink_paint_141x144.png"
@@ -830,6 +830,30 @@
         },
         "lv4_speechbubble_4": {
             "file": "textures/lv4_speechbubble_4.png"
+        },
+        "lv5_speechbubble_1": {
+            "file": "textures/lv5_speechbubble_1.png"
+        },
+        "lv5_speechbubble_2": {
+            "file": "textures/lv5_speechbubble_2.png"
+        },
+        "lv5_speechbubble_3": {
+            "file": "textures/lv5_speechbubble_3.png"
+        },
+        "lv5_speechbubble_4": {
+            "file": "textures/lv5_speechbubble_4.png"
+        },
+        "lv5_speechbubble_5": {
+            "file": "textures/lv5_speechbubble_5.png"
+        },
+        "lv5_speechbubble_6": {
+            "file": "textures/lv5_speechbubble_6.png"
+        },
+        "lv5_speechbubble_7": {
+            "file": "textures/lv5_speechbubble_7.png"
+        },
+        "lv5_speechbubble_8": {
+            "file": "textures/lv5_speechbubble_8.png"
         },
         "tap_to_continue": {
             "file": "textures/ui_taptocont_370x138.png"

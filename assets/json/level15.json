@@ -87,24 +87,24 @@
                          "y":0
                         }, 
                         {
-                         "x":545.693795409874,
-                         "y":197.585507547754
+                         "x":409.747467726258,
+                         "y":139.322795683347
                         }, 
                         {
-                         "x":493.722957751791,
-                         "y":623.954234361328
+                         "x":370.723899371376,
+                         "y":439.96672321057
                         }, 
                         {
-                         "x":51.9708376580844,
-                         "y":779.942792951661
+                         "x":39.0235683548826,
+                         "y":549.958404013213
                         }, 
                         {
-                         "x":-389.781282435623,
-                         "y":790.342030191016
+                         "x":-292.676762661612,
+                         "y":557.291182733389
                         }, 
                         {
-                         "x":-389.781282435623,
-                         "y":72.7946606754884
+                         "x":-292.676762661612,
+                         "y":51.3294510412332
                         }],
                  "properties":[
                         {
@@ -174,8 +174,8 @@
                  "type":"paint",
                  "visible":true,
                  "width":0,
-                 "x":3429.22988992605,
-                 "y":15134.4703984979
+                 "x":3565.17621760967,
+                 "y":15367.5212459555
                 }, 
                 {
                  "height":0,
@@ -422,73 +422,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":3497.97004323184,
-                 "y":13258.1355747588
-                }, 
-                {
-                 "height":0,
-                 "id":108,
-                 "name":"sensor1",
-                 "polygon":[
-                        {
-                         "x":-3372.87815266587,
-                         "y":-634.108200725086
-                        }, 
-                        {
-                         "x":-3414.7732739209,
-                         "y":-1878.23285716889
-                        }, 
-                        {
-                         "x":-2549.48155343832,
-                         "y":-1848.65261834497
-                        }, 
-                        {
-                         "x":-1715.83564453486,
-                         "y":-1833.87113802146
-                        }, 
-                        {
-                         "x":-1814.79200659284,
-                         "y":-645.794322636863
-                        }],
-                 "properties":[
-                        {
-                         "name":"Pub1",
-                         "propertytype":"PubMessage",
-                         "type":"class",
-                         "value":
-                            {
-                             "Enabled":true,
-                             "Head":"paint1 out",
-                             "Trigger":"body192"
-                            }
-                        }, 
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopaciy":192,
-                                 "density":0,
-                                 "friction":0,
-                                 "publications":[],
-                                 "restitution":0,
-                                 "rotation":false,
-                                 "texture":""
-                                }
-                            }
-                        }],
-                 "rotation":0,
-                 "type":"sensor",
-                 "visible":true,
-                 "width":0,
-                 "x":6273.96971465515,
-                 "y":13472.5364781069
+                 "x":4027.63106018099,
+                 "y":13512.3728628944
                 }, 
                 {
                  "height":0,
@@ -681,7 +616,7 @@
                              "obstacle":
                                 {
                                  "bodytype":0,
-                                 "color-requirements":"purple",
+                                 "color-requirements":"black",
                                  "damping":0,
                                  "debugcolor":"yellow",
                                  "debugopacity":0,
@@ -755,7 +690,7 @@
                              "obstacle":
                                 {
                                  "bodytype":0,
-                                 "color-requirements":"",
+                                 "color-requirements":"black",
                                  "damping":0,
                                  "debugcolor":"yellow",
                                  "debugopacity":0,
@@ -773,106 +708,6 @@
                  "width":0,
                  "x":1437.83040553282,
                  "y":19797.6917005117
-                }, 
-                {
-                 "height":0,
-                 "id":141,
-                 "name":"paint1",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":481.615619768963,
-                         "y":217.849475796354
-                        }, 
-                        {
-                         "x":435.747671789387,
-                         "y":687.943740047565
-                        }, 
-                        {
-                         "x":45.8681645779175,
-                         "y":859.930226337067
-                        }, 
-                        {
-                         "x":-344.011234334381,
-                         "y":871.395698074975
-                        }, 
-                        {
-                         "x":-344.011234334381,
-                         "y":80.2601765092307
-                        }],
-                 "properties":[
-                        {
-                         "name":"AnimationAsset",
-                         "type":"string",
-                         "value":"purple_paint"
-                        }, 
-                        {
-                         "name":"Pub1",
-                         "propertytype":"PubMessage",
-                         "type":"class",
-                         "value":
-                            {
-                             "Body":"purple",
-                             "Enabled":true,
-                             "Head":"character color",
-                             "Trigger":"TOUCH: character body"
-                            }
-                        }, 
-                        {
-                         "name":"Sub1",
-                         "propertytype":"SubMessage",
-                         "type":"class",
-                         "value":
-                            {
-                             "Action":"show",
-                             "Enabled":true,
-                             "Head":"paint1 out"
-                            }
-                        }, 
-                        {
-                         "name":"color",
-                         "type":"string",
-                         "value":"purple"
-                        }, 
-                        {
-                         "name":"instant",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"paint_id",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":192,
-                                 "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
-                                 "rotation":false,
-                                 "texture":""
-                                }
-                            }
-                        }],
-                 "rotation":0,
-                 "type":"paint",
-                 "visible":true,
-                 "width":0,
-                 "x":2781.88852769705,
-                 "y":12011.7014797003
                 }, 
                 {
                  "height":0,
@@ -1611,7 +1446,7 @@
                          "value":
                             {
                              "speed":25,
-                             "xy":"0,-106,90,-106,90,0,0,0"
+                             "xy":"-106,0,0,0"
                             }
                         }, 
                         {
@@ -1638,8 +1473,8 @@
                  "type":"movingwall",
                  "visible":true,
                  "width":0,
-                 "x":1344.57614636521,
-                 "y":17828.8992528826
+                 "x":5369.99987517877,
+                 "y":17987.7975579673
                 }, 
                 {
                  "gid":131,
@@ -2969,15 +2804,15 @@
                          "y":0
                         }, 
                         {
-                         "x":701.607905610296,
+                         "x":874.385808032495,
                          "y":0
                         }, 
                         {
-                         "x":701.607905610296,
+                         "x":874.385808032495,
                          "y":202.433
                         }, 
                         {
-                         "x":-5.37631043020368,
+                         "x":-6.70028017380737,
                          "y":202.433
                         }],
                  "properties":[
@@ -3001,12 +2836,12 @@
                                 }
                             }
                         }],
-                 "rotation":0.602767,
+                 "rotation":18.809787524851,
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":3228.37196674008,
-                 "y":13861.446780441
+                 "x":2663.17066880911,
+                 "y":12834.8557484407
                 }, 
                 {
                  "height":0,
@@ -3249,8 +3084,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":755.823850332206,
-                 "y":12524.7564953282
+                 "x":988.874697789833,
+                 "y":12683.6548004129
                 }, 
                 {
                  "height":0,
@@ -3302,8 +3137,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":1966.80790960452,
-                 "y":13852.4011299435
+                 "x":1426.55367231638,
+                 "y":13343.9265536723
                 }, 
                 {
                  "height":0,
@@ -3364,15 +3199,15 @@
                          "y":0
                         }, 
                         {
-                         "x":1184.70839056719,
+                         "x":1773.38496669849,
                          "y":0
                         }, 
                         {
-                         "x":1184.70839056719,
+                         "x":1773.38496669849,
                          "y":202.433
                         }, 
                         {
-                         "x":-9.07823305014759,
+                         "x":-13.5891685612266,
                          "y":202.433
                         }],
                  "properties":[
@@ -3392,7 +3227,7 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"staticplatform_brush2"
+                                 "texture":"staticplatform_brush3"
                                 }
                             }
                         }],
@@ -3400,8 +3235,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":752.338396098761,
-                 "y":14272.6383312045
+                 "x":163.694395867587,
+                 "y":14266.4454096398
                 }, 
                 {
                  "height":0,
@@ -3631,89 +3466,33 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":4568.80733944954,
-                 "y":15229.3577981651
+                 "x":5024.31581402581,
+                 "y":15536.5611879956
                 }, 
                 {
                  "height":0,
-                 "id":245,
-                 "name":"",
+                 "id":247,
+                 "name":"static_wall",
                  "polygon":[
                         {
                          "x":0,
                          "y":0
                         }, 
                         {
-                         "x":72.5534,
-                         "y":0
+                         "x":883.192,
+                         "y":-0.107162
                         }, 
                         {
-                         "x":171.019,
-                         "y":16.8427
+                         "x":1282.59,
+                         "y":-0.155622
                         }, 
                         {
-                         "x":264.301,
-                         "y":59.5975
+                         "x":1255.86,
+                         "y":202.433
                         }, 
                         {
-                         "x":317.421,
-                         "y":111.421
-                        }, 
-                        {
-                         "x":327.786,
-                         "y":167.132
-                        }, 
-                        {
-                         "x":314.83,
-                         "y":208.591
-                        }, 
-                        {
-                         "x":263.006,
-                         "y":265.597
-                        }, 
-                        {
-                         "x":182.679,
-                         "y":310.943
-                        }, 
-                        {
-                         "x":79.0315,
-                         "y":334.264
-                        }, 
-                        {
-                         "x":-14.2516,
-                         "y":335.56
-                        }, 
-                        {
-                         "x":-138.629,
-                         "y":310.943
-                        }, 
-                        {
-                         "x":-238.39,
-                         "y":263.006
-                        }, 
-                        {
-                         "x":-286.327,
-                         "y":203.409
-                        }, 
-                        {
-                         "x":-287.622,
-                         "y":137.333
-                        }, 
-                        {
-                         "x":-251.346,
-                         "y":72.5534
-                        }, 
-                        {
-                         "x":-195.635,
-                         "y":34.9811
-                        }, 
-                        {
-                         "x":-110.126,
-                         "y":5.18237
-                        }, 
-                        {
-                         "x":-47.937,
-                         "y":-1.2956
+                         "x":-9.62349,
+                         "y":202.433
                         }],
                  "properties":[
                         {
@@ -3726,22 +3505,867 @@
                                 {
                                  "bodytype":0,
                                  "damping":0,
-                                 "debugcolor":"",
-                                 "debugopacity":192,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":0,
                                  "density":0,
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"bouncingplatform_slime"
+                                 "texture":"staticplatform_brush2"
                                 }
                             }
                         }],
-                 "rotation":328.351,
-                 "type":"bouncywall",
+                 "rotation":269.294,
+                 "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":4220.18348623853,
-                 "y":13889.9082568807
+                 "x":4290.25423728814,
+                 "y":16197.033898305
+                }, 
+                {
+                 "height":0,
+                 "id":248,
+                 "name":"static_wall",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":957.99629048436,
+                         "y":0
+                        }, 
+                        {
+                         "x":957.99629048436,
+                         "y":202.433
+                        }, 
+                        {
+                         "x":-7.34100264974926,
+                         "y":202.433
+                        }],
+                 "properties":[
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":0,
+                                 "density":0,
+                                 "friction":0.2,
+                                 "restitution":0.1,
+                                 "rotation":false,
+                                 "texture":"staticplatform_brush"
+                                }
+                            }
+                        }],
+                 "rotation":0.602767,
+                 "type":"wall",
+                 "visible":true,
+                 "width":0,
+                 "x":5379.6397986382,
+                 "y":16252.3223455181
+                }, 
+                {
+                 "height":0,
+                 "id":249,
+                 "name":"static_wall",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":1178.75,
+                         "y":0
+                        }, 
+                        {
+                         "x":1178.75,
+                         "y":202.433
+                        }, 
+                        {
+                         "x":-9.03261,
+                         "y":202.433
+                        }],
+                 "properties":[
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":0,
+                                 "density":0,
+                                 "friction":0.2,
+                                 "restitution":0.1,
+                                 "rotation":false,
+                                 "texture":"staticplatform_brush"
+                                }
+                            }
+                        }],
+                 "rotation":0.602767,
+                 "type":"wall",
+                 "visible":true,
+                 "width":0,
+                 "x":4671.61016949153,
+                 "y":16949.1525423729
+                }, 
+                {
+                 "height":0,
+                 "id":250,
+                 "name":"static_wall",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":2135.46000190291,
+                         "y":0
+                        }, 
+                        {
+                         "x":2135.46000190291,
+                         "y":202.433
+                        }, 
+                        {
+                         "x":-16.3637559853983,
+                         "y":202.433
+                        }],
+                 "properties":[
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":0,
+                                 "density":0,
+                                 "friction":0.2,
+                                 "restitution":0.1,
+                                 "rotation":false,
+                                 "texture":"staticplatform_brush"
+                                }
+                            }
+                        }],
+                 "rotation":0.602767,
+                 "type":"wall",
+                 "visible":true,
+                 "width":0,
+                 "x":1765.80531656917,
+                 "y":18358.1279716611
+                }, 
+                {
+                 "height":0,
+                 "id":251,
+                 "name":"static_wall",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":1178.75,
+                         "y":0
+                        }, 
+                        {
+                         "x":1178.75,
+                         "y":202.433
+                        }, 
+                        {
+                         "x":-9.03261,
+                         "y":202.433
+                        }],
+                 "properties":[
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":0,
+                                 "density":0,
+                                 "friction":0.2,
+                                 "restitution":0.1,
+                                 "rotation":false,
+                                 "texture":"staticplatform_brush"
+                                }
+                            }
+                        }],
+                 "rotation":0.602767,
+                 "type":"wall",
+                 "visible":true,
+                 "width":0,
+                 "x":10.5932203389834,
+                 "y":18358.0508474576
+                }, 
+                {
+                 "height":0,
+                 "id":252,
+                 "name":"fun",
+                 "polygon":[
+                        {
+                         "x":160.116,
+                         "y":-189.229
+                        }, 
+                        {
+                         "x":116.448,
+                         "y":786.026
+                        }, 
+                        {
+                         "x":-1018.92,
+                         "y":727.802
+                        }, 
+                        {
+                         "x":-989.811,
+                         "y":-145.56
+                        }],
+                 "properties":[
+                        {
+                         "name":"AnimationDetails",
+                         "propertytype":"AnimationDetails",
+                         "type":"class",
+                         "value":
+                            {
+                             "cells":6,
+                             "columns":2,
+                             "name":"1",
+                             "repeat":false,
+                             "rows":3,
+                             "scale":5,
+                             "texture":"lv5_speechbubble_1",
+                             "type":"string"
+                            }
+                        }, 
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"0",
+                                 "debugopacity":0,
+                                 "density":0,
+                                 "friction":0,
+                                 "restitution":0,
+                                 "rotation":false,
+                                 "texture":""
+                                }
+                            }
+                        }, 
+                        {
+                         "name":"showSub",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"show",
+                             "Bool1":false,
+                             "Enabled":true,
+                             "Float1":0,
+                             "Head":"UI Start",
+                             "Int1":0
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"ui",
+                 "visible":true,
+                 "width":0,
+                 "x":3472.95481502787,
+                 "y":1732.26213135781
+                }, 
+                {
+                 "height":0,
+                 "id":253,
+                 "name":"tired",
+                 "polygon":[
+                        {
+                         "x":160.116,
+                         "y":-189.229
+                        }, 
+                        {
+                         "x":116.448,
+                         "y":786.026
+                        }, 
+                        {
+                         "x":-1018.92,
+                         "y":727.802
+                        }, 
+                        {
+                         "x":-989.811,
+                         "y":-145.56
+                        }],
+                 "properties":[
+                        {
+                         "name":"AnimationDetails",
+                         "propertytype":"AnimationDetails",
+                         "type":"class",
+                         "value":
+                            {
+                             "cells":10,
+                             "columns":2,
+                             "name":"1",
+                             "repeat":false,
+                             "rows":5,
+                             "scale":4,
+                             "texture":"lv5_speechbubble_3",
+                             "type":"string"
+                            }
+                        }, 
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"0",
+                                 "debugopacity":0,
+                                 "density":0,
+                                 "friction":0,
+                                 "restitution":0,
+                                 "rotation":false,
+                                 "texture":""
+                                }
+                            }
+                        }, 
+                        {
+                         "name":"showSub",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"show",
+                             "Bool1":false,
+                             "Enabled":true,
+                             "Float1":0,
+                             "Head":"UI Start",
+                             "Int1":0
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"ui",
+                 "visible":true,
+                 "width":0,
+                 "x":4480.96481502787,
+                 "y":3659.52213135781
+                }, 
+                {
+                 "height":0,
+                 "id":254,
+                 "name":"panel",
+                 "polygon":[
+                        {
+                         "x":160.116,
+                         "y":-189.229
+                        }, 
+                        {
+                         "x":116.448,
+                         "y":786.026
+                        }, 
+                        {
+                         "x":-1018.92,
+                         "y":727.802
+                        }, 
+                        {
+                         "x":-989.811,
+                         "y":-145.56
+                        }],
+                 "properties":[
+                        {
+                         "name":"AnimationDetails",
+                         "propertytype":"AnimationDetails",
+                         "type":"class",
+                         "value":
+                            {
+                             "cells":9,
+                             "columns":3,
+                             "name":"1",
+                             "repeat":false,
+                             "rows":3,
+                             "scale":3,
+                             "texture":"lv5_speechbubble_4",
+                             "type":"string"
+                            }
+                        }, 
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"0",
+                                 "debugopacity":0,
+                                 "density":0,
+                                 "friction":0,
+                                 "restitution":0,
+                                 "rotation":false,
+                                 "texture":""
+                                }
+                            }
+                        }, 
+                        {
+                         "name":"showSub",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"show",
+                             "Bool1":false,
+                             "Enabled":true,
+                             "Float1":0,
+                             "Head":"UI Start",
+                             "Int1":0
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"ui",
+                 "visible":true,
+                 "width":0,
+                 "x":2922.73481502787,
+                 "y":4591.25213135781
+                }, 
+                {
+                 "height":0,
+                 "id":255,
+                 "name":"taptocont",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":-6.72684
+                        }, 
+                        {
+                         "x":902.407,
+                         "y":-8.40361
+                        }, 
+                        {
+                         "x":909.458,
+                         "y":266.114
+                        }, 
+                        {
+                         "x":0,
+                         "y":271.716
+                        }],
+                 "properties":[
+                        {
+                         "name":"AnimationDetails",
+                         "propertytype":"AnimationDetails",
+                         "type":"class",
+                         "value":
+                            {
+                             "cells":11,
+                             "columns":2,
+                             "name":"cont",
+                             "repeat":false,
+                             "rows":6,
+                             "scale":4,
+                             "texture":"tap_to_continue",
+                             "type":"string"
+                            }
+                        }, 
+                        {
+                         "name":"LoadOnce",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"hideSub",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"hide",
+                             "Enabled":true,
+                             "Float1":0,
+                             "Head":"Erase Tap Continue Button"
+                            }
+                        }, 
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"0",
+                                 "debugopacity":0,
+                                 "density":0,
+                                 "friction":0,
+                                 "restitution":0,
+                                 "rotation":false,
+                                 "texture":""
+                                }
+                            }
+                        }, 
+                        {
+                         "name":"showSub",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"show",
+                             "Bool1":false,
+                             "Enabled":true,
+                             "Float1":0,
+                             "Head":"UI Start",
+                             "Int1":0
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"ui",
+                 "visible":true,
+                 "width":0,
+                 "x":4938.79481502787,
+                 "y":2362.34213135781
+                }, 
+                {
+                 "height":0,
+                 "id":256,
+                 "name":"dirty",
+                 "polygon":[
+                        {
+                         "x":160.116,
+                         "y":-53.6416
+                        }, 
+                        {
+                         "x":116.448,
+                         "y":222.818
+                        }, 
+                        {
+                         "x":-1018.92,
+                         "y":206.313
+                        }, 
+                        {
+                         "x":-989.811,
+                         "y":-41.2625
+                        }],
+                 "properties":[
+                        {
+                         "name":"AnimationDetails",
+                         "propertytype":"AnimationDetails",
+                         "type":"class",
+                         "value":
+                            {
+                             "cells":6,
+                             "columns":2,
+                             "name":"1",
+                             "repeat":false,
+                             "rows":3,
+                             "scale":3,
+                             "texture":"lv5_speechbubble_5",
+                             "type":"string"
+                            }
+                        }, 
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"0",
+                                 "debugopacity":0,
+                                 "density":0,
+                                 "friction":0,
+                                 "restitution":0,
+                                 "rotation":false,
+                                 "texture":""
+                                }
+                            }
+                        }, 
+                        {
+                         "name":"showSub",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"show",
+                             "Bool1":false,
+                             "Enabled":true,
+                             "Float1":0,
+                             "Head":"UI Start",
+                             "Int1":0
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"ui",
+                 "visible":true,
+                 "width":0,
+                 "x":4119.52481502787,
+                 "y":6853.25213135781
+                }, 
+                {
+                 "height":0,
+                 "id":257,
+                 "name":"color",
+                 "polygon":[
+                        {
+                         "x":160.116,
+                         "y":-189.229
+                        }, 
+                        {
+                         "x":116.448,
+                         "y":786.026
+                        }, 
+                        {
+                         "x":-1018.92,
+                         "y":727.802
+                        }, 
+                        {
+                         "x":-989.811,
+                         "y":-145.56
+                        }],
+                 "properties":[
+                        {
+                         "name":"AnimationDetails",
+                         "propertytype":"AnimationDetails",
+                         "type":"class",
+                         "value":
+                            {
+                             "cells":11,
+                             "columns":2,
+                             "name":"1",
+                             "repeat":false,
+                             "rows":6,
+                             "scale":3,
+                             "texture":"lv5_speechbubble_6",
+                             "type":"string"
+                            }
+                        }, 
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"0",
+                                 "debugopacity":0,
+                                 "density":0,
+                                 "friction":0,
+                                 "restitution":0,
+                                 "rotation":false,
+                                 "texture":""
+                                }
+                            }
+                        }, 
+                        {
+                         "name":"showSub",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"show",
+                             "Bool1":false,
+                             "Enabled":true,
+                             "Float1":0,
+                             "Head":"UI Start",
+                             "Int1":0
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"ui",
+                 "visible":true,
+                 "width":0,
+                 "x":2986.99481502787,
+                 "y":7033.02213135781
+                }, 
+                {
+                 "height":0,
+                 "id":258,
+                 "name":"hahaha2",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":-18.4352
+                        }, 
+                        {
+                         "x":1471.73,
+                         "y":-23.0305
+                        }, 
+                        {
+                         "x":1483.23,
+                         "y":729.297
+                        }, 
+                        {
+                         "x":0,
+                         "y":744.653
+                        }],
+                 "properties":[
+                        {
+                         "name":"AnimationDetails",
+                         "propertytype":"AnimationDetails",
+                         "type":"class",
+                         "value":
+                            {
+                             "cells":8,
+                             "columns":2,
+                             "name":"2",
+                             "repeat":false,
+                             "rows":4,
+                             "scale":4,
+                             "texture":"lv5_speechbubble_7",
+                             "type":"string"
+                            }
+                        }, 
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"0",
+                                 "debugopacity":0,
+                                 "density":0,
+                                 "friction":0,
+                                 "restitution":0,
+                                 "rotation":false,
+                                 "texture":""
+                                }
+                            }
+                        }, 
+                        {
+                         "name":"showSub",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"show",
+                             "Bool1":false,
+                             "Enabled":true,
+                             "Float1":0,
+                             "Head":"UI End Good",
+                             "Int1":0
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"ui",
+                 "visible":true,
+                 "width":0,
+                 "x":1676.94651162791,
+                 "y":22488.9395348837
+                }, 
+                {
+                 "height":0,
+                 "id":259,
+                 "name":"angry2",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":-22.8305
+                        }, 
+                        {
+                         "x":1471.73,
+                         "y":-28.5214
+                        }, 
+                        {
+                         "x":1483.23,
+                         "y":903.174
+                        }, 
+                        {
+                         "x":0,
+                         "y":922.19
+                        }],
+                 "properties":[
+                        {
+                         "name":"AnimationDetails",
+                         "propertytype":"AnimationDetails",
+                         "type":"class",
+                         "value":
+                            {
+                             "cells":8,
+                             "columns":2,
+                             "name":"2",
+                             "repeat":false,
+                             "rows":4,
+                             "scale":4,
+                             "texture":"lv5_speechbubble_8",
+                             "type":"string"
+                            }
+                        }, 
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"0",
+                                 "debugopacity":0,
+                                 "density":0,
+                                 "friction":0,
+                                 "restitution":0,
+                                 "rotation":false,
+                                 "texture":""
+                                }
+                            }
+                        }, 
+                        {
+                         "name":"showSub",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"show",
+                             "Bool1":false,
+                             "Enabled":true,
+                             "Float1":0,
+                             "Head":"UI End Bad",
+                             "Int1":0
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"ui",
+                 "visible":true,
+                 "width":0,
+                 "x":3186.04651162791,
+                 "y":22558.1395348837
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -3750,7 +4374,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":247,
+ "nextobjectid":260,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
