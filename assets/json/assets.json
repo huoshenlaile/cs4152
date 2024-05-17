@@ -96,6 +96,15 @@
         "staticplatform_comet3": {
             "file": "textures/staticplatform_comet3x.png"
         },
+        "staticplatform_brush" : {
+            "file": "textures/staticplatform_brush.png"
+        },
+        "staticplatform_brush2" : {
+            "file": "textures/staticplatform_brush2x.png"
+        },
+        "staticplatform_brush3" : {
+            "file": "textures/staticplatform_brush3x.png"
+        },
         "smoothplatform_comet": {
             "file": "textures/movingplatform_comet.png"
         },
