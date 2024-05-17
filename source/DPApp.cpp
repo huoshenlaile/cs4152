@@ -173,6 +173,17 @@ void DPApp::preUpdate(float timestep) {
         updateRestoration(timestep);
     } else if (_status == GAME) {
         if (_gameScene.isComplete()) {
+            _audioController.clear("gallery");
+            _audioController.clear("space");
+            if (!hasPlayedEndingMusic) {
+                if (_gameScene.defaultGoodOrBad == 0) {
+                    _audioController.play("good_ending", "good_ending", false);
+                    hasPlayedEndingMusic = true;
+                } else {
+                    _audioController.play("bad_ending", "bad_ending", false);
+                    hasPlayedEndingMusic = true;
+                }
+            }
             if (_gameScene.state == GameScene::UPDATING) {
                 updateLevelJson();
                 _gameScene.state = GameScene::NETERROR; // using dummy state so it runs once
@@ -182,13 +193,16 @@ void DPApp::preUpdate(float timestep) {
                 std::cout << "quitting game back to level select" << std::endl;
                 _gameScene.reset();
                 _levelSelectScene.setActive(true);
+                _audioController.clear("good_ending");
+                _audioController.clear("bad_ending");
+                hasPlayedEndingMusic = false;
                 _audioController.play("menu", "menu", true);
                 _status = LEVELSELECT;
             } else if (_gameScene.state == GameScene::RESET) {
                 _gameScene.reset();
                 _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
                 _gameScene.setCameraSkip(true);
-                cout << "1" << endl;
+                playCurrentLevelMusic();
                 //_reset = true;
                 _status = LEVELLOAD;
             } else if (_gameScene.state == GameScene::NEXTLEVEL) {
@@ -220,6 +234,7 @@ void DPApp::preUpdate(float timestep) {
                 _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
                 _currentLevelKey = _levelSelectScene.getSelectedLevelKey();
                 _gameScene.setCameraSkip(false);
+                playCurrentLevelMusic();
                 _status = LEVELLOAD;
             }
         } else if (_gameScene.isPaused()) {
@@ -325,6 +340,8 @@ void DPApp::updatePause(float timestep) {
             _pauseScene.setActive(false);
             _gameScene.reset();
             _levelSelectScene.setActive(true);
+            _audioController.clear("gallery");
+            _audioController.clear("space");
             _audioController.play("menu", "menu", true);
             _status = LEVELSELECT;
             break;
@@ -423,6 +440,7 @@ void DPApp::updateLevelLoad(float timestep) {
         }
             
         _audioController.clear("menu");
+        playCurrentLevelMusic();
         _status = GAME;
         break;
     }
@@ -568,4 +586,13 @@ void DPApp::updateLevelJson() {
         }
     }
     return;
+}
+
+void DPApp::playCurrentLevelMusic() {
+    if (_currentLevelKey == "level7" || _currentLevelKey == "level8" || _currentLevelKey == "level9" || _currentLevelKey == "level10" || _currentLevelKey == "level11" || _currentLevelKey == "level12") {
+        _audioController.play("space", "space");
+    } else {
+        _audioController.play("gallery", "gallery");
+    }
+    hasPlayedEndingMusic = false;
 }

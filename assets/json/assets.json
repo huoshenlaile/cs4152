@@ -905,7 +905,27 @@
         },
         "menu": {
             "type": "sample",
-            "file": "sounds/menu_music.wav",
+            "file": "sounds/main_theme_menu_music.wav",
+            "volume": 0.5
+        },
+        "gallery": {
+            "type": "sample",
+            "file": "sounds/gallery_extended.wav",
+            "volume": 0.5
+        },
+        "space": {
+            "type": "sample",
+            "file": "sounds/in_space_extended.wav",
+            "volume": 0.5
+        },
+        "bad_ending": {
+            "type": "sample",
+            "file": "sounds/game_over_music.wav",
+            "volume": 0.5
+        },
+        "good_ending": {
+            "type": "sample",
+            "file": "sounds/win_music.wav",
             "volume": 0.5
         }
     },
