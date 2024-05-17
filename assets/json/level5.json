@@ -372,54 +372,54 @@
                          "y":0
                         }, 
                         {
-                         "x":176.662,
+                         "x":253.272796990552,
                          "y":0
                         }, 
                         {
-                         "x":167.364,
-                         "y":102.278
+                         "x":239.942649780523,
+                         "y":129.540813522356
                         }, 
                         {
-                         "x":381.218,
-                         "y":116.225
+                         "x":546.536035611191,
+                         "y":147.205469911768
                         }, 
                         {
-                         "x":348.675,
-                         "y":362.622
+                         "x":499.880520376089,
+                         "y":459.281066124715
                         }, 
                         {
-                         "x":357.973,
-                         "y":464.9
+                         "x":513.210667586118,
+                         "y":588.821879647071
                         }, 
                         {
-                         "x":46.49,
-                         "y":613.668
+                         "x":66.6507360501453,
+                         "y":777.244881134133
                         }, 
                         {
-                         "x":-130.172,
-                         "y":441.655
+                         "x":-186.622060940407,
+                         "y":559.380785664717
                         }, 
                         {
-                         "x":-97.629,
-                         "y":306.834
+                         "x":-139.966545705305,
+                         "y":388.622440567067
                         }, 
                         {
-                         "x":-172.013,
-                         "y":223.152
+                         "x":-246.607723385537,
+                         "y":282.634502230594
                         }, 
                         {
-                         "x":-158.066,
-                         "y":88.331
+                         "x":-226.612502570494,
+                         "y":111.876157132943
                         }, 
                         {
-                         "x":-148.768,
-                         "y":13.947
+                         "x":-213.282355360465,
+                         "y":17.6646563894121
                         }],
                  "properties":[
                         {
                          "name":"AnimationAsset",
                          "type":"string",
-                         "value":"red_paint"
+                         "value":"blue_paint"
                         }, 
                         {
                          "name":"Pub1",
@@ -427,7 +427,7 @@
                          "type":"class",
                          "value":
                             {
-                             "Body":"orange",
+                             "Body":"blue",
                              "Enabled":true,
                              "Head":"character color",
                              "Trigger":"TOUCH: character body"
@@ -447,7 +447,7 @@
                         {
                          "name":"color",
                          "type":"string",
-                         "value":"orange"
+                         "value":"blue"
                         }, 
                         {
                          "name":"instant",
@@ -483,8 +483,8 @@
                  "type":"paint",
                  "visible":true,
                  "width":0,
-                 "x":3678.50712207139,
-                 "y":9147.88619044746
+                 "x":3513.1890864602,
+                 "y":8984.30930931333
                 }, 
                 {
                  "height":0,
@@ -1313,7 +1313,7 @@
                              "obstacle":
                                 {
                                  "bodytype":0,
-                                 "color-requirements":"orange,purple",
+                                 "color-requirements":"blue,purple",
                                  "damping":0,
                                  "debugcolor":"yellow",
                                  "debugopacity":0,
@@ -1329,8 +1329,8 @@
                  "type":"exit",
                  "visible":true,
                  "width":0,
-                 "x":2648.93853493422,
-                 "y":15253.5854170413
+                 "x":2693.98357997926,
+                 "y":15490.0719035278
                 }, 
                 {
                  "height":0,
@@ -1405,260 +1405,6 @@
                  "width":0,
                  "x":3327.96485537469,
                  "y":15731.5374644679
-                }, 
-                {
-                 "height":0,
-                 "id":202,
-                 "name":"hatered",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":-22.8305
-                        }, 
-                        {
-                         "x":1471.73,
-                         "y":-28.5214
-                        }, 
-                        {
-                         "x":1483.23,
-                         "y":903.174
-                        }, 
-                        {
-                         "x":0,
-                         "y":922.19
-                        }],
-                 "properties":[
-                        {
-                         "name":"AnimationDetails",
-                         "propertytype":"AnimationDetails",
-                         "type":"class",
-                         "value":
-                            {
-                             "cells":12,
-                             "columns":2,
-                             "name":"1",
-                             "repeat":false,
-                             "rows":6,
-                             "scale":4,
-                             "texture":"lv2_speechbubble_1",
-                             "type":"string"
-                            }
-                        }, 
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"0",
-                                 "debugopacity":0,
-                                 "density":0,
-                                 "friction":0,
-                                 "restitution":0,
-                                 "rotation":false,
-                                 "texture":""
-                                }
-                            }
-                        }, 
-                        {
-                         "name":"showSub",
-                         "propertytype":"SubMessage",
-                         "type":"class",
-                         "value":
-                            {
-                             "Action":"show",
-                             "Bool1":false,
-                             "Enabled":true,
-                             "Float1":0,
-                             "Head":"UI Start",
-                             "Int1":0
-                            }
-                        }],
-                 "rotation":0,
-                 "type":"ui",
-                 "visible":true,
-                 "width":0,
-                 "x":4758.73262295082,
-                 "y":2304.54836065574
-                }, 
-                {
-                 "height":0,
-                 "id":203,
-                 "name":"givepurple",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":-22.8305
-                        }, 
-                        {
-                         "x":1471.73,
-                         "y":-28.5214
-                        }, 
-                        {
-                         "x":1483.23,
-                         "y":903.174
-                        }, 
-                        {
-                         "x":0,
-                         "y":922.19
-                        }],
-                 "properties":[
-                        {
-                         "name":"AnimationDetails",
-                         "propertytype":"AnimationDetails",
-                         "type":"class",
-                         "value":
-                            {
-                             "cells":12,
-                             "columns":2,
-                             "name":"1",
-                             "repeat":false,
-                             "rows":6,
-                             "scale":4,
-                             "texture":"lv2_speechbubble_3",
-                             "type":"string"
-                            }
-                        }, 
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"0",
-                                 "debugopacity":0,
-                                 "density":0,
-                                 "friction":0,
-                                 "restitution":0,
-                                 "rotation":false,
-                                 "texture":""
-                                }
-                            }
-                        }, 
-                        {
-                         "name":"showSub",
-                         "propertytype":"SubMessage",
-                         "type":"class",
-                         "value":
-                            {
-                             "Action":"show",
-                             "Bool1":false,
-                             "Enabled":true,
-                             "Float1":0,
-                             "Head":"UI Start",
-                             "Int1":0
-                            }
-                        }],
-                 "rotation":0,
-                 "type":"ui",
-                 "visible":true,
-                 "width":0,
-                 "x":2393.44262295082,
-                 "y":2754.09836065574
-                }, 
-                {
-                 "height":0,
-                 "id":204,
-                 "name":"taptocont",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":-6.72684
-                        }, 
-                        {
-                         "x":902.407,
-                         "y":-8.40361
-                        }, 
-                        {
-                         "x":909.458,
-                         "y":266.114
-                        }, 
-                        {
-                         "x":0,
-                         "y":271.716
-                        }],
-                 "properties":[
-                        {
-                         "name":"AnimationDetails",
-                         "propertytype":"AnimationDetails",
-                         "type":"class",
-                         "value":
-                            {
-                             "cells":11,
-                             "columns":2,
-                             "name":"cont",
-                             "repeat":false,
-                             "rows":6,
-                             "scale":5,
-                             "texture":"tap_to_continue",
-                             "type":"string"
-                            }
-                        }, 
-                        {
-                         "name":"LoadOnce",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"hideSub",
-                         "propertytype":"SubMessage",
-                         "type":"class",
-                         "value":
-                            {
-                             "Action":"hide",
-                             "Enabled":true,
-                             "Float1":0,
-                             "Head":"Erase Tap Continue Button"
-                            }
-                        }, 
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"0",
-                                 "debugopacity":0,
-                                 "density":0,
-                                 "friction":0,
-                                 "restitution":0,
-                                 "rotation":false,
-                                 "texture":""
-                                }
-                            }
-                        }, 
-                        {
-                         "name":"showSub",
-                         "propertytype":"SubMessage",
-                         "type":"class",
-                         "value":
-                            {
-                             "Action":"show",
-                             "Bool1":false,
-                             "Enabled":true,
-                             "Float1":0,
-                             "Head":"UI Start",
-                             "Int1":0
-                            }
-                        }],
-                 "rotation":0,
-                 "type":"ui",
-                 "visible":true,
-                 "width":0,
-                 "x":6653.25541707607,
-                 "y":3363.86202616745
                 }, 
                 {
                  "height":0,
@@ -3055,7 +2801,7 @@
                                  "friction":0.7,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"ketchup_red"
+                                 "texture":"mustard_blue"
                                 }
                             }
                         }],
@@ -3602,6 +3348,260 @@
                  "width":838.849302616687,
                  "x":931.909522008574,
                  "y":16077.9160701738
+                }, 
+                {
+                 "height":0,
+                 "id":260,
+                 "name":"hatered",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":-22.8305
+                        }, 
+                        {
+                         "x":1471.73,
+                         "y":-28.5214
+                        }, 
+                        {
+                         "x":1483.23,
+                         "y":903.174
+                        }, 
+                        {
+                         "x":0,
+                         "y":922.19
+                        }],
+                 "properties":[
+                        {
+                         "name":"AnimationDetails",
+                         "propertytype":"AnimationDetails",
+                         "type":"class",
+                         "value":
+                            {
+                             "cells":12,
+                             "columns":2,
+                             "name":"1",
+                             "repeat":false,
+                             "rows":6,
+                             "scale":4,
+                             "texture":"lv2_speechbubble_1",
+                             "type":"string"
+                            }
+                        }, 
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"0",
+                                 "debugopacity":0,
+                                 "density":0,
+                                 "friction":0,
+                                 "restitution":0,
+                                 "rotation":false,
+                                 "texture":""
+                                }
+                            }
+                        }, 
+                        {
+                         "name":"showSub",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"show",
+                             "Bool1":false,
+                             "Enabled":true,
+                             "Float1":0,
+                             "Head":"UI Start",
+                             "Int1":0
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"ui",
+                 "visible":true,
+                 "width":0,
+                 "x":4326.03851105356,
+                 "y":1037.2071647337
+                }, 
+                {
+                 "height":0,
+                 "id":261,
+                 "name":"givepurple",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":-22.8305
+                        }, 
+                        {
+                         "x":1471.73,
+                         "y":-28.5214
+                        }, 
+                        {
+                         "x":1483.23,
+                         "y":903.174
+                        }, 
+                        {
+                         "x":0,
+                         "y":922.19
+                        }],
+                 "properties":[
+                        {
+                         "name":"AnimationDetails",
+                         "propertytype":"AnimationDetails",
+                         "type":"class",
+                         "value":
+                            {
+                             "cells":12,
+                             "columns":2,
+                             "name":"1",
+                             "repeat":false,
+                             "rows":6,
+                             "scale":4,
+                             "texture":"lv2_speechbubble_4",
+                             "type":"string"
+                            }
+                        }, 
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"0",
+                                 "debugopacity":0,
+                                 "density":0,
+                                 "friction":0,
+                                 "restitution":0,
+                                 "rotation":false,
+                                 "texture":""
+                                }
+                            }
+                        }, 
+                        {
+                         "name":"showSub",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"show",
+                             "Bool1":false,
+                             "Enabled":true,
+                             "Float1":0,
+                             "Head":"UI Start",
+                             "Int1":0
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"ui",
+                 "visible":true,
+                 "width":0,
+                 "x":1933.89851105356,
+                 "y":1406.2171647337
+                }, 
+                {
+                 "height":0,
+                 "id":262,
+                 "name":"taptocont",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":-6.72684
+                        }, 
+                        {
+                         "x":902.407,
+                         "y":-8.40361
+                        }, 
+                        {
+                         "x":909.458,
+                         "y":266.114
+                        }, 
+                        {
+                         "x":0,
+                         "y":271.716
+                        }],
+                 "properties":[
+                        {
+                         "name":"AnimationDetails",
+                         "propertytype":"AnimationDetails",
+                         "type":"class",
+                         "value":
+                            {
+                             "cells":11,
+                             "columns":2,
+                             "name":"cont",
+                             "repeat":false,
+                             "rows":6,
+                             "scale":5,
+                             "texture":"tap_to_continue",
+                             "type":"string"
+                            }
+                        }, 
+                        {
+                         "name":"LoadOnce",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"hideSub",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"hide",
+                             "Enabled":true,
+                             "Float1":0,
+                             "Head":"Erase Tap Continue Button"
+                            }
+                        }, 
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"0",
+                                 "debugopacity":0,
+                                 "density":0,
+                                 "friction":0,
+                                 "restitution":0,
+                                 "rotation":false,
+                                 "texture":""
+                                }
+                            }
+                        }, 
+                        {
+                         "name":"showSub",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"show",
+                             "Bool1":false,
+                             "Enabled":true,
+                             "Float1":0,
+                             "Head":"UI Start",
+                             "Int1":0
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"ui",
+                 "visible":true,
+                 "width":0,
+                 "x":6092.68851105356,
+                 "y":3058.7771647337
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -3610,7 +3610,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":260,
+ "nextobjectid":263,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

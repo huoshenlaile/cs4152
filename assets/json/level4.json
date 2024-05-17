@@ -232,7 +232,7 @@
                         {
                          "name":"AnimationAsset",
                          "type":"string",
-                         "value":"red_paint"
+                         "value":"blue_paint"
                         }, 
                         {
                          "name":"Pub1",
@@ -240,7 +240,7 @@
                          "type":"class",
                          "value":
                             {
-                             "Body":"orange",
+                             "Body":"blue",
                              "Enabled":true,
                              "Head":"character color",
                              "Trigger":"TOUCH: character body"
@@ -260,12 +260,12 @@
                         {
                          "name":"color",
                          "type":"string",
-                         "value":"orange"
+                         "value":"blue"
                         }, 
                         {
                          "name":"instant",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }, 
                         {
                          "name":"paint_id",
@@ -846,7 +846,7 @@
                                  "restitution":0.1,
                                  "rotation":false,
                                  "subscriptions":[],
-                                 "texture":"ketchup_red"
+                                 "texture":"mustard_blue"
                                 }
                             }
                         }],
@@ -868,11 +868,11 @@
                         }, 
                         {
                          "x":1530.48764476028,
-                         "y":1001.43026479811
+                         "y":598.745701039722
                         }, 
                         {
                          "x":0,
-                         "y":977.005464251278
+                         "y":584.142343381946
                         }, 
                         {
                          "x":0,
@@ -921,7 +921,7 @@
                              "obstacle":
                                 {
                                  "bodytype":0,
-                                 "color-requirements":"orange,purple",
+                                 "color-requirements":"blue,purple",
                                  "damping":0,
                                  "debugcolor":"yellow",
                                  "debugopacity":0,
@@ -938,7 +938,7 @@
                  "visible":true,
                  "width":0,
                  "x":3152.8202360118,
-                 "y":16196.9308956986
+                 "y":16599.615459457
                 }, 
                 {
                  "height":0,
@@ -1221,7 +1221,7 @@
                         {
                          "name":"instant",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }, 
                         {
                          "name":"paint_id",
@@ -1331,8 +1331,8 @@
                  "type":"ui",
                  "visible":true,
                  "width":0,
-                 "x":4397.85148866899,
-                 "y":2418.97514372617
+                 "x":4371.0058510851,
+                 "y":1049.84762694765
                 }, 
                 {
                  "height":0,
@@ -1368,7 +1368,7 @@
                              "repeat":false,
                              "rows":6,
                              "scale":4,
-                             "texture":"lv2_speechbubble_3",
+                             "texture":"lv2_speechbubble_4",
                              "type":"string"
                             }
                         }, 
@@ -1410,8 +1410,8 @@
                  "type":"ui",
                  "visible":true,
                  "width":0,
-                 "x":2032.55794028189,
-                 "y":2868.52589641434
+                 "x":1978.8666651141,
+                 "y":1418.86146688414
                 }, 
                 {
                  "height":0,
@@ -1506,8 +1506,8 @@
                  "type":"ui",
                  "visible":true,
                  "width":0,
-                 "x":6285.31037141755,
-                 "y":3433.83455425609
+                 "x":6137.65936470614,
+                 "y":3071.41844687354
                 }, 
                 {
                  "height":0,

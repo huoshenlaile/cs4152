@@ -219,6 +219,9 @@
         "mustard_pink": {
             "file": "textures/paintingbottle/mustard_pink.png"
         },
+        "mustard_blue": {
+            "file": "textures/paintingbottle/mustard_blue.png"
+        },
         "mustard_purple": {
             "file": "textures/paintingbottle/mustard_purple.png"
         },
@@ -794,6 +797,27 @@
         },
         "lv2_speechbubble_8": {
             "file": "textures/lv2_speechbubble_8.png"
+        },
+        "lv3_speechbubble_1": {
+            "file": "textures/lv3_speechbubble_1.png"
+        },
+        "lv3_speechbubble_2": {
+            "file": "textures/lv3_speechbubble_2.png"
+        },
+        "lv3_speechbubble_3": {
+            "file": "textures/lv3_speechbubble_3.png"
+        },
+        "lv3_speechbubble_4": {
+            "file": "textures/lv3_speechbubble_4.png"
+        },
+        "lv3_speechbubble_5": {
+            "file": "textures/lv3_speechbubble_5.png"
+        },
+        "lv3_speechbubble_6": {
+            "file": "textures/lv3_speechbubble_6.png"
+        },
+        "lv3_speechbubble_7": {
+            "file": "textures/lv3_speechbubble_7.png"
         },
         "tap_to_continue": {
             "file": "textures/ui_taptocont_370x138.png"
