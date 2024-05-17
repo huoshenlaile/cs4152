@@ -104,7 +104,7 @@ public:
     
     enum GameEndingState { UNFINISHED, GOOD, BAD };
     GameEndingState gameEndingState;
-#pragma mark -
+    
 #pragma mark Constructors
 
     GameScene();
@@ -114,7 +114,6 @@ public:
 
     bool init(const std::shared_ptr<cugl::AssetManager> &assets, std::string levelName);
 
-#pragma mark -
 #pragma mark State Access
     void setHonors(bool val) {_honors = val;}
     
@@ -134,8 +133,6 @@ public:
     }
     
     void setCameraState (int state) {_camera->setCameraState(state);}
-    
-#pragma mark -
 
     virtual void preUpdate(float dt);
     void finishLevel();

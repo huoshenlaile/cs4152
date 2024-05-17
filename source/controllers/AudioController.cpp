@@ -30,6 +30,7 @@ bool AudioController::play(const std::string key, const std::string soundName, b
         volume = sound -> getVolume();
     }
     if (!AudioEngine::get() -> isActive(key)) {
+        if (key == "menu") volume = music_volume;
         AudioEngine::get() -> play(key, sound, loop, volume, force);
         return true;
     }
@@ -62,4 +63,20 @@ bool AudioController::playRandomNote() {
             break;
     }
     return this -> play(name, name);
+}
+
+void AudioController::setMusicVolume(float volume) {
+    this -> music_volume = volume;
+    if (AudioEngine::get() -> getState("menu") != cugl::AudioEngine::State::INACTIVE) {
+        if (AudioEngine::get() -> getState("menu") == cugl::AudioEngine::State::PLAYING) {
+            std::cout << "menu music is playing!" << std::endl;
+        }
+        std::cout << "menu music is active, resetting volume." << std::endl;
+        AudioEngine::get() -> setVolume("menu", volume);
+    }
+}
+
+void AudioController::setSoundVolume(float volume) {
+    this -> sound_volume = volume;
+    //TODO: any sound effects?
 }

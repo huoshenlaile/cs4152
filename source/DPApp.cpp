@@ -21,6 +21,9 @@ void DPApp::onStartup() {
     Input::activate<Touchscreen>();
 #else
     Input::activate<Mouse>();
+    // I added this line so that the slider in setting scene can be dragged.
+    // This may trigger problems. -- George
+    Input::get<Mouse>()->setPointerAwareness(Mouse::PointerAwareness::DRAG);
 #endif
 
     Input::activate<Keyboard>();
@@ -126,8 +129,10 @@ void DPApp::onShutdown() {
  * the background.
  */
 void DPApp::onSuspend() {
+    std::cout << "dpapp on suspend" << std::endl;
     // TODO: Restoration Scene may come in here
     AudioEngine::get()->pause();
+    hasSuspendedOnce = true;
 }
 
 /**
@@ -140,7 +145,14 @@ void DPApp::onSuspend() {
  * If you are using audio, you should use this method to resume any audio
  * paused before app suspension.
  */
-void DPApp::onResume() { AudioEngine::get()->resume(); }
+void DPApp::onResume() {
+    if (!hasSuspendedOnce) return;
+    std::cout << "dpapp on resume" << std::endl;
+    AudioEngine::get()->resume();
+    if (_status != GAME) {
+        AudioEngine::get() -> resume("menu");
+    }
+}
 
 #pragma mark -
 #pragma mark GENERAL UPDATES
@@ -170,7 +182,7 @@ void DPApp::preUpdate(float timestep) {
                 std::cout << "quitting game back to level select" << std::endl;
                 _gameScene.reset();
                 _levelSelectScene.setActive(true);
-                _audioController.play("menu", "menu");
+                _audioController.play("menu", "menu", true);
                 _status = LEVELSELECT;
             } else if (_gameScene.state == GameScene::RESET) {
                 _gameScene.reset();
@@ -191,6 +203,10 @@ void DPApp::preUpdate(float timestep) {
                 } else {
                     char nextLevelNum = _currentLevelKey.at(_currentLevelKey.length() - 1);
                     nextLevel = "level";
+                    if (_currentLevelKey.length() > nextLevel.length() + 1) {
+                        // current level is level10+ (because it's level + two more chars)
+                        nextLevel = "level1"; // because we only have 15 levels.
+                    }
                     if (nextLevelNum == '9') {
                         nextLevel.push_back(_currentLevelKey.at(_currentLevelKey.length() - 2) + 1);
                         nextLevel.push_back(nextLevelNum + 1);
@@ -220,29 +236,7 @@ void DPApp::preUpdate(float timestep) {
             _gameScene.preUpdate(timestep);
         }
     } else if (_status == PAUSE) {
-        switch (_pauseScene.state) {
-        case PauseScene::BACK:
-            _pauseScene.setActive(false);
-            _gameScene.setActive(true);
-            _status = GAME;
-            break;
-        case PauseScene::RESET:
-            _pauseScene.setActive(false);
-            _gameScene.reset();
-            _reset = true;
-            _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
-            _status = LEVELLOAD;
-            break;
-        case PauseScene::MENU:
-            _pauseScene.setActive(false);
-            _gameScene.reset();
-            _levelSelectScene.setActive(true);
-            _audioController.play("menu", "menu", true);
-            _status = LEVELSELECT;
-            break;
-        default:
-            break;
-        }
+        updatePause(timestep);
     }
 }
 
@@ -313,26 +307,29 @@ void DPApp::updateMenu(float timestep) {
 }
 
 void DPApp::updatePause(float timestep) {
-    _pauseScene.update(timestep);
     switch (_pauseScene.state) {
-    case PauseScene::BACK:
-        _status = GAME;
-        _pauseScene.setActive(false);
-        _gameScene.setActive(true);
-        break;
-    case PauseScene::RESET:
-        _status = GAME;
-        _pauseScene.setActive(false);
-        _gameScene.reset();
-        _gameScene.setActive(true);
-        break;
-    case PauseScene::MENU:
-        _status = LEVELSELECT;
-        _pauseScene.setActive(false);
-        _gameScene.reset();
-        break;
-    default:
-        break;
+        case PauseScene::BACK:
+            _pauseScene.setActive(false);
+            _gameScene.setActive(true);
+            _status = GAME;
+            break;
+        case PauseScene::RESET:
+            _pauseScene.setActive(false);
+            _gameScene.reset();
+            _reset = true;
+            _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
+            _status = LEVELLOAD;
+            break;
+        case PauseScene::MENU:
+            std::cout << "going to main menu (from dpapp)" << std::endl;
+            _pauseScene.setActive(false);
+            _gameScene.reset();
+            _levelSelectScene.setActive(true);
+            _audioController.play("menu", "menu", true);
+            _status = LEVELSELECT;
+            break;
+        default:
+            break;
     }
 }
 
@@ -360,6 +357,10 @@ void DPApp::updateLoad(float timestep) {
 
 void DPApp::updateSetting(float timestep) {
     _settingScene.update(timestep);
+    _music_volume = _settingScene.music_volume;
+    _sound_volume = _settingScene.sound_volume;
+    _audioController.setMusicVolume(_music_volume);
+    _audioController.setSoundVolume(_sound_volume);
     switch (_settingScene.state) {
     case SettingScene::HONORSMODE:
         _status = MENU;
@@ -420,7 +421,7 @@ void DPApp::updateLevelLoad(float timestep) {
             CULog("reset to false!!");
             _gameScene.setCameraSkip(false);
         }
-
+            
         _audioController.clear("menu");
         _status = GAME;
         break;
@@ -523,80 +524,48 @@ void DPApp::updateLevelJson() {
     auto savedir = Application::get()->getSaveDirectory();
     // std::cout<< "r-2" <<std::endl;
     std::shared_ptr<JsonReader> jsonreader = JsonReader::alloc(savedir + "user_progress.json");
-
-
     
     if (jsonreader != nullptr && jsonreader->ready()) {
-        
         std::shared_ptr<JsonValue> json;
-
-        
         if (jsonreader->readLine()[0] != '{') {
-            
             std::shared_ptr<JsonValue> myjson = JsonValue::allocObject();
-            
             json = myjson;
-            
         } else {
             jsonreader->reset();
-            
             json = jsonreader->readJson();
-            
             jsonreader->close();
-            
         }
         if (json != nullptr) {
             addLevelJson(json, _currentLevelKey, true, std::to_string(_gameScene.getEndingType()));
-            
             //unlock new level only when good ending for honors_mode or non honors_mode
             if ((_gameScene.getEndingType() == 0 && honors_mode) || !honors_mode){
                 if (_currentLevelKey == "tutorial") {
                     addLevelJson(json, "level1", false, "null");
                 } else {
                     size_t start = _currentLevelKey.find("level") + 5;
-                    
                     size_t end = _currentLevelKey.size();
-                    
                     int num = std::stoi(_currentLevelKey.substr(start, end - start)) + 1;
-                    
                     std::string next_level = "level" + std::to_string(num);
-                    
                     if (json->get(next_level) == nullptr) {
                         addLevelJson(json, next_level, false, "null");
                     }
                 }
             }
-            
-            
         } else {
             CULog("There is a parsing error in the json file");
         }
-
-        
-
         std::shared_ptr<JsonWriter> jsonwriter = JsonWriter::alloc(savedir + "user_progress.json");
-        
         JsonValue updatedjson;
-        
         std::shared_ptr<JsonValue> res = updatedjson.allocWithJson(json->toString());
-        
         if (jsonwriter != nullptr && res != nullptr) {
             jsonwriter->writeJson(res);
-            
         }
         jsonwriter->close();
-        
-
         std::cout << "wrote to json file" << std::endl;
     } else {
         if (jsonreader != nullptr) {
             jsonreader->close();
         }
-
-        
     }
-
-    
-
     return;
 }
