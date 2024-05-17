@@ -4285,8 +4285,8 @@
                  "type":"ui",
                  "visible":true,
                  "width":0,
-                 "x":1676.94651162791,
-                 "y":22488.9395348837
+                 "x":2735.27984496124,
+                 "y":22563.9395348837
                 }, 
                 {
                  "height":0,
@@ -4510,15 +4510,11 @@
                 }, 
                 {
                  "id":30,
-                 "image":"..\/textures\/tube_curved_pink.png",
-                 "imageheight":1724,
-                 "imagewidth":337
+                 "image":"..\/textures\/tube_curved_pink.png"
                 }, 
                 {
                  "id":31,
-                 "image":"..\/textures\/tube_straight_green.png",
-                 "imageheight":1662,
-                 "imagewidth":211
+                 "image":"..\/textures\/tube_straight_green.png"
                 }, 
                 {
                  "id":32,
@@ -4534,15 +4530,11 @@
                 }, 
                 {
                  "id":34,
-                 "image":"..\/textures\/goal_ufo.png",
-                 "imageheight":138,
-                 "imagewidth":447
+                 "image":"..\/textures\/goal_ufo.png"
                 }, 
                 {
                  "id":35,
-                 "image":"..\/textures\/tube_curved_blue.png",
-                 "imageheight":1724,
-                 "imagewidth":337
+                 "image":"..\/textures\/tube_curved_blue.png"
                 }, 
                 {
                  "id":36,
@@ -4550,9 +4542,7 @@
                 }, 
                 {
                  "id":37,
-                 "image":"..\/textures\/nogravityplatform_blackhole.png",
-                 "imageheight":99,
-                 "imagewidth":180
+                 "image":"..\/textures\/nogravityplatform_blackhole.png"
                 }, 
                 {
                  "id":38,
