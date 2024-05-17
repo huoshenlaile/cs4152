@@ -25,7 +25,15 @@ bool LevelLoadScene::init(const std::shared_ptr<cugl::AssetManager> &assets) {
 
     _assets = assets;
 
-    // currently no progress bar or button simple black screen
+    // copied from LoadScene.cpp
+    _assets->loadDirectory("json/level_loading.json");
+    auto layer = assets->get<scene2::SceneNode>("levelload");
+    layer->setContentSize(dimen);
+    layer->doLayout(); // This rearranges the children to fit the screen
+    _bar = std::dynamic_pointer_cast<scene2::ProgressBar>(assets->get<scene2::SceneNode>("load_bar"));
+    _bar->setProgress(0.0f);
+    _bar->setVisible(false);
+    addChild(layer);
 
     Application::get()->setClearColor(Color4(255, 255, 255));
 
@@ -92,6 +100,13 @@ void LevelLoadScene::update(float timestep) {
         auto ll = _assets->get<LevelLoader2>(_key);
         ll->construct(_assets);
         _state = DONE;
+        _bar->setVisible(false);
+    }else{
+        auto progress = _assets->progress();
+        _bar->setVisible(true);
+        _bar->setProgress(progress);
+
+        CULog("Loading progress: %f", progress);
     }
 }
 

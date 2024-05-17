@@ -13,6 +13,7 @@ protected:
     std::string _levelAssets_currently_loaded;
 
     bool _is_currently_loaded = false;
+    std::shared_ptr<cugl::scene2::ProgressBar>  _bar;
     bool _constructWorld();
 
     bool loadAssets();
