@@ -30,7 +30,7 @@ bool LevelLoadScene::init(const std::shared_ptr<cugl::AssetManager> &assets) {
     auto layer = assets->get<scene2::SceneNode>("levelload");
     layer->setContentSize(dimen);
     layer->doLayout(); // This rearranges the children to fit the screen
-    _bar = std::dynamic_pointer_cast<scene2::ProgressBar>(assets->get<scene2::SceneNode>("load_bar"));
+    _bar = std::dynamic_pointer_cast<scene2::ProgressBar>(assets->get<scene2::SceneNode>("levelload_bar"));
     _bar->setProgress(0.0f);
     _bar->setVisible(false);
     addChild(layer);
@@ -105,7 +105,7 @@ void LevelLoadScene::update(float timestep) {
         auto progress = _assets->progress();
         _bar->setVisible(true);
         _bar->setProgress(progress);
-
+        CULog("get progress: %f",_bar->getProgress());
         CULog("Loading progress: %f", progress);
     }
 }
