@@ -70,9 +70,7 @@ void AudioController::setMusicVolume(float volume) {
     this -> music_volume = volume;
     if (AudioEngine::get() -> getState("menu") != cugl::AudioEngine::State::INACTIVE) {
         if (AudioEngine::get() -> getState("menu") == cugl::AudioEngine::State::PLAYING) {
-            std::cout << "menu music is playing!" << std::endl;
         }
-        std::cout << "menu music is active, resetting volume." << std::endl;
         AudioEngine::get() -> setVolume("menu", volume);
     }
 }

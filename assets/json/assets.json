@@ -93,6 +93,12 @@
         "staticplatform_brush" : {
             "file": "textures/staticplatform_brush.png"
         },
+        "staticplatform_brush2" : {
+            "file": "textures/staticplatform_brush2x.png"
+        },
+        "staticplatform_brush3" : {
+            "file": "textures/staticplatform_brush3x.png"
+        },
         "smoothplatform_comet": {
             "file": "textures/movingplatform_comet.png"
         },
@@ -101,9 +107,6 @@
         },
         "heavygravityplatform_blackhole": {
             "file": "textures/heavygravityplatform_blackhole.png"
-        },
-        "nogravityplatform_blackhole": {
-            "file": "textures/nogravityplatform_blackhole.png"
         },
         "lv0_background": {
             "file": "textures/lv0_background.png"
