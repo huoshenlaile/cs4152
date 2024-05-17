@@ -819,6 +819,18 @@
         "lv3_speechbubble_7": {
             "file": "textures/lv3_speechbubble_7.png"
         },
+        "lv4_speechbubble_1": {
+            "file": "textures/lv4_speechbubble_1.png"
+        },
+        "lv4_speechbubble_2": {
+            "file": "textures/lv4_speechbubble_2.png"
+        },
+        "lv4_speechbubble_3": {
+            "file": "textures/lv4_speechbubble_3.png"
+        },
+        "lv4_speechbubble_4": {
+            "file": "textures/lv4_speechbubble_4.png"
+        },
         "tap_to_continue": {
             "file": "textures/ui_taptocont_370x138.png"
         }
