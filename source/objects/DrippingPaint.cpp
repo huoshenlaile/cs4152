@@ -9,7 +9,7 @@
 
 bool DrippingPaint::init(const std::shared_ptr<cugl::JsonValue>& json, Vec2 scale, Rect bounds){
     // call super.init
-    bool success = true;
+    /*bool success = true;
     _scale = scale;
     _bounds = bounds;
     _name = json->getString("name");
@@ -34,6 +34,11 @@ bool DrippingPaint::init(const std::shared_ptr<cugl::JsonValue>& json, Vec2 scal
             std::cout << "speed found" << std::endl;
             auto p = properties->get(i)->get("value")->asFloat();
             _dripSpeed = p;
+        } else if (prop->getString("propertytype") == "SubMessage" && prop->get("value")->getString("Action") == "show"){
+            auto pub = prop->get("value");
+            show_subscription_head = pub->getString("Head");
+            std::cout << "found show_subscription_head " << show_subscription_head << std::endl;
+            _show_cd = pub->getFloat("Float1");
         }
     }
     int polysize = (int)json->get(VERTICES_FIELD)->children().size();
@@ -54,7 +59,6 @@ bool DrippingPaint::init(const std::shared_ptr<cugl::JsonValue>& json, Vec2 scal
     triangulator.clear();
     
     _selfTexture = scene2::PolygonNode::allocWithPoly(shape);
-    //_selfObstacle = cugl::physics2::PolygonObstacle::alloc(shape);
     _selfObstacle = cugl::physics2::PolygonObstacle::allocWithAnchor(shape, Vec2(0.0f,1.0f));
     _selfObstacle->setName(json->getString("name"));
     if (physicalProperties != nullptr){
@@ -80,9 +84,35 @@ bool DrippingPaint::init(const std::shared_ptr<cugl::JsonValue>& json, Vec2 scal
     }
     if (physicalProperties!=nullptr){
         _texture_name = physicalProperties->get("obstacle")->getString(TEXTURE_FIELD);
+    }*/
+    bool success = Interactable::init(json, scale, bounds);
+    std::shared_ptr<JsonValue> properties = json -> get("properties");
+    // find the Publication property
+    for (int i = 0; i < properties->size(); i++){
+        auto prop = properties->get(i);
+        if (prop->getString("propertytype") == "SubMessage"){
+            auto pub = properties->get(i)->get("value");
+            sub_message_head = pub->getString("Head");
+        } else if(prop->getString("propertytype") == "PubMessage"){
+            auto p = properties->get(i)->get("value");
+            pub_message_head = p->getString("Head");
+            color = p->getString("Body");
+        } else if(prop->getString("name") == "AnimationAsset"){
+            auto p = properties->get(i)->get("value")->asString();
+            _textureName = p;
+        } else if(prop->getString("name") == "speed"){
+            std::cout << "speed found" << std::endl;
+            auto p = properties->get(i)->get("value")->asFloat();
+            _dripSpeed = p;
+        }
+
     }
+    _selfObstacle->setAnchor(0.0f, 1.0f);
+    _selfObstacle->setPosition(getObjectPos(json));
+    _selfObstacle->setAngle((360.0f - json->getFloat("rotation")) * M_PI / 180.0f);
+
     
-    activated = true;
+    activated = false;
     _selfObstacle->setSensor(true);
     OnBeginContactEnabled = true;
     timeUpdateEnabled = true;
@@ -114,6 +144,10 @@ bool DrippingPaint::linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleWo
         weak->setPosition(obs->getPosition() * scale);
 
     });
+    actions["Start Drip"] = ([=](ActionParams params) {
+        activated = true;
+        return PublishedMessage();
+    });
     return success;
 }
 
@@ -135,25 +169,20 @@ PublishedMessage DrippingPaint::onBeginContact(std::shared_ptr<cugl::physics2::O
 
 PublishedMessage DrippingPaint::timeUpdate(float timestep){
     // Calculate the next position along the path
-    Vec2 currentPosition = _selfObstacle->getPosition();
-    Vec2 currentBounds = _selfObstacle->getSize();
-    //float step = _dripSpeed * timestep;
-    //std::cout << "THIS FUCKING PAINTS pos " << currentPosition.x << ", " << currentPosition.y << " and size " << currentBounds.x  << ", " << currentBounds.y << std::endl;
-    
-    //std::cout << "THIS FUCKING PAINTS pos " << _selfTexture->getPositionY() << " and size " << _selfTexture->getHeight() << std::endl;
-    
-    _selfObstacle->setPosition(currentPosition.x, currentPosition.y - _dripSpeed);
-    _selfObstacle->setHeight(_selfObstacle->getHeight() + _dripSpeed);
-    //_world->removeObstacle(_selfObstacle);
-    //auto newObs = cugl::physics2::PolygonObstacle::alloc(<#const Poly2 &poly#>)
-    // _selfObstacle->setPolygon(Rect(_selfObstacle->getPosition(), {_selfObstacle->getHeight(), _selfObstacle->getWidth()}));
-    //_selfTexture->setScale(_selfTexture->getScale().x, _selfTexture->getScale().y + _dripSpeed);
-    PublishedMessage a;
-    if (activated && is_out){
-        if (_selfTexture->getBoundingBox().contains(_character->getBodyPos())){// scenenode comparison
-            a.Head = pub_message_head;
-            a.Body = color;
-        }        
+    if(activated){
+        Vec2 currentPosition = _selfObstacle->getPosition();
+        //std::cout << "THIS FUCKING PAINTS pos " << currentPosition.x << ", " << currentPosition.y << " and size " << currentBounds.x  << ", " << currentBounds.y << std::endl;
+        
+        _selfObstacle->setPosition(currentPosition.x, currentPosition.y - _dripSpeed);
+        _selfObstacle->setHeight(_selfObstacle->getHeight() + _dripSpeed);
+        PublishedMessage a;
+        if (activated && is_out){
+            if (_selfTexture->getBoundingBox().contains(_character->getBodyPos())){// scenenode comparison
+                a.Head = pub_message_head;
+                a.Body = color;
+            }
+        }
+        return a;
     }
-    return a;
+    return PublishedMessage();
 }
