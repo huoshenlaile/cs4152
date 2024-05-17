@@ -149,7 +149,7 @@ PublishedMessage Exit::timeUpdate(float timestep){
     else if (this->is_contacting && this->contactedLongEnough()){
         this->contact_time = this->_ttcolor;
         std::string color = _character->getColor();
-        if (std::find(_colorsCollected.begin(), _colorsCollected.end(), color) == _colorsCollected.end()){
+        if (this->getColorsCollected().size() < this->getColorReqs().size() && std::find(_colorsCollected.begin(), _colorsCollected.end(), color) == _colorsCollected.end()){
             if (color != "black" || (color == "black" && std::find(_colorReqs.begin(), _colorReqs.end(), "black") != _colorReqs.end())){
                 this->addColor(color, _character->getBodySceneNode()->getPosition());
                 _character->setColor("black");

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="ragdoll_elements" tilewidth="5000" tileheight="5056" tilecount="51" columns="0" objectalignment="bottomleft">
+<tileset version="1.10" tiledversion="1.10.2" name="ragdoll_elements" tilewidth="5000" tileheight="5056" tilecount="52" columns="0" objectalignment="bottomleft">
  <editorsettings>
   <export target="ragdoll_elements..tsx" format="tsx"/>
  </editorsettings>
@@ -23,10 +23,10 @@
   <image width="175" height="52" source="../textures/staticplatform_comet.png"/>
  </tile>
  <tile id="30">
-  <image width="337" height="1724" source="../textures/tube_curved_pink.png"/>
+  <image source="../textures/tube_curved_pink.png"/>
  </tile>
  <tile id="31">
-  <image width="211" height="1662" source="../textures/tube_straight_green.png"/>
+  <image source="../textures/tube_straight_green.png"/>
  </tile>
  <tile id="32">
   <image width="175" height="52" source="../textures/movingplatform_comet.png"/>
@@ -35,13 +35,13 @@
   <image width="180" height="99" source="../textures/heavygravityplatform_blackhole.png"/>
  </tile>
  <tile id="34">
-  <image width="447" height="138" source="../textures/goal_ufo.png"/>
+  <image source="../textures/goal_ufo.png"/>
  </tile>
  <tile id="35">
-  <image width="337" height="1724" source="../textures/tube_curved_blue.png"/>
+  <image source="../textures/tube_curved_blue.png"/>
  </tile>
  <tile id="37">
-  <image width="180" height="99" source="../textures/nogravityplatform_blackhole.png"/>
+  <image source="../textures/nogravityplatform_blackhole.png"/>
  </tile>
  <tile id="38">
   <image width="180" height="117" source="../textures/bouncingplatform_slime.png"/>
@@ -74,7 +74,7 @@
   <image width="2900" height="580" source="../textures/lv0_background.png"/>
  </tile>
  <tile id="48">
-  <image width="343" height="52" source="../textures/newplatforms/staticplatform_frenchfries3x.png"/>
+  <image source="../textures/newplatforms/staticplatform_frenchfries3x.png"/>
  </tile>
  <tile id="49">
   <image width="5000" height="580" source="../textures/level4/lv4_background_1.png"/>
@@ -156,5 +156,8 @@
  </tile>
  <tile id="89">
   <image width="3279" height="400" source="../textures/alpharelease_frenchfries_BIG.png"/>
+ </tile>
+ <tile id="90">
+  <image width="226" height="500" source="../textures/paintingbottle/painttube_black.png"/>
  </tile>
 </tileset>
