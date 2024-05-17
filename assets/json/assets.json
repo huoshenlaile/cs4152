@@ -927,6 +927,21 @@
             "type": "sample",
             "file": "sounds/win_music.wav",
             "volume": 0.5
+        },
+        "levelselect_museum": {
+            "type": "sample",
+            "file": "sounds/levelselect_museum.wav",
+            "volume": 0.5
+        },
+        "levelselect_space": {
+            "type": "sample",
+            "file": "sounds/levelselect_space.wav",
+            "volume": 0.5
+        },
+        "levelselect_studio": {
+            "type": "sample",
+            "file": "sounds/levelselect_studio.wav",
+            "volume": 0.5
         }
     },
     "fonts": {

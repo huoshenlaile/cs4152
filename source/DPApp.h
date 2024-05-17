@@ -67,6 +67,7 @@ protected:
     float _music_volume = 1;
     float _sound_volume = 1;
     bool hasPlayedEndingMusic = false;
+    bool hasPlayedLevelSelectMusic = false;
     /**This boolean exists because CUGL has problems with onResume(). Right now, after tuning CUGL,
      onResume() works (more) correctly but it's called every time we FIRST open an app. That's counter-intuitive.
      To solve that issue, we check if we has suspended at least once before we call anything in onResume().*/

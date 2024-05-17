@@ -400,11 +400,27 @@ void DPApp::updateSetting(float timestep) {
 
 void DPApp::updateLevelSelect(float timestep) {
     _levelSelectScene.update(timestep);
+    if (!hasPlayedLevelSelectMusic) {
+        _audioController.clear("menu");
+        if (_currentLevelKey == "level7" || _currentLevelKey == "level8" || _currentLevelKey == "level9" || _currentLevelKey == "level10" || _currentLevelKey == "level11" || _currentLevelKey == "level12") {
+            _audioController.play("levelselect_space", "levelselect_space");
+        } else if (_currentLevelKey == "level13" || _currentLevelKey == "level14" || _currentLevelKey == "level15") {
+            _audioController.play("levelselect_studio", "levelselect_studio");
+        } else {
+            _audioController.play("levelselect_museum", "levelselect_museum");
+        }
+        hasPlayedLevelSelectMusic = true;
+    }
     switch (_levelSelectScene.state) {
     case LevelSelectScene::BACK:
         _status = MENU;
         _levelSelectScene.setActive(false);
         _menuScene.setActive(true);
+        _audioController.clear("levelselect_space");
+        _audioController.clear("levelselect_studio");
+        _audioController.clear("levelselect_museum");
+        _audioController.play("menu", "menu", true);
+        hasPlayedLevelSelectMusic = false;
         break;
     case LevelSelectScene::STARTGAME:
         _gameScene.setCameraSkip(false);
@@ -412,6 +428,10 @@ void DPApp::updateLevelSelect(float timestep) {
         _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey());
         _currentLevelKey = _levelSelectScene.getSelectedLevelKey();
         _status = LEVELLOAD;
+        _audioController.clear("levelselect_space");
+        _audioController.clear("levelselect_studio");
+        _audioController.clear("levelselect_museum");
+        hasPlayedLevelSelectMusic = false;
         break;
     case LevelSelectScene::INSCENE:
         // Do nothing
