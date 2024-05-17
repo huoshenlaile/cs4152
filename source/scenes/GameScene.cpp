@@ -65,7 +65,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, std::str
 #pragma mark Audio Controller
     _audioController = std::make_shared<AudioController>();
     _audioController->init(_assets);
-    _audioController->play("touch1", "touch1");
+//    _audioController->play("touch1", "touch1");
     _interactionController->setAudioController(_audioController);
 
     PublishedMessage pm;

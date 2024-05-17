@@ -22,7 +22,8 @@
             "bounds": [ 22, 22, 378, 0 ],
             "knob": "knob",
             "path": "slot",
-            "value": 25,
+            "range"  : [0,1],
+            "value"  : 1,
             "visible": true
         },
         "children": {

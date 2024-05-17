@@ -63,6 +63,13 @@ protected:
     std::string _currentLevelKey;
 
 	std::shared_ptr<InputController> _input;
+    
+    float _music_volume = 1;
+    float _sound_volume = 1;
+    /**This boolean exists because CUGL has problems with onResume(). Right now, after tuning CUGL,
+     onResume() works (more) correctly but it's called every time we FIRST open an app. That's counter-intuitive.
+     To solve that issue, we check if we has suspended at least once before we call anything in onResume().*/
+    bool hasSuspendedOnce = false;
 
 	/** Whether or not we have finished loading all assets */
     bool _loaded = false;

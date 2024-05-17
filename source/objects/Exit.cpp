@@ -161,7 +161,7 @@ PublishedMessage Exit::timeUpdate(float timestep){
 //            _character->setColor("black");
 //        }
         
-        std::cout << this->getColorsCollected().size() << " phone " << this->getColorReqs().size() << std::endl;
+        std::cout << "# colors collected: " << this->getColorsCollected().size() << ", # colors required: " << this->getColorReqs().size() << std::endl;
         if (this->getColorsCollected().size() >= this->getColorReqs().size()){
 //            CULog("Game over! - Setting Complete.");
             auto a = PublishedMessage();

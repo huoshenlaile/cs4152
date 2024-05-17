@@ -10,6 +10,8 @@ protected:
     std::shared_ptr<cugl::AssetManager> _assets;
     
 public:
+    float music_volume = 1;
+    float sound_volume = 1;
     
     AudioController();
     ~AudioController() {dispose();};
@@ -43,12 +45,16 @@ public:
  * @return true if there was an available channel for the sound
  */
     bool play(const std::string key, const std::string soundName,
-              bool loop = false, float volume = -1.0f, bool force = false);
+              bool loop = false, float volume = 1.0f, bool force = false);
     
     bool playRandomNote();
     
     void pause(std::string key);
     
     void clear(std::string key);
+    
+    void setMusicVolume(float volume);
+    
+    void setSoundVolume(float volume);
 };
 #endif

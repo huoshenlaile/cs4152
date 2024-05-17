@@ -40,6 +40,20 @@ bool SettingScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
             }
 		}
     });
+    
+    _musicSlider = std::dynamic_pointer_cast<scene2::Slider>(_assets->get<scene2::SceneNode>("setting_slider1"));
+    _musicSlider -> addListener([this](const std::string& name, float value) {
+        music_volume = value;
+        std::cout << "music volume turns to " << music_volume << std::endl;
+    });
+    music_volume = _musicSlider -> getValue();
+    
+    _soundSlider = std::dynamic_pointer_cast<scene2::Slider>(_assets->get<scene2::SceneNode>("setting_slider2"));
+    _soundSlider -> addListener([this](const std::string& name, float value) {
+        sound_volume = value;
+        std::cout << "sound volume turns to " << sound_volume << std::endl;
+    });
+    sound_volume = _soundSlider -> getValue();
 
 	// Create the server configuration
 	addChild(scene);
@@ -56,25 +70,28 @@ void SettingScene::dispose() {
 }
 
 void SettingScene::setActive(bool value) {
-	std::cout << "Setting set active" << std::endl;
+	std::cout << "Setting setActive called" << std::endl;
 	if (isActive() != value) {
 		Scene2::setActive(value);
 		if (value) {
 			_backout->activate();
             _honors_mode_button->activate();
+            _musicSlider -> activate();
+            _soundSlider -> activate();
 			state = INSCENE;
 		}
 		else {
 			_backout->deactivate();
 			_backout->setDown(false);
             _honors_mode_button->deactivate();
+            _musicSlider -> deactivate();
+            _soundSlider -> deactivate();
             _honors_mode_button->setDown(false);
 		}
 	}
 }
 
 void SettingScene::update(float timestep) {
-	std::cout << "Setting is updating!" << honors_mode << std::endl;
     if (honors_mode){
         auto _honorsModeButtonImageNode = std::dynamic_pointer_cast<scene2::PolygonNode>(_assets->get<scene2::SceneNode>("setting_toggle")->getChildByName("up")->getChildByName("toggle_up"));
         _honorsModeButtonImageNode->setTexture(_assets->get<Texture>("toggle_up"));
