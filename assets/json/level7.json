@@ -4044,8 +4044,8 @@
                  "type":"ui",
                  "visible":true,
                  "width":0,
-                 "x":4048.54676778499,
-                 "y":4134.14776155718
+                 "x":4074.7934869451,
+                 "y":7205.01390328946
                 }, 
                 {
                  "height":0,
@@ -4123,8 +4123,8 @@
                  "type":"ui",
                  "visible":true,
                  "width":0,
-                 "x":2967.93157860667,
-                 "y":950.846326034063
+                 "x":3072.91845524709,
+                 "y":4284.1796593674
                 }, 
                 {
                  "height":0,
@@ -4298,8 +4298,8 @@
                  "type":"ui",
                  "visible":true,
                  "width":0,
-                 "x":2217.34860153128,
-                 "y":8157.77137882542
+                 "x":2689.78954641317,
+                 "y":1648.58502711938
                 }, 
                 {
                  "height":0,
@@ -4377,8 +4377,8 @@
                  "type":"ui",
                  "visible":true,
                  "width":0,
-                 "x":3867.38543271055,
-                 "y":9076.87671599813
+                 "x":3657.41167942971,
+                 "y":756.66674224485
                 }, 
                 {
                  "height":0,
@@ -4456,8 +4456,8 @@
                  "type":"ui",
                  "visible":true,
                  "width":0,
-                 "x":2719.92678408,
-                 "y":5359.82946047903
+                 "x":2746.17350324011,
+                 "y":8430.69560221131
                 }, 
                 {
                  "height":0,
@@ -4760,15 +4760,11 @@
                 }, 
                 {
                  "id":30,
-                 "image":"..\/textures\/tube_curved_pink.png",
-                 "imageheight":1724,
-                 "imagewidth":337
+                 "image":"..\/textures\/tube_curved_pink.png"
                 }, 
                 {
                  "id":31,
-                 "image":"..\/textures\/tube_straight_green.png",
-                 "imageheight":1662,
-                 "imagewidth":211
+                 "image":"..\/textures\/tube_straight_green.png"
                 }, 
                 {
                  "id":32,
@@ -4784,15 +4780,11 @@
                 }, 
                 {
                  "id":34,
-                 "image":"..\/textures\/goal_ufo.png",
-                 "imageheight":138,
-                 "imagewidth":447
+                 "image":"..\/textures\/goal_ufo.png"
                 }, 
                 {
                  "id":35,
-                 "image":"..\/textures\/tube_curved_blue.png",
-                 "imageheight":1724,
-                 "imagewidth":337
+                 "image":"..\/textures\/tube_curved_blue.png"
                 }, 
                 {
                  "id":36,
@@ -4800,9 +4792,7 @@
                 }, 
                 {
                  "id":37,
-                 "image":"..\/textures\/nogravityplatform_blackhole.png",
-                 "imageheight":99,
-                 "imagewidth":180
+                 "image":"..\/textures\/nogravityplatform_blackhole.png"
                 }, 
                 {
                  "id":38,
