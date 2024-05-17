@@ -1,5 +1,8 @@
 {
     "textures": {
+        "cugl-play" : {
+            "file": "textures/cugl-play.png"
+        },
         "setting_background": {
             "file": "textures/setting/setting_background.png"
         },
@@ -35,15 +38,6 @@
         },
         "toggle_up": {
             "file": "textures/setting/toggle_up.png"
-        },
-        "splotch1": {
-            "file": "textures/pureOrange.png"
-        },
-        "splotch2": {
-            "file": "textures/pureOrange.png"
-        },
-        "splotch3": {
-            "file": "textures/pureOrange.png"
         },
         "black_blank": {
             "file": "textures/black_blank.png"
@@ -98,12 +92,6 @@
         },
         "staticplatform_brush" : {
             "file": "textures/staticplatform_brush.png"
-        },
-        "staticplatform_brush2" : {
-            "file": "textures/staticplatform_brush2x.png"
-        },
-        "staticplatform_brush3" : {
-            "file": "textures/staticplatform_brush3x.png"
         },
         "smoothplatform_comet": {
             "file": "textures/movingplatform_comet.png"
@@ -180,18 +168,6 @@
         "painttube_red": {
             "file": "textures/newplatforms/painttube_red.png"
         },
-        "staticplatform_brush": {
-            "file": "textures/newplatforms/staticplatform_brush.png"
-        },
-        "staticplatform_brush2x": {
-            "file": "textures/newplatforms/staticplatform_brush2x.png"
-        },
-        "staticplatform_brush3x": {
-            "file": "textures/newplatforms/staticplatform_brush3x.png"
-        },
-        "long_frenchfriesx3": {
-            "file": "textures/newplatforms/staticplatform_frenchfries3x.png"
-        },
         "alpharelease_long_frenchfries_3": {
             "file": "textures/alpharelease_long_frenchfries_3.png"
         },
@@ -254,9 +230,6 @@
         },
         "paintmeter": {
             "file": "textures/paintmeter.png"
-        },
-        "left": {
-            "file": "textures/left_arrow.png"
         },
         "body192": {
             "file": "textures/body192.png",
@@ -729,12 +702,6 @@
         "tube_curved_r": {
             "file": "textures/tube/tube_curved_right.png"
         },
-        "tube_str_l": {
-            "file": "textures/tube/tube_straight_left.png"
-        },
-        "tube_str_r": {
-            "file": "textures/tube/tube_straight_right.png"
-        },
         "text_hi": {
             "file": "textures/text_hi.png"
         },
@@ -873,36 +840,6 @@
         "progress": "json/GameProgress.json"
     },
     "sounds": {
-        "touch1": {
-            "type": "sample",
-            "file": "sounds/touch1.wav",
-            "volume": 0.5
-        },
-        "touch2": {
-            "type": "sample",
-            "file": "sounds/touch2.wav",
-            "volume": 0.5
-        },
-        "touch3": {
-            "type": "sample",
-            "file": "sounds/touch3.wav",
-            "volume": 0.5
-        },
-        "touch4": {
-            "type": "sample",
-            "file": "sounds/touch4.wav",
-            "volume": 0.5
-        },
-        "touch5": {
-            "type": "sample",
-            "file": "sounds/touch5.wav",
-            "volume": 0.5
-        },
-        "touch6": {
-            "type": "sample",
-            "file": "sounds/touch6.wav",
-            "volume": 0.5
-        },
         "menu": {
             "type": "sample",
             "file": "sounds/main_theme_menu_music.wav",
