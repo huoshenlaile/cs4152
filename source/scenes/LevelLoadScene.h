@@ -9,8 +9,15 @@ protected:
     std::shared_ptr<cugl::AssetManager> _assets;
     std::string _file;
     std::string _key;
+    std::string _levelAssets;
+    std::string _levelAssets_currently_loaded;
+
+    bool _is_currently_loaded = false;
     bool _constructWorld();
 
+    bool loadAssets();
+    bool loadLevelDescription();
+    bool unloadAssets();
 public:
     void dispose() override;
 
@@ -20,7 +27,7 @@ public:
 
     bool init(const std::shared_ptr<cugl::AssetManager> &assets);
 
-    bool loadFileAsync(const std::string &file, const std::string &key);
+    bool loadFileAsync(const std::string &file, const std::string &key, const std::string &levelAssets);
 
     void update(float timestep) override;
 
