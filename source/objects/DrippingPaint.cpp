@@ -141,9 +141,19 @@ PublishedMessage DrippingPaint::timeUpdate(float timestep){
     //std::cout << "THIS FUCKING PAINTS pos " << currentPosition.x << ", " << currentPosition.y << " and size " << currentBounds.x  << ", " << currentBounds.y << std::endl;
     
     //std::cout << "THIS FUCKING PAINTS pos " << _selfTexture->getPositionY() << " and size " << _selfTexture->getHeight() << std::endl;
+    
     _selfObstacle->setPosition(currentPosition.x, currentPosition.y - _dripSpeed);
     _selfObstacle->setHeight(_selfObstacle->getHeight() + _dripSpeed);
+    //_world->removeObstacle(_selfObstacle);
+    //auto newObs = cugl::physics2::PolygonObstacle::alloc(<#const Poly2 &poly#>)
+    // _selfObstacle->setPolygon(Rect(_selfObstacle->getPosition(), {_selfObstacle->getHeight(), _selfObstacle->getWidth()}));
     //_selfTexture->setScale(_selfTexture->getScale().x, _selfTexture->getScale().y + _dripSpeed);
-
-    return PublishedMessage();
+    PublishedMessage a;
+    if (activated && is_out){
+        if (_selfTexture->getBoundingBox().contains(_character->getBodyPos())){// scenenode comparison
+            a.Head = pub_message_head;
+            a.Body = color;
+        }        
+    }
+    return a;
 }
