@@ -159,6 +159,9 @@
         "alpharelease_long_frenchfries": {
             "file": "textures/alpharelease_long_frenchfries.png"
         },
+        "alpharelease_frenchfries_BIG": {
+            "file": "textures/alpharelease_frenchfries_BIG.png"
+        },
         "painttube_black": {
             "file": "textures/newplatforms/painttube_black.png"
         },
@@ -712,10 +715,13 @@
             "file": "textures/red_paintspaltter_148x680.png"
         },
         "tube_pink": {
-            "file": "textures/tube/pink_tube.png"
+            "file": "textures/tube/tube_curved_pink.png"
+        },
+        "tube_purple": {
+            "file": "textures/tube/tube_curved_purple.png"
         },
         "tube_blue": {
-            "file": "textures/tube/blue_tube.png"
+            "file": "textures/tube/tube_curved_blue.png"
         },
         "tube_curved_l": {
             "file": "textures/tube/tube_curved_left.png"

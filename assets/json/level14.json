@@ -3660,7 +3660,7 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_mustard"
+                                 "texture":"painttube_red"
                                 }
                             }
                         }],
@@ -3842,7 +3842,7 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_mustard"
+                                 "texture":"painttube_purple"
                                 }
                             }
                         }],
@@ -4024,7 +4024,7 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_mustard"
+                                 "texture":"painttube_pink"
                                 }
                             }
                         }],
@@ -4206,7 +4206,7 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_mustard"
+                                 "texture":"painttube_green"
                                 }
                             }
                         }],
@@ -4388,7 +4388,7 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_mustard"
+                                 "texture":"painttube_blue"
                                 }
                             }
                         }],
