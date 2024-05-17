@@ -112,7 +112,7 @@
                         {
                          "name":"AnimationAsset",
                          "type":"string",
-                         "value":"pink_paint"
+                         "value":"purple_paint"
                         }, 
                         {
                          "name":"Pub1",
@@ -120,7 +120,7 @@
                          "type":"class",
                          "value":
                             {
-                             "Body":"pink",
+                             "Body":"purple",
                              "Enabled":true,
                              "Head":"character color",
                              "Trigger":"TOUCH: character body"
@@ -140,7 +140,7 @@
                         {
                          "name":"color",
                          "type":"string",
-                         "value":"pink"
+                         "value":"purple"
                         }, 
                         {
                          "name":"instant",
@@ -195,16 +195,16 @@
                  "name":"exit",
                  "polygon":[
                         {
-                         "x":1187.72750030636,
+                         "x":1387.72750030636,
                          "y":0
                         }, 
                         {
-                         "x":1187.72750030636,
-                         "y":645.055474296826
+                         "x":1387.72750030636,
+                         "y":620.055474296826
                         }, 
                         {
                          "x":0,
-                         "y":629.322413948121
+                         "y":604.932170045682
                         }, 
                         {
                          "x":0,
@@ -231,7 +231,7 @@
                              "obstacle":
                                 {
                                  "bodytype":0,
-                                 "color-requirements":"blue,pink",
+                                 "color-requirements":"purple,blue",
                                  "damping":0,
                                  "debugcolor":"yellow",
                                  "debugopacity":0,
@@ -247,8 +247,8 @@
                  "type":"exit",
                  "visible":true,
                  "width":0,
-                 "x":5430.20665512401,
-                 "y":7537.9665305104
+                 "x":5230.20665512401,
+                 "y":7562.9665305104
                 }, 
                 {
                  "height":0,
@@ -677,7 +677,7 @@
                  "name":"pink_tube_2",
                  "polygon":[
                         {
-                         "x":0,
+                         "x":-8.33333333333303,
                          "y":0
                         }, 
                         {
@@ -1273,8 +1273,8 @@
                          "y":183.635270315395
                         }, 
                         {
-                         "x":-182.141515732816,
-                         "y":68.3527021450823
+                         "x":-190.474849066149,
+                         "y":68.3527021450827
                         }],
                  "properties":[
                         {
@@ -1301,8 +1301,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":2596.37534722175,
-                 "y":8207.89353348125
+                 "x":2504.70868055508,
+                 "y":8224.56020014792
                 }, 
                 {
                  "height":0,
@@ -1926,7 +1926,7 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"tube_pink"
+                                 "texture":"tube_purple"
                                 }
                             }
                         }],
@@ -4000,14 +4000,14 @@
                         }, 
                         {
                          "x":0,
-                         "y":-202.07754427008
+                         "y":-277.07754427008
                         }, 
                         {
-                         "x":1433.18521719703,
-                         "y":-202.07754427008
+                         "x":1358.18521719703,
+                         "y":-277.07754427008
                         }, 
                         {
-                         "x":1433.18521719703,
+                         "x":1358.18521719703,
                          "y":0
                         }],
                  "properties":[
@@ -4020,7 +4020,7 @@
                              "obstacle":
                                 {
                                  "bodytype":0,
-                                 "color-requirements":"blue,pink",
+                                 "color-requirements":"purple,blue",
                                  "damping":0,
                                  "debugcolor":"yellow",
                                  "debugopacity":192,
@@ -4037,7 +4037,7 @@
                  "visible":true,
                  "width":0,
                  "x":5249.53905894392,
-                 "y":7923.47766697408
+                 "y":7998.47766697408
                 }, 
                 {
                  "height":0,
@@ -4109,14 +4109,14 @@
                         }, 
                         {
                          "x":0,
-                         "y":-187.865908378542
+                         "y":-229.53257504521
                         }, 
                         {
-                         "x":644.910953551064,
-                         "y":-187.865908378542
+                         "x":836.577620217731,
+                         "y":-229.53257504521
                         }, 
                         {
-                         "x":644.910953551064,
+                         "x":836.577620217731,
                          "y":0
                         }],
                  "properties":[
@@ -4159,8 +4159,8 @@
                  "type":"movingwall",
                  "visible":true,
                  "width":0,
-                 "x":6984.29249511036,
-                 "y":17438.0999797461
+                 "x":6642.62582844369,
+                 "y":17379.7666464128
                 }, 
                 {
                  "gid":42,

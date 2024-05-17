@@ -114,7 +114,7 @@
                         {
                          "name":"AnimationAsset",
                          "type":"string",
-                         "value":"red_paint"
+                         "value":"blue_paint"
                         }, 
                         {
                          "name":"Pub1",
@@ -122,7 +122,7 @@
                          "type":"class",
                          "value":
                             {
-                             "Body":"orange",
+                             "Body":"blue",
                              "Enabled":true,
                              "Head":"character color",
                              "Trigger":"TOUCH: character body"
@@ -142,7 +142,7 @@
                         {
                          "name":"color",
                          "type":"string",
-                         "value":"orange"
+                         "value":"blue"
                         }, 
                         {
                          "name":"instant",
@@ -475,16 +475,16 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"octopus_red"
+                                 "texture":"octopus_blue"
                                 }
                             }
                         }],
-                 "rotation":128.741793927875,
+                 "rotation":308.74,
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":2486.67150179312,
-                 "y":12611.9860620024
+                 "x":2573.47705734868,
+                 "y":12768.2360620024
                 }, 
                 {
                  "height":0,
@@ -606,16 +606,16 @@
                  "name":"exit_sensor",
                  "polygon":[
                         {
-                         "x":1259.38141296559,
+                         "x":1641.32585741003,
                          "y":0
                         }, 
                         {
-                         "x":1259.38141296559,
-                         "y":1081.74909647959
+                         "x":1641.32585741003,
+                         "y":890.776874257367
                         }, 
                         {
                          "x":0,
-                         "y":1055.36532633403
+                         "y":869.050900667123
                         }, 
                         {
                          "x":0,
@@ -664,7 +664,7 @@
                              "obstacle":
                                 {
                                  "bodytype":0,
-                                 "color-requirements":"orange,purple,blue",
+                                 "color-requirements":"blue,green",
                                  "damping":0,
                                  "debugcolor":"yellow",
                                  "debugopacity":0,
@@ -680,7 +680,7 @@
                  "type":"exit",
                  "visible":true,
                  "width":0,
-                 "x":2317.87156777553,
+                 "x":2144.26045666442,
                  "y":21669.753769924
                 }, 
                 {
@@ -738,7 +738,7 @@
                              "obstacle":
                                 {
                                  "bodytype":0,
-                                 "color-requirements":"orange,purple",
+                                 "color-requirements":"blue,green",
                                  "damping":0,
                                  "debugcolor":"yellow",
                                  "debugopacity":0,
@@ -854,8 +854,8 @@
                  "type":"paint",
                  "visible":true,
                  "width":0,
-                 "x":990.933500040161,
-                 "y":18989.9960776944
+                 "x":2431.90572226238,
+                 "y":18920.55163325
                 }, 
                 {
                  "height":0,
@@ -890,7 +890,7 @@
                         {
                          "name":"AnimationAsset",
                          "type":"string",
-                         "value":"blue_paint"
+                         "value":"green_paint"
                         }, 
                         {
                          "name":"Pub1",
@@ -898,7 +898,7 @@
                          "type":"class",
                          "value":
                             {
-                             "Body":"blue",
+                             "Body":"green",
                              "Enabled":true,
                              "Head":"character color",
                              "Trigger":"TOUCH: character body"
@@ -918,7 +918,7 @@
                         {
                          "name":"color",
                          "type":"string",
-                         "value":"blue"
+                         "value":"green"
                         }, 
                         {
                          "name":"instant",

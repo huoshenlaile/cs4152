@@ -45,7 +45,7 @@ public:
  * @return true if there was an available channel for the sound
  */
     bool play(const std::string key, const std::string soundName,
-              bool loop = false, float volume = 1.0f, bool force = false);
+              bool loop = false, float volume = -1.0f, bool force = false);
     
     bool playRandomNote();
     

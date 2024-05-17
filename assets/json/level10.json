@@ -194,7 +194,7 @@
                              "obstacle":
                                 {
                                  "bodytype":0,
-                                 "color-requirements":"orange",
+                                 "color-requirements":"pink",
                                  "damping":0,
                                  "debugcolor":"yellow",
                                  "debugopacity":0,
@@ -268,7 +268,7 @@
                              "obstacle":
                                 {
                                  "bodytype":0,
-                                 "color-requirements":"",
+                                 "color-requirements":"pink",
                                  "damping":0,
                                  "debugcolor":"yellow",
                                  "debugopacity":0,
@@ -458,7 +458,7 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"octopus_red"
+                                 "texture":"octopus_pink"
                                 }
                             }
                         }],
@@ -531,8 +531,8 @@
                  "type":"sensor",
                  "visible":true,
                  "width":0,
-                 "x":12652.7156362829,
-                 "y":1694.69527794902
+                 "x":12245.3495648543,
+                 "y":1817.46313509188
                 }, 
                 {
                  "height":0,
@@ -591,7 +591,7 @@
                         {
                          "name":"AnimationAsset",
                          "type":"string",
-                         "value":"red_paint"
+                         "value":"pink_paint"
                         }, 
                         {
                          "name":"Pub1",
@@ -599,7 +599,7 @@
                          "type":"class",
                          "value":
                             {
-                             "Body":"orange",
+                             "Body":"pink",
                              "Enabled":true,
                              "Head":"character color",
                              "Trigger":"TOUCH: character body"
@@ -619,7 +619,7 @@
                         {
                          "name":"color",
                          "type":"string",
-                         "value":"orange"
+                         "value":"pink"
                         }, 
                         {
                          "name":"instant",
