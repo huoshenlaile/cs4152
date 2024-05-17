@@ -27,10 +27,15 @@ protected:
     bool OnPreSolveEnabled = false;
     bool OnPostSolveEnabled = false;
     bool canBeGrabbed = false;
+    std::shared_ptr<cugl::scene2::ActionManager> _grab_actions_manager;
+    std::shared_ptr<cugl::scene2::Animate> _grab_animate;
+    std::shared_ptr<scene2::SpriteNode> _grab_animation;
+
     bool loadOnce = false;
     
     Rect _bounds;
     Vec2 _scale = Vec2(32, 32);
+    float _scale_float;
 
     std::string _name = "";
 
@@ -50,6 +55,7 @@ protected:
     Vec2 getObjectPos(const std::shared_ptr<JsonValue>& json);
 public:
 
+
     virtual std::shared_ptr<cugl::physics2::Obstacle> getObstacle() {
         return _selfObstacle;
     }
@@ -57,7 +63,10 @@ public:
     virtual cugl::physics2::Obstacle* getObstacleRawPtr() {
         return _selfObstacle.get();
     }
-
+    //Don't want to break existing behavior
+    virtual std::shared_ptr<cugl::physics2::PolygonObstacle> getPolygonObstacle() {
+        return _selfObstacle;
+    }
 
     virtual bool isActivated() { return activated; }
     virtual void activate() { activated = true; }
@@ -121,6 +130,21 @@ public:
     
     virtual bool isGrabbable() {
         return canBeGrabbed;
+    }
+    
+    virtual std::shared_ptr<cugl::scene2::ActionManager> getGrabActionsManager(){
+        return _grab_actions_manager;
+    }
+    
+    virtual std::shared_ptr<cugl::scene2::Animate> getGrabAnimate(){
+        return _grab_animate;
+    }
+    
+    virtual std::shared_ptr<scene2::SpriteNode> getGrabAnimation(){
+        return _grab_animation;
+    }
+    virtual float getScale(){
+        return _scale_float;
     }
 
 };
