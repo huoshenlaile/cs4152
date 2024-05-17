@@ -30,9 +30,9 @@ void LevelSelectScene::addButtons(std::shared_ptr<cugl::AssetManager> _assets){
 
     _level2->addListener([this](const std::string& name, bool down) {
         if (down) {
-            this->selectedLevelFile = "json/level2.json";
-            this->selectedLevelKey = "level2";
-            this->selectedLevelAssets = "json/level2_assets.json";
+            selectedLevelFile = "json/level2.json";
+            selectedLevelKey = "level2";
+            selectedLevelAssets = "json/level2_assets.json";
             startGame();
         }
     });
@@ -42,14 +42,16 @@ void LevelSelectScene::addButtons(std::shared_ptr<cugl::AssetManager> _assets){
             CULog("Level 3 selected");
             selectedLevelFile = "json/level3.json";
             selectedLevelKey = "level3";
+            selectedLevelAssets = "json/level3_assets.json";
             startGame();
         }
     });
     _level4->addListener([this](const std::string& name, bool down) {
         if (down) {
             CULog("Level 4 selected");
-            this->selectedLevelFile = "json/level4.json";
-            this->selectedLevelKey = "level4";
+            selectedLevelFile = "json/level4.json";
+            selectedLevelKey = "level4";
+            selectedLevelAssets = "json/level4_assets.json";
             startGame();
         }
     });
@@ -58,6 +60,7 @@ void LevelSelectScene::addButtons(std::shared_ptr<cugl::AssetManager> _assets){
         CULog("Level 5 selected");
         selectedLevelFile = "json/level5.json";
         selectedLevelKey = "level5";
+        selectedLevelAssets = "json/level5_assets.json";
         startGame();
     }
     });
@@ -66,6 +69,7 @@ void LevelSelectScene::addButtons(std::shared_ptr<cugl::AssetManager> _assets){
             CULog("Level 6 selected");
             selectedLevelFile = "json/level6.json";
             selectedLevelKey = "level6";
+            selectedLevelAssets = "json/level6_assets.json";
             startGame();
         }
     });
@@ -74,6 +78,7 @@ void LevelSelectScene::addButtons(std::shared_ptr<cugl::AssetManager> _assets){
             CULog("Level 7 selected");
             selectedLevelFile = "json/level7.json";
             selectedLevelKey = "level7";
+            selectedLevelAssets = "json/level7_assets.json";
             startGame();
         }
     });
@@ -82,6 +87,7 @@ void LevelSelectScene::addButtons(std::shared_ptr<cugl::AssetManager> _assets){
             CULog("Level 8 selected");
             selectedLevelFile = "json/level8.json"; // Ensure this file exists in your assets
             selectedLevelKey = "level8";
+            selectedLevelAssets = "json/level8_assets.json";
             startGame();
         }
     });
@@ -90,6 +96,7 @@ void LevelSelectScene::addButtons(std::shared_ptr<cugl::AssetManager> _assets){
             CULog("Level 9 selected");
             selectedLevelFile = "json/level9.json"; // Ensure this file exists in your assets
             selectedLevelKey = "level9";
+            selectedLevelAssets = "json/level9_assets.json";
             startGame();
         }
     });
@@ -98,6 +105,7 @@ void LevelSelectScene::addButtons(std::shared_ptr<cugl::AssetManager> _assets){
             CULog("Level 10 selected");
             selectedLevelFile = "json/level10.json"; // Ensure this file exists in your assets
             selectedLevelKey = "level10";
+            selectedLevelAssets = "json/level10_assets.json";
             startGame();
         }
     });
@@ -107,6 +115,7 @@ void LevelSelectScene::addButtons(std::shared_ptr<cugl::AssetManager> _assets){
             CULog("Level 14 selected");
             selectedLevelFile = "json/level11.json"; // Ensure this file exists in your assets
             selectedLevelKey = "level11";
+            selectedLevelAssets = "json/level11_assets.json";
             startGame();
         }
     });
@@ -116,6 +125,7 @@ void LevelSelectScene::addButtons(std::shared_ptr<cugl::AssetManager> _assets){
         CULog("Level 12 selected");
         selectedLevelFile = "json/level12.json"; // Ensure this file exists in your assets
         selectedLevelKey = "level12";
+        selectedLevelAssets = "json/level12_assets.json";
         startGame();
     }
     });
@@ -124,6 +134,7 @@ void LevelSelectScene::addButtons(std::shared_ptr<cugl::AssetManager> _assets){
             CULog("Level 13 selected");
             selectedLevelFile = "json/level13.json"; // Ensure this file exists in your assets
             selectedLevelKey = "level13";
+            selectedLevelAssets = "json/level13_assets.json";
             startGame();
         }
     });
@@ -132,6 +143,7 @@ void LevelSelectScene::addButtons(std::shared_ptr<cugl::AssetManager> _assets){
             CULog("Level 14 selected");
             selectedLevelFile = "json/level14.json"; // Ensure this file exists in your assets
             selectedLevelKey = "level14";
+            selectedLevelAssets = "json/level14_assets.json";
             startGame();
         }
     });
@@ -140,6 +152,7 @@ void LevelSelectScene::addButtons(std::shared_ptr<cugl::AssetManager> _assets){
             CULog("Level 14 selected");
             selectedLevelFile = "json/level15.json"; // Ensure this file exists in your assets
             selectedLevelKey = "level15";
+            selectedLevelAssets = "json/level15_assets.json";
             startGame();
         }
     });
