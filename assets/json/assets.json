@@ -732,6 +732,9 @@
         "text_hi": {
             "file": "textures/text_hi.png"
         },
+        "ui_grabbable": {
+            "file": "textures/ui_grabbable.png"
+        },
         "ui_move_text": {
             "file": "textures/ui_move_text.png"
         },

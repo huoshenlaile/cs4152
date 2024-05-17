@@ -201,7 +201,6 @@ void GameScene::postUpdate(float dt) {
     if (_level == nullptr)
         return;
     _interactionController->postUpdate(dt);
-
     if (_interactionController->isLevelComplete()) {
         this->defaultGoodOrBad = _interactionController->defaultGoodOrBad;
         finishLevel();

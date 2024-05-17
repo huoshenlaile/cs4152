@@ -26,6 +26,9 @@ bool InteractionController2::init(std::shared_ptr<LevelLoader2> level, std::shar
         if (interactable->hasTimeUpdate()) {
             _timeUpdateInteractables.push_back(interactable);
         }
+        if (interactable->isGrabbable()) {
+            _grabbableInteractables.push_back(interactable);
+        }
         if (interactable->hasOnBeginContact()) {
             std::cout << "Has Begin Contact Interactable: " << interactable -> getName() << std::endl;
             _BeginContactInteractable[interactable->getObstacleRawPtr()] = interactable;
@@ -407,7 +410,20 @@ void InteractionController2::preUpdate(float timestep) {
     this->grabCDIfNecessary(timestep);
 }
 
-void InteractionController2::postUpdate(float timestep) { runMessageQueue(); }
+void InteractionController2::postUpdate(float timestep) {
+    runMessageQueue();
+    for (auto interactable : _grabbableInteractables) {
+        auto grab_action_manager = interactable->getGrabActionsManager();
+        grab_action_manager->update(timestep);
+          if (!grab_action_manager->isActive("grab_ui")){
+              grab_action_manager->activate("grab_ui", interactable->getGrabAnimate(), interactable->getGrabAnimation());
+      }
+        auto obs = interactable->getPolygonObstacle();
+        interactable->getGrabAnimation()->setPosition((obs->getPosition()-(obs->getSize()/2)) * interactable->getScale());
+
+    }
+    
+}
 
 void InteractionController2::activateController() {
     // link the callbacks to the world
