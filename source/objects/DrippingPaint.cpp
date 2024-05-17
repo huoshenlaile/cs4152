@@ -171,10 +171,11 @@ PublishedMessage DrippingPaint::timeUpdate(float timestep){
     // Calculate the next position along the path
     if(activated){
         Vec2 currentPosition = _selfObstacle->getPosition();
-        //std::cout << "THIS FUCKING PAINTS pos " << currentPosition.x << ", " << currentPosition.y << " and size " << currentBounds.x  << ", " << currentBounds.y << std::endl;
-        
-        _selfObstacle->setPosition(currentPosition.x, currentPosition.y - _dripSpeed);
-        _selfObstacle->setHeight(_selfObstacle->getHeight() + _dripSpeed);
+        Vec2 currentBounds = _selfObstacle->getSize();
+        if (_selfObstacle->getHeight() <= 1000.0f){
+            _selfObstacle->setPosition(currentPosition.x, currentPosition.y - _dripSpeed);
+            _selfObstacle->setHeight(_selfObstacle->getHeight() + _dripSpeed);
+        }
         PublishedMessage a;
         if (activated && is_out){
             if (_selfTexture->getBoundingBox().contains(_character->getBodyPos())){// scenenode comparison
@@ -182,7 +183,6 @@ PublishedMessage DrippingPaint::timeUpdate(float timestep){
                 a.Body = color;
             }
         }
-        return a;
     }
     return PublishedMessage();
 }
