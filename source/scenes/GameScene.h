@@ -75,6 +75,7 @@ protected:
 
     bool _gamePaused;
     bool _skipCameraSpan;
+    bool _initialAnimationsTriggered = false;
         
         
 ;

@@ -117,6 +117,7 @@ void GameScene::reset() {
     _assets->unload<LevelLoader2>(_levelName);
     _camera->setCameraState(3);
     _camera->setCameraSkip(true);
+    _initialAnimationsTriggered = false;
     GameScene::dispose();
 }
 
@@ -181,6 +182,12 @@ void GameScene::preUpdate(float dt) {
     //    _interactionController->connectGrabJoint();
     //    _interactionController->ungrabIfNecessary();
     //    _interactionController->grabCDIfNecessary(dt);
+    if(_camera->getState() == 3 && !_initialAnimationsTriggered) {    // make one time trigger of drip paints with a boolean flag
+        _initialAnimationsTriggered = true;
+        PublishedMessage pm;
+        pm.Head = "Start Drip";
+        _interactionController->pushToMessageQueue(pm);
+    }
 }
 
 void GameScene::fixedUpdate(float dt) {
