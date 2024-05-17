@@ -29,8 +29,6 @@ protected:
         
 public:
     DrippingPaint(void) : Interactable() {}
-    ~DrippingPaint() {
-    }
 
     virtual bool init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect bounds) override;
     
@@ -51,11 +49,6 @@ public:
     /* superrr super painful but needed. should ONLY be called after character has been initialized in LevelLoader */
     void linkCharacter (const std::shared_ptr<CharacterController>& c) {
         _character = c;
-    }
-    virtual ~DrippingPaint() override {
-            // This is automatically called, so this line is not necessary but shown for clarity
-            Interactable::~Interactable();
-        _character = nullptr;
     }
 };
 
