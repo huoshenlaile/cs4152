@@ -96,7 +96,7 @@ protected:
     void constructSceneNodes(const Size &dimen);
 
 public:
-    bool _honors = true;
+    bool _honors = false; //dpapp, gamescene, settingscene
     int defaultGoodOrBad = -1;
     std::vector<std::shared_ptr<cugl::physics2::Joint>> Alljoints;
     /** the state of this scene, referenced by DPApp*/

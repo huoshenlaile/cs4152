@@ -91,7 +91,7 @@ protected:
     AudioController _audioController;
 
 public:
-    bool honors_mode = true;
+    bool honors_mode = false; //dpapp, gamescene, settingscene
 #pragma mark Constructors
     
 	DPApp() : cugl::Application() {}

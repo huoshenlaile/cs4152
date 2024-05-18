@@ -14,7 +14,7 @@ protected:
     std::shared_ptr<cugl::scene2::Slider> _soundSlider;
     
 public:
-    bool honors_mode = true;
+    bool honors_mode = false;
     float music_volume = 1;
     float sound_volume = 1;
     
