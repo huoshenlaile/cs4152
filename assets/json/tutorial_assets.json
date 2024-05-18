@@ -6,6 +6,9 @@
         "lv0_background": {
             "file": "textures/lv0_background.png"
         },
+        "alpharelease_frenchfries": {
+            "file": "textures/alpharelease_frenchfries.png"
+        },
         "alpharelease_frenchfries_BIG": {
             "file": "textures/alpharelease_frenchfries_BIG.png"
         },

@@ -9,6 +9,9 @@
         "lv2_background_2": {
             "file": "textures/lv2_background_2.png"
         },
+        "heavygravityplatform_blackhole": {
+            "file": "textures/heavygravityplatform_blackhole.png"
+        },
         "tube_pink": {
             "file": "textures/tube/tube_curved_pink.png"
         },

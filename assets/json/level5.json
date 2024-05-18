@@ -155,115 +155,6 @@
                 }, 
                 {
                  "height":0,
-                 "id":147,
-                 "name":"",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":72.5534,
-                         "y":0
-                        }, 
-                        {
-                         "x":171.019,
-                         "y":16.8427
-                        }, 
-                        {
-                         "x":264.302,
-                         "y":59.5974
-                        }, 
-                        {
-                         "x":317.421,
-                         "y":111.421
-                        }, 
-                        {
-                         "x":327.786,
-                         "y":167.132
-                        }, 
-                        {
-                         "x":314.83,
-                         "y":208.591
-                        }, 
-                        {
-                         "x":263.006,
-                         "y":265.597
-                        }, 
-                        {
-                         "x":182.679,
-                         "y":310.943
-                        }, 
-                        {
-                         "x":79.0314,
-                         "y":334.264
-                        }, 
-                        {
-                         "x":-14.2516,
-                         "y":335.559
-                        }, 
-                        {
-                         "x":-138.629,
-                         "y":310.943
-                        }, 
-                        {
-                         "x":-238.39,
-                         "y":263.006
-                        }, 
-                        {
-                         "x":-286.327,
-                         "y":203.409
-                        }, 
-                        {
-                         "x":-287.622,
-                         "y":137.333
-                        }, 
-                        {
-                         "x":-251.346,
-                         "y":72.5534
-                        }, 
-                        {
-                         "x":-195.635,
-                         "y":34.9811
-                        }, 
-                        {
-                         "x":-110.126,
-                         "y":5.18238
-                        }, 
-                        {
-                         "x":-47.937,
-                         "y":-1.2956
-                        }],
-                 "properties":[
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"",
-                                 "debugopacity":192,
-                                 "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
-                                 "rotation":false,
-                                 "texture":"heavygravityplatform_blackhole"
-                                }
-                            }
-                        }],
-                 "rotation":0,
-                 "type":"wall",
-                 "visible":true,
-                 "width":0,
-                 "x":2931.58712207139,
-                 "y":11320.5161904474
-                }, 
-                {
-                 "height":0,
                  "id":151,
                  "name":"paint2",
                  "polygon":[
@@ -3602,6 +3493,63 @@
                  "width":0,
                  "x":6092.68851105356,
                  "y":3058.7771647337
+                }, 
+                {
+                 "height":0,
+                 "id":263,
+                 "name":"",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":-331.182045258509,
+                         "y":-96.0564245265074
+                        }, 
+                        {
+                         "x":312.782864346011,
+                         "y":-96.0564245265074
+                        }, 
+                        {
+                         "x":312.782864346011,
+                         "y":90.863968392207
+                        }, 
+                        {
+                         "x":-328.553705526953,
+                         "y":90.863968392207
+                        }, 
+                        {
+                         "x":-328.553705526953,
+                         "y":-93.4601964593572
+                        }],
+                 "properties":[
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"",
+                                 "debugopacity":0,
+                                 "density":0,
+                                 "friction":1000000000,
+                                 "restitution":0.2,
+                                 "rotation":false,
+                                 "texture":"alpharelease_frenchfries"
+                                }
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"wall",
+                 "visible":true,
+                 "width":0,
+                 "x":2992.09037294212,
+                 "y":11490.5277183118
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -3610,7 +3558,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":263,
+ "nextobjectid":264,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
@@ -3746,15 +3694,11 @@
                 }, 
                 {
                  "id":30,
-                 "image":"..\/textures\/tube_curved_pink.png",
-                 "imageheight":1724,
-                 "imagewidth":337
+                 "image":"..\/textures\/tube_curved_pink.png"
                 }, 
                 {
                  "id":31,
-                 "image":"..\/textures\/tube_straight_green.png",
-                 "imageheight":1662,
-                 "imagewidth":211
+                 "image":"..\/textures\/tube_straight_green.png"
                 }, 
                 {
                  "id":32,
@@ -3770,15 +3714,11 @@
                 }, 
                 {
                  "id":34,
-                 "image":"..\/textures\/goal_ufo.png",
-                 "imageheight":138,
-                 "imagewidth":447
+                 "image":"..\/textures\/goal_ufo.png"
                 }, 
                 {
                  "id":35,
-                 "image":"..\/textures\/tube_curved_blue.png",
-                 "imageheight":1724,
-                 "imagewidth":337
+                 "image":"..\/textures\/tube_curved_blue.png"
                 }, 
                 {
                  "id":36,
@@ -3786,9 +3726,7 @@
                 }, 
                 {
                  "id":37,
-                 "image":"..\/textures\/nogravityplatform_blackhole.png",
-                 "imageheight":99,
-                 "imagewidth":180
+                 "image":"..\/textures\/nogravityplatform_blackhole.png"
                 }, 
                 {
                  "id":38,
