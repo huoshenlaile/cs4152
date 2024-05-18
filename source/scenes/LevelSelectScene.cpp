@@ -581,6 +581,7 @@ void LevelSelectScene::updateLevelStatus() {
             }
             std::string levelNumber = child->key().substr(5,child->key().length()-5);
             int num = std::stoi(levelNumber);
+            std::cout << "(DEBUG: Level Number:) "<< num << std::endl;
             unlocked_levels.emplace(num);
         }
     } else {

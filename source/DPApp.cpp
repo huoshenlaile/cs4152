@@ -208,6 +208,7 @@ void DPApp::preUpdate(float timestep) {
                 _currentLevelKey = _levelSelectScene.getSelectedLevelKey();
                 playCurrentLevelMusic();
                 if (_currentLevelKey == currentLevelNumber && currentLevelNumber == "level15") {
+                    std::cout << "this is the last level; going to Ending Scene" << std::endl;
                     _endingScene.setActive(true);
                     _status = ENDING;
                     return;
@@ -236,10 +237,10 @@ void DPApp::preUpdate(float timestep) {
     } else if (_status == ENDING) {
         switch (_endingScene.state) {
             case EndingScene::INSCENE:
-                std::cout << "updating ending scene" << std::endl;
                 _endingScene.update(timestep);
                 break;
             case EndingScene::MENU:
+                std::cout << "ending scene: going back to main menu" << std::endl;
                 _audioController.clear("gallery");
                 _audioController.clear("space");
                 _audioController.play("menu", "menu", true);
