@@ -37,6 +37,9 @@ protected:
 
     Vec2 _UIPosition;
     int _initialStay, _finalStay;
+    std::vector<int> _inBetweenPanelSize;
+    bool _paused = false;
+    Vec2 _initialPos;
     bool _levelComplete, _completed, _initialUpdate, _displayed, _moveToLeft, _moveToTop, _replay, _skipCameraSpan, _skipPosMove;
     float _defaultZoom, _levelCompleteZoom;
     Vec2 _panSpeed;
@@ -48,6 +51,9 @@ protected:
     
     std::map<std::string, std::function<PublishedMessage(ActionParams)>> uiActions;
 public:
+    
+    int cur_panel = 0;
+
     /**
      * Creates a new camera controller with the default values.
      *
@@ -149,6 +155,13 @@ public:
     
     void setCameraSkip(bool skip){_skipCameraSpan = skip;}
     bool getCameraSkip(){return _skipCameraSpan;}
+    
+    std::vector<int> getInBetweenPanelSize(){
+        return _inBetweenPanelSize;
+    }
+    bool getPaused(){
+        return _paused;
+    }
 };
 
 #endif
