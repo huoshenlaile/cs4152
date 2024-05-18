@@ -1,5 +1,8 @@
 {
     "textures": {
+        "staticplatform_comet": {
+            "file": "textures/staticplatform_comet.png"
+        },
         "staticplatform_brush" : {
             "file": "textures/staticplatform_brush.png"
         },
