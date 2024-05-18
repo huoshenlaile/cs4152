@@ -3653,7 +3653,7 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
+                                 "texture":""
                                 }
                             }
                         }],
@@ -3702,7 +3702,7 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
+                                 "texture":""
                                 }
                             }
                         }],
