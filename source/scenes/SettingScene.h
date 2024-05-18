@@ -12,7 +12,7 @@ protected:
     std::shared_ptr<cugl::scene2::Button> _backout;
     
 public:
-    bool honors_mode = true;
+    bool honors_mode = false; //dpapp, gamescene, settingscene
     
     std::shared_ptr<cugl::scene2::Button> _honors_mode_button;
     enum SceneState {
