@@ -162,6 +162,9 @@ void GameScene::preUpdate(float dt) {
         _camera->update(dt);
         _camera->setInitialUpdate(true);
     }
+    if(_camera->getPaused()){
+        _inputController->setStarted(false);
+    }
     // make one time publish with a boolean flag
     if (_camera->getState() == 1) {
         PublishedMessage pm;

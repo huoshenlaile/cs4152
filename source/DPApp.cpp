@@ -95,6 +95,7 @@ void DPApp::onShutdown() {
     _restorationScene.dispose();
     _loadScene.dispose();
     _pauseScene.dispose();
+    _endingScene.dispose();
     _assets = nullptr;
     _batch = nullptr;
 
@@ -202,13 +203,20 @@ void DPApp::preUpdate(float timestep) {
             } else if (_gameScene.state == GameScene::NEXTLEVEL) {
                 // TODO: next level
                 _gameScene.reset();
-                
+                auto currentLevelNumber = _levelSelectScene.getSelectedLevelKey();
                 _levelSelectScene.go_to_next_level();
-                _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey(), _levelSelectScene.getSelectedLevelAssets());
                 _currentLevelKey = _levelSelectScene.getSelectedLevelKey();
-                _gameScene.setCameraSkip(false);
                 playCurrentLevelMusic();
-                _status = LEVELLOAD;
+                if (_currentLevelKey == currentLevelNumber && currentLevelNumber == "level15") {
+                    _endingScene.setActive(true);
+                    _status = ENDING;
+                    return;
+                } else {
+                    _status = LEVELLOAD;
+                }
+                _levelLoadScene.loadFileAsync(_levelSelectScene.getSelectedLevelFile(), _levelSelectScene.getSelectedLevelKey(), _levelSelectScene.getSelectedLevelAssets());
+                _gameScene.setCameraSkip(false);
+
             }
         } else if (_gameScene.isPaused()) {
             _status = PAUSE;
@@ -225,6 +233,23 @@ void DPApp::preUpdate(float timestep) {
         }
     } else if (_status == PAUSE) {
         updatePause(timestep);
+    } else if (_status == ENDING) {
+        switch (_endingScene.state) {
+            case EndingScene::INSCENE:
+                std::cout << "updating ending scene" << std::endl;
+                _endingScene.update(timestep);
+                break;
+            case EndingScene::MENU:
+                _audioController.clear("gallery");
+                _audioController.clear("space");
+                _audioController.play("menu", "menu", true);
+                _endingScene.setActive(false);
+                _levelSelectScene.setActive(true);
+                _status = LEVELSELECT;
+                break;
+            default:
+                break;
+        }
     }
 }
 
@@ -335,6 +360,7 @@ void DPApp::updateLoad(float timestep) {
         _pauseScene.init(_assets, _network);
         _settingScene.init(_assets);
         _levelSelectScene.init(_assets);
+        _endingScene.init(_assets);
         _audioController.init(_assets);
         _audioController.play("menu", "menu", true);
         _status = MENU;
@@ -476,6 +502,9 @@ void DPApp::draw() {
         break;
     case PAUSE:
         _pauseScene.render(_batch);
+        break;
+    case ENDING:
+        _endingScene.render(_batch);
         break;
     case LEVELLOAD:
         _levelLoadScene.render(_batch);
