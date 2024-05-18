@@ -404,6 +404,40 @@
         {
             "color": "#ffa0a0a4",
             "drawFill": true,
+            "id": 40,
+            "members": [
+                {
+                    "name": "condition1",
+                    "propertyType": "PubMessage",
+                    "type": "class",
+                    "value": {
+                    }
+                },
+                {
+                    "name": "condition2",
+                    "propertyType": "PubMessage",
+                    "type": "class",
+                    "value": {
+                    }
+                }
+            ],
+            "name": "Publication",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
             "id": 23,
             "members": [
                 {
@@ -564,69 +598,6 @@
         {
             "color": "#ffa0a0a4",
             "drawFill": true,
-            "id": 37,
-            "members": [
-                {
-                    "name": "obstacle",
-                    "propertyType": "Obstacle",
-                    "type": "class",
-                    "value": {
-                        "bodytype": {
-                        },
-                        "damping": 0,
-                        "debugcolor": 0,
-                        "debugopacity": 192,
-                        "density": 0,
-                        "friction": 0,
-                        "restitution": 0,
-                        "rotation": false,
-                        "texture": "earth"
-                    }
-                }
-            ],
-            "name": "WallProperties",
-            "type": "class",
-            "useAs": [
-                "property"
-            ]
-        },
-        {
-            "color": "#ffa0a0a4",
-            "drawFill": true,
-            "id": 40,
-            "members": [
-                {
-                    "name": "condition1",
-                    "propertyType": "PubMessage",
-                    "type": "class",
-                    "value": {
-                    }
-                },
-                {
-                    "name": "condition2",
-                    "propertyType": "PubMessage",
-                    "type": "class",
-                    "value": {
-                    }
-                }
-            ],
-            "name": "Publication",
-            "type": "class",
-            "useAs": [
-                "property",
-                "map",
-                "layer",
-                "object",
-                "tile",
-                "tileset",
-                "wangcolor",
-                "wangset",
-                "project"
-            ]
-        },
-        {
-            "color": "#ffa0a0a4",
-            "drawFill": true,
             "id": 41,
             "members": [
                 {
@@ -656,6 +627,35 @@
                 "wangcolor",
                 "wangset",
                 "project"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 37,
+            "members": [
+                {
+                    "name": "obstacle",
+                    "propertyType": "Obstacle",
+                    "type": "class",
+                    "value": {
+                        "bodytype": {
+                        },
+                        "damping": 0,
+                        "debugcolor": 0,
+                        "debugopacity": 192,
+                        "density": 0,
+                        "friction": 0,
+                        "restitution": 0,
+                        "rotation": false,
+                        "texture": "earth"
+                    }
+                }
+            ],
+            "name": "WallProperties",
+            "type": "class",
+            "useAs": [
+                "property"
             ]
         }
     ]

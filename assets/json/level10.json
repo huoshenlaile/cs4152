@@ -654,7 +654,7 @@
                         {
                          "name":"rotation",
                          "type":"float",
-                         "value":-45
+                         "value":125
                         }],
                  "rotation":0,
                  "type":"paint",

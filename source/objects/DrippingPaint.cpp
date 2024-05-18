@@ -5,7 +5,7 @@
 //  Created by Emily on 4/20/24.
 //
 
-#include "DrippingPaint.hpp"
+#include "DrippingPaint.h"
 
 bool DrippingPaint::init(const std::shared_ptr<cugl::JsonValue>& json, Vec2 scale, Rect bounds){
     // call super.init

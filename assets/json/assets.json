@@ -879,6 +879,9 @@
             "type": "sample",
             "file": "sounds/levelselect_studio.wav",
             "volume": 0.5
+        },
+        "ending_background": {
+            "file": "textures/ending_background.png"
         }
     },
     "fonts": {
@@ -902,7 +905,8 @@
         "setting": "widgets/setting.json",
         "slider1": "widgets/slider1.json",
         "slider2": "widgets/slider2.json",
-        "levelcomplete_bad_honors": "widgets/levelcomplete_bad_honors.json"
+        "levelcomplete_bad_honors": "widgets/levelcomplete_bad_honors.json",
+        "endingscreen": "widgets/endingscreen.json"
     },
     "scene2s": {
         "pause": {
