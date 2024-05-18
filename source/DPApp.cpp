@@ -340,7 +340,6 @@ void DPApp::updatePause(float timestep) {
             _levelSelectScene.setActive(true);
             _audioController.clear("gallery");
             _audioController.clear("space");
-            _audioController.play("menu", "menu", true);
             _status = LEVELSELECT;
             break;
         default:
