@@ -3183,7 +3183,7 @@
                              "name":"1",
                              "repeat":false,
                              "rows":3,
-                             "scale":3,
+                             "scale":4,
                              "texture":"lv5_speechbubble_5",
                              "type":"string"
                             }
@@ -3226,8 +3226,8 @@
                  "type":"ui",
                  "visible":true,
                  "width":0,
-                 "x":4119.52481502787,
-                 "y":6853.25213135781
+                 "x":6136.19148169454,
+                 "y":6436.58546469114
                 }, 
                 {
                  "height":0,

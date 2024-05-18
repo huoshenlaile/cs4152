@@ -4831,7 +4831,7 @@
                              "name":"1",
                              "repeat":false,
                              "rows":3,
-                             "scale":3,
+                             "scale":4,
                              "texture":"lv5_speechbubble_5",
                              "type":"string"
                             }
@@ -4874,8 +4874,8 @@
                  "type":"ui",
                  "visible":true,
                  "width":0,
-                 "x":4096.38554216867,
-                 "y":6832.28406188236
+                 "x":6165.718875502,
+                 "y":6444
                 }, 
                 {
                  "height":0,

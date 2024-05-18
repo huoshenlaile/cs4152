@@ -3427,7 +3427,7 @@
                              "name":"1",
                              "repeat":false,
                              "rows":3,
-                             "scale":3,
+                             "scale":4,
                              "texture":"lv5_speechbubble_5",
                              "type":"string"
                             }
@@ -3470,8 +3470,8 @@
                  "type":"ui",
                  "visible":true,
                  "width":0,
-                 "x":4098.92329648779,
-                 "y":6866.67321625958
+                 "x":6186.92329648779,
+                 "y":6444
                 }, 
                 {
                  "height":0,

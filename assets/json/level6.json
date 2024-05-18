@@ -4593,7 +4593,7 @@
                              "name":"2",
                              "repeat":false,
                              "rows":6,
-                             "scale":2,
+                             "scale":4,
                              "texture":"lv2_speechbubble_6",
                              "type":"string"
                             }
@@ -4636,8 +4636,8 @@
                  "type":"ui",
                  "visible":true,
                  "width":0,
-                 "x":3512.93612286002,
-                 "y":22122.3632426989
+                 "x":3487.93612286002,
+                 "y":22097.3632426989
                 }, 
                 {
                  "height":0,
@@ -4672,7 +4672,7 @@
                              "name":"2",
                              "repeat":false,
                              "rows":6,
-                             "scale":2,
+                             "scale":4,
                              "texture":"lv2_speechbubble_8",
                              "type":"string"
                             }
