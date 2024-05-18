@@ -16,7 +16,7 @@
             ],
             "angle": 0,
             "position": [
-                16,
+                0,
                 0
             ],
             "visible": true
@@ -85,12 +85,12 @@
                                 0.5
                             ],
                             "size": [
-                                583,
+                                422,
                                 100
                             ],
                             "angle": 0,
                             "position": [
-                                96,
+                                176.5,
                                 230
                             ],
                             "visible": true
@@ -116,9 +116,68 @@
                                         50
                                     ],
                                     "visible": true,
-                                    "upnode": "up"
+                                    "upnode": "up",
+                                    "downnode": "down"
                                 },
                                 "children": {
+                                    "down": {
+                                        "type": "Node",
+                                        "format": {
+                                            "type": "Anchored"
+                                        },
+                                        "data": {
+                                            "anchor": [
+                                                0,
+                                                1
+                                            ],
+                                            "size": [
+                                                100,
+                                                100
+                                            ],
+                                            "angle": 0,
+                                            "position": [
+                                                0,
+                                                0
+                                            ],
+                                            "visible": true
+                                        },
+                                        "children": {
+                                            "button_resume_down": {
+                                                "type": "Image",
+                                                "data": {
+                                                    "texture": "button_resume_down",
+                                                    "anchor": [
+                                                        0,
+                                                        1
+                                                    ],
+                                                    "size": [
+                                                        100,
+                                                        100
+                                                    ],
+                                                    "angle": 0,
+                                                    "position": [
+                                                        0,
+                                                        0
+                                                    ],
+                                                    "visible": true
+                                                },
+                                                "layout": {
+                                                    "x_anchor": "left",
+                                                    "y_anchor": "top",
+                                                    "absolute": false,
+                                                    "x_offset": 0,
+                                                    "y_offset": 0
+                                                }
+                                            }
+                                        },
+                                        "layout": {
+                                            "x_anchor": "left",
+                                            "y_anchor": "top",
+                                            "absolute": false,
+                                            "x_offset": 0,
+                                            "y_offset": 0
+                                        }
+                                    },
                                     "up": {
                                         "type": "Node",
                                         "format": {
@@ -208,9 +267,68 @@
                                         50
                                     ],
                                     "visible": true,
-                                    "upnode": "up"
+                                    "upnode": "up",
+                                    "downnode": "down"
                                 },
                                 "children": {
+                                    "down": {
+                                        "type": "Node",
+                                        "format": {
+                                            "type": "Anchored"
+                                        },
+                                        "data": {
+                                            "anchor": [
+                                                0,
+                                                1
+                                            ],
+                                            "size": [
+                                                100,
+                                                100
+                                            ],
+                                            "angle": 0,
+                                            "position": [
+                                                0,
+                                                0
+                                            ],
+                                            "visible": true
+                                        },
+                                        "children": {
+                                            "button_restart_down": {
+                                                "type": "Image",
+                                                "data": {
+                                                    "texture": "button_restart_down",
+                                                    "anchor": [
+                                                        0,
+                                                        1
+                                                    ],
+                                                    "size": [
+                                                        100,
+                                                        100
+                                                    ],
+                                                    "angle": 0,
+                                                    "position": [
+                                                        0,
+                                                        0
+                                                    ],
+                                                    "visible": true
+                                                },
+                                                "layout": {
+                                                    "x_anchor": "left",
+                                                    "y_anchor": "top",
+                                                    "absolute": false,
+                                                    "x_offset": 0,
+                                                    "y_offset": 0
+                                                }
+                                            }
+                                        },
+                                        "layout": {
+                                            "x_anchor": "left",
+                                            "y_anchor": "top",
+                                            "absolute": false,
+                                            "x_offset": 0,
+                                            "y_offset": 0
+                                        }
+                                    },
                                     "up": {
                                         "type": "Node",
                                         "format": {
@@ -280,7 +398,7 @@
                                     ]
                                 }
                             },
-                            "settingicon": {
+                            "menu": {
                                 "type": "Button",
                                 "format": {
                                     "type": "Anchored"
@@ -300,10 +418,11 @@
                                         50
                                     ],
                                     "visible": true,
-                                    "upnode": "up"
+                                    "upnode": "up",
+                                    "downnode": "down"
                                 },
                                 "children": {
-                                    "up": {
+                                    "down": {
                                         "type": "Node",
                                         "format": {
                                             "type": "Anchored"
@@ -325,10 +444,10 @@
                                             "visible": true
                                         },
                                         "children": {
-                                            "button_settingicon": {
+                                            "button_menu_down": {
                                                 "type": "Image",
                                                 "data": {
-                                                    "texture": "button_settingicon",
+                                                    "texture": "button_menu_down",
                                                     "anchor": [
                                                         0,
                                                         1
@@ -360,41 +479,7 @@
                                             "x_offset": 0,
                                             "y_offset": 0
                                         }
-                                    }
-                                },
-                                "layout": {
-                                    "priority": 2,
-                                    "padding": [
-                                        0,
-                                        0,
-                                        61,
-                                        0
-                                    ]
-                                }
-                            },
-                            "menu": {
-                                "type": "Button",
-                                "format": {
-                                    "type": "Anchored"
-                                },
-                                "data": {
-                                    "anchor": [
-                                        0.5,
-                                        0.5
-                                    ],
-                                    "size": [
-                                        100,
-                                        100
-                                    ],
-                                    "angle": 0,
-                                    "position": [
-                                        533,
-                                        50
-                                    ],
-                                    "visible": true,
-                                    "upnode": "up"
-                                },
-                                "children": {
+                                    },
                                     "up": {
                                         "type": "Node",
                                         "format": {
@@ -455,7 +540,7 @@
                                     }
                                 },
                                 "layout": {
-                                    "priority": 3,
+                                    "priority": 2,
                                     "padding": [
                                         0,
                                         0,
