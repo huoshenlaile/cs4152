@@ -37,7 +37,7 @@ protected:
 
     Vec2 _UIPosition;
     int _initialStay, _finalStay;
-    bool _levelComplete, _completed, _initialUpdate, _displayed, _moveToLeft, _moveToTop, _replay, _skipCameraSpan, _skipPosMove;
+    bool _levelComplete, _completed, _initialUpdate, _displayed, _moveToLeft, _moveToTop, _replay, _skipCameraSpan, _skipPosMove, _doublePan;
     float _defaultZoom, _levelCompleteZoom;
     Vec2 _panSpeed;
     bool _horizontal;
@@ -45,7 +45,7 @@ protected:
     int _state;
     int _counter;
     int _initPosOnce;
-    
+
     std::map<std::string, std::function<PublishedMessage(ActionParams)>> uiActions;
 public:
     /**

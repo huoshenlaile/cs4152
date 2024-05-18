@@ -128,7 +128,10 @@ void CameraController::update(float dt) {
         this->setZoom(getDefaultZoom());
        
         if (_levelComplete) {
-            _state = 4;
+            if (_doublePan)
+                _state = 4;
+            else
+                _state = 5;
             this->setZoom(_levelCompleteZoom);
         }
         _camera->update();
@@ -140,7 +143,7 @@ void CameraController::update(float dt) {
         _camera->update();
         Vec2 panSpeed = _panSpeed;
         if (_horizontal) {
-            if (_camera->getPosition().x <= _root->getSize().width - 4400 - _camera->getViewport().getMaxX() / (2 * _camera->getZoom())) {
+            if (_camera->getPosition().x <= _root->getSize().width - 4200 - _camera->getViewport().getMaxX() / (2 * _camera->getZoom())) {
                 _camera->translate(panSpeed.x, panSpeed.y);
                 _camera->update();
             } else {
@@ -150,7 +153,7 @@ void CameraController::update(float dt) {
         } else {
             // Camera calibtrate
             _camera->setPosition(Vec2(_root->getSize().width - _camera->getViewport().getMaxX() / (2 * _camera->getZoom()), _camera->getPosition().y));
-            if (_camera->getPosition().y >= (1150 + _camera->getViewport().getMaxY()) / (2 * _camera->getZoom())) {
+            if (_camera->getPosition().y >= (1000 + _camera->getViewport().getMaxY()) / (2 * _camera->getZoom())) {
                 _camera->translate(panSpeed.x, panSpeed.y);
                 _camera->update();
             } else {
@@ -164,7 +167,7 @@ void CameraController::update(float dt) {
     case 5: {
         Vec2 panSpeed = _panSpeed;
         if (_horizontal) {
-            if (_camera->getPosition().x <= _root->getSize().width - 700 - _camera->getViewport().getMaxX() / (2 * _camera->getZoom())) {
+            if (_camera->getPosition().x <= _root->getSize().width - 500 - _camera->getViewport().getMaxX() / (2 * _camera->getZoom())) {
                 _camera->translate(panSpeed.x, panSpeed.y);
                 _camera->update();
             } else {
@@ -255,31 +258,37 @@ void CameraController::setCamera(std::string selectedLevelKey, Vec2 activeSize) 
         setDefaultZoom(activeSize.y / 576 * 0.4);
         _levelCompleteZoom = activeSize.y / 576 * 0.245;
         _panSpeed = Vec2(50, 0);
+        _doublePan = false;
     } else if (selectedLevelKey == "level1" || selectedLevelKey == "level2" || selectedLevelKey == "level3") {
         setMode(true);
         setDefaultZoom(activeSize.y / 576 * 0.245);
         _levelCompleteZoom = activeSize.y / 576 * 0.245;
         _panSpeed = Vec2(50, 0);
+        _doublePan = true;
     } else if (selectedLevelKey == "level4" || selectedLevelKey == "level5" || selectedLevelKey == "level6") {
         setMode(false);
         setDefaultZoom(activeSize.x / 1248.73 * 0.2);
         _levelCompleteZoom = activeSize.x / 1248.73 * 0.162;
         _panSpeed = Vec2(0, -50);
+        _doublePan = true;
     } else if (selectedLevelKey == "level7" || selectedLevelKey == "level8" || selectedLevelKey == "level9") {
         setMode(false);
         setDefaultZoom(activeSize.x / 1248.73 * 0.2);
         _levelCompleteZoom = activeSize.x / 1248.73 * 0.162;
         _panSpeed = Vec2(0, -40);
+        _doublePan = false;
     } else if (selectedLevelKey == "level10" || selectedLevelKey == "level11" || selectedLevelKey == "level12") {
         setMode(true);
         setDefaultZoom(activeSize.y / 576 * 0.245);
         _levelCompleteZoom = activeSize.y / 576 * 0.245;
         _panSpeed = Vec2(50, 0);
+        _doublePan = false;
     } else if (selectedLevelKey == "level13" || selectedLevelKey == "level14" || selectedLevelKey == "level15") {
         setMode(false);
         setDefaultZoom(activeSize.x / 1248.73 * 0.225);
         _levelCompleteZoom = activeSize.x / 1248.73 * 0.2;
         _panSpeed = Vec2(0, -50);
+        _doublePan = false;
     }
 }
 
