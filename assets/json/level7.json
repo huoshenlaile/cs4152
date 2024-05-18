@@ -35,8 +35,8 @@
                          "type":"class",
                          "value":
                             {
-                             "Bad_bg":"lv3_background_1",
-                             "Default_bg":"lv3_background_1",
+                             "Bad_bg":"lv3_background_2",
+                             "Default_bg":"lv3_background_2",
                              "Good_bg":"lv3_background_1",
                              "level_height":29600,
                              "level_width":7732
@@ -196,8 +196,8 @@
                  "type":"sensor",
                  "visible":true,
                  "width":0,
-                 "x":5733.77062713897,
-                 "y":12470.2052375227
+                 "x":5667.1039604723,
+                 "y":12570.2052375227
                 }, 
                 {
                  "height":0,
@@ -232,7 +232,7 @@
                         {
                          "name":"AnimationAsset",
                          "type":"string",
-                         "value":"red_paint"
+                         "value":"blue_paint"
                         }, 
                         {
                          "name":"Pub1",
@@ -240,7 +240,7 @@
                          "type":"class",
                          "value":
                             {
-                             "Body":"orange",
+                             "Body":"blue",
                              "Enabled":true,
                              "Head":"character color",
                              "Trigger":"TOUCH: character body"
@@ -260,7 +260,7 @@
                         {
                          "name":"color",
                          "type":"string",
-                         "value":"orange"
+                         "value":"blue"
                         }, 
                         {
                          "name":"instant",
@@ -296,8 +296,8 @@
                  "type":"paint",
                  "visible":true,
                  "width":0,
-                 "x":4625.30833587069,
-                 "y":13112.1110379326
+                 "x":4558.64166920402,
+                 "y":13212.1110379326
                 }, 
                 {
                  "gid":8,
@@ -605,7 +605,7 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"octopus_red"
+                                 "texture":"octopus_blue"
                                 }
                             }
                         }],
@@ -613,8 +613,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":5574.222031111,
-                 "y":12846.3613143689
+                 "x":5507.55536444433,
+                 "y":12946.3613143689
                 }, 
                 {
                  "height":0,
@@ -678,8 +678,8 @@
                  "type":"sensor",
                  "visible":true,
                  "width":0,
-                 "x":2570.67148336347,
-                 "y":22599.7102936125
+                 "x":2548.05768013292,
+                 "y":22566.6706460354
                 }, 
                 {
                  "height":0,
@@ -797,7 +797,7 @@
                                  "restitution":0.1,
                                  "rotation":false,
                                  "subscriptions":[],
-                                 "texture":"octopus_purple"
+                                 "texture":"octopus_green"
                                 }
                             }
                         }],
@@ -1389,15 +1389,15 @@
                         }, 
                         {
                          "x":1352.26962760109,
-                         "y":985.277556069823
+                         "y":875.8110247159
                         }, 
                         {
                          "x":-544.447712226658,
-                         "y":968.695590922939
+                         "y":861.071352836003
                         }, 
                         {
                          "x":-579.573371079991,
-                         "y":-7.44887218269389
+                         "y":-6.62128588955758
                         }],
                  "properties":[
                         {
@@ -1442,7 +1442,7 @@
                              "obstacle":
                                 {
                                  "bodytype":0,
-                                 "color-requirements":"orange,purple",
+                                 "color-requirements":"blue,green",
                                  "damping":0,
                                  "debugcolor":"yellow",
                                  "debugopacity":0,
@@ -1459,7 +1459,7 @@
                  "visible":true,
                  "width":0,
                  "x":3097.45058646418,
-                 "y":23614.7431011197
+                 "y":23724.2096324736
                 }, 
                 {
                  "height":0,
@@ -1516,7 +1516,7 @@
                              "obstacle":
                                 {
                                  "bodytype":0,
-                                 "color-requirements":"orange,purple",
+                                 "color-requirements":"blue,green",
                                  "damping":0,
                                  "debugcolor":"yellow",
                                  "debugopacity":0,
@@ -1568,7 +1568,7 @@
                         {
                          "name":"AnimationAsset",
                          "type":"string",
-                         "value":"purple_paint"
+                         "value":"green_paint"
                         }, 
                         {
                          "name":"Pub1",
@@ -1576,7 +1576,7 @@
                          "type":"class",
                          "value":
                             {
-                             "Body":"purple",
+                             "Body":"green",
                              "Enabled":true,
                              "Head":"character color",
                              "Trigger":"TOUCH: character body"
@@ -1596,12 +1596,12 @@
                         {
                          "name":"color",
                          "type":"string",
-                         "value":"purple"
+                         "value":"green"
                         }, 
                         {
                          "name":"instant",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }, 
                         {
                          "name":"paint_id",
@@ -2981,7 +2981,7 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
+                                 "texture":""
                                 }
                             }
                         }],
@@ -3030,7 +3030,7 @@
                                  "friction":0.2,
                                  "restitution":0.1,
                                  "rotation":false,
-                                 "texture":"alpharelease_frenchfries"
+                                 "texture":""
                                 }
                             }
                         }],
@@ -3095,8 +3095,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":3032.06214844338,
-                 "y":14780.8595476891
+                 "x":2957.06214844338,
+                 "y":14855.8595476891
                 }, 
                 {
                  "height":0,
@@ -3209,8 +3209,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":3600.45691488681,
-                 "y":15477.1507826052
+                 "x":3525.45691488681,
+                 "y":15552.1507826052
                 }, 
                 {
                  "height":0,
@@ -3266,8 +3266,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":4314.27071602224,
-                 "y":16044.4203503786
+                 "x":4239.27071602224,
+                 "y":16119.4203503786
                 }, 
                 {
                  "height":0,
@@ -3551,8 +3551,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":4204.2889907401,
-                 "y":14229.5950621233
+                 "x":4137.62232407343,
+                 "y":14329.5950621233
                 }, 
                 {
                  "height":0,
@@ -3665,8 +3665,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":5533.88094142679,
-                 "y":14246.4578502121
+                 "x":5467.21427476012,
+                 "y":14346.4578502121
                 }, 
                 {
                  "height":0,
@@ -3722,8 +3722,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":6851.80731599818,
-                 "y":14264.115646495
+                 "x":6785.14064933151,
+                 "y":14364.115646495
                 }, 
                 {
                  "gid":90,
@@ -3941,8 +3941,8 @@
                  "type":"",
                  "visible":true,
                  "width":1299.82717722806,
-                 "x":3522.30369945829,
-                 "y":14330.698425494
+                 "x":3455.63703279162,
+                 "y":14430.698425494
                 }, 
                 {
                  "gid":112,
@@ -3967,6 +3967,655 @@
                  "width":951.668452559599,
                  "x":6592.58185092144,
                  "y":19081.8152661996
+                }, 
+                {
+                 "height":0,
+                 "id":240,
+                 "name":"hey",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":-22.8305
+                        }, 
+                        {
+                         "x":1471.73,
+                         "y":-28.5214
+                        }, 
+                        {
+                         "x":1483.23,
+                         "y":903.174
+                        }, 
+                        {
+                         "x":0,
+                         "y":922.19
+                        }],
+                 "properties":[
+                        {
+                         "name":"AnimationDetails",
+                         "propertytype":"AnimationDetails",
+                         "type":"class",
+                         "value":
+                            {
+                             "cells":11,
+                             "columns":2,
+                             "name":"1",
+                             "repeat":false,
+                             "rows":6,
+                             "scale":4,
+                             "texture":"lv3_speechbubble_2",
+                             "type":"string"
+                            }
+                        }, 
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"0",
+                                 "debugopacity":0,
+                                 "density":0,
+                                 "friction":0,
+                                 "restitution":0,
+                                 "rotation":false,
+                                 "texture":""
+                                }
+                            }
+                        }, 
+                        {
+                         "name":"showSub",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"show",
+                             "Bool1":false,
+                             "Enabled":true,
+                             "Float1":0,
+                             "Head":"UI Start",
+                             "Int1":0
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"ui",
+                 "visible":true,
+                 "width":0,
+                 "x":4074.7934869451,
+                 "y":7205.01390328946
+                }, 
+                {
+                 "height":0,
+                 "id":241,
+                 "name":"hum",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":-22.8305
+                        }, 
+                        {
+                         "x":1471.73,
+                         "y":-28.5214
+                        }, 
+                        {
+                         "x":1483.23,
+                         "y":903.174
+                        }, 
+                        {
+                         "x":0,
+                         "y":922.19
+                        }],
+                 "properties":[
+                        {
+                         "name":"AnimationDetails",
+                         "propertytype":"AnimationDetails",
+                         "type":"class",
+                         "value":
+                            {
+                             "cells":11,
+                             "columns":2,
+                             "name":"1",
+                             "repeat":false,
+                             "rows":6,
+                             "scale":4,
+                             "texture":"lv3_speechbubble_1",
+                             "type":"string"
+                            }
+                        }, 
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"0",
+                                 "debugopacity":0,
+                                 "density":0,
+                                 "friction":0,
+                                 "restitution":0,
+                                 "rotation":false,
+                                 "texture":""
+                                }
+                            }
+                        }, 
+                        {
+                         "name":"showSub",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"show",
+                             "Bool1":false,
+                             "Enabled":true,
+                             "Float1":0,
+                             "Head":"UI Start",
+                             "Int1":0
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"ui",
+                 "visible":true,
+                 "width":0,
+                 "x":3072.91845524709,
+                 "y":4284.1796593674
+                }, 
+                {
+                 "height":0,
+                 "id":242,
+                 "name":"taptocont",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":-6.72684
+                        }, 
+                        {
+                         "x":902.407,
+                         "y":-8.40361
+                        }, 
+                        {
+                         "x":909.458,
+                         "y":266.114
+                        }, 
+                        {
+                         "x":0,
+                         "y":271.716
+                        }],
+                 "properties":[
+                        {
+                         "name":"AnimationDetails",
+                         "propertytype":"AnimationDetails",
+                         "type":"class",
+                         "value":
+                            {
+                             "cells":11,
+                             "columns":2,
+                             "name":"cont",
+                             "repeat":false,
+                             "rows":6,
+                             "scale":5,
+                             "texture":"tap_to_continue",
+                             "type":"string"
+                            }
+                        }, 
+                        {
+                         "name":"LoadOnce",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"hideSub",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"hide",
+                             "Enabled":true,
+                             "Float1":0,
+                             "Head":"Erase Tap Continue Button"
+                            }
+                        }, 
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"0",
+                                 "debugopacity":0,
+                                 "density":0,
+                                 "friction":0,
+                                 "restitution":0,
+                                 "rotation":false,
+                                 "texture":""
+                                }
+                            }
+                        }, 
+                        {
+                         "name":"showSub",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"show",
+                             "Bool1":false,
+                             "Enabled":true,
+                             "Float1":0,
+                             "Head":"UI Start",
+                             "Int1":0
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"ui",
+                 "visible":true,
+                 "width":0,
+                 "x":6297.46199691957,
+                 "y":2777.18252639568
+                }, 
+                {
+                 "height":0,
+                 "id":243,
+                 "name":"text1",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":-22.8305
+                        }, 
+                        {
+                         "x":1471.73,
+                         "y":-28.5214
+                        }, 
+                        {
+                         "x":1483.23,
+                         "y":903.174
+                        }, 
+                        {
+                         "x":0,
+                         "y":922.19
+                        }],
+                 "properties":[
+                        {
+                         "name":"AnimationDetails",
+                         "propertytype":"AnimationDetails",
+                         "type":"class",
+                         "value":
+                            {
+                             "cells":23,
+                             "columns":3,
+                             "name":"1",
+                             "repeat":false,
+                             "rows":8,
+                             "scale":4,
+                             "texture":"lv3_speechbubble_4",
+                             "type":"string"
+                            }
+                        }, 
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"0",
+                                 "debugopacity":0,
+                                 "density":0,
+                                 "friction":0,
+                                 "restitution":0,
+                                 "rotation":false,
+                                 "texture":""
+                                }
+                            }
+                        }, 
+                        {
+                         "name":"showSub",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"show",
+                             "Bool1":false,
+                             "Enabled":true,
+                             "Float1":0,
+                             "Head":"UI Start",
+                             "Int1":0
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"ui",
+                 "visible":true,
+                 "width":0,
+                 "x":2689.78954641317,
+                 "y":1648.58502711938
+                }, 
+                {
+                 "height":0,
+                 "id":244,
+                 "name":"text2",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":-22.8305
+                        }, 
+                        {
+                         "x":1471.73,
+                         "y":-28.5214
+                        }, 
+                        {
+                         "x":1483.23,
+                         "y":903.174
+                        }, 
+                        {
+                         "x":0,
+                         "y":922.19
+                        }],
+                 "properties":[
+                        {
+                         "name":"AnimationDetails",
+                         "propertytype":"AnimationDetails",
+                         "type":"class",
+                         "value":
+                            {
+                             "cells":23,
+                             "columns":3,
+                             "name":"1",
+                             "repeat":false,
+                             "rows":8,
+                             "scale":4,
+                             "texture":"lv3_speechbubble_5",
+                             "type":"string"
+                            }
+                        }, 
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"0",
+                                 "debugopacity":0,
+                                 "density":0,
+                                 "friction":0,
+                                 "restitution":0,
+                                 "rotation":false,
+                                 "texture":""
+                                }
+                            }
+                        }, 
+                        {
+                         "name":"showSub",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"show",
+                             "Bool1":false,
+                             "Enabled":true,
+                             "Float1":0,
+                             "Head":"UI Start",
+                             "Int1":0
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"ui",
+                 "visible":true,
+                 "width":0,
+                 "x":3657.41167942971,
+                 "y":756.66674224485
+                }, 
+                {
+                 "height":0,
+                 "id":245,
+                 "name":"purple",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":-22.8305
+                        }, 
+                        {
+                         "x":1471.73,
+                         "y":-28.5214
+                        }, 
+                        {
+                         "x":1483.23,
+                         "y":903.174
+                        }, 
+                        {
+                         "x":0,
+                         "y":922.19
+                        }],
+                 "properties":[
+                        {
+                         "name":"AnimationDetails",
+                         "propertytype":"AnimationDetails",
+                         "type":"class",
+                         "value":
+                            {
+                             "cells":11,
+                             "columns":2,
+                             "name":"1",
+                             "repeat":false,
+                             "rows":6,
+                             "scale":4,
+                             "texture":"lv3_speechbubble_3",
+                             "type":"string"
+                            }
+                        }, 
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"0",
+                                 "debugopacity":0,
+                                 "density":0,
+                                 "friction":0,
+                                 "restitution":0,
+                                 "rotation":false,
+                                 "texture":""
+                                }
+                            }
+                        }, 
+                        {
+                         "name":"showSub",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"show",
+                             "Bool1":false,
+                             "Enabled":true,
+                             "Float1":0,
+                             "Head":"UI Start",
+                             "Int1":0
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"ui",
+                 "visible":true,
+                 "width":0,
+                 "x":2746.17350324011,
+                 "y":8430.69560221131
+                }, 
+                {
+                 "height":0,
+                 "id":247,
+                 "name":"hahaha2",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":-18.4352363186624
+                        }, 
+                        {
+                         "x":1471.73,
+                         "y":-23.0305402483125
+                        }, 
+                        {
+                         "x":1483.23,
+                         "y":729.297480426255
+                        }, 
+                        {
+                         "x":0,
+                         "y":744.652573562003
+                        }],
+                 "properties":[
+                        {
+                         "name":"AnimationDetails",
+                         "propertytype":"AnimationDetails",
+                         "type":"class",
+                         "value":
+                            {
+                             "cells":12,
+                             "columns":2,
+                             "name":"2",
+                             "repeat":false,
+                             "rows":6,
+                             "scale":2,
+                             "texture":"lv3_speechbubble_6",
+                             "type":"string"
+                            }
+                        }, 
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"0",
+                                 "debugopacity":0,
+                                 "density":0,
+                                 "friction":0,
+                                 "restitution":0,
+                                 "rotation":false,
+                                 "texture":""
+                                }
+                            }
+                        }, 
+                        {
+                         "name":"showSub",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"show",
+                             "Bool1":false,
+                             "Enabled":true,
+                             "Float1":0,
+                             "Head":"UI End Good",
+                             "Int1":0
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"ui",
+                 "visible":true,
+                 "width":0,
+                 "x":2816.42565362397,
+                 "y":27371.8564502871
+                }, 
+                {
+                 "height":0,
+                 "id":249,
+                 "name":"angry2",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":-22.8305
+                        }, 
+                        {
+                         "x":1471.73,
+                         "y":-28.5214
+                        }, 
+                        {
+                         "x":1483.23,
+                         "y":903.174
+                        }, 
+                        {
+                         "x":0,
+                         "y":922.19
+                        }],
+                 "properties":[
+                        {
+                         "name":"AnimationDetails",
+                         "propertytype":"AnimationDetails",
+                         "type":"class",
+                         "value":
+                            {
+                             "cells":12,
+                             "columns":2,
+                             "name":"2",
+                             "repeat":false,
+                             "rows":6,
+                             "scale":2,
+                             "texture":"lv3_speechbubble_7",
+                             "type":"string"
+                            }
+                        }, 
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"0",
+                                 "debugopacity":0,
+                                 "density":0,
+                                 "friction":0,
+                                 "restitution":0,
+                                 "rotation":false,
+                                 "texture":""
+                                }
+                            }
+                        }, 
+                        {
+                         "name":"showSub",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"show",
+                             "Bool1":false,
+                             "Enabled":true,
+                             "Float1":0,
+                             "Head":"UI End Bad",
+                             "Int1":0
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"ui",
+                 "visible":true,
+                 "width":0,
+                 "x":4197.45082329576,
+                 "y":26362.2722480425
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -3975,7 +4624,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":240,
+ "nextobjectid":252,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
@@ -4111,15 +4760,11 @@
                 }, 
                 {
                  "id":30,
-                 "image":"..\/textures\/tube_curved_pink.png",
-                 "imageheight":1724,
-                 "imagewidth":337
+                 "image":"..\/textures\/tube_curved_pink.png"
                 }, 
                 {
                  "id":31,
-                 "image":"..\/textures\/tube_straight_green.png",
-                 "imageheight":1662,
-                 "imagewidth":211
+                 "image":"..\/textures\/tube_straight_green.png"
                 }, 
                 {
                  "id":32,
@@ -4135,15 +4780,11 @@
                 }, 
                 {
                  "id":34,
-                 "image":"..\/textures\/goal_ufo.png",
-                 "imageheight":138,
-                 "imagewidth":447
+                 "image":"..\/textures\/goal_ufo.png"
                 }, 
                 {
                  "id":35,
-                 "image":"..\/textures\/tube_curved_blue.png",
-                 "imageheight":1724,
-                 "imagewidth":337
+                 "image":"..\/textures\/tube_curved_blue.png"
                 }, 
                 {
                  "id":36,
@@ -4151,9 +4792,7 @@
                 }, 
                 {
                  "id":37,
-                 "image":"..\/textures\/nogravityplatform_blackhole.png",
-                 "imageheight":99,
-                 "imagewidth":180
+                 "image":"..\/textures\/nogravityplatform_blackhole.png"
                 }, 
                 {
                  "id":38,

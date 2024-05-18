@@ -1,0 +1,366 @@
+{
+    "textures": {
+        "loadcoverA": {
+            "file": "textures/loadcovers/coverA.png",
+            "wrapS": "clamp",
+            "wrapT": "clamp",
+            "minfilter": "linear",
+            "magfilter": "linear"
+        },
+        "loadcoverB": {
+            "file": "textures/loadcovers/coverB.png",
+            "wrapS": "clamp",
+            "wrapT": "clamp",
+            "minfilter": "linear",
+            "magfilter": "linear"
+        },
+        "loadcoverC": {
+            "file": "textures/loadcovers/coverC.png",
+            "wrapS": "clamp",
+            "wrapT": "clamp",
+            "minfilter": "linear",
+            "magfilter": "linear"
+        },
+        "loadcoverD": {
+            "file": "textures/loadcovers/coverD.png",
+            "wrapS": "clamp",
+            "wrapT": "clamp",
+            "minfilter": "linear",
+            "magfilter": "linear"
+        },
+        "loadcoverE": {
+            "file": "textures/loadcovers/coverE.png",
+            "wrapS": "clamp",
+            "wrapT": "clamp",
+            "minfilter": "linear",
+            "magfilter": "linear"
+        }
+    },
+    "scene2s": {
+        "levelloadA": {
+            "type": "Solid",
+            "format": {
+                "type": "Anchored"
+            },
+            "data": {
+                "image": "background_loading"
+            },
+            "children": {
+                "background_loading": {
+                    "type": "Image",
+                    "data": {
+                        "texture": "loadcoverA",
+                        "anchor": [
+                            0,
+                            1
+                        ],
+                        "size": [
+                            1560,
+                            720
+                        ],
+                        "angle": 0,
+                        "position": [
+                            0,
+                            0
+                        ],
+                        "visible": true,
+                        "scale": 0.88
+                    },
+                    "layout": {
+                        "x_anchor": "left",
+                        "y_anchor": "top",
+                        "absolute": true,
+                        "x_offset": 0,
+                        "y_offset": 0
+                    }
+                },
+                "bar": {
+                    "type": "Progress",
+                    "data": {
+                        "anchor": [
+                            0.5,
+                            0.5
+                        ],
+                        "background": "progress_background",
+                        "foreground": "progress_foreground",
+                        "left_cap": "progress_leftcap",
+                        "right_cap": "progress_rightcap"
+                    },
+                    "layout": {
+                        "x_anchor": "center",
+                        "y_anchor": "middle",
+                        "y_offset": -175,
+                        "absolute": true
+                    }
+                }
+            },
+            "layout": {
+                "x_anchor": "right",
+                "y_anchor": "top",
+                "absolute": false,
+                "x_offset": -0.05,
+                "y_offset": -0.24
+            }
+        },
+        "levelloadB": {
+            "type": "Solid",
+            "format": {
+                "type": "Anchored"
+            },
+            "data": {
+                "image": "background_loading"
+            },
+            "children": {
+                "background_loading": {
+                    "type": "Image",
+                    "data": {
+                        "texture": "loadcoverB",
+                        "anchor": [
+                            0,
+                            1
+                        ],
+                        "size": [
+                            1560,
+                            720
+                        ],
+                        "angle": 0,
+                        "position": [
+                            0,
+                            0
+                        ],
+                        "visible": true,
+                        "scale": 0.88
+                    },
+                    "layout": {
+                        "x_anchor": "left",
+                        "y_anchor": "top",
+                        "absolute": true,
+                        "x_offset": 0,
+                        "y_offset": 0
+                    }
+                },
+                "bar": {
+                    "type": "Progress",
+                    "data": {
+                        "anchor": [
+                            0.5,
+                            0.5
+                        ],
+                        "background": "progress_background",
+                        "foreground": "progress_foreground",
+                        "left_cap": "progress_leftcap",
+                        "right_cap": "progress_rightcap"
+                    },
+                    "layout": {
+                        "x_anchor": "center",
+                        "y_anchor": "middle",
+                        "y_offset": -175,
+                        "absolute": true
+                    }
+                }
+            },
+            "layout": {
+                "x_anchor": "right",
+                "y_anchor": "top",
+                "absolute": false,
+                "x_offset": -0.05,
+                "y_offset": -0.24
+            }
+        },
+        "levelloadC": {
+            "type": "Solid",
+            "format": {
+                "type": "Anchored"
+            },
+            "data": {
+                "image": "background_loading"
+            },
+            "children": {
+                "background_loading": {
+                    "type": "Image",
+                    "data": {
+                        "texture": "loadcoverC",
+                        "anchor": [
+                            0,
+                            1
+                        ],
+                        "size": [
+                            1560,
+                            720
+                        ],
+                        "angle": 0,
+                        "position": [
+                            0,
+                            0
+                        ],
+                        "visible": true,
+                        "scale": 0.88
+                    },
+                    "layout": {
+                        "x_anchor": "left",
+                        "y_anchor": "top",
+                        "absolute": true,
+                        "x_offset": 0,
+                        "y_offset": 0
+                    }
+                },
+                "bar": {
+                    "type": "Progress",
+                    "data": {
+                        "anchor": [
+                            0.5,
+                            0.5
+                        ],
+                        "background": "progress_background",
+                        "foreground": "progress_foreground",
+                        "left_cap": "progress_leftcap",
+                        "right_cap": "progress_rightcap"
+                    },
+                    "layout": {
+                        "x_anchor": "center",
+                        "y_anchor": "middle",
+                        "y_offset": -175,
+                        "absolute": true
+                    }
+                }
+            },
+            "layout": {
+                "x_anchor": "right",
+                "y_anchor": "top",
+                "absolute": false,
+                "x_offset": -0.05,
+                "y_offset": -0.24
+            }
+        },
+        "levelloadD": {
+            "type": "Solid",
+            "format": {
+                "type": "Anchored"
+            },
+            "data": {
+                "image": "background_loading"
+            },
+            "children": {
+                "background_loading": {
+                    "type": "Image",
+                    "data": {
+                        "texture": "loadcoverD",
+                        "anchor": [
+                            0,
+                            1
+                        ],
+                        "size": [
+                            1560,
+                            720
+                        ],
+                        "angle": 0,
+                        "position": [
+                            0,
+                            0
+                        ],
+                        "visible": true,
+                        "scale": 0.88
+                    },
+                    "layout": {
+                        "x_anchor": "left",
+                        "y_anchor": "top",
+                        "absolute": true,
+                        "x_offset": 0,
+                        "y_offset": 0
+                    }
+                },
+                "bar": {
+                    "type": "Progress",
+                    "data": {
+                        "anchor": [
+                            0.5,
+                            0.5
+                        ],
+                        "background": "progress_background",
+                        "foreground": "progress_foreground",
+                        "left_cap": "progress_leftcap",
+                        "right_cap": "progress_rightcap"
+                    },
+                    "layout": {
+                        "x_anchor": "center",
+                        "y_anchor": "middle",
+                        "y_offset": -175,
+                        "absolute": true
+                    }
+                }
+            },
+            "layout": {
+                "x_anchor": "right",
+                "y_anchor": "top",
+                "absolute": false,
+                "x_offset": -0.05,
+                "y_offset": -0.24
+            }
+        },
+        "levelloadE": {
+            "type": "Solid",
+            "format": {
+                "type": "Anchored"
+            },
+            "data": {
+                "image": "background_loading"
+            },
+            "children": {
+                "background_loading": {
+                    "type": "Image",
+                    "data": {
+                        "texture": "loadcoverE",
+                        "anchor": [
+                            0,
+                            1
+                        ],
+                        "size": [
+                            1560,
+                            720
+                        ],
+                        "angle": 0,
+                        "position": [
+                            0,
+                            0
+                        ],
+                        "visible": true,
+                        "scale": 0.88
+                    },
+                    "layout": {
+                        "x_anchor": "left",
+                        "y_anchor": "top",
+                        "absolute": true,
+                        "x_offset": 0,
+                        "y_offset": 0
+                    }
+                },
+                "bar": {
+                    "type": "Progress",
+                    "data": {
+                        "anchor": [
+                            0.5,
+                            0.5
+                        ],
+                        "background": "progress_background",
+                        "foreground": "progress_foreground",
+                        "left_cap": "progress_leftcap",
+                        "right_cap": "progress_rightcap"
+                    },
+                    "layout": {
+                        "x_anchor": "center",
+                        "y_anchor": "middle",
+                        "y_offset": -175,
+                        "absolute": true
+                    }
+                }
+            },
+            "layout": {
+                "x_anchor": "right",
+                "y_anchor": "top",
+                "absolute": false,
+                "x_offset": -0.05,
+                "y_offset": -0.24
+            }
+        }
+    }
+}

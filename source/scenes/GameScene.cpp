@@ -65,7 +65,7 @@ bool GameScene::init(const std::shared_ptr<cugl::AssetManager> &assets, std::str
 #pragma mark Audio Controller
     _audioController = std::make_shared<AudioController>();
     _audioController->init(_assets);
-    _audioController->play("touch1", "touch1");
+//    _audioController->play("touch1", "touch1");
     _interactionController->setAudioController(_audioController);
 
     PublishedMessage pm;
@@ -117,6 +117,7 @@ void GameScene::reset() {
     _assets->unload<LevelLoader2>(_levelName);
     _camera->setCameraState(3);
     _camera->setCameraSkip(true);
+    _initialAnimationsTriggered = false;
     GameScene::dispose();
 }
 
@@ -181,6 +182,12 @@ void GameScene::preUpdate(float dt) {
     //    _interactionController->connectGrabJoint();
     //    _interactionController->ungrabIfNecessary();
     //    _interactionController->grabCDIfNecessary(dt);
+    if(_camera->getState() == 3 && !_initialAnimationsTriggered) {    // make one time trigger of drip paints with a boolean flag
+        _initialAnimationsTriggered = true;
+        PublishedMessage pm;
+        pm.Head = "Start Drip";
+        _interactionController->pushToMessageQueue(pm);
+    }
 }
 
 void GameScene::fixedUpdate(float dt) {
@@ -194,7 +201,6 @@ void GameScene::postUpdate(float dt) {
     if (_level == nullptr)
         return;
     _interactionController->postUpdate(dt);
-
     if (_interactionController->isLevelComplete()) {
         this->defaultGoodOrBad = _interactionController->defaultGoodOrBad;
         finishLevel();
@@ -286,6 +292,7 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     auto completemenu = _levelCompleteGood->getChildByName("completemenu");
     _levelCompleteGoodReset = std::dynamic_pointer_cast<scene2::Button>(completemenu->getChildByName("options")->getChildByName("restart"));
     _levelCompleteGoodReset->deactivate();
+    _levelCompleteGoodReset->setDown(false);
     _levelCompleteGoodReset->addListener([this](const std::string &name, bool down) {
         if (down) {
             std::cout << "level complete reset (GOOD) triggered!" << std::endl;
@@ -295,6 +302,7 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     });
     _levelCompleteGoodMenu = std::dynamic_pointer_cast<scene2::Button>(completemenu->getChildByName("options")->getChildByName("menu"));
     _levelCompleteGoodMenu->deactivate();
+    _levelCompleteGoodMenu->setDown(false);
     _levelCompleteGoodMenu->addListener([this](const std::string &name, bool down) {
         if (down) {
             std::cout << "level complete main menu (GOOD) triggered!" << std::endl;
@@ -303,6 +311,7 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     });
     _levelCompleteGoodNext = std::dynamic_pointer_cast<scene2::Button>(completemenu->getChildByName("options")->getChildByName("next"));
     _levelCompleteGoodNext->deactivate();
+    _levelCompleteGoodNext->setDown(false);
     _levelCompleteGoodNext->addListener([this](const std::string &name, bool down) {
         if (down) {
             std::cout << "level complete next (GOOD) triggered!" << std::endl;
@@ -320,6 +329,7 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     completemenu = _levelCompleteBad->getChildByName("badcompletemenu");
     _levelCompleteBadReset = std::dynamic_pointer_cast<scene2::Button>(completemenu->getChildByName("options")->getChildByName("restart"));
     _levelCompleteBadReset->deactivate();
+    _levelCompleteBadReset->setDown(false);
     _levelCompleteBadReset->addListener([this](const std::string &name, bool down) {
         if (down) {
             std::cout << "level complete reset (BAD) triggered!" << std::endl;
@@ -329,6 +339,7 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     });
     _levelCompleteBadMenu = std::dynamic_pointer_cast<scene2::Button>(completemenu->getChildByName("options")->getChildByName("menu"));
     _levelCompleteBadMenu->deactivate();
+    _levelCompleteBadMenu->setDown(false);
     _levelCompleteBadMenu->addListener([this](const std::string &name, bool down) {
         if (down) {
             std::cout << "level complete main menu (BAD) triggered!" << std::endl;
@@ -337,6 +348,7 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     });
     _levelCompleteBadNext = std::dynamic_pointer_cast<scene2::Button>(completemenu->getChildByName("options")->getChildByName("next"));
     _levelCompleteBadNext->deactivate();
+    _levelCompleteBadNext->setDown(false);
     _levelCompleteBadNext->addListener([this](const std::string &name, bool down) {
         if (down) {
             std::cout << "level complete next (BAD) triggered!" << std::endl;
@@ -353,6 +365,7 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     completemenu = _levelCompleteHonorsBad->getChildByName("badcompletemenu");
     _levelCompleteHonorsBadReset = std::dynamic_pointer_cast<scene2::Button>(completemenu->getChildByName("options")->getChildByName("restart"));
     _levelCompleteHonorsBadReset->deactivate();
+    _levelCompleteHonorsBadReset->setDown(false);
     _levelCompleteHonorsBadReset->addListener([this](const std::string &name, bool down) {
         if (down) {
             std::cout << "level complete reset (HONORS BAD) triggered!" << std::endl;
@@ -362,6 +375,7 @@ void GameScene::constructSceneNodes(const Size &dimen) {
     });
     _levelCompleteHonorsBadMenu = std::dynamic_pointer_cast<scene2::Button>(completemenu->getChildByName("options")->getChildByName("menu"));
     _levelCompleteHonorsBadMenu->deactivate();
+    _levelCompleteHonorsBadMenu->setDown(false);
     _levelCompleteHonorsBadMenu->addListener([this](const std::string &name, bool down) {
         if (down) {
             std::cout << "level complete main menu (HONORS BAD) triggered!" << std::endl;

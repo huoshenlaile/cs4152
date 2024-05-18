@@ -140,6 +140,11 @@ bool LevelLoader2::construct(std::shared_ptr<cugl::AssetManager> &_assets) {
         inter->bindAssets(_assets, _scale);
         inter->linkToWorld(_world, _platformNode, _scale.x);
         inter->setup();
+        if (auto dp = dynamic_cast<DrippingPaint*>(inter.get())){
+            dp->linkCharacter(_character);
+            // dp is not nullptr
+        }
+
     }
 
     _worldnode->addChild(_defaultBgNode);

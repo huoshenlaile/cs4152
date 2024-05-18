@@ -25,11 +25,10 @@ protected:
     std::string _textureName;
     std::shared_ptr<cugl::scene2::ActionManager> _actions;
     std::shared_ptr<cugl::scene2::Animate> _animate;
+    std::shared_ptr<CharacterController> _character;
         
 public:
     DrippingPaint(void) : Interactable() {}
-    ~DrippingPaint() {
-    }
 
     virtual bool init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect bounds) override;
     
@@ -47,7 +46,10 @@ public:
         std::shared_ptr<DrippingPaint> result = std::make_shared<DrippingPaint>();
         return (result->init(json, scale, bounds) ? result : nullptr);
     }
-
+    /* superrr super painful but needed. should ONLY be called after character has been initialized in LevelLoader */
+    void linkCharacter (const std::shared_ptr<CharacterController>& c) {
+        _character = c;
+    }
 };
 
 

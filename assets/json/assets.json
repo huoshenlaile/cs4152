@@ -1,5 +1,8 @@
 {
     "textures": {
+        "cugl-play" : {
+            "file": "textures/cugl-play.png"
+        },
         "setting_background": {
             "file": "textures/setting/setting_background.png"
         },
@@ -35,15 +38,6 @@
         },
         "toggle_up": {
             "file": "textures/setting/toggle_up.png"
-        },
-        "splotch1": {
-            "file": "textures/pureOrange.png"
-        },
-        "splotch2": {
-            "file": "textures/pureOrange.png"
-        },
-        "splotch3": {
-            "file": "textures/pureOrange.png"
         },
         "black_blank": {
             "file": "textures/black_blank.png"
@@ -96,6 +90,15 @@
         "staticplatform_comet3": {
             "file": "textures/staticplatform_comet3x.png"
         },
+        "staticplatform_brush" : {
+            "file": "textures/staticplatform_brush.png"
+        },
+        "staticplatform_brush2" : {
+            "file": "textures/staticplatform_brush2x.png"
+        },
+        "staticplatform_brush3" : {
+            "file": "textures/staticplatform_brush3x.png"
+        },
         "smoothplatform_comet": {
             "file": "textures/movingplatform_comet.png"
         },
@@ -104,9 +107,6 @@
         },
         "heavygravityplatform_blackhole": {
             "file": "textures/heavygravityplatform_blackhole.png"
-        },
-        "nogravityplatform_blackhole": {
-            "file": "textures/nogravityplatform_blackhole.png"
         },
         "lv0_background": {
             "file": "textures/lv0_background.png"
@@ -130,13 +130,19 @@
             "file": "textures/lv2_background_1.png"
         },
         "lv2_background_2": {
-            "file": "textures/lv2_background_1.png"
+            "file": "textures/lv2_background_2.png"
         },
-        "lv3_background_3": {
-            "file": "textures/lv2_background_1.png"
+        "lv3_background_2": {
+            "file": "textures/lv3_background_2.png"
         },
         "lv3_background_1": {
             "file": "textures/lv3_background_1.png"
+        },
+        "lv5_background_1": {
+            "file": "textures/lv5_background_1.png"
+        },
+        "lv5_background_2": {
+            "file": "textures/lv5_background_2.png"
         },
         "alpharelease_frenchfries": {
             "file": "textures/alpharelease_frenchfries.png"
@@ -144,8 +150,8 @@
         "alpharelease_long_frenchfries": {
             "file": "textures/alpharelease_long_frenchfries.png"
         },
-        "painttube_black": {
-            "file": "textures/newplatforms/painttube_black.png"
+        "alpharelease_frenchfries_BIG": {
+            "file": "textures/alpharelease_frenchfries_BIG.png"
         },
         "painttube_blue": {
             "file": "textures/newplatforms/painttube_blue.png"
@@ -161,18 +167,6 @@
         },
         "painttube_red": {
             "file": "textures/newplatforms/painttube_red.png"
-        },
-        "staticplatform_brush": {
-            "file": "textures/newplatforms/staticplatform_brush.png"
-        },
-        "staticplatform_brush2x": {
-            "file": "textures/newplatforms/staticplatform_brush2x.png"
-        },
-        "staticplatform_brush3x": {
-            "file": "textures/newplatforms/staticplatform_brush3x.png"
-        },
-        "long_frenchfriesx3": {
-            "file": "textures/newplatforms/staticplatform_frenchfries3x.png"
         },
         "alpharelease_long_frenchfries_3": {
             "file": "textures/alpharelease_long_frenchfries_3.png"
@@ -204,6 +198,9 @@
         "mustard_pink": {
             "file": "textures/paintingbottle/mustard_pink.png"
         },
+        "mustard_blue": {
+            "file": "textures/paintingbottle/mustard_blue.png"
+        },
         "mustard_purple": {
             "file": "textures/paintingbottle/mustard_purple.png"
         },
@@ -233,9 +230,6 @@
         },
         "paintmeter": {
             "file": "textures/paintmeter.png"
-        },
-        "left": {
-            "file": "textures/left_arrow.png"
         },
         "body192": {
             "file": "textures/body192.png",
@@ -652,19 +646,19 @@
             "file": "textures/black_paintcover_720x4900.png"
         },
         "blue_drip_paint": {
-            "file": "textures/blue_paintcover_1560x720.png"
+            "file": "textures/blue_paintcover_720x4900.png"
         },
         "green_drip_paint": {
-            "file": "textures/green_paintcover_1560x720.png"
+            "file": "textures/green_paintcover_720x4900.png"
         },
         "pink_drip_paint": {
-            "file": "textures/pink_paintcover_1560x720.png"
+            "file": "textures/pink_paintcover_720x4900.png"
         },
         "purple_drip_paint": {
-            "file": "textures/purple_paintcover_1560x720.png"
+            "file": "textures/purple_paintcover_720x4900.png"
         },
         "red_drip_paint": {
-            "file": "textures/red_paintcover_1560x720.png"
+            "file": "textures/red_paintcover_720x4900.png"
         },
         "pink_paint": {
             "file": "textures/pink_paint_141x144.png"
@@ -694,10 +688,13 @@
             "file": "textures/red_paintspaltter_148x680.png"
         },
         "tube_pink": {
-            "file": "textures/tube/pink_tube.png"
+            "file": "textures/tube/tube_curved_pink.png"
+        },
+        "tube_purple": {
+            "file": "textures/tube/tube_curved_purple.png"
         },
         "tube_blue": {
-            "file": "textures/tube/blue_tube.png"
+            "file": "textures/tube/tube_curved_blue.png"
         },
         "tube_curved_l": {
             "file": "textures/tube/tube_curved_left.png"
@@ -705,14 +702,11 @@
         "tube_curved_r": {
             "file": "textures/tube/tube_curved_right.png"
         },
-        "tube_str_l": {
-            "file": "textures/tube/tube_straight_left.png"
-        },
-        "tube_str_r": {
-            "file": "textures/tube/tube_straight_right.png"
-        },
         "text_hi": {
             "file": "textures/text_hi.png"
+        },
+        "ui_grabbable": {
+            "file": "textures/ui_grabbable.png"
         },
         "ui_move_text": {
             "file": "textures/ui_move_text.png"
@@ -780,6 +774,63 @@
         "lv2_speechbubble_8": {
             "file": "textures/lv2_speechbubble_8.png"
         },
+        "lv3_speechbubble_1": {
+            "file": "textures/lv3_speechbubble_1.png"
+        },
+        "lv3_speechbubble_2": {
+            "file": "textures/lv3_speechbubble_2.png"
+        },
+        "lv3_speechbubble_3": {
+            "file": "textures/lv3_speechbubble_3.png"
+        },
+        "lv3_speechbubble_4": {
+            "file": "textures/lv3_speechbubble_4.png"
+        },
+        "lv3_speechbubble_5": {
+            "file": "textures/lv3_speechbubble_5.png"
+        },
+        "lv3_speechbubble_6": {
+            "file": "textures/lv3_speechbubble_6.png"
+        },
+        "lv3_speechbubble_7": {
+            "file": "textures/lv3_speechbubble_7.png"
+        },
+        "lv4_speechbubble_1": {
+            "file": "textures/lv4_speechbubble_1.png"
+        },
+        "lv4_speechbubble_2": {
+            "file": "textures/lv4_speechbubble_2.png"
+        },
+        "lv4_speechbubble_3": {
+            "file": "textures/lv4_speechbubble_3.png"
+        },
+        "lv4_speechbubble_4": {
+            "file": "textures/lv4_speechbubble_4.png"
+        },
+        "lv5_speechbubble_1": {
+            "file": "textures/lv5_speechbubble_1.png"
+        },
+        "lv5_speechbubble_2": {
+            "file": "textures/lv5_speechbubble_2.png"
+        },
+        "lv5_speechbubble_3": {
+            "file": "textures/lv5_speechbubble_3.png"
+        },
+        "lv5_speechbubble_4": {
+            "file": "textures/lv5_speechbubble_4.png"
+        },
+        "lv5_speechbubble_5": {
+            "file": "textures/lv5_speechbubble_5.png"
+        },
+        "lv5_speechbubble_6": {
+            "file": "textures/lv5_speechbubble_6.png"
+        },
+        "lv5_speechbubble_7": {
+            "file": "textures/lv5_speechbubble_7.png"
+        },
+        "lv5_speechbubble_8": {
+            "file": "textures/lv5_speechbubble_8.png"
+        },
         "tap_to_continue": {
             "file": "textures/ui_taptocont_370x138.png"
         }
@@ -789,39 +840,44 @@
         "progress": "json/GameProgress.json"
     },
     "sounds": {
-        "touch1": {
-            "type": "sample",
-            "file": "sounds/touch1.wav",
-            "volume": 0.5
-        },
-        "touch2": {
-            "type": "sample",
-            "file": "sounds/touch2.wav",
-            "volume": 0.5
-        },
-        "touch3": {
-            "type": "sample",
-            "file": "sounds/touch3.wav",
-            "volume": 0.5
-        },
-        "touch4": {
-            "type": "sample",
-            "file": "sounds/touch4.wav",
-            "volume": 0.5
-        },
-        "touch5": {
-            "type": "sample",
-            "file": "sounds/touch5.wav",
-            "volume": 0.5
-        },
-        "touch6": {
-            "type": "sample",
-            "file": "sounds/touch6.wav",
-            "volume": 0.5
-        },
         "menu": {
             "type": "sample",
-            "file": "sounds/menu_music.wav",
+            "file": "sounds/main_theme_menu_music.wav",
+            "volume": 0.5
+        },
+        "gallery": {
+            "type": "sample",
+            "file": "sounds/gallery_extended.wav",
+            "volume": 0.5
+        },
+        "space": {
+            "type": "sample",
+            "file": "sounds/in_space_extended.wav",
+            "volume": 0.5
+        },
+        "bad_ending": {
+            "type": "sample",
+            "file": "sounds/game_over_music.wav",
+            "volume": 0.5
+        },
+        "good_ending": {
+            "type": "sample",
+            "file": "sounds/win_music.wav",
+            "volume": 0.5
+        },
+        "levelselect_museum": {
+            "type": "sample",
+            "file": "sounds/levelselect_museum.wav",
+            "volume": 0.5
+        },
+        "levelselect_space": {
+            "type": "sample",
+            "file": "sounds/levelselect_space.wav",
+            "volume": 0.5
+        },
+        "levelselect_studio": {
+            "type": "sample",
+            "file": "sounds/levelselect_studio.wav",
             "volume": 0.5
         }
     },

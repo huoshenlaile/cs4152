@@ -55,6 +55,10 @@ bool Interactable::init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect
     for (auto prop : properties -> children()) {
         if (prop -> getString("name") == "Grab") {
             canBeGrabbed = prop -> getBool("value");
+            if (canBeGrabbed){
+                _grab_actions_manager = scene2::ActionManager::alloc();
+                _grab_animate = scene2::Animate::alloc(0, 12, 1.0f, 1);
+            }
         }
         if(prop -> getString("name") == "LoadOnce") {
             loadOnce = prop -> getBool("value");
@@ -86,7 +90,7 @@ bool Interactable::bindAssets(const std::shared_ptr<cugl::AssetManager>& assets,
 bool Interactable::linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleWorld> &physicsWorld, const std::shared_ptr<cugl::scene2::SceneNode>& sceneNode, float scale){
     _world = physicsWorld;
     _scene = sceneNode;
-    
+    _scale_float = scale;
     _world->addObstacle(_selfObstacle);
 
     if (_selfTexture == nullptr){
@@ -102,6 +106,15 @@ bool Interactable::linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleWor
             weak->setPosition(obs->getPosition() * scale);
             weak->setAngle(obs->getAngle());
         });
+    }
+    if (canBeGrabbed){
+        _grab_animation = scene2::SpriteNode::allocWithSheet(_assets->get<Texture>("ui_grabbable"), 4, 4, 13);
+        _grab_animation->setScale(3);
+        _grab_animation->setPosition((_selfObstacle->getPosition()-(_selfObstacle->getSize())/2) * scale);
+        
+        _scene->addChild(_grab_animation);
+        _grab_actions_manager->activate("grab_ui", _grab_animate, _grab_animation);
+        _grab_animation->setVisible(true);
     }
 
     return true;

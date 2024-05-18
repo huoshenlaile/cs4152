@@ -26,6 +26,9 @@ bool InteractionController2::init(std::shared_ptr<LevelLoader2> level, std::shar
         if (interactable->hasTimeUpdate()) {
             _timeUpdateInteractables.push_back(interactable);
         }
+        if (interactable->isGrabbable()) {
+            _grabbableInteractables.push_back(interactable);
+        }
         if (interactable->hasOnBeginContact()) {
             std::cout << "Has Begin Contact Interactable: " << interactable -> getName() << std::endl;
             _BeginContactInteractable[interactable->getObstacleRawPtr()] = interactable;
@@ -86,21 +89,23 @@ void InteractionController2::beginContact(b2Contact *contact) {
     } else if (isCharacterObs(obs1rawPtr) || isCharacterObs(obs2rawPtr)) {
         // This is the audio and grab code
         if (obs1rawPtr == characterLHRawPtr || obs1rawPtr == characterRHRawPtr) {
+            
             // obstacle 1 is the hand, 2 is the platform
             // audio code
-            if (obs1rawPtr == characterLHRawPtr && !obs2rawPtr->isSensor()) {
-                if (obsOnLH != obs2rawPtr) {
-                    obsOnLH = obs2rawPtr;
+//            if (obs1rawPtr == characterLHRawPtr && !obs2rawPtr->isSensor()) {
+//                if (obsOnLH != obs2rawPtr) {
+//                    obsOnLH = obs2rawPtr;
 //                    CULog("Left Hand: playing a random note!");
-                    _audioController -> playRandomNote();
-                }
-            } else if (obs1rawPtr == characterRHRawPtr && !obs2rawPtr->isSensor()) {
-                if (obsOnRH != obs2rawPtr) {
-                    obsOnRH = obs2rawPtr;
+//                    _audioController -> playRandomNote();
+//                }
+//            } else if (obs1rawPtr == characterRHRawPtr && !obs2rawPtr->isSensor()) {
+//                if (obsOnRH != obs2rawPtr) {
+//                    obsOnRH = obs2rawPtr;
 //                    CULog("Right Hand: playing a random note!");
-                     _audioController -> playRandomNote();
-                }
-            }
+//                     _audioController -> playRandomNote();
+//                }
+//            }
+            
             // grab code
             auto i2 = _obstacleToInteractable.find(obs2rawPtr);
             if ((i2 == _obstacleToInteractable.end()) || (! i2->second->isGrabbable())) {
@@ -128,19 +133,20 @@ void InteractionController2::beginContact(b2Contact *contact) {
         } else if (obs2rawPtr == characterRHRawPtr || obs2rawPtr == characterLHRawPtr) {
             // obs2 is the hand, 1 is the object
             // this is audio code
-            if (obs2rawPtr == characterLHRawPtr && !obs1rawPtr->isSensor()) {
-                if (obsOnLH != obs1rawPtr) {
-                    obsOnLH = obs1rawPtr;
+//            if (obs2rawPtr == characterLHRawPtr && !obs1rawPtr->isSensor()) {
+//                if (obsOnLH != obs1rawPtr) {
+//                    obsOnLH = obs1rawPtr;
 //                    CULog("Left Hand: playing a random note!");
-                    _audioController -> playRandomNote();
-                }
-            } else if (obs2rawPtr == characterRHRawPtr && !obs1rawPtr->isSensor()) {
-                if (obsOnRH != obs1rawPtr) {
-                    obsOnRH = obs1rawPtr;
+//                    _audioController -> playRandomNote();
+//                }
+//            } else if (obs2rawPtr == characterRHRawPtr && !obs1rawPtr->isSensor()) {
+//                if (obsOnRH != obs1rawPtr) {
+//                    obsOnRH = obs1rawPtr;
 //                    CULog("Right Hand: playing a random note!");
-                    _audioController -> playRandomNote();
-                }
-            }
+//                    _audioController -> playRandomNote();
+//                }
+//            }
+            
             // this is grab code
             if (_obstacleToInteractable.count(obs1rawPtr) <= 0 || !_obstacleToInteractable[obs1rawPtr] -> isGrabbable()) {
                 // not grabbable
@@ -243,23 +249,23 @@ void InteractionController2::endContact(b2Contact *contact) {
     } else if (isCharacterObs(obs1rawPtr) || isCharacterObs(obs2rawPtr)) {
     
         // audio code
-        if (obs1rawPtr == characterLHRawPtr && !obs2rawPtr->isSensor()) {
-            if (obsOnLH == obs2rawPtr) {
-                obsOnLH = nullptr;
-            }
-        } else if (obs1rawPtr == characterRHRawPtr && !obs2rawPtr->isSensor()) {
-            if (obsOnRH == obs2rawPtr) {
-                obsOnRH = nullptr;
-            }
-        } else if (obs2rawPtr == characterLHRawPtr && !obs1rawPtr->isSensor()) {
-            if (obsOnLH == obs1rawPtr) {
-                obsOnLH = nullptr;
-            }
-        } else if (obs2rawPtr == characterRHRawPtr && !obs1rawPtr->isSensor()) {
-            if (obsOnRH == obs1rawPtr) {
-                obsOnRH = nullptr;
-            }
-        }
+//        if (obs1rawPtr == characterLHRawPtr && !obs2rawPtr->isSensor()) {
+//            if (obsOnLH == obs2rawPtr) {
+//                obsOnLH = nullptr;
+//            }
+//        } else if (obs1rawPtr == characterRHRawPtr && !obs2rawPtr->isSensor()) {
+//            if (obsOnRH == obs2rawPtr) {
+//                obsOnRH = nullptr;
+//            }
+//        } else if (obs2rawPtr == characterLHRawPtr && !obs1rawPtr->isSensor()) {
+//            if (obsOnLH == obs1rawPtr) {
+//                obsOnLH = nullptr;
+//            }
+//        } else if (obs2rawPtr == characterRHRawPtr && !obs1rawPtr->isSensor()) {
+//            if (obsOnRH == obs1rawPtr) {
+//                obsOnRH = nullptr;
+//            }
+//        }
 
         // logic to deal with interactable
         // 1: determine which is the interactable and which is the character
@@ -404,7 +410,20 @@ void InteractionController2::preUpdate(float timestep) {
     this->grabCDIfNecessary(timestep);
 }
 
-void InteractionController2::postUpdate(float timestep) { runMessageQueue(); }
+void InteractionController2::postUpdate(float timestep) {
+    runMessageQueue();
+    for (auto interactable : _grabbableInteractables) {
+        auto grab_action_manager = interactable->getGrabActionsManager();
+        grab_action_manager->update(timestep);
+          if (!grab_action_manager->isActive("grab_ui")){
+              grab_action_manager->activate("grab_ui", interactable->getGrabAnimate(), interactable->getGrabAnimation());
+      }
+        auto obs = interactable->getPolygonObstacle();
+        interactable->getGrabAnimation()->setPosition((obs->getPosition()-(obs->getSize()/2)) * interactable->getScale());
+
+    }
+    
+}
 
 void InteractionController2::activateController() {
     // link the callbacks to the world

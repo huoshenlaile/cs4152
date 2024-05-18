@@ -10,6 +10,8 @@ protected:
     std::shared_ptr<cugl::AssetManager> _assets;
     
 public:
+    float music_volume = 1;
+    float sound_volume = 1;
     
     AudioController();
     ~AudioController() {dispose();};
@@ -50,5 +52,9 @@ public:
     void pause(std::string key);
     
     void clear(std::string key);
+    
+    void setMusicVolume(float volume);
+    
+    void setSoundVolume(float volume);
 };
 #endif

@@ -54,6 +54,7 @@ bool InteractableUI::linkToWorld(const std::shared_ptr<cugl::physics2::ObstacleW
     _scene->addChild(_selfTexture);
     if (_animated){
         _animation = scene2::SpriteNode::allocWithSheet(_assets->get<Texture>(_textureName), _rows, _cols, _cells);
+        //_animation->SceneNode::setAnchor(0.5, 0.5);
         _animation->setScale(_scale);
         _animation->setPosition(_selfObstacle->getPosition() * scale);
         

@@ -27,7 +27,8 @@ void AudioController::clear(std::string key){
 bool AudioController::play(const std::string key, const std::string soundName, bool loop, float volume, bool force) {
     auto sound = _assets -> get<Sound>(soundName);
     if (volume == -1.0f) {
-        volume = sound -> getVolume();
+        // default volume: the music volume in setting scene
+        volume = music_volume;
     }
     if (!AudioEngine::get() -> isActive(key)) {
         AudioEngine::get() -> play(key, sound, loop, volume, force);
@@ -37,29 +38,44 @@ bool AudioController::play(const std::string key, const std::string soundName, b
 }
 
 bool AudioController::playRandomNote() {
-    int choice = std::rand();
-    choice = choice % 6;
-    std::string name = "touch1";
-    switch (choice) {
-        case 0:
-            break;
-        case 1:
-            name = "touch2";
-            break;
-        case 2:
-            name = "touch3";
-            break;
-        case 3:
-            name = "touch4";
-            break;
-        case 4:
-            name = "touch5";
-            break;
-        case 5:
-            name = "touch6";
-            break;
-        default:
-            break;
+//    int choice = std::rand();
+//    choice = choice % 6;
+//    std::string name = "touch1";
+//    switch (choice) {
+//        case 0:
+//            break;
+//        case 1:
+//            name = "touch2";
+//            break;
+//        case 2:
+//            name = "touch3";
+//            break;
+//        case 3:
+//            name = "touch4";
+//            break;
+//        case 4:
+//            name = "touch5";
+//            break;
+//        case 5:
+//            name = "touch6";
+//            break;
+//        default:
+//            break;
+//    }
+//    return this -> play(name, name);
+    return true;
+}
+
+void AudioController::setMusicVolume(float volume) {
+    this -> music_volume = volume;
+    if (AudioEngine::get() -> getState("menu") != cugl::AudioEngine::State::INACTIVE) {
+        if (AudioEngine::get() -> getState("menu") == cugl::AudioEngine::State::PLAYING) {
+        }
+        AudioEngine::get() -> setVolume("menu", volume);
     }
-    return this -> play(name, name);
+}
+
+void AudioController::setSoundVolume(float volume) {
+    this -> sound_volume = volume;
+    //TODO: any sound effects?
 }

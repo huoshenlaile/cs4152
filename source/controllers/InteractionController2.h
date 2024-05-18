@@ -32,6 +32,7 @@ protected:
     // 5 containers for different types of interactables
     std::vector<std::shared_ptr<Interactable>> _timeUpdateInteractables;
     std::vector<std::shared_ptr<Interactable>> _OnTouchInteractables;
+    std::vector<std::shared_ptr<Interactable>> _grabbableInteractables;
     std::unordered_map<cugl::physics2::Obstacle *, std::shared_ptr<Interactable>> _BeginContactInteractable;
     std::unordered_map<cugl::physics2::Obstacle *, std::shared_ptr<Interactable>> _EndContactInteractable;
     std::unordered_map<cugl::physics2::Obstacle *, std::shared_ptr<Interactable>> _PreSolveInteractable;
