@@ -280,35 +280,35 @@ void CameraController::setCamera(std::string selectedLevelKey, Vec2 activeSize) 
         setDefaultZoom(activeSize.y / 576 * 0.245);
         _inBetweenPanelSize = {};
         _levelCompleteZoom = activeSize.y / 576 * 0.245;
-        _panSpeed = Vec2(50, 0);
+        _panSpeed = Vec2(60, 0);
         _doublePan = true;
     } else if (selectedLevelKey == "level4" || selectedLevelKey == "level5" || selectedLevelKey == "level6") {
         setMode(false);
         setDefaultZoom(activeSize.x / 1248.73 * 0.2);
         _inBetweenPanelSize = {};
         _levelCompleteZoom = activeSize.x / 1248.73 * 0.162;
-        _panSpeed = Vec2(0, -50);
+        _panSpeed = Vec2(0, -60);
         _doublePan = true;
     } else if (selectedLevelKey == "level7" || selectedLevelKey == "level8" || selectedLevelKey == "level9") {
         setMode(false);
         setDefaultZoom(activeSize.x / 1248.73 * 0.2);
         _inBetweenPanelSize = {3000, 6500};
         _levelCompleteZoom = activeSize.x / 1248.73 * 0.162;
-        _panSpeed = Vec2(0, -40);
+        _panSpeed = Vec2(0, -60);
         _doublePan = false;
     } else if (selectedLevelKey == "level10" || selectedLevelKey == "level11" || selectedLevelKey == "level12") {
         setMode(true);
         setDefaultZoom(activeSize.y / 576 * 0.245);
         _inBetweenPanelSize = {3500};
         _levelCompleteZoom = activeSize.y / 576 * 0.245;
-        _panSpeed = Vec2(50, 0);
+        _panSpeed = Vec2(60, 0);
         _doublePan = false;
     } else if (selectedLevelKey == "level13" || selectedLevelKey == "level14" || selectedLevelKey == "level15") {
         setMode(false);
         setDefaultZoom(activeSize.x / 1248.73 * 0.225);
         _inBetweenPanelSize = {2750, 6400};
         _levelCompleteZoom = activeSize.x / 1248.73 * 0.2;
-        _panSpeed = Vec2(0, -50);
+        _panSpeed = Vec2(0, -60);
         _doublePan = false;
     }
 }
