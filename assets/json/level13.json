@@ -411,12 +411,12 @@
                                 }
                             }
                         }],
-                 "rotation":315.46474390603,
+                 "rotation":327.836711081938,
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":1786.52279050631,
-                 "y":12593.2645003493
+                 "x":1786.31069559011,
+                 "y":12596.5992655814
                 }, 
                 {
                  "height":0,
@@ -606,18 +606,6 @@
                  "width":0,
                  "x":607.998626840088,
                  "y":10247.4882434688
-                }, 
-                {
-                 "ellipse":true,
-                 "height":0,
-                 "id":208,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":3465.59105217945,
-                 "y":9620.53444723847
                 }, 
                 {
                  "ellipse":true,
@@ -930,7 +918,7 @@
                  "width":0,
                  "x":1286.4495879165,
                  "y":10115.1649264001
-                },
+                }, 
                 {
                  "height":0,
                  "id":213,
@@ -1080,7 +1068,7 @@
                  "width":0,
                  "x":3906.53572468346,
                  "y":10035.1974240316
-                },
+                }, 
                 {
                  "height":0,
                  "id":214,
@@ -1240,57 +1228,8 @@
                  "type":"character",
                  "visible":true,
                  "width":84.3356,
-                 "x":3502.80026873259,
-                 "y":9706.02651290679
-                }, 
-                {
-                 "height":0,
-                 "id":222,
-                 "name":"static_wall",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":477.60938562361,
-                         "y":0
-                        }, 
-                        {
-                         "x":477.60938562361,
-                         "y":202.433
-                        }, 
-                        {
-                         "x":-3.6598451941014,
-                         "y":202.433
-                        }],
-                 "properties":[
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":0,
-                                 "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
-                                 "rotation":false,
-                                 "texture":"staticplatform_brush"
-                                }
-                            }
-                        }],
-                 "rotation":0.602767,
-                 "type":"wall",
-                 "visible":true,
-                 "width":0,
-                 "x":3473.34535348987,
-                 "y":9971.41634943812
+                 "x":3316.28663889041,
+                 "y":10825.1082919599
                 }, 
                 {
                  "height":0,
@@ -1906,12 +1845,12 @@
                                 }
                             }
                         }],
-                 "rotation":43.346299285627,
+                 "rotation":29.8802201205766,
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":3616.79672864823,
-                 "y":13024.2644575264
+                 "x":3620.36072427184,
+                 "y":13047.2426229935
                 }, 
                 {
                  "height":0,
@@ -2033,12 +1972,12 @@
                                 }
                             }
                         }],
-                 "rotation":315.465,
+                 "rotation":324.565657389023,
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":1950.7478622308,
-                 "y":13969.444561626
+                 "x":1950.66184180617,
+                 "y":13971.9032170772
                 }, 
                 {
                  "height":0,
@@ -2343,8 +2282,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":5975.33086597315,
-                 "y":15374.7010044957
+                 "x":5627.76989036339,
+                 "y":15405.1888093737
                 }, 
                 {
                  "height":0,
@@ -2396,8 +2335,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":6010.60086597315,
-                 "y":16099.3210044957
+                 "x":5663.03989036339,
+                 "y":16129.8088093737
                 }, 
                 {
                  "height":0,
@@ -2445,8 +2384,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":6002.00086597315,
-                 "y":16694.7507149634
+                 "x":5654.43989036339,
+                 "y":16725.2385198414
                 }, 
                 {
                  "height":0,
@@ -2494,8 +2433,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":4444.7466250082,
-                 "y":16404.1851343374
+                 "x":4213.03930793503,
+                 "y":16410.282695313
                 }, 
                 {
                  "height":0,
@@ -2592,8 +2531,8 @@
                  "type":"wall",
                  "visible":true,
                  "width":0,
-                 "x":4592.75023567193,
-                 "y":17199.2072779233
+                 "x":3989.09169908656,
+                 "y":17217.4999608501
                 }, 
                 {
                  "height":0,
@@ -2839,59 +2778,6 @@
                  "width":0,
                  "x":4062.11525001485,
                  "y":18534.7467731677
-                }, 
-                {
-                 "height":0,
-                 "id":289,
-                 "name":"static_wall",
-                 "polygon":[
-                        {
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "x":429.019,
-                         "y":0
-                        }, 
-                        {
-                         "x":695.199,
-                         "y":0
-                        }, 
-                        {
-                         "x":695.199,
-                         "y":202.433
-                        }, 
-                        {
-                         "x":-5.3272,
-                         "y":202.433
-                        }],
-                 "properties":[
-                        {
-                         "name":"properties",
-                         "propertytype":"Physics",
-                         "type":"class",
-                         "value":
-                            {
-                             "obstacle":
-                                {
-                                 "bodytype":0,
-                                 "damping":0,
-                                 "debugcolor":"yellow",
-                                 "debugopacity":0,
-                                 "density":0,
-                                 "friction":0.2,
-                                 "restitution":0.1,
-                                 "rotation":false,
-                                 "texture":"staticplatform_brush"
-                                }
-                            }
-                        }],
-                 "rotation":89.3405,
-                 "type":"wall",
-                 "visible":true,
-                 "width":0,
-                 "x":4565.88525001485,
-                 "y":18141.8767731677
                 }, 
                 {
                  "height":0,
@@ -3831,7 +3717,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":318,
+ "nextobjectid":323,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
