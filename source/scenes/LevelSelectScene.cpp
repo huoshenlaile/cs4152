@@ -527,7 +527,7 @@ void LevelSelectScene::lockOrUnlockLevelButton(int levelNumber, bool isLock) {
     std::shared_ptr<JsonReader> jsonreader = JsonReader::alloc(savedir + "user_progress.json");
     
     //delete to unlock all
-    /*if (jsonreader != nullptr && jsonreader->ready() && !isLock && jsonreader->readLine()[0] == '{'){
+    if (jsonreader != nullptr && jsonreader->ready() && !isLock && jsonreader->readLine()[0] == '{'){
         jsonreader->reset();
         std::shared_ptr<JsonValue> jsonobj = jsonreader->readJson();
         if (jsonobj->get("level"+std::to_string(levelNumber)) != nullptr){
@@ -537,7 +537,7 @@ void LevelSelectScene::lockOrUnlockLevelButton(int levelNumber, bool isLock) {
                 newTextureString = "button_level"+std::to_string(levelNumber)+"_bad";
             }
         }
-    }*/
+    }
     //delete to unlock all
     
 
@@ -601,11 +601,11 @@ void LevelSelectScene::updateLevelStatus() {
         lockOrUnlockLevelButton(i, false);
         
         //delete to unlock all
-        /*if (unlocked_levels.find(i) != unlocked_levels.end()){
+        if (unlocked_levels.find(i) != unlocked_levels.end()){
             lockOrUnlockLevelButton(i, false);
         } else {
             lockOrUnlockLevelButton(i, true);
-        }*/
+        }
         //delete to unlock all
         
     }
