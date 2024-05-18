@@ -25,6 +25,7 @@
 #include "scenes/RestorationScene.h"
 #include "scenes/SettingScene.h"
 #include "scenes/LevelLoadScene.h"
+#include "scenes/EndingScene.h"
 
 //#include "scenes/ClientScene.h"
 //#include "scenes/HostScene.h"
@@ -47,6 +48,7 @@ class DPApp : public cugl::Application {
 		GAME,
 		SETTING,
 		RESTORE,
+        ENDING,
 		PAUSE
 	};
 
@@ -87,6 +89,7 @@ protected:
 	LevelSelectScene _levelSelectScene;
 	RestorationScene _restorationScene;
 	LevelLoadScene _levelLoadScene;
+    EndingScene _endingScene;
 	GameStatus _status;
     AudioController _audioController;
 
