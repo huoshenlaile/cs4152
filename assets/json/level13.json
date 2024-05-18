@@ -3709,6 +3709,104 @@
                  "width":0,
                  "x":3031.02625298329,
                  "y":22577.5656324582
+                }, 
+                {
+                 "height":0,
+                 "id":324,
+                 "name":"",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":0,
+                         "y":-13500.8915966387
+                        }, 
+                        {
+                         "x":104.224,
+                         "y":-13500.8915966387
+                        }, 
+                        {
+                         "x":104.224,
+                         "y":0
+                        }],
+                 "properties":[
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":192,
+                                 "density":0,
+                                 "friction":0.2,
+                                 "restitution":0.1,
+                                 "rotation":false,
+                                 "texture":""
+                                }
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"wall",
+                 "visible":true,
+                 "width":0,
+                 "x":6297.8358280103,
+                 "y":22114.4055677376
+                }, 
+                {
+                 "height":0,
+                 "id":325,
+                 "name":"",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":0,
+                         "y":-13500.9
+                        }, 
+                        {
+                         "x":104.224,
+                         "y":-13500.9
+                        }, 
+                        {
+                         "x":104.224,
+                         "y":0
+                        }],
+                 "properties":[
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":192,
+                                 "density":0,
+                                 "friction":0.2,
+                                 "restitution":0.1,
+                                 "rotation":false,
+                                 "texture":""
+                                }
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"wall",
+                 "visible":true,
+                 "width":0,
+                 "x":7.92784362653327,
+                 "y":22947.5982532751
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -3717,7 +3815,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":323,
+ "nextobjectid":326,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

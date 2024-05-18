@@ -703,7 +703,7 @@
                         {
                          "name":"rotation",
                          "type":"float",
-                         "value":-45
+                         "value":-125
                         }],
                  "rotation":0,
                  "type":"paint",
@@ -1078,6 +1078,164 @@
                  "width":0,
                  "x":1170.28571428571,
                  "y":713.142857142857
+                }, 
+                {
+                 "height":0,
+                 "id":132,
+                 "name":"hahaha2",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":-18.4352
+                        }, 
+                        {
+                         "x":1471.73,
+                         "y":-23.0305
+                        }, 
+                        {
+                         "x":1483.23,
+                         "y":729.297
+                        }, 
+                        {
+                         "x":0,
+                         "y":744.653
+                        }],
+                 "properties":[
+                        {
+                         "name":"AnimationDetails",
+                         "propertytype":"AnimationDetails",
+                         "type":"class",
+                         "value":
+                            {
+                             "cells":13,
+                             "columns":3,
+                             "name":"2",
+                             "repeat":false,
+                             "rows":5,
+                             "scale":3,
+                             "texture":"lv4_speechbubble_3",
+                             "type":"string"
+                            }
+                        }, 
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"0",
+                                 "debugopacity":0,
+                                 "density":0,
+                                 "friction":0,
+                                 "restitution":0,
+                                 "rotation":false,
+                                 "texture":""
+                                }
+                            }
+                        }, 
+                        {
+                         "name":"showSub",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"show",
+                             "Bool1":false,
+                             "Enabled":true,
+                             "Float1":0,
+                             "Head":"UI End Good",
+                             "Int1":0
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"ui",
+                 "visible":true,
+                 "width":0,
+                 "x":15283.3528301887,
+                 "y":583.863464441219
+                }, 
+                {
+                 "height":0,
+                 "id":133,
+                 "name":"angry2",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":-22.8305
+                        }, 
+                        {
+                         "x":1471.73,
+                         "y":-28.5214
+                        }, 
+                        {
+                         "x":1483.23,
+                         "y":903.174
+                        }, 
+                        {
+                         "x":0,
+                         "y":922.19
+                        }],
+                 "properties":[
+                        {
+                         "name":"AnimationDetails",
+                         "propertytype":"AnimationDetails",
+                         "type":"class",
+                         "value":
+                            {
+                             "cells":9,
+                             "columns":2,
+                             "name":"2",
+                             "repeat":false,
+                             "rows":5,
+                             "scale":2,
+                             "texture":"lv4_speechbubble_4",
+                             "type":"string"
+                            }
+                        }, 
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"0",
+                                 "debugopacity":0,
+                                 "density":0,
+                                 "friction":0,
+                                 "restitution":0,
+                                 "rotation":false,
+                                 "texture":""
+                                }
+                            }
+                        }, 
+                        {
+                         "name":"showSub",
+                         "propertytype":"SubMessage",
+                         "type":"class",
+                         "value":
+                            {
+                             "Action":"show",
+                             "Bool1":false,
+                             "Enabled":true,
+                             "Float1":0,
+                             "Head":"UI End Bad",
+                             "Int1":0
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"ui",
+                 "visible":true,
+                 "width":0,
+                 "x":16792.4528301887,
+                 "y":653.120464441219
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1086,7 +1244,7 @@
          "y":0
         }],
  "nextlayerid":7,
- "nextobjectid":132,
+ "nextobjectid":134,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

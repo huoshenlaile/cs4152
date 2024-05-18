@@ -266,6 +266,11 @@
                                  "texture":""
                                 }
                             }
+                        }, 
+                        {
+                         "name":"rotation",
+                         "type":"int",
+                         "value":-125
                         }],
                  "rotation":0,
                  "type":"paint",
@@ -5108,6 +5113,104 @@
                  "width":0,
                  "x":2722.89156626506,
                  "y":22409.6385542169
+                }, 
+                {
+                 "height":0,
+                 "id":264,
+                 "name":"",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":0,
+                         "y":-13500.9
+                        }, 
+                        {
+                         "x":104.224,
+                         "y":-13500.9
+                        }, 
+                        {
+                         "x":104.224,
+                         "y":0
+                        }],
+                 "properties":[
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":192,
+                                 "density":0,
+                                 "friction":0.2,
+                                 "restitution":0.1,
+                                 "rotation":false,
+                                 "texture":""
+                                }
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"wall",
+                 "visible":true,
+                 "width":0,
+                 "x":6332.81972265023,
+                 "y":21263.4822804314
+                }, 
+                {
+                 "height":0,
+                 "id":265,
+                 "name":"",
+                 "polygon":[
+                        {
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "x":0,
+                         "y":-13500.9
+                        }, 
+                        {
+                         "x":104.224,
+                         "y":-13500.9
+                        }, 
+                        {
+                         "x":104.224,
+                         "y":0
+                        }],
+                 "properties":[
+                        {
+                         "name":"properties",
+                         "propertytype":"Physics",
+                         "type":"class",
+                         "value":
+                            {
+                             "obstacle":
+                                {
+                                 "bodytype":0,
+                                 "damping":0,
+                                 "debugcolor":"yellow",
+                                 "debugopacity":192,
+                                 "density":0,
+                                 "friction":0.2,
+                                 "restitution":0.1,
+                                 "rotation":false,
+                                 "texture":""
+                                }
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"wall",
+                 "visible":true,
+                 "width":0,
+                 "x":15.4083204930664,
+                 "y":21432.9738058552
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -5116,7 +5219,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":264,
+ "nextobjectid":266,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

@@ -1,12 +1,12 @@
 //
-//  DrippingPaint.hpp
+//  DrippingPaint.h
 //  DustyPaints
 //
 //  Created by Emily on 4/20/24.
 //
 
-#ifndef DrippingPaint_hpp
-#define DrippingPaint_hpp
+#ifndef __DRIPPINGPAINT_H__
+#define __DRIPPINGPAINT_H__
 
 
 #include <cugl/cugl.h>
@@ -18,7 +18,7 @@ protected:
     std::string pub_message_head;
     std::string color;
     bool is_out = false;
-    float _dripSpeed = 0.05;
+    float _dripSpeed = 0.025;
     Vec2 _scale2d;
     
     std::shared_ptr<scene2::SpriteNode> _animation;
@@ -53,4 +53,4 @@ public:
 };
 
 
-#endif /* DrippingPaint_hpp */
+#endif /* DrippingPaint_h */
