@@ -4813,7 +4813,7 @@
                              "name":"2",
                              "repeat":false,
                              "rows":6,
-                             "scale":2,
+                             "scale":4,
                              "texture":"lv3_speechbubble_6",
                              "type":"string"
                             }
@@ -4892,7 +4892,7 @@
                              "name":"2",
                              "repeat":false,
                              "rows":6,
-                             "scale":2,
+                             "scale":4,
                              "texture":"lv3_speechbubble_7",
                              "type":"string"
                             }
@@ -4935,8 +4935,8 @@
                  "type":"ui",
                  "visible":true,
                  "width":0,
-                 "x":4638.69463869464,
-                 "y":26806.5268065268
+                 "x":3870.62234953801,
+                 "y":27167.9725896593
                 }, 
                 {
                  "height":0,

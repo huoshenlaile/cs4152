@@ -198,7 +198,7 @@
                  "width":0,
                  "x":3412.12612895275,
                  "y":12603.2161202313
-                },
+                }, 
                 {
                  "height":0,
                  "id":77,
@@ -303,7 +303,7 @@
                  "width":0,
                  "x":2303.66383768447,
                  "y":13245.1219206412
-                },
+                }, 
                 {
                  "gid":8,
                  "height":138,
@@ -4502,7 +4502,7 @@
                              "name":"2",
                              "repeat":false,
                              "rows":6,
-                             "scale":2,
+                             "scale":4,
                              "texture":"lv3_speechbubble_6",
                              "type":"string"
                             }
@@ -4581,7 +4581,7 @@
                              "name":"2",
                              "repeat":false,
                              "rows":6,
-                             "scale":2,
+                             "scale":4,
                              "texture":"lv3_speechbubble_7",
                              "type":"string"
                             }
@@ -4624,8 +4624,8 @@
                  "type":"ui",
                  "visible":true,
                  "width":0,
-                 "x":4197.45082329576,
-                 "y":26362.2722480425
+                 "x":3548.32801627822,
+                 "y":26871.0441778671
                 }],
          "opacity":1,
          "type":"objectgroup",
