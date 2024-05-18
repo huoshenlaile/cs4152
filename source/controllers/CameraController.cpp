@@ -84,10 +84,11 @@ void CameraController::update(float dt) {
     // Move the camera to the right
     case 1: {
         Vec2 panSpeed = _panSpeed;
+        int offset = _doublePan ? 500 : 200;
         _paused = false;
         int num_panels = _inBetweenPanelSize.size();
         if (_horizontal) {
-            auto max_width = _root->getSize().width - 500 - _camera->getViewport().getMaxX() / (2 * _camera->getZoom());
+            auto max_width = _root->getSize().width - offset - _camera->getViewport().getMaxX() / (2 * _camera->getZoom());
             if (_camera->getPosition().x <= max_width) {
                 _camera->translate(panSpeed.x, panSpeed.y);
                 _camera->update();                
@@ -181,8 +182,9 @@ void CameraController::update(float dt) {
     // Move to the second ending frame and stay
     case 5: {
         Vec2 panSpeed = _panSpeed;
+        int offset = _doublePan ? 500 : 200;
         if (_horizontal) {
-            if (_camera->getPosition().x <= _root->getSize().width - 500 - _camera->getViewport().getMaxX() / (2 * _camera->getZoom())) {
+            if (_camera->getPosition().x <= _root->getSize().width - offset - _camera->getViewport().getMaxX() / (2 * _camera->getZoom())) {
                 _camera->translate(panSpeed.x, panSpeed.y);
                 _camera->update();
             } else {
