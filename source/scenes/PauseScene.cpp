@@ -32,7 +32,8 @@ bool PauseScene::init(
       _assets->get<scene2::SceneNode>("pause_pausemenu_options_resume"));
   _reset = std::dynamic_pointer_cast<scene2::Button>(
       _assets->get<scene2::SceneNode>("pause_pausemenu_options_restart"));
-
+    _setting = std::dynamic_pointer_cast<scene2::Button>(
+        _assets->get<scene2::SceneNode>("pause_pausemenu_options_settingicon"));
   _menu = std::dynamic_pointer_cast<scene2::Button>(
         _assets->get<scene2::SceneNode>("pause_pausemenu_options_menu"));
 
@@ -47,6 +48,12 @@ bool PauseScene::init(
        state = RESET;
     }
   });
+    
+    _setting->addListener([this](const std::string &name, bool down) {
+        if (down) {
+           state = SETTING;
+        }
+      });
 
   _menu->addListener([this](const std::string &name, bool down) {
       if (down) {
@@ -74,6 +81,7 @@ void PauseScene::setActive(bool value) {
     if (value) {
       _backout->activate();
       _reset->activate();
+        _setting->activate();
       _menu->activate();
       state = INSCENE;
     } else {
@@ -81,6 +89,8 @@ void PauseScene::setActive(bool value) {
       _backout->setDown(false);
       _reset->deactivate();
       _reset->setDown(false);
+        _setting->deactivate();
+        _setting->setDown(false);
       _menu->deactivate();
       _menu->setDown(false);
     }

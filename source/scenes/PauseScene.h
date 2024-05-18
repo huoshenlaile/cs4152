@@ -22,10 +22,11 @@ protected:
   std::shared_ptr<cugl::scene2::Button> _backout;
   std::shared_ptr<cugl::scene2::Button> _reset;
     std::shared_ptr<cugl::scene2::Button> _menu;
+    std::shared_ptr<cugl::scene2::Button> _setting;
   std::shared_ptr<physics2::net::NetEventController> _network;
 
 public:
-  enum SceneState { INSCENE, BACK, RESET, MENU };
+  enum SceneState { INSCENE, BACK, RESET, MENU, SETTING };
   SceneState state;
 
   /**

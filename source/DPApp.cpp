@@ -342,6 +342,15 @@ void DPApp::updatePause(float timestep) {
             _audioController.clear("space");
             _status = LEVELSELECT;
             break;
+        case PauseScene::SETTING:
+            _gameScene.reset();
+            _settingScene.setActive(true);
+            _pauseScene.setActive(false);
+            _audioController.clear("gallery");
+            _audioController.clear("space");
+            _audioController.play("menu", "menu", true);
+            _status = SETTING;
+            break;
         default:
             break;
     }
