@@ -54,7 +54,7 @@ bool MovingWall::init(const std::shared_ptr<JsonValue>& json, Vec2 scale, Rect b
 }
 
 PublishedMessage MovingWall::onBeginContact(std::shared_ptr<cugl::physics2::Obstacle> other, b2Contact* contact, std::shared_ptr<Interactable> otherInteractable, bool isCharacter, std::shared_ptr<CharacterController> character) {
-    if(_moveOnContact && isCharacter){
+    if(_moveOnContact && isCharacter && character->getIsGrabbing()){
         _isMoving = true;
     }
     return PublishedMessage();

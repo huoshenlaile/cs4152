@@ -230,6 +230,8 @@ public:
     const std::map<std::string, std::function<PublishedMessage(ActionParams)>>& getActions() { return funcs; }
     
     void setGrab(bool isGrab) { this->isGrabbing = isGrab; }
+    
+    bool getIsGrabbing() { return isGrabbing; }
 };
 
 #endif /* CharacterController_h */
