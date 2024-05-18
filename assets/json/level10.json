@@ -877,11 +877,11 @@
                          "value":
                             {
                              "cells":13,
-                             "columns":5,
+                             "columns":3,
                              "name":"2",
                              "repeat":false,
-                             "rows":3,
-                             "scale":2,
+                             "rows":5,
+                             "scale":3,
                              "texture":"lv4_speechbubble_3",
                              "type":"string"
                             }
