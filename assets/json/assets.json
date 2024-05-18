@@ -3,6 +3,9 @@
         "cugl-play" : {
             "file": "textures/cugl-play.png"
         },
+        "ending_background": {
+            "file": "textures/ending_background.png"
+        },
         "setting_background": {
             "file": "textures/setting/setting_background.png"
         },

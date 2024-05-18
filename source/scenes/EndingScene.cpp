@@ -28,10 +28,11 @@ bool EndingScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     
     scene->setContentSize(dimen);
     scene->doLayout(); // Repositions the HUD
-    
+
     _backout = std::dynamic_pointer_cast<scene2::Button>(_assets->get<scene2::SceneNode>("endingscreen_back"));
     _backout->addListener([this](const std::string& name, bool down) {
         if (down) {
+            std::cout << "ending back menu hit" << std::endl;
             state = MENU;
         }
     });
@@ -39,6 +40,8 @@ bool EndingScene::init(const std::shared_ptr<cugl::AssetManager>& assets) {
     // Create the server configuration
     addChild(scene);
     setActive(false);
+    
+    std::cout << "ending scene is initialized!" << std::endl;
     return true;
 }
 

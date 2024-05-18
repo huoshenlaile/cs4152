@@ -18,11 +18,8 @@ protected:
     /** The asset manager for this scene. */
     std::shared_ptr<AssetManager> _assets;
     std::shared_ptr<cugl::scene2::Button> _backout;
-    std::shared_ptr<cugl::scene2::Slider> _musicSlider;
-    std::shared_ptr<cugl::scene2::Slider> _soundSlider;
     
 public:
-    std::shared_ptr<cugl::scene2::Button> _honors_mode_button;
     enum SceneState {
         INSCENE,
         MENU
